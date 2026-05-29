@@ -116,6 +116,11 @@ export function GamesListScreen() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
                     if (!isLocked) {
+                      if (game.id === "woordenschat-bezem-escape") {
+                        navigate(`/games/${theme.id}/${game.id}`);
+                        return;
+                      }
+
                       alert(`${game.name} - Komt binnenkort beschikbaar!`);
                     }
                   }}

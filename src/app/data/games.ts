@@ -118,6 +118,14 @@ export const miniGames: MiniGame[] = [
     difficulty: "medium",
     icon: "📝",
   },
+  {
+    id: "woordenschat-bezem-escape",
+    themeId: "language",
+    name: "+1 Bezem Escape",
+    description: "Luister, plaats en race met woorden",
+    difficulty: "easy",
+    icon: "🧹",
+  },
 
   // Beast Arena games
   {

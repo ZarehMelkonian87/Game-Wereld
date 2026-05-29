@@ -15,3 +15,4 @@ export { ShapePuzzleGame } from "./shape-puzzle";
 export { SlidingPuzzleGame } from "./sliding-puzzle";
 export { SubtractNumbersGame } from "./subtract-numbers";
 export { WordMatchGame } from "./word-match";
+export { WoordenschatBezemEscapeGame } from "./woordenschat-bezem-escape";
