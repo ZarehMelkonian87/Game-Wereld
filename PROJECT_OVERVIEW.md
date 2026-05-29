@@ -212,6 +212,12 @@ npm run preview
 - `src/app/data/avatars.ts` - Avatar data
 - `src/app/data/games.ts` - Games & themes data
 
+### Games
+- `src/app/games/` - Centrale map voor alle mini-games
+- `src/app/games/_template/` - Template voor nieuwe games
+- `src/app/games/<game-id>/README.md` - Ontwerp en meetdata per game
+- `src/app/games/<game-id>/index.tsx` - Game component/entrypoint
+
 ### Context
 - `src/app/contexts/ProfileContext.tsx` - Profile state management
 

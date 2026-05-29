@@ -66,6 +66,7 @@ game-wereld-app/
 │   │   ├── components/      # Herbruikbare componenten (toekomstig)
 │   │   ├── contexts/        # React Context (ProfileContext)
 │   │   ├── data/            # Game data en avatars
+│   │   ├── games/           # Eigen map per mini-game + documentatie
 │   │   ├── screens/         # Alle schermen
 │   │   │   ├── WelcomeScreen.tsx
 │   │   │   ├── ProfileSelectScreen.tsx
@@ -141,7 +142,20 @@ De app is volledig voorbereid op:
 
 ## 📝 Nieuwe Games Toevoegen
 
-Om nieuwe games toe te voegen, bewerk `/src/app/data/games.ts`:
+Elke mini-game krijgt een eigen map in `/src/app/games/`.
+
+Per game bewaren we minimaal:
+
+- `README.md` - ontwerp, leerdoel, gameplay en meetdata.
+- `index.tsx` - React component/entrypoint van de game.
+
+Om nieuwe games toe te voegen:
+
+1. Kopieer `/src/app/games/_template/`.
+2. Geef de nieuwe map dezelfde id als de game.
+3. Vul de `README.md` in.
+4. Bouw de game in `index.tsx`.
+5. Voeg de metadata toe in `/src/app/data/games.ts`.
 
 ```typescript
 // Voeg een nieuwe game toe aan miniGames array
