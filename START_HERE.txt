@@ -1,0 +1,72 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║              🎮  GAME WERELD - START HIER! 🎮                 ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+Welkom bij Game Wereld! 
+
+Je hebt alle bestanden om deze app lokaal te draaien!
+
+┌─────────────────────────────────────────────────────────────┐
+│  📋 SNELSTE START (3 stappen):                              │
+└─────────────────────────────────────────────────────────────┘
+
+1. Open QUICK_START.md
+2. Volg de 3 commando's
+3. Speel! 🎉
+
+
+┌─────────────────────────────────────────────────────────────┐
+│  📚 ALLE DOCUMENTATIE:                                       │
+└─────────────────────────────────────────────────────────────┘
+
+📄 QUICK_START.md       → Snelste manier (5 min)
+📄 INSTALLATIE.md       → Uitgebreide instructies per OS
+📄 README.md            → Volledige project documentatie
+📄 HOW_TO_DOWNLOAD.md   → Download instructies
+📄 PROJECT_OVERVIEW.md  → Wat zit er allemaal in
+
+
+┌─────────────────────────────────────────────────────────────┐
+│  ⚡ SUPER SNEL (Als je Node.js al hebt):                    │
+└─────────────────────────────────────────────────────────────┘
+
+Open terminal/command prompt hier en run:
+
+    npm install
+    npm run dev
+
+Open daarna:
+    http://localhost:3000
+
+Of op hetzelfde wifi-netwerk:
+    http://192.168.1.79:3000
+
+
+┌─────────────────────────────────────────────────────────────┐
+│  ❓ HULP NODIG?                                             │
+└─────────────────────────────────────────────────────────────┘
+
+• Geen Node.js? → Zie INSTALLATIE.md
+• Eerste keer? → Zie QUICK_START.md
+• Errors? → Zie "Veelvoorkomende Problemen" in INSTALLATIE.md
+
+
+┌─────────────────────────────────────────────────────────────┐
+│  ✨ WAT KUN JE VERWACHTEN:                                  │
+└─────────────────────────────────────────────────────────────┘
+
+✅ Roblox-achtig gaming platform
+✅ 16 Epic avatars
+✅ 8 Game zones
+✅ 18 Mini-games (voorbereid)
+✅ Volledig mobile-friendly
+✅ Profiel systeem met progress tracking
+
+
+╔═══════════════════════════════════════════════════════════════╗
+║                 BEGIN BIJ: QUICK_START.md                     ║
+╚═══════════════════════════════════════════════════════════════╝
+
+Veel plezier! 🎮✨
