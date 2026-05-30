@@ -473,20 +473,20 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 15: Ouder/Logopedist Dashboard
 
-- [ ] Bouw sectie `Vandaag geoefend`.
-- [ ] Bouw woordenlijst met status per woord.
-- [ ] Bouw plaatsbegrippen-overzicht.
-- [ ] Bouw zinnen begrijpen overzicht.
-- [ ] Bouw actieve woordenschat overzicht.
-- [ ] Bouw zinnen herhalen overzicht.
-- [ ] Bouw aanwijzingen volgen overzicht.
-- [ ] Bouw categorieen overzicht.
-- [ ] Bouw aanbevolen volgende oefening.
-- [ ] Bouw export/deelbare samenvatting.
-- [ ] Gebruik labels: `Gaat goed`, `Oefenen`, `Met hulp`, `Nog moeilijk`.
-- [ ] Toon geen diagnose.
-- [ ] Toon geen officiele testscore.
-- [ ] Vergelijk niet met normgroepen.
+- [x] Bouw sectie `Vandaag geoefend`.
+- [x] Bouw woordenlijst met status per woord.
+- [x] Bouw plaatsbegrippen-overzicht.
+- [x] Bouw zinnen begrijpen overzicht.
+- [x] Bouw actieve woordenschat overzicht.
+- [x] Bouw zinnen herhalen overzicht.
+- [x] Bouw aanwijzingen volgen overzicht.
+- [x] Bouw categorieen overzicht.
+- [x] Bouw aanbevolen volgende oefening.
+- [x] Bouw export/deelbare samenvatting.
+- [x] Gebruik labels: `Gaat goed`, `Oefenen`, `Met hulp`, `Nog moeilijk`.
+- [x] Toon geen diagnose.
+- [x] Toon geen officiele testscore.
+- [x] Vergelijk niet met normgroepen.
 
 ## Fase 16: Navigatie En Schermen
 

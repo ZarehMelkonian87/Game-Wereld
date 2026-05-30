@@ -8,6 +8,7 @@ Huidige schermen:
 - `WordChoiceScreen`
 - `RaceScreen`
 - `RewardScreen`
+- `ParentDashboardScreen`
 
 Voorbeelden die hier later komen:
 
@@ -15,7 +16,6 @@ Voorbeelden die hier later komen:
 - `ProfileSelectScreen`
 - `AvatarSelectScreen`
 - `WorldSelectScreen`
-- `ParentDashboardScreen`
 - `SettingsScreen`
 
 Regels:

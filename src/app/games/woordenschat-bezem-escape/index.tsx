@@ -3,14 +3,20 @@ import { useNavigate } from "react-router";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
-import { RaceScreen, RewardScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
+import {
+  ParentDashboardScreen,
+  RaceScreen,
+  RewardScreen,
+  SceneBuilderScreen,
+  WordChoiceScreen,
+} from "./screens";
 import type {
   BroomRaceInstruction,
   SceneBuilderInstruction,
   VocabularyChoiceInstruction,
 } from "./types";
 
-type GameScreenPreview = "race" | "reward" | "scene-builder" | "word-choice";
+type GameScreenPreview = "dashboard" | "race" | "reward" | "scene-builder" | "word-choice";
 
 function shouldShowUiPreview() {
   if (typeof window === "undefined") {
@@ -61,6 +67,10 @@ function getScreenPreview(): GameScreenPreview {
 
   if (screen === "reward") {
     return "reward";
+  }
+
+  if (screen === "dashboard") {
+    return "dashboard";
   }
 
   return "scene-builder";
@@ -139,6 +149,8 @@ export function WoordenschatBezemEscapeGame() {
               onChooseWorld={resetRound}
               onPlayAgain={resetRound}
             />
+          ) : screenPreview === "dashboard" ? (
+            <ParentDashboardScreen />
           ) : screenPreview === "race" ? (
             <RaceScreen
               instructions={raceInstructions}
