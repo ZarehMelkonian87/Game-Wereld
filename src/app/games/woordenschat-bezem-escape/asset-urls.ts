@@ -33,5 +33,7 @@ export const broomIconUrls = {
 };
 
 export const mascotIconUrls = {
+  hint: new URL("./assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
   celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
+  neutral: new URL("./assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
 };

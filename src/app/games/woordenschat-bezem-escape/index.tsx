@@ -105,11 +105,9 @@ export function WoordenschatBezemEscapeGame() {
               showTrayLabels={showTrayLabels}
             />
           )}
-          <TopHud
-            showHint={screenPreview !== "reward"}
-            showParentBack={screenPreview === "scene-builder"}
-            starCount={0}
-          />
+          {screenPreview === "scene-builder" ? null : (
+            <TopHud showHint={screenPreview !== "reward"} starCount={0} />
+          )}
         </>
       )}
     </BezemEscapeShell>

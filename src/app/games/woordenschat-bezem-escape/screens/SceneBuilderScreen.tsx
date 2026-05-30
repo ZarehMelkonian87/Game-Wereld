@@ -1,7 +1,8 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
+import { broomIconUrls, getBeachObjectStickerUrl, mascotIconUrls } from "../asset-urls";
+import { TopHud } from "../components";
 import {
   GameplayStatusBar,
   InstructionBubble,
@@ -40,6 +41,7 @@ interface PlacedObject {
 
 interface FeedbackState {
   kind: "almost" | "correct" | "ready";
+  mascot?: "celebration" | "hint";
   repeatText?: string;
   text: string;
 }
@@ -54,6 +56,12 @@ interface DragState {
   y: number;
 }
 
+interface HintUsageEvent {
+  hintLevel: number;
+  instructionId: string;
+  usedAt: string;
+}
+
 function toDisplayLabel(label: string) {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
@@ -66,6 +74,30 @@ function getTrayObjects(objects: SceneObject[]) {
       label: toDisplayLabel(object.label),
     }))
     .filter((object): object is TrayObject => Boolean(object.imageUrl));
+}
+
+const conceptExplanation: Record<string, string> = {
+  boven: "Boven betekent hoog, aan de bovenkant.",
+  dichtbij: "Dichtbij betekent niet ver weg.",
+  in: "In betekent binnenin, zoals in het water.",
+  links: "Links is de kant van je linkerhand.",
+  midden: "Midden is tussen links en rechts.",
+  naast: "Naast betekent dichtbij aan de zijkant.",
+  onder: "Onder betekent lager dan iets anders.",
+  op: "Op betekent erop, aan de bovenkant.",
+  rechts: "Rechts is de kant van je rechterhand.",
+  tussen: "Tussen betekent in het midden van twee dingen.",
+  "ver weg": "Ver weg betekent verder naar achteren in de scene.",
+};
+
+function getDutchVoice() {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    return undefined;
+  }
+
+  return window.speechSynthesis
+    .getVoices()
+    .find((voice) => voice.lang.toLowerCase().startsWith("nl"));
 }
 
 export function SceneBuilderScreen({
@@ -86,6 +118,10 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
+  const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
+  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
+  const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
+  const [hintEvents, setHintEvents] = useState<HintUsageEvent[]>([]);
   const [speedValue, setSpeedValue] = useState(0);
   const [wordStarValue, setWordStarValue] = useState(0);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
@@ -93,6 +129,8 @@ export function SceneBuilderScreen({
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
   const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
+  const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
+  const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
 
   function updateDragState(nextDragState: DragState | null) {
     dragStateRef.current = nextDragState;
@@ -126,11 +164,13 @@ export function SceneBuilderScreen({
     setSelectedObjectId(null);
     setSelectedZoneId(null);
     setShowTargetZoneHint(false);
+    setHighlightedObjectId(null);
   }
 
   function handleObjectSelect(objectId: string) {
     setSelectedObjectId(objectId);
     setShowTargetZoneHint(false);
+    setHighlightedObjectId(null);
     setFeedback({
       kind: "ready",
       text: "Tik nu op de plek in de scene.",
@@ -198,6 +238,7 @@ export function SceneBuilderScreen({
     setWordStarValue((currentStars) => currentStars + instruction.reward.wordStars);
     setFeedback({
       kind: "correct",
+      mascot: "celebration",
       repeatText: instruction.feedbackCopy.repeatAfterSuccess,
       text: instruction.feedbackCopy.correct,
     });
@@ -248,6 +289,80 @@ export function SceneBuilderScreen({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? `${instruction.hint} Kijk naar de plek die oplicht.`,
     });
+  }
+
+  function playInstructionAudio(text = instruction.audioText) {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      setFeedback({
+        kind: "almost",
+        mascot: "hint",
+        text: "Audio is niet beschikbaar in deze browser. Lees de opdracht samen hardop.",
+      });
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "nl-NL";
+    utterance.rate = 0.9;
+    utterance.pitch = 1.05;
+
+    const dutchVoice = getDutchVoice();
+    if (dutchVoice) {
+      utterance.voice = dutchVoice;
+    }
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setAudioRepeatsByInstruction((currentRepeats) => ({
+      ...currentRepeats,
+      [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
+    }));
+  }
+
+  function handleHint() {
+    const nextHintCount = activeHintsUsed + 1;
+    const nextHintLevel = ((nextHintCount - 1) % 4) + 1;
+
+    setHintsByInstruction((currentHints) => ({
+      ...currentHints,
+      [instruction.id]: nextHintCount,
+    }));
+    setHintEvents((currentEvents) => [
+      ...currentEvents,
+      {
+        hintLevel: nextHintLevel,
+        instructionId: instruction.id,
+        usedAt: new Date().toISOString(),
+      },
+    ]);
+
+    if (nextHintLevel >= 2) {
+      setHighlightedObjectId(instruction.placement.objectId);
+    }
+
+    if (nextHintLevel >= 3) {
+      setShowTargetZoneHint(true);
+    }
+
+    const targetWord = `${targetObject?.article ?? "het"} ${targetObject?.label ?? "plaatje"}`;
+    const hintText =
+      nextHintLevel === 1
+        ? `Zoek ${targetWord}.`
+        : nextHintLevel === 2
+          ? `Kijk naar het plaatje dat oplicht: ${targetObject?.label ?? "plaatje"}.`
+          : nextHintLevel === 3
+            ? `Kijk naar de plek die oplicht.`
+            : conceptExplanation[instruction.placement.relation] ?? instruction.hint;
+
+    setFeedback({
+      kind: "ready",
+      mascot: "hint",
+      text: hintText,
+    });
+
+    if (nextHintLevel === 1) {
+      playInstructionAudio(instruction.audioText);
+    }
   }
 
   function handleObjectDrop(objectId: string, clientX: number, clientY: number) {
@@ -394,13 +509,27 @@ export function SceneBuilderScreen({
       data-testid="scene-builder-screen"
       data-mode="listen-and-place"
       data-active-instruction-id={instruction.id}
+      data-active-audio-repeats={activeAudioRepeats}
+      data-active-hints-used={activeHintsUsed}
+      data-audio-supported={
+        typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
+      }
+      data-hint-event-count={hintEvents.length}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
+      <TopHud
+        onAudioClick={() => playInstructionAudio()}
+        onHintClick={handleHint}
+        showParentBack
+        starCount={wordStarValue}
+      />
+
       <div className="grid h-full min-h-0 grid-rows-[4rem_minmax(0,1fr)_3.75rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_4.5rem]">
         <InstructionBubble
           aria-label="Opdrachtgebied"
           data-testid="scene-builder-instruction-area"
+          onAudioClick={() => playInstructionAudio()}
           text={currentInstructionText}
           className="landscape:col-start-1 landscape:row-start-1"
         />
@@ -479,12 +608,28 @@ export function SceneBuilderScreen({
               data-testid="scene-builder-feedback"
               className="pointer-events-none absolute bottom-3 left-3 right-3 !rounded-2xl !p-2"
             >
-              <p className="text-xs font-black leading-tight text-slate-900">{feedback.text}</p>
-              {feedback.repeatText ? (
-                <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
-                  Zeg na: {feedback.repeatText}
-                </p>
-              ) : null}
+              <div className="flex items-center gap-2">
+                {feedback.mascot ? (
+                  <img
+                    alt=""
+                    className="h-10 w-10 shrink-0 object-contain"
+                    draggable={false}
+                    src={
+                      feedback.mascot === "hint"
+                        ? mascotIconUrls.hint
+                        : mascotIconUrls.celebration
+                    }
+                  />
+                ) : null}
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-black leading-tight text-slate-900">{feedback.text}</p>
+                  {feedback.repeatText ? (
+                    <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
+                      Zeg na: {feedback.repeatText}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             </PanelCard>
           ) : null}
         </section>
@@ -534,7 +679,11 @@ export function SceneBuilderScreen({
               onPointerDown={(event) => handleObjectPointerDown(event, object)}
               onPointerMove={(event) => handleObjectPointerMove(event, object.id)}
               onPointerUp={(event) => handleObjectPointerUp(event, object.id)}
-              selected={selectedObjectId === object.id || dragState?.objectId === object.id}
+              selected={
+                selectedObjectId === object.id ||
+                dragState?.objectId === object.id ||
+                highlightedObjectId === object.id
+              }
               showLabel={showTrayLabels}
               size="tray"
             />

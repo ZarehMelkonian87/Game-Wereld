@@ -2,12 +2,20 @@ import { ArrowLeft, LockKeyhole, Volume2 } from "lucide-react";
 import { HintButton, HudIconButton, StarCounter } from "../ui";
 
 interface TopHudProps {
+  onAudioClick?: () => void;
+  onHintClick?: () => void;
   showParentBack?: boolean;
   showHint?: boolean;
   starCount: number;
 }
 
-export function TopHud({ showParentBack = false, showHint = true, starCount }: TopHudProps) {
+export function TopHud({
+  onAudioClick,
+  onHintClick,
+  showParentBack = false,
+  showHint = true,
+  starCount,
+}: TopHudProps) {
   return (
     <div
       data-testid="gameplay-top-hud"
@@ -38,6 +46,7 @@ export function TopHud({ showParentBack = false, showHint = true, starCount }: T
             className="pointer-events-auto"
             icon={<Volume2 className="h-5 w-5" strokeWidth={3} />}
             label="Audio"
+            onClick={onAudioClick}
             tone="blue"
           />
         </div>
@@ -47,7 +56,13 @@ export function TopHud({ showParentBack = false, showHint = true, starCount }: T
         </div>
 
         <div className="flex justify-end">
-          {showHint ? <HintButton className="pointer-events-auto" showLabel={false} /> : null}
+          {showHint ? (
+            <HintButton
+              className="pointer-events-auto"
+              onClick={onHintClick}
+              showLabel={false}
+            />
+          ) : null}
         </div>
       </div>
     </div>

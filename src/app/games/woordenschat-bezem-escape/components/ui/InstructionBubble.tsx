@@ -5,12 +5,14 @@ import { HudIconButton } from "./HudIconButton";
 
 interface InstructionBubbleProps extends HTMLAttributes<HTMLDivElement> {
   audioLabel?: string;
+  onAudioClick?: () => void;
   text: string;
 }
 
 export function InstructionBubble({
   audioLabel = "Luister opdracht",
   className,
+  onAudioClick,
   text,
   ...bubbleProps
 }: InstructionBubbleProps) {
@@ -26,6 +28,7 @@ export function InstructionBubble({
         className="pointer-events-auto"
         icon={<Volume2 className="h-5 w-5" strokeWidth={3} />}
         label={audioLabel}
+        onClick={onAudioClick}
         tone="blue"
       />
       <p

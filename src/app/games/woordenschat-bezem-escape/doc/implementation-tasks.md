@@ -353,17 +353,17 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 7: Audio En Hints
 
-- [ ] Koppel audio-knop aan de opdrachttekst.
-- [ ] Gebruik browser speech synthesis voor MVP.
-- [ ] Kies Nederlandse stem als beschikbaar.
-- [ ] Toon fallback als audio niet beschikbaar is.
-- [ ] Tel audioherhalingen per opdracht.
-- [ ] Maak hint niveau 1: herhaal sleutelwoord.
-- [ ] Maak hint niveau 2: laat juiste sticker oplichten.
-- [ ] Maak hint niveau 3: laat doelzone oplichten.
-- [ ] Maak hint niveau 4: leg het plaatsbegrip simpel uit.
-- [ ] Registreer hintgebruik in oefen-events.
-- [ ] Gebruik mascot voor hintfeedback.
+- [x] Koppel audio-knop aan de opdrachttekst.
+- [x] Gebruik browser speech synthesis voor MVP.
+- [x] Kies Nederlandse stem als beschikbaar.
+- [x] Toon fallback als audio niet beschikbaar is.
+- [x] Tel audioherhalingen per opdracht.
+- [x] Maak hint niveau 1: herhaal sleutelwoord.
+- [x] Maak hint niveau 2: laat juiste sticker oplichten.
+- [x] Maak hint niveau 3: laat doelzone oplichten.
+- [x] Maak hint niveau 4: leg het plaatsbegrip simpel uit.
+- [x] Registreer hintgebruik in oefen-events.
+- [x] Gebruik mascot voor hintfeedback.
 
 ## Fase 8: Kies Het Woord Modus
 
