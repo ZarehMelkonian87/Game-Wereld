@@ -127,11 +127,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 - [x] Analyseer `mobile-ui-mockups-sheet.png`.
 - [x] Leg de analyse vast in `doc/mobile-ui-mockup-analysis.md`.
-- [ ] Bevestig dat de mockup-sheet een richting is, geen pixel-perfect ontwerp.
-- [ ] Bevestig dat portrait de primaire mobiele flow blijft.
-- [ ] Bevestig dat gameplay-schermen de eerste prioriteit krijgen.
-- [ ] Bevestig dat profiel, avatar, wereld, dashboard en instellingen later aparte schermen worden.
-- [ ] Bevestig dat `index.tsx` een dun entrypoint blijft.
+- [x] Bevestig dat de mockup-sheet een richting is, geen pixel-perfect ontwerp.
+- [x] Bevestig dat portrait de primaire mobiele flow blijft.
+- [x] Bevestig dat gameplay-schermen de eerste prioriteit krijgen.
+- [x] Bevestig dat profiel, avatar, wereld, dashboard en instellingen later aparte schermen worden.
+- [x] Bevestig dat `index.tsx` een dun entrypoint blijft.
 - [ ] Stop na deze stap voor akkoord op de UI-richting.
 
 ### Fase 2.3: Component- En Folderstructuur
@@ -141,10 +141,10 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 - [x] Maak een aparte shell/stage component.
 - [x] Maak een aparte asset-url helper.
 - [x] Verplaats layout-componenten naar `components/layout/`.
-- [ ] Maak map `components/ui/` voor herbruikbare UI-bouwstenen.
-- [ ] Maak map `screens/` voor toekomstige schermen.
-- [ ] Voeg alleen lege screen-bestanden toe wanneer we ze echt gaan bouwen.
-- [ ] Controleer dat imports logisch blijven en geen circulaire afhankelijkheden maken.
+- [x] Maak map `components/ui/` voor herbruikbare UI-bouwstenen.
+- [x] Maak map `screens/` voor toekomstige schermen.
+- [x] Voeg alleen lege screen-bestanden toe wanneer we ze echt gaan bouwen.
+- [x] Controleer dat imports logisch blijven en geen circulaire afhankelijkheden maken.
 
 ### Fase 2.4: UI-Bouwstenen Uit De Mockup
 

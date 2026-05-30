@@ -126,6 +126,94 @@ Dit wordt later een eigen screen, niet een overlay bovenop de scene builder.
 - Geen nieuwe UI-laag zonder portrait en landscape screenshot.
 - Geen nieuwe stap doorvoeren zonder visuele goedkeuring als het om layout gaat.
 
+## UI Contract Voor Implementatie
+
+Deze afspraken gelden voor de volgende bouwstappen.
+
+### Status Van De Mockup-Sheet
+
+De mockup-sheet is een richtinggevend ontwerp, geen pixel-perfect specificatie.
+
+We kopieren dus niet exact:
+
+- alle posities;
+- alle verhoudingen;
+- alle teksten;
+- alle aantallen knoppen of cards.
+
+We nemen wel over:
+
+- de rustige pastelstijl;
+- de witte panel/card-taal;
+- de duidelijke HUD-patronen;
+- de grote kindvriendelijke knoppen;
+- de volgorde van informatie per scherm;
+- de minimale tekst in kindschermen.
+
+### Primaire Flow
+
+Portrait is de primaire mobiele flow. Elk nieuw onderdeel wordt eerst in portrait ontworpen en daarna pas vertaald naar landscape.
+
+Landscape moet speelbaar blijven, maar hoeft niet dezelfde compositie te hebben. In landscape krijgt de scene prioriteit en schuiven controls naar een compacte zij- of onderzone.
+
+### Eerste Prioriteit
+
+De eerste implementatieprioriteit is gameplay, niet de volledige app-navigatie.
+
+Volgorde:
+
+1. Scene builder basis.
+2. Woord kiezen basis.
+3. Race basis.
+4. Beloning basis.
+5. Daarna pas start/profiel/avatar/wereld/dashboard/instellingen.
+
+### Schermen Die Later Komen
+
+Deze schermen worden later als aparte schermen gebouwd en niet in de gameplay component gestopt:
+
+- startscherm;
+- profiel selecteren;
+- avatar selecteren;
+- wereld selecteren;
+- ouder/logopedist dashboard;
+- instellingen.
+
+De bestaande app-profielen blijven leidend. We bouwen geen tweede profiel-systeem in deze game zonder aparte beslissing.
+
+### Componentregels
+
+`index.tsx` blijft een dun entrypoint. Het mag alleen de huidige game-screen samenstellen.
+
+Niet toegestaan in `index.tsx`:
+
+- grote JSX-blokken;
+- gameplay-state;
+- layout-berekeningen;
+- assetlijsten;
+- individuele knoppen/cards/objecten.
+
+Nieuwe UI hoort in:
+
+- `components/layout/` voor shell, stage en scene-layout;
+- `components/ui/` voor herbruikbare knoppen, panels en HUD-elementen;
+- `screens/` voor volledige schermen zoals scene builder, woord kiezen en race.
+
+### Visuele Acceptatie
+
+Elke visuele stap heeft minimaal:
+
+- portrait screenshot;
+- landscape screenshot;
+- geen horizontale body overflow;
+- geen verticale scroll wanneer het scherm fullscreen moet zijn;
+- geen kapotte afbeeldingen;
+- geen console-errors;
+- geen dubbele randen of onbedoelde padding;
+- geen tekst die buiten knoppen of panels valt.
+
+Als een stap niet visueel goed voelt, passen we die stap aan voordat er nieuwe UI-lagen bijkomen.
+
 ## Voorgestelde Folderstructuur
 
 ```text
@@ -164,6 +252,30 @@ woordenschat-bezem-escape/
 ```
 
 We hoeven niet alle bestanden direct te maken. De structuur geeft richting zodat nieuwe onderdelen niet opnieuw in `index.tsx` belanden.
+
+## Huidige Structuur Na Fase 2.3
+
+De basisstructuur staat klaar, maar zonder lege schermcomponenten:
+
+```text
+woordenschat-bezem-escape/
+  index.tsx
+  asset-urls.ts
+  content.ts
+  types.ts
+  components/
+    layout/
+      BezemEscapeShell.tsx
+      BeachBackground.tsx
+      GameStage.tsx
+    ui/
+      README.md
+    index.ts
+  screens/
+    README.md
+```
+
+`components/ui/` en `screens/` hebben bewust alleen een README. Nieuwe componenten en schermen worden pas toegevoegd wanneer we die stap echt implementeren.
 
 ## Nieuwe Implementatievolgorde
 
