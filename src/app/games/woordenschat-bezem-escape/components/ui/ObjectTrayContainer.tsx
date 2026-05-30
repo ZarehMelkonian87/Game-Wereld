@@ -15,7 +15,7 @@ export function ObjectTrayContainer({
     <PanelCard
       {...trayProps}
       className={classNames(
-        "flex h-full min-h-0 w-full items-center justify-center overflow-hidden !p-2",
+        "flex h-full min-h-0 w-full items-center justify-center overflow-hidden !border-white/55 !bg-white/45 !p-2 !shadow-[0_4px_0_rgba(15,23,42,0.08)]",
         className,
       )}
     >
