@@ -13,7 +13,6 @@ import {
 } from "../components/ui";
 import {
   findSmallestZoneAtPoint,
-  getZoneCenter,
   selectedZoneMatchesTarget,
   supportedSceneBuilderConcepts,
   zoneSupportsConcept,
@@ -52,6 +51,8 @@ interface TrayObject {
 interface PlacedObject {
   instructionId: string;
   objectId: string;
+  x: number;
+  y: number;
   zoneId: string;
 }
 
@@ -73,6 +74,7 @@ interface DragState {
   hasMoved: boolean;
   imageUrl: string;
   objectId: string;
+  source: "scene" | "tray";
   startX: number;
   startY: number;
   x: number;
@@ -89,6 +91,13 @@ interface PracticeRatingStats {
   good: number;
   help: number;
   partial: number;
+}
+
+interface PendingPlacement {
+  objectId: string;
+  x: number;
+  y: number;
+  zoneId: string;
 }
 
 function toDisplayLabel(label: string) {
@@ -147,6 +156,7 @@ export function SceneBuilderScreen({
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
+  const [pendingPlacement, setPendingPlacement] = useState<PendingPlacement | null>(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
   const [sceneComplete, setSceneComplete] = useState(false);
   const [sceneCompletionSummary, setSceneCompletionSummary] =
@@ -192,7 +202,7 @@ export function SceneBuilderScreen({
     setDragState(nextDragState);
   }
 
-  function getZoneFromViewportPoint(clientX: number, clientY: number) {
+  function getScenePointFromViewportPoint(clientX: number, clientY: number) {
     const sceneBounds = sceneAreaRef.current?.getBoundingClientRect();
 
     if (!sceneBounds) {
@@ -209,21 +219,34 @@ export function SceneBuilderScreen({
       return undefined;
     }
 
-    return findSmallestZoneAtPoint(zones, {
-      x: ((clientX - sceneBounds.left) / sceneBounds.width) * 100,
-      y: ((clientY - sceneBounds.top) / sceneBounds.height) * 100,
-    });
+    return {
+      x: Math.min(96, Math.max(4, ((clientX - sceneBounds.left) / sceneBounds.width) * 100)),
+      y: Math.min(94, Math.max(6, ((clientY - sceneBounds.top) / sceneBounds.height) * 100)),
+    };
+  }
+
+  function getZoneFromViewportPoint(clientX: number, clientY: number) {
+    const scenePoint = getScenePointFromViewportPoint(clientX, clientY);
+
+    if (!scenePoint) {
+      return undefined;
+    }
+
+    return findSmallestZoneAtPoint(zones, scenePoint);
   }
 
   function resetSelection() {
     setSelectedObjectId(null);
     setSelectedZoneId(null);
+    setPendingPlacement(null);
     setShowTargetZoneHint(false);
     setHighlightedObjectId(null);
   }
 
   function handleObjectSelect(objectId: string) {
     setSelectedObjectId(objectId);
+    setSelectedZoneId(null);
+    setPendingPlacement(null);
     setShowTargetZoneHint(false);
     setHighlightedObjectId(null);
     setFeedback({
@@ -250,9 +273,10 @@ export function SceneBuilderScreen({
       return;
     }
 
+    const scenePoint = getScenePointFromViewportPoint(event.clientX, event.clientY);
     const tappedZone = getZoneFromViewportPoint(event.clientX, event.clientY);
 
-    if (!tappedZone) {
+    if (!scenePoint || !tappedZone) {
       setSelectedZoneId(null);
       setShowTargetZoneHint(true);
       setFeedback({
@@ -263,10 +287,16 @@ export function SceneBuilderScreen({
     }
 
     setSelectedZoneId(tappedZone.id);
+    setPendingPlacement({
+      objectId: selectedObjectId,
+      x: scenePoint.x,
+      y: scenePoint.y,
+      zoneId: tappedZone.id,
+    });
     setShowTargetZoneHint(false);
     setFeedback({
       kind: "ready",
-      text: `Plek gekozen: ${tappedZone.label}. Druk op Klaar.`,
+      text: `Plek gekozen: ${tappedZone.label}. Je kunt nog verplaatsen. Druk daarna op Klaar.`,
     });
   }
 
@@ -279,6 +309,10 @@ export function SceneBuilderScreen({
   }
 
   function placeCorrectObject() {
+    if (!pendingPlacement) {
+      return;
+    }
+
     const nextPlacedObjects = [
       ...placedObjects.filter(
         (placedObject) => placedObject.instructionId !== instruction.id,
@@ -286,7 +320,9 @@ export function SceneBuilderScreen({
       {
         instructionId: instruction.id,
         objectId: instruction.placement.objectId,
-        zoneId: instruction.placement.zoneId,
+        x: pendingPlacement.x,
+        y: pendingPlacement.y,
+        zoneId: pendingPlacement.zoneId,
       },
     ];
     const nextSceneComplete = nextPlacedObjects.length >= 5;
@@ -315,6 +351,7 @@ export function SceneBuilderScreen({
     ];
 
     setPlacedObjects(nextPlacedObjects);
+    setPendingPlacement(null);
     setSceneComplete(nextSceneComplete);
     setSceneCompletionSummary(nextSceneComplete ? nextCompletionSummary : null);
     setSpeedValue(nextSpeedValue);
@@ -391,6 +428,14 @@ export function SceneBuilderScreen({
       setFeedback({
         kind: "almost",
         text: "Tik daarna op de plek in de scene.",
+      });
+      return;
+    }
+
+    if (!pendingPlacement) {
+      setFeedback({
+        kind: "almost",
+        text: "Zet het plaatje eerst op de plek in de scene.",
       });
       return;
     }
@@ -558,11 +603,12 @@ export function SceneBuilderScreen({
   }
 
   function handleObjectDrop(objectId: string, clientX: number, clientY: number) {
+    const scenePoint = getScenePointFromViewportPoint(clientX, clientY);
     const droppedZone = getZoneFromViewportPoint(clientX, clientY);
     setSelectedObjectId(objectId);
     setShowTargetZoneHint(false);
 
-    if (!droppedZone) {
+    if (!scenePoint || !droppedZone) {
       setSelectedZoneId(null);
       setFeedback({
         kind: "almost",
@@ -572,9 +618,15 @@ export function SceneBuilderScreen({
     }
 
     setSelectedZoneId(droppedZone.id);
+    setPendingPlacement({
+      objectId,
+      x: scenePoint.x,
+      y: scenePoint.y,
+      zoneId: droppedZone.id,
+    });
     setFeedback({
       kind: "ready",
-      text: `Plek gekozen: ${droppedZone.label}. Druk op Klaar.`,
+      text: `Plek gekozen: ${droppedZone.label}. Je kunt nog verplaatsen. Druk daarna op Klaar.`,
     });
   }
 
@@ -587,6 +639,7 @@ export function SceneBuilderScreen({
       hasMoved: false,
       imageUrl: object.imageUrl,
       objectId: object.id,
+      source: "tray",
       startX: event.clientX,
       startY: event.clientY,
       x: event.clientX,
@@ -614,6 +667,7 @@ export function SceneBuilderScreen({
 
       if (
         !currentDragState.hasMoved &&
+        currentDragState.source === "tray" &&
         isHorizontalTrayScrollGesture(currentDragState, event.clientX, event.clientY)
       ) {
         suppressNextClickRef.current = true;
@@ -672,6 +726,7 @@ export function SceneBuilderScreen({
 
     if (
       !currentDragState.hasMoved &&
+      currentDragState.source === "tray" &&
       isHorizontalTrayScrollGesture(currentDragState, event.clientX, event.clientY)
     ) {
       suppressNextClickRef.current = true;
@@ -715,6 +770,29 @@ export function SceneBuilderScreen({
     }
 
     updateDragState(null);
+  }
+
+  function handlePendingObjectPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0 || !pendingPlacement) {
+      return;
+    }
+
+    const object = trayObjects.find((trayObject) => trayObject.id === pendingPlacement.objectId);
+
+    if (!object) {
+      return;
+    }
+
+    updateDragState({
+      hasMoved: false,
+      imageUrl: object.imageUrl,
+      objectId: object.id,
+      source: "scene",
+      startX: event.clientX,
+      startY: event.clientY,
+      x: event.clientX,
+      y: event.clientY,
+    });
   }
 
   return (
@@ -773,20 +851,6 @@ export function SceneBuilderScreen({
             type="button"
           />
 
-          {selectedZone ? (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-emerald-400 bg-emerald-200/35 shadow-[0_0_0_5px_rgba(255,255,255,0.72)]"
-              data-testid="selected-zone-marker"
-              style={{
-                left: `${getZoneCenter(selectedZone).x}%`,
-                top: `${getZoneCenter(selectedZone).y}%`,
-              }}
-            >
-              <CheckCircle2 className="absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 text-emerald-700" strokeWidth={3} />
-            </span>
-          ) : null}
-
           {showTargetZoneHint && targetZone ? (
             <span
               aria-hidden="true"
@@ -803,13 +867,10 @@ export function SceneBuilderScreen({
 
           {placedObjects.map((placedObject) => {
             const object = objects.find((sceneObject) => sceneObject.id === placedObject.objectId);
-            const zone = zones.find((sceneZone) => sceneZone.id === placedObject.zoneId);
 
             if (!object) {
               return null;
             }
-
-            const position = getZoneCenter(zone);
 
             return (
               <img
@@ -820,12 +881,53 @@ export function SceneBuilderScreen({
                 key={placedObject.instructionId}
                 src={getBeachObjectStickerUrl(object.assetId)}
                 style={{
-                  left: `${position.x}%`,
-                  top: `${position.y}%`,
+                  left: `${placedObject.x}%`,
+                  top: `${placedObject.y}%`,
                 }}
               />
             );
           })}
+
+          {pendingPlacement ? (
+            (() => {
+              const object = objects.find(
+                (sceneObject) => sceneObject.id === pendingPlacement.objectId,
+              );
+              const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
+
+              if (!object || !imageUrl) {
+                return null;
+              }
+
+              return (
+                <button
+                  aria-label={`Verplaats ${object.label}`}
+                  className="pointer-events-auto absolute h-[clamp(3rem,12vw,5.5rem)] w-[clamp(3rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none"
+                  data-testid={`pending-object-${pendingPlacement.objectId}`}
+                  onPointerCancel={(event) =>
+                    handleObjectPointerCancel(event, pendingPlacement.objectId)
+                  }
+                  onPointerDown={handlePendingObjectPointerDown}
+                  onPointerMove={(event) =>
+                    handleObjectPointerMove(event, pendingPlacement.objectId)
+                  }
+                  onPointerUp={(event) => handleObjectPointerUp(event, pendingPlacement.objectId)}
+                  style={{
+                    left: `${pendingPlacement.x}%`,
+                    top: `${pendingPlacement.y}%`,
+                  }}
+                  type="button"
+                >
+                  <img
+                    alt=""
+                    className="h-full w-full object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
+                    draggable={false}
+                    src={imageUrl}
+                  />
+                </button>
+              );
+            })()
+          ) : null}
 
           {feedback ? (
             <PanelCard
