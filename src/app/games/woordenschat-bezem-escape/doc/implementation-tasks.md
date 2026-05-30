@@ -319,23 +319,23 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 5: Dropzones En Plaatslogica
 
-- [ ] Definieer vaste zones: lucht, zee, strand, eiland, handdoek.
-- [ ] Definieer horizontale zones: links, midden, rechts.
-- [ ] Definieer relatieve zones: boven, onder, naast, tussen, dichtbij, ver weg.
-- [ ] Toon zones alleen wanneer dat helpt.
-- [ ] Laat de doelzone oplichten bij hint.
-- [ ] Laat objecten netjes snappen naar de gekozen plek.
-- [ ] Ondersteun `in`.
-- [ ] Ondersteun `op`.
-- [ ] Ondersteun `onder`.
-- [ ] Ondersteun `boven`.
-- [ ] Ondersteun `naast`.
-- [ ] Ondersteun `tussen`.
-- [ ] Ondersteun `links`.
-- [ ] Ondersteun `rechts`.
-- [ ] Ondersteun `midden`.
-- [ ] Ondersteun `dichtbij`.
-- [ ] Ondersteun `ver weg`.
+- [x] Definieer vaste zones: lucht, zee, strand, eiland, handdoek.
+- [x] Definieer horizontale zones: links, midden, rechts.
+- [x] Definieer relatieve zones: boven, onder, naast, tussen, dichtbij, ver weg.
+- [x] Toon zones alleen wanneer dat helpt.
+- [x] Laat de doelzone oplichten bij hint.
+- [x] Laat objecten netjes snappen naar de gekozen plek.
+- [x] Ondersteun `in`.
+- [x] Ondersteun `op`.
+- [x] Ondersteun `onder`.
+- [x] Ondersteun `boven`.
+- [x] Ondersteun `naast`.
+- [x] Ondersteun `tussen`.
+- [x] Ondersteun `links`.
+- [x] Ondersteun `rechts`.
+- [x] Ondersteun `midden`.
+- [x] Ondersteun `dichtbij`.
+- [x] Ondersteun `ver weg`.
 
 ## Fase 6: Drag-And-Drop Op Mobiel
 

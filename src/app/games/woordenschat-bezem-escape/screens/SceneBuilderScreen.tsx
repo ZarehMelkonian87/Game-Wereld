@@ -1,4 +1,5 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
+import type { MouseEvent } from "react";
 import { useMemo, useState } from "react";
 import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
 import {
@@ -9,6 +10,12 @@ import {
   PanelCard,
   PrimaryActionButton,
 } from "../components/ui";
+import {
+  findSmallestZoneAtPoint,
+  getZoneCenter,
+  supportedSceneBuilderConcepts,
+  zoneSupportsConcept,
+} from "../logic/scene-zones";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
 
 interface SceneBuilderScreenProps {
@@ -51,17 +58,6 @@ function getTrayObjects(objects: SceneObject[]) {
     .filter((object): object is TrayObject => Boolean(object.imageUrl));
 }
 
-function getZoneCenter(zone?: SceneZone) {
-  if (!zone) {
-    return { x: 50, y: 50 };
-  }
-
-  return {
-    x: zone.x + zone.width / 2,
-    y: zone.y + zone.height / 2,
-  };
-}
-
 export function SceneBuilderScreen({
   instructions,
   instructionText,
@@ -75,27 +71,31 @@ export function SceneBuilderScreen({
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
+  const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
   const [speedValue, setSpeedValue] = useState(0);
   const [wordStarValue, setWordStarValue] = useState(0);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
+  const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
 
   function resetSelection() {
     setSelectedObjectId(null);
     setSelectedZoneId(null);
+    setShowTargetZoneHint(false);
   }
 
   function handleObjectSelect(objectId: string) {
     setSelectedObjectId(objectId);
+    setShowTargetZoneHint(false);
     setFeedback({
       kind: "ready",
       text: "Tik nu op de plek in de scene.",
     });
   }
 
-  function handleSceneTap() {
+  function handleSceneTap(event: MouseEvent<HTMLButtonElement>) {
     if (!selectedObjectId) {
       setFeedback({
         kind: "almost",
@@ -104,10 +104,27 @@ export function SceneBuilderScreen({
       return;
     }
 
-    setSelectedZoneId(instruction.placement.zoneId);
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const tappedZone = findSmallestZoneAtPoint(zones, {
+      x: ((event.clientX - bounds.left) / bounds.width) * 100,
+      y: ((event.clientY - bounds.top) / bounds.height) * 100,
+    });
+
+    if (!tappedZone) {
+      setSelectedZoneId(null);
+      setShowTargetZoneHint(true);
+      setFeedback({
+        kind: "almost",
+        text: "Bijna. Tik rustig op een plek in de scene.",
+      });
+      return;
+    }
+
+    setSelectedZoneId(tappedZone.id);
+    setShowTargetZoneHint(false);
     setFeedback({
       kind: "ready",
-      text: "Druk op Klaar als deze plek goed is.",
+      text: `Plek gekozen: ${tappedZone.label}. Druk op Klaar.`,
     });
   }
 
@@ -163,7 +180,7 @@ export function SceneBuilderScreen({
 
     const isCorrectObject = selectedObjectId === instruction.placement.objectId;
     const isCorrectZone = selectedZoneId === instruction.placement.zoneId;
-    const isCorrectRelation = instruction.spatialConcepts.includes(instruction.placement.relation);
+    const isCorrectRelation = zoneSupportsConcept(selectedZone, instruction.placement.relation);
 
     if (isCorrectObject && isCorrectZone && isCorrectRelation) {
       placeCorrectObject();
@@ -171,6 +188,7 @@ export function SceneBuilderScreen({
     }
 
     if (!isCorrectObject) {
+      setShowTargetZoneHint(true);
       setFeedback({
         kind: "almost",
         text: `Bijna! Zoek ${targetObject?.article ?? "het"} ${targetObject?.label ?? "plaatje"}.`,
@@ -178,9 +196,10 @@ export function SceneBuilderScreen({
       return;
     }
 
+    setShowTargetZoneHint(true);
     setFeedback({
       kind: "almost",
-      text: instruction.feedbackCopy.almost ?? instruction.hint,
+      text: instruction.feedbackCopy.almost ?? `${instruction.hint} Kijk naar de plek die oplicht.`,
     });
   }
 
@@ -189,6 +208,7 @@ export function SceneBuilderScreen({
       data-testid="scene-builder-screen"
       data-mode="listen-and-place"
       data-active-instruction-id={instruction.id}
+      data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
       <div className="grid h-full min-h-0 grid-rows-[4rem_minmax(0,1fr)_3.75rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_4.5rem]">
@@ -224,6 +244,20 @@ export function SceneBuilderScreen({
             >
               <CheckCircle2 className="absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 text-emerald-700" strokeWidth={3} />
             </span>
+          ) : null}
+
+          {showTargetZoneHint && targetZone ? (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute rounded-[1.5rem] border-4 border-dashed border-amber-400 bg-amber-200/20 shadow-[0_0_0_5px_rgba(255,255,255,0.72)]"
+              data-testid="target-zone-hint"
+              style={{
+                height: `${targetZone.height}%`,
+                left: `${targetZone.x}%`,
+                top: `${targetZone.y}%`,
+                width: `${targetZone.width}%`,
+              }}
+            />
           ) : null}
 
           {placedObjects.map((placedObject) => {
