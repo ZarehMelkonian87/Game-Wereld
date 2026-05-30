@@ -175,14 +175,14 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.6: Scene Builder Layout Shell
 
-- [ ] Maak `SceneBuilderScreen.tsx`.
-- [ ] Voeg alleen de schermstructuur toe: opdrachtgebied, scenegebied, statusgebied, traygebied.
-- [ ] Gebruik nog geen echte opdrachttekst uit de content.
-- [ ] Gebruik nog geen objectstickers.
-- [ ] Gebruik nog geen drag-and-drop.
-- [ ] Houd de scene het grootste element.
-- [ ] Test portrait volgens mockup: opdracht boven, scene midden, tray onder.
-- [ ] Test landscape apart: controls compact, scene dominant.
+- [x] Maak `SceneBuilderScreen.tsx`.
+- [x] Voeg alleen de schermstructuur toe: opdrachtgebied, scenegebied, statusgebied, traygebied.
+- [x] Gebruik nog geen echte opdrachttekst uit de content.
+- [x] Gebruik nog geen objectstickers.
+- [x] Gebruik nog geen drag-and-drop.
+- [x] Houd de scene het grootste element.
+- [x] Test portrait volgens mockup: opdracht boven, scene midden, tray onder.
+- [x] Test landscape apart: controls compact, scene dominant.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.7: Opdrachtbubble En Audio

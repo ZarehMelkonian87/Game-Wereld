@@ -2,9 +2,12 @@
 
 Deze map is voor volledige game-schermen.
 
-Voorbeelden die hier later komen:
+Huidige schermen:
 
 - `SceneBuilderScreen`
+
+Voorbeelden die hier later komen:
+
 - `WordChoiceScreen`
 - `RaceScreen`
 - `RewardScreen`
