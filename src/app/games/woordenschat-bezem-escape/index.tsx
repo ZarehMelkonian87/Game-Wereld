@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { beachBackgrounds } from "./asset-urls";
-import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
+import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import { RaceScreen, RewardScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
 import type {
@@ -108,10 +109,19 @@ function getBroomRaceInstructions() {
 const raceInstructions = getBroomRaceInstructions();
 
 export function WoordenschatBezemEscapeGame() {
+  const navigate = useNavigate();
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
   const showTrayLabels = shouldShowTrayLabels();
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
+
+  function resetRound() {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.removeItem("woordenschat-bezem-escape:race-result");
+    }
+
+    setScreenPreview("scene-builder");
+  }
 
   return (
     <BezemEscapeShell world={beachWorld}>
@@ -124,9 +134,17 @@ export function WoordenschatBezemEscapeGame() {
       ) : (
         <>
           {screenPreview === "reward" ? (
-            <RewardScreen />
+            <RewardScreen
+              onBackToMenu={() => navigate("/games/language")}
+              onChooseWorld={resetRound}
+              onPlayAgain={resetRound}
+            />
           ) : screenPreview === "race" ? (
-            <RaceScreen instructions={raceInstructions} objects={beachWorld.objects} />
+            <RaceScreen
+              instructions={raceInstructions}
+              objects={beachWorld.objects}
+              onShowReward={() => setScreenPreview("reward")}
+            />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen instructions={wordChoiceInstructions} objects={beachWorld.objects} />
           ) : (
@@ -138,9 +156,6 @@ export function WoordenschatBezemEscapeGame() {
               zones={beachWorld.zones}
               showTrayLabels={showTrayLabels}
             />
-          )}
-          {screenPreview !== "reward" ? null : (
-            <TopHud showHint={screenPreview !== "reward"} starCount={0} />
           )}
         </>
       )}

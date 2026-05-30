@@ -440,17 +440,17 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 13: Resultaat- En Beloningsscherm
 
-- [ ] Toon geoefende woorden.
-- [ ] Toon geoefende plaatsbegrippen.
-- [ ] Toon aantal goede acties.
-- [ ] Toon gebruikte hints.
-- [ ] Toon audioherhalingen voor ouder/logopedist.
-- [ ] Toon verdiende speed.
-- [ ] Toon verdiende sterren.
-- [ ] Toon nieuwe sticker of bezemkleur.
-- [ ] Voeg knop `Nog een keer` toe.
-- [ ] Voeg knop `Kies wereld` toe.
-- [ ] Voeg knop `Terug naar menu` toe.
+- [x] Toon geoefende woorden.
+- [x] Toon geoefende plaatsbegrippen.
+- [x] Toon aantal goede acties.
+- [x] Toon gebruikte hints.
+- [x] Toon audioherhalingen voor ouder/logopedist.
+- [x] Toon verdiende speed.
+- [x] Toon verdiende sterren.
+- [x] Toon nieuwe sticker of bezemkleur.
+- [x] Voeg knop `Nog een keer` toe.
+- [x] Voeg knop `Kies wereld` toe.
+- [x] Voeg knop `Terug naar menu` toe.
 
 ## Fase 14: Voortgang Opslaan Per Kindprofiel
 

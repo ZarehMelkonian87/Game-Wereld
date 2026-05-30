@@ -36,6 +36,7 @@ type FlightHeight = "high" | "low" | "middle";
 
 interface RaceScreenProps {
   instructions: BroomRaceInstruction[];
+  onShowReward?: () => void;
   objects: SceneObject[];
 }
 
@@ -236,7 +237,7 @@ function RaceControlButton({
   );
 }
 
-export function RaceScreen({ instructions, objects }: RaceScreenProps) {
+export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenProps) {
   const timeoutRef = useRef<number | null>(null);
   const [storedRaceState] = useState<StoredRaceState>(() => readStoredRaceState());
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
@@ -645,14 +646,24 @@ export function RaceScreen({ instructions, objects }: RaceScreenProps) {
                 {feedback.text}
               </p>
               {raceEnded ? (
-                <PrimaryActionButton
-                  className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
-                  data-testid="race-restart-button"
-                  iconLeft={<CheckCircle2 className="h-5 w-5" strokeWidth={3} />}
-                  onClick={restartRace}
-                >
-                  Opnieuw
-                </PrimaryActionButton>
+                <div className="flex shrink-0 gap-2">
+                  <PrimaryActionButton
+                    className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
+                    data-testid="race-restart-button"
+                    iconLeft={<CheckCircle2 className="h-5 w-5" strokeWidth={3} />}
+                    onClick={restartRace}
+                  >
+                    Opnieuw
+                  </PrimaryActionButton>
+                  <PrimaryActionButton
+                    className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
+                    data-testid="race-reward-button"
+                    iconLeft={<Star className="h-5 w-5" fill="currentColor" strokeWidth={2.5} />}
+                    onClick={onShowReward}
+                  >
+                    Beloning
+                  </PrimaryActionButton>
+                </div>
               ) : null}
             </div>
           </PanelCard>
