@@ -197,11 +197,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.8: Speed En Sterren Statusbalk
 
-- [ ] Voeg een compacte speedbar toe onder of naast de scene.
-- [ ] Voeg stervoortgang toe, bijvoorbeeld `18/30`.
-- [ ] Gebruik de mockup als richting, maar houd de balk kleiner als de scene te weinig ruimte krijgt.
-- [ ] Test of speedbar leesbaar blijft op kleine telefoon.
-- [ ] Voeg nog geen scorelogica toe.
+- [x] Voeg een compacte speedbar toe onder of naast de scene.
+- [x] Voeg stervoortgang toe, bijvoorbeeld `18/30`.
+- [x] Gebruik de mockup als richting, maar houd de balk kleiner als de scene te weinig ruimte krijgt.
+- [x] Test of speedbar leesbaar blijft op kleine telefoon.
+- [x] Voeg nog geen scorelogica toe.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.9: Objecttray Container

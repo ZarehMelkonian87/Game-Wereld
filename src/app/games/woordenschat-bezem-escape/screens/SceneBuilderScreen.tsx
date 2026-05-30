@@ -1,4 +1,4 @@
-import { InstructionBubble, PanelCard } from "../components/ui";
+import { GameplayStatusBar, InstructionBubble, PanelCard } from "../components/ui";
 
 interface SceneBuilderScreenProps {
   instructionText?: string;
@@ -38,10 +38,9 @@ export function SceneBuilderScreen({
         <PanelCard
           aria-label="Statusgebied"
           data-testid="scene-builder-status-area"
-          className="flex min-h-0 items-center gap-2 p-2 landscape:col-start-1 landscape:row-start-2 landscape:self-end"
+          className="flex min-h-0 items-center !p-2 landscape:col-start-1 landscape:row-start-2 landscape:self-end landscape:!p-1.5"
         >
-          <span aria-hidden="true" className="h-4 w-16 rounded-full bg-emerald-200/90" />
-          <span aria-hidden="true" className="h-4 flex-1 rounded-full bg-amber-200/90" />
+          <GameplayStatusBar speedMax={10} speedValue={6} starMax={30} starValue={18} />
         </PanelCard>
 
         <PanelCard

@@ -1,3 +1,4 @@
+export { GameplayStatusBar } from "./GameplayStatusBar";
 export { HintButton } from "./HintButton";
 export { HudIconButton } from "./HudIconButton";
 export { InstructionBubble } from "./InstructionBubble";
