@@ -419,24 +419,24 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 12: Bezem Escape-run MVP
 
-- [ ] Bouw race-scherm in dezelfde strandstijl.
-- [ ] Toon avatar op magische bezem.
-- [ ] Toon korte opdrachtbubble tijdens race.
-- [ ] Toon audio- en hintknop.
-- [ ] Toon speed-meter en sterren.
-- [ ] Maak race 30 seconden voor MVP.
-- [ ] Bouw simpele besturing: links/rechts en springen of swipe.
-- [ ] Maak obstakels uit eerder geplaatste objecten.
-- [ ] Maak verzamelsterren rond geoefende woorden.
-- [ ] Ondersteun race-opdracht `onder`.
-- [ ] Ondersteun race-opdracht `boven`.
-- [ ] Ondersteun race-opdracht `links`.
-- [ ] Ondersteun race-opdracht `rechts`.
-- [ ] Ondersteun race-opdracht `tussen`.
-- [ ] Geef +1 Speed bij correcte race-actie.
-- [ ] Vertraag vriendelijk bij fout.
-- [ ] Geef hint bij fout.
-- [ ] Eindig zonder harde game-over.
+- [x] Bouw race-scherm in dezelfde strandstijl.
+- [x] Toon avatar op magische bezem.
+- [x] Toon korte opdrachtbubble tijdens race.
+- [x] Toon audio- en hintknop.
+- [x] Toon speed-meter en sterren.
+- [x] Maak race 30 seconden voor MVP.
+- [x] Bouw simpele besturing: links/rechts en springen of swipe.
+- [x] Maak obstakels uit eerder geplaatste objecten.
+- [x] Maak verzamelsterren rond geoefende woorden.
+- [x] Ondersteun race-opdracht `onder`.
+- [x] Ondersteun race-opdracht `boven`.
+- [x] Ondersteun race-opdracht `links`.
+- [x] Ondersteun race-opdracht `rechts`.
+- [x] Ondersteun race-opdracht `tussen`.
+- [x] Geef +1 Speed bij correcte race-actie.
+- [x] Vertraag vriendelijk bij fout.
+- [x] Geef hint bij fout.
+- [x] Eindig zonder harde game-over.
 
 ## Fase 13: Resultaat- En Beloningsscherm
 

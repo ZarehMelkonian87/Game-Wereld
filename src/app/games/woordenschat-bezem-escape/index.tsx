@@ -3,7 +3,11 @@ import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import { RaceScreen, RewardScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
-import type { SceneBuilderInstruction, VocabularyChoiceInstruction } from "./types";
+import type {
+  BroomRaceInstruction,
+  SceneBuilderInstruction,
+  VocabularyChoiceInstruction,
+} from "./types";
 
 type GameScreenPreview = "race" | "reward" | "scene-builder" | "word-choice";
 
@@ -89,6 +93,20 @@ function getVocabularyChoiceInstructions() {
 
 const wordChoiceInstructions = getVocabularyChoiceInstructions();
 
+function getBroomRaceInstructions() {
+  const instructions = beachWorld.instructions.filter(
+    (item): item is BroomRaceInstruction => item.mode === "broom-escape-run",
+  );
+
+  if (instructions.length === 0) {
+    throw new Error("Woordenschat Bezem Escape mist race-opdrachten.");
+  }
+
+  return instructions;
+}
+
+const raceInstructions = getBroomRaceInstructions();
+
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
@@ -108,7 +126,7 @@ export function WoordenschatBezemEscapeGame() {
           {screenPreview === "reward" ? (
             <RewardScreen />
           ) : screenPreview === "race" ? (
-            <RaceScreen />
+            <RaceScreen instructions={raceInstructions} objects={beachWorld.objects} />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen instructions={wordChoiceInstructions} objects={beachWorld.objects} />
           ) : (
@@ -121,7 +139,7 @@ export function WoordenschatBezemEscapeGame() {
               showTrayLabels={showTrayLabels}
             />
           )}
-          {screenPreview === "scene-builder" || screenPreview === "word-choice" ? null : (
+          {screenPreview !== "reward" ? null : (
             <TopHud showHint={screenPreview !== "reward"} starCount={0} />
           )}
         </>
