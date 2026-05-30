@@ -5,10 +5,10 @@ Deze map is voor volledige game-schermen.
 Huidige schermen:
 
 - `SceneBuilderScreen`
+- `WordChoiceScreen`
 
 Voorbeelden die hier later komen:
 
-- `WordChoiceScreen`
 - `RaceScreen`
 - `RewardScreen`
 - `StartScreen`

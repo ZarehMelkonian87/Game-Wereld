@@ -234,11 +234,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.12: Woord Kiezen Scherm Als Statische Layout
 
-- [ ] Maak `WordChoiceScreen.tsx`.
-- [ ] Toon alleen vraagpaneel, target-card en 2 antwoordkaarten.
-- [ ] Gebruik nog geen echte antwoordlogica.
-- [ ] Gebruik nog geen 6 antwoordkaarten zoals de mockup totdat 2 opties goed werken.
-- [ ] Test portrait en landscape.
+- [x] Maak `WordChoiceScreen.tsx`.
+- [x] Toon alleen vraagpaneel, target-card en 2 antwoordkaarten.
+- [x] Gebruik nog geen echte antwoordlogica.
+- [x] Gebruik nog geen 6 antwoordkaarten zoals de mockup totdat 2 opties goed werken.
+- [x] Test portrait en landscape.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.13: Race Scherm Als Statische Layout
