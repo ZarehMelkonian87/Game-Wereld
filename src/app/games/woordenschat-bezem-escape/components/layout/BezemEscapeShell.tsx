@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import type { GameWorld } from "../types";
+import type { GameWorld } from "../../types";
+import { GameStage } from "./GameStage";
 
 interface BezemEscapeShellProps {
   children: ReactNode;
@@ -14,15 +15,9 @@ export function BezemEscapeShell({ children, world }: BezemEscapeShellProps) {
       data-object-count={world.objects.length}
       data-instruction-count={world.instructions.length}
       aria-label="+1 Woordenschat Bezem Escape"
-      className="h-[100svh] overflow-hidden bg-[#c7f1ee] p-3 text-slate-900"
+      className="fixed inset-0 h-[100dvh] w-screen overflow-hidden bg-sky-100 text-slate-900"
     >
-      <section
-        data-testid="bezem-escape-stage"
-        aria-label={world.name}
-        className="relative h-full w-full overflow-hidden rounded-lg border-4 border-white/80 bg-[#dff8f6] shadow-inner"
-      >
-        {children}
-      </section>
+      <GameStage name={world.name}>{children}</GameStage>
     </main>
   );
 }

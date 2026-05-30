@@ -17,6 +17,7 @@ Gebruik deze bestanden als bron van waarheid voordat een onderdeel wordt gebouwd
 - `doc/voorbeeldopdrachten-50.md` - eerste 50 Nederlandse opdrachten.
 - `doc/reward-system.md` - beloningen, +1 Speed en stickers.
 - `doc/parent-therapist-dashboard.md` - voortgangsdashboard zonder diagnose.
+- `doc/mobile-ui-mockup-analysis.md` - analyse van de mobile UI mockup-sheet.
 - `concept-art/art-direction-bible.md` - visuele stijlregels.
 - `concept-art/style-prompt.md` - vaste stijlprompt.
 - `concept-art/ui-rules.md` - harde UI-regels.
@@ -93,11 +94,11 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 - [x] Voeg tags toe voor taalgebied, moeilijkheid, object, begrip en game-modus.
 - [x] Voeg veilige feedbackteksten toe per opdrachtsoort.
 
-## Fase 2: Productie-Assets En UI Stap Voor Stap
+## Fase 2: Mobile UI Fundament Uit De Mockup-Sheet
 
-Status: opnieuw ontwerpen. De vorige poging was te druk voor een klein mobiel scherm.
+Status: opnieuw ontwerpen op basis van `mobile-ui-mockups-sheet.png`.
 
-Belangrijke regel voor deze fase: bouw nooit meerdere UI-lagen tegelijk. Elke stap moet eerst zichtbaar getest worden in portrait en landscape voordat de volgende laag erbij komt.
+Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas schermen. Bouw nooit meerdere UI-lagen tegelijk. Elke visuele stap moet zichtbaar getest worden in portrait en landscape voordat de volgende laag erbij komt.
 
 ### Fase 2.0: Oude Prototype-UI Opruimen
 
@@ -119,74 +120,110 @@ Belangrijke regel voor deze fase: bouw nooit meerdere UI-lagen tegelijk. Elke st
 - [x] Controleer kleine telefoon portrait, bijvoorbeeld 390x844.
 - [x] Controleer telefoon landscape, bijvoorbeeld 844x390.
 - [x] Maak screenshot en beoordeel samen of de achtergrondpositie goed is.
+- [x] Kies samen de achtergrondstrategie: `cover` in een game-ready scene-board.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.2: Basis Game Frame
+### Fase 2.2: Mockup Analyse En UI Contract
 
-- [ ] Voeg alleen een veilige app-rand/safe-area toe.
-- [ ] Bepaal maximale speelruimte voor het gamevlak.
-- [ ] Voeg nog geen gameplay-objecten toe.
-- [ ] Test of het gamevlak niet buiten beeld valt.
-- [ ] Test of portrait en landscape beide rustig blijven.
+- [x] Analyseer `mobile-ui-mockups-sheet.png`.
+- [x] Leg de analyse vast in `doc/mobile-ui-mockup-analysis.md`.
+- [ ] Bevestig dat de mockup-sheet een richting is, geen pixel-perfect ontwerp.
+- [ ] Bevestig dat portrait de primaire mobiele flow blijft.
+- [ ] Bevestig dat gameplay-schermen de eerste prioriteit krijgen.
+- [ ] Bevestig dat profiel, avatar, wereld, dashboard en instellingen later aparte schermen worden.
+- [ ] Bevestig dat `index.tsx` een dun entrypoint blijft.
+- [ ] Stop na deze stap voor akkoord op de UI-richting.
+
+### Fase 2.3: Component- En Folderstructuur
+
+- [x] Houd `index.tsx` klein en leesbaar.
+- [x] Maak een aparte background component.
+- [x] Maak een aparte shell/stage component.
+- [x] Maak een aparte asset-url helper.
+- [x] Verplaats layout-componenten naar `components/layout/`.
+- [ ] Maak map `components/ui/` voor herbruikbare UI-bouwstenen.
+- [ ] Maak map `screens/` voor toekomstige schermen.
+- [ ] Voeg alleen lege screen-bestanden toe wanneer we ze echt gaan bouwen.
+- [ ] Controleer dat imports logisch blijven en geen circulaire afhankelijkheden maken.
+
+### Fase 2.4: UI-Bouwstenen Uit De Mockup
+
+- [ ] Maak `HudIconButton` voor audio, hint, terug en ouderknoppen.
+- [ ] Maak `StarCounter` voor de sterbadge bovenin.
+- [ ] Maak `HintButton` met gele stijl uit de mockup.
+- [ ] Maak `RibbonTitle` voor menu-schermen zoals `Kies je profiel`.
+- [ ] Maak `PrimaryActionButton` voor groene hoofdacties.
+- [ ] Maak `PanelCard` voor witte afgeronde panels.
+- [ ] Maak `ProgressBar` voor speed en voortgang.
+- [ ] Maak `ObjectStickerButton` voor stickerkaarten in tray en woordkeuze.
+- [ ] Maak active/pressed states voor alle klikbare componenten.
+- [ ] Test alleen de losse componenten in een tijdelijke layout, niet meteen in gameplay.
+- [ ] Stop na deze stap voor visuele goedkeuring van de basisstijl.
+
+### Fase 2.5: Gameplay Top HUD Als Losse Laag
+
+- [ ] Bouw `TopHud` op basis van de mockup.
+- [ ] Plaats alleen audio linksboven.
+- [ ] Plaats alleen stercounter bovenin.
+- [ ] Plaats alleen hint rechtsboven wanneer het scherm gameplay is.
+- [ ] Voeg nog geen opdrachtbubble toe.
+- [ ] Voeg nog geen objecttray toe.
+- [ ] Voeg nog geen mode-menu toe.
+- [ ] Test dat de HUD maximaal weinig scene-ruimte inneemt.
+- [ ] Test portrait en landscape.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.3: Minimale Topbar
+### Fase 2.6: Scene Builder Layout Shell
 
-- [ ] Voeg alleen een compacte terugknop toe.
-- [ ] Voeg alleen een kleine avatar of profiel-indicator toe.
-- [ ] Voeg alleen een compacte speed-indicator toe.
-- [ ] Gebruik nog geen opdrachttekst.
-- [ ] Gebruik nog geen menu met alle modi.
-- [ ] Controleer of de topbar niet te veel hoogte inneemt.
+- [ ] Maak `SceneBuilderScreen.tsx`.
+- [ ] Voeg alleen de schermstructuur toe: opdrachtgebied, scenegebied, statusgebied, traygebied.
+- [ ] Gebruik nog geen echte opdrachttekst uit de content.
+- [ ] Gebruik nog geen objectstickers.
+- [ ] Gebruik nog geen drag-and-drop.
+- [ ] Houd de scene het grootste element.
+- [ ] Test portrait volgens mockup: opdracht boven, scene midden, tray onder.
+- [ ] Test landscape apart: controls compact, scene dominant.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.4: Game-Modus Menu Als Los Onderdeel
+### Fase 2.7: Opdrachtbubble En Audio
 
-- [ ] Ontwerp een apart compact menu voor game-modi.
-- [ ] Toon maximaal drie modi tegelijk: Plaats, Kies, Race.
-- [ ] Test menu bovenaan, onderaan en als kleine segment-control.
-- [ ] Kies pas daarna de definitieve positie.
-- [ ] Zorg dat de menu-items minimaal 44px aanraakbaar zijn.
-- [ ] Zorg dat menu-items niet te veel scene-ruimte innemen.
+- [ ] Voeg een korte opdrachtbubble toe.
+- [ ] Gebruik een speaker-icoon in of naast de bubble.
+- [ ] Toon een testzin, bijvoorbeeld `Zet de boot in het water.`
+- [ ] Test korte en langere Nederlandse zinnen.
+- [ ] Voorkom dat de bubble scene-objecten bedekt.
+- [ ] Voeg nog geen hintsysteem toe.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.5: Opdrachtbubble Als Los Onderdeel
+### Fase 2.8: Speed En Sterren Statusbalk
 
-- [ ] Voeg alleen een korte opdrachtbubble toe.
-- [ ] Plaats nog geen objecttray.
-- [ ] Voeg audio-knop toe als onderdeel van deze bubble of direct ernaast.
-- [ ] Voeg hint-knop nog niet toe tenzij er genoeg ruimte is.
-- [ ] Test of lange Nederlandse zinnen niet overlappen.
-- [ ] Test of tekst op kleine telefoon leesbaar blijft.
+- [ ] Voeg een compacte speedbar toe onder of naast de scene.
+- [ ] Voeg stervoortgang toe, bijvoorbeeld `18/30`.
+- [ ] Gebruik de mockup als richting, maar houd de balk kleiner als de scene te weinig ruimte krijgt.
+- [ ] Test of speedbar leesbaar blijft op kleine telefoon.
+- [ ] Voeg nog geen scorelogica toe.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.6: Hint En Mascotte Als Los Onderdeel
+### Fase 2.9: Objecttray Container
 
-- [ ] Plaats de mascotte alleen als kleine helper bij hint of opdracht.
-- [ ] Test mascotte links, rechts en in de opdrachtbubble.
-- [ ] Voeg een enkele hintknop toe.
-- [ ] Zorg dat mascotte geen objecten in de scene bedekt.
+- [ ] Voeg alleen een lege objecttray-container toe.
+- [ ] Test tray onderaan in portrait.
+- [ ] Test tray rechts of onderaan in landscape.
+- [ ] Voeg nog geen stickers toe.
+- [ ] Controleer dat de tray de scene niet te veel bedekt.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.7: Objecttray Zonder Scene-Objecten
-
-- [ ] Voeg een lege objecttray-container toe.
-- [ ] Test objecttray onderaan in portrait.
-- [ ] Test objecttray rechts of onderaan in landscape.
-- [ ] Voeg nog geen echte objectstickers toe.
-- [ ] Controleer of de tray de achtergrond niet te veel verbergt.
-- [ ] Stop na deze stap voor visuele goedkeuring.
-
-### Fase 2.8: Objecttray Met Drie Teststickers
+### Fase 2.10: Objecttray Met Drie Teststickers
 
 - [ ] Toon alleen drie stickers: dolfijn, boot, vuurtoren.
 - [ ] Gebruik echte transparante productie-assets.
 - [ ] Test stickerformaat op kleine telefoon.
-- [ ] Test label wel/niet tonen onder de sticker.
-- [ ] Controleer of de tray niet druk wordt.
+- [ ] Test met tekstlabel onder sticker.
+- [ ] Test zonder tekstlabel onder sticker.
+- [ ] Kies samen de beste variant.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.9: Objecttray Met Alle MVP-Stickers
+### Fase 2.11: Objecttray Met Alle MVP-Stickers
 
 - [ ] Toon alle 12 strandstickers pas nadat drie teststickers goed werken.
 - [ ] Gebruik horizontaal scrollen in portrait als dat rustiger is.
@@ -195,29 +232,55 @@ Belangrijke regel voor deze fase: bouw nooit meerdere UI-lagen tegelijk. Elke st
 - [ ] Zorg dat tekstlabels niet afleiden.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.10: Scene-Objecten Alleen Als Preview
+### Fase 2.12: Woord Kiezen Scherm Als Statische Layout
 
-- [ ] Plaats maximaal drie objecten in de scene als visuele preview.
-- [ ] Voeg nog geen drag-and-drop toe.
-- [ ] Voeg nog geen correct/fout logica toe.
-- [ ] Test objectgrootte en overlap.
-- [ ] Test of de scene nog rustig blijft.
+- [ ] Maak `WordChoiceScreen.tsx`.
+- [ ] Toon alleen vraagpaneel, target-card en 2 antwoordkaarten.
+- [ ] Gebruik nog geen echte antwoordlogica.
+- [ ] Gebruik nog geen 6 antwoordkaarten zoals de mockup totdat 2 opties goed werken.
+- [ ] Test portrait en landscape.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
-### Fase 2.11: Definitieve Fase 2 Acceptatie
+### Fase 2.13: Race Scherm Als Statische Layout
 
-- [ ] Portrait screenshot goedgekeurd.
-- [ ] Landscape screenshot goedgekeurd.
+- [ ] Maak `RaceScreen.tsx`.
+- [ ] Toon alleen race-achtergrond, avatar/bezem placeholder en drie controls.
+- [ ] Gebruik nog geen beweging of collision.
+- [ ] Gebruik nog geen obstakels.
+- [ ] Test of de controls groot genoeg zijn.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.14: Beloning Scherm Als Statische Layout
+
+- [ ] Maak `RewardScreen.tsx`.
+- [ ] Toon grote beloning, sterrenwinst en twee knoppen.
+- [ ] Gebruik mockup als richting: `Opnieuw` en `Volgende`.
+- [ ] Gebruik nog geen echte unlock-logica.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.15: Menu-Schermen Later Voorbereiden
+
+- [ ] Maak nog geen start/profiel/avatar/wereld/dashboard/settings schermen totdat gameplay-basis akkoord is.
+- [ ] Noteer wel dat ze later dezelfde `RibbonTitle`, `PanelCard`, `PrimaryActionButton` en `TopHud` gebruiken.
+- [ ] Houd bestaande app-profielen leidend zodat we geen dubbele profielsystemen bouwen.
+
+### Fase 2.16: Definitieve Fase 2 Acceptatie
+
+- [ ] Portrait screenshot van scene builder goedgekeurd.
+- [ ] Landscape screenshot van scene builder goedgekeurd.
 - [ ] Achtergrondpositie goedgekeurd.
-- [ ] Topbar positie goedgekeurd.
-- [ ] Menu positie goedgekeurd.
-- [ ] Opdrachtbubble positie goedgekeurd.
+- [ ] Top HUD goedgekeurd.
+- [ ] Opdrachtbubble goedgekeurd.
+- [ ] Speed/statusbalk goedgekeurd.
 - [ ] Objecttray positie goedgekeurd.
 - [ ] Eerste stickerformaten goedgekeurd.
+- [ ] Woord kiezen static layout goedgekeurd.
+- [ ] Race static layout goedgekeurd.
+- [ ] Beloning static layout goedgekeurd.
 - [ ] Geen kapotte afbeeldingen.
 - [ ] Geen horizontale pagina-overflow.
 - [ ] Geen belangrijke UI buiten beeld.
-- [ ] Pas na deze goedkeuring doorgaan naar Fase 3.
+- [ ] Pas na deze goedkeuring doorgaan naar echte interactie in Fase 3 en verder.
 
 ## Fase 3: Mobiele Scene Builder Layout
 
