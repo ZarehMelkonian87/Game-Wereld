@@ -2,6 +2,7 @@ import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import { RaceScreen, RewardScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
+import type { SceneBuilderInstruction } from "./types";
 
 type GameScreenPreview = "race" | "reward" | "scene-builder" | "word-choice";
 
@@ -14,16 +15,19 @@ function shouldShowUiPreview() {
 }
 
 function getInstructionPreviewText() {
-  const shortInstruction = "Zet de boot in het water.";
   const longInstruction = "Zet de boot in het water en leg daarna de bal naast de parasol.";
 
   if (typeof window === "undefined") {
-    return shortInstruction;
+    return undefined;
   }
 
-  return new URLSearchParams(window.location.search).get("instructionPreview") === "long"
-    ? longInstruction
-    : shortInstruction;
+  const instructionPreview = new URLSearchParams(window.location.search).get("instructionPreview");
+
+  if (instructionPreview === "long") {
+    return longInstruction;
+  }
+
+  return undefined;
 }
 
 function shouldShowTrayLabels() {
@@ -56,6 +60,20 @@ function getScreenPreview(): GameScreenPreview {
   return "scene-builder";
 }
 
+function getFirstSceneBuilderInstruction() {
+  const instruction = beachWorld.instructions.find(
+    (item): item is SceneBuilderInstruction => item.mode === "listen-and-place",
+  );
+
+  if (!instruction) {
+    throw new Error("Woordenschat Bezem Escape mist een scene-builder opdracht.");
+  }
+
+  return instruction;
+}
+
+const firstSceneBuilderInstruction = getFirstSceneBuilderInstruction();
+
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
@@ -79,9 +97,18 @@ export function WoordenschatBezemEscapeGame() {
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen />
           ) : (
-            <SceneBuilderScreen instructionText={instructionText} showTrayLabels={showTrayLabels} />
+            <SceneBuilderScreen
+              instruction={firstSceneBuilderInstruction}
+              instructionText={instructionText}
+              objects={beachWorld.objects}
+              showTrayLabels={showTrayLabels}
+            />
           )}
-          <TopHud showHint={screenPreview !== "reward"} starCount={0} />
+          <TopHud
+            showHint={screenPreview !== "reward"}
+            showParentBack={screenPreview === "scene-builder"}
+            starCount={0}
+          />
         </>
       )}
     </BezemEscapeShell>

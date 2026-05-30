@@ -3,6 +3,7 @@ import { classNames } from "./classNames";
 
 interface GameplayStatusBarProps {
   className?: string;
+  energyIconUrl?: string;
   speedMax: number;
   speedValue: number;
   starMax: number;
@@ -19,6 +20,7 @@ function clampPercent(value: number, max: number) {
 
 export function GameplayStatusBar({
   className,
+  energyIconUrl,
   speedMax,
   speedValue,
   starMax,
@@ -35,16 +37,29 @@ export function GameplayStatusBar({
       )}
     >
       <div
-        aria-label={`Speed: ${speedValue} van ${speedMax}`}
+        aria-label={`Bezem speed: ${speedValue} van ${speedMax}`}
         data-testid="speed-status-bar"
+        data-energy-kind="broom"
         role="meter"
         aria-valuemin={0}
         aria-valuemax={speedMax}
         aria-valuenow={Math.min(speedMax, Math.max(0, speedValue))}
         className="flex min-w-0 items-center gap-2"
       >
-        <span className="inline-flex shrink-0 items-center gap-1 text-xs font-black leading-none text-slate-900">
-          <Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
+        <span
+          data-testid="broom-energy-bar"
+          className="inline-flex shrink-0 items-center gap-1 text-xs font-black leading-none text-slate-900"
+        >
+          {energyIconUrl ? (
+            <img
+              src={energyIconUrl}
+              alt=""
+              className="h-5 w-5 object-contain"
+              draggable={false}
+            />
+          ) : (
+            <Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
+          )}
           Speed
         </span>
         <span className="min-w-0 flex-1 overflow-hidden rounded-full border-2 border-emerald-200 bg-white/85">

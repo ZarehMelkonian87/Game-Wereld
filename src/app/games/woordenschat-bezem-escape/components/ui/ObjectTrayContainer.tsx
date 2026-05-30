@@ -22,7 +22,7 @@ export function ObjectTrayContainer({
       <div
         data-testid="object-tray-container"
         className={classNames(
-          "flex h-full min-w-0 items-center gap-2 overflow-x-auto overflow-y-hidden",
+          "pointer-events-auto flex h-full min-w-0 items-center gap-2 overflow-x-auto overflow-y-hidden",
           children ? "justify-start" : "justify-center",
         )}
       >

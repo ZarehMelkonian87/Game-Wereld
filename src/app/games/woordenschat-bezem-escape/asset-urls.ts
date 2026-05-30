@@ -18,6 +18,12 @@ export const beachObjectStickerUrls = {
   zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
 
+type BeachObjectStickerId = keyof typeof beachObjectStickerUrls;
+
+export function getBeachObjectStickerUrl(assetId: string) {
+  return beachObjectStickerUrls[assetId as BeachObjectStickerId];
+}
+
 export const avatarIconUrls = {
   avatar01: new URL("./assets/icons/avatars/avatar-01.png", import.meta.url).href,
 };

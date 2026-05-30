@@ -284,18 +284,18 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 3: Mobiele Scene Builder Layout
 
-- [ ] Bouw de scene-builder als eerste echte speelmodus.
-- [ ] Houd de scene groot en centraal.
-- [ ] Houd de objectenbalk onderaan in portrait.
-- [ ] Houd de objectenbalk goed bereikbaar in landscape.
-- [ ] Toon de huidige opdracht in een korte opdrachtbubble.
-- [ ] Toon audio-knop altijd zichtbaar.
-- [ ] Toon hint-knop altijd zichtbaar.
-- [ ] Toon speed-meter als magische broom energy bar.
-- [ ] Toon sterren of woordsterren compact.
-- [ ] Maak de terugknop kindveilig, bijvoorbeeld parent-only of hold-actie.
-- [ ] Controleer dat niets buiten beeld valt op kleine telefoons.
-- [ ] Controleer dat tekst niet over knoppen of objecten valt.
+- [x] Bouw de scene-builder als eerste echte speelmodus.
+- [x] Houd de scene groot en centraal.
+- [x] Houd de objectenbalk onderaan in portrait.
+- [x] Houd de objectenbalk goed bereikbaar in landscape.
+- [x] Toon de huidige opdracht in een korte opdrachtbubble.
+- [x] Toon audio-knop altijd zichtbaar.
+- [x] Toon hint-knop altijd zichtbaar.
+- [x] Toon speed-meter als magische broom energy bar.
+- [x] Toon sterren of woordsterren compact.
+- [x] Maak de terugknop kindveilig, bijvoorbeeld parent-only of hold-actie.
+- [x] Controleer dat niets buiten beeld valt op kleine telefoons.
+- [x] Controleer dat tekst niet over knoppen of objecten valt.
 
 ## Fase 4: Luister & Plaats Interactie
 
