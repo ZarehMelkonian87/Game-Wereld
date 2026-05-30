@@ -5,6 +5,7 @@ Deze map is voor volledige game-schermen.
 Huidige schermen:
 
 - `GameMenuScreen`
+- `GameSettingsScreen`
 - `SceneBuilderScreen`
 - `WordChoiceScreen`
 - `RaceScreen`
@@ -17,7 +18,6 @@ Voorbeelden die hier later komen:
 - `ProfileSelectScreen`
 - `AvatarSelectScreen`
 - `WorldSelectScreen`
-- `SettingsScreen`
 
 Regels:
 

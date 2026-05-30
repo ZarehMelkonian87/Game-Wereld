@@ -503,11 +503,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 17: Instellingen
 
-- [ ] Voeg audio aan/uit toe.
-- [ ] Voeg hints aan/uit of hints-niveau toe.
-- [ ] Voeg reduced motion toe.
-- [ ] Voeg reset voortgang toe met ouderbevestiging.
-- [ ] Voeg korte oudertekst toe dat data oefenobservatie is.
+- [x] Voeg audio aan/uit toe.
+- [x] Voeg hints aan/uit of hints-niveau toe.
+- [x] Voeg reduced motion toe.
+- [x] Voeg reset voortgang toe met ouderbevestiging.
+- [x] Voeg korte oudertekst toe dat data oefenobservatie is.
 
 ## Fase 18: QA En Mobiele Test
 

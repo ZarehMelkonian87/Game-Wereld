@@ -29,6 +29,7 @@ import {
   recordSentenceRepeatObservation,
   type AdultRating,
 } from "../logic/progress";
+import { readBezemEscapeSettings } from "../logic/settings";
 import { speakDutch } from "../logic/speech";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
 import { useProfile } from "../../../contexts/ProfileContext";
@@ -443,6 +444,15 @@ export function SceneBuilderScreen({
   }
 
   function playInstructionAudio(text = instruction.audioText) {
+    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+      setFeedback({
+        kind: "almost",
+        mascot: "hint",
+        text: "Audio staat uit bij instellingen. Lees de opdracht samen hardop.",
+      });
+      return;
+    }
+
     if (!speakDutch(text)) {
       setFeedback({
         kind: "almost",
@@ -459,6 +469,15 @@ export function SceneBuilderScreen({
   }
 
   function handleHint() {
+    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+      setFeedback({
+        kind: "ready",
+        mascot: "hint",
+        text: "Hints staan uit bij instellingen.",
+      });
+      return;
+    }
+
     const nextHintCount = activeHintsUsed + 1;
     const nextHintLevel = ((nextHintCount - 1) % 4) + 1;
 

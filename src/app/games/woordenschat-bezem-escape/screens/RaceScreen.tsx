@@ -24,7 +24,9 @@ import {
 } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
 import { speakDutch } from "../logic/speech";
+import { readBezemEscapeSettings } from "../logic/settings";
 import type { BroomRaceInstruction, SceneObject, SpatialConcept } from "../types";
+import { useProfile } from "../../../contexts/ProfileContext";
 
 const RACE_DURATION_SECONDS = 30;
 const RACE_STATE_STORAGE_KEY = "woordenschat-bezem-escape:race-state";
@@ -238,6 +240,8 @@ function RaceControlButton({
 }
 
 export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenProps) {
+  const { currentProfile } = useProfile();
+  const profileId = currentProfile?.id ?? "demo-profile";
   const timeoutRef = useRef<number | null>(null);
   const raceResultIdRef = useRef(`race-${Date.now()}`);
   const [storedRaceState] = useState<StoredRaceState>(() => readStoredRaceState());
@@ -419,6 +423,14 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
   }
 
   function playInstructionAudio() {
+    if (!readBezemEscapeSettings(profileId).audioEnabled) {
+      setFeedback({
+        kind: "hint",
+        text: "Audio staat uit bij instellingen. Lees de race-opdracht samen hardop.",
+      });
+      return;
+    }
+
     if (!speakDutch(instruction.audioText)) {
       setFeedback({
         kind: "hint",
@@ -431,6 +443,14 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
   }
 
   function handleHint() {
+    if (!readBezemEscapeSettings(profileId).hintsEnabled) {
+      setFeedback({
+        kind: "hint",
+        text: "Hints staan uit bij instellingen.",
+      });
+      return;
+    }
+
     setHintsUsed((currentHintsUsed) => currentHintsUsed + 1);
     setFeedback({
       kind: "hint",

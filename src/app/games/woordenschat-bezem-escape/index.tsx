@@ -5,6 +5,7 @@ import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./co
 import { beachWorld } from "./content";
 import {
   GameMenuScreen,
+  GameSettingsScreen,
   ParentDashboardScreen,
   RaceScreen,
   RewardScreen,
@@ -17,7 +18,14 @@ import type {
   VocabularyChoiceInstruction,
 } from "./types";
 
-type GameScreenPreview = "dashboard" | "menu" | "race" | "reward" | "scene-builder" | "word-choice";
+type GameScreenPreview =
+  | "dashboard"
+  | "menu"
+  | "race"
+  | "reward"
+  | "scene-builder"
+  | "settings"
+  | "word-choice";
 
 const RACE_STATE_STORAGE_KEY = "woordenschat-bezem-escape:race-state";
 const RACE_RESULT_STORAGE_KEY = "woordenschat-bezem-escape:race-result";
@@ -75,6 +83,10 @@ function getScreenPreview(): GameScreenPreview {
 
   if (screen === "dashboard") {
     return "dashboard";
+  }
+
+  if (screen === "settings") {
+    return "settings";
   }
 
   if (screen === "menu") {
@@ -173,12 +185,14 @@ export function WoordenschatBezemEscapeGame() {
             />
           ) : screenPreview === "dashboard" ? (
             <ParentDashboardScreen onBackToMenu={openMenu} />
+          ) : screenPreview === "settings" ? (
+            <GameSettingsScreen onBackToMenu={openMenu} />
           ) : screenPreview === "menu" ? (
             <GameMenuScreen
               raceUnlocked={raceUnlocked}
               onOpenDashboard={() => setScreenPreview("dashboard")}
               onOpenRewards={() => setScreenPreview("reward")}
-              onOpenSettings={() => navigate("/settings")}
+              onOpenSettings={() => setScreenPreview("settings")}
               onStartRace={() => {
                 if (raceUnlocked) {
                   setScreenPreview("race");

@@ -185,6 +185,14 @@ export function saveBezemEscapeProgress(progress: BezemEscapeProgress) {
   );
 }
 
+export function resetBezemEscapeProgress(profileId: string) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.removeItem(getProgressStorageKey(profileId));
+}
+
 export function appendPracticeEvent(profileId: string, input: PracticeEventInput) {
   const progress = readBezemEscapeProgress(profileId);
   const eventId =

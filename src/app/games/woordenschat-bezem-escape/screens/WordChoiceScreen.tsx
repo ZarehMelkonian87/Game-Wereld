@@ -16,6 +16,7 @@ import {
   saveUnlockedRewardIds,
 } from "../logic/rewards";
 import { appendPracticeEvent } from "../logic/progress";
+import { readBezemEscapeSettings } from "../logic/settings";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 import { useProfile } from "../../../contexts/ProfileContext";
 
@@ -86,6 +87,14 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
   );
 
   function playQuestionAudio(text = instruction.audioText) {
+    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+      setFeedback({
+        kind: "almost",
+        text: "Audio staat uit bij instellingen. Lees de vraag samen hardop.",
+      });
+      return;
+    }
+
     if (!speakDutch(text)) {
       setFeedback({
         kind: "almost",
@@ -101,6 +110,14 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
   }
 
   function handleHint() {
+    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+      setFeedback({
+        kind: "ready",
+        text: "Hints staan uit bij instellingen.",
+      });
+      return;
+    }
+
     setHintUsedByInstruction((currentHints) => ({
       ...currentHints,
       [instruction.id]: true,
