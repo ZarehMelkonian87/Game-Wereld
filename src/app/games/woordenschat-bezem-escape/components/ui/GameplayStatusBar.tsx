@@ -2,6 +2,7 @@ import { Star, Zap } from "lucide-react";
 import { classNames } from "./classNames";
 
 interface GameplayStatusBarProps {
+  boosting?: boolean;
   className?: string;
   energyIconUrl?: string;
   speedMax: number;
@@ -19,6 +20,7 @@ function clampPercent(value: number, max: number) {
 }
 
 export function GameplayStatusBar({
+  boosting = false,
   className,
   energyIconUrl,
   speedMax,
@@ -33,6 +35,7 @@ export function GameplayStatusBar({
       data-testid="gameplay-status-bar"
       className={classNames(
         "grid h-full w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2",
+        boosting && "scale-[1.02]",
         className,
       )}
     >
@@ -65,7 +68,10 @@ export function GameplayStatusBar({
         <span className="min-w-0 flex-1 overflow-hidden rounded-full border-2 border-emerald-200 bg-white/85">
           <span
             aria-hidden="true"
-            className="block h-3 rounded-full bg-gradient-to-r from-emerald-400 to-lime-300"
+            className={classNames(
+              "block h-3 rounded-full bg-gradient-to-r from-emerald-400 to-lime-300 transition-[width] duration-300",
+              boosting && "animate-pulse",
+            )}
             style={{ width: `${speedPercent}%` }}
           />
         </span>

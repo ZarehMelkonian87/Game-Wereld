@@ -394,17 +394,17 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 10: +1 Speed En Beloningen
 
-- [ ] Geef +1 Speed voor goede taalactie.
-- [ ] Geef extra beloning voor zonder hint.
-- [ ] Geef normale beloning voor met hint.
-- [ ] Trek geen beloningen af bij fouten.
-- [ ] Toon broom energy bar.
-- [ ] Animeer speed-meter kort bij winst.
-- [ ] Tel woordsterren per ronde.
-- [ ] Ontgrendel eerste sticker.
-- [ ] Ontgrendel eerste nieuwe bezemkleur.
-- [ ] Toon beloning met mascot celebration.
-- [ ] Sla vrijgespeelde beloningen per profiel op.
+- [x] Geef +1 Speed voor goede taalactie.
+- [x] Geef extra beloning voor zonder hint.
+- [x] Geef normale beloning voor met hint.
+- [x] Trek geen beloningen af bij fouten.
+- [x] Toon broom energy bar.
+- [x] Animeer speed-meter kort bij winst.
+- [x] Tel woordsterren per ronde.
+- [x] Ontgrendel eerste sticker.
+- [x] Ontgrendel eerste nieuwe bezemkleur.
+- [x] Toon beloning met mascot celebration.
+- [x] Sla vrijgespeelde beloningen per profiel op.
 
 ## Fase 11: Scene Afronden En Race Starten
 

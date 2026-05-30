@@ -1,5 +1,5 @@
 import { CheckCircle2, Sparkles, Volume2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
 import { TopHud } from "../components";
 import {
@@ -10,7 +10,13 @@ import {
   PrimaryActionButton,
 } from "../components/ui";
 import { speakDutch } from "../logic/speech";
+import {
+  readUnlockedRewardIds,
+  resolveNewRewardUnlocks,
+  saveUnlockedRewardIds,
+} from "../logic/rewards";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
+import { useProfile } from "../../../contexts/ProfileContext";
 
 interface WordChoiceScreenProps {
   instructions: VocabularyChoiceInstruction[];
@@ -20,6 +26,7 @@ interface WordChoiceScreenProps {
 interface FeedbackState {
   kind: "almost" | "correct" | "ready";
   repeatText?: string;
+  rewardLabels?: string[];
   text: string;
 }
 
@@ -32,11 +39,17 @@ function uniquePush(values: string[], value: string) {
 }
 
 export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProps) {
+  const { currentProfile } = useProfile();
+  const rewardProfileId = currentProfile?.id ?? "demo-profile";
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [speedValue, setSpeedValue] = useState(0);
+  const [speedBoosting, setSpeedBoosting] = useState(false);
   const [wordStarValue, setWordStarValue] = useState(0);
+  const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
+    readUnlockedRewardIds(rewardProfileId),
+  );
   const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
   const [hintUsedByInstruction, setHintUsedByInstruction] = useState<Record<string, boolean>>({});
   const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
@@ -46,6 +59,10 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
   const targetObject = objects.find((object) => object.id === instruction.targetObjectIds[0]);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const usedHint = Boolean(hintUsedByInstruction[instruction.id]);
+
+  useEffect(() => {
+    setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
+  }, [rewardProfileId]);
   const answerOptions = useMemo(
     () =>
       instruction.answerOptions
@@ -99,13 +116,39 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
     if (answerId === instruction.targetObjectIds[0]) {
       const word = targetObject?.label ?? instruction.targetWord;
       const recognitionSetter = usedHint ? setRecognizedWithHint : setRecognizedWithoutHelp;
+      const bonusEarned = !usedHint;
+      const earnedSpeed = instruction.reward.speed + (bonusEarned ? 1 : 0);
+      const earnedWordStars = instruction.reward.wordStars + (bonusEarned ? 1 : 0);
+      const nextSpeedValue = speedValue + earnedSpeed;
+      const nextWordStarValue = wordStarValue + earnedWordStars;
+      const newRewardUnlocks = resolveNewRewardUnlocks({
+        totalSpeed: nextSpeedValue,
+        totalWordStars: nextWordStarValue,
+        unlockedRewardIds,
+      });
+      const nextUnlockedRewardIds = [
+        ...unlockedRewardIds,
+        ...newRewardUnlocks.map((reward) => reward.id),
+      ];
+
       recognitionSetter((currentWords) => uniquePush(currentWords, word));
-      setSpeedValue((currentSpeed) => currentSpeed + instruction.reward.speed);
-      setWordStarValue((currentStars) => currentStars + instruction.reward.wordStars);
+      setSpeedValue(nextSpeedValue);
+      setWordStarValue(nextWordStarValue);
+      setSpeedBoosting(true);
+      window.setTimeout(() => setSpeedBoosting(false), 450);
+
+      if (newRewardUnlocks.length > 0) {
+        setUnlockedRewardIds(nextUnlockedRewardIds);
+        saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
+      }
+
       setFeedback({
         kind: "correct",
+        rewardLabels: newRewardUnlocks.map((reward) => reward.label),
         repeatText: instruction.feedbackCopy.repeatAfterSuccess,
-        text: instruction.feedbackCopy.correct,
+        text: bonusEarned
+          ? `${instruction.feedbackCopy.correct} Bonus zonder hint!`
+          : instruction.feedbackCopy.correct,
       });
       return;
     }
@@ -136,6 +179,7 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
       data-difficult-words={difficultWords.join(",")}
       data-recognized-with-help={recognizedWithHint.join(",")}
       data-recognized-without-help={recognizedWithoutHelp.join(",")}
+      data-unlocked-rewards={unlockedRewardIds.join(",")}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
       <TopHud
@@ -172,6 +216,14 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
             {feedback?.repeatText ? (
               <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
                 Zeg na: {feedback.repeatText}
+              </p>
+            ) : null}
+            {feedback?.rewardLabels && feedback.rewardLabels.length > 0 ? (
+              <p
+                className="mt-1 text-[0.7rem] font-black leading-tight text-amber-900"
+                data-testid="word-choice-reward-unlock-message"
+              >
+                Nieuwe beloning: {feedback.rewardLabels.join(", ")}
               </p>
             ) : null}
           </div>
@@ -211,6 +263,7 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
           className="flex min-h-0 items-center !p-2 landscape:col-start-1 landscape:row-start-3"
         >
           <GameplayStatusBar
+            boosting={speedBoosting}
             energyIconUrl={broomIconUrls.basic}
             speedMax={10}
             speedValue={speedValue}

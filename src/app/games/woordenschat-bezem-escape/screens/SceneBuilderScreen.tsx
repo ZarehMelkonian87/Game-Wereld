@@ -17,8 +17,14 @@ import {
   supportedSceneBuilderConcepts,
   zoneSupportsConcept,
 } from "../logic/scene-zones";
+import {
+  readUnlockedRewardIds,
+  resolveNewRewardUnlocks,
+  saveUnlockedRewardIds,
+} from "../logic/rewards";
 import { speakDutch } from "../logic/speech";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
+import { useProfile } from "../../../contexts/ProfileContext";
 
 interface SceneBuilderScreenProps {
   instructions: SceneBuilderInstruction[];
@@ -44,6 +50,7 @@ interface FeedbackState {
   kind: "almost" | "correct" | "ready";
   mascot?: "celebration" | "hint";
   repeatText?: string;
+  rewardLabels?: string[];
   text: string;
 }
 
@@ -108,6 +115,8 @@ export function SceneBuilderScreen({
   zones,
   showTrayLabels = false,
 }: SceneBuilderScreenProps) {
+  const { currentProfile } = useProfile();
+  const rewardProfileId = currentProfile?.id ?? "demo-profile";
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
   const sceneAreaRef = useRef<HTMLElement | null>(null);
   const dragStateRef = useRef<DragState | null>(null);
@@ -135,7 +144,11 @@ export function SceneBuilderScreen({
     partial: 0,
   });
   const [speedValue, setSpeedValue] = useState(0);
+  const [speedBoosting, setSpeedBoosting] = useState(false);
   const [wordStarValue, setWordStarValue] = useState(0);
+  const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
+    readUnlockedRewardIds(rewardProfileId),
+  );
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
@@ -143,6 +156,10 @@ export function SceneBuilderScreen({
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
+
+  useEffect(() => {
+    setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
+  }, [rewardProfileId]);
 
   function updateDragState(nextDragState: DragState | null) {
     dragStateRef.current = nextDragState;
@@ -236,6 +253,21 @@ export function SceneBuilderScreen({
   }
 
   function placeCorrectObject() {
+    const bonusEarned = activeHintsUsed === 0;
+    const earnedSpeed = instruction.reward.speed + (bonusEarned ? 1 : 0);
+    const earnedWordStars = instruction.reward.wordStars + (bonusEarned ? 1 : 0);
+    const nextSpeedValue = speedValue + earnedSpeed;
+    const nextWordStarValue = wordStarValue + earnedWordStars;
+    const newRewardUnlocks = resolveNewRewardUnlocks({
+      totalSpeed: nextSpeedValue,
+      totalWordStars: nextWordStarValue,
+      unlockedRewardIds,
+    });
+    const nextUnlockedRewardIds = [
+      ...unlockedRewardIds,
+      ...newRewardUnlocks.map((reward) => reward.id),
+    ];
+
     setPlacedObjects((currentPlacedObjects) => [
       ...currentPlacedObjects.filter(
         (placedObject) => placedObject.instructionId !== instruction.id,
@@ -246,13 +278,24 @@ export function SceneBuilderScreen({
         zoneId: instruction.placement.zoneId,
       },
     ]);
-    setSpeedValue((currentSpeed) => currentSpeed + instruction.reward.speed);
-    setWordStarValue((currentStars) => currentStars + instruction.reward.wordStars);
+    setSpeedValue(nextSpeedValue);
+    setWordStarValue(nextWordStarValue);
+    setSpeedBoosting(true);
+    window.setTimeout(() => setSpeedBoosting(false), 450);
+
+    if (newRewardUnlocks.length > 0) {
+      setUnlockedRewardIds(nextUnlockedRewardIds);
+      saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
+    }
+
     setFeedback({
       kind: "correct",
       mascot: "celebration",
+      rewardLabels: newRewardUnlocks.map((reward) => reward.label),
       repeatText: instruction.feedbackCopy.repeatAfterSuccess,
-      text: instruction.feedbackCopy.correct,
+      text: bonusEarned
+        ? `${instruction.feedbackCopy.correct} Bonus zonder hint!`
+        : instruction.feedbackCopy.correct,
     });
   }
 
@@ -535,6 +578,7 @@ export function SceneBuilderScreen({
         typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
       }
       data-named-words={activelyNamedWords.join(",")}
+      data-unlocked-rewards={unlockedRewardIds.join(",")}
       data-sentence-repeat-good={sentenceRepeatStats.good}
       data-sentence-repeat-help={sentenceRepeatStats.help}
       data-sentence-repeat-partial={sentenceRepeatStats.partial}
@@ -652,6 +696,14 @@ export function SceneBuilderScreen({
                       Bezemspreuk: {feedback.repeatText}
                     </p>
                   ) : null}
+                  {feedback.rewardLabels && feedback.rewardLabels.length > 0 ? (
+                    <p
+                      className="mt-1 text-[0.7rem] font-black leading-tight text-amber-900"
+                      data-testid="reward-unlock-message"
+                    >
+                      Nieuwe beloning: {feedback.rewardLabels.join(", ")}
+                    </p>
+                  ) : null}
                 </div>
               </div>
               {feedback.kind === "correct" ? (
@@ -730,6 +782,7 @@ export function SceneBuilderScreen({
         >
           <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
             <GameplayStatusBar
+              boosting={speedBoosting}
               energyIconUrl={broomIconUrls.basic}
               speedMax={10}
               speedValue={speedValue}
