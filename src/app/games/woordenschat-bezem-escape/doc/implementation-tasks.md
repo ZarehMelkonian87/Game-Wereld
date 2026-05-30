@@ -225,11 +225,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.11: Objecttray Met Alle MVP-Stickers
 
-- [ ] Toon alle 12 strandstickers pas nadat drie teststickers goed werken.
-- [ ] Gebruik horizontaal scrollen in portrait als dat rustiger is.
-- [ ] Gebruik verticale of compacte tray in landscape als dat rustiger is.
-- [ ] Zorg dat stickers niet te klein worden.
-- [ ] Zorg dat tekstlabels niet afleiden.
+- [x] Toon alle 12 strandstickers pas nadat drie teststickers goed werken.
+- [x] Gebruik horizontaal scrollen in portrait als dat rustiger is.
+- [x] Gebruik verticale of compacte tray in landscape als dat rustiger is.
+- [x] Zorg dat stickers niet te klein worden.
+- [x] Zorg dat tekstlabels niet afleiden.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.12: Woord Kiezen Scherm Als Statische Layout

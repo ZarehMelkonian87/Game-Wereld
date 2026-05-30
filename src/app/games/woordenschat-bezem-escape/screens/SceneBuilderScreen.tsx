@@ -12,10 +12,19 @@ interface SceneBuilderScreenProps {
   showTrayLabels?: boolean;
 }
 
-const testTrayObjects = [
+const mvpTrayObjects = [
   { id: "dolfijn", label: "Dolfijn", imageUrl: beachObjectStickerUrls.dolfijn },
   { id: "boot", label: "Boot", imageUrl: beachObjectStickerUrls.boot },
   { id: "vuurtoren", label: "Vuurtoren", imageUrl: beachObjectStickerUrls.vuurtoren },
+  { id: "vliegtuig", label: "Vliegtuig", imageUrl: beachObjectStickerUrls.vliegtuig },
+  { id: "vlieger", label: "Vlieger", imageUrl: beachObjectStickerUrls.vlieger },
+  { id: "bal", label: "Bal", imageUrl: beachObjectStickerUrls.bal },
+  { id: "parasol", label: "Parasol", imageUrl: beachObjectStickerUrls.parasol },
+  { id: "schelp", label: "Schelp", imageUrl: beachObjectStickerUrls.schelp },
+  { id: "krab", label: "Krab", imageUrl: beachObjectStickerUrls.krab },
+  { id: "zandkasteel", label: "Zandkasteel", imageUrl: beachObjectStickerUrls.zandkasteel },
+  { id: "handdoek", label: "Handdoek", imageUrl: beachObjectStickerUrls.handdoek },
+  { id: "zon", label: "Zon", imageUrl: beachObjectStickerUrls.zon },
 ];
 
 export function SceneBuilderScreen({
@@ -54,7 +63,7 @@ export function SceneBuilderScreen({
           data-testid="scene-builder-tray-area"
           className="landscape:col-span-2 landscape:row-start-3"
         >
-          {testTrayObjects.map((object) => (
+          {mvpTrayObjects.map((object) => (
             <ObjectStickerButton
               imageUrl={object.imageUrl}
               key={object.id}

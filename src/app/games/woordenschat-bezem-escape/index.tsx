@@ -26,10 +26,10 @@ function getInstructionPreviewText() {
 
 function shouldShowTrayLabels() {
   if (typeof window === "undefined") {
-    return true;
+    return false;
   }
 
-  return new URLSearchParams(window.location.search).get("trayLabels") !== "false";
+  return new URLSearchParams(window.location.search).get("trayLabels") === "true";
 }
 
 export function WoordenschatBezemEscapeGame() {
