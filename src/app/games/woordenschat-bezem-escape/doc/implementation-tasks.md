@@ -382,15 +382,15 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 9: Actieve Taal En Zinnen
 
-- [ ] Voeg optionele vraag toe: `Wat zie je?`.
-- [ ] Voeg ouder/logopedist knoppen toe: goed, bijna goed, met hulp.
-- [ ] Registreer actief benoemde woorden.
-- [ ] Voeg korte zinsnazeg-opdrachten toe als bezemspreuk.
-- [ ] Voeg ouder/logopedist beoordeling toe voor zinsnazeggen.
-- [ ] Registreer korte zin goed.
-- [ ] Registreer gedeeltelijk herhaald.
-- [ ] Registreer met hulp.
-- [ ] Houd deze stap optioneel als de eerste MVP te groot wordt.
+- [x] Voeg optionele vraag toe: `Wat zie je?`.
+- [x] Voeg ouder/logopedist knoppen toe: goed, bijna goed, met hulp.
+- [x] Registreer actief benoemde woorden.
+- [x] Voeg korte zinsnazeg-opdrachten toe als bezemspreuk.
+- [x] Voeg ouder/logopedist beoordeling toe voor zinsnazeggen.
+- [x] Registreer korte zin goed.
+- [x] Registreer gedeeltelijk herhaald.
+- [x] Registreer met hulp.
+- [x] Houd deze stap optioneel als de eerste MVP te groot wordt.
 
 ## Fase 10: +1 Speed En Beloningen
 

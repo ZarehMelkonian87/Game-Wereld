@@ -63,6 +63,12 @@ interface HintUsageEvent {
   usedAt: string;
 }
 
+interface PracticeRatingStats {
+  good: number;
+  help: number;
+  partial: number;
+}
+
 function toDisplayLabel(label: string) {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
@@ -75,6 +81,10 @@ function getTrayObjects(objects: SceneObject[]) {
       label: toDisplayLabel(object.label),
     }))
     .filter((object): object is TrayObject => Boolean(object.imageUrl));
+}
+
+function uniquePush(values: string[], value: string) {
+  return values.includes(value) ? values : [...values, value];
 }
 
 const conceptExplanation: Record<string, string> = {
@@ -113,6 +123,17 @@ export function SceneBuilderScreen({
   const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
   const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
   const [hintEvents, setHintEvents] = useState<HintUsageEvent[]>([]);
+  const [activelyNamedWords, setActivelyNamedWords] = useState<string[]>([]);
+  const [activeVocabularyStats, setActiveVocabularyStats] = useState<PracticeRatingStats>({
+    good: 0,
+    help: 0,
+    partial: 0,
+  });
+  const [sentenceRepeatStats, setSentenceRepeatStats] = useState<PracticeRatingStats>({
+    good: 0,
+    help: 0,
+    partial: 0,
+  });
   const [speedValue, setSpeedValue] = useState(0);
   const [wordStarValue, setWordStarValue] = useState(0);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
@@ -344,6 +365,23 @@ export function SceneBuilderScreen({
     }
   }
 
+  function recordActiveVocabulary(rating: keyof PracticeRatingStats) {
+    const word = targetObject?.label ?? instruction.placement.objectId;
+
+    setActivelyNamedWords((currentWords) => uniquePush(currentWords, word));
+    setActiveVocabularyStats((currentStats) => ({
+      ...currentStats,
+      [rating]: currentStats[rating] + 1,
+    }));
+  }
+
+  function recordSentenceRepeat(rating: keyof PracticeRatingStats) {
+    setSentenceRepeatStats((currentStats) => ({
+      ...currentStats,
+      [rating]: currentStats[rating] + 1,
+    }));
+  }
+
   function handleObjectDrop(objectId: string, clientX: number, clientY: number) {
     const droppedZone = getZoneFromViewportPoint(clientX, clientY);
     setSelectedObjectId(objectId);
@@ -490,9 +528,16 @@ export function SceneBuilderScreen({
       data-active-instruction-id={instruction.id}
       data-active-audio-repeats={activeAudioRepeats}
       data-active-hints-used={activeHintsUsed}
+      data-active-vocabulary-good={activeVocabularyStats.good}
+      data-active-vocabulary-help={activeVocabularyStats.help}
+      data-active-vocabulary-partial={activeVocabularyStats.partial}
       data-audio-supported={
         typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
       }
+      data-named-words={activelyNamedWords.join(",")}
+      data-sentence-repeat-good={sentenceRepeatStats.good}
+      data-sentence-repeat-help={sentenceRepeatStats.help}
+      data-sentence-repeat-partial={sentenceRepeatStats.partial}
       data-hint-event-count={hintEvents.length}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
@@ -585,7 +630,7 @@ export function SceneBuilderScreen({
             <PanelCard
               aria-live="polite"
               data-testid="scene-builder-feedback"
-              className="pointer-events-none absolute bottom-3 left-3 right-3 !rounded-2xl !p-2"
+              className="pointer-events-auto absolute bottom-3 left-3 right-3 !rounded-2xl !p-2"
             >
               <div className="flex items-center gap-2">
                 {feedback.mascot ? (
@@ -604,11 +649,76 @@ export function SceneBuilderScreen({
                   <p className="text-xs font-black leading-tight text-slate-900">{feedback.text}</p>
                   {feedback.repeatText ? (
                     <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
-                      Zeg na: {feedback.repeatText}
+                      Bezemspreuk: {feedback.repeatText}
                     </p>
                   ) : null}
                 </div>
               </div>
+              {feedback.kind === "correct" ? (
+                <div
+                  data-testid="active-language-panel"
+                  className="mt-2 grid grid-cols-2 gap-2 text-[0.65rem] font-black leading-none text-slate-800"
+                >
+                  <div className="min-w-0">
+                    <p className="mb-1 truncate">Wat zie je?</p>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
+                        data-testid="active-vocabulary-good"
+                        onClick={() => recordActiveVocabulary("good")}
+                        type="button"
+                      >
+                        Goed
+                      </button>
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
+                        data-testid="active-vocabulary-partial"
+                        onClick={() => recordActiveVocabulary("partial")}
+                        type="button"
+                      >
+                        Bijna
+                      </button>
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
+                        data-testid="active-vocabulary-help"
+                        onClick={() => recordActiveVocabulary("help")}
+                        type="button"
+                      >
+                        Hulp
+                      </button>
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="mb-1 truncate">Zin nazeggen</p>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
+                        data-testid="sentence-repeat-good"
+                        onClick={() => recordSentenceRepeat("good")}
+                        type="button"
+                      >
+                        Goed
+                      </button>
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
+                        data-testid="sentence-repeat-partial"
+                        onClick={() => recordSentenceRepeat("partial")}
+                        type="button"
+                      >
+                        Deels
+                      </button>
+                      <button
+                        className="min-h-11 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
+                        data-testid="sentence-repeat-help"
+                        onClick={() => recordSentenceRepeat("help")}
+                        type="button"
+                      >
+                        Hulp
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </PanelCard>
           ) : null}
         </section>
