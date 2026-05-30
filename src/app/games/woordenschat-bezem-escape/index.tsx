@@ -1,5 +1,5 @@
 import { beachBackgrounds } from "./asset-urls";
-import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
+import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 
 function shouldShowUiPreview() {
@@ -19,7 +19,7 @@ export function WoordenschatBezemEscapeGame() {
         landscapeUrl={beachBackgrounds.landscape}
         portraitUrl={beachBackgrounds.portrait}
       />
-      {showUiPreview ? <UiBuildingBlocksPreview /> : null}
+      {showUiPreview ? <UiBuildingBlocksPreview /> : <TopHud showHint starCount={0} />}
     </BezemEscapeShell>
   );
 }

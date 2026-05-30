@@ -162,15 +162,15 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.5: Gameplay Top HUD Als Losse Laag
 
-- [ ] Bouw `TopHud` op basis van de mockup.
-- [ ] Plaats alleen audio linksboven.
-- [ ] Plaats alleen stercounter bovenin.
-- [ ] Plaats alleen hint rechtsboven wanneer het scherm gameplay is.
-- [ ] Voeg nog geen opdrachtbubble toe.
-- [ ] Voeg nog geen objecttray toe.
-- [ ] Voeg nog geen mode-menu toe.
-- [ ] Test dat de HUD maximaal weinig scene-ruimte inneemt.
-- [ ] Test portrait en landscape.
+- [x] Bouw `TopHud` op basis van de mockup.
+- [x] Plaats alleen audio linksboven.
+- [x] Plaats alleen stercounter bovenin.
+- [x] Plaats alleen hint rechtsboven wanneer het scherm gameplay is.
+- [x] Voeg nog geen opdrachtbubble toe.
+- [x] Voeg nog geen objecttray toe.
+- [x] Voeg nog geen mode-menu toe.
+- [x] Test dat de HUD maximaal weinig scene-ruimte inneemt.
+- [x] Test portrait en landscape.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.6: Scene Builder Layout Shell
