@@ -1,4 +1,4 @@
-import { ClipboardList, Download, Lightbulb, TrendingUp } from "lucide-react";
+import { ArrowLeft, ClipboardList, Download, Lightbulb, TrendingUp } from "lucide-react";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { PanelCard, PrimaryActionButton, RibbonTitle } from "../components/ui";
@@ -13,6 +13,10 @@ interface DashboardRow {
   detail: string;
   label: string;
   status: ObservationStatus;
+}
+
+interface ParentDashboardScreenProps {
+  onBackToMenu?: () => void;
 }
 
 const statusLabels: Record<ObservationStatus, string> = {
@@ -210,7 +214,7 @@ function buildShareSummary(params: {
   ].join("\n");
 }
 
-export function ParentDashboardScreen() {
+export function ParentDashboardScreen({ onBackToMenu }: ParentDashboardScreenProps) {
   const { currentProfile } = useProfile();
   const profileId = currentProfile?.id ?? "demo-profile";
   const profileName = currentProfile?.name ?? "Demo";
@@ -304,6 +308,18 @@ export function ParentDashboardScreen() {
     >
       <div className="mx-auto flex min-h-full max-w-3xl flex-col gap-3">
         <div className="text-center">
+          <div className="mb-2 flex justify-start">
+            <button
+              aria-label="Terug naar game menu"
+              className="inline-flex min-h-11 items-center gap-2 rounded-2xl border-2 border-slate-300 bg-white/88 px-3 text-sm font-black text-slate-900 shadow-[0_3px_0_rgba(71,85,105,0.22)] active:translate-y-0.5"
+              data-testid="dashboard-back-button"
+              onClick={onBackToMenu}
+              type="button"
+            >
+              <ArrowLeft className="h-5 w-5" strokeWidth={3} />
+              Menu
+            </button>
+          </div>
           <RibbonTitle data-testid="dashboard-title">Oefenoverzicht</RibbonTitle>
           <p className="mx-auto mt-2 max-w-md rounded-2xl border-2 border-white/80 bg-white/75 px-3 py-2 text-xs font-black leading-tight text-slate-800">
             Oefenobservatie voor thuis en logopedie. Geen diagnose en geen officiele testscore.

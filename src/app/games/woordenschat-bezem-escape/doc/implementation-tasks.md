@@ -490,16 +490,16 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 16: Navigatie En Schermen
 
-- [ ] Laat game starten vanuit het bestaande hoofdmenu.
-- [ ] Voeg wereldkeuze toe met Strandwereld.
-- [ ] Voeg game-modus keuze toe.
-- [ ] Voeg scene-builder entry toe.
-- [ ] Voeg woordkeuze entry toe.
-- [ ] Voeg race entry pas toe na scene-completion.
-- [ ] Voeg beloningen/stickers entry toe.
-- [ ] Voeg instellingen entry toe.
-- [ ] Houd menu's rustig en kindvriendelijk.
-- [ ] Gebruik dezelfde buttonstijl als de app.
+- [x] Laat game starten vanuit het bestaande hoofdmenu.
+- [x] Voeg wereldkeuze toe met Strandwereld.
+- [x] Voeg game-modus keuze toe.
+- [x] Voeg scene-builder entry toe.
+- [x] Voeg woordkeuze entry toe.
+- [x] Voeg race entry pas toe na scene-completion.
+- [x] Voeg beloningen/stickers entry toe.
+- [x] Voeg instellingen entry toe.
+- [x] Houd menu's rustig en kindvriendelijk.
+- [x] Gebruik dezelfde buttonstijl als de app.
 
 ## Fase 17: Instellingen
 

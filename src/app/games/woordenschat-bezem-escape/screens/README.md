@@ -4,6 +4,7 @@ Deze map is voor volledige game-schermen.
 
 Huidige schermen:
 
+- `GameMenuScreen`
 - `SceneBuilderScreen`
 - `WordChoiceScreen`
 - `RaceScreen`

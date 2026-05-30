@@ -4,6 +4,7 @@ import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import {
+  GameMenuScreen,
   ParentDashboardScreen,
   RaceScreen,
   RewardScreen,
@@ -16,7 +17,10 @@ import type {
   VocabularyChoiceInstruction,
 } from "./types";
 
-type GameScreenPreview = "dashboard" | "race" | "reward" | "scene-builder" | "word-choice";
+type GameScreenPreview = "dashboard" | "menu" | "race" | "reward" | "scene-builder" | "word-choice";
+
+const RACE_STATE_STORAGE_KEY = "woordenschat-bezem-escape:race-state";
+const RACE_RESULT_STORAGE_KEY = "woordenschat-bezem-escape:race-result";
 
 function shouldShowUiPreview() {
   if (typeof window === "undefined") {
@@ -52,7 +56,7 @@ function shouldShowTrayLabels() {
 
 function getScreenPreview(): GameScreenPreview {
   if (typeof window === "undefined") {
-    return "scene-builder";
+    return "menu";
   }
 
   const screen = new URLSearchParams(window.location.search).get("screen");
@@ -73,7 +77,11 @@ function getScreenPreview(): GameScreenPreview {
     return "dashboard";
   }
 
-  return "scene-builder";
+  if (screen === "menu") {
+    return "menu";
+  }
+
+  return "menu";
 }
 
 function getSceneBuilderInstructions() {
@@ -118,19 +126,33 @@ function getBroomRaceInstructions() {
 
 const raceInstructions = getBroomRaceInstructions();
 
+function hasSavedRaceState() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return Boolean(window.sessionStorage.getItem(RACE_STATE_STORAGE_KEY));
+}
+
 export function WoordenschatBezemEscapeGame() {
   const navigate = useNavigate();
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
   const showTrayLabels = shouldShowTrayLabels();
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
+  const [raceUnlocked, setRaceUnlocked] = useState(() => hasSavedRaceState());
 
   function resetRound() {
     if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem("woordenschat-bezem-escape:race-result");
+      window.sessionStorage.removeItem(RACE_RESULT_STORAGE_KEY);
     }
 
     setScreenPreview("scene-builder");
+  }
+
+  function openMenu() {
+    setRaceUnlocked(hasSavedRaceState());
+    setScreenPreview("menu");
   }
 
   return (
@@ -146,11 +168,25 @@ export function WoordenschatBezemEscapeGame() {
           {screenPreview === "reward" ? (
             <RewardScreen
               onBackToMenu={() => navigate("/games/language")}
-              onChooseWorld={resetRound}
+              onChooseWorld={openMenu}
               onPlayAgain={resetRound}
             />
           ) : screenPreview === "dashboard" ? (
-            <ParentDashboardScreen />
+            <ParentDashboardScreen onBackToMenu={openMenu} />
+          ) : screenPreview === "menu" ? (
+            <GameMenuScreen
+              raceUnlocked={raceUnlocked}
+              onOpenDashboard={() => setScreenPreview("dashboard")}
+              onOpenRewards={() => setScreenPreview("reward")}
+              onOpenSettings={() => navigate("/settings")}
+              onStartRace={() => {
+                if (raceUnlocked) {
+                  setScreenPreview("race");
+                }
+              }}
+              onStartSceneBuilder={() => setScreenPreview("scene-builder")}
+              onStartWordChoice={() => setScreenPreview("word-choice")}
+            />
           ) : screenPreview === "race" ? (
             <RaceScreen
               instructions={raceInstructions}
@@ -164,7 +200,10 @@ export function WoordenschatBezemEscapeGame() {
               instructions={sceneBuilderInstructions}
               instructionText={instructionText}
               objects={beachWorld.objects}
-              onStartRace={() => setScreenPreview("race")}
+              onStartRace={() => {
+                setRaceUnlocked(true);
+                setScreenPreview("race");
+              }}
               zones={beachWorld.zones}
               showTrayLabels={showTrayLabels}
             />
