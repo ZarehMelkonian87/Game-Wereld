@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
@@ -92,7 +93,7 @@ export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
   const showTrayLabels = shouldShowTrayLabels();
-  const screenPreview = getScreenPreview();
+  const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
 
   return (
     <BezemEscapeShell world={beachWorld}>
@@ -115,6 +116,7 @@ export function WoordenschatBezemEscapeGame() {
               instructions={sceneBuilderInstructions}
               instructionText={instructionText}
               objects={beachWorld.objects}
+              onStartRace={() => setScreenPreview("race")}
               zones={beachWorld.zones}
               showTrayLabels={showTrayLabels}
             />

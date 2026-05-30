@@ -52,3 +52,18 @@ export function findSmallestZoneAtPoint(zones: SceneZone[], point: ScenePoint) {
 export function zoneSupportsConcept(zone: SceneZone | undefined, concept: SpatialConcept) {
   return Boolean(zone?.supportedConcepts.includes(concept));
 }
+
+export function selectedZoneMatchesTarget(
+  selectedZone: SceneZone | undefined,
+  targetZone: SceneZone | undefined,
+) {
+  if (!selectedZone || !targetZone) {
+    return false;
+  }
+
+  if (selectedZone.id === targetZone.id) {
+    return true;
+  }
+
+  return pointIsInsideZone(getZoneCenter(selectedZone), targetZone);
+}

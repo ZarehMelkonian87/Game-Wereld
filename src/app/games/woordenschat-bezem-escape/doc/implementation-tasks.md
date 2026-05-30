@@ -408,14 +408,14 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 11: Scene Afronden En Race Starten
 
-- [ ] Bepaal MVP-completeregel, bijvoorbeeld 5 goede plaatsopdrachten.
-- [ ] Detecteer wanneer de scene compleet genoeg is.
-- [ ] Toon korte positieve scene-complete feedback.
-- [ ] Laat geplaatste objecten zichtbaar.
-- [ ] Toon knop `Start race`.
-- [ ] Neem geoefende woorden mee naar de race.
-- [ ] Neem geoefende plaatsbegrippen mee naar de race.
-- [ ] Bewaar de scene-state voor de race.
+- [x] Bepaal MVP-completeregel, bijvoorbeeld 5 goede plaatsopdrachten.
+- [x] Detecteer wanneer de scene compleet genoeg is.
+- [x] Toon korte positieve scene-complete feedback.
+- [x] Laat geplaatste objecten zichtbaar.
+- [x] Toon knop `Start race`.
+- [x] Neem geoefende woorden mee naar de race.
+- [x] Neem geoefende plaatsbegrippen mee naar de race.
+- [x] Bewaar de scene-state voor de race.
 
 ## Fase 12: Bezem Escape-run MVP
 

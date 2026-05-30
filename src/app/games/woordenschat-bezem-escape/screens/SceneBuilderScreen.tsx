@@ -14,6 +14,7 @@ import {
 import {
   findSmallestZoneAtPoint,
   getZoneCenter,
+  selectedZoneMatchesTarget,
   supportedSceneBuilderConcepts,
   zoneSupportsConcept,
 } from "../logic/scene-zones";
@@ -30,6 +31,7 @@ interface SceneBuilderScreenProps {
   instructions: SceneBuilderInstruction[];
   instructionText?: string;
   objects: SceneObject[];
+  onStartRace?: () => void;
   zones: SceneZone[];
   showTrayLabels?: boolean;
 }
@@ -44,6 +46,12 @@ interface PlacedObject {
   instructionId: string;
   objectId: string;
   zoneId: string;
+}
+
+interface SceneCompletionSummary {
+  placedObjects: PlacedObject[];
+  practicedConcepts: string[];
+  practicedWords: string[];
 }
 
 interface FeedbackState {
@@ -112,6 +120,7 @@ export function SceneBuilderScreen({
   instructions,
   instructionText,
   objects,
+  onStartRace,
   zones,
   showTrayLabels = false,
 }: SceneBuilderScreenProps) {
@@ -125,6 +134,9 @@ export function SceneBuilderScreen({
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
+  const [sceneComplete, setSceneComplete] = useState(false);
+  const [sceneCompletionSummary, setSceneCompletionSummary] =
+    useState<SceneCompletionSummary | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
@@ -253,6 +265,26 @@ export function SceneBuilderScreen({
   }
 
   function placeCorrectObject() {
+    const nextPlacedObjects = [
+      ...placedObjects.filter(
+        (placedObject) => placedObject.instructionId !== instruction.id,
+      ),
+      {
+        instructionId: instruction.id,
+        objectId: instruction.placement.objectId,
+        zoneId: instruction.placement.zoneId,
+      },
+    ];
+    const nextSceneComplete = nextPlacedObjects.length >= 5;
+    const nextCompletionSummary: SceneCompletionSummary = {
+      placedObjects: nextPlacedObjects,
+      practicedConcepts: nextPlacedObjects
+        .map((placedObject) =>
+          instructions.find((item) => item.id === placedObject.instructionId)?.placement.relation,
+        )
+        .filter((concept): concept is string => Boolean(concept)),
+      practicedWords: nextPlacedObjects.map((placedObject) => placedObject.objectId),
+    };
     const bonusEarned = activeHintsUsed === 0;
     const earnedSpeed = instruction.reward.speed + (bonusEarned ? 1 : 0);
     const earnedWordStars = instruction.reward.wordStars + (bonusEarned ? 1 : 0);
@@ -268,16 +300,9 @@ export function SceneBuilderScreen({
       ...newRewardUnlocks.map((reward) => reward.id),
     ];
 
-    setPlacedObjects((currentPlacedObjects) => [
-      ...currentPlacedObjects.filter(
-        (placedObject) => placedObject.instructionId !== instruction.id,
-      ),
-      {
-        instructionId: instruction.id,
-        objectId: instruction.placement.objectId,
-        zoneId: instruction.placement.zoneId,
-      },
-    ]);
+    setPlacedObjects(nextPlacedObjects);
+    setSceneComplete(nextSceneComplete);
+    setSceneCompletionSummary(nextSceneComplete ? nextCompletionSummary : null);
     setSpeedValue(nextSpeedValue);
     setWordStarValue(nextWordStarValue);
     setSpeedBoosting(true);
@@ -293,13 +318,33 @@ export function SceneBuilderScreen({
       mascot: "celebration",
       rewardLabels: newRewardUnlocks.map((reward) => reward.label),
       repeatText: instruction.feedbackCopy.repeatAfterSuccess,
-      text: bonusEarned
-        ? `${instruction.feedbackCopy.correct} Bonus zonder hint!`
-        : instruction.feedbackCopy.correct,
+      text: [
+        instruction.feedbackCopy.correct,
+        bonusEarned ? "Bonus zonder hint!" : "",
+        nextSceneComplete ? "De scene is klaar. Je kunt de race starten!" : "",
+      ]
+        .filter(Boolean)
+        .join(" "),
     });
   }
 
+  function startRace() {
+    if (typeof window !== "undefined" && sceneCompletionSummary) {
+      window.sessionStorage.setItem(
+        "woordenschat-bezem-escape:race-state",
+        JSON.stringify(sceneCompletionSummary),
+      );
+    }
+
+    onStartRace?.();
+  }
+
   function handleConfirm() {
+    if (sceneComplete && feedback?.kind === "correct") {
+      startRace();
+      return;
+    }
+
     if (feedback?.kind === "correct") {
       advanceInstruction();
       return;
@@ -322,7 +367,7 @@ export function SceneBuilderScreen({
     }
 
     const isCorrectObject = selectedObjectId === instruction.placement.objectId;
-    const isCorrectZone = selectedZoneId === instruction.placement.zoneId;
+    const isCorrectZone = selectedZoneMatchesTarget(selectedZone, targetZone);
     const isCorrectRelation = zoneSupportsConcept(selectedZone, instruction.placement.relation);
 
     if (isCorrectObject && isCorrectZone && isCorrectRelation) {
@@ -578,6 +623,10 @@ export function SceneBuilderScreen({
         typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
       }
       data-named-words={activelyNamedWords.join(",")}
+      data-practiced-concepts={sceneCompletionSummary?.practicedConcepts.join(",") ?? ""}
+      data-practiced-words={sceneCompletionSummary?.practicedWords.join(",") ?? ""}
+      data-scene-complete={sceneComplete ? "true" : "false"}
+      data-scene-complete-count={5}
       data-unlocked-rewards={unlockedRewardIds.join(",")}
       data-sentence-repeat-good={sentenceRepeatStats.good}
       data-sentence-repeat-help={sentenceRepeatStats.help}
@@ -801,7 +850,11 @@ export function SceneBuilderScreen({
               }
               onClick={handleConfirm}
             >
-              {feedback?.kind === "correct" ? "Volgende" : "Klaar"}
+              {sceneComplete && feedback?.kind === "correct"
+                ? "Start race"
+                : feedback?.kind === "correct"
+                  ? "Volgende"
+                  : "Klaar"}
             </PrimaryActionButton>
           </div>
         </PanelCard>
