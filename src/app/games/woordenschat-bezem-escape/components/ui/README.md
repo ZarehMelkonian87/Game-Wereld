@@ -7,6 +7,7 @@ Componenten in deze map:
 - `GameplayStatusBar` - compacte speed- en sterrenstatus voor gameplay.
 - `HudIconButton` - compacte HUD-knop voor audio, terug, ouder en andere iconacties.
 - `InstructionBubble` - opdrachtbubble met speakerknop voor gameplay.
+- `ObjectTrayContainer` - lege container voor de objecttray.
 - `StarCounter` - sterbadge voor voortgang.
 - `HintButton` - gele hintknop met vaste stijl.
 - `RibbonTitle` - blauwe linttitel voor menu- en overzichtsschermen.

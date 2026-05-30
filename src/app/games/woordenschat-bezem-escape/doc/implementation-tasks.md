@@ -206,11 +206,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.9: Objecttray Container
 
-- [ ] Voeg alleen een lege objecttray-container toe.
-- [ ] Test tray onderaan in portrait.
-- [ ] Test tray rechts of onderaan in landscape.
-- [ ] Voeg nog geen stickers toe.
-- [ ] Controleer dat de tray de scene niet te veel bedekt.
+- [x] Voeg alleen een lege objecttray-container toe.
+- [x] Test tray onderaan in portrait.
+- [x] Test tray rechts of onderaan in landscape.
+- [x] Voeg nog geen stickers toe.
+- [x] Controleer dat de tray de scene niet te veel bedekt.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.10: Objecttray Met Drie Teststickers

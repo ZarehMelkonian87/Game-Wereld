@@ -2,6 +2,7 @@ export { GameplayStatusBar } from "./GameplayStatusBar";
 export { HintButton } from "./HintButton";
 export { HudIconButton } from "./HudIconButton";
 export { InstructionBubble } from "./InstructionBubble";
+export { ObjectTrayContainer } from "./ObjectTrayContainer";
 export { ObjectStickerButton } from "./ObjectStickerButton";
 export { PanelCard } from "./PanelCard";
 export { PrimaryActionButton } from "./PrimaryActionButton";
