@@ -17,6 +17,7 @@ import {
   supportedSceneBuilderConcepts,
   zoneSupportsConcept,
 } from "../logic/scene-zones";
+import { speakDutch } from "../logic/speech";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
 
 interface SceneBuilderScreenProps {
@@ -89,16 +90,6 @@ const conceptExplanation: Record<string, string> = {
   tussen: "Tussen betekent in het midden van twee dingen.",
   "ver weg": "Ver weg betekent verder naar achteren in de scene.",
 };
-
-function getDutchVoice() {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-    return undefined;
-  }
-
-  return window.speechSynthesis
-    .getVoices()
-    .find((voice) => voice.lang.toLowerCase().startsWith("nl"));
-}
 
 export function SceneBuilderScreen({
   instructions,
@@ -292,7 +283,7 @@ export function SceneBuilderScreen({
   }
 
   function playInstructionAudio(text = instruction.audioText) {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    if (!speakDutch(text)) {
       setFeedback({
         kind: "almost",
         mascot: "hint",
@@ -301,18 +292,6 @@ export function SceneBuilderScreen({
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "nl-NL";
-    utterance.rate = 0.9;
-    utterance.pitch = 1.05;
-
-    const dutchVoice = getDutchVoice();
-    if (dutchVoice) {
-      utterance.voice = dutchVoice;
-    }
-
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
     setAudioRepeatsByInstruction((currentRepeats) => ({
       ...currentRepeats,
       [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,

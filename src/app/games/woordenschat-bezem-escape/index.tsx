@@ -2,7 +2,7 @@ import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import { RaceScreen, RewardScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
-import type { SceneBuilderInstruction } from "./types";
+import type { SceneBuilderInstruction, VocabularyChoiceInstruction } from "./types";
 
 type GameScreenPreview = "race" | "reward" | "scene-builder" | "word-choice";
 
@@ -74,6 +74,20 @@ function getSceneBuilderInstructions() {
 
 const sceneBuilderInstructions = getSceneBuilderInstructions();
 
+function getVocabularyChoiceInstructions() {
+  const instructions = beachWorld.instructions.filter(
+    (item): item is VocabularyChoiceInstruction => item.mode === "choose-word",
+  );
+
+  if (instructions.length === 0) {
+    throw new Error("Woordenschat Bezem Escape mist woordkeuze-opdrachten.");
+  }
+
+  return instructions;
+}
+
+const wordChoiceInstructions = getVocabularyChoiceInstructions();
+
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
@@ -95,7 +109,7 @@ export function WoordenschatBezemEscapeGame() {
           ) : screenPreview === "race" ? (
             <RaceScreen />
           ) : screenPreview === "word-choice" ? (
-            <WordChoiceScreen />
+            <WordChoiceScreen instructions={wordChoiceInstructions} objects={beachWorld.objects} />
           ) : (
             <SceneBuilderScreen
               instructions={sceneBuilderInstructions}
@@ -105,7 +119,7 @@ export function WoordenschatBezemEscapeGame() {
               showTrayLabels={showTrayLabels}
             />
           )}
-          {screenPreview === "scene-builder" ? null : (
+          {screenPreview === "scene-builder" || screenPreview === "word-choice" ? null : (
             <TopHud showHint={screenPreview !== "reward"} starCount={0} />
           )}
         </>

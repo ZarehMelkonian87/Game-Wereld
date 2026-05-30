@@ -1,43 +1,196 @@
-import { Volume2 } from "lucide-react";
-import { beachObjectStickerUrls } from "../asset-urls";
-import { InstructionBubble, ObjectStickerButton, PanelCard } from "../components/ui";
+import { CheckCircle2, Sparkles, Volume2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
+import { TopHud } from "../components";
+import {
+  GameplayStatusBar,
+  InstructionBubble,
+  ObjectStickerButton,
+  PanelCard,
+  PrimaryActionButton,
+} from "../components/ui";
+import { speakDutch } from "../logic/speech";
+import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 
-const answerOptions = [
-  { id: "boot", label: "Boot", imageUrl: beachObjectStickerUrls.boot },
-  { id: "dolfijn", label: "Dolfijn", imageUrl: beachObjectStickerUrls.dolfijn },
-];
+interface WordChoiceScreenProps {
+  instructions: VocabularyChoiceInstruction[];
+  objects: SceneObject[];
+}
 
-export function WordChoiceScreen() {
+interface FeedbackState {
+  kind: "almost" | "correct" | "ready";
+  repeatText?: string;
+  text: string;
+}
+
+function toDisplayLabel(label: string) {
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function uniquePush(values: string[], value: string) {
+  return values.includes(value) ? values : [...values, value];
+}
+
+export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProps) {
+  const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
+  const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<FeedbackState | null>(null);
+  const [speedValue, setSpeedValue] = useState(0);
+  const [wordStarValue, setWordStarValue] = useState(0);
+  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
+  const [hintUsedByInstruction, setHintUsedByInstruction] = useState<Record<string, boolean>>({});
+  const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
+  const [recognizedWithHint, setRecognizedWithHint] = useState<string[]>([]);
+  const [difficultWords, setDifficultWords] = useState<string[]>([]);
+  const instruction = instructions[activeInstructionIndex] ?? instructions[0];
+  const targetObject = objects.find((object) => object.id === instruction.targetObjectIds[0]);
+  const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
+  const usedHint = Boolean(hintUsedByInstruction[instruction.id]);
+  const answerOptions = useMemo(
+    () =>
+      instruction.answerOptions
+        .map((objectId) => {
+          const object = objects.find((sceneObject) => sceneObject.id === objectId);
+          const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
+
+          if (!object || !imageUrl) {
+            return undefined;
+          }
+
+          return {
+            id: object.id,
+            imageUrl,
+            label: toDisplayLabel(object.label),
+          };
+        })
+        .filter((option): option is { id: string; imageUrl: string; label: string } => Boolean(option)),
+    [instruction.answerOptions, objects],
+  );
+
+  function playQuestionAudio(text = instruction.audioText) {
+    if (!speakDutch(text)) {
+      setFeedback({
+        kind: "almost",
+        text: "Audio is niet beschikbaar in deze browser. Lees de vraag samen hardop.",
+      });
+      return;
+    }
+
+    setAudioRepeatsByInstruction((currentRepeats) => ({
+      ...currentRepeats,
+      [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
+    }));
+  }
+
+  function handleHint() {
+    setHintUsedByInstruction((currentHints) => ({
+      ...currentHints,
+      [instruction.id]: true,
+    }));
+    setFeedback({
+      kind: "ready",
+      text: instruction.hint,
+    });
+  }
+
+  function handleAnswerSelect(answerId: string) {
+    setSelectedAnswerId(answerId);
+
+    if (answerId === instruction.targetObjectIds[0]) {
+      const word = targetObject?.label ?? instruction.targetWord;
+      const recognitionSetter = usedHint ? setRecognizedWithHint : setRecognizedWithoutHelp;
+      recognitionSetter((currentWords) => uniquePush(currentWords, word));
+      setSpeedValue((currentSpeed) => currentSpeed + instruction.reward.speed);
+      setWordStarValue((currentStars) => currentStars + instruction.reward.wordStars);
+      setFeedback({
+        kind: "correct",
+        repeatText: instruction.feedbackCopy.repeatAfterSuccess,
+        text: instruction.feedbackCopy.correct,
+      });
+      return;
+    }
+
+    setDifficultWords((currentWords) =>
+      uniquePush(currentWords, targetObject?.label ?? instruction.targetWord),
+    );
+    setFeedback({
+      kind: "almost",
+      text: instruction.feedbackCopy.almost ?? instruction.hint,
+    });
+  }
+
+  function advanceInstruction() {
+    setActiveInstructionIndex((currentIndex) =>
+      Math.min(currentIndex + 1, instructions.length - 1),
+    );
+    setSelectedAnswerId(null);
+    setFeedback(null);
+  }
+
   return (
     <div
       data-testid="word-choice-screen"
+      data-active-audio-repeats={activeAudioRepeats}
+      data-active-instruction-id={instruction.id}
+      data-choice-count={instruction.choiceCount}
+      data-difficult-words={difficultWords.join(",")}
+      data-recognized-with-help={recognizedWithHint.join(",")}
+      data-recognized-without-help={recognizedWithoutHelp.join(",")}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
-      <div className="grid h-full min-h-0 grid-rows-[4rem_minmax(0,1fr)_8.75rem] gap-2 landscape:grid-cols-[minmax(13rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)]">
+      <TopHud
+        onAudioClick={() => playQuestionAudio()}
+        onHintClick={handleHint}
+        showParentBack
+        starCount={wordStarValue}
+      />
+
+      <div className="grid h-full min-h-0 grid-rows-[4rem_5.5rem_minmax(0,1fr)_3.75rem] gap-2 landscape:grid-cols-[minmax(13rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_3.75rem]">
         <InstructionBubble
           aria-label="Vraagpaneel"
           data-testid="word-choice-question-panel"
-          text="Waar is de boot?"
+          onAudioClick={() => playQuestionAudio()}
+          text={instruction.prompt}
           className="landscape:col-start-1 landscape:row-start-1"
         />
 
         <PanelCard
           aria-label="Luisterkaart"
           data-testid="word-choice-target-card"
-          className="flex min-h-0 items-center justify-center landscape:col-start-1 landscape:row-start-2"
+          className="flex min-h-0 items-center gap-3 !p-2 landscape:col-start-1 landscape:row-start-2 landscape:flex-col landscape:items-stretch landscape:justify-center"
         >
           <span
             aria-hidden="true"
-            className="flex h-24 w-24 items-center justify-center rounded-[2rem] border-2 border-sky-300 bg-sky-100 text-sky-700 shadow-[0_4px_0_rgba(14,116,144,0.18)]"
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.25rem] border-2 border-sky-300 bg-sky-100 text-sky-700 shadow-[0_4px_0_rgba(14,116,144,0.18)] landscape:mx-auto landscape:h-16 landscape:w-16"
           >
-            <Volume2 className="h-12 w-12" strokeWidth={3} />
+            <Volume2 className="h-8 w-8" strokeWidth={3} />
           </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-black leading-tight text-slate-900">
+              {feedback?.text ?? "Luister en kies het plaatje."}
+            </p>
+            {feedback?.repeatText ? (
+              <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
+                Zeg na: {feedback.repeatText}
+              </p>
+            ) : null}
+          </div>
+          {feedback?.kind === "correct" ? (
+            <PrimaryActionButton
+              className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
+              data-testid="word-choice-next-button"
+              iconLeft={<Sparkles className="h-5 w-5" strokeWidth={3} />}
+              onClick={advanceInstruction}
+            >
+              Volgende
+            </PrimaryActionButton>
+          ) : null}
         </PanelCard>
 
         <PanelCard
           aria-label="Antwoordkaarten"
           data-testid="word-choice-answer-area"
-          className="grid min-h-0 grid-cols-2 items-center justify-center gap-3 p-3 landscape:col-start-2 landscape:row-span-2 landscape:row-start-1 landscape:grid-cols-2 landscape:gap-4 landscape:p-4"
+          className="grid min-h-0 grid-cols-2 items-stretch justify-center gap-3 !p-3 landscape:col-start-2 landscape:row-span-3 landscape:row-start-1 landscape:gap-4 landscape:!p-4"
         >
           {answerOptions.map((option) => (
             <ObjectStickerButton
@@ -45,9 +198,25 @@ export function WordChoiceScreen() {
               imageUrl={option.imageUrl}
               key={option.id}
               label={option.label}
+              onClick={() => handleAnswerSelect(option.id)}
+              selected={selectedAnswerId === option.id || (usedHint && option.id === instruction.targetObjectIds[0])}
               showLabel={false}
             />
           ))}
+        </PanelCard>
+
+        <PanelCard
+          aria-label="Woordkeuze status"
+          data-testid="word-choice-status-area"
+          className="flex min-h-0 items-center !p-2 landscape:col-start-1 landscape:row-start-3"
+        >
+          <GameplayStatusBar
+            energyIconUrl={broomIconUrls.basic}
+            speedMax={10}
+            speedValue={speedValue}
+            starMax={30}
+            starValue={wordStarValue}
+          />
         </PanelCard>
       </div>
     </div>

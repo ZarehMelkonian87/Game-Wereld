@@ -367,18 +367,18 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 8: Kies Het Woord Modus
 
-- [ ] Bouw de woordkeuze-layout.
-- [ ] Toon antwoordopties als grote stickercards.
-- [ ] Begin met 2 antwoordopties.
-- [ ] Ondersteun later 3 antwoordopties.
-- [ ] Ondersteun later 4 antwoordopties.
-- [ ] Speel vraag af via audio-knop: `Waar is de ...?`.
-- [ ] Controleer gekozen antwoord.
-- [ ] Herhaal het juiste woord na antwoord.
-- [ ] Geef +1 Speed bij correct herkennen.
-- [ ] Registreer herkend zonder hulp.
-- [ ] Registreer herkend met hint.
-- [ ] Markeer moeilijke woorden voor herhaling.
+- [x] Bouw de woordkeuze-layout.
+- [x] Toon antwoordopties als grote stickercards.
+- [x] Begin met 2 antwoordopties.
+- [x] Ondersteun later 3 antwoordopties.
+- [x] Ondersteun later 4 antwoordopties.
+- [x] Speel vraag af via audio-knop: `Waar is de ...?`.
+- [x] Controleer gekozen antwoord.
+- [x] Herhaal het juiste woord na antwoord.
+- [x] Geef +1 Speed bij correct herkennen.
+- [x] Registreer herkend zonder hulp.
+- [x] Registreer herkend met hint.
+- [x] Markeer moeilijke woorden voor herhaling.
 
 ## Fase 9: Actieve Taal En Zinnen
 
