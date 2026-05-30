@@ -191,3 +191,12 @@ Deze checklist is de centrale takenlijst voor `+1 Woordenschat Bezem Escape`. We
 - [ ] Browser smoke test uitvoeren.
 - [ ] Oudervriendelijke teksten nalopen.
 - [ ] Kindvriendelijke feedback nalopen.
+
+## Phase 14: Startscherm En Wereldkeuze
+
+- [ ] Nieuwe detailtakenlijst volgen: `start-world-menu-tasks.md`.
+- [x] Vrolijk startscherm bouwen met logo en grote speelknop.
+- [ ] Wereldkeuze-menu bouwen met meerdere themas.
+- [ ] Strandwereld speelbaar koppelen.
+- [ ] Toekomstige werelden voorbereid tonen.
+- [ ] Visuele QA uitvoeren in portrait en landscape.

@@ -10,6 +10,7 @@ import {
   RaceScreen,
   RewardScreen,
   SceneBuilderScreen,
+  StartScreen,
   WordChoiceScreen,
 } from "./screens";
 import type {
@@ -25,6 +26,7 @@ type GameScreenPreview =
   | "reward"
   | "scene-builder"
   | "settings"
+  | "start"
   | "word-choice";
 
 const RACE_STATE_STORAGE_KEY = "woordenschat-bezem-escape:race-state";
@@ -93,7 +95,11 @@ function getScreenPreview(): GameScreenPreview {
     return "menu";
   }
 
-  return "menu";
+  if (screen === "start") {
+    return "start";
+  }
+
+  return "start";
 }
 
 function getSceneBuilderInstructions() {
@@ -187,6 +193,12 @@ export function WoordenschatBezemEscapeGame() {
             <ParentDashboardScreen onBackToMenu={openMenu} />
           ) : screenPreview === "settings" ? (
             <GameSettingsScreen onBackToMenu={openMenu} />
+          ) : screenPreview === "start" ? (
+            <StartScreen
+              onOpenDashboard={() => setScreenPreview("dashboard")}
+              onOpenSettings={() => setScreenPreview("settings")}
+              onPlay={() => setScreenPreview("menu")}
+            />
           ) : screenPreview === "menu" ? (
             <GameMenuScreen
               raceUnlocked={raceUnlocked}

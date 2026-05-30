@@ -3,6 +3,11 @@ export const beachBackgrounds = {
   landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
 };
 
+export const startLogoUrl = new URL(
+  "./assets/logos/start-logo-b-generated-magenta.png",
+  import.meta.url,
+).href;
+
 export const beachObjectStickerUrls = {
   dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
   boot: new URL("./assets/objects/transparent/sailboat-sticker.png", import.meta.url).href,
