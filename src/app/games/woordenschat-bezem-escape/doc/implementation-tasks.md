@@ -339,17 +339,17 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 6: Drag-And-Drop Op Mobiel
 
-- [ ] Bouw pointer-based drag voor touch en muis.
-- [ ] Houd tikken als alternatief voor drag-and-drop.
-- [ ] Verhoog sticker iets tijdens slepen.
-- [ ] Toon sleepfeedback zonder layout shift.
-- [ ] Detecteer dropzone via pointerpositie.
-- [ ] Snap object naar geldige plek.
-- [ ] Zet object terug bij ongeldige plek.
-- [ ] Voorkom dat slepen de pagina laat scrollen.
-- [ ] Test drag-and-drop in portrait.
-- [ ] Test drag-and-drop in landscape.
-- [ ] Test drag-and-drop op telefoon via lokaal netwerk.
+- [x] Bouw pointer-based drag voor touch en muis.
+- [x] Houd tikken als alternatief voor drag-and-drop.
+- [x] Verhoog sticker iets tijdens slepen.
+- [x] Toon sleepfeedback zonder layout shift.
+- [x] Detecteer dropzone via pointerpositie.
+- [x] Snap object naar geldige plek.
+- [x] Zet object terug bij ongeldige plek.
+- [x] Voorkom dat slepen de pagina laat scrollen.
+- [x] Test drag-and-drop in portrait.
+- [x] Test drag-and-drop in landscape.
+- [x] Test drag-and-drop op telefoon via lokaal netwerk.
 
 ## Fase 7: Audio En Hints
 

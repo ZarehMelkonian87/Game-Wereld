@@ -1,6 +1,6 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
-import type { MouseEvent } from "react";
-import { useMemo, useState } from "react";
+import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
 import {
   GameplayStatusBar,
@@ -44,6 +44,16 @@ interface FeedbackState {
   text: string;
 }
 
+interface DragState {
+  hasMoved: boolean;
+  imageUrl: string;
+  objectId: string;
+  startX: number;
+  startY: number;
+  x: number;
+  y: number;
+}
+
 function toDisplayLabel(label: string) {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
@@ -66,11 +76,15 @@ export function SceneBuilderScreen({
   showTrayLabels = false,
 }: SceneBuilderScreenProps) {
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
+  const sceneAreaRef = useRef<HTMLElement | null>(null);
+  const dragStateRef = useRef<DragState | null>(null);
+  const suppressNextClickRef = useRef(false);
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
+  const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
   const [speedValue, setSpeedValue] = useState(0);
   const [wordStarValue, setWordStarValue] = useState(0);
@@ -79,6 +93,34 @@ export function SceneBuilderScreen({
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
   const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
+
+  function updateDragState(nextDragState: DragState | null) {
+    dragStateRef.current = nextDragState;
+    setDragState(nextDragState);
+  }
+
+  function getZoneFromViewportPoint(clientX: number, clientY: number) {
+    const sceneBounds = sceneAreaRef.current?.getBoundingClientRect();
+
+    if (!sceneBounds) {
+      return undefined;
+    }
+
+    const isInsideScene =
+      clientX >= sceneBounds.left &&
+      clientX <= sceneBounds.right &&
+      clientY >= sceneBounds.top &&
+      clientY <= sceneBounds.bottom;
+
+    if (!isInsideScene) {
+      return undefined;
+    }
+
+    return findSmallestZoneAtPoint(zones, {
+      x: ((clientX - sceneBounds.left) / sceneBounds.width) * 100,
+      y: ((clientY - sceneBounds.top) / sceneBounds.height) * 100,
+    });
+  }
 
   function resetSelection() {
     setSelectedObjectId(null);
@@ -95,6 +137,15 @@ export function SceneBuilderScreen({
     });
   }
 
+  function handleObjectActivate(objectId: string) {
+    if (suppressNextClickRef.current) {
+      suppressNextClickRef.current = false;
+      return;
+    }
+
+    handleObjectSelect(objectId);
+  }
+
   function handleSceneTap(event: MouseEvent<HTMLButtonElement>) {
     if (!selectedObjectId) {
       setFeedback({
@@ -104,11 +155,7 @@ export function SceneBuilderScreen({
       return;
     }
 
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const tappedZone = findSmallestZoneAtPoint(zones, {
-      x: ((event.clientX - bounds.left) / bounds.width) * 100,
-      y: ((event.clientY - bounds.top) / bounds.height) * 100,
-    });
+    const tappedZone = getZoneFromViewportPoint(event.clientX, event.clientY);
 
     if (!tappedZone) {
       setSelectedZoneId(null);
@@ -203,6 +250,145 @@ export function SceneBuilderScreen({
     });
   }
 
+  function handleObjectDrop(objectId: string, clientX: number, clientY: number) {
+    const droppedZone = getZoneFromViewportPoint(clientX, clientY);
+    setSelectedObjectId(objectId);
+    setShowTargetZoneHint(false);
+
+    if (!droppedZone) {
+      setSelectedZoneId(null);
+      setFeedback({
+        kind: "almost",
+        text: "Laat het plaatje los op de scene.",
+      });
+      return;
+    }
+
+    setSelectedZoneId(droppedZone.id);
+    setFeedback({
+      kind: "ready",
+      text: `Plek gekozen: ${droppedZone.label}. Druk op Klaar.`,
+    });
+  }
+
+  function handleObjectPointerDown(event: ReactPointerEvent<HTMLButtonElement>, object: TrayObject) {
+    if (event.button !== 0) {
+      return;
+    }
+
+    updateDragState({
+      hasMoved: false,
+      imageUrl: object.imageUrl,
+      objectId: object.id,
+      startX: event.clientX,
+      startY: event.clientY,
+      x: event.clientX,
+      y: event.clientY,
+    });
+  }
+
+  useEffect(() => {
+    if (!dragState) {
+      return undefined;
+    }
+
+    function handleWindowPointerMove(event: globalThis.PointerEvent) {
+      const currentDragState = dragStateRef.current;
+
+      if (!currentDragState) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const distanceFromStart = Math.hypot(
+        event.clientX - currentDragState.startX,
+        event.clientY - currentDragState.startY,
+      );
+
+      updateDragState({
+        ...currentDragState,
+        hasMoved: currentDragState.hasMoved || distanceFromStart > 8,
+        x: event.clientX,
+        y: event.clientY,
+      });
+    }
+
+    function handleWindowPointerUp(event: globalThis.PointerEvent) {
+      const currentDragState = dragStateRef.current;
+
+      if (!currentDragState) {
+        return;
+      }
+
+      updateDragState(null);
+
+      if (currentDragState.hasMoved) {
+        suppressNextClickRef.current = true;
+        handleObjectDrop(currentDragState.objectId, event.clientX, event.clientY);
+      }
+    }
+
+    function handleWindowPointerCancel() {
+      updateDragState(null);
+    }
+
+    window.addEventListener("pointermove", handleWindowPointerMove, { passive: false });
+    window.addEventListener("pointerup", handleWindowPointerUp);
+    window.addEventListener("pointercancel", handleWindowPointerCancel);
+
+    return () => {
+      window.removeEventListener("pointermove", handleWindowPointerMove);
+      window.removeEventListener("pointerup", handleWindowPointerUp);
+      window.removeEventListener("pointercancel", handleWindowPointerCancel);
+    };
+  }, [dragState]);
+
+  function handleObjectPointerMove(event: ReactPointerEvent<HTMLButtonElement>, objectId: string) {
+    const currentDragState = dragStateRef.current;
+
+    if (!currentDragState || currentDragState.objectId !== objectId) {
+      return;
+    }
+
+    const distanceFromStart = Math.hypot(
+      event.clientX - currentDragState.startX,
+      event.clientY - currentDragState.startY,
+    );
+
+    updateDragState({
+      ...currentDragState,
+      hasMoved: currentDragState.hasMoved || distanceFromStart > 8,
+      x: event.clientX,
+      y: event.clientY,
+    });
+  }
+
+  function handleObjectPointerUp(event: ReactPointerEvent<HTMLButtonElement>, objectId: string) {
+    const currentDragState = dragStateRef.current;
+
+    if (!currentDragState || currentDragState.objectId !== objectId) {
+      return;
+    }
+
+    updateDragState(null);
+
+    if (currentDragState.hasMoved) {
+      suppressNextClickRef.current = true;
+      handleObjectDrop(objectId, event.clientX, event.clientY);
+    }
+  }
+
+  function handleObjectPointerCancel(event: ReactPointerEvent<HTMLButtonElement>, objectId: string) {
+    const currentDragState = dragStateRef.current;
+
+    if (!currentDragState || currentDragState.objectId !== objectId) {
+      return;
+    }
+
+    updateDragState(null);
+  }
+
   return (
     <div
       data-testid="scene-builder-screen"
@@ -222,6 +408,7 @@ export function SceneBuilderScreen({
         <section
           aria-label="Scenegebied"
           data-testid="scene-builder-scene-area"
+          ref={sceneAreaRef}
           className="relative min-h-0 overflow-hidden rounded-[1.75rem] border-2 border-white/70 bg-white/5 shadow-[inset_0_0_0_1px_rgba(14,165,233,0.18)] landscape:col-start-2 landscape:row-span-2 landscape:row-start-1"
         >
           <button
@@ -342,14 +529,32 @@ export function SceneBuilderScreen({
               imageUrl={object.imageUrl}
               key={object.id}
               label={object.label}
-              onClick={() => handleObjectSelect(object.id)}
-              selected={selectedObjectId === object.id}
+              onClick={() => handleObjectActivate(object.id)}
+              onPointerCancel={(event) => handleObjectPointerCancel(event, object.id)}
+              onPointerDown={(event) => handleObjectPointerDown(event, object)}
+              onPointerMove={(event) => handleObjectPointerMove(event, object.id)}
+              onPointerUp={(event) => handleObjectPointerUp(event, object.id)}
+              selected={selectedObjectId === object.id || dragState?.objectId === object.id}
               showLabel={showTrayLabels}
               size="tray"
             />
           ))}
         </ObjectTrayContainer>
       </div>
+
+      {dragState ? (
+        <img
+          alt=""
+          className="pointer-events-none fixed z-30 h-16 w-16 -translate-x-1/2 -translate-y-1/2 scale-110 object-contain drop-shadow-[0_8px_0_rgba(15,23,42,0.18)]"
+          data-testid="drag-preview"
+          draggable={false}
+          src={dragState.imageUrl}
+          style={{
+            left: dragState.x,
+            top: dragState.y,
+          }}
+        />
+      ) : null}
     </div>
   );
 }
