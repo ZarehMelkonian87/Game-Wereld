@@ -266,21 +266,21 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.16: Definitieve Fase 2 Acceptatie
 
-- [ ] Portrait screenshot van scene builder goedgekeurd.
-- [ ] Landscape screenshot van scene builder goedgekeurd.
-- [ ] Achtergrondpositie goedgekeurd.
-- [ ] Top HUD goedgekeurd.
-- [ ] Opdrachtbubble goedgekeurd.
-- [ ] Speed/statusbalk goedgekeurd.
-- [ ] Objecttray positie goedgekeurd.
-- [ ] Eerste stickerformaten goedgekeurd.
-- [ ] Woord kiezen static layout goedgekeurd.
-- [ ] Race static layout goedgekeurd.
-- [ ] Beloning static layout goedgekeurd.
-- [ ] Geen kapotte afbeeldingen.
-- [ ] Geen horizontale pagina-overflow.
-- [ ] Geen belangrijke UI buiten beeld.
-- [ ] Pas na deze goedkeuring doorgaan naar echte interactie in Fase 3 en verder.
+- [x] Portrait screenshot van scene builder goedgekeurd.
+- [x] Landscape screenshot van scene builder goedgekeurd.
+- [x] Achtergrondpositie goedgekeurd.
+- [x] Top HUD goedgekeurd.
+- [x] Opdrachtbubble goedgekeurd.
+- [x] Speed/statusbalk goedgekeurd.
+- [x] Objecttray positie goedgekeurd.
+- [x] Eerste stickerformaten goedgekeurd.
+- [x] Woord kiezen static layout goedgekeurd.
+- [x] Race static layout goedgekeurd.
+- [x] Beloning static layout goedgekeurd.
+- [x] Geen kapotte afbeeldingen.
+- [x] Geen horizontale pagina-overflow.
+- [x] Geen belangrijke UI buiten beeld.
+- [x] Pas na deze goedkeuring doorgaan naar echte interactie in Fase 3 en verder.
 
 ## Fase 3: Mobiele Scene Builder Layout
 
