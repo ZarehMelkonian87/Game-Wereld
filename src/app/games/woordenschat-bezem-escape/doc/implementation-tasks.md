@@ -530,26 +530,26 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 19: Git En Publicatie
 
-- [ ] Controleer alle gewijzigde bestanden.
-- [ ] Sluit losse, niet-gerelateerde bestanden uit.
-- [ ] Draai build voor commit.
-- [ ] Maak commit voor eerste implementatiemijlpaal.
-- [ ] Push naar GitHub wanneer gevraagd.
+- [x] Controleer alle gewijzigde bestanden.
+- [x] Sluit losse, niet-gerelateerde bestanden uit.
+- [x] Draai build voor commit.
+- [x] Maak commit voor eerste implementatiemijlpaal.
+- [x] Push naar GitHub wanneer gevraagd.
 
 ## MVP Definition Of Done
 
 De eerste speelbare MVP is klaar wanneer:
 
-- [ ] het kind de game kan openen vanuit Game Wereld;
-- [ ] het kind minstens 5 strandplaatsopdrachten kan spelen;
-- [ ] het kind minstens 1 woordkeuze-ronde kan spelen;
-- [ ] audio en hintknoppen werken;
-- [ ] stickers uit de concept-art zichtbaar zijn in de game;
-- [ ] speed en woordsterren oplopen;
-- [ ] scene-completion de race kan starten;
-- [ ] race minstens 5 strandopdrachten gebruikt;
-- [ ] beloningsscherm verschijnt na de ronde;
-- [ ] voortgang per kindprofiel wordt opgeslagen;
-- [ ] dashboard oefenobservaties toont;
-- [ ] portrait en landscape goed werken op telefoon;
-- [ ] er geen officiele testscore of diagnoseclaim zichtbaar is.
+- [x] het kind de game kan openen vanuit Game Wereld;
+- [x] het kind minstens 5 strandplaatsopdrachten kan spelen;
+- [x] het kind minstens 1 woordkeuze-ronde kan spelen;
+- [x] audio en hintknoppen werken;
+- [x] stickers uit de concept-art zichtbaar zijn in de game;
+- [x] speed en woordsterren oplopen;
+- [x] scene-completion de race kan starten;
+- [x] race minstens 5 strandopdrachten gebruikt;
+- [x] beloningsscherm verschijnt na de ronde;
+- [x] voortgang per kindprofiel wordt opgeslagen;
+- [x] dashboard oefenobservaties toont;
+- [x] portrait en landscape goed werken op telefoon;
+- [x] er geen officiele testscore of diagnoseclaim zichtbaar is.
