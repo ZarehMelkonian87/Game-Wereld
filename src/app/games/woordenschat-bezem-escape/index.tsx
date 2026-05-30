@@ -60,19 +60,19 @@ function getScreenPreview(): GameScreenPreview {
   return "scene-builder";
 }
 
-function getFirstSceneBuilderInstruction() {
-  const instruction = beachWorld.instructions.find(
+function getSceneBuilderInstructions() {
+  const instructions = beachWorld.instructions.filter(
     (item): item is SceneBuilderInstruction => item.mode === "listen-and-place",
   );
 
-  if (!instruction) {
+  if (instructions.length === 0) {
     throw new Error("Woordenschat Bezem Escape mist een scene-builder opdracht.");
   }
 
-  return instruction;
+  return instructions;
 }
 
-const firstSceneBuilderInstruction = getFirstSceneBuilderInstruction();
+const sceneBuilderInstructions = getSceneBuilderInstructions();
 
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
@@ -98,9 +98,10 @@ export function WoordenschatBezemEscapeGame() {
             <WordChoiceScreen />
           ) : (
             <SceneBuilderScreen
-              instruction={firstSceneBuilderInstruction}
+              instructions={sceneBuilderInstructions}
               instructionText={instructionText}
               objects={beachWorld.objects}
+              zones={beachWorld.zones}
               showTrayLabels={showTrayLabels}
             />
           )}

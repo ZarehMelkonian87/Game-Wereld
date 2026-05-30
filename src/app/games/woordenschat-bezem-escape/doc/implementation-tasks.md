@@ -299,23 +299,23 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 4: Luister & Plaats Interactie
 
-- [ ] Maak state voor actieve opdracht.
-- [ ] Maak state voor geselecteerd object.
-- [ ] Maak state voor gekozen doelzone.
-- [ ] Maak state voor geplaatste objecten.
-- [ ] Laat kind een object selecteren met tikken.
-- [ ] Laat kind een doelplek kiezen met tikken.
-- [ ] Voeg bevestigknop toe voor jonge kinderen.
-- [ ] Controleer of het juiste object gekozen is.
-- [ ] Controleer of de juiste zone gekozen is.
-- [ ] Controleer of het juiste plaatsbegrip is toegepast.
-- [ ] Toon correcte feedback met doelwoord en zin.
-- [ ] Toon bijna-goed feedback zonder hard `fout`.
-- [ ] Herhaal het juiste woord na antwoord.
-- [ ] Herhaal de juiste plaatszin na antwoord.
-- [ ] Verhoog +1 Speed bij goede taalactie.
-- [ ] Verhoog woordster bij goede taak.
-- [ ] Ga pas door als de opdracht veilig is afgerond.
+- [x] Maak state voor actieve opdracht.
+- [x] Maak state voor geselecteerd object.
+- [x] Maak state voor gekozen doelzone.
+- [x] Maak state voor geplaatste objecten.
+- [x] Laat kind een object selecteren met tikken.
+- [x] Laat kind een doelplek kiezen met tikken.
+- [x] Voeg bevestigknop toe voor jonge kinderen.
+- [x] Controleer of het juiste object gekozen is.
+- [x] Controleer of de juiste zone gekozen is.
+- [x] Controleer of het juiste plaatsbegrip is toegepast.
+- [x] Toon correcte feedback met doelwoord en zin.
+- [x] Toon bijna-goed feedback zonder hard `fout`.
+- [x] Herhaal het juiste woord na antwoord.
+- [x] Herhaal de juiste plaatszin na antwoord.
+- [x] Verhoog +1 Speed bij goede taalactie.
+- [x] Verhoog woordster bij goede taak.
+- [x] Ga pas door als de opdracht veilig is afgerond.
 
 ## Fase 5: Dropzones En Plaatslogica
 
