@@ -511,22 +511,22 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 18: QA En Mobiele Test
 
-- [ ] Draai production build.
-- [ ] Smoke test route `/games/language/woordenschat-bezem-escape`.
-- [ ] Test op 390x844 portrait.
-- [ ] Test op 844x390 landscape.
-- [ ] Test via lokaal netwerk op telefoon.
-- [ ] Controleer geen horizontale overflow.
-- [ ] Controleer geen tekstoverlap.
-- [ ] Controleer geen onbruikbare kleine knoppen.
-- [ ] Controleer dat audio-knop zichtbaar blijft.
-- [ ] Controleer dat hint-knop zichtbaar blijft.
-- [ ] Controleer dat objectenbalk bruikbaar is.
-- [ ] Controleer dat drag werkt.
-- [ ] Controleer dat tik-alternatief werkt.
-- [ ] Controleer dat voortgang per profiel apart blijft.
-- [ ] Controleer dat dashboard geen diagnose of testscore toont.
-- [ ] Controleer dat UI-regels uit concept-art gevolgd worden.
+- [x] Draai production build.
+- [x] Smoke test route `/games/language/woordenschat-bezem-escape`.
+- [x] Test op 390x844 portrait.
+- [x] Test op 844x390 landscape.
+- [x] Test via lokaal netwerk op telefoon.
+- [x] Controleer geen horizontale overflow.
+- [x] Controleer geen tekstoverlap.
+- [x] Controleer geen onbruikbare kleine knoppen.
+- [x] Controleer dat audio-knop zichtbaar blijft.
+- [x] Controleer dat hint-knop zichtbaar blijft.
+- [x] Controleer dat objectenbalk bruikbaar is.
+- [x] Controleer dat drag werkt.
+- [x] Controleer dat tik-alternatief werkt.
+- [x] Controleer dat voortgang per profiel apart blijft.
+- [x] Controleer dat dashboard geen diagnose of testscore toont.
+- [x] Controleer dat UI-regels uit concept-art gevolgd worden.
 
 ## Fase 19: Git En Publicatie
 
