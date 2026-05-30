@@ -25,3 +25,7 @@ export const avatarIconUrls = {
 export const broomIconUrls = {
   basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
 };
+
+export const mascotIconUrls = {
+  celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
+};

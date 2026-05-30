@@ -7,10 +7,10 @@ Huidige schermen:
 - `SceneBuilderScreen`
 - `WordChoiceScreen`
 - `RaceScreen`
+- `RewardScreen`
 
 Voorbeelden die hier later komen:
 
-- `RewardScreen`
 - `StartScreen`
 - `ProfileSelectScreen`
 - `AvatarSelectScreen`

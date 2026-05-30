@@ -252,10 +252,10 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.14: Beloning Scherm Als Statische Layout
 
-- [ ] Maak `RewardScreen.tsx`.
-- [ ] Toon grote beloning, sterrenwinst en twee knoppen.
-- [ ] Gebruik mockup als richting: `Opnieuw` en `Volgende`.
-- [ ] Gebruik nog geen echte unlock-logica.
+- [x] Maak `RewardScreen.tsx`.
+- [x] Toon grote beloning, sterrenwinst en twee knoppen.
+- [x] Gebruik mockup als richting: `Opnieuw` en `Volgende`.
+- [x] Gebruik nog geen echte unlock-logica.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.15: Menu-Schermen Later Voorbereiden
