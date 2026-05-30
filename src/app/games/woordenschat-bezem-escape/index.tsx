@@ -24,9 +24,18 @@ function getInstructionPreviewText() {
     : shortInstruction;
 }
 
+function shouldShowTrayLabels() {
+  if (typeof window === "undefined") {
+    return true;
+  }
+
+  return new URLSearchParams(window.location.search).get("trayLabels") !== "false";
+}
+
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
+  const showTrayLabels = shouldShowTrayLabels();
 
   return (
     <BezemEscapeShell world={beachWorld}>
@@ -38,7 +47,7 @@ export function WoordenschatBezemEscapeGame() {
         <UiBuildingBlocksPreview />
       ) : (
         <>
-          <SceneBuilderScreen instructionText={instructionText} />
+          <SceneBuilderScreen instructionText={instructionText} showTrayLabels={showTrayLabels} />
           <TopHud showHint starCount={0} />
         </>
       )}

@@ -7,6 +7,7 @@ interface ObjectStickerButtonProps
   label: string;
   selected?: boolean;
   showLabel?: boolean;
+  size?: "default" | "tray";
 }
 
 export function ObjectStickerButton({
@@ -15,9 +16,12 @@ export function ObjectStickerButton({
   label,
   selected = false,
   showLabel = true,
+  size = "default",
   type = "button",
   ...buttonProps
 }: ObjectStickerButtonProps) {
+  const isTraySize = size === "tray";
+
   return (
     <button
       {...buttonProps}
@@ -26,23 +30,34 @@ export function ObjectStickerButton({
       title={label}
       type={type}
       className={classNames(
-        "flex min-h-[82px] min-w-[78px] shrink-0 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 px-2 py-2 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+        "flex shrink-0 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+        isTraySize ? "min-h-[68px] min-w-[64px] px-1.5 py-1.5" : "min-h-[82px] min-w-[78px] px-2 py-2",
         selected
           ? "border-emerald-500 ring-2 ring-emerald-200"
           : "border-slate-300 hover:border-sky-400 hover:bg-sky-50",
         className,
       )}
     >
-      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-50/80">
+      <span
+        className={classNames(
+          "flex items-center justify-center rounded-xl bg-sky-50/80",
+          isTraySize ? "h-10 w-10" : "h-12 w-12",
+        )}
+      >
         <img
           src={imageUrl}
           alt=""
-          className="max-h-11 max-w-11 object-contain"
+          className={classNames("object-contain", isTraySize ? "max-h-9 max-w-9" : "max-h-11 max-w-11")}
           draggable={false}
         />
       </span>
       {showLabel ? (
-        <span className="max-w-[64px] truncate text-center text-[0.7rem] font-black leading-tight">
+        <span
+          className={classNames(
+            "truncate text-center font-black leading-tight",
+            isTraySize ? "max-w-[58px] text-[0.65rem]" : "max-w-[64px] text-[0.7rem]",
+          )}
+        >
           {label}
         </span>
       ) : null}

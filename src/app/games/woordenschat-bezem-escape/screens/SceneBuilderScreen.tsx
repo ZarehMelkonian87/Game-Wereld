@@ -1,16 +1,26 @@
+import { beachObjectStickerUrls } from "../asset-urls";
 import {
   GameplayStatusBar,
   InstructionBubble,
   ObjectTrayContainer,
+  ObjectStickerButton,
   PanelCard,
 } from "../components/ui";
 
 interface SceneBuilderScreenProps {
   instructionText?: string;
+  showTrayLabels?: boolean;
 }
+
+const testTrayObjects = [
+  { id: "dolfijn", label: "Dolfijn", imageUrl: beachObjectStickerUrls.dolfijn },
+  { id: "boot", label: "Boot", imageUrl: beachObjectStickerUrls.boot },
+  { id: "vuurtoren", label: "Vuurtoren", imageUrl: beachObjectStickerUrls.vuurtoren },
+];
 
 export function SceneBuilderScreen({
   instructionText = "Zet de boot in het water.",
+  showTrayLabels = true,
 }: SceneBuilderScreenProps) {
   return (
     <div
@@ -43,7 +53,17 @@ export function SceneBuilderScreen({
           aria-label="Traygebied"
           data-testid="scene-builder-tray-area"
           className="landscape:col-span-2 landscape:row-start-3"
-        />
+        >
+          {testTrayObjects.map((object) => (
+            <ObjectStickerButton
+              imageUrl={object.imageUrl}
+              key={object.id}
+              label={object.label}
+              showLabel={showTrayLabels}
+              size="tray"
+            />
+          ))}
+        </ObjectTrayContainer>
       </div>
     </div>
   );

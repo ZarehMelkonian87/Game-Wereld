@@ -215,12 +215,12 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.10: Objecttray Met Drie Teststickers
 
-- [ ] Toon alleen drie stickers: dolfijn, boot, vuurtoren.
-- [ ] Gebruik echte transparante productie-assets.
-- [ ] Test stickerformaat op kleine telefoon.
-- [ ] Test met tekstlabel onder sticker.
-- [ ] Test zonder tekstlabel onder sticker.
-- [ ] Kies samen de beste variant.
+- [x] Toon alleen drie stickers: dolfijn, boot, vuurtoren.
+- [x] Gebruik echte transparante productie-assets.
+- [x] Test stickerformaat op kleine telefoon.
+- [x] Test met tekstlabel onder sticker.
+- [x] Test zonder tekstlabel onder sticker.
+- [x] Kies samen de beste variant.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.11: Objecttray Met Alle MVP-Stickers

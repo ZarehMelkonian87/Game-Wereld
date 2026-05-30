@@ -21,7 +21,10 @@ export function ObjectTrayContainer({
     >
       <div
         data-testid="object-tray-container"
-        className="flex h-full min-w-0 items-center justify-center gap-2 overflow-hidden"
+        className={classNames(
+          "flex h-full min-w-0 items-center gap-2 overflow-x-auto overflow-y-hidden",
+          children ? "justify-start" : "justify-center",
+        )}
       >
         {children}
       </div>
