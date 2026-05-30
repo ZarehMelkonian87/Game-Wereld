@@ -18,6 +18,13 @@ De originele gegenereerde bestanden blijven ook bewaard in de Codex generated im
 | `beach-scene-board-portrait.png` | Losse portrait crop van de beach scene board. |
 | `beach-objects/` | Losse stickerobjecten voor de eerste strandwereld. |
 | `mobile-ui-mockups-sheet.png` | Eerste UI mockup-sheet met 10 mobiele hoofdschermen. |
+| `beach-objects/beach-towel-sticker.png` | Nieuwe handdoek sticker met echte alpha-transparantie. |
+| `beach-objects/sun-sticker.png` | Nieuwe zon sticker met echte alpha-transparantie. |
+| `beach-objects/beach-towel-sticker-green-source.png` | Chroma-key bronbeeld voor de handdoek. |
+| `beach-objects/sun-sticker-green-source.png` | Chroma-key bronbeeld voor de zon. |
+| `avatars-green-source/` | Losse avatar bronbeelden met chroma-key groene achtergrond. |
+| `brooms-green-source/` | Losse bezem bronbeelden met chroma-key groene achtergrond. |
+| `mascot-green-source/` | Losse mascotte bronbeelden met chroma-key groene achtergrond. |
 
 ## Source Prompts
 

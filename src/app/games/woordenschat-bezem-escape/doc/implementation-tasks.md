@@ -64,18 +64,18 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 
 ## Fase 0: Voorbereiding Voor De Bouw
 
-- [ ] Controleer alle gameplay-documenten en accepteer de MVP-scope.
-- [ ] Controleer welke delen van de bestaande prototype-code bruikbaar blijven.
-- [ ] Maak een duidelijke productie-assets map binnen de game-map, bijvoorbeeld `assets/`.
-- [ ] Bepaal welke concept-art direct bruikbaar is en welke alleen referentie blijft.
-- [ ] Kopieer goedgekeurde productie-assets vanuit `concept-art/generated-images`.
-- [ ] Laat originele concept-art bestanden ongewijzigd.
-- [ ] Controleer of alle sticker-objecten echte transparante achtergronden hebben.
-- [ ] Maak schone transparante versies als een sticker geen echte alpha heeft.
-- [ ] Maak ontbrekende sticker-assets voor `handdoek` en `zon`.
-- [ ] Snijd bruikbare broom-, avatar- en mascot-iconen uit de bestaande character sheets.
-- [ ] Optimaliseer alle productiebeelden voor mobiel gebruik.
-- [ ] Leg assetmetadata vast: id, naam, categorie, bestandspad, standaardgrootte.
+- [x] Controleer alle gameplay-documenten en accepteer de MVP-scope.
+- [x] Controleer welke delen van de bestaande prototype-code bruikbaar blijven.
+- [x] Maak een duidelijke productie-assets map binnen de game-map, bijvoorbeeld `assets/`.
+- [x] Bepaal welke concept-art direct bruikbaar is en welke alleen referentie blijft.
+- [x] Kopieer goedgekeurde productie-assets vanuit `concept-art/generated-images`.
+- [x] Laat originele concept-art bestanden ongewijzigd.
+- [x] Controleer of alle sticker-objecten echte transparante achtergronden hebben.
+- [x] Maak schone transparante versies als een sticker geen echte alpha heeft.
+- [x] Maak ontbrekende sticker-assets voor `handdoek` en `zon`.
+- [x] Maak losse broom-, avatar- en mascot-iconen met echte transparantie.
+- [x] Optimaliseer alle productiebeelden voor mobiel gebruik.
+- [x] Leg assetmetadata vast: id, naam, categorie, bestandspad, standaardgrootte.
 
 ## Fase 1: Content En Data Fundament
 

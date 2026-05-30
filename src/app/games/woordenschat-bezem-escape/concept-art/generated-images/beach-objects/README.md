@@ -29,6 +29,20 @@ The object must be easy for a young child to recognize on a small mobile screen.
 | `sandcastle-sticker.png` | Zandkasteel | Zie prompt hieronder. |
 | `kite-sticker.png` | Vlieger met touw | Zie prompt hieronder. |
 | `airplane-sticker.png` | Klein vliegtuig | Zie prompt hieronder. |
+| `beach-towel-sticker.png` | Strandhanddoek | Gegenereerd met chroma-key bron en daarna transparant gemaakt. |
+| `sun-sticker.png` | Zon | Gegenereerd met chroma-key bron en daarna transparant gemaakt. |
+| `dolphin-sticker-green-source.png` | Dolfijn bron | Chroma-key bronbeeld voor productie-alpha. |
+| `sailboat-sticker-green-source.png` | Boot bron | Chroma-key bronbeeld voor productie-alpha. |
+| `lighthouse-sticker-green-source.png` | Vuurtoren bron | Chroma-key bronbeeld voor productie-alpha. |
+| `airplane-sticker-green-source.png` | Vliegtuig bron | Chroma-key bronbeeld voor productie-alpha. |
+| `kite-sticker-green-source.png` | Vlieger bron | Chroma-key bronbeeld voor productie-alpha. |
+| `beach-ball-sticker-green-source.png` | Bal bron | Chroma-key bronbeeld voor productie-alpha. |
+| `beach-umbrella-sticker-green-source.png` | Parasol bron | Chroma-key bronbeeld voor productie-alpha. |
+| `seashells-sticker-green-source.png` | Schelpen bron | Chroma-key bronbeeld voor productie-alpha. |
+| `crab-sticker-green-source.png` | Krab bron | Chroma-key bronbeeld voor productie-alpha. |
+| `sandcastle-sticker-green-source.png` | Zandkasteel bron | Chroma-key bronbeeld voor productie-alpha. |
+| `beach-towel-sticker-green-source.png` | Strandhanddoek bron | Alleen bewaren als bronbestand, niet direct gebruiken in de game. |
+| `sun-sticker-green-source.png` | Zon bron | Alleen bewaren als bronbestand, niet direct gebruiken in de game. |
 
 ## Dolphin Prompt
 
@@ -138,4 +152,26 @@ Style:
 paper cut-out sticker style, thick rounded black outline, white sticker border, soft pastel colors, simple readable shape, child-friendly, centered, transparent background, no text, no logo, no watermark, no photorealism.
 
 The object must be easy for a young child to recognize on a small mobile screen.
+```
+
+## Beach Towel Prompt
+
+```text
+Create a single isolated 2D sticker object of a beach towel for a mobile educational children's vocabulary game. The towel should be simple, friendly, easy to recognize on a small mobile screen, with soft pastel colors and a calm playful look.
+
+Style:
+2D digital sticker illustration for a mobile educational children's game, paper cut-out style, thick rounded black outline, soft pastel colors, simple readable shapes, white sticker border, child-friendly, clean design, high contrast, preschool learning game style, no text, no watermark, no logo, no photorealism, no scary details, centered composition.
+
+Use a flat solid chroma key green background (#00FF00) only, so it can be removed later. No shadows outside the sticker border.
+```
+
+## Sun Prompt
+
+```text
+Create a single isolated 2D sticker object of a warm friendly sun for a mobile educational children's vocabulary game. The sun should be simple, round, smiling, easy to recognize on a small mobile screen, with soft pastel yellow and warm orange colors.
+
+Style:
+2D digital sticker illustration for a mobile educational children's game, paper cut-out style, thick rounded black outline, soft pastel colors, simple readable shapes, white sticker border, child-friendly, clean design, high contrast, preschool learning game style, no text, no watermark, no logo, no photorealism, no scary details, centered composition.
+
+Use a flat solid chroma key green background (#00FF00) only, so it can be removed later. No shadows outside the sticker border.
 ```
