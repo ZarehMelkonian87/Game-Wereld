@@ -30,9 +30,9 @@ export function ObjectStickerButton({
       title={label}
       type={type}
       className={classNames(
-        "flex shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+        "flex max-h-full shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
         isTraySize ? "touch-pan-x" : "touch-manipulation",
-        isTraySize ? "min-h-[68px] min-w-[64px] px-1.5 py-1.5" : "min-h-[82px] min-w-[78px] px-2 py-2",
+        isTraySize ? "min-h-[56px] min-w-[54px] px-1 py-1" : "min-h-[82px] min-w-[78px] px-2 py-2",
         selected
           ? "border-emerald-500 ring-2 ring-emerald-200"
           : "border-slate-300 hover:border-sky-400 hover:bg-sky-50",
@@ -42,13 +42,13 @@ export function ObjectStickerButton({
       <span
         className={classNames(
           "flex items-center justify-center rounded-xl bg-sky-50/80",
-          isTraySize ? "h-10 w-10" : "h-12 w-12",
+          isTraySize ? "h-8 w-8" : "h-12 w-12",
         )}
       >
         <img
           src={imageUrl}
           alt=""
-          className={classNames("object-contain", isTraySize ? "max-h-9 max-w-9" : "max-h-11 max-w-11")}
+          className={classNames("object-contain", isTraySize ? "max-h-7 max-w-7" : "max-h-11 max-w-11")}
           draggable={false}
         />
       </span>
@@ -56,7 +56,7 @@ export function ObjectStickerButton({
         <span
           className={classNames(
             "truncate text-center font-black leading-tight",
-            isTraySize ? "max-w-[58px] text-[0.65rem]" : "max-w-[64px] text-[0.7rem]",
+            isTraySize ? "max-w-[48px] text-[0.58rem]" : "max-w-[64px] text-[0.7rem]",
           )}
         >
           {label}
