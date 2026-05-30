@@ -454,22 +454,22 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ## Fase 14: Voortgang Opslaan Per Kindprofiel
 
-- [ ] Koppel gameprogress aan bestaand kindprofiel.
-- [ ] Sla oefen-events op in localStorage of bestaande app-opslag.
-- [ ] Sla geoefende woorden op.
-- [ ] Sla herkende woorden op.
-- [ ] Sla actief benoemde woorden op.
-- [ ] Sla geoefende plaatsbegrippen op.
-- [ ] Sla begrippen die moeilijk waren op.
-- [ ] Sla zinsbegripresultaten op.
-- [ ] Sla zinsnazegpogingen op.
-- [ ] Sla aanwijzingen-volgen resultaten op.
-- [ ] Sla categorie-resultaten op.
-- [ ] Sla correct zonder hulp op.
-- [ ] Sla correct met hulp op.
-- [ ] Sla hulp nodig op.
-- [ ] Sla hints en audioherhalingen op.
-- [ ] Houd alle data gescheiden per profiel.
+- [x] Koppel gameprogress aan bestaand kindprofiel.
+- [x] Sla oefen-events op in localStorage of bestaande app-opslag.
+- [x] Sla geoefende woorden op.
+- [x] Sla herkende woorden op.
+- [x] Sla actief benoemde woorden op.
+- [x] Sla geoefende plaatsbegrippen op.
+- [x] Sla begrippen die moeilijk waren op.
+- [x] Sla zinsbegripresultaten op.
+- [x] Sla zinsnazegpogingen op.
+- [x] Sla aanwijzingen-volgen resultaten op.
+- [x] Sla categorie-resultaten op.
+- [x] Sla correct zonder hulp op.
+- [x] Sla correct met hulp op.
+- [x] Sla hulp nodig op.
+- [x] Sla hints en audioherhalingen op.
+- [x] Houd alle data gescheiden per profiel.
 
 ## Fase 15: Ouder/Logopedist Dashboard
 

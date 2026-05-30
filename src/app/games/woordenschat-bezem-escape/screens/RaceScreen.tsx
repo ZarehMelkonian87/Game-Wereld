@@ -239,6 +239,7 @@ function RaceControlButton({
 
 export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenProps) {
   const timeoutRef = useRef<number | null>(null);
+  const raceResultIdRef = useRef(`race-${Date.now()}`);
   const [storedRaceState] = useState<StoredRaceState>(() => readStoredRaceState());
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(RACE_DURATION_SECONDS);
@@ -363,8 +364,10 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
         correctActions,
         hintsUsed,
         mistakes,
+        playedAt: new Date().toISOString(),
         practicedConcepts,
         practicedWords,
+        resultId: raceResultIdRef.current,
         speedEarned: speedValue,
         starsEarned: wordStarValue,
       }),
@@ -504,6 +507,7 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
 
   function restartRace() {
     clearAdvanceTimeout();
+    raceResultIdRef.current = `race-${Date.now()}`;
     setActiveInstructionIndex(0);
     setTimeLeft(RACE_DURATION_SECONDS);
     setSpeedValue(0);

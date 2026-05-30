@@ -23,6 +23,12 @@ import {
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
 } from "../logic/rewards";
+import {
+  appendPracticeEvent,
+  recordActiveVocabularyObservation,
+  recordSentenceRepeatObservation,
+  type AdultRating,
+} from "../logic/progress";
 import { speakDutch } from "../logic/speech";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
 import { useProfile } from "../../../contexts/ProfileContext";
@@ -307,6 +313,21 @@ export function SceneBuilderScreen({
     setWordStarValue(nextWordStarValue);
     setSpeedBoosting(true);
     window.setTimeout(() => setSpeedBoosting(false), 450);
+    appendPracticeEvent(rewardProfileId, {
+      assistance: activeHintsUsed > 0 ? "hint" : "none",
+      attempts: 1,
+      audioRepeats: activeAudioRepeats,
+      hintsUsed: activeHintsUsed,
+      instructionId: instruction.id,
+      isCorrect: true,
+      languageDomains: instruction.languageDomains,
+      mode: "listen-and-place",
+      result: activeHintsUsed > 0 ? "correct-with-help" : "correct-without-help",
+      spatialConcepts: instruction.spatialConcepts,
+      speedEarned: earnedSpeed,
+      targetWords: [targetObject?.label ?? instruction.placement.objectId],
+      wordStarsEarned: earnedWordStars,
+    });
 
     if (newRewardUnlocks.length > 0) {
       setUnlockedRewardIds(nextUnlockedRewardIds);
@@ -376,6 +397,21 @@ export function SceneBuilderScreen({
     }
 
     if (!isCorrectObject) {
+      appendPracticeEvent(rewardProfileId, {
+        assistance: activeHintsUsed > 0 ? "hint" : activeAudioRepeats > 0 ? "audio-repeat" : "none",
+        attempts: 1,
+        audioRepeats: activeAudioRepeats,
+        hintsUsed: activeHintsUsed,
+        instructionId: `${instruction.id}:wrong-object:${Date.now()}`,
+        isCorrect: false,
+        languageDomains: instruction.languageDomains,
+        mode: "listen-and-place",
+        result: "needs-more-practice",
+        spatialConcepts: instruction.spatialConcepts,
+        speedEarned: 0,
+        targetWords: [targetObject?.label ?? instruction.placement.objectId],
+        wordStarsEarned: 0,
+      });
       setShowTargetZoneHint(true);
       setFeedback({
         kind: "almost",
@@ -384,6 +420,21 @@ export function SceneBuilderScreen({
       return;
     }
 
+    appendPracticeEvent(rewardProfileId, {
+      assistance: activeHintsUsed > 0 ? "hint" : activeAudioRepeats > 0 ? "audio-repeat" : "none",
+      attempts: 1,
+      audioRepeats: activeAudioRepeats,
+      hintsUsed: activeHintsUsed,
+      instructionId: `${instruction.id}:wrong-zone:${Date.now()}`,
+      isCorrect: false,
+      languageDomains: instruction.languageDomains,
+      mode: "listen-and-place",
+      result: "needs-more-practice",
+      spatialConcepts: instruction.spatialConcepts,
+      speedEarned: 0,
+      targetWords: [targetObject?.label ?? instruction.placement.objectId],
+      wordStarsEarned: 0,
+    });
     setShowTargetZoneHint(true);
     setFeedback({
       kind: "almost",
@@ -461,6 +512,11 @@ export function SceneBuilderScreen({
       ...currentStats,
       [rating]: currentStats[rating] + 1,
     }));
+    recordActiveVocabularyObservation(rewardProfileId, {
+      instructionId: instruction.id,
+      rating: rating as AdultRating,
+      word,
+    });
   }
 
   function recordSentenceRepeat(rating: keyof PracticeRatingStats) {
@@ -468,6 +524,11 @@ export function SceneBuilderScreen({
       ...currentStats,
       [rating]: currentStats[rating] + 1,
     }));
+    recordSentenceRepeatObservation(rewardProfileId, {
+      instructionId: instruction.id,
+      rating: rating as AdultRating,
+      sentence: instruction.feedbackCopy.repeatAfterSuccess ?? instruction.prompt,
+    });
   }
 
   function handleObjectDrop(objectId: string, clientX: number, clientY: number) {

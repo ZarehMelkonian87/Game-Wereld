@@ -15,6 +15,7 @@ import {
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
 } from "../logic/rewards";
+import { appendPracticeEvent } from "../logic/progress";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 import { useProfile } from "../../../contexts/ProfileContext";
 
@@ -136,6 +137,21 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
       setWordStarValue(nextWordStarValue);
       setSpeedBoosting(true);
       window.setTimeout(() => setSpeedBoosting(false), 450);
+      appendPracticeEvent(rewardProfileId, {
+        assistance: usedHint ? "hint" : "none",
+        attempts: 1,
+        audioRepeats: activeAudioRepeats,
+        hintsUsed: usedHint ? 1 : 0,
+        instructionId: instruction.id,
+        isCorrect: true,
+        languageDomains: instruction.languageDomains,
+        mode: "choose-word",
+        result: usedHint ? "correct-with-help" : "correct-without-help",
+        spatialConcepts: instruction.spatialConcepts,
+        speedEarned: earnedSpeed,
+        targetWords: [word],
+        wordStarsEarned: earnedWordStars,
+      });
 
       if (newRewardUnlocks.length > 0) {
         setUnlockedRewardIds(nextUnlockedRewardIds);
@@ -156,6 +172,21 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
     setDifficultWords((currentWords) =>
       uniquePush(currentWords, targetObject?.label ?? instruction.targetWord),
     );
+    appendPracticeEvent(rewardProfileId, {
+      assistance: usedHint ? "hint" : activeAudioRepeats > 0 ? "audio-repeat" : "none",
+      attempts: 1,
+      audioRepeats: activeAudioRepeats,
+      hintsUsed: usedHint ? 1 : 0,
+      instructionId: `${instruction.id}:wrong-choice:${Date.now()}`,
+      isCorrect: false,
+      languageDomains: instruction.languageDomains,
+      mode: "choose-word",
+      result: "needs-more-practice",
+      spatialConcepts: instruction.spatialConcepts,
+      speedEarned: 0,
+      targetWords: [targetObject?.label ?? instruction.targetWord],
+      wordStarsEarned: 0,
+    });
     setFeedback({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? instruction.hint,
