@@ -148,16 +148,16 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.4: UI-Bouwstenen Uit De Mockup
 
-- [ ] Maak `HudIconButton` voor audio, hint, terug en ouderknoppen.
-- [ ] Maak `StarCounter` voor de sterbadge bovenin.
-- [ ] Maak `HintButton` met gele stijl uit de mockup.
-- [ ] Maak `RibbonTitle` voor menu-schermen zoals `Kies je profiel`.
-- [ ] Maak `PrimaryActionButton` voor groene hoofdacties.
-- [ ] Maak `PanelCard` voor witte afgeronde panels.
-- [ ] Maak `ProgressBar` voor speed en voortgang.
-- [ ] Maak `ObjectStickerButton` voor stickerkaarten in tray en woordkeuze.
-- [ ] Maak active/pressed states voor alle klikbare componenten.
-- [ ] Test alleen de losse componenten in een tijdelijke layout, niet meteen in gameplay.
+- [x] Maak `HudIconButton` voor audio, hint, terug en ouderknoppen.
+- [x] Maak `StarCounter` voor de sterbadge bovenin.
+- [x] Maak `HintButton` met gele stijl uit de mockup.
+- [x] Maak `RibbonTitle` voor menu-schermen zoals `Kies je profiel`.
+- [x] Maak `PrimaryActionButton` voor groene hoofdacties.
+- [x] Maak `PanelCard` voor witte afgeronde panels.
+- [x] Maak `ProgressBar` voor speed en voortgang.
+- [x] Maak `ObjectStickerButton` voor stickerkaarten in tray en woordkeuze.
+- [x] Maak active/pressed states voor alle klikbare componenten.
+- [x] Test alleen de losse componenten in een tijdelijke layout, niet meteen in gameplay.
 - [ ] Stop na deze stap voor visuele goedkeuring van de basisstijl.
 
 ### Fase 2.5: Gameplay Top HUD Als Losse Laag
