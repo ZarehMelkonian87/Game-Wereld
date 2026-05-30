@@ -169,6 +169,8 @@ export function SceneBuilderScreen({
   const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
   const [hintEvents, setHintEvents] = useState<HintUsageEvent[]>([]);
   const [activelyNamedWords, setActivelyNamedWords] = useState<string[]>([]);
+  const [showObservationPanel, setShowObservationPanel] = useState(false);
+  const [observationNotice, setObservationNotice] = useState<string | null>(null);
   const [activeVocabularyStats, setActiveVocabularyStats] = useState<PracticeRatingStats>({
     good: 0,
     help: 0,
@@ -241,6 +243,8 @@ export function SceneBuilderScreen({
     setPendingPlacement(null);
     setShowTargetZoneHint(false);
     setHighlightedObjectId(null);
+    setShowObservationPanel(false);
+    setObservationNotice(null);
   }
 
   function handleObjectSelect(objectId: string) {
@@ -354,6 +358,8 @@ export function SceneBuilderScreen({
     setPendingPlacement(null);
     setSceneComplete(nextSceneComplete);
     setSceneCompletionSummary(nextSceneComplete ? nextCompletionSummary : null);
+    setShowObservationPanel(false);
+    setObservationNotice(null);
     setSpeedValue(nextSpeedValue);
     setWordStarValue(nextWordStarValue);
     setSpeedBoosting(true);
@@ -388,6 +394,7 @@ export function SceneBuilderScreen({
         instruction.feedbackCopy.correct,
         bonusEarned ? "Bonus zonder hint!" : "",
         nextSceneComplete ? "De scene is klaar. Je kunt de race starten!" : "",
+        nextSceneComplete ? "Druk op Start race." : "Druk op Volgende.",
       ]
         .filter(Boolean)
         .join(" "),
@@ -583,6 +590,7 @@ export function SceneBuilderScreen({
       ...currentStats,
       [rating]: currentStats[rating] + 1,
     }));
+    setObservationNotice("Woordobservatie opgeslagen.");
     recordActiveVocabularyObservation(rewardProfileId, {
       instructionId: instruction.id,
       rating: rating as AdultRating,
@@ -595,6 +603,7 @@ export function SceneBuilderScreen({
       ...currentStats,
       [rating]: currentStats[rating] + 1,
     }));
+    setObservationNotice("Zinobservatie opgeslagen.");
     recordSentenceRepeatObservation(rewardProfileId, {
       instructionId: instruction.id,
       rating: rating as AdultRating,
@@ -968,66 +977,100 @@ export function SceneBuilderScreen({
               {feedback.kind === "correct" ? (
                 <div
                   data-testid="active-language-panel"
-                  className="mt-2 grid grid-cols-2 gap-2 text-[0.65rem] font-black leading-none text-slate-800"
+                  className="mt-2 rounded-2xl border border-sky-200 bg-sky-50/85 p-2 text-[0.65rem] font-black leading-tight text-slate-800"
                 >
-                  <div className="min-w-0">
-                    <p className="mb-1 truncate">Wat zie je?</p>
-                    <div className="grid grid-cols-3 gap-1">
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
-                        data-testid="active-vocabulary-good"
-                        onClick={() => recordActiveVocabulary("good")}
-                        type="button"
-                      >
-                        Goed
-                      </button>
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
-                        data-testid="active-vocabulary-partial"
-                        onClick={() => recordActiveVocabulary("partial")}
-                        type="button"
-                      >
-                        Bijna
-                      </button>
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
-                        data-testid="active-vocabulary-help"
-                        onClick={() => recordActiveVocabulary("help")}
-                        type="button"
-                      >
-                        Hulp
-                      </button>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="truncate text-[0.72rem] text-slate-900">
+                        Ouder-observatie
+                      </p>
+                      <p className="truncate text-[0.62rem] text-slate-600">
+                        Optioneel: bewaar hoe het praten ging.
+                      </p>
                     </div>
+                    <button
+                      className="min-h-9 shrink-0 rounded-xl border-2 border-sky-300 bg-white/80 px-3 text-[0.68rem] text-sky-900"
+                      data-testid="toggle-observation-panel"
+                      onClick={() => setShowObservationPanel((isVisible) => !isVisible)}
+                      type="button"
+                    >
+                      {showObservationPanel ? "Sluit" : "Invullen"}
+                    </button>
                   </div>
-                  <div className="min-w-0">
-                    <p className="mb-1 truncate">Zin nazeggen</p>
-                    <div className="grid grid-cols-3 gap-1">
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
-                        data-testid="sentence-repeat-good"
-                        onClick={() => recordSentenceRepeat("good")}
-                        type="button"
-                      >
-                        Goed
-                      </button>
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
-                        data-testid="sentence-repeat-partial"
-                        onClick={() => recordSentenceRepeat("partial")}
-                        type="button"
-                      >
-                        Deels
-                      </button>
-                      <button
-                        className="min-h-11 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
-                        data-testid="sentence-repeat-help"
-                        onClick={() => recordSentenceRepeat("help")}
-                        type="button"
-                      >
-                        Hulp
-                      </button>
+                  {observationNotice ? (
+                    <p
+                      className="mt-1 text-[0.62rem] text-emerald-800"
+                      data-testid="observation-notice"
+                    >
+                      {observationNotice}
+                    </p>
+                  ) : null}
+                  {showObservationPanel ? (
+                    <div className="mt-2 grid gap-2 landscape:grid-cols-2">
+                      <div className="min-w-0">
+                        <p className="mb-1 truncate text-slate-900">
+                          Heeft het kind het woord gezegd?
+                        </p>
+                        <div className="grid grid-cols-3 gap-1">
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
+                            data-testid="active-vocabulary-good"
+                            onClick={() => recordActiveVocabulary("good")}
+                            type="button"
+                          >
+                            Zelf
+                          </button>
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
+                            data-testid="active-vocabulary-partial"
+                            onClick={() => recordActiveVocabulary("partial")}
+                            type="button"
+                          >
+                            Bijna
+                          </button>
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
+                            data-testid="active-vocabulary-help"
+                            onClick={() => recordActiveVocabulary("help")}
+                            type="button"
+                          >
+                            Hulp
+                          </button>
+                        </div>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="mb-1 truncate text-slate-900">
+                          Heeft het kind de zin nagezegd?
+                        </p>
+                        <div className="grid grid-cols-3 gap-1">
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
+                            data-testid="sentence-repeat-good"
+                            onClick={() => recordSentenceRepeat("good")}
+                            type="button"
+                          >
+                            Goed
+                          </button>
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
+                            data-testid="sentence-repeat-partial"
+                            onClick={() => recordSentenceRepeat("partial")}
+                            type="button"
+                          >
+                            Deels
+                          </button>
+                          <button
+                            className="min-h-9 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
+                            data-testid="sentence-repeat-help"
+                            onClick={() => recordSentenceRepeat("help")}
+                            type="button"
+                          >
+                            Hulp
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ) : null}
                 </div>
               ) : null}
             </PanelCard>

@@ -351,11 +351,15 @@ const directionDomains: LanguageDomain[] = [
   "following-directions",
 ];
 
+function getPracticeSentence(sentence: string) {
+  return sentence.replace(/^(Goed zo!|Mooi!|Ja!|Goed gedaan!)\s*/i, "");
+}
+
 const placementFeedback = (sentence: string, concept: SpatialConcept) => ({
   correct: `${sentence} +1 Speed!`,
   almost: `Bijna! Luister nog eens naar het woord '${concept}'.`,
   tryAgain: "Goed geprobeerd. Kijk rustig naar de plek die oplicht.",
-  repeatAfterSuccess: sentence,
+  repeatAfterSuccess: getPracticeSentence(sentence),
 });
 
 const choiceFeedback = (word: string) => ({
