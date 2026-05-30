@@ -6,10 +6,10 @@ Huidige schermen:
 
 - `SceneBuilderScreen`
 - `WordChoiceScreen`
+- `RaceScreen`
 
 Voorbeelden die hier later komen:
 
-- `RaceScreen`
 - `RewardScreen`
 - `StartScreen`
 - `ProfileSelectScreen`

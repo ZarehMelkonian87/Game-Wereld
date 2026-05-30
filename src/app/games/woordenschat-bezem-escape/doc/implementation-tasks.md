@@ -243,11 +243,11 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.13: Race Scherm Als Statische Layout
 
-- [ ] Maak `RaceScreen.tsx`.
-- [ ] Toon alleen race-achtergrond, avatar/bezem placeholder en drie controls.
-- [ ] Gebruik nog geen beweging of collision.
-- [ ] Gebruik nog geen obstakels.
-- [ ] Test of de controls groot genoeg zijn.
+- [x] Maak `RaceScreen.tsx`.
+- [x] Toon alleen race-achtergrond, avatar/bezem placeholder en drie controls.
+- [x] Gebruik nog geen beweging of collision.
+- [x] Gebruik nog geen obstakels.
+- [x] Test of de controls groot genoeg zijn.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.14: Beloning Scherm Als Statische Layout

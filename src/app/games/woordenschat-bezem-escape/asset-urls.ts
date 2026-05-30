@@ -17,3 +17,11 @@ export const beachObjectStickerUrls = {
   handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.png", import.meta.url).href,
   zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
+
+export const avatarIconUrls = {
+  avatar01: new URL("./assets/icons/avatars/avatar-01.png", import.meta.url).href,
+};
+
+export const broomIconUrls = {
+  basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
+};

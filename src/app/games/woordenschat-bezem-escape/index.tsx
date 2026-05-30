@@ -1,9 +1,9 @@
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, TopHud, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
-import { SceneBuilderScreen, WordChoiceScreen } from "./screens";
+import { RaceScreen, SceneBuilderScreen, WordChoiceScreen } from "./screens";
 
-type GameScreenPreview = "scene-builder" | "word-choice";
+type GameScreenPreview = "race" | "scene-builder" | "word-choice";
 
 function shouldShowUiPreview() {
   if (typeof window === "undefined") {
@@ -39,9 +39,17 @@ function getScreenPreview(): GameScreenPreview {
     return "scene-builder";
   }
 
-  return new URLSearchParams(window.location.search).get("screen") === "word-choice"
-    ? "word-choice"
-    : "scene-builder";
+  const screen = new URLSearchParams(window.location.search).get("screen");
+
+  if (screen === "word-choice") {
+    return "word-choice";
+  }
+
+  if (screen === "race") {
+    return "race";
+  }
+
+  return "scene-builder";
 }
 
 export function WoordenschatBezemEscapeGame() {
@@ -60,7 +68,9 @@ export function WoordenschatBezemEscapeGame() {
         <UiBuildingBlocksPreview />
       ) : (
         <>
-          {screenPreview === "word-choice" ? (
+          {screenPreview === "race" ? (
+            <RaceScreen />
+          ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen />
           ) : (
             <SceneBuilderScreen instructionText={instructionText} showTrayLabels={showTrayLabels} />
