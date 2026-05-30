@@ -48,6 +48,8 @@ const objectPositions: Record<string, { x: number; y: number }> = {
   schelp: { x: 24, y: 82 },
   krab: { x: 74, y: 82 },
   zandkasteel: { x: 50, y: 84 },
+  handdoek: { x: 70, y: 78 },
+  zon: { x: 12, y: 14 },
 };
 
 function getZoneStyle(zone: SceneZone) {

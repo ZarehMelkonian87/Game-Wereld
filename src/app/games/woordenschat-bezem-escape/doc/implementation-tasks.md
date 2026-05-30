@@ -79,19 +79,19 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 
 ## Fase 1: Content En Data Fundament
 
-- [ ] Werk het strand-contentmodel bij met alle 12 objecten.
-- [ ] Voeg objecten toe: dolfijn, boot, vuurtoren, vliegtuig, vlieger, bal, parasol, schelp, krab, zandkasteel, handdoek, zon.
-- [ ] Voeg alle plaatsbegrippen toe: in, op, onder, boven, naast, tussen, links, rechts, midden, dichtbij, ver weg.
-- [ ] Maak een typed model voor scene-builder opdrachten.
-- [ ] Maak een typed model voor woordkeuze-opdrachten.
-- [ ] Maak een typed model voor race-opdrachten.
-- [ ] Maak een typed model voor beloningen.
-- [ ] Maak een typed model voor oefen-events.
-- [ ] Maak een typed model voor voortgang per kindprofiel.
-- [ ] Zet MVP-opdrachten uit de documenten om naar gestructureerde data.
-- [ ] Geef elke opdracht een vaste id.
-- [ ] Voeg tags toe voor taalgebied, moeilijkheid, object, begrip en game-modus.
-- [ ] Voeg veilige feedbackteksten toe per opdrachtsoort.
+- [x] Werk het strand-contentmodel bij met alle 12 objecten.
+- [x] Voeg objecten toe: dolfijn, boot, vuurtoren, vliegtuig, vlieger, bal, parasol, schelp, krab, zandkasteel, handdoek, zon.
+- [x] Voeg alle plaatsbegrippen toe: in, op, onder, boven, naast, tussen, links, rechts, midden, dichtbij, ver weg.
+- [x] Maak een typed model voor scene-builder opdrachten.
+- [x] Maak een typed model voor woordkeuze-opdrachten.
+- [x] Maak een typed model voor race-opdrachten.
+- [x] Maak een typed model voor beloningen.
+- [x] Maak een typed model voor oefen-events.
+- [x] Maak een typed model voor voortgang per kindprofiel.
+- [x] Zet MVP-opdrachten uit de documenten om naar gestructureerde data.
+- [x] Geef elke opdracht een vaste id.
+- [x] Voeg tags toe voor taalgebied, moeilijkheid, object, begrip en game-modus.
+- [x] Voeg veilige feedbackteksten toe per opdrachtsoort.
 
 ## Fase 2: Productie-Assets In De UI
 
