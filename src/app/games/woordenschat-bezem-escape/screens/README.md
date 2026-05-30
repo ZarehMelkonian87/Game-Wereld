@@ -18,4 +18,9 @@ Voorbeelden die hier later komen:
 - `ParentDashboardScreen`
 - `SettingsScreen`
 
-Regel: maak geen lege schermcomponenten vooruit. Voeg een schermbestand pas toe wanneer we dat scherm echt gaan bouwen.
+Regels:
+
+- Maak geen lege schermcomponenten vooruit.
+- Voeg een schermbestand pas toe wanneer we dat scherm echt gaan bouwen.
+- Start/profiel/avatar/wereld/dashboard/settings blijven later totdat de gameplay-basis visueel akkoord is.
+- De bestaande Game Wereld app-profielen blijven leidend.

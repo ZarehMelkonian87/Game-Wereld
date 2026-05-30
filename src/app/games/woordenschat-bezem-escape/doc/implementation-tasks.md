@@ -260,9 +260,9 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.15: Menu-Schermen Later Voorbereiden
 
-- [ ] Maak nog geen start/profiel/avatar/wereld/dashboard/settings schermen totdat gameplay-basis akkoord is.
-- [ ] Noteer wel dat ze later dezelfde `RibbonTitle`, `PanelCard`, `PrimaryActionButton` en `TopHud` gebruiken.
-- [ ] Houd bestaande app-profielen leidend zodat we geen dubbele profielsystemen bouwen.
+- [x] Maak nog geen start/profiel/avatar/wereld/dashboard/settings schermen totdat gameplay-basis akkoord is.
+- [x] Noteer wel dat ze later dezelfde `RibbonTitle`, `PanelCard`, `PrimaryActionButton` en `TopHud` gebruiken.
+- [x] Houd bestaande app-profielen leidend zodat we geen dubbele profielsystemen bouwen.
 
 ### Fase 2.16: Definitieve Fase 2 Acceptatie
 
