@@ -1,5 +1,6 @@
 export { HintButton } from "./HintButton";
 export { HudIconButton } from "./HudIconButton";
+export { InstructionBubble } from "./InstructionBubble";
 export { ObjectStickerButton } from "./ObjectStickerButton";
 export { PanelCard } from "./PanelCard";
 export { PrimaryActionButton } from "./PrimaryActionButton";

@@ -187,12 +187,12 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.7: Opdrachtbubble En Audio
 
-- [ ] Voeg een korte opdrachtbubble toe.
-- [ ] Gebruik een speaker-icoon in of naast de bubble.
-- [ ] Toon een testzin, bijvoorbeeld `Zet de boot in het water.`
-- [ ] Test korte en langere Nederlandse zinnen.
-- [ ] Voorkom dat de bubble scene-objecten bedekt.
-- [ ] Voeg nog geen hintsysteem toe.
+- [x] Voeg een korte opdrachtbubble toe.
+- [x] Gebruik een speaker-icoon in of naast de bubble.
+- [x] Toon een testzin, bijvoorbeeld `Zet de boot in het water.`
+- [x] Test korte en langere Nederlandse zinnen.
+- [x] Voorkom dat de bubble scene-objecten bedekt.
+- [x] Voeg nog geen hintsysteem toe.
 - [ ] Stop na deze stap voor visuele goedkeuring.
 
 ### Fase 2.8: Speed En Sterren Statusbalk

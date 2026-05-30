@@ -11,8 +11,22 @@ function shouldShowUiPreview() {
   return new URLSearchParams(window.location.search).get("preview") === "ui";
 }
 
+function getInstructionPreviewText() {
+  const shortInstruction = "Zet de boot in het water.";
+  const longInstruction = "Zet de boot in het water en leg daarna de bal naast de parasol.";
+
+  if (typeof window === "undefined") {
+    return shortInstruction;
+  }
+
+  return new URLSearchParams(window.location.search).get("instructionPreview") === "long"
+    ? longInstruction
+    : shortInstruction;
+}
+
 export function WoordenschatBezemEscapeGame() {
   const showUiPreview = shouldShowUiPreview();
+  const instructionText = getInstructionPreviewText();
 
   return (
     <BezemEscapeShell world={beachWorld}>
@@ -24,7 +38,7 @@ export function WoordenschatBezemEscapeGame() {
         <UiBuildingBlocksPreview />
       ) : (
         <>
-          <SceneBuilderScreen />
+          <SceneBuilderScreen instructionText={instructionText} />
           <TopHud showHint starCount={0} />
         </>
       )}

@@ -1,12 +1,7 @@
-import { PanelCard } from "../components/ui";
+import { InstructionBubble, PanelCard } from "../components/ui";
 
-function PlaceholderLine({ className = "" }: { className?: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`block h-2 rounded-full bg-sky-200/80 ${className}`}
-    />
-  );
+interface SceneBuilderScreenProps {
+  instructionText?: string;
 }
 
 function EmptyTraySlot() {
@@ -18,29 +13,21 @@ function EmptyTraySlot() {
   );
 }
 
-export function SceneBuilderScreen() {
+export function SceneBuilderScreen({
+  instructionText = "Zet de boot in het water.",
+}: SceneBuilderScreenProps) {
   return (
     <div
       data-testid="scene-builder-screen"
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
-      <div className="grid h-full min-h-0 grid-rows-[3.25rem_minmax(0,1fr)_3rem_5rem] gap-2 landscape:grid-cols-[minmax(10rem,16rem)_minmax(0,1fr)] landscape:grid-rows-[3.25rem_minmax(0,1fr)_5rem]">
-        <PanelCard
+      <div className="grid h-full min-h-0 grid-rows-[4rem_minmax(0,1fr)_3rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_5rem]">
+        <InstructionBubble
           aria-label="Opdrachtgebied"
           data-testid="scene-builder-instruction-area"
-          className="flex min-h-0 items-center gap-3 p-2 landscape:col-start-1 landscape:row-start-1"
-        >
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border-2 border-sky-400 bg-sky-100"
-          >
-            <span className="h-3 w-3 rounded-full bg-sky-400" />
-          </span>
-          <span className="flex min-w-0 flex-1 flex-col gap-2">
-            <PlaceholderLine className="w-3/4" />
-            <PlaceholderLine className="w-1/2 bg-sky-100" />
-          </span>
-        </PanelCard>
+          text={instructionText}
+          className="landscape:col-start-1 landscape:row-start-1"
+        />
 
         <section
           aria-label="Scenegebied"
