@@ -93,20 +93,131 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 - [x] Voeg tags toe voor taalgebied, moeilijkheid, object, begrip en game-modus.
 - [x] Voeg veilige feedbackteksten toe per opdrachtsoort.
 
-## Fase 2: Productie-Assets In De UI
+## Fase 2: Productie-Assets En UI Stap Voor Stap
 
-- [ ] Vervang emoji/object placeholders door echte stickerbeelden.
-- [ ] Vervang de CSS-strandscene door de strandscene achtergrondafbeelding.
-- [ ] Gebruik de portrait achtergrond in portrait mode.
-- [ ] Gebruik de landscape achtergrond in landscape mode.
-- [ ] Toon stickerobjecten in de objectenbalk.
-- [ ] Toon geplaatste stickerobjecten in de scene.
-- [ ] Gebruik de broom-afbeelding voor speed en race.
-- [ ] Gebruik de mascot-afbeelding voor hints en feedback.
-- [ ] Gebruik avatar-afbeeldingen voor profiel/karakter waar mogelijk.
-- [ ] Zorg dat alle assets scherp blijven op mobiel.
-- [ ] Zorg dat stickerobjecten niet te klein worden op telefoon.
-- [ ] Zorg dat stickerobjecten elkaar niet onduidelijk overlappen.
+Status: opnieuw ontwerpen. De vorige poging was te druk voor een klein mobiel scherm.
+
+Belangrijke regel voor deze fase: bouw nooit meerdere UI-lagen tegelijk. Elke stap moet eerst zichtbaar getest worden in portrait en landscape voordat de volgende laag erbij komt.
+
+### Fase 2.0: Oude Prototype-UI Opruimen
+
+- [x] Verwijder de oude alles-in-een gameplay-layout uit de game component.
+- [x] Verwijder tijdelijke emoji-placeholders uit het hoofdscherm.
+- [x] Verwijder tijdelijke scorekaarten, race-overlays en objectknoppen uit het hoofdscherm.
+- [x] Houd alleen de route, game component en content-data behouden.
+- [x] Houd asset imports of asset helpers behouden als die schoon en herbruikbaar zijn.
+- [x] Laat de game starten met een lege, rustige basiscontainer.
+- [x] Controleer dat de pagina nog opent zonder console-errors.
+
+### Fase 2.1: Alleen Achtergrond Plaatsen
+
+- [x] Plaats alleen de strandachtergrond in de game-container.
+- [x] Gebruik portrait achtergrond in portrait mode.
+- [x] Gebruik landscape achtergrond in landscape mode.
+- [x] Laat nog geen knoppen, objecten, opdrachten of overlays zien.
+- [x] Zorg dat de achtergrond volledig zichtbaar is zonder belangrijke randen af te snijden.
+- [x] Controleer kleine telefoon portrait, bijvoorbeeld 390x844.
+- [x] Controleer telefoon landscape, bijvoorbeeld 844x390.
+- [x] Maak screenshot en beoordeel samen of de achtergrondpositie goed is.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.2: Basis Game Frame
+
+- [ ] Voeg alleen een veilige app-rand/safe-area toe.
+- [ ] Bepaal maximale speelruimte voor het gamevlak.
+- [ ] Voeg nog geen gameplay-objecten toe.
+- [ ] Test of het gamevlak niet buiten beeld valt.
+- [ ] Test of portrait en landscape beide rustig blijven.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.3: Minimale Topbar
+
+- [ ] Voeg alleen een compacte terugknop toe.
+- [ ] Voeg alleen een kleine avatar of profiel-indicator toe.
+- [ ] Voeg alleen een compacte speed-indicator toe.
+- [ ] Gebruik nog geen opdrachttekst.
+- [ ] Gebruik nog geen menu met alle modi.
+- [ ] Controleer of de topbar niet te veel hoogte inneemt.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.4: Game-Modus Menu Als Los Onderdeel
+
+- [ ] Ontwerp een apart compact menu voor game-modi.
+- [ ] Toon maximaal drie modi tegelijk: Plaats, Kies, Race.
+- [ ] Test menu bovenaan, onderaan en als kleine segment-control.
+- [ ] Kies pas daarna de definitieve positie.
+- [ ] Zorg dat de menu-items minimaal 44px aanraakbaar zijn.
+- [ ] Zorg dat menu-items niet te veel scene-ruimte innemen.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.5: Opdrachtbubble Als Los Onderdeel
+
+- [ ] Voeg alleen een korte opdrachtbubble toe.
+- [ ] Plaats nog geen objecttray.
+- [ ] Voeg audio-knop toe als onderdeel van deze bubble of direct ernaast.
+- [ ] Voeg hint-knop nog niet toe tenzij er genoeg ruimte is.
+- [ ] Test of lange Nederlandse zinnen niet overlappen.
+- [ ] Test of tekst op kleine telefoon leesbaar blijft.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.6: Hint En Mascotte Als Los Onderdeel
+
+- [ ] Plaats de mascotte alleen als kleine helper bij hint of opdracht.
+- [ ] Test mascotte links, rechts en in de opdrachtbubble.
+- [ ] Voeg een enkele hintknop toe.
+- [ ] Zorg dat mascotte geen objecten in de scene bedekt.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.7: Objecttray Zonder Scene-Objecten
+
+- [ ] Voeg een lege objecttray-container toe.
+- [ ] Test objecttray onderaan in portrait.
+- [ ] Test objecttray rechts of onderaan in landscape.
+- [ ] Voeg nog geen echte objectstickers toe.
+- [ ] Controleer of de tray de achtergrond niet te veel verbergt.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.8: Objecttray Met Drie Teststickers
+
+- [ ] Toon alleen drie stickers: dolfijn, boot, vuurtoren.
+- [ ] Gebruik echte transparante productie-assets.
+- [ ] Test stickerformaat op kleine telefoon.
+- [ ] Test label wel/niet tonen onder de sticker.
+- [ ] Controleer of de tray niet druk wordt.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.9: Objecttray Met Alle MVP-Stickers
+
+- [ ] Toon alle 12 strandstickers pas nadat drie teststickers goed werken.
+- [ ] Gebruik horizontaal scrollen in portrait als dat rustiger is.
+- [ ] Gebruik verticale of compacte tray in landscape als dat rustiger is.
+- [ ] Zorg dat stickers niet te klein worden.
+- [ ] Zorg dat tekstlabels niet afleiden.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.10: Scene-Objecten Alleen Als Preview
+
+- [ ] Plaats maximaal drie objecten in de scene als visuele preview.
+- [ ] Voeg nog geen drag-and-drop toe.
+- [ ] Voeg nog geen correct/fout logica toe.
+- [ ] Test objectgrootte en overlap.
+- [ ] Test of de scene nog rustig blijft.
+- [ ] Stop na deze stap voor visuele goedkeuring.
+
+### Fase 2.11: Definitieve Fase 2 Acceptatie
+
+- [ ] Portrait screenshot goedgekeurd.
+- [ ] Landscape screenshot goedgekeurd.
+- [ ] Achtergrondpositie goedgekeurd.
+- [ ] Topbar positie goedgekeurd.
+- [ ] Menu positie goedgekeurd.
+- [ ] Opdrachtbubble positie goedgekeurd.
+- [ ] Objecttray positie goedgekeurd.
+- [ ] Eerste stickerformaten goedgekeurd.
+- [ ] Geen kapotte afbeeldingen.
+- [ ] Geen horizontale pagina-overflow.
+- [ ] Geen belangrijke UI buiten beeld.
+- [ ] Pas na deze goedkeuring doorgaan naar Fase 3.
 
 ## Fase 3: Mobiele Scene Builder Layout
 
