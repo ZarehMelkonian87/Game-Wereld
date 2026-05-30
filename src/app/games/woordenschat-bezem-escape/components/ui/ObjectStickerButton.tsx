@@ -30,7 +30,8 @@ export function ObjectStickerButton({
       title={label}
       type={type}
       className={classNames(
-        "flex shrink-0 touch-none flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+        "flex shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border-2 bg-white/95 text-slate-900 shadow-[0_3px_0_rgba(15,23,42,0.18)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+        isTraySize ? "touch-pan-x" : "touch-manipulation",
         isTraySize ? "min-h-[68px] min-w-[64px] px-1.5 py-1.5" : "min-h-[82px] min-w-[78px] px-2 py-2",
         selected
           ? "border-emerald-500 ring-2 ring-emerald-200"

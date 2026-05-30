@@ -15,16 +15,17 @@ export function ObjectTrayContainer({
     <PanelCard
       {...trayProps}
       className={classNames(
-        "flex h-full min-h-0 items-center justify-center overflow-hidden !p-2",
+        "flex h-full min-h-0 w-full items-center justify-center overflow-hidden !p-2",
         className,
       )}
     >
       <div
         data-testid="object-tray-container"
         className={classNames(
-          "pointer-events-auto flex h-full min-w-0 items-center gap-2 overflow-x-auto overflow-y-hidden",
+          "pointer-events-auto flex h-full w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain px-0.5 [scrollbar-width:thin]",
           children ? "justify-start" : "justify-center",
         )}
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
         {children}
       </div>

@@ -123,6 +123,13 @@ const conceptExplanation: Record<string, string> = {
   "ver weg": "Ver weg betekent verder naar achteren in de scene.",
 };
 
+function isHorizontalTrayScrollGesture(dragState: DragState, clientX: number, clientY: number) {
+  const deltaX = clientX - dragState.startX;
+  const deltaY = clientY - dragState.startY;
+
+  return Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
+}
+
 export function SceneBuilderScreen({
   instructions,
   instructionText,
@@ -599,16 +606,28 @@ export function SceneBuilderScreen({
         return;
       }
 
-      event.preventDefault();
-
       const distanceFromStart = Math.hypot(
         event.clientX - currentDragState.startX,
         event.clientY - currentDragState.startY,
       );
+      const hasStartedDrag = currentDragState.hasMoved || distanceFromStart > 8;
+
+      if (
+        !currentDragState.hasMoved &&
+        isHorizontalTrayScrollGesture(currentDragState, event.clientX, event.clientY)
+      ) {
+        suppressNextClickRef.current = true;
+        updateDragState(null);
+        return;
+      }
+
+      if (hasStartedDrag) {
+        event.preventDefault();
+      }
 
       updateDragState({
         ...currentDragState,
-        hasMoved: currentDragState.hasMoved || distanceFromStart > 8,
+        hasMoved: hasStartedDrag,
         x: event.clientX,
         y: event.clientY,
       });
@@ -648,6 +667,15 @@ export function SceneBuilderScreen({
     const currentDragState = dragStateRef.current;
 
     if (!currentDragState || currentDragState.objectId !== objectId) {
+      return;
+    }
+
+    if (
+      !currentDragState.hasMoved &&
+      isHorizontalTrayScrollGesture(currentDragState, event.clientX, event.clientY)
+    ) {
+      suppressNextClickRef.current = true;
+      updateDragState(null);
       return;
     }
 
