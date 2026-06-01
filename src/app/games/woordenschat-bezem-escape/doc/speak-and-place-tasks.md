@@ -179,29 +179,31 @@ Acceptatie:
 
 ## Fase 9.5: Vriendelijke Correctie En Hints
 
-- [ ] Feedback maken voor goed herkende zin.
-- [ ] Feedback maken voor bijna goed.
-- [ ] Feedback maken voor niet verstaan.
-- [ ] Feedback maken voor onbekend woord.
-- [ ] Feedback maken voor ontbrekende plek.
-- [ ] Feedback maken voor ontbrekend object.
-- [ ] Nooit alleen `fout` tonen.
-- [ ] Voorbeeldzinnen aanbieden als hulp.
-- [ ] Visuele hint tonen op object of zone.
+Resultaat: `scene-command-executor.ts` geeft nu veilige feedback per situatie en `SceneBuilderScreen` toont de juiste visuele hint: object in de tray of zone in de scene.
+
+- [x] Feedback maken voor goed herkende zin.
+- [x] Feedback maken voor bijna goed.
+- [x] Feedback maken voor niet verstaan.
+- [x] Feedback maken voor onbekend woord.
+- [x] Feedback maken voor ontbrekende plek.
+- [x] Feedback maken voor ontbrekend object.
+- [x] Nooit alleen `fout` tonen.
+- [x] Voorbeeldzinnen aanbieden als hulp.
+- [x] Visuele hint tonen op object of zone.
 
 Voorbeeldteksten:
 
-- [ ] `Mooi gezegd! De boot vaart in de zee. +1 Speed!`
-- [ ] `Ik hoorde boot. Waar moet de boot komen?`
-- [ ] `Bijna! Zeg ook waar de bal moet liggen.`
-- [ ] `Ik kon het niet goed horen. Probeer het nog eens rustig.`
-- [ ] `Goed geprobeerd. Bedoel je de dolfijn of de boot?`
+- [x] `Mooi gezegd! Ik hoorde: Zet de boot in de zee.`
+- [x] `Ik hoorde de boot. Waar moet de boot komen?`
+- [x] `Bijna! Ik hoorde boot en zee. Zeg ook een plaatswoord, zoals in of op.`
+- [x] `Ik kon het niet goed horen. Probeer het nog eens rustig.`
+- [x] `Goed geprobeerd. Ik ken dat woord nog niet in deze strandwereld.`
 
 Acceptatie:
 
-- [ ] Feedback voelt veilig en positief.
-- [ ] Het kind krijgt altijd een nieuwe kans.
-- [ ] Hints helpen zonder de opdracht direct over te nemen.
+- [x] Feedback voelt veilig en positief.
+- [x] Het kind krijgt altijd een nieuwe kans.
+- [x] Hints helpen zonder de opdracht direct over te nemen.
 
 ## Fase 9.6: Speed, Beloning En Voortgang
 

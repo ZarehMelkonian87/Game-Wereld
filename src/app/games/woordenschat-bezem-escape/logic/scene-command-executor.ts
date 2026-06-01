@@ -37,6 +37,10 @@ export interface SceneCommandExecutionResult {
   placement?: SceneCommandPlacement;
   status: SceneCommandExecutionStatus;
   transcript: string;
+  visualHint: {
+    objectId?: string;
+    zoneId?: string;
+  };
 }
 
 const getObjectChoiceLabel = (objects: readonly SceneObject[], objectId: string) =>
@@ -68,21 +72,60 @@ const getChoices = ({
   return [...objectChoices, ...zoneChoices];
 };
 
-const getHelpMessage = (missing: readonly SpokenCommandMissingPart[]) => {
+const getObjectPhrase = (objects: readonly SceneObject[], objectId: string | undefined) => {
+  if (!objectId) {
+    return "het plaatje";
+  }
+
+  const object = objects.find((sceneObject) => sceneObject.id === objectId);
+
+  if (!object) {
+    return objectId;
+  }
+
+  return `${object.article} ${object.label}`;
+};
+
+const getHelpMessage = ({
+  objects,
+  parseResult,
+  zones,
+}: {
+  objects: readonly SceneObject[];
+  parseResult: SpokenCommandParseResult;
+  zones: readonly SceneZone[];
+}) => {
+  const { missing, normalizedTranscript } = parseResult;
+  const objectPhrase = getObjectPhrase(objects, parseResult.objectId);
+  const objectLabel = parseResult.objectId
+    ? getObjectChoiceLabel(objects, parseResult.objectId)
+    : undefined;
+  const zoneLabel = parseResult.zoneId
+    ? getZoneChoiceLabel(zones, parseResult.zoneId)
+    : undefined;
+
+  if (!normalizedTranscript) {
+    return "Ik kon het niet goed horen. Probeer het nog eens rustig.";
+  }
+
   if (missing.includes("object") && missing.includes("zone")) {
-    return "Ik hoorde nog niet welk plaatje en welke plek je bedoelt.";
+    return "Goed geprobeerd. Ik ken dat woord nog niet in deze strandwereld. Zeg bijvoorbeeld: Zet de boot in de zee.";
   }
 
   if (missing.includes("object")) {
-    return "Ik hoorde de plek. Welk plaatje moet daar komen?";
-  }
-
-  if (missing.includes("spatial-concept")) {
-    return "Ik hoorde het plaatje en de plek. Zeg ook een plaatswoord, zoals in of op.";
+    return zoneLabel
+      ? `Ik hoorde ${zoneLabel}. Welk plaatje moet daar komen?`
+      : "Ik hoorde de plek. Welk plaatje moet daar komen?";
   }
 
   if (missing.includes("zone")) {
-    return "Ik hoorde het plaatje. Waar moet het plaatje komen?";
+    return `Ik hoorde ${objectPhrase}. Waar moet ${objectPhrase} komen?`;
+  }
+
+  if (missing.includes("spatial-concept")) {
+    return objectLabel && zoneLabel
+      ? `Bijna! Ik hoorde ${objectLabel} en ${zoneLabel}. Zeg ook een plaatswoord, zoals in of op.`
+      : "Bijna! Zeg ook een plaatswoord, zoals in of op.";
   }
 
   return "Ik twijfel nog. Probeer de zin nog eens rustig.";
@@ -91,12 +134,22 @@ const getHelpMessage = (missing: readonly SpokenCommandMissingPart[]) => {
 const getTranscriptDisplayText = (transcript: string) =>
   transcript.trim().replace(/[.!?]+$/g, "");
 
-const getReadyMessage = (parseResult: SpokenCommandParseResult, zones: readonly SceneZone[]) => {
+const getReadyMessage = (
+  parseResult: SpokenCommandParseResult,
+  objects: readonly SceneObject[],
+  zones: readonly SceneZone[],
+) => {
   const zoneLabel = parseResult.zoneId ? getZoneChoiceLabel(zones, parseResult.zoneId) : "de scene";
   const transcriptText = getTranscriptDisplayText(parseResult.transcript);
+  const objectPhrase = getObjectPhrase(objects, parseResult.objectId);
 
-  return `Ik hoorde: ${transcriptText}. Ik zet het plaatje op de plek: ${zoneLabel}. Je kunt de plek nog aanpassen.`;
+  return `Mooi gezegd! Ik hoorde: ${transcriptText}. Ik zet ${objectPhrase} op de plek: ${zoneLabel}. Je kunt de plek nog aanpassen.`;
 };
+
+const getVisualHint = (parseResult: SpokenCommandParseResult) => ({
+  objectId: parseResult.objectId,
+  zoneId: parseResult.zoneId,
+});
 
 const resolvePlacement = ({
   parseResult,
@@ -148,12 +201,15 @@ export const executeSpokenSceneCommand = ({
 
   return {
     choices,
-    message: placement ? getReadyMessage(parseResult, zones) : getHelpMessage(parseResult.missing),
+    message: placement
+      ? getReadyMessage(parseResult, objects, zones)
+      : getHelpMessage({ objects, parseResult, zones }),
     missing: parseResult.missing,
     normalizedTranscript: parseResult.normalizedTranscript,
     parseResult,
     placement,
     status,
     transcript,
+    visualHint: getVisualHint(parseResult),
   };
 };

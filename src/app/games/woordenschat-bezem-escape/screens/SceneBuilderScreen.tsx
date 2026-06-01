@@ -178,6 +178,7 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
+  const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
   const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
   const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
@@ -205,6 +206,7 @@ export function SceneBuilderScreen({
   const currentInstructionText = instructionText ?? instruction.prompt;
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
   const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
+  const visualHintZone = zones.find((zone) => zone.id === spokenHintZoneId) ?? targetZone;
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
@@ -257,6 +259,7 @@ export function SceneBuilderScreen({
     setPendingPlacement(null);
     setSpokenCommandResult(null);
     setShowTargetZoneHint(false);
+    setSpokenHintZoneId(null);
     setHighlightedObjectId(null);
     setShowObservationPanel(false);
     setObservationNotice(null);
@@ -268,6 +271,7 @@ export function SceneBuilderScreen({
     setPendingPlacement(null);
     setSpokenCommandResult(null);
     setShowTargetZoneHint(false);
+    setSpokenHintZoneId(null);
     setHighlightedObjectId(null);
     setFeedback({
       kind: "ready",
@@ -307,6 +311,7 @@ export function SceneBuilderScreen({
     }
 
     setSelectedZoneId(tappedZone.id);
+    setSpokenHintZoneId(null);
     setPendingPlacement({
       objectId: selectedObjectId,
       source: "manual",
@@ -328,8 +333,11 @@ export function SceneBuilderScreen({
 
       if (executionResult.status !== "ready" || !executionResult.placement) {
         setPendingPlacement(null);
-        setSelectedZoneId(null);
-        setShowTargetZoneHint(executionResult.missing.includes("zone"));
+        setSelectedObjectId(executionResult.visualHint.objectId ?? null);
+        setSelectedZoneId(executionResult.visualHint.zoneId ?? null);
+        setHighlightedObjectId(executionResult.visualHint.objectId ?? null);
+        setSpokenHintZoneId(executionResult.visualHint.zoneId ?? null);
+        setShowTargetZoneHint(Boolean(executionResult.visualHint.zoneId));
         setFeedback({
           kind: "almost",
           mascot: "hint",
@@ -351,6 +359,7 @@ export function SceneBuilderScreen({
         zoneId: placement.zoneId,
       });
       setShowTargetZoneHint(false);
+      setSpokenHintZoneId(null);
       setHighlightedObjectId(null);
       setFeedback({
         kind: "ready",
@@ -367,6 +376,7 @@ export function SceneBuilderScreen({
     if (choice.type === "object") {
       setSelectedObjectId(choice.id);
       setPendingPlacement(null);
+      setHighlightedObjectId(choice.id);
       setFeedback({
         kind: "ready",
         text: `Goed, ${choice.label}. Kies nu de plek in de scene.`,
@@ -379,6 +389,8 @@ export function SceneBuilderScreen({
 
     if (!chosenZone || !objectId) {
       setSelectedZoneId(choice.id);
+      setSpokenHintZoneId(choice.id);
+      setShowTargetZoneHint(true);
       setFeedback({
         kind: "ready",
         text: `Plek gekozen: ${choice.label}. Kies nu welk plaatje daar moet komen.`,
@@ -393,6 +405,8 @@ export function SceneBuilderScreen({
 
     setSelectedObjectId(objectId);
     setSelectedZoneId(chosenZone.id);
+    setSpokenHintZoneId(null);
+    setShowTargetZoneHint(false);
     setPendingPlacement({
       objectId,
       source: "spoken",
@@ -413,6 +427,8 @@ export function SceneBuilderScreen({
     setSelectedObjectId(null);
     setSelectedZoneId(null);
     setShowTargetZoneHint(false);
+    setSpokenHintZoneId(null);
+    setHighlightedObjectId(null);
     setFeedback({
       kind: "ready",
       mascot: "hint",
@@ -681,11 +697,15 @@ export function SceneBuilderScreen({
       },
     ]);
 
-    if (nextHintLevel >= 2) {
+    if (spokenCommandResult && spokenCommandResult.status !== "ready") {
+      setHighlightedObjectId(spokenCommandResult.visualHint.objectId ?? null);
+      setSpokenHintZoneId(spokenCommandResult.visualHint.zoneId ?? null);
+      setShowTargetZoneHint(Boolean(spokenCommandResult.visualHint.zoneId));
+    } else if (nextHintLevel >= 2) {
       setHighlightedObjectId(instruction.placement.objectId);
     }
 
-    if (nextHintLevel >= 3) {
+    if (!(spokenCommandResult && spokenCommandResult.status !== "ready") && nextHintLevel >= 3) {
       setShowTargetZoneHint(true);
     }
 
@@ -747,6 +767,7 @@ export function SceneBuilderScreen({
     const droppedZone = getZoneFromViewportPoint(clientX, clientY);
     setSelectedObjectId(objectId);
     setSpokenCommandResult(null);
+    setSpokenHintZoneId(null);
     setShowTargetZoneHint(false);
 
     if (!scenePoint || !droppedZone) {
@@ -961,6 +982,7 @@ export function SceneBuilderScreen({
       data-sentence-repeat-partial={sentenceRepeatStats.partial}
       data-hint-event-count={hintEvents.length}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
+      data-spoken-hint-zone-id={spokenHintZoneId ?? ""}
       data-spoken-command-status={spokenCommandResult?.status ?? "none"}
       data-spoken-command-transcript={spokenCommandResult?.transcript ?? ""}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
@@ -1005,16 +1027,16 @@ export function SceneBuilderScreen({
             type="button"
           />
 
-          {showTargetZoneHint && targetZone ? (
+          {showTargetZoneHint && visualHintZone ? (
             <span
               aria-hidden="true"
               className="pointer-events-none absolute rounded-[1.5rem] border-4 border-dashed border-amber-400 bg-amber-200/20 shadow-[0_0_0_5px_rgba(255,255,255,0.72)]"
               data-testid="target-zone-hint"
               style={{
-                height: `${targetZone.height}%`,
-                left: `${targetZone.x}%`,
-                top: `${targetZone.y}%`,
-                width: `${targetZone.width}%`,
+                height: `${visualHintZone.height}%`,
+                left: `${visualHintZone.x}%`,
+                top: `${visualHintZone.y}%`,
+                width: `${visualHintZone.width}%`,
               }}
             />
           ) : null}
