@@ -35,10 +35,9 @@ Resultaat:
 - De scene, statusbalk en objecttray vallen binnen beeld.
 - De opdrachttekst past binnen de opdrachtbubble.
 
-## Screenshots
+## Screenshotbeleid
 
-- `doc/phase-3-scene-builder-layout-portrait.png`
-- `doc/phase-3-scene-builder-layout-landscape.png`
+De tijdelijke QA-screenshots zijn verwijderd na acceptatie. De testresultaten blijven in dit document staan.
 
 ## Bewuste Grenzen
 

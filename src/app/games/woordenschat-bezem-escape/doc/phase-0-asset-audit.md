@@ -10,23 +10,19 @@ Deze audit hoort bij `Fase 0: Voorbereiding Voor De Bouw`.
 - De huidige prototype-code is bruikbaar als mobiele layout/skeleton, maar gebruikt nog emoji-objecten en een CSS-strandscene.
 - Er is een nieuwe productie-assets map gemaakt: `assets/`.
 - Strandachtergronden zijn gekopieerd naar `assets/backgrounds/`.
-- Bestaande strandobjecten zijn eerst gekopieerd naar `assets/objects/candidates/`, maar de productieversies zijn daarna opnieuw los gegenereerd met chroma-key groen.
+- Bestaande strandobjecten zijn eerst als candidates beoordeeld, maar de candidate-bestanden zijn na selectie verwijderd.
 - Alle 12 strandobjecten zijn als echte transparante PNG opgeslagen in `assets/objects/transparent/`.
 - 8 avatars zijn los gegenereerd en opgeslagen in `assets/icons/avatars/`.
 - 6 bezems zijn los gegenereerd en opgeslagen in `assets/icons/brooms/`.
 - 7 mascotte-poses zijn los gegenereerd en opgeslagen in `assets/icons/mascot/`.
-- Avatar-, mascotte- en bezemsheets blijven alleen bewaard in `assets/source-sheets/` als conceptreferentie.
+- Avatar-, mascotte- en bezemsheets zijn vervangen door losse productie-assets en daarna verwijderd.
 - Assetmetadata is vastgelegd in `assets/asset-manifest.ts`.
 
 ## Belangrijke Technische Bevinding
 
 De oude objectstickers uit `concept-art/generated-images/beach-objects/` hadden geen alpha-kanaal. Ze zagen eruit alsof ze transparant waren, maar de schaakbordachtergrond zat echt in de PNG.
 
-Daarom staan ze nu in:
-
-`assets/objects/candidates/`
-
-Status: alleen bewaren als stijlreferentie. De nieuwe productie-assets staan in `assets/objects/transparent/`.
+Daarom zijn de oude candidates verwijderd. De nieuwe productie-assets staan in `assets/objects/transparent/`.
 
 ## Klaar Voor Gebruik
 
@@ -41,16 +37,11 @@ Status: alleen bewaren als stijlreferentie. De nieuwe productie-assets staan in 
 
 ## Productie-Kandidaten Met Open Cleanup
 
-Geen. De oude candidates blijven alleen als referentie bewaard.
+Geen. De oude candidates zijn verwijderd.
 
-## Source Sheets Als Referentie
+## Source Sheets
 
-| Sheet | Pad | Gebruik |
-| --- | --- | --- |
-| Avatar poses | `assets/source-sheets/child-avatar-character-sheet.png` | Later avatar poses uitsnijden |
-| Avatar lineup | `assets/source-sheets/child-avatar-lineup-8.png` | Later profiel/karakter keuze |
-| Ster mascotte | `assets/source-sheets/star-mascot-character-sheet.png` | Later hint- en feedback-iconen |
-| Bezemset | `assets/source-sheets/magical-broom-set.png` | Later broom/reward iconen |
+De source sheets zijn verwijderd nadat losse productie-assets voor avatars, mascotte en bezems zijn gemaakt.
 
 ## Beslissing Voor De Volgende Stap
 

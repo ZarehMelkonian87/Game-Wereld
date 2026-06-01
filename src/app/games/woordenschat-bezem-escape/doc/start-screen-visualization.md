@@ -18,10 +18,9 @@ Na visuele feedback is V2 de richting die we verder gebruiken. Deze versie voelt
 Bestanden:
 
 - `start-screen-concept-v2.html`
-- `start-screen-concept-final-portrait.png`
-- `start-screen-concept-final-landscape.png`
-- `start-logo-generated-magenta-v1.png`
 - `../assets/logos/start-logo-b-generated-magenta.png`
+
+Tijdelijke concept- en QA-PNG's zijn na review verwijderd.
 
 Logo-opmerking:
 
@@ -34,7 +33,6 @@ Logo-opmerking:
 ## Portrait
 
 Bestand: `start-screen-concept-portrait.svg`
-Preview: `start-screen-concept-portrait.png`
 
 Opbouw:
 
@@ -48,7 +46,6 @@ Doel: het kind ziet meteen waar het moet drukken om te spelen.
 ## Landscape
 
 Bestand: `start-screen-concept-landscape.svg`
-Preview: `start-screen-concept-landscape.png`
 
 Opbouw:
 

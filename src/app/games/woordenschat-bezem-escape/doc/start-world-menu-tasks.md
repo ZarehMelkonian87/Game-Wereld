@@ -1,6 +1,6 @@
 # Startscherm En Wereldkeuze Takenlijst
 
-Doel: de game krijgt eerst een duidelijker, vrolijker startscherm en daarna een wereldkeuze-menu. De stijl moet aansluiten op `mobile-ui-mockups-sheet.png` en op de bestaande app-stijl: pastel, stickerachtig, rustige panels, grote knoppen en geen losse random UI-elementen.
+Doel: de game krijgt eerst een duidelijker, vrolijker startscherm en daarna een wereldkeuze-menu. De stijl moet aansluiten op de vastgelegde mobile UI mockup-analyse en op de bestaande app-stijl: pastel, stickerachtig, rustige panels, grote knoppen en geen losse random UI-elementen.
 
 ## Ontwerpregels
 
@@ -95,7 +95,7 @@ Resultaat: zie `worlds.ts` en `logic/world-selection.ts`.
 - [x] Portrait layout testen.
 - [x] Landscape layout testen.
 
-Resultaat: zie `screens/WorldSelectScreen.tsx`, `world-select-implementation-portrait.png` en `world-select-implementation-landscape.png`.
+Resultaat: zie `screens/WorldSelectScreen.tsx`. Tijdelijke QA-screenshots zijn na acceptatie verwijderd.
 
 ## Fase 7: Game Menu Opruimen
 
@@ -107,7 +107,7 @@ Resultaat: zie `screens/WorldSelectScreen.tsx`, `world-select-implementation-por
 - [x] Beloning, Groei en Opties als secundaire acties tonen.
 - [x] Geen twee verschillende hoofdmenu's naast elkaar laten bestaan.
 
-Resultaat: `GameMenuScreen` is vervangen door `ModeSelectScreen`. De oude `screen=menu` preview blijft tijdelijk als alias naar `screen=mode-select` werken. QA-beelden staan in `mode-select-implementation-portrait.png` en `mode-select-implementation-landscape.png`.
+Resultaat: `GameMenuScreen` is vervangen door `ModeSelectScreen`. De oude `screen=menu` preview blijft tijdelijk als alias naar `screen=mode-select` werken. Tijdelijke QA-screenshots zijn na acceptatie verwijderd.
 
 ## Fase 8: Visuele QA
 
@@ -123,7 +123,7 @@ Resultaat: `GameMenuScreen` is vervangen door `ModeSelectScreen`. De oude `scree
 - [x] Build draaien.
 - [x] Browser smoke test uitvoeren.
 
-Resultaat: QA-beelden staan in `phase-8-start-portrait.png`, `phase-8-start-landscape.png`, `phase-8-world-select-portrait.png`, `phase-8-world-select-landscape.png`, `phase-8-mode-select-portrait.png` en `phase-8-mode-select-landscape.png`. Tijdens QA is een kleine overlap tussen het startlogo en de speelknop in landscape gevonden en opgelost.
+Resultaat: visuele QA is uitgevoerd in portrait en landscape. Tijdelijke QA-screenshots zijn na acceptatie verwijderd. Tijdens QA is een kleine overlap tussen het startlogo en de speelknop in landscape gevonden en opgelost.
 
 ## Acceptatie Voor Deze Stap
 

@@ -1,6 +1,6 @@
 # Mobile UI Mockup Analyse
 
-Bronbeeld: `concept-art/generated-images/mobile-ui-mockups-sheet.png`
+Bronbeeld: oude gegenereerde mobile UI mockup-sheet. De lokale PNG-kopie is na analyse verwijderd om de repository klein te houden.
 
 Doel van deze analyse: de mockup-sheet gebruiken als visuele richting voor een rustige, mobile-first implementatie. De sheet is geen pixel-perfect ontwerp. We gebruiken de structuur, verhoudingen en UI-patronen als leidraad.
 

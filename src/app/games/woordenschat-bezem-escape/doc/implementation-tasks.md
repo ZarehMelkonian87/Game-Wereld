@@ -23,29 +23,18 @@ Gebruik deze bestanden als bron van waarheid voordat een onderdeel wordt gebouwd
 - `concept-art/ui-rules.md` - harde UI-regels.
 - `concept-art/ui-mockups.md` - schermindeling en mobiele UI-richting.
 
-## Beschikbare Concept-Art En Objectbeelden
+## Beschikbare Productie-Assets
 
-Gebruik deze beelden als referentie of als basis voor productie-assets:
+Gebruik deze mappen als bron voor de app:
 
-- `concept-art/generated-images/beach-scene-board-landscape.png`
-- `concept-art/generated-images/beach-scene-board-portrait.png`
-- `concept-art/generated-images/mobile-ui-mockups-sheet.png`
-- `concept-art/generated-images/child-avatar-character-sheet.png`
-- `concept-art/generated-images/child-avatar-lineup-8.png`
-- `concept-art/generated-images/star-mascot-character-sheet.png`
-- `concept-art/generated-images/magical-broom-set.png`
-- `concept-art/generated-images/beach-objects/dolphin-sticker.png`
-- `concept-art/generated-images/beach-objects/sailboat-sticker.png`
-- `concept-art/generated-images/beach-objects/lighthouse-sticker.png`
-- `concept-art/generated-images/beach-objects/beach-ball-sticker.png`
-- `concept-art/generated-images/beach-objects/beach-umbrella-sticker.png`
-- `concept-art/generated-images/beach-objects/crab-beach-towel-sticker.png`
-- `concept-art/generated-images/beach-objects/seashells-sticker.png`
-- `concept-art/generated-images/beach-objects/sandcastle-sticker.png`
-- `concept-art/generated-images/beach-objects/kite-sticker.png`
-- `concept-art/generated-images/beach-objects/airplane-sticker.png`
+- `assets/backgrounds/`
+- `assets/objects/transparent/`
+- `assets/icons/avatars/`
+- `assets/icons/brooms/`
+- `assets/icons/mascot/`
+- `assets/logos/`
 
-Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog aparte productie-sticker nodig.
+De oude gegenereerde conceptbeelden, source sheets en QA-screenshots zijn na productie-selectie verwijderd.
 
 ## Harde Implementatieregels
 
@@ -70,7 +59,7 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 - [x] Maak een duidelijke productie-assets map binnen de game-map, bijvoorbeeld `assets/`.
 - [x] Bepaal welke concept-art direct bruikbaar is en welke alleen referentie blijft.
 - [x] Kopieer goedgekeurde productie-assets vanuit `concept-art/generated-images`.
-- [x] Laat originele concept-art bestanden ongewijzigd.
+- [x] Verwijder oude concept-art kopieen nadat productie-assets klaar zijn.
 - [x] Controleer of alle sticker-objecten echte transparante achtergronden hebben.
 - [x] Maak schone transparante versies als een sticker geen echte alpha heeft.
 - [x] Maak ontbrekende sticker-assets voor `handdoek` en `zon`.
@@ -96,7 +85,7 @@ Let op: `handdoek` en `zon` zitten al in de educatieve content, maar hebben nog 
 
 ## Fase 2: Mobile UI Fundament Uit De Mockup-Sheet
 
-Status: opnieuw ontwerpen op basis van `mobile-ui-mockups-sheet.png`.
+Status: opnieuw ontwerpen op basis van de vastgelegde mobile UI mockup-analyse.
 
 Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas schermen. Bouw nooit meerdere UI-lagen tegelijk. Elke visuele stap moet zichtbaar getest worden in portrait en landscape voordat de volgende laag erbij komt.
 
@@ -125,7 +114,7 @@ Belangrijke regel voor deze fase: eerst herbruikbare UI-bouwstenen, daarna pas s
 
 ### Fase 2.2: Mockup Analyse En UI Contract
 
-- [x] Analyseer `mobile-ui-mockups-sheet.png`.
+- [x] Analyseer de mobile UI mockup-sheet.
 - [x] Leg de analyse vast in `doc/mobile-ui-mockup-analysis.md`.
 - [x] Bevestig dat de mockup-sheet een richting is, geen pixel-perfect ontwerp.
 - [x] Bevestig dat portrait de primaire mobiele flow blijft.

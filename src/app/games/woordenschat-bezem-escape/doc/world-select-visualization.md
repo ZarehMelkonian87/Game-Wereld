@@ -13,8 +13,8 @@ Deze visualisatie hoort bij `world-select-concept.md` en `world-list.md`.
 ## Bestanden
 
 - `world-select-concept-visualization.html`
-- `world-select-concept-portrait.png`
-- `world-select-concept-landscape.png`
+
+Tijdelijke PNG-previews zijn verwijderd na review.
 
 ## Implementatie-notities Voor Fase 6
 

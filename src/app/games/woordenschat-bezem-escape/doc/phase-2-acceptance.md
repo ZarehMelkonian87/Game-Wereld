@@ -39,10 +39,9 @@ Deze acceptatie is een technische UI-acceptatie voor het mobile-first fundament 
 - Race static layout is technisch gevalideerd.
 - Beloning static layout is technisch gevalideerd.
 
-## Finale Scene Builder Screenshots
+## Screenshotbeleid
 
-- `doc/phase-2-16-final-scene-builder-portrait.png`
-- `doc/phase-2-16-final-scene-builder-landscape.png`
+De oude QA-screenshots zijn na acceptatie verwijderd om de repository klein te houden. Nieuwe screenshots maken we alleen wanneer ze nodig zijn voor een actieve visuele review.
 
 ## Opmerking
 

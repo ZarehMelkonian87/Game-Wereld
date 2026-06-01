@@ -1,8 +1,8 @@
-# Beach Object Stickers
+# Beach Object Sticker Prompts
 
-Deze map bevat losse strandobjecten voor de eerste wereld van `+1 Woordenschat Bezem Escape`.
+Deze map bewaart alleen de promptgeschiedenis voor de strandobjecten.
 
-Alle objecten moeten dezelfde stickerstijl volgen en herkenbaar blijven op kleine mobiele schermen.
+De gegenereerde bronbeelden zijn verwijderd. De productieversies staan in `../../../assets/objects/transparent/`.
 
 ## Object Prompt Template
 
@@ -14,35 +14,6 @@ paper cut-out sticker style, thick rounded black outline, white sticker border, 
 
 The object must be easy for a young child to recognize on a small mobile screen.
 ```
-
-## Generated Objects
-
-| Bestand | Object | Prompt |
-| --- | --- | --- |
-| `dolphin-sticker.png` | Dolfijn | Zie prompt hieronder. |
-| `sailboat-sticker.png` | Kleine zeilboot | Zie prompt hieronder. |
-| `lighthouse-sticker.png` | Vuurtoren | Zie prompt hieronder. |
-| `beach-ball-sticker.png` | Strandbal | Zie prompt hieronder. |
-| `beach-umbrella-sticker.png` | Parasol | Zie prompt hieronder. |
-| `crab-beach-towel-sticker.png` | Krab op strandhanddoek | Zie prompt hieronder. |
-| `seashells-sticker.png` | Schelpen | Zie prompt hieronder. |
-| `sandcastle-sticker.png` | Zandkasteel | Zie prompt hieronder. |
-| `kite-sticker.png` | Vlieger met touw | Zie prompt hieronder. |
-| `airplane-sticker.png` | Klein vliegtuig | Zie prompt hieronder. |
-| `beach-towel-sticker.png` | Strandhanddoek | Gegenereerd met chroma-key bron en daarna transparant gemaakt. |
-| `sun-sticker.png` | Zon | Gegenereerd met chroma-key bron en daarna transparant gemaakt. |
-| `dolphin-sticker-green-source.png` | Dolfijn bron | Chroma-key bronbeeld voor productie-alpha. |
-| `sailboat-sticker-green-source.png` | Boot bron | Chroma-key bronbeeld voor productie-alpha. |
-| `lighthouse-sticker-green-source.png` | Vuurtoren bron | Chroma-key bronbeeld voor productie-alpha. |
-| `airplane-sticker-green-source.png` | Vliegtuig bron | Chroma-key bronbeeld voor productie-alpha. |
-| `kite-sticker-green-source.png` | Vlieger bron | Chroma-key bronbeeld voor productie-alpha. |
-| `beach-ball-sticker-green-source.png` | Bal bron | Chroma-key bronbeeld voor productie-alpha. |
-| `beach-umbrella-sticker-green-source.png` | Parasol bron | Chroma-key bronbeeld voor productie-alpha. |
-| `seashells-sticker-green-source.png` | Schelpen bron | Chroma-key bronbeeld voor productie-alpha. |
-| `crab-sticker-green-source.png` | Krab bron | Chroma-key bronbeeld voor productie-alpha. |
-| `sandcastle-sticker-green-source.png` | Zandkasteel bron | Chroma-key bronbeeld voor productie-alpha. |
-| `beach-towel-sticker-green-source.png` | Strandhanddoek bron | Alleen bewaren als bronbestand, niet direct gebruiken in de game. |
-| `sun-sticker-green-source.png` | Zon bron | Alleen bewaren als bronbestand, niet direct gebruiken in de game. |
 
 ## Dolphin Prompt
 

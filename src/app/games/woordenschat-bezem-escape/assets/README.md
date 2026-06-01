@@ -1,25 +1,22 @@
-# Production Asset Staging
+# Production Assets
 
-Deze map bevat de productie-assets en productie-kandidaten voor `+1 Woordenschat Bezem Escape`.
+Deze map bevat alleen de productie-assets die we in de app willen kunnen gebruiken.
 
-De originele concept-art blijft in `concept-art/generated-images`. Bestanden in deze map zijn bedoeld als praktische bron voor de implementatie.
+Oude candidates, source sheets, lokale previews en gegenereerde conceptbeelden zijn verwijderd om de repository klein en overzichtelijk te houden.
 
 ## Structuur
 
 - `backgrounds/` - strandscene achtergronden voor portrait en landscape.
-- `objects/candidates/` - oude strandstickers, alleen bewaard als referentie.
 - `objects/transparent/` - losse strandstickers met echte alpha-transparantie.
 - `icons/avatars/` - 8 losse avatar-assets met echte alpha-transparantie.
 - `icons/brooms/` - 6 losse bezem-assets met echte alpha-transparantie.
 - `icons/mascot/` - 7 losse mascotte-assets met echte alpha-transparantie.
-- `source-sheets/` - avatar-, bezem- en mascotte-sheets als bron voor latere uitsnedes.
-- `asset-manifest.ts` - metadata voor assets, readiness en bronbestanden.
-- `asset-preview.png` - overzicht van de huidige productie-assets.
+- `logos/` - productie-logo voor het startscherm.
+- `asset-manifest.ts` - metadata voor productie-assets.
 
 ## Asset Readiness
 
-De strandachtergronden zijn klaar voor gebruik als scene board.
-
-Alle productie-objecten in `objects/transparent/` hebben echte alpha-transparantie.
-
-Alle avatar-, bezem- en mascotte-assets zijn opnieuw los gegenereerd op een chroma-key groene achtergrond en daarna lokaal omgezet naar transparante PNG's. Gebruik deze losse bestanden voor de game, niet de oude beige source sheets.
+- De strandachtergronden zijn klaar voor gebruik als scene board.
+- Alle productie-objecten in `objects/transparent/` hebben echte alpha-transparantie.
+- Avatar-, bezem- en mascotte-assets zijn losse transparante PNG's.
+- Nieuwe bronbeelden of conceptvarianten horen niet in `assets/` totdat ze als productie-asset gekozen zijn.

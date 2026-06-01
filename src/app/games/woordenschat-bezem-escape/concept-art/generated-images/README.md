@@ -1,30 +1,21 @@
 # Generated Concept Images
 
-Deze map bevat gegenereerde concept-afbeeldingen voor `+1 Woordenschat Bezem Escape`.
+Deze map bevatte gegenereerde concept-afbeeldingen voor `+1 Woordenschat Bezem Escape`.
 
-De originele gegenereerde bestanden blijven ook bewaard in de Codex generated images map. Deze kopieen staan hier zodat we ze later makkelijk kunnen terugvinden en gebruiken binnen het project.
+De lokale PNG-kopieen zijn verwijderd om de repository klein te houden. De gekozen productiebeelden staan in `../../assets/`.
 
-## Images
+## Productiebeelden
 
-| Bestand | Doel |
-| --- | --- |
-| `magic-broom-style-test.png` | Eerste stijltest voor de magische bezem in 2D stickerstijl. |
-| `child-avatar-character-sheet.png` | Character sheet voor de hoofd-avatar met poses en expressies. |
-| `child-avatar-lineup-8.png` | Lineup met 8 mogelijke kind-avatar designs. |
-| `star-mascot-character-sheet.png` | Mascotte-sheet voor de vriendelijke ster die hints geeft en correcte antwoorden viert. |
-| `magical-broom-set.png` | Bezemset met beginner, strand, dolfijn, regenboog, ster en super speed bezems plus kleine reward/shop iconen. |
-| `beach-scene-board-concept-sheet.png` | Originele gegenereerde sheet met landscape en portrait beach scene boards. |
-| `beach-scene-board-landscape.png` | Losse landscape crop van de beach scene board. |
-| `beach-scene-board-portrait.png` | Losse portrait crop van de beach scene board. |
-| `beach-objects/` | Losse stickerobjecten voor de eerste strandwereld. |
-| `mobile-ui-mockups-sheet.png` | Eerste UI mockup-sheet met 10 mobiele hoofdschermen. |
-| `beach-objects/beach-towel-sticker.png` | Nieuwe handdoek sticker met echte alpha-transparantie. |
-| `beach-objects/sun-sticker.png` | Nieuwe zon sticker met echte alpha-transparantie. |
-| `beach-objects/beach-towel-sticker-green-source.png` | Chroma-key bronbeeld voor de handdoek. |
-| `beach-objects/sun-sticker-green-source.png` | Chroma-key bronbeeld voor de zon. |
-| `avatars-green-source/` | Losse avatar bronbeelden met chroma-key groene achtergrond. |
-| `brooms-green-source/` | Losse bezem bronbeelden met chroma-key groene achtergrond. |
-| `mascot-green-source/` | Losse mascotte bronbeelden met chroma-key groene achtergrond. |
+Gebruik voor de app alleen:
+
+- `../../assets/backgrounds/`
+- `../../assets/objects/transparent/`
+- `../../assets/icons/avatars/`
+- `../../assets/icons/brooms/`
+- `../../assets/icons/mascot/`
+- `../../assets/logos/`
+
+Nieuwe gegenereerde beelden mogen tijdelijk lokaal worden bekeken, maar worden pas toegevoegd aan de repository nadat ze gekozen en opgeschoond zijn als productie-asset.
 
 ## Source Prompts
 
