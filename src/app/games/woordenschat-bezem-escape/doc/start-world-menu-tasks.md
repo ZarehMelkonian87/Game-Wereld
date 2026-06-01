@@ -44,27 +44,31 @@ Resultaat: zie `start-screen-concept.md`.
 
 ## Fase 3: Wereldkeuze Concept
 
-- [ ] Bepalen welke werelden in de eerste versie zichtbaar zijn.
-- [ ] Strandwereld actief maken als eerste speelbare wereld.
-- [ ] Toekomstige werelden tonen als gesloten of `komt later`.
-- [ ] Wereldkaarten ontwerpen met icoon, thema en korte naam.
-- [ ] Wereldkaarten niet te groot maken, zodat telefoon overzichtelijk blijft.
-- [ ] Elke wereldkaart moet duidelijk klikbaar zijn.
-- [ ] Geselecteerde wereld zichtbaar markeren.
-- [ ] Een duidelijke knop maken: `Start wereld`.
-- [ ] Terugknop naar startscherm toevoegen.
+- [x] Bepalen welke werelden in de eerste versie zichtbaar zijn.
+- [x] Strandwereld actief maken als eerste speelbare wereld.
+- [x] Toekomstige werelden tonen als gesloten of `komt later`.
+- [x] Wereldkaarten ontwerpen met icoon, thema en korte naam.
+- [x] Wereldkaarten niet te groot maken, zodat telefoon overzichtelijk blijft.
+- [x] Elke wereldkaart moet duidelijk klikbaar zijn.
+- [x] Geselecteerde wereld zichtbaar markeren.
+- [x] Een duidelijke knop maken: `Start wereld`.
+- [x] Terugknop naar startscherm toevoegen.
+
+Resultaat: zie `world-select-concept.md`.
 
 ## Fase 4: Eerste Wereldlijst
 
-- [ ] `Strand` toevoegen als speelbare wereld.
-- [ ] `Boerderij` toevoegen als toekomstige wereld.
-- [ ] `Dierentuin` toevoegen als toekomstige wereld.
-- [ ] `Speeltuin` toevoegen als toekomstige wereld.
-- [ ] `School` toevoegen als toekomstige wereld.
-- [ ] `Ruimte` toevoegen als toekomstige wereld.
-- [ ] Per wereld thema-kleur bepalen.
-- [ ] Per wereld kort leerdoel bepalen.
-- [ ] Per wereld status bewaren: `open`, `gesloten`, `komt later`.
+- [x] `Strand` toevoegen als speelbare wereld.
+- [x] `Boerderij` toevoegen als toekomstige wereld.
+- [x] `Dierentuin` toevoegen als toekomstige wereld.
+- [x] `Speeltuin` toevoegen als toekomstige wereld.
+- [x] `School` toevoegen als toekomstige wereld.
+- [x] `Ruimte` toevoegen als toekomstige wereld.
+- [x] Per wereld thema-kleur bepalen.
+- [x] Per wereld kort leerdoel bepalen.
+- [x] Per wereld status bewaren: `open`, `gesloten`, `komt later`.
+
+Resultaat: zie `world-list.md`.
 
 ## Fase 5: Wereldkeuze Data
 
