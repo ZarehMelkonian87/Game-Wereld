@@ -6,3 +6,4 @@ export { RewardScreen } from "./RewardScreen";
 export { SceneBuilderScreen } from "./SceneBuilderScreen";
 export { StartScreen } from "./StartScreen";
 export { WordChoiceScreen } from "./WordChoiceScreen";
+export { WorldSelectScreen } from "./WorldSelectScreen";

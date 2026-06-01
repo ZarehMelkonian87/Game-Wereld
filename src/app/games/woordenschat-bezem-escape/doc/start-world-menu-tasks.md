@@ -84,16 +84,18 @@ Resultaat: zie `worlds.ts` en `logic/world-selection.ts`.
 
 ## Fase 6: Wereldkeuze Implementatie
 
-- [ ] Nieuw schermbestand maken: `screens/WorldSelectScreen.tsx`.
-- [ ] Wereldkeuze exporteren via `screens/index.ts`.
-- [ ] Startscherm `Speel` naar `WorldSelectScreen` laten gaan.
-- [ ] Strandkaart klikbaar maken.
-- [ ] Gesloten werelden visueel rustig blokkeren.
-- [ ] `Start wereld` knop alleen actief maken bij een speelbare wereld.
-- [ ] Na `Start wereld` naar huidig game-menu of direct naar `Luister & Plaats` gaan.
-- [ ] Terug naar startscherm laten werken.
-- [ ] Portrait layout testen.
-- [ ] Landscape layout testen.
+- [x] Nieuw schermbestand maken: `screens/WorldSelectScreen.tsx`.
+- [x] Wereldkeuze exporteren via `screens/index.ts`.
+- [x] Startscherm `Speel` naar `WorldSelectScreen` laten gaan.
+- [x] Strandkaart klikbaar maken.
+- [x] Gesloten werelden visueel rustig blokkeren.
+- [x] `Start wereld` knop alleen actief maken bij een speelbare wereld.
+- [x] Na `Start wereld` naar huidig game-menu of direct naar `Luister & Plaats` gaan.
+- [x] Terug naar startscherm laten werken.
+- [x] Portrait layout testen.
+- [x] Landscape layout testen.
+
+Resultaat: zie `screens/WorldSelectScreen.tsx`, `world-select-implementation-portrait.png` en `world-select-implementation-landscape.png`.
 
 ## Fase 7: Game Menu Opruimen
 
@@ -121,11 +123,11 @@ Resultaat: zie `worlds.ts` en `logic/world-selection.ts`.
 
 ## Acceptatie Voor Deze Stap
 
-- [ ] Het startscherm voelt vrolijker dan de huidige menu-start.
-- [ ] Het startscherm heeft een herkenbaar logo.
-- [ ] Het startscherm heeft een duidelijke grote `Speel` knop.
-- [ ] De speler kan naar een wereldkeuze-menu.
-- [ ] De speler kan `Strand` kiezen.
-- [ ] Andere werelden zijn voorbereid voor later.
-- [ ] De implementatie volgt de mockup-stijl en bestaande UI-componenten.
-- [ ] De nieuwe schermen zijn los georganiseerd en niet als grote blokken in `index.tsx` gebouwd.
+- [x] Het startscherm voelt vrolijker dan de huidige menu-start.
+- [x] Het startscherm heeft een herkenbaar logo.
+- [x] Het startscherm heeft een duidelijke grote `Speel` knop.
+- [x] De speler kan naar een wereldkeuze-menu.
+- [x] De speler kan `Strand` kiezen.
+- [x] Andere werelden zijn voorbereid voor later.
+- [x] De implementatie volgt de mockup-stijl en bestaande UI-componenten.
+- [x] De nieuwe schermen zijn los georganiseerd en niet als grote blokken in `index.tsx` gebouwd.

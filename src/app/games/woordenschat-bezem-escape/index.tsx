@@ -14,13 +14,14 @@ import {
   SceneBuilderScreen,
   StartScreen,
   WordChoiceScreen,
+  WorldSelectScreen,
 } from "./screens";
 import type {
   BroomRaceInstruction,
   SceneBuilderInstruction,
   VocabularyChoiceInstruction,
 } from "./types";
-import { getWorldDefinition } from "./worlds";
+import { getWorldDefinition, worldDefinitions } from "./worlds";
 
 type GameScreenPreview =
   | "dashboard"
@@ -30,7 +31,8 @@ type GameScreenPreview =
   | "scene-builder"
   | "settings"
   | "start"
-  | "word-choice";
+  | "word-choice"
+  | "world-select";
 
 const RACE_STATE_STORAGE_KEY = "woordenschat-bezem-escape:race-state";
 const RACE_RESULT_STORAGE_KEY = "woordenschat-bezem-escape:race-result";
@@ -100,6 +102,10 @@ function getScreenPreview(): GameScreenPreview {
 
   if (screen === "start") {
     return "start";
+  }
+
+  if (screen === "world-select") {
+    return "world-select";
   }
 
   return "start";
@@ -195,6 +201,16 @@ export function WoordenschatBezemEscapeGame() {
     setScreenPreview("menu");
   }
 
+  function selectWorld(worldId: string) {
+    const world = getWorldDefinition(worldId);
+
+    if (world.status !== "open") {
+      return;
+    }
+
+    setSelectedWorldId(saveSelectedWorldId(profileId, world.id));
+  }
+
   return (
     <BezemEscapeShell world={beachWorld}>
       <BeachBackground
@@ -208,7 +224,7 @@ export function WoordenschatBezemEscapeGame() {
           {screenPreview === "reward" ? (
             <RewardScreen
               onBackToMenu={() => navigate("/games/language")}
-              onChooseWorld={openMenu}
+              onChooseWorld={() => setScreenPreview("world-select")}
               onPlayAgain={resetRound}
             />
           ) : screenPreview === "dashboard" ? (
@@ -219,7 +235,15 @@ export function WoordenschatBezemEscapeGame() {
             <StartScreen
               onOpenDashboard={() => setScreenPreview("dashboard")}
               onOpenSettings={() => setScreenPreview("settings")}
-              onPlay={openSelectedWorld}
+              onPlay={() => setScreenPreview("world-select")}
+            />
+          ) : screenPreview === "world-select" ? (
+            <WorldSelectScreen
+              onBackToStart={() => setScreenPreview("start")}
+              onSelectWorld={selectWorld}
+              onStartWorld={openSelectedWorld}
+              selectedWorldId={selectedWorld.id}
+              worlds={worldDefinitions}
             />
           ) : screenPreview === "menu" ? (
             <GameMenuScreen
