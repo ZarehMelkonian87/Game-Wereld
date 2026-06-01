@@ -57,7 +57,7 @@ export const TypedCommandFallback = ({
           data-testid="typed-command-input"
           inputMode="text"
           onChange={(event) => onValueChange(event.target.value)}
-          placeholder="Zet de boot in de zee"
+          placeholder={exampleText}
           type="text"
           value={value}
         />

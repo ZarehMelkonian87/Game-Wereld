@@ -61,6 +61,7 @@ export const SpokenCommandControls = ({
   const [showPrivacyNotice, setShowPrivacyNotice] = useState(false);
   const {
     errorMessage,
+    resetTranscript,
     startListening,
     status,
     stopListening,
@@ -97,6 +98,14 @@ export const SpokenCommandControls = ({
       setShowManualFallback(true);
     }
   }, [support.isSupported]);
+
+  useEffect(() => {
+    handledTranscriptRef.current = undefined;
+    setManualText("");
+    setShowManualFallback(!support.isSupported);
+    setShowPrivacyNotice(false);
+    resetTranscript();
+  }, [exampleText, resetTranscript, support.isSupported]);
 
   useEffect(() => {
     let isMounted = true;
@@ -216,6 +225,7 @@ export const SpokenCommandControls = ({
                 <VoiceCommandStatus
                   compact
                   errorMessage={errorMessage}
+                  exampleText={exampleText}
                   isSupported={support.isSupported}
                   status={status}
                   supportMessage={supportMessage}

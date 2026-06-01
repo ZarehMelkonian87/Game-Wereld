@@ -38,6 +38,7 @@ const VoiceRecognitionPreviewPanel = () => {
         />
         <VoiceCommandStatus
           errorMessage={errorMessage}
+          exampleText="Zet de boot in de zee."
           isSupported={support.isSupported}
           status={status}
           supportMessage={supportMessage}

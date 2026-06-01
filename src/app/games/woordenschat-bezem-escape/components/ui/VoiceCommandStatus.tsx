@@ -5,6 +5,7 @@ interface VoiceCommandStatusProps {
   className?: string;
   compact?: boolean;
   errorMessage?: string;
+  exampleText: string;
   isSupported: boolean;
   status: VoiceRecognitionStatus;
   supportMessage: string;
@@ -41,6 +42,7 @@ const getStatusTitle = (
 
 const getStatusDescription = ({
   errorMessage,
+  exampleText,
   isSupported,
   status,
   supportMessage,
@@ -51,7 +53,7 @@ const getStatusDescription = ({
   }
 
   if (status === "listening") {
-    return "Zeg rustig: Zet de boot in de zee.";
+    return `Zeg rustig: ${exampleText}`;
   }
 
   if (status === "processing") {

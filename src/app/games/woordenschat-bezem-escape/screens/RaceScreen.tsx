@@ -224,7 +224,7 @@ function RaceControlButton({
     <button
       aria-label={actionLabels[action]}
       className={classNames(
-        "pointer-events-auto flex min-h-14 min-w-[4.15rem] touch-manipulation flex-col items-center justify-center gap-0.5 rounded-2xl border-2 bg-white/92 px-2 text-xs font-black leading-none text-slate-900 shadow-[0_4px_0_rgba(15,23,42,0.14)] transition active:translate-y-0.5 active:shadow-none landscape:min-h-12 landscape:w-full landscape:min-w-0 landscape:flex-row landscape:gap-2",
+        "pointer-events-auto flex min-h-12 min-w-12 touch-manipulation flex-col items-center justify-center gap-0.5 rounded-2xl border-2 bg-white/92 px-1 text-[0.66rem] font-black leading-none text-slate-900 shadow-[0_4px_0_rgba(15,23,42,0.14)] transition active:translate-y-0.5 active:shadow-none landscape:min-h-10 landscape:w-full landscape:min-w-0 landscape:flex-row landscape:gap-1.5 landscape:text-[0.72rem]",
         active && "border-emerald-500 bg-emerald-100 text-emerald-950 ring-2 ring-white",
       )}
       data-testid={`race-control-${action}`}
@@ -720,7 +720,8 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
         <PanelCard
           aria-label="Raceknoppen"
           data-testid="race-control-area"
-          className="flex min-h-0 items-center gap-2 overflow-x-auto !p-2 landscape:col-start-3 landscape:row-span-3 landscape:row-start-1 landscape:flex-col landscape:justify-center landscape:overflow-visible"
+          className="pointer-events-auto flex min-h-0 items-center justify-start gap-1 overflow-x-auto overflow-y-hidden overscroll-x-contain !p-2 [scrollbar-width:thin] landscape:col-start-3 landscape:row-span-3 landscape:row-start-1 landscape:flex-col landscape:justify-start landscape:overflow-x-hidden landscape:overflow-y-auto landscape:overscroll-y-contain"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           {(["left", "under", "over", "between", "collect", "right"] as RaceControlAction[]).map(
             (action) => (
