@@ -29,6 +29,9 @@ export const VoicePrivacyNotice = ({ onAccept, onClose }: VoicePrivacyNoticeProp
         <p className="mt-1 text-[0.68rem] font-bold leading-tight text-slate-600">
           {voicePrivacyCopy.browserNote}
         </p>
+        <p className="mt-1 text-[0.68rem] font-black leading-tight text-emerald-800">
+          {voicePrivacyCopy.permissionNote}
+        </p>
       </div>
     </div>
     <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-2">

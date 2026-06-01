@@ -247,48 +247,55 @@ Resultaat: de app toont nu bij eerste microfoongebruik een privacyuitleg, bewaar
 - [x] Fallback bepalen voor browsers zonder goede ondersteuning.
 - [x] Lokale netwerk-test met mobiel voorbereiden.
 - [x] HTTPS-dev optie onderzoeken voor microfoontoegang op telefoon.
-- [ ] Documenteren hoe we lokaal testen met telefoon.
+- [x] Documenteren hoe we lokaal testen met telefoon.
+- [x] Expliciete browsertoestemming vragen na de privacyuitleg.
+- [x] Duidelijke melding tonen als microfoon door HTTP, browser of instellingen wordt geblokkeerd.
+- [x] Settings-knop toevoegen om microfoontoestemming los van de gameflow te vragen of controleren.
+- [x] Settings-knop zichtbaar laten reageren met een poging/statusbericht.
 
 Acceptatie:
 
-- [ ] De functie is veilig uit te leggen aan ouders.
-- [ ] De app heeft een fallback als spraakherkenning niet beschikbaar is.
-- [ ] Mobiele testvoorwaarden zijn duidelijk.
+- [x] De functie is veilig uit te leggen aan ouders.
+- [x] De app heeft een fallback als spraakherkenning niet beschikbaar is.
+- [x] Mobiele testvoorwaarden zijn duidelijk.
+- [x] Ouders kunnen microfoontoestemming vanuit instellingen proberen te activeren.
+- [x] Als de browser geen permission-popup toont, legt de app zichtbaar uit waarom.
 
 ## Fase 9.8: QA En Acceptatie
 
-- [ ] Testen met 10 voorbeeldzinnen.
-- [ ] Testen met korte zinnen.
-- [ ] Testen met zinnen met uitspraakvariatie.
+- [x] Testen met 10 voorbeeldzinnen.
+- [x] Testen met korte zinnen.
+- [x] Testen met zinnen met uitspraakvariatie.
 - [ ] Testen met achtergrondgeluid.
-- [ ] Testen in portrait.
-- [ ] Testen in landscape.
-- [ ] Testen op kleine telefoon.
-- [ ] Testen dat objecten niet buiten beeld vallen.
-- [ ] Testen dat geplaatste objecten verstelbaar blijven.
-- [ ] Testen dat voortgang correct wordt opgeslagen.
-- [ ] Build draaien.
-- [ ] Browser smoke test uitvoeren.
+- [x] Testen in portrait.
+- [x] Testen in landscape.
+- [x] Testen op kleine telefoon.
+- [x] Testen dat objecten niet buiten beeld vallen.
+- [x] Testen dat geplaatste objecten verstelbaar blijven.
+- [x] Testen dat voortgang correct wordt opgeslagen.
+- [x] Build draaien.
+- [x] Browser smoke test uitvoeren.
+- [x] QA-resultaten vastleggen in `phase-9-8-qa-acceptance.md`.
 
 Acceptatie:
 
 - [ ] Kind kan zelf een zin zeggen.
-- [ ] Game kan minstens de basiszinnen automatisch uitvoeren.
-- [ ] Onduidelijke zinnen worden veilig afgehandeld.
-- [ ] De modus voelt als spel, niet als toets.
+- [x] Game kan minstens de basiszinnen automatisch uitvoeren.
+- [x] Onduidelijke zinnen worden veilig afgehandeld.
+- [x] De modus voelt als spel, niet als toets.
 
 ## Eerste Voorbeeldzinnen Voor De MVP
 
-- [ ] `Zet de boot in de zee.`
-- [ ] `Zet de dolfijn in de zee.`
-- [ ] `Leg de bal op het strand.`
-- [ ] `Zet de vuurtoren op het eiland.`
-- [ ] `Zet de vlieger boven het strand.`
-- [ ] `Zet het vliegtuig boven de zee.`
-- [ ] `Leg de schelpen op het strand.`
-- [ ] `Zet de krab op de handdoek.`
-- [ ] `Zet het zandkasteel naast de schelpen.`
-- [ ] `Zet de parasol op het strand.`
+- [x] `Zet de boot in de zee.`
+- [x] `Zet de dolfijn in de zee.`
+- [x] `Leg de bal op het strand.`
+- [x] `Zet de vuurtoren op het eiland.`
+- [x] `Zet de vlieger boven het strand.`
+- [x] `Zet het vliegtuig boven de zee.`
+- [x] `Leg de schelpen op het strand.`
+- [x] `Zet de krab op de handdoek.`
+- [x] `Zet het zandkasteel naast de schelpen.`
+- [x] `Zet de parasol op het strand.`
 
 ## Niet In De Eerste MVP
 

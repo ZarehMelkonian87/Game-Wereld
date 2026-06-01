@@ -82,7 +82,7 @@ export function StartScreen({
 
       <img
         alt="+1 Woordenschat Bezem Escape"
-        className="absolute left-[48%] top-[150px] z-20 w-[min(74vw,290px)] -translate-x-1/2 -rotate-2 select-none drop-shadow-[0_8px_0_rgba(21,48,74,0.16)] landscape:left-[27%] landscape:top-11 landscape:w-[min(33vw,285px)]"
+        className="absolute left-[48%] top-[86px] z-20 w-[min(74vw,290px)] -translate-x-1/2 -rotate-2 select-none drop-shadow-[0_8px_0_rgba(21,48,74,0.16)] landscape:left-[27%] landscape:top-11 landscape:w-[min(33vw,285px)]"
         data-testid="start-logo"
         draggable={false}
         src={startLogoUrl}
@@ -90,7 +90,7 @@ export function StartScreen({
 
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-[400px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[100px] landscape:w-[min(39vw,330px)]"
+        className="absolute left-1/2 top-[305px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[82px] landscape:w-[min(39vw,330px)]"
       >
         <div className="absolute left-[16%] top-[44%] h-[26%] w-[70%] -rotate-[14deg] rounded-full bg-gradient-to-r from-amber-200 via-pink-200 to-sky-200 opacity-75 blur-[3px]" />
         <img

@@ -7,9 +7,21 @@ Doel: `Zeg & Bouw` moet veilig en begrijpelijk werken op telefoons. Spraak is ee
 - De app bewaart geen geluidsopnames.
 - De microfoon wordt alleen gestart nadat de gebruiker op de microfoonknop tikt.
 - Bij eerste gebruik verschijnt een oudervriendelijke melding.
+- Na de melding vraagt de app expliciet browsertoestemming met `getUserMedia`.
+- De app kan microfoontoegang niet automatisch aanzetten; mobiele browsers vereisen een gebruikersactie en browsertoestemming.
 - De herkende zin mag als tekst-observatie bij de voortgang worden opgeslagen.
 - Audio zelf wordt niet in `localStorage`, `sessionStorage` of progress-events opgeslagen.
 - De app gebruikt de spraakfunctie van browser/apparaat. Volgens MDN kan spraakherkenning afhankelijk zijn van browserondersteuning en implementatie: [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) en [SpeechRecognition](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition).
+
+## Toestemming Flow
+
+1. Het kind of de ouder tikt op `Zeg zelf`.
+2. Bij eerste gebruik toont de app de privacyuitleg.
+3. De knop `Vraag toestemming` opent de browser-microfoontoestemming.
+4. Bij `Sta toe` start de spraakherkenning direct.
+5. Bij blokkade, HTTP-lokaal netwerk of ontbrekende browserondersteuning toont de app een korte melding en de `Typ` fallback.
+
+In `Instellingen` staat daarnaast een ouderknop `Vraag microfoon`. Die knop probeert dezelfde browsertoestemming te vragen of opnieuw te controleren zonder dat het kind eerst een opdracht hoeft te spelen. De settings-kaart toont ook zichtbaar waarom er eventueel geen permission-popup komt, bijvoorbeeld wanneer de app via `http://192.168.x.x` in plaats van HTTPS is geopend.
 
 ## Fallback
 
@@ -52,6 +64,9 @@ Praktische aanpak voor later:
 ## Acceptatie
 
 - Eerste microfoongebruik toont privacyuitleg.
+- Eerste microfoongebruik vraagt daarna expliciet microfoontoestemming.
+- Settings heeft een aparte knop om microfoontoestemming te vragen of opnieuw te controleren.
+- Settings legt zichtbaar uit waarom er op mobiel geen microfoon-popup verschijnt.
 - De app bewaart geen audio.
 - Unsupported browser toont een typ-fallback.
 - De fallback gebruikt dezelfde gameflow als gesproken zinnen.
