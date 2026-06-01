@@ -207,31 +207,33 @@ Acceptatie:
 
 ## Fase 9.6: Speed, Beloning En Voortgang
 
-- [ ] +1 Speed geven voor herkende objectnaam.
-- [ ] +1 Speed geven voor herkend plaatsbegrip.
-- [ ] +1 Speed geven voor correcte plaatsing.
-- [ ] +2 Speed mogelijk maken voor volledige zelfstandige zin zonder hulp.
-- [ ] Geen straf bij niet verstaan.
-- [ ] Oefenevent opslaan met modus `zeg-en-bouw`.
-- [ ] Transcript optioneel opslaan als observatie, niet als audio.
-- [ ] Bewaren of het kind hulp nodig had.
-- [ ] Bewaren welk object actief benoemd werd.
-- [ ] Bewaren welk plaatsbegrip actief gebruikt werd.
-- [ ] Bewaren of de app de zin automatisch kon uitvoeren.
+Resultaat: gesproken opdrachten worden nu als oefenobservatie opgeslagen onder modus `zeg-en-bouw`, met aparte speed-beloning voor zelf gemaakte zinnen.
+
+- [x] +1 Speed geven voor herkende objectnaam.
+- [x] +1 Speed geven voor herkend plaatsbegrip.
+- [x] +1 Speed geven voor correcte plaatsing.
+- [x] +2 Speed mogelijk maken voor volledige zelfstandige zin zonder hulp.
+- [x] Geen straf bij niet verstaan.
+- [x] Oefenevent opslaan met modus `zeg-en-bouw`.
+- [x] Transcript optioneel opslaan als observatie, niet als audio.
+- [x] Bewaren of het kind hulp nodig had.
+- [x] Bewaren welk object actief benoemd werd.
+- [x] Bewaren welk plaatsbegrip actief gebruikt werd.
+- [x] Bewaren of de app de zin automatisch kon uitvoeren.
 
 Dashboardvelden:
 
-- [ ] Zelf gemaakte zinnen.
-- [ ] Actief benoemde woorden.
-- [ ] Gebruikte plaatsbegrippen.
-- [ ] Zinnen zonder hulp.
-- [ ] Zinnen met hulp.
-- [ ] Niet verstaan / opnieuw geprobeerd.
+- [x] Zelf gemaakte zinnen.
+- [x] Actief benoemde woorden.
+- [x] Gebruikte plaatsbegrippen.
+- [x] Zinnen zonder hulp.
+- [x] Zinnen met hulp.
+- [x] Niet verstaan / opnieuw geprobeerd.
 
 Acceptatie:
 
-- [ ] Dashboard toont oefenobservaties, geen diagnose.
-- [ ] Ouders/logopedist kunnen zien welke woorden en begrippen spontaan gebruikt zijn.
+- [x] Dashboard toont oefenobservaties, geen diagnose.
+- [x] Ouders/logopedist kunnen zien welke woorden en begrippen spontaan gebruikt zijn.
 
 ## Fase 9.7: Privacy En Mobiele Techniek
 

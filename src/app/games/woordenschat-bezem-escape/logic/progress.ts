@@ -38,9 +38,12 @@ const languageDomains: LanguageDomain[] = [
 ];
 
 export interface PracticeEventInput {
+  activeSpatialConcept?: SpatialConcept;
+  activelyNamedWord?: string;
   assistance: AssistanceLevel;
   attempts: number;
   audioRepeats: number;
+  autoExecuted?: boolean;
   hintsUsed: number;
   id?: string;
   instructionId: string;
@@ -49,8 +52,10 @@ export interface PracticeEventInput {
   mode: BezemEscapeMode;
   reactionTimeMs?: number;
   result: PracticeResult;
+  selfMadeSentence?: boolean;
   spatialConcepts: SpatialConcept[];
   speedEarned: number;
+  spokenTranscript?: string;
   targetWords: string[];
   wordStarsEarned: number;
   worldId?: string;
@@ -71,6 +76,25 @@ export interface RaceProgressSummaryInput {
 
 export type AdultRating = "good" | "help" | "partial";
 
+export interface SpeakAndPlaceObservationInput {
+  assistance: AssistanceLevel;
+  audioRepeats: number;
+  autoExecuted: boolean;
+  hintsUsed: number;
+  id?: string;
+  instructionId: string;
+  isCorrect: boolean;
+  languageDomains?: LanguageDomain[];
+  result: PracticeResult;
+  selfMadeSentence: boolean;
+  spatialConcept?: SpatialConcept;
+  speedEarned: number;
+  targetWord?: string;
+  transcript?: string;
+  wordStarsEarned: number;
+  worldId?: string;
+}
+
 function getProgressStorageKey(profileId: string) {
   return `woordenschat-bezem-escape:${profileId}:progress`;
 }
@@ -86,14 +110,22 @@ function createConceptProgress(): ConceptProgress {
 
 function createEmptyProgress(profileId: string): BezemEscapeProgress {
   return {
+    activeSpatialConcepts: Object.fromEntries(
+      spatialConcepts.map((concept) => [concept, 0]),
+    ) as Record<SpatialConcept, number>,
     attempts: [],
     activelyNamedWords: {},
+    autoExecutedSpokenCommands: 0,
     languageDomains: Object.fromEntries(
       languageDomains.map((domain) => [domain, createConceptProgress()]),
     ) as Record<LanguageDomain, ConceptProgress>,
+    misunderstoodSpeechAttempts: 0,
     practicedWords: {},
     profileId,
     recognizedWords: {},
+    selfMadeSentences: 0,
+    selfMadeSentencesWithHelp: 0,
+    selfMadeSentencesWithoutHelp: 0,
     spatialConcepts: Object.fromEntries(
       spatialConcepts.map((concept) => [concept, createConceptProgress()]),
     ) as Record<SpatialConcept, ConceptProgress>,
@@ -113,6 +145,10 @@ function normalizeProgress(profileId: string, progress: Partial<BezemEscapeProgr
     languageDomains: {
       ...emptyProgress.languageDomains,
       ...(progress.languageDomains ?? {}),
+    },
+    activeSpatialConcepts: {
+      ...emptyProgress.activeSpatialConcepts,
+      ...(progress.activeSpatialConcepts ?? {}),
     },
     spatialConcepts: {
       ...emptyProgress.spatialConcepts,
@@ -219,17 +255,50 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
     profileId,
     reactionTimeMs: input.reactionTimeMs,
     result: input.result,
+    selfMadeSentence: input.selfMadeSentence,
     spatialConcepts: input.spatialConcepts,
     speedEarned: input.speedEarned,
+    spokenTranscript: input.spokenTranscript,
     targetWords: input.targetWords,
     wordStarsEarned: input.wordStarsEarned,
     worldId: input.worldId ?? "beach-world-1",
+    activeSpatialConcept: input.activeSpatialConcept,
+    activelyNamedWord: input.activelyNamedWord,
+    autoExecuted: input.autoExecuted,
   };
 
   event.targetWords.forEach((word) => incrementCounter(progress.practicedWords, word));
 
   if (event.mode === "choose-word" && event.isCorrect) {
     event.targetWords.forEach((word) => incrementCounter(progress.recognizedWords, word));
+  }
+
+  if (event.mode === "zeg-en-bouw") {
+    if (event.activelyNamedWord) {
+      incrementCounter(progress.activelyNamedWords, event.activelyNamedWord);
+    }
+
+    if (event.activeSpatialConcept) {
+      incrementCounter(progress.activeSpatialConcepts, event.activeSpatialConcept);
+    }
+
+    if (event.selfMadeSentence) {
+      progress.selfMadeSentences += 1;
+
+      if (event.assistance === "none") {
+        progress.selfMadeSentencesWithoutHelp += 1;
+      } else {
+        progress.selfMadeSentencesWithHelp += 1;
+      }
+    }
+
+    if (event.autoExecuted && event.isCorrect) {
+      progress.autoExecutedSpokenCommands += 1;
+    }
+
+    if (!event.isCorrect && !event.autoExecuted) {
+      progress.misunderstoodSpeechAttempts += 1;
+    }
   }
 
   event.spatialConcepts.forEach((concept) => {
@@ -293,6 +362,42 @@ export function recordSentenceRepeatObservation(profileId: string, params: {
     speedEarned: 0,
     targetWords: [params.sentence],
     wordStarsEarned: 0,
+  });
+}
+
+export function recordSpeakAndPlaceObservation(
+  profileId: string,
+  input: SpeakAndPlaceObservationInput,
+) {
+  const languageDomainSet = new Set<LanguageDomain>([
+    "active-vocabulary",
+    "concepts-and-directions",
+    "sentence-comprehension",
+    "spatial-language",
+    ...(input.languageDomains ?? []),
+  ]);
+
+  return appendPracticeEvent(profileId, {
+    activeSpatialConcept: input.spatialConcept,
+    activelyNamedWord: input.targetWord,
+    assistance: input.assistance,
+    attempts: 1,
+    audioRepeats: input.audioRepeats,
+    autoExecuted: input.autoExecuted,
+    hintsUsed: input.hintsUsed,
+    id: input.id,
+    instructionId: input.instructionId,
+    isCorrect: input.isCorrect,
+    languageDomains: [...languageDomainSet],
+    mode: "zeg-en-bouw",
+    result: input.result,
+    selfMadeSentence: input.selfMadeSentence,
+    spatialConcepts: input.spatialConcept ? [input.spatialConcept] : [],
+    speedEarned: input.speedEarned,
+    spokenTranscript: input.transcript,
+    targetWords: input.targetWord ? [input.targetWord] : [],
+    wordStarsEarned: input.wordStarsEarned,
+    worldId: input.worldId,
   });
 }
 

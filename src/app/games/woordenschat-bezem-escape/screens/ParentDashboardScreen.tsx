@@ -178,6 +178,18 @@ function getRowsFromWords(params: {
     });
 }
 
+function getRowsFromActiveSpatialConcepts(concepts: Record<string, number>, limit = 6) {
+  return Object.entries(concepts)
+    .filter(([, count]) => count > 0)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, limit)
+    .map(([label, count]) => ({
+      detail: `${count}x spontaan gebruikt in een eigen zin`,
+      label,
+      status: "gaat-goed" as const,
+    }));
+}
+
 function countTodayAttempts(attempts: BezemEscapePracticeEvent[]) {
   const currentDay = todayKey();
   return attempts.filter((attempt) => attempt.playedAt.slice(0, 10) === currentDay);
@@ -186,6 +198,9 @@ function countTodayAttempts(attempts: BezemEscapePracticeEvent[]) {
 function buildShareSummary(params: {
   profileName: string;
   rows: DashboardRow[];
+  selfMadeSentences: number;
+  selfMadeSentencesWithHelp: number;
+  selfMadeSentencesWithoutHelp: number;
   todayAttempts: BezemEscapePracticeEvent[];
   totalSpeed: number;
   totalWordStars: number;
@@ -201,6 +216,9 @@ function buildShareSummary(params: {
     `Vandaag: ${params.todayAttempts.length} oefenmomenten`,
     `Speed totaal: ${params.totalSpeed}`,
     `Woordsterren totaal: ${params.totalWordStars}`,
+    `Zelf gemaakte zinnen: ${params.selfMadeSentences}`,
+    `Zonder hulp: ${params.selfMadeSentencesWithoutHelp}`,
+    `Met hulp: ${params.selfMadeSentencesWithHelp}`,
     "",
     "Gaat goed:",
     ...(goodRows.length > 0 ? goodRows.map((row) => `- ${row.label}: ${row.detail}`) : ["- Nog opbouwen"]),
@@ -234,46 +252,81 @@ export function ParentDashboardScreen({ onBackToMenu }: ParentDashboardScreenPro
     () => getRowsFromConcepts(progress.spatialConcepts),
     [progress.spatialConcepts],
   );
-  const sentenceUnderstandingRows = [
+  const sentenceUnderstandingRows: DashboardRow[] = [
     {
       detail: `${progress.languageDomains["sentence-comprehension"].practiced} opdrachten`,
       label: "Zinnen begrijpen",
       status: getStatusFromConcept(progress.languageDomains["sentence-comprehension"]),
     },
   ];
-  const activeVocabularyRows = [
+  const activeVocabularyRows: DashboardRow[] = [
     {
       detail: `${Object.values(progress.activelyNamedWords).reduce((sum, count) => sum + count, 0)} benoemingen`,
       label: "Actieve woordenschat",
       status: getStatusFromConcept(progress.languageDomains["active-vocabulary"]),
     },
   ];
-  const sentenceRepeatRows = [
+  const speakAndPlaceRows: DashboardRow[] = [
+    {
+      detail: `${progress.selfMadeSentences} zinnen, ${progress.autoExecutedSpokenCommands} automatisch geplaatst`,
+      label: "Zelf gemaakte zinnen",
+      status: progress.selfMadeSentencesWithoutHelp > 0
+        ? "gaat-goed"
+        : progress.selfMadeSentencesWithHelp > 0
+          ? "met-hulp"
+          : "oefenen",
+    },
+    {
+      detail: `${progress.selfMadeSentencesWithoutHelp} zonder hulp, ${progress.selfMadeSentencesWithHelp} met hulp`,
+      label: "Zinnen zonder/met hulp",
+      status: progress.selfMadeSentencesWithoutHelp > 0
+        ? "gaat-goed"
+        : progress.selfMadeSentencesWithHelp > 0
+          ? "met-hulp"
+          : "oefenen",
+    },
+    {
+      detail: `${progress.misunderstoodSpeechAttempts} keer niet verstaan of opnieuw geprobeerd`,
+      label: "Niet verstaan / opnieuw",
+      status: progress.misunderstoodSpeechAttempts > progress.selfMadeSentences
+        ? "oefenen"
+        : progress.misunderstoodSpeechAttempts > 0
+          ? "met-hulp"
+          : "gaat-goed",
+    },
+  ];
+  const activeSpatialConceptRows = useMemo(
+    () => getRowsFromActiveSpatialConcepts(progress.activeSpatialConcepts),
+    [progress.activeSpatialConcepts],
+  );
+  const sentenceRepeatRows: DashboardRow[] = [
     {
       detail: `${progress.languageDomains["sentence-repetition"].practiced} pogingen`,
       label: "Zinnen nazeggen",
       status: getStatusFromConcept(progress.languageDomains["sentence-repetition"]),
     },
   ];
-  const directionsRows = [
+  const directionsRows: DashboardRow[] = [
     {
       detail: `${progress.languageDomains["following-directions"].practiced} opdrachten`,
       label: "Aanwijzingen volgen",
       status: getStatusFromConcept(progress.languageDomains["following-directions"]),
     },
   ];
-  const categoryRows = [
+  const categoryRows: DashboardRow[] = [
     {
       detail: `${progress.languageDomains["word-categories"].practiced} opdrachten`,
       label: "Woordcategorieen",
       status: getStatusFromConcept(progress.languageDomains["word-categories"]),
     },
   ];
-  const allRows = [
+  const allRows: DashboardRow[] = [
     ...wordRows,
     ...conceptRows,
     ...sentenceUnderstandingRows,
     ...activeVocabularyRows,
+    ...speakAndPlaceRows,
+    ...activeSpatialConceptRows,
     ...sentenceRepeatRows,
     ...directionsRows,
     ...categoryRows,
@@ -284,6 +337,9 @@ export function ParentDashboardScreen({ onBackToMenu }: ParentDashboardScreenPro
   const shareSummary = buildShareSummary({
     profileName,
     rows: allRows,
+    selfMadeSentences: progress.selfMadeSentences,
+    selfMadeSentencesWithHelp: progress.selfMadeSentencesWithHelp,
+    selfMadeSentencesWithoutHelp: progress.selfMadeSentencesWithoutHelp,
     todayAttempts,
     totalSpeed: progress.totalSpeed,
     totalWordStars: progress.totalWordStars,
@@ -399,6 +455,20 @@ export function ParentDashboardScreen({ onBackToMenu }: ParentDashboardScreenPro
 
           <DashboardSection
             icon={<ClipboardList className="h-5 w-5" strokeWidth={3} />}
+            title="Zelf gemaakte zinnen"
+          >
+            <RowList rows={speakAndPlaceRows} />
+          </DashboardSection>
+
+          <DashboardSection
+            icon={<Lightbulb className="h-5 w-5" strokeWidth={3} />}
+            title="Gebruikte plaatswoorden"
+          >
+            <RowList rows={activeSpatialConceptRows} />
+          </DashboardSection>
+
+          <DashboardSection
+            icon={<ClipboardList className="h-5 w-5" strokeWidth={3} />}
             title="Zinnen nazeggen"
           >
             <RowList rows={sentenceRepeatRows} />
@@ -430,7 +500,7 @@ export function ParentDashboardScreen({ onBackToMenu }: ParentDashboardScreenPro
                       {
                         detail: "Blijf korte strandopdrachten herhalen.",
                         label: "Onderhouden",
-                        status: "gaat-goed",
+                        status: "gaat-goed" as const,
                       },
                     ]
               }

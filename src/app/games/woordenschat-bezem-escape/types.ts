@@ -1,7 +1,8 @@
 export type BezemEscapeMode =
   | "listen-and-place"
   | "choose-word"
-  | "broom-escape-run";
+  | "broom-escape-run"
+  | "zeg-en-bouw";
 
 export type PlannedPracticeMode =
   | BezemEscapeMode
@@ -216,6 +217,9 @@ export type PracticeResult =
   | "needs-more-practice";
 
 export interface BezemEscapePracticeEvent {
+  activeSpatialConcept?: SpatialConcept;
+  activelyNamedWord?: string;
+  autoExecuted?: boolean;
   id: string;
   profileId: string;
   gameId: "woordenschat-bezem-escape";
@@ -232,7 +236,9 @@ export interface BezemEscapePracticeEvent {
   hintsUsed: number;
   audioRepeats: number;
   reactionTimeMs?: number;
+  selfMadeSentence?: boolean;
   speedEarned: number;
+  spokenTranscript?: string;
   wordStarsEarned: number;
   playedAt: string;
 }
@@ -253,8 +259,14 @@ export interface BezemEscapeProgress {
   practicedWords: Record<string, number>;
   recognizedWords: Record<string, number>;
   activelyNamedWords: Record<string, number>;
+  activeSpatialConcepts: Record<SpatialConcept, number>;
+  autoExecutedSpokenCommands: number;
   spatialConcepts: Record<SpatialConcept, ConceptProgress>;
   languageDomains: Record<LanguageDomain, ConceptProgress>;
+  misunderstoodSpeechAttempts: number;
+  selfMadeSentences: number;
+  selfMadeSentencesWithHelp: number;
+  selfMadeSentencesWithoutHelp: number;
   unlockedRewards: string[];
   attempts: BezemEscapePracticeEvent[];
 }
