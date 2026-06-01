@@ -154,26 +154,28 @@ Acceptatie:
 
 ## Fase 9.4: UI Voor Zeg & Bouw
 
-- [ ] Geen aparte andere game-layout maken.
-- [ ] Bestaande `SceneBuilderScreen` uitbreiden met een `Zeg zelf` stand.
-- [ ] De strandscene, objecttray, HUD, speedbar en `Klaar` flow behouden.
-- [ ] Microfoonknop altijd zichtbaar maken.
-- [ ] Audio/hintknoppen niet laten concurreren met microfoon.
-- [ ] Korte statusbubble maken:
-  - [ ] `Zeg een zin.`
-  - [ ] `Ik luister...`
-  - [ ] `Ik hoorde: ...`
-  - [ ] `Wil je dit zo plaatsen?`
-- [ ] Geen lange uitlegtekst tonen aan het kind.
-- [ ] Hulpknop uitleg laten geven: `Zeg bijvoorbeeld: Zet de boot in de zee.`
-- [ ] Portrait layout testen.
-- [ ] Landscape layout testen.
+Resultaat: de bestaande `SceneBuilderScreen` heeft nu een compacte `Zeg zelf` microfoonknop naast de opdrachtbubble. De strandscene, objecttray, HUD, speedbar en `Klaar` flow blijven hetzelfde.
+
+- [x] Geen aparte andere game-layout maken.
+- [x] Bestaande `SceneBuilderScreen` uitbreiden met een `Zeg zelf` stand.
+- [x] De strandscene, objecttray, HUD, speedbar en `Klaar` flow behouden.
+- [x] Microfoonknop altijd zichtbaar maken.
+- [x] Audio/hintknoppen niet laten concurreren met microfoon.
+- [x] Korte statusbubble maken:
+  - [x] `Zeg een zin.`
+  - [x] `Ik luister...`
+  - [x] `Ik hoorde: ...`
+  - [x] `Wil je dit zo plaatsen?`
+- [x] Geen lange uitlegtekst tonen aan het kind.
+- [x] Hulpknop uitleg laten geven: `Zeg bijvoorbeeld: Zet de boot in de zee.`
+- [x] Portrait layout testen.
+- [x] Landscape layout testen.
 
 Acceptatie:
 
-- [ ] Kind ziet duidelijk wat hij moet doen.
-- [ ] UI blijft dezelfde game als `Luister & Plaats`.
-- [ ] Er is geen overlap met tray, HUD of scene.
+- [x] Kind ziet duidelijk wat hij moet doen.
+- [x] UI blijft dezelfde game als `Luister & Plaats`.
+- [x] Er is geen overlap met tray, HUD of scene.
 
 ## Fase 9.5: Vriendelijke Correctie En Hints
 

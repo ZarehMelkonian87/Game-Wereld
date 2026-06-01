@@ -2,6 +2,8 @@ import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
 import { classNames } from "./classNames";
 
 interface VoiceCommandStatusProps {
+  className?: string;
+  compact?: boolean;
   errorMessage?: string;
   isSupported: boolean;
   status: VoiceRecognitionStatus;
@@ -68,7 +70,7 @@ const getStatusDescription = ({
 };
 
 export const VoiceCommandStatus = (props: VoiceCommandStatusProps) => {
-  const { isSupported, status, transcript } = props;
+  const { className, compact = false, isSupported, status, transcript } = props;
   const title = getStatusTitle(status, transcript, isSupported);
   const description = getStatusDescription(props);
 
@@ -76,19 +78,34 @@ export const VoiceCommandStatus = (props: VoiceCommandStatusProps) => {
     <div
       className={classNames(
         "rounded-3xl border-2 border-white bg-white/88 px-4 py-3 text-left text-slate-900 shadow-[0_4px_0_rgba(15,23,42,0.12)]",
+        compact && "rounded-2xl px-3 py-2",
         status === "listening" && "bg-emerald-50",
         status === "heard" && "bg-sky-50",
         status === "error" && "bg-amber-50",
+        className,
       )}
       data-component="VoiceCommandStatus"
       data-slot="voice-command-status"
       data-status={status}
     >
-      <p className="text-sm font-black uppercase tracking-wide text-slate-600">{title}</p>
-      <p className="mt-1 text-base font-black leading-tight">{description}</p>
+      <p
+        className={classNames(
+          "font-black uppercase tracking-wide text-slate-600",
+          compact ? "text-[0.62rem]" : "text-sm",
+        )}
+      >
+        {title}
+      </p>
+      <p
+        className={classNames(
+          "mt-1 font-black leading-tight",
+          compact ? "text-xs" : "text-base",
+        )}
+      >
+        {description}
+      </p>
     </div>
   );
 };
 
 VoiceCommandStatus.displayName = "VoiceCommandStatus";
-

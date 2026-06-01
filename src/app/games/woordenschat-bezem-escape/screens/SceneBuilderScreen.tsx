@@ -36,6 +36,7 @@ import {
 import { readBezemEscapeSettings } from "../logic/settings";
 import { speakDutch } from "../logic/speech";
 import type { SceneBuilderInstruction, SceneObject, SceneZone, SpatialConcept } from "../types";
+import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 import { useProfile } from "../../../contexts/ProfileContext";
 
 interface SceneBuilderScreenProps {
@@ -354,7 +355,7 @@ export function SceneBuilderScreen({
       setFeedback({
         kind: "ready",
         mascot: "hint",
-        text: `${executionResult.message} Druk daarna op Klaar.`,
+        text: `${executionResult.message} Wil je dit zo plaatsen? Druk daarna op Klaar.`,
       });
 
       return executionResult;
@@ -689,8 +690,11 @@ export function SceneBuilderScreen({
     }
 
     const targetWord = `${targetObject?.article ?? "het"} ${targetObject?.label ?? "plaatje"}`;
+    const voiceExampleHint = `Zeg bijvoorbeeld: ${instruction.prompt}`;
     const hintText =
-      nextHintLevel === 1
+      spokenCommandResult && spokenCommandResult.status !== "ready"
+        ? voiceExampleHint
+        : nextHintLevel === 1
         ? `Zoek ${targetWord}.`
         : nextHintLevel === 2
           ? `Kijk naar het plaatje dat oplicht: ${targetObject?.label ?? "plaatje"}.`
@@ -968,14 +972,24 @@ export function SceneBuilderScreen({
         starCount={wordStarValue}
       />
 
-      <div className="grid h-full min-h-0 grid-rows-[4rem_minmax(0,1fr)_3.75rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_4.5rem]">
-        <InstructionBubble
-          aria-label="Opdrachtgebied"
-          data-testid="scene-builder-instruction-area"
-          onAudioClick={() => playInstructionAudio()}
-          text={currentInstructionText}
-          className="landscape:col-start-1 landscape:row-start-1"
-        />
+      <div className="grid h-full min-h-0 grid-rows-[4.5rem_minmax(0,1fr)_3.75rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4.5rem_minmax(0,1fr)_4.5rem]">
+        <div
+          className="grid min-h-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2 landscape:col-start-1 landscape:row-start-1"
+          data-component="SceneBuilderCommandRow"
+          data-slot="command-row"
+        >
+          <InstructionBubble
+            aria-label="Opdrachtgebied"
+            data-testid="scene-builder-instruction-area"
+            onAudioClick={() => playInstructionAudio()}
+            text={currentInstructionText}
+            className="h-full min-h-0"
+          />
+          <SpokenCommandControls
+            exampleText={instruction.prompt}
+            onTranscript={applySpokenCommandTranscript}
+          />
+        </div>
 
         <section
           aria-label="Scenegebied"
