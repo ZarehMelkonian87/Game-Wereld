@@ -41,20 +41,22 @@ Voorbeeldflow:
 
 ## Fase 9.0: Ontwerp En Scope Vastleggen
 
-- [ ] Nieuwe modusnaam vastleggen: `Zeg & Bouw`.
-- [ ] Bepalen of de modus direct in de scene-builder komt of als aparte moduskaart in het modusmenu.
-- [ ] Eerste MVP beperken tot de strandwereld.
-- [ ] Eerste MVP beperken tot korte zinnen met 1 object en 1 plaats.
-- [ ] Eerste MVP beperken tot bestaande objecten en zones.
-- [ ] Bepalen welke feedbackteksten gebruikt worden.
-- [ ] Bepalen welke observatiedata bewaard wordt.
-- [ ] Bepalen hoe ouder/logopedist toestemming of uitleg krijgt over microfoongebruik.
+Resultaat: zie `speak-and-place-scope.md`.
+
+- [x] Nieuwe modusnaam vastleggen: `Zeg & Bouw`.
+- [x] Bepalen of de modus direct in de scene-builder komt of als aparte moduskaart in het modusmenu.
+- [x] Eerste MVP beperken tot de strandwereld.
+- [x] Eerste MVP beperken tot korte zinnen met 1 object en 1 plaats.
+- [x] Eerste MVP beperken tot bestaande objecten en zones.
+- [x] Bepalen welke feedbackteksten gebruikt worden.
+- [x] Bepalen welke observatiedata bewaard wordt.
+- [x] Bepalen hoe ouder/logopedist toestemming of uitleg krijgt over microfoongebruik.
 
 Acceptatie:
 
-- [ ] Er is een duidelijke MVP-scope.
-- [ ] De functie blijft oefening en geen toets.
-- [ ] De functie gebruikt alleen bestaande strandcontent.
+- [x] Er is een duidelijke MVP-scope.
+- [x] De functie blijft oefening en geen toets.
+- [x] De functie gebruikt alleen bestaande strandcontent.
 
 ## Fase 9.1: Spraakherkenning Basis
 
@@ -277,4 +279,3 @@ Acceptatie:
 - [ ] Officiele testvergelijking of normscore.
 - [ ] Audio-opnames bewaren.
 - [ ] AI-cloudparser gebruiken zonder apart privacybesluit.
-
