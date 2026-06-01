@@ -1,18 +1,9 @@
-import type { ReactNode } from "react";
+import type { GameStageProps } from "../../../../game-platform";
+import { GameStage as PlatformGameStage } from "../../../../game-platform";
 
-interface GameStageProps {
-  children: ReactNode;
-  name: string;
-}
+export type { GameStageProps };
 
-export function GameStage({ children, name }: GameStageProps) {
-  return (
-    <section
-      data-testid="bezem-escape-stage"
-      aria-label={name}
-      className="relative isolate h-full w-full overflow-hidden bg-sky-100"
-    >
-      {children}
-    </section>
-  );
-}
+export const GameStage = (props: GameStageProps) => <PlatformGameStage {...props} />;
+
+GameStage.displayName = "GameStage";
+

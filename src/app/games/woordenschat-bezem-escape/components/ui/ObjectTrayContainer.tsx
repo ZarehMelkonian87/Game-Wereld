@@ -1,34 +1,9 @@
-import type { HTMLAttributes, ReactNode } from "react";
-import { classNames } from "./classNames";
-import { PanelCard } from "./PanelCard";
+import type { ObjectTrayProps } from "../../../../game-platform";
+import { ObjectTray } from "../../../../game-platform";
 
-interface ObjectTrayContainerProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode;
-}
+export type ObjectTrayContainerProps = ObjectTrayProps;
 
-export function ObjectTrayContainer({
-  children,
-  className,
-  ...trayProps
-}: ObjectTrayContainerProps) {
-  return (
-    <PanelCard
-      {...trayProps}
-      className={classNames(
-        "flex h-full min-h-0 w-full items-center justify-center overflow-hidden !border-white/55 !bg-white/45 !p-2 !shadow-[0_4px_0_rgba(15,23,42,0.08)]",
-        className,
-      )}
-    >
-      <div
-        data-testid="object-tray-container"
-        className={classNames(
-          "pointer-events-auto flex h-full w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain px-0.5 [scrollbar-width:thin]",
-          children ? "justify-start" : "justify-center",
-        )}
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {children}
-      </div>
-    </PanelCard>
-  );
-}
+export const ObjectTrayContainer = (props: ObjectTrayContainerProps) => <ObjectTray {...props} />;
+
+ObjectTrayContainer.displayName = "ObjectTrayContainer";
+

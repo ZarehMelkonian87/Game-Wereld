@@ -2,6 +2,32 @@
 
 Gebruik deze map als startpunt voor een nieuwe mini-game.
 
+## Verplichte Structuur
+
+```txt
+game.config.ts
+index.tsx
+types.ts
+assets/
+content/
+screens/
+components/
+logic/
+state/
+docs/
+```
+
+## Regels
+
+- Gebruik alleen arrow functions.
+- Gebruik shared primitives uit `src/app/game-platform`.
+- Houd components klein.
+- Zet business logic in `logic/`.
+- Zet screen state in `state/useXController.ts`.
+- Zet opdrachten en content in `content/*.data.ts`.
+- Geef components `displayName`.
+- Gebruik `data-component` en `data-slot` waar dat helpt voor DevTools.
+
 ## Doel
 
 Beschrijf hier wat het kind leert.
@@ -27,7 +53,9 @@ Meet minimaal:
 
 ## Bestanden
 
-- `index.tsx` - React component.
-- `content.ts` - gamecontent.
+- `game.config.ts` - vaste game metadata.
+- `index.tsx` - game root component.
+- `content/*.data.ts` - gamecontent.
 - `types.ts` - types.
-- `progress.ts` - voortgangslogica.
+- `logic/` - pure spelregels.
+- `state/` - controller hooks.
