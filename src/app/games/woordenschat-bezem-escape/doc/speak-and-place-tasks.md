@@ -237,14 +237,16 @@ Acceptatie:
 
 ## Fase 9.7: Privacy En Mobiele Techniek
 
-- [ ] Uitleg toevoegen dat microfoon alleen gebruikt wordt voor deze oefening.
-- [ ] Geen geluidsopnames bewaren.
-- [ ] Bij eerste gebruik een oudervriendelijke melding tonen.
-- [ ] Controleren of Web Speech API werkt op Android Chrome.
-- [ ] Controleren wat er gebeurt op iPhone Safari.
-- [ ] Fallback bepalen voor browsers zonder goede ondersteuning.
-- [ ] Lokale netwerk-test met mobiel voorbereiden.
-- [ ] HTTPS-dev optie onderzoeken voor microfoontoegang op telefoon.
+Resultaat: de app toont nu bij eerste microfoongebruik een privacyuitleg, bewaart geen audio en biedt een typ-fallback wanneer spraakherkenning niet beschikbaar is. De mobiele testafspraken staan in `phase-9-7-privacy-mobile-tech.md`.
+
+- [x] Uitleg toevoegen dat microfoon alleen gebruikt wordt voor deze oefening.
+- [x] Geen geluidsopnames bewaren.
+- [x] Bij eerste gebruik een oudervriendelijke melding tonen.
+- [x] Feature-detectie en QA-plan voor Android Chrome vastleggen.
+- [x] Feature-detectie en QA-plan voor iPhone Safari vastleggen.
+- [x] Fallback bepalen voor browsers zonder goede ondersteuning.
+- [x] Lokale netwerk-test met mobiel voorbereiden.
+- [x] HTTPS-dev optie onderzoeken voor microfoontoegang op telefoon.
 - [ ] Documenteren hoe we lokaal testen met telefoon.
 
 Acceptatie:

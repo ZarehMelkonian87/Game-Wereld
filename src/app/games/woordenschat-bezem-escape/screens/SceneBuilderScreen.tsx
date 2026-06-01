@@ -1205,6 +1205,7 @@ export function SceneBuilderScreen({
           <SpokenCommandControls
             exampleText={instruction.prompt}
             onTranscript={applySpokenCommandTranscript}
+            profileId={rewardProfileId}
           />
         </div>
 
