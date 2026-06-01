@@ -1,6 +1,6 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { broomIconUrls, getBeachObjectStickerUrl, mascotIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
@@ -17,6 +17,11 @@ import {
   supportedSceneBuilderConcepts,
   zoneSupportsConcept,
 } from "../logic/scene-zones";
+import {
+  executeSpokenSceneCommand,
+  type SceneCommandChoice,
+  type SceneCommandExecutionResult,
+} from "../logic/scene-command-executor";
 import {
   readUnlockedRewardIds,
   resolveNewRewardUnlocks,
@@ -38,6 +43,7 @@ interface SceneBuilderScreenProps {
   instructionText?: string;
   objects: SceneObject[];
   onStartRace?: () => void;
+  spokenCommandPreviewText?: string;
   zones: SceneZone[];
   showTrayLabels?: boolean;
 }
@@ -95,6 +101,8 @@ interface PracticeRatingStats {
 
 interface PendingPlacement {
   objectId: string;
+  source?: "manual" | "spoken";
+  transcript?: string;
   x: number;
   y: number;
   zoneId: string;
@@ -144,6 +152,7 @@ export function SceneBuilderScreen({
   instructionText,
   objects,
   onStartRace,
+  spokenCommandPreviewText,
   zones,
   showTrayLabels = false,
 }: SceneBuilderScreenProps) {
@@ -157,6 +166,10 @@ export function SceneBuilderScreen({
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
   const [pendingPlacement, setPendingPlacement] = useState<PendingPlacement | null>(null);
+  const [spokenCommandResult, setSpokenCommandResult] =
+    useState<SceneCommandExecutionResult | null>(null);
+  const [appliedSpokenCommandPreviewText, setAppliedSpokenCommandPreviewText] =
+    useState<string | null>(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
   const [sceneComplete, setSceneComplete] = useState(false);
   const [sceneCompletionSummary, setSceneCompletionSummary] =
@@ -241,6 +254,7 @@ export function SceneBuilderScreen({
     setSelectedObjectId(null);
     setSelectedZoneId(null);
     setPendingPlacement(null);
+    setSpokenCommandResult(null);
     setShowTargetZoneHint(false);
     setHighlightedObjectId(null);
     setShowObservationPanel(false);
@@ -251,6 +265,7 @@ export function SceneBuilderScreen({
     setSelectedObjectId(objectId);
     setSelectedZoneId(null);
     setPendingPlacement(null);
+    setSpokenCommandResult(null);
     setShowTargetZoneHint(false);
     setHighlightedObjectId(null);
     setFeedback({
@@ -293,6 +308,7 @@ export function SceneBuilderScreen({
     setSelectedZoneId(tappedZone.id);
     setPendingPlacement({
       objectId: selectedObjectId,
+      source: "manual",
       x: scenePoint.x,
       y: scenePoint.y,
       zoneId: tappedZone.id,
@@ -303,6 +319,117 @@ export function SceneBuilderScreen({
       text: `Plek gekozen: ${tappedZone.label}. Je kunt nog verplaatsen. Druk daarna op Klaar.`,
     });
   }
+
+  const applySpokenCommandTranscript = useCallback(
+    (transcript: string) => {
+      const executionResult = executeSpokenSceneCommand({ objects, transcript, zones });
+      setSpokenCommandResult(executionResult);
+
+      if (executionResult.status !== "ready" || !executionResult.placement) {
+        setPendingPlacement(null);
+        setSelectedZoneId(null);
+        setShowTargetZoneHint(executionResult.missing.includes("zone"));
+        setFeedback({
+          kind: "almost",
+          mascot: "hint",
+          text: executionResult.message,
+        });
+        return executionResult;
+      }
+
+      const { placement } = executionResult;
+
+      setSelectedObjectId(placement.objectId);
+      setSelectedZoneId(placement.zoneId);
+      setPendingPlacement({
+        objectId: placement.objectId,
+        source: "spoken",
+        transcript: placement.transcript,
+        x: placement.point.x,
+        y: placement.point.y,
+        zoneId: placement.zoneId,
+      });
+      setShowTargetZoneHint(false);
+      setHighlightedObjectId(null);
+      setFeedback({
+        kind: "ready",
+        mascot: "hint",
+        text: `${executionResult.message} Druk daarna op Klaar.`,
+      });
+
+      return executionResult;
+    },
+    [objects, zones],
+  );
+
+  const handleSpokenCommandChoice = (choice: SceneCommandChoice) => {
+    if (choice.type === "object") {
+      setSelectedObjectId(choice.id);
+      setPendingPlacement(null);
+      setFeedback({
+        kind: "ready",
+        text: `Goed, ${choice.label}. Kies nu de plek in de scene.`,
+      });
+      return;
+    }
+
+    const chosenZone = zones.find((zone) => zone.id === choice.id);
+    const objectId = spokenCommandResult?.parseResult.objectId ?? selectedObjectId;
+
+    if (!chosenZone || !objectId) {
+      setSelectedZoneId(choice.id);
+      setFeedback({
+        kind: "ready",
+        text: `Plek gekozen: ${choice.label}. Kies nu welk plaatje daar moet komen.`,
+      });
+      return;
+    }
+
+    const point = {
+      x: chosenZone.x + chosenZone.width / 2,
+      y: chosenZone.y + chosenZone.height / 2,
+    };
+
+    setSelectedObjectId(objectId);
+    setSelectedZoneId(chosenZone.id);
+    setPendingPlacement({
+      objectId,
+      source: "spoken",
+      transcript: spokenCommandResult?.transcript,
+      x: point.x,
+      y: point.y,
+      zoneId: chosenZone.id,
+    });
+    setFeedback({
+      kind: "ready",
+      text: `Ik zet het plaatje op ${choice.label}. Je kunt de plek nog aanpassen. Druk daarna op Klaar.`,
+    });
+  };
+
+  const handleRepeatSpokenCommand = () => {
+    setSpokenCommandResult(null);
+    setPendingPlacement(null);
+    setSelectedObjectId(null);
+    setSelectedZoneId(null);
+    setShowTargetZoneHint(false);
+    setFeedback({
+      kind: "ready",
+      mascot: "hint",
+      text: "Zeg de zin nog een keer rustig.",
+    });
+  };
+
+  useEffect(() => {
+    if (
+      !spokenCommandPreviewText ||
+      appliedSpokenCommandPreviewText === spokenCommandPreviewText
+    ) {
+      return;
+    }
+
+    applySpokenCommandTranscript(spokenCommandPreviewText);
+    setAppliedSpokenCommandPreviewText(spokenCommandPreviewText);
+  }, [appliedSpokenCommandPreviewText, applySpokenCommandTranscript, spokenCommandPreviewText]);
 
   function advanceInstruction() {
     setActiveInstructionIndex((currentIndex) =>
@@ -615,6 +742,7 @@ export function SceneBuilderScreen({
     const scenePoint = getScenePointFromViewportPoint(clientX, clientY);
     const droppedZone = getZoneFromViewportPoint(clientX, clientY);
     setSelectedObjectId(objectId);
+    setSpokenCommandResult(null);
     setShowTargetZoneHint(false);
 
     if (!scenePoint || !droppedZone) {
@@ -629,6 +757,7 @@ export function SceneBuilderScreen({
     setSelectedZoneId(droppedZone.id);
     setPendingPlacement({
       objectId,
+      source: "manual",
       x: scenePoint.x,
       y: scenePoint.y,
       zoneId: droppedZone.id,
@@ -828,6 +957,8 @@ export function SceneBuilderScreen({
       data-sentence-repeat-partial={sentenceRepeatStats.partial}
       data-hint-event-count={hintEvents.length}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
+      data-spoken-command-status={spokenCommandResult?.status ?? "none"}
+      data-spoken-command-transcript={spokenCommandResult?.transcript ?? ""}
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
     >
       <TopHud
@@ -911,7 +1042,12 @@ export function SceneBuilderScreen({
               return (
                 <button
                   aria-label={`Verplaats ${object.label}`}
-                  className="pointer-events-auto absolute h-[clamp(3rem,12vw,5.5rem)] w-[clamp(3rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none"
+                  className={`pointer-events-auto absolute h-[clamp(3rem,12vw,5.5rem)] w-[clamp(3rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none ${
+                    pendingPlacement.source === "spoken"
+                      ? "drop-shadow-[0_0_18px_rgba(56,189,248,0.55)] motion-safe:animate-[bounce_550ms_ease-out_1]"
+                      : ""
+                  }`}
+                  data-placement-source={pendingPlacement.source ?? "manual"}
                   data-testid={`pending-object-${pendingPlacement.objectId}`}
                   onPointerCancel={(event) =>
                     handleObjectPointerCancel(event, pendingPlacement.objectId)
@@ -971,6 +1107,35 @@ export function SceneBuilderScreen({
                     >
                       Nieuwe beloning: {feedback.rewardLabels.join(", ")}
                     </p>
+                  ) : null}
+                  {spokenCommandResult && feedback.kind !== "correct" ? (
+                    <div
+                      className="mt-2 flex flex-wrap items-center gap-1.5"
+                      data-testid="spoken-command-actions"
+                    >
+                      {spokenCommandResult.status !== "ready"
+                        ? spokenCommandResult.choices.slice(0, 4).map((choice) => (
+                            <button
+                              className="min-h-8 rounded-xl border-2 border-sky-300 bg-sky-100 px-2 text-[0.65rem] font-black text-sky-950"
+                              data-choice-id={choice.id}
+                              data-choice-type={choice.type}
+                              key={`${choice.type}-${choice.id}`}
+                              onClick={() => handleSpokenCommandChoice(choice)}
+                              type="button"
+                            >
+                              Bedoel je {choice.label}?
+                            </button>
+                          ))
+                        : null}
+                      <button
+                        className="min-h-8 rounded-xl border-2 border-amber-300 bg-amber-100 px-2 text-[0.65rem] font-black text-amber-950"
+                        data-testid="repeat-spoken-command"
+                        onClick={handleRepeatSpokenCommand}
+                        type="button"
+                      >
+                        Opnieuw zeggen
+                      </button>
+                    </div>
                   ) : null}
                 </div>
               </div>

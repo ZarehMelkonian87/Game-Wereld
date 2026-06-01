@@ -134,21 +134,23 @@ Acceptatie:
 
 ## Fase 9.3: Automatisch Plaatsen In De Scene
 
-- [ ] Executor maken die parserresultaat omzet naar een scene-placement.
-- [ ] Object plaatsen op het centrum van de juiste zone.
-- [ ] Plaatsing visueel laten landen met zachte animatie.
-- [ ] Het geplaatste object blijft hetzelfde stickerbeeld, geen checkmark.
-- [ ] Het kind kan de positie nog aanpassen voor bevestiging.
-- [ ] Knop toevoegen: `Klaar`.
-- [ ] Knop toevoegen: `Opnieuw zeggen`.
-- [ ] Bij lage zekerheid eerst keuze tonen: `Bedoelde je boot?`
-- [ ] Bij meerdere mogelijke zones keuze tonen: `Bedoelde je zee of strand?`
+Resultaat: zie `logic/scene-command-executor.ts`. De executor zet een parserresultaat om naar een plaatsbare pending sticker in dezelfde `Luister & Plaats` scene. Voor technische QA kan dit tijdelijk getest worden met `?screen=scene-builder&spokenCommandPreview=Zet%20de%20boot%20in%20de%20zee`.
+
+- [x] Executor maken die parserresultaat omzet naar een scene-placement.
+- [x] Object plaatsen op het centrum van de juiste zone.
+- [x] Plaatsing visueel laten landen met zachte animatie.
+- [x] Het geplaatste object blijft hetzelfde stickerbeeld, geen checkmark.
+- [x] Het kind kan de positie nog aanpassen voor bevestiging.
+- [x] Knop toevoegen: `Klaar`.
+- [x] Knop toevoegen: `Opnieuw zeggen`.
+- [x] Bij lage zekerheid eerst keuze tonen: `Bedoelde je boot?`
+- [x] Bij meerdere mogelijke zones keuze tonen: `Bedoelde je zee of strand?`
 
 Acceptatie:
 
-- [ ] Correct herkende zin plaatst het juiste object.
-- [ ] Object snapt niet verplicht naar een vreemd centrum als het kind de positie wijzigt.
-- [ ] Het kind kan de plaatsing corrigeren voordat de opdracht definitief telt.
+- [x] Correct herkende zin plaatst het juiste object.
+- [x] Object snapt niet verplicht naar een vreemd centrum als het kind de positie wijzigt.
+- [x] Het kind kan de plaatsing corrigeren voordat de opdracht definitief telt.
 
 ## Fase 9.4: UI Voor Zeg & Bouw
 

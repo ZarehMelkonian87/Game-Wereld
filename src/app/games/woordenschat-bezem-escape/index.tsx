@@ -68,6 +68,14 @@ function shouldShowTrayLabels() {
   return new URLSearchParams(window.location.search).get("trayLabels") === "true";
 }
 
+const getSpokenCommandPreviewText = () => {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
+
+  return new URLSearchParams(window.location.search).get("spokenCommandPreview") ?? undefined;
+};
+
 function getScreenPreview(): GameScreenPreview {
   if (typeof window === "undefined") {
     return "mode-select";
@@ -169,6 +177,7 @@ export function WoordenschatBezemEscapeGame() {
   const profileId = currentProfile?.id ?? "demo-profile";
   const showUiPreview = shouldShowUiPreview();
   const instructionText = getInstructionPreviewText();
+  const spokenCommandPreviewText = getSpokenCommandPreviewText();
   const showTrayLabels = shouldShowTrayLabels();
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
   const [raceUnlocked, setRaceUnlocked] = useState(() => hasSavedRaceState());
@@ -279,6 +288,7 @@ export function WoordenschatBezemEscapeGame() {
                 setRaceUnlocked(true);
                 setScreenPreview("race");
               }}
+              spokenCommandPreviewText={spokenCommandPreviewText}
               zones={beachWorld.zones}
               showTrayLabels={showTrayLabels}
             />
