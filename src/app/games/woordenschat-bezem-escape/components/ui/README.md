@@ -15,6 +15,8 @@ Componenten in deze map:
 - `PanelCard` - wit afgerond panel.
 - `ProgressBar` - speed- en voortgangsbalk.
 - `ObjectStickerButton` - stickerkaart voor objecttray en woordkeuze.
+- `VoiceCommandButton` - microfoonknop voor spraakgestuurde opdrachten.
+- `VoiceCommandStatus` - korte statusbubble voor luisteren, transcript en fallback.
 - `UiBuildingBlocksPreview` - tijdelijke preview via `?preview=ui`.
 
 Regel: plaats hier alleen kleine, herbruikbare componenten zonder gameplay-state.

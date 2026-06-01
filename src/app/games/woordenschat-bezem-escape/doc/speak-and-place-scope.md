@@ -1,10 +1,15 @@
-# Zeg & Bouw MVP Scope
+# Zeg & Bouw Binnen Luister & Plaats MVP Scope
 
-Dit document legt Fase 9.0 vast voor de nieuwe spraakgestuurde spelmodus `Zeg & Bouw`.
+Dit document legt Fase 9.0 vast voor de spraakgestuurde bediening binnen de bestaande `Luister & Plaats` scene-builder.
 
 ## Doel
 
-`Zeg & Bouw` laat het kind zelf een korte Nederlandse plaatszin maken. De app luistert, herkent het object en de plaats, en plaatst daarna het object in de strandscene.
+`Zeg & Bouw` is geen los nieuw spel. Het is dezelfde strandscene en dezelfde gameplay als `Luister & Plaats`, maar de richting wordt omgedraaid:
+
+- Normaal: de app zegt een opdracht en het kind plaatst het plaatje.
+- Nieuwe stand: het kind zegt een opdracht en de app plaatst het plaatje.
+
+Het kind maakt zelf een korte Nederlandse plaatszin. De app luistert, herkent het object en de plaats, en plaatst daarna hetzelfde stickerobject in dezelfde strandscene.
 
 Voorbeeld:
 
@@ -18,18 +23,19 @@ Voorbeeld:
 
 ## Productbesluit
 
-`Zeg & Bouw` wordt een aparte spelmodus in het modusmenu.
+`Zeg & Bouw` wordt geen apart spel met een andere layout. Het wordt een spraakbediening binnen de bestaande `Luister & Plaats` scene-builder.
 
 Redenen:
 
-- De bestaande `Luister & Plaats` modus blijft gericht op luisteren en begrijpen.
-- De nieuwe modus is gericht op zelf spreken en zinnen maken.
-- De microfoonstatus, transcript-feedback en correctieflow hebben eigen UI nodig.
-- We kunnen de functie later apart aan- of uitzetten als mobiele spraakherkenning niet goed werkt.
+- Het kind moet in dezelfde scene blijven, met dezelfde objecttray, dezelfde strandachtergrond en dezelfde geplaatste stickers.
+- De logopedische kern blijft hetzelfde: scene bouwen met plaatjes en plaatsbegrippen.
+- De nieuwe functie voegt actieve taal toe: het kind geeft zelf de opdracht.
+- De microfoonknop en transcript-feedback komen als extra laag in de bestaande scene-builder.
+- We voorkomen dat het voelt als een totaal ander spel.
 
-Naam in de UI: `Zeg & Bouw`.
+Naam in de UI: `Zeg zelf`.
 
-Interne modus-id voor implementatie: `speak-and-place`.
+Interne actie/stand voor implementatie: `speak-and-place`.
 
 ## Eerste MVP
 
@@ -41,6 +47,9 @@ In scope:
 - Bestaande strandachtergrond.
 - Bestaande strandobjecten.
 - Bestaande scene-zones.
+- Bestaande `Luister & Plaats` layout.
+- Bestaande objecttray.
+- Bestaande plaatsing en verstelbare stickerpositie.
 - Korte Nederlandse zinnen.
 - Een object per zin.
 - Een plaats of zone per zin.
@@ -233,9 +242,12 @@ De UI volgt de bestaande app-stijl:
 Basislayout:
 
 - Boven: compacte HUD met sterren, speed en terugknop.
-- Midden: strandscene met geplaatste stickers.
-- Onder of zijkant: microfoonactie, statusbubble en bevestigingsknoppen.
-- Objecttray blijft beschikbaar als fallback of correctie.
+- Midden: dezelfde strandscene uit `Luister & Plaats`.
+- Onder: dezelfde objecttray als fallback en correctie.
+- Extra laag: microfoonknop bij de opdrachtbubble of onderin naast `Klaar`.
+- Statusbubble vervangt niet de scene; hij toont alleen kort `Ik hoorde: ...`.
+
+Belangrijk: de tijdelijke `?preview=ui` pagina is alleen een technische component-preview. Dat is niet het echte spelontwerp.
 
 ## Technische Richting
 
@@ -244,9 +256,10 @@ Voorgestelde nieuwe onderdelen:
 - `logic/speech-recognition.ts`
 - `logic/spoken-command-parser.ts`
 - `logic/scene-command-executor.ts`
-- `screens/SpeakAndPlaceScreen.tsx`
-- `screens/speak-and-place/`
 - `components/ui/VoiceCommandButton.tsx`
+- `components/ui/VoiceCommandStatus.tsx`
+- Integratie in `SceneBuilderScreen.tsx`
+- Later eventueel kleine scene-builder subcomponenten als de file verder opgesplitst wordt.
 
 Nieuwe screen-componenten moeten dezelfde standaard volgen als de recente schermen:
 
@@ -259,7 +272,7 @@ Nieuwe screen-componenten moeten dezelfde standaard volgen als de recente scherm
 ## Acceptatie Voor Fase 9.0
 
 - [x] De modusnaam is vastgelegd.
-- [x] De modus krijgt een aparte moduskaart.
+- [x] De functie blijft binnen dezelfde `Luister & Plaats` scene-builder.
 - [x] De MVP is beperkt tot de strandwereld.
 - [x] De MVP gebruikt korte zinnen met een object en een plaats.
 - [x] De MVP gebruikt bestaande objecten en zones.
@@ -267,4 +280,3 @@ Nieuwe screen-componenten moeten dezelfde standaard volgen als de recente scherm
 - [x] Observatiedata is vastgelegd.
 - [x] Privacyrichting en oudermelding zijn vastgelegd.
 - [x] De functie blijft een oefenmodus en geen toets.
-

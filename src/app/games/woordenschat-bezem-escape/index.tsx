@@ -107,6 +107,10 @@ function getScreenPreview(): GameScreenPreview {
     return "world-select";
   }
 
+  if (screen === "scene-builder" || screen === "listen-and-place") {
+    return "scene-builder";
+  }
+
   return "start";
 }
 

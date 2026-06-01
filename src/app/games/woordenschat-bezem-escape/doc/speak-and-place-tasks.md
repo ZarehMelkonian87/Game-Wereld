@@ -1,12 +1,13 @@
 # Zeg En Bouw Takenlijst
 
-Doel: een nieuwe spelmodus maken waarin het kind zelf een Nederlandse zin uitspreekt, bijvoorbeeld `Zet de boot in de zee.`, waarna de game de zin begrijpt en het object zelf in de scene plaatst.
+Doel: de bestaande `Luister & Plaats` scene-builder uitbreiden met een spraakbediening waarin het kind zelf een Nederlandse zin uitspreekt, bijvoorbeeld `Zet de boot in de zee.`, waarna de game de zin begrijpt en het object zelf in dezelfde scene plaatst.
 
-Deze modus is bedoeld als oefening voor actieve taal, zinsbouw, woordenschat en plaatsbegrippen. Het is geen test, geen diagnose en geen vervanging van logopedische beoordeling.
+Deze functie is bedoeld als oefening voor actieve taal, zinsbouw, woordenschat en plaatsbegrippen. Het is geen test, geen diagnose en geen vervanging van logopedische beoordeling.
 
 ## Kernidee
 
-- Het kind kiest of hoort geen opdracht van de app.
+- Het kind blijft in dezelfde strandscene als `Luister & Plaats`.
+- Het kind kiest of hoort in deze stand geen opdracht van de app.
 - Het kind maakt zelf een korte zin.
 - De app probeert de zin te herkennen.
 - De app haalt uit de zin:
@@ -23,6 +24,8 @@ Voorbeeldflow:
 3. Game toont kort: `Ik hoorde: Zet de boot in de zee.`
 4. Game plaatst de boot in de zee.
 5. Feedback: `Mooi gezegd! De boot vaart in de zee. +1 Speed!`
+
+Belangrijk: de tijdelijke `?preview=ui` pagina is alleen een technische test voor de microfoonknop. Het echte spel moet dezelfde layout en gameplay houden als `Luister & Plaats`.
 
 ## Harde Regels
 
@@ -41,10 +44,10 @@ Voorbeeldflow:
 
 ## Fase 9.0: Ontwerp En Scope Vastleggen
 
-Resultaat: zie `speak-and-place-scope.md`.
+Resultaat: zie `speak-and-place-scope.md`. Correctie na visuele review: `Zeg & Bouw` wordt geen los scherm of ander spel, maar een spraakbediening binnen dezelfde `Luister & Plaats` scene-builder.
 
-- [x] Nieuwe modusnaam vastleggen: `Zeg & Bouw`.
-- [x] Bepalen of de modus direct in de scene-builder komt of als aparte moduskaart in het modusmenu.
+- [x] Nieuwe functienaam vastleggen: `Zeg zelf` binnen `Luister & Plaats`.
+- [x] Bepalen dat de functie direct in de bestaande scene-builder komt, niet als apart spel.
 - [x] Eerste MVP beperken tot de strandwereld.
 - [x] Eerste MVP beperken tot korte zinnen met 1 object en 1 plaats.
 - [x] Eerste MVP beperken tot bestaande objecten en zones.
@@ -60,20 +63,24 @@ Acceptatie:
 
 ## Fase 9.1: Spraakherkenning Basis
 
-- [ ] Browser support detecteren voor `SpeechRecognition` en `webkitSpeechRecognition`.
-- [ ] Nederlandse taal instellen: `nl-NL`.
-- [ ] Een kleine speech-recognition wrapper maken.
-- [ ] Start luisteren via microfoonknop.
-- [ ] Stop luisteren automatisch na een korte zin.
-- [ ] Toon luisterstatus: luisteren, verwerken, klaar, niet ondersteund.
-- [ ] Toon het herkende transcript kindvriendelijk en kort.
-- [ ] Voeg fallback toe: ouder kan de zin handmatig kiezen of opnieuw laten proberen.
+Resultaat: basis staat in `logic/speech-recognition.ts`, `hooks/useDutchSpeechRecognition.ts`, `components/ui/VoiceCommandButton.tsx` en `components/ui/VoiceCommandStatus.tsx`. De knop is tijdelijk technisch te proberen via de UI-preview met `?preview=ui`; dat is niet het definitieve game-scherm.
+
+- [x] Browser support detecteren voor `SpeechRecognition` en `webkitSpeechRecognition`.
+- [x] Nederlandse taal instellen: `nl-NL`.
+- [x] Een kleine speech-recognition wrapper maken.
+- [x] Start luisteren via microfoonknop.
+- [x] Stop luisteren automatisch na een korte zin.
+- [x] Toon luisterstatus: luisteren, verwerken, klaar, niet ondersteund.
+- [x] Toon het herkende transcript kindvriendelijk en kort.
+- [x] Voeg fallback toe: ouder kan de zin handmatig kiezen of opnieuw laten proberen.
 
 Acceptatie:
 
-- [ ] Op desktop werkt de microfoonknop waar ondersteund.
-- [ ] Op mobiel verschijnt een nette melding als microfoon of browser niet geschikt is.
-- [ ] De app crasht niet als spraakherkenning ontbreekt.
+- [x] Op desktop werkt de microfoonknop waar ondersteund.
+- [x] Op mobiel verschijnt een nette melding als microfoon of browser niet geschikt is.
+- [x] De app crasht niet als spraakherkenning ontbreekt.
+
+Notitie: een echte gesproken microfoontest op telefoon blijft onderdeel van Fase 9.8, omdat de lokale netwerkmodus mogelijk HTTPS nodig heeft.
 
 ## Fase 9.2: Nederlandse Zinparser
 
@@ -143,8 +150,9 @@ Acceptatie:
 
 ## Fase 9.4: UI Voor Zeg & Bouw
 
-- [ ] Moduskaart toevoegen in `ModeSelectScreen`: `Zeg & Bouw`.
-- [ ] Nieuwe schermlayout maken op basis van de bestaande scene-builder stijl.
+- [ ] Geen aparte andere game-layout maken.
+- [ ] Bestaande `SceneBuilderScreen` uitbreiden met een `Zeg zelf` stand.
+- [ ] De strandscene, objecttray, HUD, speedbar en `Klaar` flow behouden.
 - [ ] Microfoonknop altijd zichtbaar maken.
 - [ ] Audio/hintknoppen niet laten concurreren met microfoon.
 - [ ] Korte statusbubble maken:
@@ -160,7 +168,7 @@ Acceptatie:
 Acceptatie:
 
 - [ ] Kind ziet duidelijk wat hij moet doen.
-- [ ] UI blijft rustig en past bij de bestaande app-stijl.
+- [ ] UI blijft dezelfde game als `Luister & Plaats`.
 - [ ] Er is geen overlap met tray, HUD of scene.
 
 ## Fase 9.5: Vriendelijke Correctie En Hints
