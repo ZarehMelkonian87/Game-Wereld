@@ -72,13 +72,15 @@ Resultaat: zie `world-list.md`.
 
 ## Fase 5: Wereldkeuze Data
 
-- [ ] `WorldDefinition` type maken of uitbreiden.
-- [ ] Werelddata los zetten van scherm-JSX.
-- [ ] Per wereld opslaan: `id`, `title`, `theme`, `status`, `icon`, `description`, `availableModes`.
-- [ ] Strandwereld koppelen aan bestaande scene-builder, woordkeuze en race.
-- [ ] Wereldkeuze bewaren in lokale state.
-- [ ] Later gekozen wereld kunnen opslaan per profiel.
-- [ ] Geen hardcoded wereldkaarten in meerdere bestanden gebruiken.
+- [x] `WorldDefinition` type maken of uitbreiden.
+- [x] Werelddata los zetten van scherm-JSX.
+- [x] Per wereld opslaan: `id`, `title`, `theme`, `status`, `icon`, `description`, `availableModes`.
+- [x] Strandwereld koppelen aan bestaande scene-builder, woordkeuze en race.
+- [x] Wereldkeuze bewaren in lokale state.
+- [x] Later gekozen wereld kunnen opslaan per profiel.
+- [x] Geen hardcoded wereldkaarten in meerdere bestanden gebruiken.
+
+Resultaat: zie `worlds.ts` en `logic/world-selection.ts`.
 
 ## Fase 6: Wereldkeuze Implementatie
 

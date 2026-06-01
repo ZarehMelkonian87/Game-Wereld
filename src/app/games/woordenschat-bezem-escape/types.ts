@@ -179,6 +179,37 @@ export interface GameWorld {
   rewards: BroomReward[];
 }
 
+export type WorldSelectionStatus =
+  | "open"
+  | "komt_later"
+  | "gesloten";
+
+export type WorldIconId =
+  | "waves"
+  | "barn"
+  | "paw"
+  | "slide"
+  | "book"
+  | "planet";
+
+export interface WorldThemeDefinition {
+  label: string;
+  colors: readonly string[];
+  cardTone: string;
+}
+
+export interface WorldDefinition {
+  id: string;
+  title: string;
+  theme: WorldThemeDefinition;
+  status: WorldSelectionStatus;
+  icon: WorldIconId;
+  description: string;
+  availableModes: readonly BezemEscapeMode[];
+  plannedModes: readonly PlannedPracticeMode[];
+  linkedGameWorldId?: GameWorld["id"];
+}
+
 export type PracticeResult =
   | "correct-without-help"
   | "correct-with-help"

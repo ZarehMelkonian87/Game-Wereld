@@ -1,4 +1,4 @@
-import { CheckCircle2, Sparkles, Volume2 } from "lucide-react";
+import { Sparkles, Volume2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
 import { TopHud } from "../components";

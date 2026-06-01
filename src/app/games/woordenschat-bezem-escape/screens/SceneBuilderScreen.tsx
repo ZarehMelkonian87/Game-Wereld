@@ -30,7 +30,7 @@ import {
 } from "../logic/progress";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { speakDutch } from "../logic/speech";
-import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
+import type { SceneBuilderInstruction, SceneObject, SceneZone, SpatialConcept } from "../types";
 import { useProfile } from "../../../contexts/ProfileContext";
 
 interface SceneBuilderScreenProps {
@@ -58,7 +58,7 @@ interface PlacedObject {
 
 interface SceneCompletionSummary {
   placedObjects: PlacedObject[];
-  practicedConcepts: string[];
+  practicedConcepts: SpatialConcept[];
   practicedWords: string[];
 }
 
@@ -336,7 +336,7 @@ export function SceneBuilderScreen({
         .map((placedObject) =>
           instructions.find((item) => item.id === placedObject.instructionId)?.placement.relation,
         )
-        .filter((concept): concept is string => Boolean(concept)),
+        .filter((concept): concept is SpatialConcept => concept !== undefined),
       practicedWords: nextPlacedObjects.map((placedObject) => placedObject.objectId),
     };
     const bonusEarned = activeHintsUsed === 0;
@@ -771,7 +771,7 @@ export function SceneBuilderScreen({
     }
   }
 
-  function handleObjectPointerCancel(event: ReactPointerEvent<HTMLButtonElement>, objectId: string) {
+  function handleObjectPointerCancel(_event: ReactPointerEvent<HTMLButtonElement>, objectId: string) {
     const currentDragState = dragStateRef.current;
 
     if (!currentDragState || currentDragState.objectId !== objectId) {

@@ -53,6 +53,7 @@ export interface PracticeEventInput {
   speedEarned: number;
   targetWords: string[];
   wordStarsEarned: number;
+  worldId?: string;
 }
 
 export interface RaceProgressSummaryInput {
@@ -222,6 +223,7 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
     speedEarned: input.speedEarned,
     targetWords: input.targetWords,
     wordStarsEarned: input.wordStarsEarned,
+    worldId: input.worldId ?? "beach-world-1",
   };
 
   event.targetWords.forEach((word) => incrementCounter(progress.practicedWords, word));
