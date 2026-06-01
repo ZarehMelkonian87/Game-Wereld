@@ -99,13 +99,15 @@ Resultaat: zie `screens/WorldSelectScreen.tsx`, `world-select-implementation-por
 
 ## Fase 7: Game Menu Opruimen
 
-- [ ] Controleren of `GameMenuScreen` nog nodig is na wereldkeuze.
-- [ ] Game menu hernoemen naar `ModeSelectScreen` als het alleen spelmodi kiest.
-- [ ] Wereldinformatie uit `GameMenuScreen` verwijderen als die naar `WorldSelectScreen` verhuist.
-- [ ] Moduskeuze tonen na gekozen wereld: `Luister & Plaats`, `Kies het Woord`, `Race`.
-- [ ] Race gesloten tonen totdat de scene genoeg geoefend is.
-- [ ] Beloning, Groei en Opties als secundaire acties tonen.
-- [ ] Geen twee verschillende hoofdmenu's naast elkaar laten bestaan.
+- [x] Controleren of `GameMenuScreen` nog nodig is na wereldkeuze.
+- [x] Game menu hernoemen naar `ModeSelectScreen` als het alleen spelmodi kiest.
+- [x] Wereldinformatie uit `GameMenuScreen` verwijderen als die naar `WorldSelectScreen` verhuist.
+- [x] Moduskeuze tonen na gekozen wereld: `Luister & Plaats`, `Kies het Woord`, `Race`.
+- [x] Race gesloten tonen totdat de scene genoeg geoefend is.
+- [x] Beloning, Groei en Opties als secundaire acties tonen.
+- [x] Geen twee verschillende hoofdmenu's naast elkaar laten bestaan.
+
+Resultaat: `GameMenuScreen` is vervangen door `ModeSelectScreen`. De oude `screen=menu` preview blijft tijdelijk als alias naar `screen=mode-select` werken. QA-beelden staan in `mode-select-implementation-portrait.png` en `mode-select-implementation-landscape.png`.
 
 ## Fase 8: Visuele QA
 

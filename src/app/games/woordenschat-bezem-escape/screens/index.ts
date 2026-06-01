@@ -1,5 +1,5 @@
-export { GameMenuScreen } from "./GameMenuScreen";
 export { GameSettingsScreen } from "./GameSettingsScreen";
+export { ModeSelectScreen } from "./ModeSelectScreen";
 export { ParentDashboardScreen } from "./ParentDashboardScreen";
 export { RaceScreen } from "./RaceScreen";
 export { RewardScreen } from "./RewardScreen";

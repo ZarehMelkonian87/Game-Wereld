@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import { readSelectedWorldId, saveSelectedWorldId } from "./logic/world-selection";
 import {
-  GameMenuScreen,
   GameSettingsScreen,
+  ModeSelectScreen,
   ParentDashboardScreen,
   RaceScreen,
   RewardScreen,
@@ -25,7 +24,7 @@ import { getWorldDefinition, worldDefinitions } from "./worlds";
 
 type GameScreenPreview =
   | "dashboard"
-  | "menu"
+  | "mode-select"
   | "race"
   | "reward"
   | "scene-builder"
@@ -71,7 +70,7 @@ function shouldShowTrayLabels() {
 
 function getScreenPreview(): GameScreenPreview {
   if (typeof window === "undefined") {
-    return "menu";
+    return "mode-select";
   }
 
   const screen = new URLSearchParams(window.location.search).get("screen");
@@ -96,8 +95,8 @@ function getScreenPreview(): GameScreenPreview {
     return "settings";
   }
 
-  if (screen === "menu") {
-    return "menu";
+  if (screen === "mode-select" || screen === "menu") {
+    return "mode-select";
   }
 
   if (screen === "start") {
@@ -162,7 +161,6 @@ function hasSavedRaceState() {
 }
 
 export function WoordenschatBezemEscapeGame() {
-  const navigate = useNavigate();
   const { currentProfile } = useProfile();
   const profileId = currentProfile?.id ?? "demo-profile";
   const showUiPreview = shouldShowUiPreview();
@@ -185,10 +183,10 @@ export function WoordenschatBezemEscapeGame() {
     setScreenPreview("scene-builder");
   }
 
-  function openMenu() {
+  function openModeSelect() {
     saveSelectedWorldId(profileId, selectedWorld.id);
     setRaceUnlocked(hasSavedRaceState());
-    setScreenPreview("menu");
+    setScreenPreview("mode-select");
   }
 
   function openSelectedWorld() {
@@ -198,7 +196,7 @@ export function WoordenschatBezemEscapeGame() {
 
     const storedWorldId = saveSelectedWorldId(profileId, selectedWorld.id);
     setSelectedWorldId(storedWorldId);
-    setScreenPreview("menu");
+    setScreenPreview("mode-select");
   }
 
   function selectWorld(worldId: string) {
@@ -223,14 +221,14 @@ export function WoordenschatBezemEscapeGame() {
         <>
           {screenPreview === "reward" ? (
             <RewardScreen
-              onBackToMenu={() => navigate("/games/language")}
+              onBackToMenu={openModeSelect}
               onChooseWorld={() => setScreenPreview("world-select")}
               onPlayAgain={resetRound}
             />
           ) : screenPreview === "dashboard" ? (
-            <ParentDashboardScreen onBackToMenu={openMenu} />
+            <ParentDashboardScreen onBackToMenu={openModeSelect} />
           ) : screenPreview === "settings" ? (
-            <GameSettingsScreen onBackToMenu={openMenu} />
+            <GameSettingsScreen onBackToMenu={openModeSelect} />
           ) : screenPreview === "start" ? (
             <StartScreen
               onOpenDashboard={() => setScreenPreview("dashboard")}
@@ -245,9 +243,10 @@ export function WoordenschatBezemEscapeGame() {
               selectedWorldId={selectedWorld.id}
               worlds={worldDefinitions}
             />
-          ) : screenPreview === "menu" ? (
-            <GameMenuScreen
+          ) : screenPreview === "mode-select" ? (
+            <ModeSelectScreen
               raceUnlocked={raceUnlocked}
+              onChooseWorld={() => setScreenPreview("world-select")}
               onOpenDashboard={() => setScreenPreview("dashboard")}
               onOpenRewards={() => setScreenPreview("reward")}
               onOpenSettings={() => setScreenPreview("settings")}
