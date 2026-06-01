@@ -84,51 +84,53 @@ Notitie: een echte gesproken microfoontest op telefoon blijft onderdeel van Fase
 
 ## Fase 9.2: Nederlandse Zinparser
 
-- [ ] Parser maken voor korte Nederlandse opdrachten.
-- [ ] Transcript normaliseren: kleine letters, leestekens weg, extra spaties weg.
-- [ ] Objectwoorden herkennen:
-  - [ ] dolfijn
-  - [ ] boot / bootje / zeilboot
-  - [ ] vuurtoren
-  - [ ] vliegtuig
-  - [ ] vlieger
-  - [ ] bal
-  - [ ] parasol
-  - [ ] schelp / schelpen
-  - [ ] krab
-  - [ ] zandkasteel
-  - [ ] handdoek
-  - [ ] zon
-- [ ] Plaatswoorden herkennen:
-  - [ ] in
-  - [ ] op
-  - [ ] onder
-  - [ ] boven
-  - [ ] naast
-  - [ ] tussen
-  - [ ] links
-  - [ ] rechts
-  - [ ] midden
-  - [ ] dichtbij
-  - [ ] ver weg
-- [ ] Scenezones herkennen:
-  - [ ] zee / water
-  - [ ] strand / zand
-  - [ ] lucht / hemel
-  - [ ] eiland
-  - [ ] links
-  - [ ] rechts
-  - [ ] midden
-- [ ] Parserresultaat teruggeven met object, plaatsbegrip, zone en zekerheid.
-- [ ] Onvolledige zinnen herkennen, bijvoorbeeld alleen `boot zee`.
-- [ ] Onduidelijke zinnen netjes markeren als `hulp nodig`.
+Resultaat: zie `logic/spoken-command-parser.ts`. De parser herkent objecten, plaatsbegrippen, zones, ankervoorwerpen en zekerheid, maar plaatst nog niets in de scene. Dat gebeurt pas in Fase 9.3.
+
+- [x] Parser maken voor korte Nederlandse opdrachten.
+- [x] Transcript normaliseren: kleine letters, leestekens weg, extra spaties weg.
+- [x] Objectwoorden herkennen:
+  - [x] dolfijn
+  - [x] boot / bootje / zeilboot
+  - [x] vuurtoren
+  - [x] vliegtuig
+  - [x] vlieger
+  - [x] bal
+  - [x] parasol
+  - [x] schelp / schelpen
+  - [x] krab
+  - [x] zandkasteel
+  - [x] handdoek
+  - [x] zon
+- [x] Plaatswoorden herkennen:
+  - [x] in
+  - [x] op
+  - [x] onder
+  - [x] boven
+  - [x] naast
+  - [x] tussen
+  - [x] links
+  - [x] rechts
+  - [x] midden
+  - [x] dichtbij
+  - [x] ver weg
+- [x] Scenezones herkennen:
+  - [x] zee / water
+  - [x] strand / zand
+  - [x] lucht / hemel
+  - [x] eiland
+  - [x] links
+  - [x] rechts
+  - [x] midden
+- [x] Parserresultaat teruggeven met object, plaatsbegrip, zone en zekerheid.
+- [x] Onvolledige zinnen herkennen, bijvoorbeeld alleen `boot zee`.
+- [x] Onduidelijke zinnen netjes markeren als `hulp nodig`.
 
 Acceptatie:
 
-- [ ] `Zet de boot in de zee.` wordt herkend als boot + in + zee.
-- [ ] `Leg de bal op het strand.` wordt herkend als bal + op + strand.
-- [ ] `Zet de vlieger boven het strand.` wordt herkend als vlieger + boven + strand/lucht.
-- [ ] Onduidelijke zinnen veroorzaken geen verkeerde automatische actie zonder controle.
+- [x] `Zet de boot in de zee.` wordt herkend als boot + in + zee.
+- [x] `Leg de bal op het strand.` wordt herkend als bal + op + strand.
+- [x] `Zet de vlieger boven het strand.` wordt herkend als vlieger + boven + strand/lucht.
+- [x] Onduidelijke zinnen veroorzaken geen verkeerde automatische actie zonder controle.
 
 ## Fase 9.3: Automatisch Plaatsen In De Scene
 
