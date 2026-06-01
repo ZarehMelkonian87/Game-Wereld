@@ -111,17 +111,19 @@ Resultaat: `GameMenuScreen` is vervangen door `ModeSelectScreen`. De oude `scree
 
 ## Fase 8: Visuele QA
 
-- [ ] Startscherm screenshot maken in portrait.
-- [ ] Startscherm screenshot maken in landscape.
-- [ ] Wereldkeuze screenshot maken in portrait.
-- [ ] Wereldkeuze screenshot maken in landscape.
-- [ ] Controleren dat logo, speelknop en wereldkaarten niet overlappen.
-- [ ] Controleren dat tekst in knoppen past.
-- [ ] Controleren dat gesloten werelden duidelijk maar niet frustrerend zijn.
-- [ ] Controleren dat er geen horizontale overflow is.
-- [ ] Controleren dat er geen ongewenste verticale scroll is op het startscherm.
-- [ ] Build draaien.
-- [ ] Browser smoke test uitvoeren.
+- [x] Startscherm screenshot maken in portrait.
+- [x] Startscherm screenshot maken in landscape.
+- [x] Wereldkeuze screenshot maken in portrait.
+- [x] Wereldkeuze screenshot maken in landscape.
+- [x] Controleren dat logo, speelknop en wereldkaarten niet overlappen.
+- [x] Controleren dat tekst in knoppen past.
+- [x] Controleren dat gesloten werelden duidelijk maar niet frustrerend zijn.
+- [x] Controleren dat er geen horizontale overflow is.
+- [x] Controleren dat er geen ongewenste verticale scroll is op het startscherm.
+- [x] Build draaien.
+- [x] Browser smoke test uitvoeren.
+
+Resultaat: QA-beelden staan in `phase-8-start-portrait.png`, `phase-8-start-landscape.png`, `phase-8-world-select-portrait.png`, `phase-8-world-select-landscape.png`, `phase-8-mode-select-portrait.png` en `phase-8-mode-select-landscape.png`. Tijdens QA is een kleine overlap tussen het startlogo en de speelknop in landscape gevonden en opgelost.
 
 ## Acceptatie Voor Deze Stap
 

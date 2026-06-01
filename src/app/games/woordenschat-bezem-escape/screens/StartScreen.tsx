@@ -11,7 +11,13 @@ interface StartScreenProps {
   starCount?: number;
 }
 
-function CircleIcon({ children, tone }: { children: ReactNode; tone: "blue" | "green" }) {
+function CircleIcon({
+  children,
+  tone,
+}: {
+  children: ReactNode;
+  tone: "blue" | "green";
+}) {
   return (
     <span
       aria-hidden="true"
@@ -55,7 +61,10 @@ export function StartScreen({
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[1.15rem] border-[4px] border-white bg-white/95 px-4 text-xl font-black leading-none text-slate-900 shadow-[0_5px_0_rgba(21,48,74,0.18)]"
           data-testid="start-star-counter"
         >
-          <Star className="h-7 w-7 fill-amber-300 text-amber-600" strokeWidth={2.4} />
+          <Star
+            className="h-7 w-7 fill-amber-300 text-amber-600"
+            strokeWidth={2.4}
+          />
           {starCount}
         </div>
 
@@ -73,7 +82,7 @@ export function StartScreen({
 
       <img
         alt="+1 Woordenschat Bezem Escape"
-        className="absolute left-[48%] top-[86px] z-20 w-[min(74vw,290px)] -translate-x-1/2 -rotate-2 select-none drop-shadow-[0_8px_0_rgba(21,48,74,0.16)] landscape:left-[27%] landscape:top-11 landscape:w-[min(36vw,310px)]"
+        className="absolute left-[48%] top-[150px] z-20 w-[min(74vw,290px)] -translate-x-1/2 -rotate-2 select-none drop-shadow-[0_8px_0_rgba(21,48,74,0.16)] landscape:left-[27%] landscape:top-11 landscape:w-[min(33vw,285px)]"
         data-testid="start-logo"
         draggable={false}
         src={startLogoUrl}
@@ -81,7 +90,7 @@ export function StartScreen({
 
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-[305px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[82px] landscape:w-[min(39vw,330px)]"
+        className="absolute left-1/2 top-[400px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[100px] landscape:w-[min(39vw,330px)]"
       >
         <div className="absolute left-[16%] top-[44%] h-[26%] w-[70%] -rotate-[14deg] rounded-full bg-gradient-to-r from-amber-200 via-pink-200 to-sky-200 opacity-75 blur-[3px]" />
         <img
@@ -102,7 +111,7 @@ export function StartScreen({
       <span className="absolute right-8 top-[388px] z-20 h-[13px] w-[13px] rotate-45 rounded bg-white shadow-[0_0_0_4px_#ffd13d,0_5px_0_rgba(21,48,74,0.12)] landscape:right-11 landscape:top-[102px]" />
       <span className="absolute right-[74px] top-[516px] z-20 h-[15px] w-[15px] rotate-45 rounded bg-white shadow-[0_0_0_4px_#ffd13d,0_5px_0_rgba(21,48,74,0.12)] landscape:right-[372px] landscape:top-48" />
 
-      <div className="absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-[6%] z-30 grid w-[78vw] max-w-[305px] gap-2.5 landscape:bottom-[18px] landscape:left-[54px] landscape:w-[min(38vw,320px)] landscape:max-w-none">
+      <div className="absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-[3%] z-30 grid w-[78vw] max-w-[305px] gap-2.5 landscape:bottom-[18px] landscape:left-[54px] landscape:w-[min(38vw,320px)] landscape:max-w-none">
         <PrimaryActionButton
           className="min-h-[62px] w-full gap-3 rounded-[1.55rem] border-[5px] border-white bg-gradient-to-b from-[#67dc58] to-[#35bf43] px-5 text-[1.45rem] shadow-[0_7px_0_rgba(21,48,74,0.2)] hover:from-[#72e266] hover:to-[#3cca4a]"
           data-testid="start-play-button"
