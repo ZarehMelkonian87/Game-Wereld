@@ -92,8 +92,99 @@
   animation: bezem-feedback-toast 4s ease-out 1.25s forwards;
 }
 
+@keyframes bezem-start-fly {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.8deg);
+  }
+
+  45% {
+    transform: translateY(-0.75rem) rotate(1.2deg);
+  }
+
+  72% {
+    transform: translateY(-0.25rem) rotate(0.4deg);
+  }
+}
+
+@keyframes bezem-start-mascot-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-0.45rem) scale(1.03);
+  }
+}
+
+@keyframes bezem-start-trail-glow {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scaleX(0.96) rotate(-14deg);
+  }
+
+  50% {
+    opacity: 0.86;
+    transform: scaleX(1.04) rotate(-14deg);
+  }
+}
+
+@keyframes bezem-start-sparkle-twinkle {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: rotate(45deg) scale(0.82);
+  }
+
+  45% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.18);
+  }
+
+  70% {
+    opacity: 0.72;
+    transform: rotate(45deg) scale(0.96);
+  }
+}
+
+.bezem-start-flyer {
+  animation: bezem-start-fly 3.8s ease-in-out infinite;
+  transform-origin: 50% 72%;
+  will-change: transform;
+}
+
+.bezem-start-mascot {
+  animation: bezem-start-mascot-float 3.2s ease-in-out infinite 0.35s;
+  will-change: transform;
+}
+
+.bezem-start-trail {
+  animation: bezem-start-trail-glow 2.7s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  will-change: opacity, transform;
+}
+
+.bezem-start-sparkle {
+  animation: bezem-start-sparkle-twinkle 2.2s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.bezem-start-sparkle-delay-1 {
+  animation-delay: 0.35s;
+}
+
+.bezem-start-sparkle-delay-2 {
+  animation-delay: 0.75s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .bezem-feedback-toast {
+  .bezem-feedback-toast,
+  .bezem-start-flyer,
+  .bezem-start-mascot,
+  .bezem-start-trail,
+  .bezem-start-sparkle {
     animation: none;
   }
 }
