@@ -26,19 +26,19 @@ export const RewardResultSummary = ({
     data-component="RewardResultSummary"
     data-testid="reward-result-summary"
   >
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-3 gap-1.5">
       <SummaryPill label="Goed" tone="emerald" value={raceResult.correctActions} />
       <SummaryPill label="Speed" tone="sky" value={`+${raceResult.speedEarned}`} />
       <SummaryPill label="Hints" tone="amber" value={raceResult.hintsUsed} />
     </div>
 
-    <div className="mt-3 grid grid-cols-2 gap-2">
+    <div className="mt-1.5 grid grid-cols-2 gap-1.5">
       <SummaryPill label="Audio" value={raceResult.audioRepeats} />
       <SummaryPill label="Sterren" tone="amber" value={`+${raceResult.starsEarned}`} />
     </div>
 
-    <section className="mt-3">
-      <h2 className="text-xs font-black leading-none text-slate-900">Woorden geoefend</h2>
+    <section className="mt-3.5">
+      <h2 className="text-[0.78rem] font-black leading-none text-slate-900">Woorden geoefend</h2>
       <ChipList
         emptyLabel="nog geen woorden"
         items={practicedWords}
@@ -46,8 +46,8 @@ export const RewardResultSummary = ({
       />
     </section>
 
-    <section className="mt-3">
-      <h2 className="text-xs font-black leading-none text-slate-900">Plaatswoorden</h2>
+    <section className="mt-3.5">
+      <h2 className="text-[0.78rem] font-black leading-none text-slate-900">Plaatswoorden</h2>
       <ChipList
         emptyLabel="nog geen plaatswoorden"
         items={practicedConcepts}
@@ -57,7 +57,7 @@ export const RewardResultSummary = ({
 
     {featuredReward ? (
       <section
-        className="mt-3 rounded-2xl border-2 border-amber-300 bg-amber-100/80 p-2"
+        className="mt-3 grid min-h-[4.5rem] content-center rounded-2xl border-2 border-amber-300 bg-amber-100/80 px-3 py-2"
         data-testid="reward-unlocks"
       >
         <h2 className="flex items-center gap-1 text-xs font-black leading-none text-amber-950">

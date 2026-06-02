@@ -99,7 +99,7 @@ export const RewardScreen = ({
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
+      className="pointer-events-none absolute inset-0 z-10 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[4.25rem] landscape:px-3 landscape:pb-[calc(env(safe-area-inset-bottom)+0.5rem)] landscape:pt-[3.75rem]"
       data-audio-repeats={raceResult.audioRepeats}
       data-correct-actions={raceResult.correctActions}
       data-hints-used={raceResult.hintsUsed}
@@ -114,7 +114,7 @@ export const RewardScreen = ({
       data-stars-earned={raceResult.starsEarned}
       data-testid="reward-screen"
     >
-      <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_7rem] gap-2 landscape:grid-cols-[minmax(0,1fr)_17rem] landscape:grid-rows-[minmax(0,1fr)]">
+      <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_auto] gap-2">
         <RewardCard
           featuredReward={featuredReward}
           featuredRewardName={featuredRewardName}

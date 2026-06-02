@@ -26,7 +26,7 @@ export const RewardCard = ({
   <div className="contents" data-component="RewardCard">
     <PanelCard
       aria-label="Resultaat en beloning"
-      className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] gap-3 overflow-hidden !p-3 landscape:col-start-1 landscape:row-start-1 landscape:grid-cols-[13rem_minmax(0,1fr)] landscape:grid-rows-1 landscape:gap-4"
+      className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] gap-2 overflow-hidden !rounded-[1.65rem] !px-5 !py-3 landscape:grid-cols-[11rem_minmax(0,1fr)] landscape:grid-rows-1 landscape:gap-4 landscape:!p-4"
       data-testid="reward-card"
     >
       <RewardPrizePanel

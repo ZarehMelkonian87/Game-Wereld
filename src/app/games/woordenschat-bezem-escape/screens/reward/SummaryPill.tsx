@@ -20,8 +20,8 @@ export const SummaryPill = ({ label, tone = "sky", value }: SummaryPillProps) =>
     )}
     data-component="SummaryPill"
   >
-    <span className="text-[0.65rem] uppercase tracking-normal opacity-80">{label}</span>
-    <span className="mt-1 truncate text-sm tabular-nums">{value}</span>
+    <span className="text-[0.62rem] uppercase tracking-normal opacity-80">{label}</span>
+    <span className="mt-1 truncate text-[0.9rem] tabular-nums">{value}</span>
   </div>
 );
 
