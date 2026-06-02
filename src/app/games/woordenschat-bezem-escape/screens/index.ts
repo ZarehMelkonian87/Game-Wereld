@@ -1,4 +1,5 @@
 export { GameSettingsScreen } from "./settings";
+export { AdventureSelectScreen } from "./adventure-select";
 export { ModeSelectScreen } from "./ModeSelectScreen";
 export { ParentDashboardScreen } from "./ParentDashboardScreen";
 export { RaceScreen } from "./RaceScreen";

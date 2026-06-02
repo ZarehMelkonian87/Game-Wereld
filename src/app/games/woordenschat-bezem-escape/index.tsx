@@ -2,15 +2,14 @@ import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
 import {
+  AdventureSelectScreen,
   GameSettingsScreen,
-  ModeSelectScreen,
   ParentDashboardScreen,
   RaceScreen,
   RewardScreen,
   SceneBuilderScreen,
   StartScreen,
   WordChoiceScreen,
-  WorldSelectScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
 
@@ -54,24 +53,17 @@ export const WoordenschatBezemEscapeGame = () => {
               onOpenSettings={() => actions.setScreen("settings")}
               onPlay={() => actions.setScreen("world-select")}
             />
-          ) : screenPreview === "world-select" ? (
-            <WorldSelectScreen
+          ) : screenPreview === "world-select" || screenPreview === "mode-select" ? (
+            <AdventureSelectScreen
               onBackToStart={() => actions.setScreen("start")}
-              onSelectWorld={actions.selectWorld}
-              onStartWorld={actions.openSelectedWorld}
-              selectedWorldId={selectedWorld.id}
-              worlds={worldDefinitions}
-            />
-          ) : screenPreview === "mode-select" ? (
-            <ModeSelectScreen
-              onChooseWorld={() => actions.setScreen("world-select")}
               onOpenDashboard={() => actions.setScreen("dashboard")}
               onOpenRewards={() => actions.setScreen("reward")}
               onOpenSettings={() => actions.setScreen("settings")}
-              onStartRace={actions.startUnlockedRace}
-              onStartSceneBuilder={() => actions.setScreen("scene-builder")}
-              onStartWordChoice={() => actions.setScreen("word-choice")}
+              onSelectWorld={actions.selectWorld}
+              onStartMode={actions.startSelectedMode}
               raceUnlocked={raceUnlocked}
+              selectedWorldId={selectedWorld.id}
+              worlds={worldDefinitions}
             />
           ) : screenPreview === "race" ? (
             <RaceScreen
@@ -99,4 +91,3 @@ export const WoordenschatBezemEscapeGame = () => {
 };
 
 WoordenschatBezemEscapeGame.displayName = "WoordenschatBezemEscapeGame";
-

@@ -16,6 +16,7 @@ import {
 import type { GameScreenPreview } from "../logic/game-screen-preview";
 import { clearStoredRaceResult, hasSavedRaceState } from "../logic/race-session-storage";
 import { readSelectedWorldId, saveSelectedWorldId } from "../logic/world-selection";
+import type { BezemEscapeMode } from "../types";
 import { getWorldDefinition, worldDefinitions } from "../worlds";
 
 export const useBezemEscapeGameController = () => {
@@ -87,6 +88,30 @@ export const useBezemEscapeGameController = () => {
     setScreenPreview("race");
   };
 
+  const startSelectedMode = (modeId: BezemEscapeMode) => {
+    if (selectedWorld.status !== "open") {
+      return;
+    }
+
+    setSelectedWorldId(saveSelectedWorldId(profileId, selectedWorld.id));
+
+    if (modeId === "choose-word") {
+      setScreenPreview("word-choice");
+      return;
+    }
+
+    if (modeId === "broom-escape-run") {
+      if (!raceUnlocked) {
+        return;
+      }
+
+      setScreenPreview("race");
+      return;
+    }
+
+    setScreenPreview("scene-builder");
+  };
+
   return {
     actions: {
       openModeSelect,
@@ -95,6 +120,7 @@ export const useBezemEscapeGameController = () => {
       selectWorld,
       setScreen,
       startRaceFromSceneBuilder,
+      startSelectedMode,
       startUnlockedRace,
     },
     viewModel: {
@@ -110,4 +136,3 @@ export const useBezemEscapeGameController = () => {
     },
   };
 };
-

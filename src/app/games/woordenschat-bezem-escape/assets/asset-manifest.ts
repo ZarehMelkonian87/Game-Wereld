@@ -3,7 +3,8 @@ export type BezemEscapeAssetKind =
   | "object"
   | "avatar"
   | "broom"
-  | "mascot";
+  | "mascot"
+  | "world";
 
 export type BezemEscapeAssetReadiness = "ready";
 
@@ -146,6 +147,15 @@ export const avatarAssets: BezemEscapeImageAsset[] = Array.from({ length: 8 }, (
   );
 });
 
+export const worldIconAssets: BezemEscapeImageAsset[] = [
+  ["world-beach", "Wereld Strand", "icons/worlds/world-beach.png"],
+  ["world-farm", "Wereld Boerderij", "icons/worlds/world-farm.png"],
+  ["world-zoo", "Wereld Dierentuin", "icons/worlds/world-zoo.png"],
+  ["world-playground", "Wereld Speeltuin", "icons/worlds/world-playground.png"],
+  ["world-school", "Wereld School", "icons/worlds/world-school.png"],
+  ["world-space", "Wereld Ruimte", "icons/worlds/world-space.png"],
+].map(([id, label, path]) => readyAsset(id, label, "world", path));
+
 export const broomAssets: BezemEscapeImageAsset[] = [
   ["broom-01-basic", "Beginner Bezem"],
   ["broom-02-beach", "Strand Bezem"],
@@ -185,4 +195,5 @@ export const bezemEscapeAssets = {
   avatars: avatarAssets,
   brooms: broomAssets,
   mascot: mascotAssets,
+  worlds: worldIconAssets,
 };
