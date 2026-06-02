@@ -1322,7 +1322,6 @@ export function SceneBuilderScreen({
       : getHintVideoUrlForLevel(instruction.id, nextHintLevel);
   const hintFeedbackVideoUrl = feedback?.hintVideoUrl ?? preparedHintVideoUrl;
   const shouldRenderFeedbackCard = Boolean(feedback || hintFeedbackVideoUrl);
-  const visibleTrayObjects = trayObjects.slice(0, 6);
   const actionLabel =
     sceneComplete && feedback?.kind === "correct"
       ? "Start race"
@@ -1514,7 +1513,7 @@ export function SceneBuilderScreen({
         />
 
         <ObjectCarousel>
-          {visibleTrayObjects.map((object) => (
+          {trayObjects.map((object) => (
             <ObjectStickerButton
               imageUrl={object.imageUrl}
               key={object.id}
