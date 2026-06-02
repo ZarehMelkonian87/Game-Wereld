@@ -76,6 +76,7 @@ export interface SceneZone {
   label: string;
   description: string;
   kind: SceneZoneKind;
+  visualHintPath?: string;
   x: number;
   y: number;
   width: number;

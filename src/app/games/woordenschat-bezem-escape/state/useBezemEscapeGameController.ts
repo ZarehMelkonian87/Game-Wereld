@@ -12,6 +12,7 @@ import {
   getSpokenCommandPreviewText,
   shouldShowTrayLabels,
   shouldShowUiPreview,
+  shouldShowZoneDevTools,
 } from "../logic/game-screen-preview";
 import type { GameScreenPreview } from "../logic/game-screen-preview";
 import { clearStoredRaceResult, hasSavedRaceState } from "../logic/race-session-storage";
@@ -131,6 +132,7 @@ export const useBezemEscapeGameController = () => {
       selectedWorld,
       showTrayLabels: shouldShowTrayLabels(),
       showUiPreview: shouldShowUiPreview(),
+      showZoneDevTools: shouldShowZoneDevTools(),
       spokenCommandPreviewText: getSpokenCommandPreviewText(),
       worldDefinitions,
     },

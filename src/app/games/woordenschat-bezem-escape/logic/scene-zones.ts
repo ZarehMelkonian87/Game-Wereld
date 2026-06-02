@@ -30,11 +30,68 @@ export function getZoneCenter(zone?: SceneZone): ScenePoint {
   };
 }
 
+export const parseSimplePolygonPath = (path?: string): ScenePoint[] => {
+  if (!path || /[CQSAHVT]/i.test(path)) {
+    return [];
+  }
+
+  return [...path.matchAll(/[ML]\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/gi)]
+    .map((match) => ({
+      x: Number(match[1]),
+      y: Number(match[2]),
+    }))
+    .filter((point) => Number.isFinite(point.x) && Number.isFinite(point.y));
+};
+
+const getPolygonArea = (points: ScenePoint[]) => {
+  if (points.length < 3) {
+    return 0;
+  }
+
+  const area = points.reduce((totalArea, point, index) => {
+    const nextPoint = points[(index + 1) % points.length];
+
+    return totalArea + point.x * nextPoint.y - nextPoint.x * point.y;
+  }, 0);
+
+  return Math.abs(area) / 2;
+};
+
+const pointIsInsidePolygon = (point: ScenePoint, polygon: ScenePoint[]) => {
+  if (polygon.length < 3) {
+    return false;
+  }
+
+  return polygon.reduce((insidePolygon, polygonPoint, index) => {
+    const previousPoint = polygon[(index + polygon.length - 1) % polygon.length];
+    const intersects =
+      polygonPoint.y > point.y !== previousPoint.y > point.y &&
+      point.x <
+        ((previousPoint.x - polygonPoint.x) * (point.y - polygonPoint.y)) /
+          (previousPoint.y - polygonPoint.y) +
+          polygonPoint.x;
+
+    return intersects ? !insidePolygon : insidePolygon;
+  }, false);
+};
+
 export function getZoneArea(zone: SceneZone) {
+  const polygonArea = getPolygonArea(parseSimplePolygonPath(zone.visualHintPath));
+
+  if (polygonArea > 0) {
+    return polygonArea;
+  }
+
   return zone.width * zone.height;
 }
 
 export function pointIsInsideZone(point: ScenePoint, zone: SceneZone) {
+  const polygonPoints = parseSimplePolygonPath(zone.visualHintPath);
+
+  if (polygonPoints.length >= 3) {
+    return pointIsInsidePolygon(point, polygonPoints);
+  }
+
   return (
     point.x >= zone.x &&
     point.x <= zone.x + zone.width &&

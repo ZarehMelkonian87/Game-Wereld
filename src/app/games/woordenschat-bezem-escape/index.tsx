@@ -23,6 +23,7 @@ export const WoordenschatBezemEscapeGame = () => {
     selectedWorld,
     showTrayLabels,
     showUiPreview,
+    showZoneDevTools,
     spokenCommandPreviewText,
     worldDefinitions,
   } = viewModel;
@@ -80,6 +81,7 @@ export const WoordenschatBezemEscapeGame = () => {
               objects={beachWorld.objects}
               onStartRace={actions.startRaceFromSceneBuilder}
               showTrayLabels={showTrayLabels}
+              showZoneDevTools={showZoneDevTools}
               spokenCommandPreviewText={spokenCommandPreviewText}
               zones={beachWorld.zones}
             />

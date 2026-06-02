@@ -32,6 +32,8 @@ export const getInstructionPreviewText = () => {
 
 export const shouldShowTrayLabels = () => getSearchParams()?.get("trayLabels") === "true";
 
+export const shouldShowZoneDevTools = () => getSearchParams()?.get("zoneDevTools") === "true";
+
 export const getSpokenCommandPreviewText = () =>
   getSearchParams()?.get("spokenCommandPreview") ?? undefined;
 
@@ -76,4 +78,3 @@ export const getScreenPreview = (): GameScreenPreview => {
 
   return "start";
 };
-

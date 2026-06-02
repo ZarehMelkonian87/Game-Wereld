@@ -14,6 +14,10 @@ import {
   zoneSupportsConcept,
 } from "../logic/scene-zones";
 import {
+  applySceneZoneVisualHintOverrides,
+  zoneVisualHintOverridesChangedEvent,
+} from "../logic/scene-zone-visual-overrides";
+import {
   executeSpokenSceneCommand,
   type SceneCommandChoice,
   type SceneCommandExecutionResult,
@@ -49,6 +53,8 @@ import { FloatingSuccessToast } from "./scene-builder/FloatingSuccessToast";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { ParentObservationSheet } from "./scene-builder/ParentObservationSheet";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
+import { SceneZoneDevTools } from "./scene-builder/SceneZoneDevTools";
+import { TargetZoneHint } from "./scene-builder/TargetZoneHint";
 
 interface SceneBuilderScreenProps {
   instructions: SceneBuilderInstruction[];
@@ -58,6 +64,7 @@ interface SceneBuilderScreenProps {
   spokenCommandPreviewText?: string;
   zones: SceneZone[];
   showTrayLabels?: boolean;
+  showZoneDevTools?: boolean;
 }
 
 interface TrayObject {
@@ -258,6 +265,7 @@ export function SceneBuilderScreen({
   spokenCommandPreviewText,
   zones,
   showTrayLabels = false,
+  showZoneDevTools = false,
 }: SceneBuilderScreenProps) {
   const { currentProfile } = useProfile();
   const rewardProfileId = currentProfile?.id ?? "demo-profile";
@@ -281,6 +289,7 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
+  const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
   const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
@@ -312,12 +321,16 @@ export function SceneBuilderScreen({
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
     readUnlockedRewardIds(rewardProfileId),
   );
+  const effectiveZones = useMemo(
+    () => applySceneZoneVisualHintOverrides(zones),
+    [zones, zoneOverrideVersion],
+  );
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
-  const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
-  const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
-  const visualHintZone = zones.find((zone) => zone.id === spokenHintZoneId) ?? targetZone;
+  const selectedZone = effectiveZones.find((zone) => zone.id === selectedZoneId);
+  const targetZone = effectiveZones.find((zone) => zone.id === instruction.placement.zoneId);
+  const visualHintZone = effectiveZones.find((zone) => zone.id === spokenHintZoneId) ?? targetZone;
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
@@ -326,6 +339,24 @@ export function SceneBuilderScreen({
   useEffect(() => {
     setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
   }, [rewardProfileId]);
+
+  useEffect(() => {
+    const handleZoneOverridesChanged = () => {
+      setZoneOverrideVersion((currentVersion) => currentVersion + 1);
+    };
+
+    window.addEventListener(
+      zoneVisualHintOverridesChangedEvent,
+      handleZoneOverridesChanged,
+    );
+
+    return () => {
+      window.removeEventListener(
+        zoneVisualHintOverridesChangedEvent,
+        handleZoneOverridesChanged,
+      );
+    };
+  }, []);
 
   function updateDragState(nextDragState: DragState | null) {
     dragStateRef.current = nextDragState;
@@ -362,7 +393,7 @@ export function SceneBuilderScreen({
       return undefined;
     }
 
-    return findSmallestZoneAtPoint(zones, scenePoint);
+    return findSmallestZoneAtPoint(effectiveZones, scenePoint);
   }
 
   function resetSelection() {
@@ -440,7 +471,11 @@ export function SceneBuilderScreen({
 
   const applySpokenCommandTranscript = useCallback(
     (transcript: string) => {
-      const executionResult = executeSpokenSceneCommand({ objects, transcript, zones });
+      const executionResult = executeSpokenSceneCommand({
+        objects,
+        transcript,
+        zones: effectiveZones,
+      });
       setSpokenCommandResult(executionResult);
 
       if (executionResult.status !== "ready" || !executionResult.placement) {
@@ -516,7 +551,7 @@ export function SceneBuilderScreen({
       instruction,
       objects,
       rewardProfileId,
-      zones,
+      effectiveZones,
     ],
   );
 
@@ -532,7 +567,7 @@ export function SceneBuilderScreen({
       return;
     }
 
-    const chosenZone = zones.find((zone) => zone.id === choice.id);
+    const chosenZone = effectiveZones.find((zone) => zone.id === choice.id);
     const objectId = spokenCommandResult?.parseResult.objectId ?? selectedObjectId;
 
     if (!chosenZone || !objectId) {
@@ -1410,18 +1445,10 @@ export function SceneBuilderScreen({
             type="button"
           />
 
-          {showTargetZoneHint && visualHintZone ? (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute rounded-[1.5rem] border-4 border-dashed border-amber-400 bg-amber-200/20 shadow-[0_0_0_5px_rgba(255,255,255,0.72)]"
-              data-testid="target-zone-hint"
-              style={{
-                height: `${visualHintZone.height}%`,
-                left: `${visualHintZone.x}%`,
-                top: `${visualHintZone.y}%`,
-                width: `${visualHintZone.width}%`,
-              }}
-            />
+          {showTargetZoneHint && visualHintZone ? <TargetZoneHint zone={visualHintZone} /> : null}
+
+          {showZoneDevTools ? (
+            <SceneZoneDevTools initialZoneId={visualHintZone?.id} zones={effectiveZones} />
           ) : null}
 
           {placedObjects.map((placedObject) => {

@@ -12,7 +12,8 @@ import type {
   VocabularyChoiceInstruction,
 } from "./types";
 
-const assetPath = (fileName: string) => `assets/objects/transparent/${fileName}`;
+const assetPath = (fileName: string) =>
+  `assets/objects/transparent/${fileName}`;
 
 export const beachSpatialConcepts: SpatialConcept[] = [
   "in",
@@ -188,6 +189,7 @@ export const beachObjects: SceneObject[] = [
 ];
 
 export const beachZones: SceneZone[] = [
+  // Basisgebied: lucht
   {
     id: "lucht",
     label: "lucht",
@@ -199,49 +201,28 @@ export const beachZones: SceneZone[] = [
     height: 38,
     supportedConcepts: ["boven", "links", "rechts", "midden", "ver weg"],
   },
+
+  // Zee en waterzones
   {
     id: "zee",
     label: "zee",
     description: "Het watergebied in de scene.",
     kind: "absolute",
+    visualHintPath:
+      "M0.5 57.5 L8.9 58.2 L18.2 59.6 L26.9 59.6 L35.8 58.7 L44.3 58 L53.6 60.1 L64.2 59.6 L71 57.5 L77.2 57.9 L84.5 58.9 L91.4 57.1 L99.2 57.5 L99.7 40.7 L92.2 40 L86.4 39.1 L80.3 38.4 L71.1 38.4 L60.8 37.1 L66.1 33.7 L70.4 30.1 L0.4 31.7 Z",
     x: 0,
     y: 38,
     width: 100,
     height: 30,
-    supportedConcepts: ["in", "op", "links", "rechts", "midden", "dichtbij", "ver weg"],
-  },
-  {
-    id: "strand",
-    label: "strand",
-    description: "Het zandgebied onderaan de scene.",
-    kind: "absolute",
-    x: 0,
-    y: 66,
-    width: 100,
-    height: 34,
-    supportedConcepts: ["op", "naast", "tussen", "links", "rechts", "midden", "dichtbij", "ver weg"],
-  },
-  {
-    id: "eiland",
-    label: "eiland",
-    description: "Klein eiland rechts in de zee.",
-    kind: "landmark",
-    x: 68,
-    y: 42,
-    width: 24,
-    height: 18,
-    supportedConcepts: ["op", "rechts", "ver weg"],
-  },
-  {
-    id: "handdoek-zone",
-    label: "handdoek",
-    description: "Plek op de handdoek.",
-    kind: "landmark",
-    x: 60,
-    y: 76,
-    width: 24,
-    height: 18,
-    supportedConcepts: ["op", "onder", "naast"],
+    supportedConcepts: [
+      "in",
+      "op",
+      "links",
+      "rechts",
+      "midden",
+      "dichtbij",
+      "ver weg",
+    ],
   },
   {
     id: "links-zee",
@@ -255,15 +236,59 @@ export const beachZones: SceneZone[] = [
     supportedConcepts: ["links", "in"],
   },
   {
-    id: "rechts-strand",
-    label: "rechts op het strand",
-    description: "Rechterkant van het strand.",
-    kind: "horizontal",
-    x: 66,
-    y: 72,
-    width: 28,
-    height: 22,
-    supportedConcepts: ["rechts", "op"],
+    id: "boven-zee",
+    label: "boven de zee",
+    description: "Luchtgebied boven de zee.",
+    kind: "relative",
+    x: 12,
+    y: 10,
+    width: 76,
+    height: 24,
+    supportedConcepts: ["boven", "ver weg"],
+  },
+  {
+    id: "ver-weg-zee",
+    label: "ver weg boven zee",
+    description: "Een plek ver weg in de lucht boven de zee.",
+    kind: "relative",
+    x: 70,
+    y: 8,
+    width: 22,
+    height: 18,
+    supportedConcepts: ["ver weg", "boven"],
+  },
+  {
+    id: "eiland",
+    label: "eiland",
+    description: "Klein eiland rechts in de zee.",
+    kind: "landmark",
+    x: 68,
+    y: 42,
+    width: 24,
+    height: 18,
+    supportedConcepts: ["op", "rechts", "ver weg"],
+  },
+
+  // Strand en zandzones
+  {
+    id: "strand",
+    label: "strand",
+    description: "Het zandgebied onderaan de scene.",
+    kind: "absolute",
+    x: 0,
+    y: 66,
+    width: 100,
+    height: 34,
+    supportedConcepts: [
+      "op",
+      "naast",
+      "tussen",
+      "links",
+      "rechts",
+      "midden",
+      "dichtbij",
+      "ver weg",
+    ],
   },
   {
     id: "midden-strand",
@@ -277,16 +302,29 @@ export const beachZones: SceneZone[] = [
     supportedConcepts: ["midden", "op"],
   },
   {
-    id: "boven-zee",
-    label: "boven de zee",
-    description: "Luchtgebied boven de zee.",
-    kind: "relative",
-    x: 12,
-    y: 10,
-    width: 76,
-    height: 24,
-    supportedConcepts: ["boven", "ver weg"],
+    id: "rechts-strand",
+    label: "rechts op het strand",
+    description: "Rechterkant van het strand.",
+    kind: "horizontal",
+    x: 66,
+    y: 72,
+    width: 28,
+    height: 22,
+    supportedConcepts: ["rechts", "op"],
   },
+  {
+    id: "handdoek-zone",
+    label: "handdoek",
+    description: "Plek op de handdoek.",
+    kind: "landmark",
+    x: 60,
+    y: 76,
+    width: 24,
+    height: 18,
+    supportedConcepts: ["op", "onder", "naast"],
+  },
+
+  // Relatieve zones rond strandobjecten
   {
     id: "naast-parasol",
     label: "naast de parasol",
@@ -330,17 +368,6 @@ export const beachZones: SceneZone[] = [
     width: 24,
     height: 16,
     supportedConcepts: ["tussen"],
-  },
-  {
-    id: "ver-weg-zee",
-    label: "ver weg boven zee",
-    description: "Een plek ver weg in de lucht boven de zee.",
-    kind: "relative",
-    x: 70,
-    y: 8,
-    width: 22,
-    height: 18,
-    supportedConcepts: ["ver weg", "boven"],
   },
 ];
 
@@ -391,7 +418,13 @@ function sceneTask(params: {
     targetZoneIds: [params.zoneId],
     spatialConcepts: [params.relation],
     languageDomains: directionDomains,
-    tags: ["mvp", "scene-builder", params.relation, params.objectId, ...(params.tags ?? [])],
+    tags: [
+      "mvp",
+      "scene-builder",
+      params.relation,
+      params.objectId,
+      ...(params.tags ?? []),
+    ],
     hint: params.hint,
     feedback: `${params.feedbackSentence} +1 Speed!`,
     feedbackCopy: placementFeedback(params.feedbackSentence, params.relation),
@@ -461,10 +494,19 @@ function raceTask(params: {
     targetZoneIds: params.zoneIds,
     spatialConcepts: params.concepts,
     languageDomains: directionDomains,
-    tags: ["mvp", "race", ...params.concepts, ...params.objectIds, ...(params.tags ?? [])],
+    tags: [
+      "mvp",
+      "race",
+      ...params.concepts,
+      ...params.objectIds,
+      ...(params.tags ?? []),
+    ],
     hint: params.hint,
     feedback: `${params.feedbackSentence} +1 Speed!`,
-    feedbackCopy: placementFeedback(params.feedbackSentence, params.concepts[0] ?? "op"),
+    feedbackCopy: placementFeedback(
+      params.feedbackSentence,
+      params.concepts[0] ?? "op",
+    ),
     raceAction: params.raceAction,
     durationSeconds: 30,
     reward: { speed: 1, wordStars: 1 },
@@ -916,4 +958,6 @@ export const beachWorld: GameWorld = {
   rewards: beachRewards,
 };
 
-export const firstDemoInstructionIds = beachInstructions.map((instruction) => instruction.id);
+export const firstDemoInstructionIds = beachInstructions.map(
+  (instruction) => instruction.id,
+);
