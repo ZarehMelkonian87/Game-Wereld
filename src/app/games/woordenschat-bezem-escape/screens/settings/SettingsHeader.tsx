@@ -6,10 +6,10 @@ interface SettingsHeaderProps {
 }
 
 export const SettingsHeader = ({ onBackToMenu }: SettingsHeaderProps) => (
-  <div data-component="SettingsHeader">
+  <div className="grid gap-2" data-component="SettingsHeader">
     <button
       aria-label="Terug naar game menu"
-      className="mb-2 inline-flex min-h-11 items-center gap-2 rounded-2xl border-2 border-slate-300 bg-white/88 px-3 text-sm font-black text-slate-900 shadow-[0_3px_0_rgba(71,85,105,0.22)] active:translate-y-0.5"
+      className="inline-flex min-h-11 w-fit items-center gap-2 rounded-2xl border-2 border-slate-300 bg-white/88 px-3 text-sm font-black text-slate-900 shadow-[0_3px_0_rgba(71,85,105,0.22)] active:translate-y-0.5"
       data-testid="settings-back-button"
       onClick={onBackToMenu}
       type="button"

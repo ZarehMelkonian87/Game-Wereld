@@ -13,7 +13,7 @@ export const SettingsTogglePanel = ({
   settings,
 }: SettingsTogglePanelProps) => (
   <div className="contents" data-component="SettingsTogglePanel">
-    <PanelCard className="grid gap-2 !rounded-2xl !p-3">
+    <PanelCard className="grid gap-2 !rounded-2xl !p-2.5">
       <SettingsToggleRow
         checked={settings.audioEnabled}
         description="Spreek de opdrachten hardop uit."

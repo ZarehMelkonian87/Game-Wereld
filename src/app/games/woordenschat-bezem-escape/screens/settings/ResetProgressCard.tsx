@@ -1,38 +1,43 @@
 import { RotateCcw } from "lucide-react";
-import { PanelCard, PrimaryActionButton } from "../../components/ui";
+import { PanelCard } from "../../components/ui";
 
 interface ResetProgressCardProps {
-  confirmReset: boolean;
-  onResetProgress: () => void;
+  onOpenResetDialog: () => void;
   resetMessage: string;
 }
 
 export const ResetProgressCard = ({
-  confirmReset,
-  onResetProgress,
+  onOpenResetDialog,
   resetMessage,
 }: ResetProgressCardProps) => (
   <div className="contents" data-component="ResetProgressCard">
-    <PanelCard className="!rounded-2xl !p-3">
+    <PanelCard className="grid gap-2 !rounded-2xl !p-3">
       <p className="text-xs font-black leading-tight text-slate-800">
         Data in deze game is oefenobservatie. Het is geen diagnose, geen officiele testscore en
         geen vergelijking met normgroepen.
       </p>
-      <PrimaryActionButton
-        className="mt-3 w-full border-rose-600 bg-rose-500 text-sm shadow-[0_4px_0_rgba(190,18,60,0.75)] hover:bg-rose-400"
-        data-testid="settings-reset-progress-button"
-        iconLeft={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
-        onClick={onResetProgress}
-      >
-        {confirmReset ? "Bevestig wissen" : "Reset voortgang"}
-      </PrimaryActionButton>
-      <p
-        className="mt-2 min-h-5 text-xs font-black leading-tight text-slate-700"
-        data-testid="settings-reset-message"
-      >
-        {resetMessage}
-      </p>
+      {resetMessage ? (
+        <p
+          aria-live="polite"
+          className="rounded-2xl border-2 border-emerald-200 bg-emerald-50/90 p-2 text-xs font-black leading-tight text-emerald-900"
+          data-testid="settings-reset-message"
+        >
+          {resetMessage}
+        </p>
+      ) : null}
     </PanelCard>
+
+    <button
+      aria-label="Voortgang resetten"
+      className="mx-auto inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 text-[0.78rem] font-black leading-none text-rose-700 underline-offset-4 active:translate-y-0.5"
+      data-component="ResetProgressLink"
+      data-testid="settings-reset-progress-button"
+      onClick={onOpenResetDialog}
+      type="button"
+    >
+      <RotateCcw className="h-4 w-4" strokeWidth={3} />
+      Reset voortgang
+    </button>
   </div>
 );
 

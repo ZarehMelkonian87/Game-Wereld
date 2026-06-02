@@ -21,6 +21,7 @@ import {
   getMicrophoneEnvironmentMessage,
   getMicrophonePermissionAttemptMessage,
 } from "./microphoneSettings";
+import { ConfirmResetDialog } from "./ConfirmResetDialog";
 import { ResetProgressCard } from "./ResetProgressCard";
 import { SettingsHeader } from "./SettingsHeader";
 import { SettingsTogglePanel } from "./SettingsTogglePanel";
@@ -38,13 +39,13 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   );
   const speechSupport = getSpeechRecognitionSupport();
   const speechSupportMessage = getSpeechRecognitionSupportMessage(speechSupport);
-  const [confirmReset, setConfirmReset] = useState(false);
+  const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const [isCheckingMicrophonePermission, setIsCheckingMicrophonePermission] =
     useState(false);
   const [microphonePermission, setMicrophonePermission] =
     useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
   const [permissionAttemptMessage, setPermissionAttemptMessage] = useState(
-    "Tik op de knop om de telefoon om microfoontoegang te laten vragen.",
+    "Tik op de knop om microfoontoegang te vragen.",
   );
   const [resetMessage, setResetMessage] = useState("");
   const microphoneEnvironmentMessage = getMicrophoneEnvironmentMessage();
@@ -84,12 +85,6 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   };
 
   const handleResetProgress = () => {
-    if (!confirmReset) {
-      setConfirmReset(true);
-      setResetMessage("Druk nog een keer om voortgang te wissen.");
-      return;
-    }
-
     resetBezemEscapeProgress(profileId);
     saveUnlockedRewardIds(profileId, []);
     updateProgress(BEZEM_ESCAPE_GAME_ID, {
@@ -104,19 +99,19 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
       window.sessionStorage.removeItem("woordenschat-bezem-escape:race-result");
     }
 
-    setConfirmReset(false);
+    setIsResetDialogOpen(false);
     setResetMessage("Voortgang is gewist.");
   };
 
   return (
     <div
-      className="pointer-events-auto absolute inset-0 z-10 overflow-y-auto px-3 pb-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]"
+      className="pointer-events-auto absolute inset-0 z-10 overflow-y-auto overflow-x-hidden px-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)]"
       data-audio-enabled={settings.audioEnabled ? "true" : "false"}
       data-hints-enabled={settings.hintsEnabled ? "true" : "false"}
       data-reduced-motion={settings.reducedMotion ? "true" : "false"}
       data-testid="game-settings-screen"
     >
-      <div className="mx-auto flex min-h-full max-w-md flex-col gap-3">
+      <div className="mx-auto flex min-h-full max-w-md flex-col gap-2.5">
         <SettingsHeader onBackToMenu={onBackToMenu} />
         <SettingsTogglePanel onUpdateSettings={updateSetting} settings={settings} />
         <VoicePrivacySettingsCard
@@ -129,11 +124,19 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
           speechSupportMessage={speechSupportMessage}
         />
         <ResetProgressCard
-          confirmReset={confirmReset}
-          onResetProgress={handleResetProgress}
+          onOpenResetDialog={() => {
+            setResetMessage("");
+            setIsResetDialogOpen(true);
+          }}
           resetMessage={resetMessage}
         />
       </div>
+      {isResetDialogOpen ? (
+        <ConfirmResetDialog
+          onCancel={() => setIsResetDialogOpen(false)}
+          onConfirm={handleResetProgress}
+        />
+      ) : null}
     </div>
   );
 };
