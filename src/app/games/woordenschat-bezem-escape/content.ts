@@ -195,6 +195,8 @@ export const beachZones: SceneZone[] = [
     label: "lucht",
     description: "De lucht boven de zee en het strand.",
     kind: "absolute",
+    visualHintPath:
+      "M0.9 31.6 L71.3 31.1 L77.2 28.3 L81.7 24.5 L77.8 20.7 L76 15.3 L82 10.6 L89.2 10.6 L90.7 4.9 L94.9 0.7 L86.2 0 L6 0.9 L0.9 4.7 Z",
     x: 0,
     y: 0,
     width: 100,
@@ -229,6 +231,8 @@ export const beachZones: SceneZone[] = [
     label: "links in zee",
     description: "Linkerkant van de zee.",
     kind: "horizontal",
+    visualHintPath:
+      "M0.9 32 L40.8 31.6 L40.8 58 L30.8 60.3 L23 60.9 L16 60.2 L7.8 58 L1.3 58.1 L0 54.5 Z",
     x: 4,
     y: 42,
     width: 28,
@@ -240,6 +244,7 @@ export const beachZones: SceneZone[] = [
     label: "boven de zee",
     description: "Luchtgebied boven de zee.",
     kind: "relative",
+    visualHintPath: "M0.6 31.2 L72.5 30.9 L72.5 14.3 L0.6 14.3 Z",
     x: 12,
     y: 10,
     width: 76,
@@ -251,6 +256,7 @@ export const beachZones: SceneZone[] = [
     label: "ver weg boven zee",
     description: "Een plek ver weg in de lucht boven de zee.",
     kind: "relative",
+    visualHintPath: "M0.7 16.9 L10.5 18.7 L18.6 24 L21.9 31.3 L0.9 32 Z",
     x: 70,
     y: 8,
     width: 22,
@@ -262,6 +268,8 @@ export const beachZones: SceneZone[] = [
     label: "eiland",
     description: "Klein eiland rechts in de zee.",
     kind: "landmark",
+    visualHintPath:
+      "M61.4 36.5 L70.4 37.9 L84.7 38.6 L94.9 38.6 L98.8 39.8 L98.8 26.4 L85 27.6 L74.3 30.1 L66.8 33.4 Z",
     x: 68,
     y: 42,
     width: 24,
@@ -275,6 +283,8 @@ export const beachZones: SceneZone[] = [
     label: "strand",
     description: "Het zandgebied onderaan de scene.",
     kind: "absolute",
+    visualHintPath:
+      "M1.8 58.6 L8.4 57.7 L15.9 61.5 L30.2 61.7 L39.8 60.8 L44.9 59.6 L55.1 61 L66.2 59.8 L74.6 58.4 L85.6 59.8 L95.8 58.2 L98.8 59.8 L99.7 95.9 L93.4 99.2 L5.4 99.9 L0 96.1 Z",
     x: 0,
     y: 66,
     width: 100,
@@ -295,6 +305,8 @@ export const beachZones: SceneZone[] = [
     label: "midden op het strand",
     description: "Midden van het strand.",
     kind: "horizontal",
+    visualHintPath:
+      "M24.6 61.7 L23.7 99.4 L69.8 99.2 L71.3 59.1 L60.2 60.3 L42.2 59.3 Z",
     x: 36,
     y: 72,
     width: 28,
@@ -306,6 +318,8 @@ export const beachZones: SceneZone[] = [
     label: "rechts op het strand",
     description: "Rechterkant van het strand.",
     kind: "horizontal",
+    visualHintPath:
+      "M71.6 57.9 L69.5 99.2 L95.2 99.6 L99.4 97.3 L99.4 56.5 L89.5 59.3 L79.9 59.1 Z",
     x: 66,
     y: 72,
     width: 28,
@@ -317,6 +331,8 @@ export const beachZones: SceneZone[] = [
     label: "handdoek",
     description: "Plek op de handdoek.",
     kind: "landmark",
+    visualHintPath:
+      "M99.7 64.6 L99.8 98.5 L99.1 99.6 L97.8 99.9 L1.4 99.8 L0.3 99.3 L0.1 95.7 L0.1 67.9 L14.4 66.7 L51 66 L79.6 65.4 Z",
     x: 60,
     y: 76,
     width: 24,
@@ -324,51 +340,8 @@ export const beachZones: SceneZone[] = [
     supportedConcepts: ["op", "onder", "naast"],
   },
 
-  // Relatieve zones rond strandobjecten
-  {
-    id: "naast-parasol",
-    label: "naast de parasol",
-    description: "Een plek dichtbij aan de zijkant van de parasol.",
-    kind: "relative",
-    x: 48,
-    y: 72,
-    width: 22,
-    height: 18,
-    supportedConcepts: ["naast", "dichtbij"],
-  },
-  {
-    id: "naast-schelp",
-    label: "naast de schelp",
-    description: "Een plek dichtbij aan de zijkant van de schelp.",
-    kind: "relative",
-    x: 22,
-    y: 78,
-    width: 22,
-    height: 16,
-    supportedConcepts: ["naast", "dichtbij"],
-  },
-  {
-    id: "dichtbij-parasol",
-    label: "dichtbij de parasol",
-    description: "Een plek dichtbij de parasol.",
-    kind: "relative",
-    x: 50,
-    y: 74,
-    width: 26,
-    height: 18,
-    supportedConcepts: ["dichtbij", "naast"],
-  },
-  {
-    id: "tussen-bal-zandkasteel",
-    label: "tussen bal en zandkasteel",
-    description: "Een plek tussen de bal en het zandkasteel.",
-    kind: "relative",
-    x: 36,
-    y: 78,
-    width: 24,
-    height: 16,
-    supportedConcepts: ["tussen"],
-  },
+  // Relationele zones zoals naast/dichtbij/tussen worden dynamisch berekend
+  // met de actuele positie van geplaatste objecten.
 ];
 
 const directionDomains: LanguageDomain[] = [

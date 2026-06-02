@@ -18,6 +18,12 @@ import {
   zoneVisualHintOverridesChangedEvent,
 } from "../logic/scene-zone-visual-overrides";
 import {
+  evaluateDynamicRelationPlacement,
+  getDynamicRelationHintZone,
+  usesDynamicRelationZone,
+  type SceneObjectPlacementPoint,
+} from "../logic/dynamic-scene-relations";
+import {
   executeSpokenSceneCommand,
   type SceneCommandChoice,
   type SceneCommandExecutionResult,
@@ -325,12 +331,30 @@ export function SceneBuilderScreen({
     () => applySceneZoneVisualHintOverrides(zones),
     [zones, zoneOverrideVersion],
   );
+  const placedObjectPoints = useMemo<SceneObjectPlacementPoint[]>(
+    () =>
+      placedObjects.map((placedObject) => ({
+        objectId: placedObject.objectId,
+        x: placedObject.x,
+        y: placedObject.y,
+      })),
+    [placedObjects],
+  );
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
   const selectedZone = effectiveZones.find((zone) => zone.id === selectedZoneId);
   const targetZone = effectiveZones.find((zone) => zone.id === instruction.placement.zoneId);
-  const visualHintZone = effectiveZones.find((zone) => zone.id === spokenHintZoneId) ?? targetZone;
+  const dynamicTargetZone = getDynamicRelationHintZone({
+    anchorObjectIds: instruction.placement.anchorObjectIds,
+    placements: placedObjectPoints,
+    relation: instruction.placement.relation,
+    zoneId: instruction.placement.zoneId,
+  });
+  const spokenVisualHintZone =
+    effectiveZones.find((zone) => zone.id === spokenHintZoneId) ??
+    (spokenHintZoneId === instruction.placement.zoneId ? dynamicTargetZone : undefined);
+  const visualHintZone = spokenVisualHintZone ?? dynamicTargetZone ?? targetZone;
   const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
@@ -473,6 +497,7 @@ export function SceneBuilderScreen({
     (transcript: string) => {
       const executionResult = executeSpokenSceneCommand({
         objects,
+        placements: placedObjectPoints,
         transcript,
         zones: effectiveZones,
       });
@@ -550,6 +575,7 @@ export function SceneBuilderScreen({
       activeSpokenHelpCount,
       instruction,
       objects,
+      placedObjectPoints,
       rewardProfileId,
       effectiveZones,
     ],
@@ -818,11 +844,34 @@ export function SceneBuilderScreen({
     }
 
     const isCorrectObject = selectedObjectId === instruction.placement.objectId;
-    const isCorrectZone = selectedZoneMatchesTarget(selectedZone, targetZone);
-    const isCorrectRelation = zoneSupportsConcept(selectedZone, instruction.placement.relation);
+    const usesDynamicRelation = usesDynamicRelationZone(instruction.placement);
+    const dynamicRelationEvaluation = evaluateDynamicRelationPlacement({
+      anchorObjectIds: instruction.placement.anchorObjectIds,
+      placementPoint: {
+        x: pendingPlacement.x,
+        y: pendingPlacement.y,
+      },
+      placements: placedObjectPoints,
+      relation: instruction.placement.relation,
+    });
+    const isCorrectZone = usesDynamicRelation
+      ? dynamicRelationEvaluation.matches
+      : selectedZoneMatchesTarget(selectedZone, targetZone);
+    const isCorrectRelation = usesDynamicRelation
+      ? dynamicRelationEvaluation.matches
+      : zoneSupportsConcept(selectedZone, instruction.placement.relation);
 
     if (isCorrectObject && isCorrectZone && isCorrectRelation) {
       placeCorrectObject();
+      return;
+    }
+
+    if (usesDynamicRelation && dynamicRelationEvaluation.missingAnchorObjectIds.length > 0) {
+      setShowTargetZoneHint(false);
+      setFeedback({
+        kind: "almost",
+        text: `Plaats eerst: ${dynamicRelationEvaluation.missingAnchorObjectIds.join(", ")}.`,
+      });
       return;
     }
 

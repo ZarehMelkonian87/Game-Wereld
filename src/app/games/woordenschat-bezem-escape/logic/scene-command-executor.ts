@@ -1,4 +1,9 @@
 import type { SceneObject, SceneZone, SpatialConcept } from "../types";
+import {
+  getDynamicRelationLabel,
+  getSuggestedDynamicRelationPoint,
+  type SceneObjectPlacementPoint,
+} from "./dynamic-scene-relations";
 import { getZoneCenter, type ScenePoint } from "./scene-zones";
 import {
   parseSpokenPlacementCommand,
@@ -48,6 +53,17 @@ const getObjectChoiceLabel = (objects: readonly SceneObject[], objectId: string)
 
 const getZoneChoiceLabel = (zones: readonly SceneZone[], zoneId: string) =>
   zones.find((zone) => zone.id === zoneId)?.label ?? zoneId;
+
+const getPlacementLabel = (
+  parseResult: SpokenCommandParseResult,
+  zones: readonly SceneZone[],
+) =>
+  parseResult.zoneId
+    ? getZoneChoiceLabel(zones, parseResult.zoneId)
+    : getDynamicRelationLabel({
+        anchorObjectIds: parseResult.anchorObjectIds,
+        relation: parseResult.relation,
+      });
 
 const getChoices = ({
   objects,
@@ -100,9 +116,10 @@ const getHelpMessage = ({
   const objectLabel = parseResult.objectId
     ? getObjectChoiceLabel(objects, parseResult.objectId)
     : undefined;
-  const zoneLabel = parseResult.zoneId
-    ? getZoneChoiceLabel(zones, parseResult.zoneId)
-    : undefined;
+  const zoneLabel =
+    parseResult.zoneId || parseResult.anchorObjectIds.length > 0
+      ? getPlacementLabel(parseResult, zones)
+      : undefined;
 
   if (!normalizedTranscript) {
     return "Ik kon het niet goed horen. Probeer het nog eens rustig.";
@@ -139,7 +156,7 @@ const getReadyMessage = (
   objects: readonly SceneObject[],
   zones: readonly SceneZone[],
 ) => {
-  const zoneLabel = parseResult.zoneId ? getZoneChoiceLabel(zones, parseResult.zoneId) : "de scene";
+  const zoneLabel = getPlacementLabel(parseResult, zones);
   const transcriptText = getTranscriptDisplayText(parseResult.transcript);
   const objectPhrase = getObjectPhrase(objects, parseResult.objectId);
 
@@ -152,19 +169,43 @@ const getVisualHint = (parseResult: SpokenCommandParseResult) => ({
 });
 
 const resolvePlacement = ({
+  placements,
   parseResult,
   zones,
 }: {
+  placements: readonly SceneObjectPlacementPoint[];
   parseResult: SpokenCommandParseResult;
   zones: readonly SceneZone[];
 }): SceneCommandPlacement | undefined => {
-  if (!parseResult.objectId || !parseResult.zoneId) {
+  if (!parseResult.objectId) {
     return undefined;
   }
 
-  const zone = zones.find((sceneZone) => sceneZone.id === parseResult.zoneId);
+  if (parseResult.zoneId) {
+    const zone = zones.find((sceneZone) => sceneZone.id === parseResult.zoneId);
 
-  if (!zone) {
+    if (!zone) {
+      return undefined;
+    }
+
+    return {
+      anchorObjectIds: parseResult.anchorObjectIds,
+      confidence: parseResult.confidence,
+      objectId: parseResult.objectId,
+      point: getZoneCenter(zone),
+      relation: parseResult.relation,
+      transcript: parseResult.transcript,
+      zoneId: zone.id,
+    };
+  }
+
+  const dynamicPoint = getSuggestedDynamicRelationPoint({
+    anchorObjectIds: parseResult.anchorObjectIds,
+    placements,
+    relation: parseResult.relation,
+  });
+
+  if (!dynamicPoint || !parseResult.relation) {
     return undefined;
   }
 
@@ -172,26 +213,28 @@ const resolvePlacement = ({
     anchorObjectIds: parseResult.anchorObjectIds,
     confidence: parseResult.confidence,
     objectId: parseResult.objectId,
-    point: getZoneCenter(zone),
+    point: dynamicPoint,
     relation: parseResult.relation,
     transcript: parseResult.transcript,
-    zoneId: zone.id,
+    zoneId: `${parseResult.relation}-${parseResult.anchorObjectIds.join("-")}`,
   };
 };
 
 export const executeSpokenSceneCommand = ({
   objects,
+  placements = [],
   transcript,
   zones,
 }: {
   objects: readonly SceneObject[];
+  placements?: readonly SceneObjectPlacementPoint[];
   transcript: string;
   zones: readonly SceneZone[];
 }): SceneCommandExecutionResult => {
   const parseResult = parseSpokenPlacementCommand({ objects, transcript, zones });
   const choices = getChoices({ objects, parseResult, zones });
   const placement = parseResult.confidence === "high"
-    ? resolvePlacement({ parseResult, zones })
+    ? resolvePlacement({ parseResult, placements, zones })
     : undefined;
   const status: SceneCommandExecutionStatus = placement
     ? "ready"
