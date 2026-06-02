@@ -75,6 +75,29 @@
     0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+@keyframes bezem-feedback-toast {
+  0%,
+  65% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+}
+
+.bezem-feedback-toast {
+  animation: bezem-feedback-toast 4s ease-out 1.25s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bezem-feedback-toast {
+    animation: none;
+  }
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

@@ -23,7 +23,7 @@ export const InstructionVideoButton = ({
   const buttonClassName =
     variant === "feedbackIcon"
       ? "pointer-events-auto h-10 min-h-10 w-10 shrink-0 touch-manipulation overflow-hidden rounded-xl bg-transparent p-0"
-      : "pointer-events-auto h-11 min-h-11 w-11 shrink-0 touch-manipulation overflow-hidden rounded-2xl border-2 border-sky-500 bg-white p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
+      : "pointer-events-auto h-14 min-h-14 w-14 shrink-0 touch-manipulation overflow-visible rounded-2xl bg-transparent p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
 
   const playVideo = async () => {
     const video = videoRef.current;

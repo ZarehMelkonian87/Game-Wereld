@@ -1,23 +1,12 @@
-import { CheckCircle2, Sparkles } from "lucide-react";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
-  broomIconUrls,
   getBeachObjectStickerUrl,
   hintVideoUrls,
   instructionVideoUrls,
-  mascotIconUrls,
 } from "../asset-urls";
-import { TopHud } from "../components";
-import {
-  GameplayStatusBar,
-  InstructionBubble,
-  ObjectTrayContainer,
-  ObjectStickerButton,
-  PanelCard,
-  PrimaryActionButton,
-} from "../components/ui";
+import { ObjectStickerButton } from "../components/ui";
 import {
   findSmallestZoneAtPoint,
   selectedZoneMatchesTarget,
@@ -54,6 +43,12 @@ import type {
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useProfile } from "../../../contexts/ProfileContext";
+import { CompactInstructionCard } from "./scene-builder/CompactInstructionCard";
+import { CompactProgressBar } from "./scene-builder/CompactProgressBar";
+import { FloatingSuccessToast } from "./scene-builder/FloatingSuccessToast";
+import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
+import { ParentObservationSheet } from "./scene-builder/ParentObservationSheet";
+import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
 
 interface SceneBuilderScreenProps {
   instructions: SceneBuilderInstruction[];
@@ -1327,6 +1322,13 @@ export function SceneBuilderScreen({
       : getHintVideoUrlForLevel(instruction.id, nextHintLevel);
   const hintFeedbackVideoUrl = feedback?.hintVideoUrl ?? preparedHintVideoUrl;
   const shouldRenderFeedbackCard = Boolean(feedback || hintFeedbackVideoUrl);
+  const visibleTrayObjects = trayObjects.slice(0, 6);
+  const actionLabel =
+    sceneComplete && feedback?.kind === "correct"
+      ? "Start race"
+      : feedback?.kind === "correct"
+        ? "Volgende"
+        : "Klaar";
 
   return (
     <div
@@ -1360,52 +1362,46 @@ export function SceneBuilderScreen({
       data-spoken-hint-zone-id={spokenHintZoneId ?? ""}
       data-spoken-command-status={spokenCommandResult?.status ?? "none"}
       data-spoken-command-transcript={spokenCommandResult?.transcript ?? ""}
-      className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
+      className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[calc(env(safe-area-inset-top)+0.5rem)] landscape:gap-1.5 landscape:px-3"
     >
-      <TopHud
-        onAudioClick={() => playInstructionAudio()}
-        onHintClick={handleHint}
+      <SceneBuilderTopBar
+        actionLabel={actionLabel}
+        isCorrectFeedback={feedback?.kind === "correct"}
+        onAction={handleConfirm}
+        onHint={handleHint}
         onHintPointerDown={playPreparedHintVideo}
-        showParentBack
         starCount={wordStarValue}
       />
 
-      <div className="grid h-full min-h-0 grid-rows-[4.5rem_minmax(0,1fr)_3.75rem_5rem] gap-2 landscape:grid-cols-[minmax(12rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4.5rem_minmax(0,1fr)_4.5rem]">
-        <div
-          className="grid min-h-0 grid-cols-[minmax(0,1fr)_auto] items-start gap-2 landscape:col-start-1 landscape:row-start-1"
-          data-component="SceneBuilderCommandRow"
-          data-slot="command-row"
-        >
-          <InstructionBubble
-            aria-label="Opdrachtgebied"
-            data-testid="scene-builder-instruction-area"
-            leadingControl={
-              currentInstructionVideoUrl ? (
-                <InstructionVideoButton
-                  label="Speel video-opdracht"
-                  onPlaybackError={handleInstructionVideoPlaybackError}
-                  onPlaybackStart={handleInstructionVideoPlaybackStart}
-                  onPlayRequest={handleInstructionVideoRequest}
-                  src={currentInstructionVideoUrl}
-                />
-              ) : undefined
-            }
-            onAudioClick={() => playInstructionAudio()}
-            text={currentInstructionText}
-            className="h-full min-h-0"
-          />
+      <CompactInstructionCard
+        actionControls={
           <SpokenCommandControls
             exampleText={instruction.prompt}
             onTranscript={applySpokenCommandTranscript}
             profileId={rewardProfileId}
           />
-        </div>
+        }
+        leadingControl={
+          currentInstructionVideoUrl ? (
+            <InstructionVideoButton
+              label="Speel video-opdracht"
+              onPlaybackError={handleInstructionVideoPlaybackError}
+              onPlaybackStart={handleInstructionVideoPlaybackStart}
+              onPlayRequest={handleInstructionVideoRequest}
+              src={currentInstructionVideoUrl}
+            />
+          ) : undefined
+        }
+        text={currentInstructionText}
+      />
+
+      <div className="flex min-h-0 flex-1 flex-col gap-2 landscape:gap-1.5">
 
         <section
           aria-label="Scenegebied"
           data-testid="scene-builder-scene-area"
           ref={sceneAreaRef}
-          className="relative min-h-0 overflow-hidden rounded-[1.75rem] border-2 border-white/70 bg-white/5 shadow-[inset_0_0_0_1px_rgba(14,165,233,0.18)] landscape:col-start-2 landscape:row-span-2 landscape:row-start-1"
+          className="relative min-h-0 flex-1 overflow-hidden rounded-[1.35rem] border border-white/35 bg-white/0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]"
         >
           <button
             aria-label="Kies plek in de scene"
@@ -1498,234 +1494,27 @@ export function SceneBuilderScreen({
             })()
           ) : null}
 
-          {shouldRenderFeedbackCard ? (
-            <PanelCard
-              aria-live="polite"
-              aria-hidden={feedback ? undefined : true}
-              data-testid="scene-builder-feedback"
-              className={`pointer-events-auto absolute bottom-3 left-3 right-3 !rounded-2xl !p-2 ${
-                feedback ? "" : "pointer-events-none opacity-0"
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                {hintFeedbackVideoUrl ? (
-                  <video
-                    aria-label="Speel hintvideo"
-                    className="h-10 w-10 shrink-0 rounded-xl object-cover"
-                    data-component="HintFeedbackVideo"
-                    draggable={false}
-                    onClick={handleHintFeedbackVideoClick}
-                    playsInline
-                    preload="auto"
-                    src={hintFeedbackVideoUrl}
-                    title="Speel hintvideo"
-                  />
-                ) : feedback?.mascot ? (
-                  <img
-                    alt=""
-                    className="h-10 w-10 shrink-0 object-contain"
-                    draggable={false}
-                    src={
-                      feedback.mascot === "hint"
-                        ? mascotIconUrls.hint
-                        : mascotIconUrls.celebration
-                    }
-                  />
-                ) : null}
-                <div className="min-w-0 flex-1">
-                  {feedback ? (
-                    <p className="text-xs font-black leading-tight text-slate-900">
-                      {feedback.text}
-                    </p>
-                  ) : null}
-                  {feedback?.repeatText ? (
-                    <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
-                      Bezemspreuk: {feedback.repeatText}
-                    </p>
-                  ) : null}
-                  {feedback?.rewardLabels && feedback.rewardLabels.length > 0 ? (
-                    <p
-                      className="mt-1 text-[0.7rem] font-black leading-tight text-amber-900"
-                      data-testid="reward-unlock-message"
-                    >
-                      Nieuwe beloning: {feedback.rewardLabels.join(", ")}
-                    </p>
-                  ) : null}
-                  {spokenCommandResult && feedback && feedback.kind !== "correct" ? (
-                    <div
-                      className="mt-2 flex flex-wrap items-center gap-1.5"
-                      data-testid="spoken-command-actions"
-                    >
-                      {spokenCommandResult.status !== "ready"
-                        ? spokenCommandResult.choices.slice(0, 4).map((choice) => (
-                            <button
-                              className="min-h-8 rounded-xl border-2 border-sky-300 bg-sky-100 px-2 text-[0.65rem] font-black text-sky-950"
-                              data-choice-id={choice.id}
-                              data-choice-type={choice.type}
-                              key={`${choice.type}-${choice.id}`}
-                              onClick={() => handleSpokenCommandChoice(choice)}
-                              type="button"
-                            >
-                              Bedoel je {choice.label}?
-                            </button>
-                          ))
-                        : null}
-                      <button
-                        className="min-h-8 rounded-xl border-2 border-amber-300 bg-amber-100 px-2 text-[0.65rem] font-black text-amber-950"
-                        data-testid="repeat-spoken-command"
-                        onClick={handleRepeatSpokenCommand}
-                        type="button"
-                      >
-                        Opnieuw zeggen
-                      </button>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-              {feedback?.kind === "correct" ? (
-                <div
-                  data-testid="active-language-panel"
-                  className="mt-2 rounded-2xl border border-sky-200 bg-sky-50/85 p-2 text-[0.65rem] font-black leading-tight text-slate-800"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="min-w-0">
-                      <p className="truncate text-[0.72rem] text-slate-900">
-                        Ouder-observatie
-                      </p>
-                      <p className="truncate text-[0.62rem] text-slate-600">
-                        Optioneel: bewaar hoe het praten ging.
-                      </p>
-                    </div>
-                    <button
-                      className="min-h-9 shrink-0 rounded-xl border-2 border-sky-300 bg-white/80 px-3 text-[0.68rem] text-sky-900"
-                      data-testid="toggle-observation-panel"
-                      onClick={() => setShowObservationPanel((isVisible) => !isVisible)}
-                      type="button"
-                    >
-                      {showObservationPanel ? "Sluit" : "Invullen"}
-                    </button>
-                  </div>
-                  {observationNotice ? (
-                    <p
-                      className="mt-1 text-[0.62rem] text-emerald-800"
-                      data-testid="observation-notice"
-                    >
-                      {observationNotice}
-                    </p>
-                  ) : null}
-                  {showObservationPanel ? (
-                    <div className="mt-2 grid gap-2 landscape:grid-cols-2">
-                      <div className="min-w-0">
-                        <p className="mb-1 truncate text-slate-900">
-                          Heeft het kind het woord gezegd?
-                        </p>
-                        <div className="grid grid-cols-3 gap-1">
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
-                            data-testid="active-vocabulary-good"
-                            onClick={() => recordActiveVocabulary("good")}
-                            type="button"
-                          >
-                            Zelf
-                          </button>
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
-                            data-testid="active-vocabulary-partial"
-                            onClick={() => recordActiveVocabulary("partial")}
-                            type="button"
-                          >
-                            Bijna
-                          </button>
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
-                            data-testid="active-vocabulary-help"
-                            onClick={() => recordActiveVocabulary("help")}
-                            type="button"
-                          >
-                            Hulp
-                          </button>
-                        </div>
-                      </div>
-                      <div className="min-w-0">
-                        <p className="mb-1 truncate text-slate-900">
-                          Heeft het kind de zin nagezegd?
-                        </p>
-                        <div className="grid grid-cols-3 gap-1">
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-emerald-300 bg-emerald-100 px-1"
-                            data-testid="sentence-repeat-good"
-                            onClick={() => recordSentenceRepeat("good")}
-                            type="button"
-                          >
-                            Goed
-                          </button>
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-amber-300 bg-amber-100 px-1"
-                            data-testid="sentence-repeat-partial"
-                            onClick={() => recordSentenceRepeat("partial")}
-                            type="button"
-                          >
-                            Deels
-                          </button>
-                          <button
-                            className="min-h-9 rounded-xl border-2 border-sky-300 bg-sky-100 px-1"
-                            data-testid="sentence-repeat-help"
-                            onClick={() => recordSentenceRepeat("help")}
-                            type="button"
-                          >
-                            Hulp
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              ) : null}
-            </PanelCard>
-          ) : null}
+          <FloatingSuccessToast
+            feedback={feedback}
+            hintVideoUrl={shouldRenderFeedbackCard ? hintFeedbackVideoUrl : undefined}
+            onHintVideoClick={handleHintFeedbackVideoClick}
+            onRepeatSpokenCommand={handleRepeatSpokenCommand}
+            onSpokenCommandChoice={handleSpokenCommandChoice}
+            spokenCommandResult={spokenCommandResult}
+          />
         </section>
 
-        <PanelCard
-          aria-label="Statusgebied"
-          data-testid="scene-builder-status-area"
-          className="flex min-h-0 items-center !p-2 landscape:col-start-1 landscape:row-start-2 landscape:self-end landscape:!p-1.5"
-        >
-          <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
-            <GameplayStatusBar
-              boosting={speedBoosting}
-              energyIconUrl={broomIconUrls.basic}
-              speedMax={10}
-              speedValue={speedValue}
-              starMax={30}
-              starValue={wordStarValue}
-            />
-            <PrimaryActionButton
-              className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
-              data-testid="scene-builder-confirm-button"
-              iconLeft={
-                feedback?.kind === "correct" ? (
-                  <Sparkles className="h-5 w-5" strokeWidth={3} />
-                ) : (
-                  <CheckCircle2 className="h-5 w-5" strokeWidth={3} />
-                )
-              }
-              onClick={handleConfirm}
-            >
-              {sceneComplete && feedback?.kind === "correct"
-                ? "Start race"
-                : feedback?.kind === "correct"
-                  ? "Volgende"
-                  : "Klaar"}
-            </PrimaryActionButton>
-          </div>
-        </PanelCard>
+        <CompactProgressBar
+          boosting={speedBoosting}
+          onOpenObservation={() => setShowObservationPanel(true)}
+          speedMax={10}
+          speedValue={speedValue}
+          starMax={30}
+          starValue={wordStarValue}
+        />
 
-        <ObjectTrayContainer
-          aria-label="Traygebied"
-          data-testid="scene-builder-tray-area"
-          className="landscape:col-span-2 landscape:row-start-3"
-        >
-          {trayObjects.map((object) => (
+        <ObjectCarousel>
+          {visibleTrayObjects.map((object) => (
             <ObjectStickerButton
               imageUrl={object.imageUrl}
               key={object.id}
@@ -1744,8 +1533,16 @@ export function SceneBuilderScreen({
               size="tray"
             />
           ))}
-        </ObjectTrayContainer>
+        </ObjectCarousel>
       </div>
+
+      <ParentObservationSheet
+        notice={observationNotice}
+        onClose={() => setShowObservationPanel(false)}
+        onRecordActiveVocabulary={recordActiveVocabulary}
+        onRecordSentenceRepeat={recordSentenceRepeat}
+        open={showObservationPanel}
+      />
 
       {dragState ? (
         <img

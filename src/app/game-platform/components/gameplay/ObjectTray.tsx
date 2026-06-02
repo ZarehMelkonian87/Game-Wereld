@@ -18,7 +18,7 @@ export const ObjectTray = ({ children, className, ...trayProps }: ObjectTrayProp
   >
     <div
       className={classNames(
-        "pointer-events-auto flex h-full w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain px-0.5 [scrollbar-width:thin]",
+        "pointer-events-auto flex h-full w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain px-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         children ? "justify-start" : "justify-center",
       )}
       data-slot="scroll-area"
@@ -31,4 +31,3 @@ export const ObjectTray = ({ children, className, ...trayProps }: ObjectTrayProp
 );
 
 ObjectTray.displayName = "ObjectTray";
-

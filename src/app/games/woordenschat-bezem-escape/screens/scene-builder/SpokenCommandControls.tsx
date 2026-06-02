@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Keyboard } from "lucide-react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import { VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
@@ -176,7 +177,7 @@ export const SpokenCommandControls = ({
   return (
     <div
       className={classNames(
-        "pointer-events-auto relative flex shrink-0 flex-col items-center",
+        "pointer-events-auto relative flex shrink-0 items-center gap-1.5",
         className,
       )}
       data-component="SpokenCommandControls"
@@ -196,27 +197,28 @@ export const SpokenCommandControls = ({
         showLabel={false}
         status={status}
       />
-      <div className="-mt-1 flex items-center gap-1" data-slot="voice-actions">
-        <span
-          className="rounded-full border border-white bg-white/90 px-2 py-0.5 text-[0.58rem] font-black leading-none text-emerald-950 shadow-[0_2px_0_rgba(15,23,42,0.1)]"
-          data-slot="voice-label"
-        >
-          Zeg zelf
-        </span>
+      <div className="flex items-center gap-1" data-slot="voice-actions">
         <button
-          className="rounded-full border border-white bg-sky-100 px-2 py-0.5 text-[0.58rem] font-black leading-none text-sky-950 shadow-[0_2px_0_rgba(15,23,42,0.1)]"
+          aria-label="Typ een opdrachtzin"
+          className="inline-flex min-h-14 w-14 touch-manipulation items-center justify-center rounded-3xl border-4 border-white bg-sky-500 text-white shadow-[0_5px_0_rgba(14,116,144,0.35)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none"
           data-testid="typed-command-open-button"
           onClick={() => setShowManualFallback(true)}
+          title="Typ een opdrachtzin"
           type="button"
         >
-          Typ
+          <Keyboard aria-hidden="true" className="h-8 w-8" strokeWidth={3} />
         </button>
       </div>
 
       {shouldShowPopover ? (
         <div
-          className="absolute right-0 top-[calc(100%+0.35rem)] z-30 w-[min(17rem,calc(100vw-1.5rem))]"
+          className="pointer-events-auto absolute right-0 top-[calc(100%+0.35rem)] z-[70] w-[min(17rem,calc(100vw-1.5rem))]"
           data-slot="voice-status-popover"
+          onClick={(event) => event.stopPropagation()}
+          onPointerCancel={(event) => event.stopPropagation()}
+          onPointerDown={(event) => event.stopPropagation()}
+          onPointerMove={(event) => event.stopPropagation()}
+          onPointerUp={(event) => event.stopPropagation()}
         >
           <div className="grid gap-2">
             {showPrivacyNotice ? (
