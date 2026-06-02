@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router";
-import { WelcomeScreen } from "./screens/WelcomeScreen";
-import { ProfileSelectScreen } from "./screens/ProfileSelectScreen";
-import { AvatarSelectScreen } from "./screens/AvatarSelectScreen";
-import { HomeScreen } from "./screens/HomeScreen";
-import { GamesListScreen } from "./screens/GamesListScreen";
-import { GamePlayScreen } from "./screens/GamePlayScreen";
-import { SettingsScreen } from "./screens/SettingsScreen";
-import { ProgressScreen } from "./screens/ProgressScreen";
+import {
+  AvatarSelectScreen,
+  GamePlayScreen,
+  GamesListScreen,
+  HomeScreen,
+  ProfileSelectScreen,
+  ProgressScreen,
+  SettingsScreen,
+  WelcomeScreen,
+} from "./screens";
 import { Root } from "./Root";
 
 export const router = createBrowserRouter([

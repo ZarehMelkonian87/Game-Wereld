@@ -1,0 +1,69 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useProfile } from "../../contexts/ProfileContext";
+import { gameThemes } from "../../data/games";
+import { useRequireProfile } from "../shared";
+import { OverallSummaryCard } from "./OverallSummaryCard";
+import { PeriodSelector } from "./PeriodSelector";
+import { ProgressHeader } from "./ProgressHeader";
+import { getProgressData, periods } from "./progressData";
+import { ThemeProgressCard } from "./ThemeProgressCard";
+import type { TimePeriod } from "./progressTypes";
+
+export const ProgressScreen = () => {
+  const navigate = useNavigate();
+  const { currentProfile } = useProfile();
+  const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("month");
+
+  useRequireProfile(currentProfile, navigate);
+
+  if (!currentProfile) {
+    return null;
+  }
+
+  const progressData = getProgressData(selectedPeriod);
+
+  return (
+    <div className="min-h-screen flex flex-col safe-area-inset" data-component="ProgressScreen">
+      <ProgressHeader onBack={() => navigate("/home")} profile={currentProfile} />
+
+      <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 sm:py-5 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="max-w-4xl mx-auto pb-6">
+          <PeriodSelector
+            onSelectPeriod={setSelectedPeriod}
+            periods={periods}
+            selectedPeriod={selectedPeriod}
+          />
+
+          <div className="space-y-4 sm:space-y-5 md:space-y-6">
+            {progressData.map((themeData, index) => {
+              const theme = gameThemes.find((candidate) => candidate.id === themeData.themeId);
+
+              if (!theme) {
+                return null;
+              }
+
+              return (
+                <ThemeProgressCard
+                  index={index}
+                  key={theme.id}
+                  selectedPeriod={selectedPeriod}
+                  theme={theme}
+                  themeData={themeData}
+                />
+              );
+            })}
+
+            <OverallSummaryCard
+              childName={currentProfile.name}
+              delay={progressData.length * 0.1}
+              selectedPeriod={selectedPeriod}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ProgressScreen.displayName = "ProgressScreen";
