@@ -1,4 +1,4 @@
-import { Avatar } from "../contexts/ProfileContext";
+import type { Avatar } from "../game-platform";
 
 export const availableAvatars: Avatar[] = [
   { id: "cat", name: "Shadow Cat", emoji: "🐱", color: "from-orange-500 to-red-600" },

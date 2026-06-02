@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
-import type { Avatar } from "../../contexts/ProfileContext";
+import type { Avatar } from "../../game-platform";
 import { BackButton, GradientTitle } from "../shared";
 
 interface AvatarNameStepProps {

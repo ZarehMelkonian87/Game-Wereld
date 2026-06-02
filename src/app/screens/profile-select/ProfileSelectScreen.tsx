@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { useProfile, type Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
+import { useProfile } from "../../contexts/ProfileContext";
 import { ProfileGrid } from "./ProfileGrid";
 import { ProfileSelectHeader } from "./ProfileSelectHeader";
 

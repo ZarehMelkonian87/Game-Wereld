@@ -1,4 +1,4 @@
-import type { Avatar } from "../../contexts/ProfileContext";
+import type { Avatar } from "../../game-platform";
 import { availableAvatars } from "../../data/avatars";
 import { BackButton, GradientTitle } from "../shared";
 import { AvatarCard } from "./AvatarCard";

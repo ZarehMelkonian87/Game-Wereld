@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Lock, Star } from "lucide-react";
-import type { GameProgress } from "../../contexts/ProfileContext";
+import type { GameProgress } from "../../game-platform";
 import type { GameTheme, MiniGame } from "../../data/games";
 import {
   getDifficultyColor,

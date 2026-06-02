@@ -1,5 +1,5 @@
 import { Award } from "lucide-react";
-import type { Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
 import { BackButton } from "../shared";
 
 interface ProgressHeaderProps {

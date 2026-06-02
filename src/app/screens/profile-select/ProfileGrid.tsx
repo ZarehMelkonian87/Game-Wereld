@@ -1,4 +1,4 @@
-import type { Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
 import { CreateProfileCard } from "./CreateProfileCard";
 import { ProfileCard } from "./ProfileCard";
 

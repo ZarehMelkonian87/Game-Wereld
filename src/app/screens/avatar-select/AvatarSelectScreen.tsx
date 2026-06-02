@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import type { Avatar } from "../../game-platform";
+import { useProfile } from "../../contexts/ProfileContext";
 import { availableAvatars } from "../../data/avatars";
-import { useProfile, type Avatar } from "../../contexts/ProfileContext";
 import { AvatarGridStep } from "./AvatarGridStep";
 import { AvatarNameStep } from "./AvatarNameStep";
 

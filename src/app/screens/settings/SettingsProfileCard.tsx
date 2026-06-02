@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Target, Trophy } from "lucide-react";
-import type { Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
 
 interface SettingsProfileCardProps {
   completedGames: number;

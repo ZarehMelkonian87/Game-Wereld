@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Crown } from "lucide-react";
-import type { Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
 
 interface ProfileCardProps {
   index: number;

@@ -1,2 +1,6 @@
-export type { GameProgressSummary } from "./progress.types";
-
+export type {
+  GameProgress,
+  GameProgressSummary,
+  PracticeEvent,
+  PracticeResult,
+} from "./progress.types";

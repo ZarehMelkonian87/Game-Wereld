@@ -1,3 +1,4 @@
+export { gameRegistry, getGameRegistryEntry } from "./registry";
 export { AbcLearnGame } from "./abc-learn";
 export { AddNumbersGame } from "./add-numbers";
 export { AnimalMatchGame } from "./animal-match";

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import type { Avatar } from "../../contexts/ProfileContext";
+import type { Avatar } from "../../game-platform";
 
 interface AvatarCardProps {
   avatar: Avatar;

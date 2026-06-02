@@ -15,7 +15,7 @@ export const HomeScreen = () => {
   }
 
   const handleLogout = () => {
-    setCurrentProfile(null as any);
+    setCurrentProfile(null);
     navigate("/");
   };
 

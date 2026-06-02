@@ -1,15 +1,18 @@
 import { useNavigate, useParams } from "react-router";
 import { miniGames } from "../../data/games";
-import { WoordenschatBezemEscapeGame } from "../../games";
+import { getGameRegistryEntry } from "../../games";
 import { ComingSoonGameScreen } from "./ComingSoonGameScreen";
 
 export const GamePlayScreen = () => {
   const navigate = useNavigate();
   const { theme, gameId } = useParams();
   const game = miniGames.find((candidate) => candidate.id === gameId);
+  const registryEntry = getGameRegistryEntry(gameId);
 
-  if (gameId === "woordenschat-bezem-escape") {
-    return <WoordenschatBezemEscapeGame />;
+  if (registryEntry) {
+    const { Component } = registryEntry;
+
+    return <Component />;
   }
 
   return (

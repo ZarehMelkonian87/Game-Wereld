@@ -1,4 +1,4 @@
-import type { GameProgress } from "../../contexts/ProfileContext";
+import type { GameProgress } from "../../game-platform";
 import type { GameTheme, MiniGame } from "../../data/games";
 import { GameListCard } from "./GameListCard";
 

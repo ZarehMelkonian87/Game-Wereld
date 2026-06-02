@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { BarChart3, LogOut, Settings, Trophy } from "lucide-react";
-import type { Profile } from "../../contexts/ProfileContext";
+import type { Profile } from "../../game-platform";
 
 interface HomeHeaderProps {
   currentProfile: Profile;

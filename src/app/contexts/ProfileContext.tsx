@@ -1,68 +1,56 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
-export interface Avatar {
-  id: string;
-  name: string;
-  emoji: string;
-  color: string;
-}
-
-export interface GameProgress {
-  gameId: string;
-  completed: boolean;
-  score: number;
-  stars: number;
-  lastPlayed: string;
-}
-
-export interface Profile {
-  id: string;
-  name: string;
-  avatar: Avatar;
-  createdAt: string;
-  progress: GameProgress[];
-  settings: {
-    soundEnabled: boolean;
-    musicEnabled: boolean;
-  };
-}
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  clearStoredCurrentProfileId,
+  createBrowserGameStorage,
+  readStoredCurrentProfileId,
+  readStoredProfiles,
+  saveStoredCurrentProfileId,
+  saveStoredProfiles,
+  type Avatar,
+  type GameProgress,
+  type Profile,
+} from "../game-platform";
 
 interface ProfileContextType {
   profiles: Profile[];
   currentProfile: Profile | null;
-  setCurrentProfile: (profile: Profile) => void;
+  setCurrentProfile: (profile: Profile | null) => void;
   createProfile: (name: string, avatar: Avatar) => void;
   updateProgress: (gameId: string, progress: Partial<GameProgress>) => void;
   deleteProfile: (id: string) => void;
 }
 
+const profileStorage = createBrowserGameStorage();
+
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
-export function ProfileProvider({ children }: { children: ReactNode }) {
-  const [profiles, setProfiles] = useState<Profile[]>(() => {
-    const saved = localStorage.getItem("kids-game-profiles");
-    return saved ? JSON.parse(saved) : [];
-  });
+export const ProfileProvider = ({ children }: { children: ReactNode }) => {
+  const [profiles, setProfiles] = useState<Profile[]>(() => readStoredProfiles(profileStorage));
 
   const [currentProfile, setCurrentProfileState] = useState<Profile | null>(() => {
-    const savedId = localStorage.getItem("kids-game-current-profile");
+    const savedId = readStoredCurrentProfileId(profileStorage);
+
     if (savedId && profiles.length > 0) {
-      return profiles.find(p => p.id === savedId) || null;
+      return profiles.find((profile) => profile.id === savedId) || null;
     }
+
     return null;
   });
 
   useEffect(() => {
-    localStorage.setItem("kids-game-profiles", JSON.stringify(profiles));
+    saveStoredProfiles(profileStorage, profiles);
   }, [profiles]);
 
   useEffect(() => {
     if (currentProfile) {
-      localStorage.setItem("kids-game-current-profile", currentProfile.id);
+      saveStoredCurrentProfileId(profileStorage, currentProfile.id);
+      return;
     }
+
+    clearStoredCurrentProfileId(profileStorage);
   }, [currentProfile]);
 
-  const setCurrentProfile = (profile: Profile) => {
+  const setCurrentProfile = (profile: Profile | null) => {
     setCurrentProfileState(profile);
   };
 
@@ -87,7 +75,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 
     const updatedProfiles = profiles.map(profile => {
       if (profile.id === currentProfile.id) {
-        const existingProgress = profile.progress.find(p => p.gameId === gameId);
+        const existingProgress = profile.progress.find((progress) => progress.gameId === gameId);
         const updatedProgress = existingProgress
           ? { ...existingProgress, ...progressUpdate }
           : {
@@ -100,7 +88,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
             };
 
         const newProgressArray = existingProgress
-          ? profile.progress.map(p => (p.gameId === gameId ? updatedProgress : p))
+          ? profile.progress.map((progress) =>
+              progress.gameId === gameId ? updatedProgress : progress,
+            )
           : [...profile.progress, updatedProgress];
 
         return { ...profile, progress: newProgressArray };
@@ -109,11 +99,13 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     });
 
     setProfiles(updatedProfiles);
-    setCurrentProfileState(updatedProfiles.find(p => p.id === currentProfile.id) || null);
+    setCurrentProfileState(
+      updatedProfiles.find((profile) => profile.id === currentProfile.id) || null,
+    );
   };
 
   const deleteProfile = (id: string) => {
-    setProfiles(profiles.filter(p => p.id !== id));
+    setProfiles(profiles.filter((profile) => profile.id !== id));
     if (currentProfile?.id === id) {
       setCurrentProfileState(null);
     }
@@ -133,12 +125,14 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       {children}
     </ProfileContext.Provider>
   );
-}
+};
 
-export function useProfile() {
+ProfileProvider.displayName = "ProfileProvider";
+
+export const useProfile = () => {
   const context = useContext(ProfileContext);
   if (!context) {
     throw new Error("useProfile must be used within ProfileProvider");
   }
   return context;
-}
+};
