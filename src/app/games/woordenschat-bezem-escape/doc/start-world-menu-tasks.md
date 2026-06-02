@@ -31,7 +31,7 @@ Resultaat: zie `start-screen-concept.md`.
 
 ## Fase 2: Startscherm Implementatie
 
-- [x] Nieuw schermbestand maken: `screens/StartScreen.tsx`.
+- [x] Nieuw startscherm maken in `screens/start/`.
 - [x] Startscherm exporteren via `screens/index.ts`.
 - [x] Startscherm koppelen in `index.tsx` als eerste scherm van deze game.
 - [x] Bestaande `GameMenuScreen` niet verwijderen voordat de nieuwe flow werkt.

@@ -1,9 +1,9 @@
-export { GameSettingsScreen } from "./GameSettingsScreen";
+export { GameSettingsScreen } from "./settings";
 export { ModeSelectScreen } from "./ModeSelectScreen";
 export { ParentDashboardScreen } from "./ParentDashboardScreen";
 export { RaceScreen } from "./RaceScreen";
-export { RewardScreen } from "./RewardScreen";
+export { RewardScreen } from "./reward";
 export { SceneBuilderScreen } from "./SceneBuilderScreen";
-export { StartScreen } from "./StartScreen";
+export { StartScreen } from "./start";
 export { WordChoiceScreen } from "./WordChoiceScreen";
 export { WorldSelectScreen } from "./WorldSelectScreen";

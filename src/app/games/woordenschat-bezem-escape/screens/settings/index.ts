@@ -1,0 +1,1 @@
+export { GameSettingsScreen } from "./GameSettingsScreen";
