@@ -1,9 +1,10 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { classNames } from "../../utils/classNames";
 import { AudioButton } from "./AudioButton";
 
 export interface InstructionBubbleProps extends HTMLAttributes<HTMLDivElement> {
   audioLabel?: string;
+  leadingControl?: ReactNode;
   onAudioClick?: () => void;
   text: string;
 }
@@ -11,6 +12,7 @@ export interface InstructionBubbleProps extends HTMLAttributes<HTMLDivElement> {
 export const InstructionBubble = ({
   audioLabel = "Luister opdracht",
   className,
+  leadingControl,
   onAudioClick,
   text,
   ...bubbleProps
@@ -23,7 +25,9 @@ export const InstructionBubble = ({
     )}
     data-component="InstructionBubble"
   >
-    <AudioButton className="pointer-events-auto" label={audioLabel} onClick={onAudioClick} />
+    {leadingControl ?? (
+      <AudioButton className="pointer-events-auto" label={audioLabel} onClick={onAudioClick} />
+    )}
     <p
       className="min-w-0 flex-1 text-sm font-black leading-tight text-slate-900"
       data-slot="text"
@@ -41,4 +45,3 @@ export const InstructionBubble = ({
 );
 
 InstructionBubble.displayName = "InstructionBubble";
-

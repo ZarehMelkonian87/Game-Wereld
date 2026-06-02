@@ -23,6 +23,18 @@ export const beachObjectStickerUrls = {
   zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
 
+export const instructionVideoUrls = {
+  lp001: new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
+};
+
+export const hintVideoUrls = {
+  lp001SeekBoot: new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
+  lp001LookAtHighlightedBoot: new URL(
+    "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
+    import.meta.url,
+  ).href,
+};
+
 type BeachObjectStickerId = keyof typeof beachObjectStickerUrls;
 
 export function getBeachObjectStickerUrl(assetId: string) {

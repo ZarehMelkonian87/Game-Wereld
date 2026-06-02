@@ -11,4 +11,3 @@ export { RibbonTitle } from "./RibbonTitle";
 export { StarCounter } from "./StarCounter";
 export { UiBuildingBlocksPreview } from "./UiBuildingBlocksPreview";
 export { VoiceCommandButton } from "./VoiceCommandButton";
-export { VoiceCommandStatus } from "./VoiceCommandStatus";

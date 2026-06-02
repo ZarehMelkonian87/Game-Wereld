@@ -245,7 +245,7 @@ Basislayout:
 - Midden: dezelfde strandscene uit `Luister & Plaats`.
 - Onder: dezelfde objecttray als fallback en correctie.
 - Extra laag: microfoonknop bij de opdrachtbubble of onderin naast `Klaar`.
-- Statusbubble vervangt niet de scene; hij toont alleen kort `Ik hoorde: ...`.
+- Er komt geen aparte statusbubble naast de opdracht; de opdracht en statusinformatie blijven compact rond de bestaande game-UI.
 
 Belangrijk: de tijdelijke `?preview=ui` pagina is alleen een technische component-preview. Dat is niet het echte spelontwerp.
 
@@ -257,7 +257,6 @@ Voorgestelde nieuwe onderdelen:
 - `logic/spoken-command-parser.ts`
 - `logic/scene-command-executor.ts`
 - `components/ui/VoiceCommandButton.tsx`
-- `components/ui/VoiceCommandStatus.tsx`
 - Integratie in `SceneBuilderScreen.tsx`
 - Later eventueel kleine scene-builder subcomponenten als de file verder opgesplitst wordt.
 

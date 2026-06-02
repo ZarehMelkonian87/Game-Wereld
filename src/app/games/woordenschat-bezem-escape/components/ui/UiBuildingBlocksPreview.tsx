@@ -1,4 +1,10 @@
-import { ArrowLeft, Check, ChevronRight, Settings, Volume2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  ChevronRight,
+  Settings,
+  Volume2,
+} from "lucide-react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import { HintButton } from "./HintButton";
 import { HudIconButton } from "./HudIconButton";
@@ -9,7 +15,6 @@ import { ProgressBar } from "./ProgressBar";
 import { RibbonTitle } from "./RibbonTitle";
 import { StarCounter } from "./StarCounter";
 import { VoiceCommandButton } from "./VoiceCommandButton";
-import { VoiceCommandStatus } from "./VoiceCommandStatus";
 
 const previewStickerUrl = new URL(
   "../../assets/objects/transparent/sailboat-sticker.png",
@@ -17,32 +22,20 @@ const previewStickerUrl = new URL(
 ).href;
 
 const VoiceRecognitionPreviewPanel = () => {
-  const {
-    errorMessage,
-    startListening,
-    status,
-    stopListening,
-    support,
-    supportMessage,
-    transcript,
-  } = useDutchSpeechRecognition();
+  const { startListening, status, stopListening, support } =
+    useDutchSpeechRecognition();
 
   return (
     <PanelCard className="landscape:p-2">
-      <div className="flex flex-col gap-3" data-component="VoiceRecognitionPreviewPanel">
+      <div
+        className="flex flex-col gap-3"
+        data-component="VoiceRecognitionPreviewPanel"
+      >
         <VoiceCommandButton
           isSupported={support.isSupported}
           onStartListening={startListening}
           onStopListening={stopListening}
           status={status}
-        />
-        <VoiceCommandStatus
-          errorMessage={errorMessage}
-          exampleText="Zet de boot in de zee."
-          isSupported={support.isSupported}
-          status={status}
-          supportMessage={supportMessage}
-          transcript={transcript}
         />
       </div>
     </PanelCard>
@@ -62,10 +55,15 @@ export const UiBuildingBlocksPreview = () => (
       data-slot="content"
     >
       <div className="flex justify-center" data-slot="title">
-        <RibbonTitle className="landscape:min-h-10 landscape:py-1">UI bouwstenen</RibbonTitle>
+        <RibbonTitle className="landscape:min-h-10 landscape:py-1">
+          UI bouwstenen
+        </RibbonTitle>
       </div>
 
-      <div className="grid gap-4 landscape:grid-cols-2 landscape:gap-2" data-slot="preview-grid">
+      <div
+        className="grid gap-4 landscape:grid-cols-2 landscape:gap-2"
+        data-slot="preview-grid"
+      >
         <PanelCard className="landscape:p-2">
           <div className="flex flex-wrap items-center gap-2">
             <HudIconButton
@@ -98,8 +96,16 @@ export const UiBuildingBlocksPreview = () => (
 
         <PanelCard className="landscape:p-2">
           <div className="flex items-center gap-3">
-            <ObjectStickerButton imageUrl={previewStickerUrl} label="Boot" selected />
-            <ObjectStickerButton imageUrl={previewStickerUrl} label="Boot" showLabel={false} />
+            <ObjectStickerButton
+              imageUrl={previewStickerUrl}
+              label="Boot"
+              selected
+            />
+            <ObjectStickerButton
+              imageUrl={previewStickerUrl}
+              label="Boot"
+              showLabel={false}
+            />
           </div>
         </PanelCard>
 
@@ -111,7 +117,9 @@ export const UiBuildingBlocksPreview = () => (
             >
               Volgende
             </PrimaryActionButton>
-            <PrimaryActionButton className="w-full">Speel race</PrimaryActionButton>
+            <PrimaryActionButton className="w-full">
+              Speel race
+            </PrimaryActionButton>
           </div>
         </PanelCard>
 

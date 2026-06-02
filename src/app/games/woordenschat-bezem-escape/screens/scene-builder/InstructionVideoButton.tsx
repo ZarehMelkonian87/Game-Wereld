@@ -1,0 +1,95 @@
+import { useEffect, useRef } from "react";
+
+interface InstructionVideoButtonProps {
+  autoPlayOnMount?: boolean;
+  label: string;
+  onPlaybackError?: () => void;
+  onPlaybackStart?: () => void;
+  onPlayRequest?: () => boolean;
+  src: string;
+  variant?: "control" | "feedbackIcon";
+}
+
+export const InstructionVideoButton = ({
+  autoPlayOnMount = false,
+  label,
+  onPlaybackError,
+  onPlaybackStart,
+  onPlayRequest,
+  src,
+  variant = "control",
+}: InstructionVideoButtonProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const buttonClassName =
+    variant === "feedbackIcon"
+      ? "pointer-events-auto h-10 min-h-10 w-10 shrink-0 touch-manipulation overflow-hidden rounded-xl bg-transparent p-0"
+      : "pointer-events-auto h-11 min-h-11 w-11 shrink-0 touch-manipulation overflow-hidden rounded-2xl border-2 border-sky-500 bg-white p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
+
+  const playVideo = async () => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    try {
+      video.pause();
+      if (video.readyState === 0) {
+        video.load();
+      }
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1;
+      await video.play();
+      onPlaybackStart?.();
+    } catch {
+      onPlaybackError?.();
+    }
+  };
+
+  useEffect(() => {
+    if (!autoPlayOnMount) {
+      return;
+    }
+
+    if (onPlayRequest && !onPlayRequest()) {
+      return;
+    }
+
+    void playVideo();
+  }, [autoPlayOnMount, src]);
+
+  const handleClick = async () => {
+    if (onPlayRequest && !onPlayRequest()) {
+      return;
+    }
+
+    await playVideo();
+  };
+
+  return (
+    <button
+      aria-label={label}
+      className={buttonClassName}
+      data-component="InstructionVideoButton"
+      onClick={handleClick}
+      title={label}
+      type="button"
+    >
+      <video
+        aria-hidden="true"
+        className="pointer-events-none h-full w-full object-cover"
+        data-slot="video"
+        autoPlay={autoPlayOnMount}
+        controls={false}
+        disablePictureInPicture
+        playsInline
+        preload="auto"
+        ref={videoRef}
+        src={src}
+      />
+    </button>
+  );
+};
+
+InstructionVideoButton.displayName = "InstructionVideoButton";

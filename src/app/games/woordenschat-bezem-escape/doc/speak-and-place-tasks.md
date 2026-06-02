@@ -63,7 +63,7 @@ Acceptatie:
 
 ## Fase 9.1: Spraakherkenning Basis
 
-Resultaat: basis staat in `logic/speech-recognition.ts`, `hooks/useDutchSpeechRecognition.ts`, `components/ui/VoiceCommandButton.tsx` en `components/ui/VoiceCommandStatus.tsx`. De knop is tijdelijk technisch te proberen via de UI-preview met `?preview=ui`; dat is niet het definitieve game-scherm.
+Resultaat: basis staat in `logic/speech-recognition.ts`, `hooks/useDutchSpeechRecognition.ts` en `components/ui/VoiceCommandButton.tsx`. De knop is tijdelijk technisch te proberen via de UI-preview met `?preview=ui`; dat is niet het definitieve game-scherm.
 
 - [x] Browser support detecteren voor `SpeechRecognition` en `webkitSpeechRecognition`.
 - [x] Nederlandse taal instellen: `nl-NL`.

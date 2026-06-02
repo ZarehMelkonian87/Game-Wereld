@@ -1,7 +1,14 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { broomIconUrls, getBeachObjectStickerUrl, mascotIconUrls } from "../asset-urls";
+import { flushSync } from "react-dom";
+import {
+  broomIconUrls,
+  getBeachObjectStickerUrl,
+  hintVideoUrls,
+  instructionVideoUrls,
+  mascotIconUrls,
+} from "../asset-urls";
 import { TopHud } from "../components";
 import {
   GameplayStatusBar,
@@ -45,6 +52,7 @@ import type {
   SpatialConcept,
 } from "../types";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
+import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useProfile } from "../../../contexts/ProfileContext";
 
 interface SceneBuilderScreenProps {
@@ -78,6 +86,7 @@ interface SceneCompletionSummary {
 }
 
 interface FeedbackState {
+  hintVideoUrl?: string;
   kind: "almost" | "correct" | "ready";
   mascot?: "celebration" | "hint";
   repeatText?: string;
@@ -148,6 +157,30 @@ const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | 
   }
 
   return objects.find((object) => object.id === objectId)?.label ?? objectId;
+};
+
+const getInstructionVideoUrl = (instructionId: string) => {
+  if (instructionId === "lp-001") {
+    return instructionVideoUrls.lp001;
+  }
+
+  return undefined;
+};
+
+const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number) => {
+  if (instructionId !== "lp-001") {
+    return undefined;
+  }
+
+  if (hintLevel === 1) {
+    return hintVideoUrls.lp001SeekBoot;
+  }
+
+  if (hintLevel === 2) {
+    return hintVideoUrls.lp001LookAtHighlightedBoot;
+  }
+
+  return undefined;
 };
 
 const conceptExplanation: Record<string, string> = {
@@ -236,6 +269,7 @@ export function SceneBuilderScreen({
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
   const sceneAreaRef = useRef<HTMLElement | null>(null);
   const dragStateRef = useRef<DragState | null>(null);
+  const hintVideoPressStartedRef = useRef(false);
   const suppressNextClickRef = useRef(false);
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
@@ -285,6 +319,7 @@ export function SceneBuilderScreen({
   );
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
+  const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
   const selectedZone = zones.find((zone) => zone.id === selectedZoneId);
   const targetZone = zones.find((zone) => zone.id === instruction.placement.zoneId);
   const visualHintZone = zones.find((zone) => zone.id === spokenHintZoneId) ?? targetZone;
@@ -861,14 +896,42 @@ export function SceneBuilderScreen({
     }));
   }
 
-  function handleHint() {
+  const handleInstructionVideoRequest = () => {
+    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+      setFeedback({
+        kind: "almost",
+        mascot: "hint",
+        text: "Audio staat uit bij instellingen. Zet audio aan om de video-opdracht te horen.",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleInstructionVideoPlaybackStart = () => {
+    setAudioRepeatsByInstruction((currentRepeats) => ({
+      ...currentRepeats,
+      [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
+    }));
+  };
+
+  const handleInstructionVideoPlaybackError = () => {
+    setFeedback({
+      kind: "almost",
+      mascot: "hint",
+      text: "De video-opdracht kan niet worden afgespeeld. Probeer de audio opnieuw of lees de opdracht samen.",
+    });
+  };
+
+  const applyHint = ({ playAudioForFirstHint }: { playAudioForFirstHint: boolean }) => {
     if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
       setFeedback({
         kind: "ready",
         mascot: "hint",
         text: "Hints staan uit bij instellingen.",
       });
-      return;
+      return false;
     }
 
     const nextHintCount = activeHintsUsed + 1;
@@ -913,15 +976,124 @@ export function SceneBuilderScreen({
             : conceptExplanation[instruction.placement.relation] ?? instruction.hint;
 
     setFeedback({
+      hintVideoUrl:
+        spokenCommandResult && spokenCommandResult.status !== "ready"
+          ? undefined
+          : getHintVideoUrlForLevel(instruction.id, nextHintLevel),
       kind: "ready",
       mascot: "hint",
       text: hintText,
     });
 
-    if (nextHintLevel === 1) {
+    if (nextHintLevel === 1 && playAudioForFirstHint) {
       playInstructionAudio(instruction.audioText);
     }
+
+    return true;
+  };
+
+  const playHintVideoElement = async (video: HTMLVideoElement) => {
+    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+      return;
+    }
+
+    try {
+      video.pause();
+      if (video.readyState === 0) {
+        video.load();
+      }
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1;
+      await video.play();
+      handleHintVideoPlaybackStart();
+    } catch {
+      handleHintVideoPlaybackError();
+    }
+  };
+
+  const playVisibleHintVideo = async () => {
+    const feedbackElement = sceneAreaRef.current?.querySelector(
+      '[data-testid="scene-builder-feedback"]',
+    );
+    const video = feedbackElement?.querySelector<HTMLVideoElement>(
+      '[data-component="HintFeedbackVideo"]',
+    );
+
+    if (!video) {
+      return;
+    }
+
+    await playHintVideoElement(video);
+  };
+
+  const playPreparedHintVideo = () => {
+    if (hintVideoPressStartedRef.current) {
+      return;
+    }
+
+    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+      return;
+    }
+
+    const preparedVideo = sceneAreaRef.current?.querySelector<HTMLVideoElement>(
+      '[data-component="HintFeedbackVideo"]',
+    );
+
+    if (!preparedVideo) {
+      return;
+    }
+
+    hintVideoPressStartedRef.current = true;
+    void playHintVideoElement(preparedVideo);
+  };
+
+  function handleHint() {
+    let hintWasApplied = false;
+
+    flushSync(() => {
+      hintWasApplied = applyHint({ playAudioForFirstHint: false });
+    });
+
+    if (hintWasApplied && !hintVideoPressStartedRef.current) {
+      void playVisibleHintVideo();
+    }
+
+    hintVideoPressStartedRef.current = false;
   }
+
+  const handleHintVideoRequest = () => {
+    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+      setFeedback((currentFeedback) =>
+        currentFeedback
+          ? {
+              ...currentFeedback,
+              text: `${currentFeedback.text} Audio staat uit bij instellingen.`,
+            }
+          : currentFeedback,
+      );
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleHintVideoPlaybackStart = () => {
+    setAudioRepeatsByInstruction((currentRepeats) => ({
+      ...currentRepeats,
+      [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
+    }));
+  };
+
+  const handleHintVideoPlaybackError = () => undefined;
+
+  const handleHintFeedbackVideoClick = (event: MouseEvent<HTMLVideoElement>) => {
+    if (!handleHintVideoRequest()) {
+      return;
+    }
+
+    void playHintVideoElement(event.currentTarget);
+  };
 
   function recordActiveVocabulary(rating: keyof PracticeRatingStats) {
     const word = targetObject?.label ?? instruction.placement.objectId;
@@ -1148,6 +1320,14 @@ export function SceneBuilderScreen({
     });
   }
 
+  const nextHintLevel = ((activeHintsUsed + 1 - 1) % 4) + 1;
+  const preparedHintVideoUrl =
+    feedback || (spokenCommandResult && spokenCommandResult.status !== "ready")
+      ? undefined
+      : getHintVideoUrlForLevel(instruction.id, nextHintLevel);
+  const hintFeedbackVideoUrl = feedback?.hintVideoUrl ?? preparedHintVideoUrl;
+  const shouldRenderFeedbackCard = Boolean(feedback || hintFeedbackVideoUrl);
+
   return (
     <div
       data-testid="scene-builder-screen"
@@ -1185,6 +1365,7 @@ export function SceneBuilderScreen({
       <TopHud
         onAudioClick={() => playInstructionAudio()}
         onHintClick={handleHint}
+        onHintPointerDown={playPreparedHintVideo}
         showParentBack
         starCount={wordStarValue}
       />
@@ -1198,6 +1379,17 @@ export function SceneBuilderScreen({
           <InstructionBubble
             aria-label="Opdrachtgebied"
             data-testid="scene-builder-instruction-area"
+            leadingControl={
+              currentInstructionVideoUrl ? (
+                <InstructionVideoButton
+                  label="Speel video-opdracht"
+                  onPlaybackError={handleInstructionVideoPlaybackError}
+                  onPlaybackStart={handleInstructionVideoPlaybackStart}
+                  onPlayRequest={handleInstructionVideoRequest}
+                  src={currentInstructionVideoUrl}
+                />
+              ) : undefined
+            }
             onAudioClick={() => playInstructionAudio()}
             text={currentInstructionText}
             className="h-full min-h-0"
@@ -1306,14 +1498,29 @@ export function SceneBuilderScreen({
             })()
           ) : null}
 
-          {feedback ? (
+          {shouldRenderFeedbackCard ? (
             <PanelCard
               aria-live="polite"
+              aria-hidden={feedback ? undefined : true}
               data-testid="scene-builder-feedback"
-              className="pointer-events-auto absolute bottom-3 left-3 right-3 !rounded-2xl !p-2"
+              className={`pointer-events-auto absolute bottom-3 left-3 right-3 !rounded-2xl !p-2 ${
+                feedback ? "" : "pointer-events-none opacity-0"
+              }`}
             >
               <div className="flex items-center gap-2">
-                {feedback.mascot ? (
+                {hintFeedbackVideoUrl ? (
+                  <video
+                    aria-label="Speel hintvideo"
+                    className="h-10 w-10 shrink-0 rounded-xl object-cover"
+                    data-component="HintFeedbackVideo"
+                    draggable={false}
+                    onClick={handleHintFeedbackVideoClick}
+                    playsInline
+                    preload="auto"
+                    src={hintFeedbackVideoUrl}
+                    title="Speel hintvideo"
+                  />
+                ) : feedback?.mascot ? (
                   <img
                     alt=""
                     className="h-10 w-10 shrink-0 object-contain"
@@ -1326,13 +1533,17 @@ export function SceneBuilderScreen({
                   />
                 ) : null}
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-black leading-tight text-slate-900">{feedback.text}</p>
-                  {feedback.repeatText ? (
+                  {feedback ? (
+                    <p className="text-xs font-black leading-tight text-slate-900">
+                      {feedback.text}
+                    </p>
+                  ) : null}
+                  {feedback?.repeatText ? (
                     <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
                       Bezemspreuk: {feedback.repeatText}
                     </p>
                   ) : null}
-                  {feedback.rewardLabels && feedback.rewardLabels.length > 0 ? (
+                  {feedback?.rewardLabels && feedback.rewardLabels.length > 0 ? (
                     <p
                       className="mt-1 text-[0.7rem] font-black leading-tight text-amber-900"
                       data-testid="reward-unlock-message"
@@ -1340,7 +1551,7 @@ export function SceneBuilderScreen({
                       Nieuwe beloning: {feedback.rewardLabels.join(", ")}
                     </p>
                   ) : null}
-                  {spokenCommandResult && feedback.kind !== "correct" ? (
+                  {spokenCommandResult && feedback && feedback.kind !== "correct" ? (
                     <div
                       className="mt-2 flex flex-wrap items-center gap-1.5"
                       data-testid="spoken-command-actions"
@@ -1371,7 +1582,7 @@ export function SceneBuilderScreen({
                   ) : null}
                 </div>
               </div>
-              {feedback.kind === "correct" ? (
+              {feedback?.kind === "correct" ? (
                 <div
                   data-testid="active-language-panel"
                   className="mt-2 rounded-2xl border border-sky-200 bg-sky-50/85 p-2 text-[0.65rem] font-black leading-tight text-slate-800"

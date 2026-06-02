@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
-import { VoiceCommandButton, VoiceCommandStatus } from "../../components/ui";
+import { VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import {
   getMicrophonePermissionStatus,
@@ -53,8 +53,10 @@ export const SpokenCommandControls = ({
     readVoicePrivacyAccepted(profileId),
   );
   const [manualText, setManualText] = useState("");
-  const [hasRequestedMicrophonePermission, setHasRequestedMicrophonePermission] =
-    useState(false);
+  const [
+    hasRequestedMicrophonePermission,
+    setHasRequestedMicrophonePermission,
+  ] = useState(false);
   const [microphonePermission, setMicrophonePermission] =
     useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
   const [showManualFallback, setShowManualFallback] = useState(false);
@@ -66,7 +68,6 @@ export const SpokenCommandControls = ({
     status,
     stopListening,
     support,
-    supportMessage,
     transcript,
   } = useDutchSpeechRecognition({ autoStopMs: 6500 });
   const hasMicrophonePermissionMessage =
@@ -78,14 +79,19 @@ export const SpokenCommandControls = ({
     transcript,
   });
   const shouldShowFallback = showManualFallback || !support.isSupported;
-  const shouldShowPopover = showPrivacyNotice || shouldShowFallback || showStatusBubble;
+  const shouldShowPopover =
+    showPrivacyNotice || shouldShowFallback || showStatusBubble;
 
   useEffect(() => {
     setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId));
   }, [profileId]);
 
   useEffect(() => {
-    if (!transcript || status !== "heard" || handledTranscriptRef.current === transcript) {
+    if (
+      !transcript ||
+      status !== "heard" ||
+      handledTranscriptRef.current === transcript
+    ) {
       return;
     }
 
@@ -222,15 +228,6 @@ export const SpokenCommandControls = ({
 
             {showStatusBubble ? (
               <div className="grid gap-2">
-                <VoiceCommandStatus
-                  compact
-                  errorMessage={errorMessage}
-                  exampleText={exampleText}
-                  isSupported={support.isSupported}
-                  status={status}
-                  supportMessage={supportMessage}
-                  transcript={transcript}
-                />
                 {hasMicrophonePermissionMessage ? (
                   <p
                     className="rounded-2xl border-2 border-amber-200 bg-amber-50/95 p-2 text-[0.68rem] font-black leading-tight text-amber-950"
@@ -245,7 +242,11 @@ export const SpokenCommandControls = ({
             {shouldShowFallback ? (
               <TypedCommandFallback
                 exampleText={exampleText}
-                onClose={support.isSupported ? () => setShowManualFallback(false) : undefined}
+                onClose={
+                  support.isSupported
+                    ? () => setShowManualFallback(false)
+                    : undefined
+                }
                 onSubmit={handleSubmitTypedCommand}
                 onValueChange={setManualText}
                 value={manualText}

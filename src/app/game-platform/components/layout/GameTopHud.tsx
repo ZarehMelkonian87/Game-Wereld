@@ -7,6 +7,7 @@ export interface GameTopHudProps {
   leftSlot?: ReactNode;
   onAudioClick?: () => void;
   onHintClick?: () => void;
+  onHintPointerDown?: () => void;
   rightSlot?: ReactNode;
   showHint?: boolean;
   showParentBack?: boolean;
@@ -17,6 +18,7 @@ export const GameTopHud = ({
   leftSlot,
   onAudioClick,
   onHintClick,
+  onHintPointerDown,
   rightSlot,
   showHint = true,
   showParentBack = false,
@@ -68,7 +70,14 @@ export const GameTopHud = ({
       <div className="flex justify-end" data-slot="right">
         {rightSlot}
         {showHint ? (
-          <HintButton className="pointer-events-auto" onClick={onHintClick} showLabel={false} />
+          <HintButton
+            className="pointer-events-auto"
+            onClick={onHintClick}
+            onMouseDown={onHintPointerDown}
+            onPointerDown={onHintPointerDown}
+            onTouchStart={onHintPointerDown}
+            showLabel={false}
+          />
         ) : null}
       </div>
     </div>
@@ -76,4 +85,3 @@ export const GameTopHud = ({
 );
 
 GameTopHud.displayName = "GameTopHud";
-
