@@ -35,7 +35,7 @@ Gebruik dit als productielijst naast de MP4-bestanden in deze map.
 
 ## Scene Builder - Hoofdopdrachten
 
-Deze clips vervangen de gewone audio-opdracht in `Luister & Plaats`.
+Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 
 | Klaar | ID | Niveau | Tekst | Bestandsnaam voorstel |
 |---|---:|---:|---|---|
@@ -222,4 +222,3 @@ Deze clips horen bij de race-opdrachtbubble.
 4. Maak de herbruikbare plaatsbegrip-clips.
 5. Maak pas daarna `cw-*` en `br-*` video's.
 6. Maak feedbackvideo's alleen als de opdrachtvideo's goed werken in de app.
-

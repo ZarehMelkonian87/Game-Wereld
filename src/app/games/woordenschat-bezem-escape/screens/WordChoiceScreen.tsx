@@ -65,6 +65,21 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
   useEffect(() => {
     setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
   }, [rewardProfileId]);
+
+  useEffect(() => {
+    setActiveInstructionIndex(0);
+    setSelectedAnswerId(null);
+    setFeedback(null);
+    setSpeedValue(0);
+    setSpeedBoosting(false);
+    setWordStarValue(0);
+    setAudioRepeatsByInstruction({});
+    setHintUsedByInstruction({});
+    setRecognizedWithoutHelp([]);
+    setRecognizedWithHint([]);
+    setDifficultWords([]);
+  }, [instructions]);
+
   const answerOptions = useMemo(
     () =>
       instruction.answerOptions

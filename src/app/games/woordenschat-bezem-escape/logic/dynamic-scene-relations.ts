@@ -16,7 +16,7 @@ export interface DynamicRelationEvaluation {
   missingAnchorObjectIds: string[];
 }
 
-const dynamicRelations: SpatialConcept[] = ["naast", "dichtbij", "tussen"];
+const dynamicRelations: SpatialConcept[] = ["op", "naast", "dichtbij", "tussen"];
 
 const clampPercent = (value: number) => Math.min(100, Math.max(0, value));
 
@@ -122,6 +122,13 @@ export const getSuggestedDynamicRelationPoint = ({
     };
   }
 
+  if (relation === "op") {
+    return {
+      x: clampPercent(firstAnchor.x),
+      y: clampPercent(firstAnchor.y),
+    };
+  }
+
   if (relation === "naast") {
     const horizontalOffset = firstAnchor.x > 76 ? -14 : 14;
 
@@ -179,6 +186,16 @@ export const evaluateDynamicRelationPlacement = ({
   if (!firstAnchor) {
     return {
       matches: false,
+      missingAnchorObjectIds,
+    };
+  }
+
+  if (relation === "op") {
+    const horizontalDistance = Math.abs(placementPoint.x - firstAnchor.x);
+    const verticalDistance = Math.abs(placementPoint.y - firstAnchor.y);
+
+    return {
+      matches: horizontalDistance <= 18 && verticalDistance <= 14,
       missingAnchorObjectIds,
     };
   }
@@ -293,6 +310,28 @@ export const getDynamicRelationHintZone = ({
 
   if (!usesDynamicRelationZone({ anchorObjectIds, relation, zoneId }) || missingAnchor || !firstAnchor) {
     return undefined;
+  }
+
+  if (relation === "op") {
+    const width = 34;
+    const height = 24;
+
+    return makeDynamicZone({
+      description: `Dynamische plek op ${firstAnchor.objectId}.`,
+      height,
+      id: zoneId,
+      label: getDynamicRelationLabel({ anchorObjectIds, relation }),
+      relation,
+      visualHintPath: buildRectPath({
+        height,
+        width,
+        x: firstAnchor.x - width / 2,
+        y: firstAnchor.y - height / 2,
+      }),
+      width,
+      x: clampPercent(firstAnchor.x - width / 2),
+      y: clampPercent(firstAnchor.y - height / 2),
+    });
   }
 
   if (relation === "naast") {

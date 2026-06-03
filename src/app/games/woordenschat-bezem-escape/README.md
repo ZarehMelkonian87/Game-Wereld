@@ -22,7 +22,7 @@ Maak eerst een kleine speelbare stranddemo waarin het kind:
 - Plaatjes: dolfijn, boot, vuurtoren, vliegtuig, vlieger, bal, parasol, schelp, krab, zandkasteel.
 - Plaatsbegrippen: in, op, naast, onder, boven.
 - Modi:
-  - Luister & Plaats.
+  - Zeg & Zet.
   - Kies het Woord.
   - Bezem Escape-run.
 - Beloning: bezemkleur of sticker.
@@ -76,7 +76,7 @@ Per oefenmoment bewaart de game observatiedata, geen officiele score:
 2. Game registreren in `src/app/data/games.ts`.
 3. Strandcontentmodel maken met objecten, zones, opdrachten en beloningen.
 4. Mobiele layout bouwen.
-5. Luister & Plaats interactie bouwen.
+5. Zeg & Zet interactie bouwen.
 6. Kies het Woord interactie bouwen.
 7. Bezem Escape-run interactie bouwen.
 8. Voortgang lokaal opslaan.

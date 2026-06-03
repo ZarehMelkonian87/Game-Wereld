@@ -1,4 +1,4 @@
-import { BookOpen, LockKeyhole, Volume2 } from "lucide-react";
+import { BookOpen, LockKeyhole, MessageCircle } from "lucide-react";
 import type { ReactNode } from "react";
 import { broomIconUrls } from "../../asset-urls";
 import type { BezemEscapeMode } from "../../types";
@@ -15,10 +15,10 @@ export interface AdventureModeOption {
 
 export const getAdventureModeOptions = (raceUnlocked: boolean): AdventureModeOption[] => [
   {
-    description: "Luister naar de opdracht en zet het plaatje op de goede plek.",
-    icon: <Volume2 className="h-6 w-6" strokeWidth={3} />,
+    description: "Luister, spreek of typ en zet het plaatje op de goede plek.",
+    icon: <MessageCircle className="h-6 w-6" strokeWidth={3} />,
     id: "listen-and-place",
-    title: "Luister & Plaats",
+    title: "Zeg & Zet",
     tone: "emerald",
   },
   {

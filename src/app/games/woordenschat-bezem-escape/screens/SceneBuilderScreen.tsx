@@ -341,6 +341,7 @@ export function SceneBuilderScreen({
     [placedObjects],
   );
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
+  const sceneCompletionTarget = instructions.length;
   const currentInstructionText = instructionText ?? instruction.prompt;
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
   const selectedZone = effectiveZones.find((zone) => zone.id === selectedZoneId);
@@ -363,6 +364,15 @@ export function SceneBuilderScreen({
   useEffect(() => {
     setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
   }, [rewardProfileId]);
+
+  useEffect(() => {
+    setActiveInstructionIndex(0);
+    resetSelection();
+    setPlacedObjects([]);
+    setSceneComplete(false);
+    setSceneCompletionSummary(null);
+    setFeedback(null);
+  }, [instructions]);
 
   useEffect(() => {
     const handleZoneOverridesChanged = () => {
@@ -682,7 +692,7 @@ export function SceneBuilderScreen({
         zoneId: pendingPlacement.zoneId,
       },
     ];
-    const nextSceneComplete = nextPlacedObjects.length >= 5;
+    const nextSceneComplete = nextPlacedObjects.length >= sceneCompletionTarget;
     const nextCompletionSummary: SceneCompletionSummary = {
       placedObjects: nextPlacedObjects,
       practicedConcepts: nextPlacedObjects
@@ -1434,7 +1444,7 @@ export function SceneBuilderScreen({
       data-practiced-concepts={sceneCompletionSummary?.practicedConcepts.join(",") ?? ""}
       data-practiced-words={sceneCompletionSummary?.practicedWords.join(",") ?? ""}
       data-scene-complete={sceneComplete ? "true" : "false"}
-      data-scene-complete-count={5}
+      data-scene-complete-count={sceneCompletionTarget}
       data-speed-value={speedValue}
       data-unlocked-rewards={unlockedRewardIds.join(",")}
       data-sentence-repeat-good={sentenceRepeatStats.good}

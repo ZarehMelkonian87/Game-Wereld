@@ -7,6 +7,11 @@ import {
   getVocabularyChoiceInstructions,
 } from "../logic/instruction-groups";
 import {
+  createRoundSeed,
+  shuffleSceneBuilderInstructions,
+  shuffleVocabularyChoiceInstructions,
+} from "../logic/instruction-randomization";
+import {
   getInstructionPreviewText,
   getScreenPreview,
   getSpokenCommandPreviewText,
@@ -25,16 +30,25 @@ export const useBezemEscapeGameController = () => {
   const profileId = currentProfile?.id ?? "demo-profile";
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
   const [raceUnlocked, setRaceUnlocked] = useState(() => hasSavedRaceState());
+  const [roundSeed, setRoundSeed] = useState(() => createRoundSeed());
   const [selectedWorldId, setSelectedWorldId] = useState(() => readSelectedWorldId(profileId));
   const selectedWorld = getWorldDefinition(selectedWorldId);
 
-  const instructions = useMemo(
+  const baseInstructions = useMemo(
     () => ({
       race: getBroomRaceInstructions(beachWorld),
       sceneBuilder: getSceneBuilderInstructions(beachWorld),
       wordChoice: getVocabularyChoiceInstructions(beachWorld),
     }),
     [],
+  );
+  const instructions = useMemo(
+    () => ({
+      race: baseInstructions.race,
+      sceneBuilder: shuffleSceneBuilderInstructions(baseInstructions.sceneBuilder, roundSeed),
+      wordChoice: shuffleVocabularyChoiceInstructions(baseInstructions.wordChoice, roundSeed + 101),
+    }),
+    [baseInstructions, roundSeed],
   );
 
   useEffect(() => {
@@ -47,6 +61,7 @@ export const useBezemEscapeGameController = () => {
 
   const resetRound = () => {
     clearStoredRaceResult();
+    setRoundSeed(createRoundSeed());
     setScreenPreview("scene-builder");
   };
 
@@ -95,6 +110,7 @@ export const useBezemEscapeGameController = () => {
     }
 
     setSelectedWorldId(saveSelectedWorldId(profileId, selectedWorld.id));
+    setRoundSeed(createRoundSeed());
 
     if (modeId === "choose-word") {
       setScreenPreview("word-choice");

@@ -326,22 +326,8 @@ export const beachZones: SceneZone[] = [
     height: 22,
     supportedConcepts: ["rechts", "op"],
   },
-  {
-    id: "handdoek-zone",
-    label: "handdoek",
-    description: "Plek op de handdoek.",
-    kind: "landmark",
-    visualHintPath:
-      "M99.7 64.6 L99.8 98.5 L99.1 99.6 L97.8 99.9 L1.4 99.8 L0.3 99.3 L0.1 95.7 L0.1 67.9 L14.4 66.7 L51 66 L79.6 65.4 Z",
-    x: 60,
-    y: 76,
-    width: 24,
-    height: 18,
-    supportedConcepts: ["op", "onder", "naast"],
-  },
-
-  // Relationele zones zoals naast/dichtbij/tussen worden dynamisch berekend
-  // met de actuele positie van geplaatste objecten.
+  // Relationele zones zoals op/naast/dichtbij/tussen bij een ankerobject
+  // worden dynamisch berekend met de actuele positie van geplaatste objecten.
 ];
 
 const directionDomains: LanguageDomain[] = [

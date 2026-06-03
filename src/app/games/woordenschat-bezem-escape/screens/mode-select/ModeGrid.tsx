@@ -1,4 +1,4 @@
-import { BookOpen, LockKeyhole, Volume2 } from "lucide-react";
+import { BookOpen, LockKeyhole, MessageCircle } from "lucide-react";
 import { broomIconUrls } from "../../asset-urls";
 import type { DevtoolsComponent } from "./devtools";
 import { ModeCard } from "./ModeCard";
@@ -21,11 +21,11 @@ export const ModeGrid: DevtoolsComponent<ModeGridProps> = ({
     data-component="ModeGrid"
   >
     <ModeCard
-      description="Luister naar de opdracht en zet het plaatje op de goede plek."
-      icon={<Volume2 className="h-8 w-8" strokeWidth={3} />}
+      description="Luister, spreek of typ en zet het plaatje op de goede plek."
+      icon={<MessageCircle className="h-8 w-8" strokeWidth={3} />}
       id="listen-place"
       onSelect={onStartSceneBuilder}
-      title="Luister & Plaats"
+      title="Zeg & Zet"
       tone="emerald"
     />
 

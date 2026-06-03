@@ -76,7 +76,6 @@ const customZoneAliases: Record<string, readonly string[]> = {
   "boven-zee": ["boven de zee", "boven zee", "lucht boven zee"],
   "dichtbij-parasol": ["dichtbij de parasol", "dicht bij de parasol", "vlakbij de parasol"],
   eiland: ["eiland", "op het eiland", "op eiland"],
-  "handdoek-zone": ["op de handdoek", "op handdoek", "handdoek"],
   "links-zee": [
     "links",
     "aan de linkerkant",
