@@ -30,15 +30,9 @@ export const CompactInstructionCard = ({
       )}
     </div>
     <p
-      className="min-w-0 text-[clamp(0.9rem,3.5vw,1.05rem)] font-black leading-tight text-slate-950"
+      className="min-w-0 whitespace-normal break-words text-[clamp(0.82rem,3.15vw,1.05rem)] font-black leading-[1.08] text-slate-950"
       data-slot="text"
       data-testid="scene-builder-instruction-text"
-      style={{
-        display: "-webkit-box",
-        overflow: "hidden",
-        WebkitBoxOrient: "vertical",
-        WebkitLineClamp: 2,
-      }}
     >
       {text}
     </p>
