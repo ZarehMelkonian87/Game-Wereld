@@ -119,11 +119,12 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 10: QA En Acceptatie
 
-- [ ] Testen op iPhone Safari via HTTPS.
-- [ ] Testen op Android Chrome via HTTPS.
-- [ ] Testen met headset en telefoonmicrofoon.
-- [ ] Testen in portrait.
-- [ ] Testen in landscape.
-- [ ] Testen met microfoon aan/uit.
-- [ ] Testen dat de oude Bezem Race niet meer bereikbaar is.
-- [ ] Build en typecheck groen maken.
+- [ ] Testen op iPhone Safari via HTTPS. Handmatig op toestel nodig.
+- [ ] Testen op Android Chrome via HTTPS. Handmatig op toestel nodig.
+- [ ] Testen met headset en telefoonmicrofoon. Handmatig op toestel nodig.
+- [x] Testen in portrait.
+- [x] Testen in landscape.
+- [ ] Testen met microfoon aan/uit. Microfoonstatus en fallback UI gecontroleerd; echte permission-test blijft handmatig.
+- [x] Testen dat de oude Bezem Race niet meer bereikbaar is.
+- [x] Build en typecheck groen maken.
+- [x] QA-document toevoegen: `voice-side-scroller-qa-acceptatie.md`.
