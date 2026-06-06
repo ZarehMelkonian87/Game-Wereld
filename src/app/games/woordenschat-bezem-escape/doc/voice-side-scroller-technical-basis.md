@@ -29,8 +29,8 @@ screens/voice-side-scroller/
   VoiceSideScrollerPlayer.tsx
   VoiceSideScrollerTargetLayer.tsx
   VoiceSideScrollerObstacleLayer.tsx
-  VoiceSideScrollerGameplayFeedback.tsx
   VoiceSideScrollerRoundSummary.tsx
+  VoiceSideScrollerStartOverlay.tsx
   VoiceSideScrollerStatusPanel.tsx
   VoiceSideScrollerVoiceMeter.tsx
   VoiceSideScrollerFallbackControls.tsx
@@ -129,6 +129,8 @@ Vanaf Fase 5 bevat de stage:
 - strandobstakels: wolk, golf, rots en parasolrand;
 - veilige botsingen zonder game-over;
 - einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
+
+Vanaf Fase 7 blijft tekstfeedback buiten de drukke stage. Het statuspaneel toont hints en woordfeedback, terwijl de stage vooral beeld, speler en objecten toont.
 
 ## Educatieve Regels
 

@@ -14,7 +14,7 @@ export const worldDefinitions = [
     status: "open",
     icon: "waves",
     description: "Strandwoorden, plaatsbegrippen en korte aanwijzingen oefenen.",
-    availableModes: ["listen-and-place", "choose-word"],
+    availableModes: ["listen-and-place", "choose-word", "zeg-en-vlieg"],
     plannedModes: ["active-vocabulary", "sentence-repeat", "word-category"],
     linkedGameWorldId: "beach-world-1",
   },

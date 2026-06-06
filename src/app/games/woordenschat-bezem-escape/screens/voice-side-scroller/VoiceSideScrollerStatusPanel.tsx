@@ -3,12 +3,14 @@ import { mascotIconUrls } from "../../asset-urls";
 import { HudIconButton, PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerWordRecognitionState } from "./useVoiceSideScrollerWordRecognition";
 import type {
+  VoiceSideScrollerGameplayFeedback,
   VoiceSideScrollerStatus,
   VoiceSideScrollerTarget,
 } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerStatusPanelProps {
   activeTarget?: VoiceSideScrollerTarget;
+  gameplayFeedback?: VoiceSideScrollerGameplayFeedback;
   onRepeatWordPrompt: () => boolean;
   recognition: VoiceSideScrollerWordRecognitionState;
   status: VoiceSideScrollerStatus;
@@ -69,9 +71,14 @@ const getIconClassName = (recognition: VoiceSideScrollerWordRecognitionState) =>
 };
 
 const getSubText = (
+  gameplayFeedback: VoiceSideScrollerGameplayFeedback | undefined,
   status: VoiceSideScrollerStatus,
   recognition: VoiceSideScrollerWordRecognitionState,
 ) => {
+  if (status === "running" && gameplayFeedback?.kind === "hint") {
+    return gameplayFeedback.message;
+  }
+
   if (status === "running") {
     return recognition.feedbackText;
   }
@@ -85,6 +92,7 @@ const getSubText = (
 
 export const VoiceSideScrollerStatusPanel = ({
   activeTarget,
+  gameplayFeedback,
   onRepeatWordPrompt,
   recognition,
   status,
@@ -105,7 +113,7 @@ export const VoiceSideScrollerStatusPanel = ({
         {getStatusText(status, activeTarget)}
       </p>
       <p className="mt-1 text-xs font-black leading-tight text-sky-900">
-        {getSubText(status, recognition)}
+        {getSubText(gameplayFeedback, status, recognition)}
       </p>
     </div>
     <HudIconButton

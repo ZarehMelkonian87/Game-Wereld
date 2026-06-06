@@ -1,22 +1,27 @@
 import type { VoiceSideScrollerGameState, VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 import { VoiceSideScrollerBackground } from "./VoiceSideScrollerBackground";
-import { VoiceSideScrollerGameplayFeedback } from "./VoiceSideScrollerGameplayFeedback";
 import { VoiceSideScrollerObstacleLayer } from "./VoiceSideScrollerObstacleLayer";
 import { VoiceSideScrollerPlayer } from "./VoiceSideScrollerPlayer";
 import { VoiceSideScrollerRoundSummary } from "./VoiceSideScrollerRoundSummary";
+import { VoiceSideScrollerStartOverlay } from "./VoiceSideScrollerStartOverlay";
 import { VoiceSideScrollerTargetLayer } from "./VoiceSideScrollerTargetLayer";
+import type { VoiceSideScrollerMicrophoneState } from "./useVoiceSideScrollerMicrophone";
 
 interface VoiceSideScrollerStageProps {
   activeTarget?: VoiceSideScrollerTarget;
+  microphone: VoiceSideScrollerMicrophoneState;
   onBackToMenu: () => void;
   onRestart: () => void;
+  onStart: () => void;
   state: VoiceSideScrollerGameState;
 }
 
 export const VoiceSideScrollerStage = ({
   activeTarget,
+  microphone,
   onBackToMenu,
   onRestart,
+  onStart,
   state,
 }: VoiceSideScrollerStageProps) => (
   <div
@@ -37,7 +42,13 @@ export const VoiceSideScrollerStage = ({
       isSlowed={state.collisionSlowdownMs > 0}
       playerY={state.playerY}
     />
-    <VoiceSideScrollerGameplayFeedback feedback={state.gameplayFeedback} />
+    {state.status === "ready" ? (
+      <VoiceSideScrollerStartOverlay
+        microphone={microphone}
+        onStart={onStart}
+        state={state}
+      />
+    ) : null}
     {state.status === "finished" ? (
       <VoiceSideScrollerRoundSummary
         onBackToMenu={onBackToMenu}

@@ -90,14 +90,14 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 7: UI En UX
 
-- [ ] Nieuwe menu-card maken voor de side-scroller.
-- [ ] Startscherm van de mini-game maken met grote speelknop.
-- [ ] Microfoonstatus duidelijk tonen.
-- [ ] Eenvoudige pauze- en terugknop toevoegen.
-- [ ] Stemindicator kindvriendelijk ontwerpen.
-- [ ] Score tonen als sterren of woordpunten.
-- [ ] Geen tekst op drukke plekken over gameplay leggen.
-- [ ] Alle knoppen bruikbaar maken op telefoonformaat.
+- [x] Nieuwe menu-card maken voor de side-scroller.
+- [x] Startscherm van de mini-game maken met grote speelknop.
+- [x] Microfoonstatus duidelijk tonen.
+- [x] Eenvoudige pauze- en terugknop toevoegen.
+- [x] Stemindicator kindvriendelijk ontwerpen.
+- [x] Score tonen als sterren of woordpunten.
+- [x] Geen tekst op drukke plekken over gameplay leggen.
+- [x] Alle knoppen bruikbaar maken op telefoonformaat.
 
 ## Fase 8: Assets
 

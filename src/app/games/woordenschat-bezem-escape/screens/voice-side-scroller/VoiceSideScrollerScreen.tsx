@@ -45,13 +45,16 @@ export const VoiceSideScrollerScreen = ({
       </div>
       <VoiceSideScrollerStage
         activeTarget={controller.activeTarget}
+        microphone={controller.microphone}
         onBackToMenu={onBackToMenu}
         onRestart={controller.startRound}
+        onStart={controller.startRound}
         state={state}
       />
       <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_auto_1fr]">
         <VoiceSideScrollerStatusPanel
           activeTarget={controller.activeTarget}
+          gameplayFeedback={state.gameplayFeedback}
           onRepeatWordPrompt={controller.repeatWordPrompt}
           recognition={controller.wordRecognition}
           status={state.status}

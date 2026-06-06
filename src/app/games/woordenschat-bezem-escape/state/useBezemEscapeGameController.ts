@@ -97,6 +97,11 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
+    if (modeId === "zeg-en-vlieg") {
+      setScreenPreview("voice-side-scroller");
+      return;
+    }
+
     setScreenPreview("scene-builder");
   };
 

@@ -47,8 +47,8 @@ Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 | [x]   | `lp-007` |      1 | Leg de schelp op het strand.                    | `lp-007-opdracht-leg-de-schelp-op-het-strand.mp4`                    |
 | [x]   | `lp-008` |      1 | Zet de krab op de handdoek.                     | `lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4`                     |
 | [x]   | `lp-009` |      2 | Zet het zandkasteel naast de schelp.            | `lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4`            |
-| [ ]   | `lp-010` |      2 | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
-| [ ]   | `lp-011` |      2 | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
+| [x]   | `lp-010` |      2 | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
+| [x]   | `lp-011` |      2 | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
 | [ ]   | `lp-012` |      2 | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
 | [ ]   | `lp-013` |      2 | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
 | [ ]   | `lp-014` |      3 | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |

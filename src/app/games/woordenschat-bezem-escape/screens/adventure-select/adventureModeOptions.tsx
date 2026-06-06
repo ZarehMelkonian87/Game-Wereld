@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle } from "lucide-react";
+import { BookOpen, MessageCircle, Mic2 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { BezemEscapeMode } from "../../types";
 
@@ -26,5 +26,12 @@ export const getAdventureModeOptions = (): AdventureModeOption[] => [
     id: "choose-word",
     title: "Kies het Woord",
     tone: "sky",
+  },
+  {
+    description: "Vlieg met je stem en zeg het strandwoord.",
+    icon: <Mic2 className="h-6 w-6" strokeWidth={3} />,
+    id: "zeg-en-vlieg",
+    title: "Zeg & Vlieg",
+    tone: "amber",
   },
 ];

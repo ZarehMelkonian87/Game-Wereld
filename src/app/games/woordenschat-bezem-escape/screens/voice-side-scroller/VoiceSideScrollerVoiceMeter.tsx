@@ -48,16 +48,30 @@ const getVolumeLabel = (volumeLevel: number) => {
   return "hard";
 };
 
+const voiceLevelSteps = [
+  { id: "stil", max: 0.08 },
+  { id: "zacht", max: 0.45 },
+  { id: "goed", max: 0.78 },
+  { id: "hard", max: 1 },
+];
+
+const getActiveVoiceLevelIndex = (volumeLevel: number) => {
+  const levelIndex = voiceLevelSteps.findIndex((step) => volumeLevel <= step.max);
+
+  return levelIndex >= 0 ? levelIndex : voiceLevelSteps.length - 1;
+};
+
 export const VoiceSideScrollerVoiceMeter = ({
   microphone,
 }: VoiceSideScrollerVoiceMeterProps) => {
   const volumePercent = Math.round(microphone.volumeLevel * 100);
   const noiseFloorPercent = Math.round(microphone.noiseFloor * 100);
+  const activeVoiceLevelIndex = getActiveVoiceLevelIndex(microphone.volumeLevel);
 
   return (
     <PanelCard
       aria-label="Stemcontrole"
-      className="grid gap-2 !rounded-[1.35rem] !p-3"
+      className="grid gap-2 !rounded-[1.35rem] !p-2.5"
       data-component="VoiceSideScrollerVoiceMeter"
       data-microphone-status={microphone.status}
       data-noise-floor={noiseFloorPercent}
@@ -82,15 +96,33 @@ export const VoiceSideScrollerVoiceMeter = ({
         </span>
       </div>
 
+      <div className="grid grid-cols-4 gap-1" data-slot="voice-level-steps">
+        {voiceLevelSteps.map((step, index) => (
+          <span
+            aria-current={index === activeVoiceLevelIndex ? "true" : undefined}
+            className={classNames(
+              "min-h-8 rounded-xl border-2 px-1 py-1 text-center text-[0.62rem] font-black leading-none transition",
+              index === activeVoiceLevelIndex
+                ? "border-emerald-300 bg-emerald-100 text-emerald-950 shadow-[0_2px_0_rgba(5,150,105,0.18)]"
+                : "border-white bg-white/75 text-slate-500",
+            )}
+            data-active={index === activeVoiceLevelIndex ? "true" : "false"}
+            key={step.id}
+          >
+            {step.id}
+          </span>
+        ))}
+      </div>
+
       <div
         aria-label={`Stemvolume ${volumePercent} procent`}
         aria-valuemax={100}
         aria-valuemin={0}
         aria-valuenow={volumePercent}
-        className="rounded-2xl border-2 border-slate-200 bg-white/90 p-1.5"
+        className="rounded-2xl border-2 border-slate-200 bg-white/90 p-1"
         role="meter"
       >
-        <div className="h-4 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-3 overflow-hidden rounded-full bg-slate-100">
           <div
             className="h-full rounded-full bg-gradient-to-r from-emerald-300 via-yellow-300 to-sky-400 transition-[width] duration-100"
             data-slot="voice-level-fill"
