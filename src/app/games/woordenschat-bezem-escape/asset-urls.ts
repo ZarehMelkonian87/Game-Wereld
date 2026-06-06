@@ -43,10 +43,13 @@ export const voiceSideScrollerObjectSpriteUrls = {
 };
 
 export const voiceSideScrollerObstacleSpriteUrls = {
-  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.svg", import.meta.url).href,
-  "parasol-edge": beachObjectStickerUrls.parasol,
-  rock: new URL("./assets/objects/side-scroller/rock-obstacle.svg", import.meta.url).href,
-  wave: new URL("./assets/objects/side-scroller/wave-obstacle.svg", import.meta.url).href,
+  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
+  "sea-lion": new URL(
+    "./assets/objects/side-scroller/sea-lion-obstacle.png",
+    import.meta.url,
+  ).href,
+  seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
+  shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
 
 export const worldIconUrls = {

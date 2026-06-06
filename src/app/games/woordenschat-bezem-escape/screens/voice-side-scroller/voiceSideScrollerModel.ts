@@ -32,9 +32,9 @@ export interface VoiceSideScrollerRoundEducationState {
 
 export type VoiceSideScrollerObstacleKind =
   | "cloud"
-  | "parasol-edge"
-  | "rock"
-  | "wave";
+  | "sea-lion"
+  | "seagull"
+  | "shark";
 
 export interface VoiceSideScrollerObstacle {
   height: number;
@@ -88,10 +88,10 @@ export const VOICE_SCROLLER_DEMO_TARGETS: VoiceSideScrollerTarget[] = [
 ];
 
 export const VOICE_SCROLLER_DEMO_OBSTACLES: VoiceSideScrollerObstacle[] = [
-  { id: "obstacle-cloud", kind: "cloud", label: "wolk", x: 0.58, y: 0.25, width: 0.16, height: 0.14, hit: false },
-  { id: "obstacle-wave", kind: "wave", label: "golf", x: 1.14, y: 0.72, width: 0.18, height: 0.12, hit: false },
-  { id: "obstacle-rock", kind: "rock", label: "rots", x: 1.7, y: 0.8, width: 0.14, height: 0.11, hit: false },
-  { id: "obstacle-parasol-edge", kind: "parasol-edge", label: "parasolrand", x: 2.26, y: 0.6, width: 0.16, height: 0.19, hit: false },
+  { id: "obstacle-cloud", kind: "cloud", label: "wolk", x: 0.58, y: 0.25, width: 0.28, height: 0.19, hit: false },
+  { id: "obstacle-seagull", kind: "seagull", label: "meeuw", x: 1.14, y: 0.25, width: 0.24, height: 0.2, hit: false },
+  { id: "obstacle-shark", kind: "shark", label: "haai", x: 1.7, y: 0.58, width: 0.3, height: 0.17, hit: false },
+  { id: "obstacle-sea-lion", kind: "sea-lion", label: "zeeleeuw", x: 2.26, y: 0.8, width: 0.25, height: 0.23, hit: false },
 ];
 
 export interface CreateInitialVoiceScrollerStateOptions {

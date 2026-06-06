@@ -32,16 +32,16 @@ Een woordster wordt verzameld als het actieve woord wordt herkend. Dan krijgt he
 De eerste strandobstakels zijn:
 
 - wolk;
-- golf;
-- rots;
-- parasolrand.
+- meeuw;
+- haai;
+- zeeleeuw.
 
 Botsingen zijn veilig. De ronde stopt niet. De bezem vertraagt kort en de game geeft een vriendelijke hint.
 
 Voorbeeldfeedback:
 
 ```text
-Rustig, vlieg om de golf heen.
+Rustig, vlieg om de haai heen.
 ```
 
 ## Einde Van De Ronde

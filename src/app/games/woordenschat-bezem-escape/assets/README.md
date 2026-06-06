@@ -21,7 +21,7 @@ Oude candidates, source sheets, lokale previews en gegenereerde conceptbeelden z
 
 - De strandachtergronden zijn klaar voor gebruik als scene board en side-scroller conceptachtergrond.
 - Alle productie-objecten in `objects/transparent/` hebben echte alpha-transparantie.
-- Side-scroller obstakels zijn productie-SVG's of hergebruikte sticker-assets.
+- Side-scroller obstakels zijn transparante productie-PNG's in dezelfde stickerstijl als de strandobjecten.
 - Avatar-, bezem- en mascotte-assets zijn losse transparante PNG's.
 - Instructievideo's zijn alleen toegevoegd wanneer ze gekoppeld zijn aan een concrete opdracht-id.
 - Nieuwe bronbeelden of conceptvarianten horen niet in `assets/` totdat ze als productie-asset gekozen zijn.

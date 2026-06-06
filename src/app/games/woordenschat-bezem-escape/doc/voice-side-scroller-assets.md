@@ -30,12 +30,12 @@ Voor de eerste demo zijn de obstacle-sprites:
 
 | Obstakel | Asset |
 | --- | --- |
-| wolk | `objects/side-scroller/cloud-obstacle.svg` |
-| golf | `objects/side-scroller/wave-obstacle.svg` |
-| rots | `objects/side-scroller/rock-obstacle.svg` |
-| parasolrand | `objects/transparent/beach-umbrella-sticker.png` |
+| wolk | `objects/side-scroller/cloud-obstacle.png` |
+| meeuw | `objects/side-scroller/seagull-obstacle.png` |
+| haai | `objects/side-scroller/shark-obstacle.png` |
+| zeeleeuw | `objects/side-scroller/sea-lion-obstacle.png` |
 
-De SVG-obstakels zijn gemaakt als eenvoudige sticker-assets met dikke rand, witte stickerlijn en zachte kleuren.
+De PNG-obstakels zijn gemaakt als transparante sticker-assets met dikke rand, witte stickerlijn en zachte kleuren, zodat ze visueel aansluiten op de zon, krab, dolfijn en andere strandstickers. De meeuw zit in de luchtlaag, de haai in de zeelaag en de zeeleeuw op de strandlaag.
 
 ## Bezem En Avatar States
 

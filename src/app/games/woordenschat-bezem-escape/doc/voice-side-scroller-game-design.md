@@ -158,9 +158,9 @@ Wanneer het juiste object in beeld komt:
 MVP-obstakels:
 
 - wolk;
-- golf;
-- rots;
-- parasolrand.
+- meeuw;
+- haai;
+- zeeleeuw.
 
 Bij botsing:
 

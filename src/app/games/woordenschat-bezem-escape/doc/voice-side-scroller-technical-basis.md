@@ -126,7 +126,7 @@ Vanaf Fase 5 bevat de stage:
 
 - parallax-lagen voor lucht, zee en strand;
 - woordsterren rond de strandobjecten;
-- strandobstakels: wolk, golf, rots en parasolrand;
+- strandobstakels: wolk, meeuw, haai en zeeleeuw;
 - veilige botsingen zonder game-over;
 - einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
 
@@ -135,8 +135,7 @@ Vanaf Fase 7 blijft tekstfeedback buiten de drukke stage. Het statuspaneel toont
 Vanaf Fase 8 gebruikt de stage vaste productie-assets:
 
 - bestaande strandstickers voor woordobjecten;
-- SVG obstacle-sprites voor wolk, golf en rots;
-- bestaande parasolsticker voor parasolrand;
+- transparante sticker-obstakels voor wolk, meeuw, haai en zeeleeuw;
 - bestaande bezem-, avatar- en mascot-assets voor states.
 
 ## Educatieve Regels

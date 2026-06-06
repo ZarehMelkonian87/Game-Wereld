@@ -34,10 +34,7 @@ export const VoiceSideScrollerObstacleLayer = ({
       >
         <img
           alt=""
-          className={classNames(
-            "h-full w-full object-contain drop-shadow-[0_5px_0_rgba(21,48,74,0.15)]",
-            obstacle.kind === "parasol-edge" && "rotate-[16deg]",
-          )}
+          className="h-full w-full object-contain drop-shadow-[0_5px_0_rgba(21,48,74,0.15)]"
           data-obstacle-sprite={obstacle.kind}
           draggable={false}
           src={voiceSideScrollerObstacleSpriteUrls[obstacle.kind]}

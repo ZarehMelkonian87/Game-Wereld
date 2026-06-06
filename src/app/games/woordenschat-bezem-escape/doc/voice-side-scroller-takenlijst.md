@@ -72,7 +72,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Parallax-lagen bepalen: lucht, zee, strand, objecten.
 - [x] Speler op bezem laten zweven met klik/touch-knoppen.
 - [x] Objecten laten binnenkomen van rechts naar links.
-- [x] Obstakels toevoegen die passen bij strand: wolk, golf, rots, parasolrand.
+- [x] Obstakels toevoegen die passen bij strand: wolk, meeuw, haai, zeeleeuw.
 - [x] Verzamelobjecten toevoegen: bootster, krabster, schelpster.
 - [x] Botsing veilig maken: vertragen en hint geven, geen harde game-over.
 - [x] Ronde-einde maken met samenvatting.
