@@ -27,10 +27,6 @@ const getStatusText = (status: VoiceSideScrollerStatus) => {
     return "Pauze";
   }
 
-  if (status === "finished") {
-    return "Klaar";
-  }
-
   return "Zeg & Vlieg";
 };
 
@@ -89,11 +85,7 @@ const getSubText = (
     return recognition.feedbackText;
   }
 
-  if (status === "finished") {
-    return "De tijd is op.";
-  }
-
-  return "Pak zoveel mogelijk plaatjes";
+  return "Vlieg zo ver mogelijk en pak plaatjes";
 };
 
 export const VoiceSideScrollerStatusPanel = ({

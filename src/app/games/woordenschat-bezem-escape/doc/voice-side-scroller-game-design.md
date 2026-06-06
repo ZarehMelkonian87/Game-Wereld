@@ -31,9 +31,9 @@ Zeg & Vlieg
 
 ## Korte Samenvatting
 
-Het kind vliegt op een magische bezem door een strandwereld. Klik/touch-knoppen besturen de hoogte van de bezem. Tijdens het vliegen verschijnen strandobjecten. De game vraagt een woord, bijvoorbeeld `boot`. Het kind zegt het woord. Als het woord goed genoeg herkend wordt, licht het object op en kan het kind het verzamelen.
+Het kind vliegt op een magische bezem door een strandwereld. Klik/touch-knoppen besturen de hoogte van de bezem. Tijdens het vliegen verschijnen strandobjecten van rechts naar links. Het kind noemt zichtbare objecten, bijvoorbeeld `boot`. Als het woord goed genoeg herkend wordt, verzamelt het kind het object.
 
-De gameplay voelt als een simpele side-scroller, maar het leerdoel is actieve woordenschat, uitspraakpogingen, luisterbegrip en zelfvertrouwen bij spreken.
+De gameplay voelt als een endless side-scroller zoals een eenvoudige Temple Run-achtige uitdaging, maar het leerdoel is actieve woordenschat, uitspraakpogingen, luisterbegrip en zelfvertrouwen bij spreken.
 
 ## Doelgroep
 
@@ -59,9 +59,13 @@ De gameplay voelt als een simpele side-scroller, maar het leerdoel is actieve wo
    - object verzameld;
    - +1 Speed;
    - +1 Woordster;
+   - extra punten;
    - positieve feedback.
 10. Bij onduidelijke herkenning krijgt het kind een vriendelijke hint en een nieuwe kans.
-11. Na 45 seconden toont de game een korte beloning en oefensamenvatting.
+11. De run gaat door zonder vaste eindtijd.
+12. Afstand en verzamelde items geven punten.
+13. De moeilijkheid loopt langzaam op.
+14. Bij botsing met een obstakel toont de game een korte oefensamenvatting.
 
 ## MVP Taalvorm
 
@@ -88,25 +92,26 @@ Reden:
 
 De stemcontrole zelf is al technisch en cognitief nieuw. Daarom start de eerste versie met korte, herkenbare woorden. Korte zinnen komen pas wanneer de basisbesturing betrouwbaar en leuk voelt.
 
-## Ronde Duur
+## Run Duur
 
-MVP-ronde:
+MVP-run:
 
 ```text
-45 seconden
+geen vaste eindtijd
 ```
 
 Reden:
 
-- 30 seconden is vaak te kort om microfoon, ritme en woorden te begrijpen.
-- 60 seconden kan voor jonge kinderen te lang worden.
-- 45 seconden is kort genoeg voor `nog een keer`, maar lang genoeg voor 5 tot 8 woordpogingen.
+- een endless-run geeft meer uitdaging en herhaalwaarde;
+- afstand maakt voortgang direct zichtbaar;
+- een botsing met een obstakel geeft een duidelijk speleinde;
+- score groeit door afstand en verzamelde woorden.
 
-Later kunnen rondes adaptief worden:
+Moeilijkheid loopt adaptief op:
 
-- 30 seconden voor oefenen of lage concentratie;
-- 45 seconden standaard;
-- 60 seconden voor oudere kinderen of herhaling.
+- hogere afstand verhoogt het level;
+- de wereld beweegt geleidelijk sneller;
+- obstakels komen geleidelijk dichter op elkaar.
 
 ## Eerste Strandwoorden
 

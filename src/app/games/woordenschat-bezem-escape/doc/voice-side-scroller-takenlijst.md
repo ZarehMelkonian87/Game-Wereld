@@ -31,7 +31,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Definitieve naam kiezen: `Zeg & Vlieg`.
 - [x] Core loop vastleggen: luisteren, vliegen, woord zeggen, object pakken, feedback, beloning.
 - [x] Bepalen of het kind alleen objectnamen zegt of ook korte zinnen.
-- [x] Bepalen hoe lang een ronde duurt: 45 seconden.
+- [x] Bepalen hoe lang een run duurt: endless tot game-over.
 - [x] Bepalen welke strandwoorden in de eerste demo zitten.
 - [x] Bepalen welke acties in MVP zitten: omhoog, omlaag, pak object, ontwijk obstakel.
 - [x] Game design document toevoegen: `voice-side-scroller-game-design.md`.
@@ -40,8 +40,8 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 
 - [x] Nieuwe gamefolder maken binnen `woordenschat-bezem-escape/screens/voice-side-scroller`.
 - [x] Nieuwe route/screen toevoegen zonder de oude race terug te brengen.
-- [x] Side-scroller state-model maken: spelerpositie, snelheid, objecten, score, tijd.
-- [x] Game-loop bouwen met `requestAnimationFrame`.
+- [x] Side-scroller state-model maken: spelerpositie, snelheid, objecten, score, afstand en moeilijkheid.
+- [x] Game-loop bouwen met een stabiele frame-timer.
 - [x] Layout mobile-first maken voor portrait en landscape.
 - [x] Canvas of DOM-keuze vastleggen en documenteren.
 - [x] Fallback bediening maken voor browsers zonder microfoon.

@@ -1,6 +1,6 @@
-# Zeg & Vlieg: Side-Scroller Gameplay
+# Zeg & Vlieg: Endless Side-Scroller Gameplay
 
-Dit document beschrijft Fase 5 van de nieuwe side-scroller.
+Dit document beschrijft de actuele endless-run gameplay van `Zeg & Vlieg`.
 
 ## Gameplay-Laag
 
@@ -12,6 +12,8 @@ De game gebruikt een brede strandachtergrond met rustige parallax-lagen:
 - objecten en obstakels komen van rechts naar links.
 
 De speler blijft links in beeld en beweegt verticaal met de knoppen `Omhoog` en `Omlaag`.
+
+De run heeft geen vaste eindtijd. Net als bij een endless runner probeert het kind zo ver mogelijk te komen. De game stopt alleen bij botsing met een obstakel.
 
 ## Verzamelobjecten
 
@@ -27,7 +29,16 @@ De eerste ronde gebruikt woordsterren:
 
 Een woordster start rechts buiten beeld en scrolt rustig naar links. Het kind krijgt tijd om het woord te noemen. Als het kind het woord niet noemt, verdwijnt het item vanzelf links uit beeld en komt het later opnieuw binnen.
 
-Een woordster wordt verzameld als het kind een zichtbaar objectwoord noemt. Dan krijgt het kind `+1 Speed` en een ster.
+Een woordster wordt verzameld als het kind een zichtbaar objectwoord noemt. Dan krijgt het kind:
+
+- `+1 Speed`;
+- `+1` woordster;
+- extra punten.
+
+De totale score groeit door:
+
+- afstand afleggen;
+- woordsterren verzamelen.
 
 ## Obstakels
 
@@ -46,11 +57,23 @@ Voorbeeldfeedback:
 Game over. Je raakte de haai.
 ```
 
-## Einde Van De Ronde
+## Oplopende Moeilijkheid
 
-Aan het einde toont de game:
+De game wordt langzaam moeilijker:
 
+- afstand verhoogt het moeilijkheidslevel;
+- de wereld scrolt steeds sneller;
+- obstakels komen geleidelijk dichter op elkaar;
+- verzamelde woorden geven speed, waardoor de speler meer punten kan halen maar ook sneller moet reageren.
+
+## Game Over
+
+Bij game-over toont de game:
+
+- totale punten;
+- afgelegde afstand;
 - aantal verzamelde woordsterren;
+- bereikt level;
 - speed-bonus;
 - aantal hints door obstakels;
 - geoefende woorden.

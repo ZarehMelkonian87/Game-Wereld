@@ -11,7 +11,7 @@ Dit document beschrijft Fase 7.
 De mini-game heeft een eigen start-overlay met:
 
 - duidelijke titel;
-- vijf focuswoorden;
+- zeven focuswoorden;
 - korte uitleg: knoppen sturen, stem pakt woorden;
 - privacyregel;
 - grote startknop.
@@ -28,6 +28,14 @@ De stage blijft rustig:
 - obstakels.
 
 Tekstfeedback staat in het statuspaneel naast of onder de stage. Zo komt er geen lange tekst over de actie heen.
+
+De HUD toont:
+
+- afstand;
+- punten;
+- woordsterren;
+- huidig moeilijkheidslevel;
+- pauze, opnieuw en terug.
 
 ## Beweging En Spraak
 

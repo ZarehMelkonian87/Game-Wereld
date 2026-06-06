@@ -2,9 +2,9 @@
 
 Dit document beschrijft Fase 6. De regels zijn bedoeld voor oefenen en observeren. De game geeft geen diagnose, geen normscore en geen officiele CELF- of PPVT-score.
 
-## Focus Per Ronde
+## Focus Per Run
 
-Een ronde gebruikt maximaal vijf focuswoorden. In de eerste strandwereld komen de focuswoorden uit:
+Een run gebruikt maximaal zeven focuswoorden. In de eerste strandwereld komen de focuswoorden uit:
 
 - boot;
 - krab;
@@ -14,7 +14,7 @@ Een ronde gebruikt maximaal vijf focuswoorden. In de eerste strandwereld komen d
 - parasol;
 - zon.
 
-De selectie kiest eerst woorden die eerder moeilijk waren. Daarna kiest de game woorden die minder vaak geoefend zijn. Zo komen moeilijke woorden vaker terug zonder dat de ronde te druk wordt.
+De selectie kiest eerst woorden die eerder moeilijk waren. Daarna kiest de game woorden die minder vaak geoefend zijn. Zo komen moeilijke woorden vaker terug zonder dat de run te druk wordt.
 
 ## Wat Wordt Bewaard
 

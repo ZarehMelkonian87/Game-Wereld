@@ -41,7 +41,7 @@ export const VoiceSideScrollerStage = ({
         state={state}
       />
     ) : null}
-    {state.status === "finished" || state.status === "game-over" ? (
+    {state.status === "game-over" ? (
       <VoiceSideScrollerRoundSummary
         onBackToMenu={onBackToMenu}
         onRestart={onRestart}

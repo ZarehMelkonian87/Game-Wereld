@@ -32,7 +32,7 @@ export const VoiceSideScrollerStartOverlay = ({
       <div>
         <h2 className="text-2xl font-black leading-none text-slate-900">Zeg & Vlieg</h2>
         <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-          Stuur de bezem. Noem plaatjes die je ziet. Raak geen obstakel.
+          Vlieg zo ver mogelijk. Noem plaatjes die je ziet. Raak geen obstakel.
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-1.5">

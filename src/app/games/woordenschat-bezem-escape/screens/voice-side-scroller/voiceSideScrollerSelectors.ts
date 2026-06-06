@@ -2,7 +2,7 @@ import type {
   VoiceSideScrollerGameState,
   VoiceSideScrollerTarget,
 } from "./voiceSideScrollerModel";
-import { VOICE_SCROLLER_ROUND_DURATION_MS } from "./voiceSideScrollerModel";
+import { VOICE_SCROLLER_LEVEL_DISTANCE } from "./voiceSideScrollerModel";
 
 export const getVisibleVoiceScrollerTargets = (
   targets: VoiceSideScrollerTarget[],
@@ -11,10 +11,10 @@ export const getVisibleVoiceScrollerTargets = (
     .filter((target) => !target.collected && target.x > 0.02 && target.x < 0.98)
     .sort((leftTarget, rightTarget) => leftTarget.x - rightTarget.x);
 
-export const getVoiceScrollerProgressPercent = (
+export const getVoiceScrollerDifficultyProgress = (
   state: VoiceSideScrollerGameState,
-) => Math.round((state.elapsedMs / VOICE_SCROLLER_ROUND_DURATION_MS) * 100);
+) => Math.round(state.distance % VOICE_SCROLLER_LEVEL_DISTANCE);
 
-export const getVoiceScrollerTimeLeftSeconds = (
+export const getVoiceScrollerDistanceMeters = (
   state: VoiceSideScrollerGameState,
-) => Math.ceil(state.timeLeftMs / 1000);
+) => Math.floor(state.distance);

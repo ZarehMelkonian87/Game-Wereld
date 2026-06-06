@@ -1,9 +1,10 @@
-import { Home, Pause, Play, RotateCcw, Zap } from "lucide-react";
-import { HudIconButton, PanelCard, ProgressBar, StarCounter } from "../../components/ui";
+import { Gauge, Home, Pause, Play, RotateCcw, Star, Trophy } from "lucide-react";
+import { HudIconButton, PanelCard, ProgressBar } from "../../components/ui";
+import { VOICE_SCROLLER_LEVEL_DISTANCE } from "./voiceSideScrollerModel";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 import {
-  getVoiceScrollerProgressPercent,
-  getVoiceScrollerTimeLeftSeconds,
+  getVoiceScrollerDifficultyProgress,
+  getVoiceScrollerDistanceMeters,
 } from "./voiceSideScrollerSelectors";
 
 interface VoiceSideScrollerHudProps {
@@ -23,8 +24,8 @@ export const VoiceSideScrollerHud = ({
   onStart,
   state,
 }: VoiceSideScrollerHudProps) => {
-  const timeLeftSeconds = getVoiceScrollerTimeLeftSeconds(state);
-  const progressPercent = getVoiceScrollerProgressPercent(state);
+  const distanceMeters = getVoiceScrollerDistanceMeters(state);
+  const difficultyProgress = getVoiceScrollerDifficultyProgress(state);
   const isRunning = state.status === "running";
   const isPaused = state.status === "paused";
   const canResume = isPaused;
@@ -46,13 +47,29 @@ export const VoiceSideScrollerHud = ({
         tone="white"
       />
       <ProgressBar
-        icon={<Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />}
-        label={`Tijd ${timeLeftSeconds}s`}
-        max={100}
+        icon={<Gauge className="h-4 w-4 text-sky-600" strokeWidth={2.5} />}
+        label={`Afstand ${distanceMeters}m`}
+        max={VOICE_SCROLLER_LEVEL_DISTANCE}
         tone="yellow"
-        value={progressPercent}
+        value={difficultyProgress}
       />
-      <StarCounter label="Woordsterren" value={state.stars} />
+      <div
+        aria-label={`Punten: ${state.score}. Woordsterren: ${state.stars}. Level ${state.difficultyLevel}`}
+        className="grid min-h-11 shrink-0 grid-cols-2 gap-x-2 rounded-2xl border-2 border-sky-300 bg-sky-100 px-2 py-1 text-[0.7rem] font-black leading-none text-sky-950 shadow-[0_3px_0_rgba(3,105,161,0.22)]"
+        data-component="VoiceSideScrollerScoreCounter"
+      >
+        <span className="inline-flex items-center gap-1 tabular-nums">
+          <Trophy className="h-4 w-4 text-sky-600" fill="currentColor" strokeWidth={2.5} />
+          {state.score}
+        </span>
+        <span className="inline-flex items-center gap-1 tabular-nums">
+          <Star className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
+          {state.stars}
+        </span>
+        <span className="col-span-2 mt-0.5 text-center text-[0.62rem] text-emerald-900">
+          Level {state.difficultyLevel}
+        </span>
+      </div>
       <HudIconButton
         icon={
           <PrimaryIcon

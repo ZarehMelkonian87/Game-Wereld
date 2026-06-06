@@ -62,26 +62,28 @@ Canvas blijft een optie voor later als we veel objecten, particles, physics of c
 
 De eerste state bevat:
 
-- `status`: ready, running, paused, finished, game-over;
+- `status`: ready, running, paused, game-over;
 - `playerY`: genormaliseerde verticale spelerpositie;
 - `scrollX`: achtergrondscroll;
+- `distance`: afgelegde afstand in meters;
+- `score`: totale punten uit afstand en verzamelde items;
+- `difficultyLevel`: oplopend level op basis van afstand;
 - `targets`: objecten die rechts buiten beeld starten, naar links bewegen en links verdwijnen als ze niet worden genoemd;
 - `obstacles`: strandobstakels die bij botsing game-over geven;
 - `obstacles.collisionBox`: kleinere hitbox per obstakel, los van de volledige sprite;
 - `collisionSlowdownMs`: korte visuele botsing-state voor het einde-scherm;
 - `gameplayFeedback`: tijdelijke kindvriendelijke feedback;
 - `speed`: taal-speedwaarde;
-- `stars`: scorewaarde;
+- `stars`: aantal verzamelde woordsterren;
 - `obstacleHits`;
 - `education`: focuswoorden, gehoorde pogingen, hints en herhalingen per woord;
-- `elapsedMs`;
-- `timeLeftMs`.
+- `elapsedMs`.
 
-De ronde duurt standaard `45_000ms`.
+De run heeft geen vaste eindtijd. Alleen een botsing met een obstakel stopt de run.
 
 ## Game Loop
 
-De controller gebruikt `requestAnimationFrame`.
+De controller gebruikt een korte frame-timer via `voiceSideScrollerFrame`. Dit houdt de side-scroller stabiel in browser- en mobiele testomgevingen.
 
 De pure engine krijgt per frame:
 
@@ -93,11 +95,13 @@ De engine rekent daarna:
 
 - nieuwe spelerhoogte;
 - nieuwe scrollpositie;
+- nieuwe afstand;
+- nieuwe score;
+- nieuw moeilijkheidsniveau;
 - nieuwe objectposities;
 - nieuwe obstakelposities;
 - game-over bij botsing met een obstakel;
-- resterende tijd;
-- status `finished` bij ronde-einde.
+- oplopende snelheid en kortere obstakelafstand op basis van afstand.
 
 ## Klikbesturing En Woordspraak
 
@@ -131,7 +135,7 @@ Vanaf Fase 5 bevat de stage:
 - woordsterren rond de strandobjecten;
 - strandobstakels: wolk, meeuw, haai en zeeleeuw;
 - game-over bij botsing met een obstakel;
-- einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
+- game-over samenvatting met punten, afstand, sterren, level, speed, hints en geoefende woorden.
 
 Vanaf Fase 7 blijft tekstfeedback buiten de drukke stage. Het statuspaneel toont hints en woordfeedback, terwijl de stage vooral beeld, speler en objecten toont.
 

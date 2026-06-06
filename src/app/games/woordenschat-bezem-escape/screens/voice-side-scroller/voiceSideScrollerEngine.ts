@@ -2,10 +2,10 @@ import {
   createInitialVoiceScrollerState,
   type CreateInitialVoiceScrollerStateOptions,
   recycleVoiceScrollerTarget,
-  VOICE_SCROLLER_ROUND_DURATION_MS,
+  VOICE_SCROLLER_ITEM_SCORE,
+  VOICE_SCROLLER_LEVEL_DISTANCE,
   type VoiceSideScrollerGameState,
   type VoiceSideScrollerObstacle,
-  type VoiceSideScrollerStatus,
   type VoiceSideScrollerTarget,
 } from "./voiceSideScrollerModel";
 
@@ -19,6 +19,7 @@ const INPUT_SPEED_PER_SECOND = 0.52;
 const SCROLL_SPEED_PER_SECOND = 0.105;
 const TARGET_SPEED_PER_SECOND = 0.13;
 const OBSTACLE_SPEED_PER_SECOND = 0.18;
+const DISTANCE_PER_SECOND = 8;
 const TARGET_RECYCLE_OFFSET = 2.1;
 const TARGET_RECYCLE_RANDOM_OFFSET = 0.9;
 const OBSTACLE_RECYCLE_OFFSET = 2.25;
@@ -40,10 +41,20 @@ const normalizeVerticalInput = (verticalInput: number) => clamp(verticalInput, -
 
 const getGameplaySpeedMultiplier = (state: VoiceSideScrollerGameState) => {
   const languageBoost = Math.min(0.38, Math.max(0, state.speed - 1) * 0.055);
+  const distanceBoost = Math.min(0.72, state.distance * 0.0026);
   const obstacleSlowdown = state.collisionSlowdownMs > 0 ? 0.32 : 0;
 
-  return clamp(1 + languageBoost - obstacleSlowdown, 0.68, 1.45);
+  return clamp(1 + languageBoost + distanceBoost - obstacleSlowdown, 0.68, 1.92);
 };
+
+const getDifficultyLevel = (distance: number) =>
+  Math.floor(distance / VOICE_SCROLLER_LEVEL_DISTANCE) + 1;
+
+const getScore = (distance: number, stars: number) =>
+  Math.floor(distance) + stars * VOICE_SCROLLER_ITEM_SCORE;
+
+const getObstacleRecycleDistance = (difficultyLevel: number) =>
+  Math.max(1.45, OBSTACLE_RECYCLE_OFFSET - (difficultyLevel - 1) * 0.08);
 
 const getNextMovingX = (
   x: number,
@@ -79,6 +90,7 @@ const getNextTarget = (
 
 const getNextObstacle = (
   obstacle: VoiceSideScrollerObstacle,
+  difficultyLevel: number,
   deltaSeconds: number,
   speedMultiplier: number,
 ): VoiceSideScrollerObstacle => {
@@ -99,7 +111,7 @@ const getNextObstacle = (
   return {
     ...obstacle,
     hit: false,
-    x: nextX + OBSTACLE_RECYCLE_OFFSET,
+    x: nextX + getObstacleRecycleDistance(difficultyLevel),
   };
 };
 
@@ -133,17 +145,6 @@ const getVisibleFeedback = (
     : undefined
 );
 
-const getNextStatus = (
-  elapsedMs: number,
-  currentStatus: VoiceSideScrollerStatus,
-): VoiceSideScrollerStatus => {
-  if (currentStatus !== "running") {
-    return currentStatus;
-  }
-
-  return elapsedMs >= VOICE_SCROLLER_ROUND_DURATION_MS ? "finished" : "running";
-};
-
 export const tickVoiceSideScrollerState = ({
   deltaMs,
   state,
@@ -157,17 +158,16 @@ export const tickVoiceSideScrollerState = ({
   const deltaSeconds = tickDeltaMs / 1000;
   const input = normalizeVerticalInput(verticalInput);
   const speedMultiplier = getGameplaySpeedMultiplier(state);
-  const nextElapsedMs = Math.min(
-    VOICE_SCROLLER_ROUND_DURATION_MS,
-    state.elapsedMs + tickDeltaMs,
-  );
+  const nextElapsedMs = state.elapsedMs + tickDeltaMs;
+  const nextDistance = state.distance + DISTANCE_PER_SECOND * speedMultiplier * deltaSeconds;
+  const nextDifficultyLevel = getDifficultyLevel(nextDistance);
   const nextPlayerY = clamp(
     state.playerY + FALL_SPEED_PER_SECOND * deltaSeconds + input * INPUT_SPEED_PER_SECOND * deltaSeconds,
     MIN_PLAYER_Y,
     MAX_PLAYER_Y,
   );
   const nextObstacles = state.obstacles.map((obstacle) =>
-    getNextObstacle(obstacle, deltaSeconds, speedMultiplier),
+    getNextObstacle(obstacle, nextDifficultyLevel, deltaSeconds, speedMultiplier),
   );
   const collidingObstacle = findCollidingObstacle(nextObstacles, nextPlayerY);
   const obstacles = collidingObstacle
@@ -190,17 +190,19 @@ export const tickVoiceSideScrollerState = ({
   return {
     ...state,
     collisionSlowdownMs,
+    difficultyLevel: nextDifficultyLevel,
+    distance: nextDistance,
     elapsedMs: nextElapsedMs,
     gameplayFeedback,
     obstacleHits: state.obstacleHits + (collidingObstacle ? 1 : 0),
     obstacles,
     playerY: nextPlayerY,
     scrollX: state.scrollX + SCROLL_SPEED_PER_SECOND * speedMultiplier * deltaSeconds,
-    status: collidingObstacle ? "game-over" : getNextStatus(nextElapsedMs, state.status),
+    score: getScore(nextDistance, state.stars),
+    status: collidingObstacle ? "game-over" : state.status,
     targets: state.targets.map((target) =>
       getNextTarget(target, deltaSeconds, speedMultiplier),
     ),
-    timeLeftMs: Math.max(0, VOICE_SCROLLER_ROUND_DURATION_MS - nextElapsedMs),
   };
 };
 
@@ -245,6 +247,7 @@ export const collectVoiceSideScrollerTarget = (
       message: `Goed gevangen: ${target.collectibleLabel}. +1 Speed!`,
       visibleUntilMs: state.elapsedMs + FEEDBACK_VISIBLE_MS,
     },
+    score: getScore(state.distance, state.stars + 1),
     speed: state.speed + SPEED_BONUS_PER_WORD,
     stars: state.stars + 1,
     targets,

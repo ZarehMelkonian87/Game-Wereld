@@ -2,8 +2,7 @@ export type VoiceSideScrollerStatus =
   | "game-over"
   | "ready"
   | "running"
-  | "paused"
-  | "finished";
+  | "paused";
 
 export interface VoiceSideScrollerTarget {
   id: string;
@@ -69,6 +68,8 @@ export interface VoiceSideScrollerGameplayFeedback {
 
 export interface VoiceSideScrollerGameState {
   collisionSlowdownMs: number;
+  difficultyLevel: number;
+  distance: number;
   education: VoiceSideScrollerRoundEducationState;
   elapsedMs: number;
   gameplayFeedback?: VoiceSideScrollerGameplayFeedback;
@@ -76,15 +77,16 @@ export interface VoiceSideScrollerGameState {
   obstacles: VoiceSideScrollerObstacle[];
   playerY: number;
   scrollX: number;
+  score: number;
   speed: number;
   stars: number;
   status: VoiceSideScrollerStatus;
   targets: VoiceSideScrollerTarget[];
-  timeLeftMs: number;
 }
 
-export const VOICE_SCROLLER_ROUND_DURATION_MS = 45_000;
 export const VOICE_SCROLLER_FOCUS_WORD_COUNT = 7;
+export const VOICE_SCROLLER_ITEM_SCORE = 50;
+export const VOICE_SCROLLER_LEVEL_DISTANCE = 100;
 
 const TARGET_SPAWN_SPACING = 0.46;
 const TARGET_START_X = 1.18;
@@ -226,6 +228,8 @@ export const createInitialVoiceScrollerState = ({
 
   return {
     collisionSlowdownMs: 0,
+    difficultyLevel: 1,
+    distance: 0,
     education: createRoundEducationState(targets),
     elapsedMs: 0,
     gameplayFeedback: undefined,
@@ -233,11 +237,11 @@ export const createInitialVoiceScrollerState = ({
     obstacles: VOICE_SCROLLER_DEMO_OBSTACLES.map((obstacle) => ({ ...obstacle })),
     playerY: 0.48,
     scrollX: 0,
+    score: 0,
     speed: 1,
     stars: 0,
     status: "ready",
     targets,
-    timeLeftMs: VOICE_SCROLLER_ROUND_DURATION_MS,
   };
 };
 

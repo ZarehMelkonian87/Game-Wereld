@@ -10,7 +10,9 @@ interface VoiceSideScrollerRoundSummaryProps {
 }
 
 const getCollectedWords = (state: VoiceSideScrollerGameState) =>
-  state.targets.filter((target) => target.collected).map((target) => target.word);
+  Object.values(state.education.wordObservations)
+    .filter((observation) => observation.recognized)
+    .map((observation) => observation.word);
 
 const getNeedsPracticeWords = (state: VoiceSideScrollerGameState) =>
   Object.values(state.education.wordObservations)
@@ -39,11 +41,7 @@ export const VoiceSideScrollerRoundSummary = ({
     : "geen duidelijk moeilijk woord";
   const totalHints = state.obstacleHits + getTotalWordHints(state);
   const audioRepeats = getTotalAudioRepeats(state);
-  const isGameOver = state.status === "game-over";
-  const title = isGameOver ? "Game over" : "Ronde klaar";
-  const resultText = isGameOver
-    ? "Je raakte een obstakel. Probeer opnieuw en ontwijk goed."
-    : "De tijd is op. Kijk hoeveel plaatjes je hebt gepakt.";
+  const distanceMeters = Math.floor(state.distance);
 
   return (
     <div
@@ -52,7 +50,7 @@ export const VoiceSideScrollerRoundSummary = ({
       data-testid="voice-side-scroller-round-summary"
     >
       <PanelCard
-        aria-label="Ronde klaar"
+        aria-label="Game over resultaat"
         className="grid w-full max-w-[22rem] gap-3 !rounded-[1.5rem] !p-4 text-center"
       >
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-3xl border-2 border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">
@@ -64,9 +62,9 @@ export const VoiceSideScrollerRoundSummary = ({
           />
         </div>
         <div>
-          <h2 className="text-2xl font-black leading-none text-slate-900">{title}</h2>
+          <h2 className="text-2xl font-black leading-none text-slate-900">Game over</h2>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-            {resultText}
+            Je raakte een obstakel. Je vloog {distanceMeters} meter.
           </p>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
             Focus: {focusText}
@@ -76,20 +74,37 @@ export const VoiceSideScrollerRoundSummary = ({
           </p>
         </div>
         <div className="grid grid-cols-3 gap-2 text-xs font-black text-slate-900">
+          <span className="rounded-2xl border-2 border-sky-200 bg-sky-50 p-2">
+            {state.score}
+            <br />
+            punten
+          </span>
+          <span className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-2">
+            {distanceMeters}m
+            <br />
+            afstand
+          </span>
           <span className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-2">
             {state.stars}
             <br />
             sterren
           </span>
+        </div>
+        <div className="grid grid-cols-3 gap-2 text-xs font-black text-slate-900">
           <span className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-2">
-            +{Math.max(0, state.speed - 1)}
+            L{state.difficultyLevel}
             <br />
-            speed
+            level
           </span>
           <span className="rounded-2xl border-2 border-sky-200 bg-sky-50 p-2">
             {totalHints}
             <br />
             hints
+          </span>
+          <span className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-2">
+            +{Math.max(0, state.speed - 1)}
+            <br />
+            speed
           </span>
         </div>
         <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-2 text-xs font-black leading-tight text-amber-950">
