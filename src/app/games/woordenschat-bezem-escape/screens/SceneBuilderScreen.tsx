@@ -23,6 +23,7 @@ import {
   usesDynamicRelationZone,
   type SceneObjectPlacementPoint,
 } from "../logic/dynamic-scene-relations";
+import { GAME_FOREGROUND_AUDIO_VOLUME } from "../logic/game-audio-events";
 import {
   executeSpokenSceneCommand,
   type SceneCommandChoice,
@@ -170,6 +171,14 @@ const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | 
 const getInstructionVideoUrl = (instructionId: string) => {
   if (instructionId === "lp-001") {
     return instructionVideoUrls.lp001;
+  }
+
+  if (instructionId === "lp-002") {
+    return instructionVideoUrls.lp002;
+  }
+
+  if (instructionId === "lp-003") {
+    return instructionVideoUrls.lp003;
   }
 
   return undefined;
@@ -1093,7 +1102,7 @@ export function SceneBuilderScreen({
       }
       video.currentTime = 0;
       video.muted = false;
-      video.volume = 1;
+      video.volume = GAME_FOREGROUND_AUDIO_VOLUME;
       await video.play();
       handleHintVideoPlaybackStart();
     } catch {

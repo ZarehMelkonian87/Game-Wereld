@@ -1,12 +1,17 @@
 export interface BezemEscapeSettings {
   audioEnabled: boolean;
   hintsEnabled: boolean;
+  musicEnabled: boolean;
   reducedMotion: boolean;
 }
+
+export const BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT =
+  "woordenschat-bezem-escape:settings-changed";
 
 export const defaultBezemEscapeSettings: BezemEscapeSettings = {
   audioEnabled: true,
   hintsEnabled: true,
+  musicEnabled: true,
   reducedMotion: false,
 };
 
@@ -41,4 +46,12 @@ export function saveBezemEscapeSettings(profileId: string, settings: BezemEscape
   }
 
   window.localStorage.setItem(getSettingsStorageKey(profileId), JSON.stringify(settings));
+  window.dispatchEvent(
+    new CustomEvent(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, {
+      detail: {
+        profileId,
+        settings,
+      },
+    }),
+  );
 }

@@ -21,6 +21,14 @@ export interface BezemEscapeImageAsset {
   notes?: string;
 }
 
+export interface BezemEscapeAudioAsset {
+  id: string;
+  label: string;
+  path: string;
+  readiness: BezemEscapeAssetReadiness;
+  usage: "background-music";
+}
+
 const readyAsset = (
   id: string,
   label: string,
@@ -58,6 +66,17 @@ export const beachBackgroundAssets: BezemEscapeImageAsset[] = [
     height: 852,
     hasAlpha: false,
     readiness: "ready",
+  },
+  {
+    id: "beach-race-side-scroller",
+    label: "Strand race side-scroller",
+    kind: "background",
+    path: "backgrounds/beach-race-side-scroller.png",
+    width: 1983,
+    height: 793,
+    hasAlpha: false,
+    readiness: "ready",
+    notes: "Brede strandachtergrond voor de nieuwe voice-controlled side-scroller race.",
   },
 ];
 
@@ -189,7 +208,18 @@ export const mascotAssets: BezemEscapeImageAsset[] = [
   ),
 );
 
+export const audioAssets: BezemEscapeAudioAsset[] = [
+  {
+    id: "background-music",
+    label: "Achtergrondmuziek",
+    path: "audio/background-music.mp3",
+    readiness: "ready",
+    usage: "background-music",
+  },
+];
+
 export const bezemEscapeAssets = {
+  audio: audioAssets,
   backgrounds: beachBackgroundAssets,
   objects: beachObjectAssets,
   avatars: avatarAssets,

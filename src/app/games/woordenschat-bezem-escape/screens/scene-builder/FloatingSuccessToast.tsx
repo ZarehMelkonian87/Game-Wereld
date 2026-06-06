@@ -1,8 +1,9 @@
-import type { MouseEvent } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
 import { mascotIconUrls } from "../../asset-urls";
 import { PanelCard } from "../../components/ui";
 import type { SceneCommandChoice, SceneCommandExecutionResult } from "../../logic/scene-command-executor";
 import { classNames } from "../../components/ui/classNames";
+import { createForegroundAudioSession } from "../../logic/game-audio-events";
 
 interface FeedbackToastState {
   hintVideoUrl?: string;
@@ -56,8 +57,21 @@ export const FloatingSuccessToast = ({
   onSpokenCommandChoice,
   spokenCommandResult,
 }: FloatingSuccessToastProps) => {
+  const stopHintAudioSessionRef = useRef<(() => void) | undefined>();
   const shouldRender = Boolean(feedback || hintVideoUrl);
   const isCorrectFeedback = feedback?.kind === "correct";
+
+  const startHintAudioSession = () => {
+    stopHintAudioSessionRef.current?.();
+    stopHintAudioSessionRef.current = createForegroundAudioSession();
+  };
+
+  const stopHintAudioSession = () => {
+    stopHintAudioSessionRef.current?.();
+    stopHintAudioSessionRef.current = undefined;
+  };
+
+  useEffect(() => stopHintAudioSession, []);
 
   if (!shouldRender) {
     return null;
@@ -79,13 +93,20 @@ export const FloatingSuccessToast = ({
         {hintVideoUrl ? (
           <video
             aria-label="Speel hintvideo"
-            className="h-10 w-10 shrink-0 rounded-xl object-cover"
+            className="h-10 w-10 shrink-0 rounded-full bg-transparent object-cover"
             data-component="HintFeedbackVideo"
             draggable={false}
             onClick={onHintVideoClick}
+            onEnded={stopHintAudioSession}
+            onError={stopHintAudioSession}
+            onPause={stopHintAudioSession}
+            onPlay={startHintAudioSession}
             playsInline
             preload="auto"
             src={hintVideoUrl}
+            style={{
+              clipPath: "circle(50% at 50% 50%)",
+            }}
             title="Speel hintvideo"
           />
         ) : feedback?.mascot ? (

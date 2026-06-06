@@ -32,6 +32,8 @@ Gebruik dit als productielijst naast de MP4-bestanden in deze map.
 | [x] | `lp-001` | opdracht | Zet de boot in de zee. | `zet-de-boot-in-de-zee.mp4` |
 | [x] | `lp-001` | hint-01-object | Zoek de boot. | `zoek-de-boot.mp4` |
 | [x] | `lp-001` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: boot. | `kijk-naar-het-plaatje-dat-oplicht-boot.mp4` |
+| [x] | `lp-002` | opdracht | Zet de dolfijn in de zee. | `lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4` |
+| [x] | `lp-003` | opdracht | Zet de bal op het strand. | `lp-003-opdracht-zet-de-bal-op-het-strand.mp4` |
 
 ## Scene Builder - Hoofdopdrachten
 
@@ -39,9 +41,6 @@ Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 
 | Klaar | ID | Niveau | Tekst | Bestandsnaam voorstel |
 |---|---:|---:|---|---|
-| [x] | `lp-001` | 1 | Zet de boot in de zee. | `zet-de-boot-in-de-zee.mp4` |
-| [ ] | `lp-002` | 1 | Zet de dolfijn in de zee. | `lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4` |
-| [ ] | `lp-003` | 1 | Zet de bal op het strand. | `lp-003-opdracht-zet-de-bal-op-het-strand.mp4` |
 | [ ] | `lp-004` | 1 | Zet de vuurtoren op het eiland. | `lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4` |
 | [ ] | `lp-005` | 1 | Zet de vlieger boven het strand. | `lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4` |
 | [ ] | `lp-006` | 1 | Zet het vliegtuig boven de zee. | `lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4` |
@@ -62,7 +61,6 @@ Deze clips verschijnen wanneer het kind voor het eerst hulp vraagt.
 
 | Klaar | ID | Tekst | Bestandsnaam voorstel |
 |---|---|---|---|
-| [x] | `lp-001` | Zoek de boot. | `zoek-de-boot.mp4` |
 | [ ] | `lp-002` | Zoek de dolfijn. | `lp-002-hint-01-zoek-de-dolfijn.mp4` |
 | [ ] | `lp-003` | Zoek de bal. | `lp-003-hint-01-zoek-de-bal.mp4` |
 | [ ] | `lp-004` | Zoek de vuurtoren. | `lp-004-hint-01-zoek-de-vuurtoren.mp4` |
@@ -85,7 +83,6 @@ Deze clips verschijnen bij de tweede hint.
 
 | Klaar | ID | Tekst | Bestandsnaam voorstel |
 |---|---|---|---|
-| [x] | `lp-001` | Kijk naar het plaatje dat oplicht: boot. | `kijk-naar-het-plaatje-dat-oplicht-boot.mp4` |
 | [ ] | `lp-002` | Kijk naar het plaatje dat oplicht: dolfijn. | `lp-002-hint-02-kijk-naar-dolfijn.mp4` |
 | [ ] | `lp-003` | Kijk naar het plaatje dat oplicht: bal. | `lp-003-hint-02-kijk-naar-bal.mp4` |
 | [ ] | `lp-004` | Kijk naar het plaatje dat oplicht: vuurtoren. | `lp-004-hint-02-kijk-naar-vuurtoren.mp4` |

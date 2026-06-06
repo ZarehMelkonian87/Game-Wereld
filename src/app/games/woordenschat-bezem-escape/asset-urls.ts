@@ -1,10 +1,19 @@
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
   landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
+  raceSideScroller: new URL(
+    "./assets/backgrounds/beach-race-side-scroller.png",
+    import.meta.url,
+  ).href,
 };
 
 export const startLogoUrl = new URL(
   "./assets/logos/start-logo-b-generated-magenta.png",
+  import.meta.url,
+).href;
+
+export const backgroundMusicUrl = new URL(
+  "./assets/audio/background-music.mp3",
   import.meta.url,
 ).href;
 
@@ -34,6 +43,14 @@ export const worldIconUrls = {
 
 export const instructionVideoUrls = {
   lp001: new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
+  lp002: new URL(
+    "./assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  lp003: new URL(
+    "./assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
 };
 
 export const hintVideoUrls = {

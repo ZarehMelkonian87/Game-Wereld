@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   avatarIconUrls,
+  beachBackgrounds,
   broomIconUrls,
   getBeachObjectStickerUrl,
   mascotIconUrls,
@@ -586,11 +587,19 @@ export function RaceScreen({ instructions, objects, onShowReward }: RaceScreenPr
         <section
           aria-label="Racegebied"
           data-testid="race-play-area"
-          className="relative min-h-0 overflow-hidden rounded-[1.75rem] border-2 border-white/70 bg-white/5 shadow-[inset_0_0_0_1px_rgba(14,165,233,0.18)] landscape:col-start-2 landscape:row-span-3 landscape:row-start-1"
+          className="relative min-h-0 overflow-hidden rounded-[1.75rem] border-2 border-white/70 bg-sky-100 shadow-[inset_0_0_0_1px_rgba(14,165,233,0.18)] landscape:col-start-2 landscape:row-span-3 landscape:row-start-1"
         >
+          <img
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+            data-testid="race-side-scroller-background"
+            draggable={false}
+            src={beachBackgrounds.raceSideScroller}
+          />
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-[18%] h-2 rounded-full bg-white/45 shadow-[0_10px_0_rgba(255,255,255,0.22),0_-12px_0_rgba(255,255,255,0.18)]"
+            className="absolute inset-x-0 bottom-[18%] h-2 rounded-full bg-white/35 shadow-[0_10px_0_rgba(255,255,255,0.18),0_-12px_0_rgba(255,255,255,0.12)]"
           />
 
           {trackObjects.map((trackObject) => (

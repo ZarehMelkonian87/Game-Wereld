@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { GameShell } from "../../../../game-platform";
 import type { GameWorld } from "../../types";
+import { GameBackgroundMusic } from "../audio/GameBackgroundMusic";
 
 interface BezemEscapeShellProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ export const BezemEscapeShell = ({ children, world }: BezemEscapeShellProps) => 
     testId="woordenschat-bezem-layout"
     worldId={world.id}
   >
+    <GameBackgroundMusic />
     {children}
   </GameShell>
 );

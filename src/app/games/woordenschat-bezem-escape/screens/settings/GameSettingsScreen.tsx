@@ -108,6 +108,7 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
       className="pointer-events-auto absolute inset-0 z-10 overflow-y-auto overflow-x-hidden px-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)]"
       data-audio-enabled={settings.audioEnabled ? "true" : "false"}
       data-hints-enabled={settings.hintsEnabled ? "true" : "false"}
+      data-music-enabled={settings.musicEnabled ? "true" : "false"}
       data-reduced-motion={settings.reducedMotion ? "true" : "false"}
       data-testid="game-settings-screen"
     >

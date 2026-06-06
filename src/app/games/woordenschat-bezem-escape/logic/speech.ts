@@ -1,4 +1,9 @@
-export function speakDutch(text: string) {
+import {
+  createForegroundAudioSession,
+  GAME_FOREGROUND_AUDIO_VOLUME,
+} from "./game-audio-events";
+
+export const speakDutch = (text: string) => {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {
     return false;
   }
@@ -7,6 +12,10 @@ export function speakDutch(text: string) {
   utterance.lang = "nl-NL";
   utterance.rate = 0.9;
   utterance.pitch = 1.05;
+  utterance.volume = GAME_FOREGROUND_AUDIO_VOLUME;
+  const endForegroundAudioSession = createForegroundAudioSession();
+  utterance.onend = endForegroundAudioSession;
+  utterance.onerror = endForegroundAudioSession;
 
   const dutchVoice = window.speechSynthesis
     .getVoices()
@@ -20,4 +29,4 @@ export function speakDutch(text: string) {
   window.speechSynthesis.speak(utterance);
 
   return true;
-}
+};

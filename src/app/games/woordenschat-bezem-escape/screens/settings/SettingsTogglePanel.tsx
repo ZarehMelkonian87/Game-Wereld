@@ -1,4 +1,4 @@
-import { EyeOff, Lightbulb, Volume2 } from "lucide-react";
+import { EyeOff, Lightbulb, Music2, Volume2 } from "lucide-react";
 import { PanelCard } from "../../components/ui";
 import type { BezemEscapeSettings } from "../../logic/settings";
 import { SettingsToggleRow } from "./SettingsToggleRow";
@@ -16,13 +16,23 @@ export const SettingsTogglePanel = ({
     <PanelCard className="grid gap-2 !rounded-2xl !p-2.5">
       <SettingsToggleRow
         checked={settings.audioEnabled}
-        description="Spreek de opdrachten hardop uit."
+        description="Laat opdrachtspraak en video's horen."
         icon={<Volume2 className="h-6 w-6" strokeWidth={3} />}
         label="Audio"
         onToggle={() =>
           onUpdateSettings({ ...settings, audioEnabled: !settings.audioEnabled })
         }
         testId="settings-audio-toggle"
+      />
+      <SettingsToggleRow
+        checked={settings.musicEnabled}
+        description="Zachte muziek op de achtergrond."
+        icon={<Music2 className="h-6 w-6" strokeWidth={3} />}
+        label="Muziek"
+        onToggle={() =>
+          onUpdateSettings({ ...settings, musicEnabled: !settings.musicEnabled })
+        }
+        testId="settings-music-toggle"
       />
       <SettingsToggleRow
         checked={settings.hintsEnabled}
