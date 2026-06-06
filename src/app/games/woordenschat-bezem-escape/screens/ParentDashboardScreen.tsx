@@ -7,6 +7,7 @@ import {
   CompactStatsStrip,
   CopySummaryButton,
   countTodayAttempts,
+  getVoiceSideScrollerAttempts,
   PracticeAccordion,
   PracticeOverviewHeader,
   TodayPracticeCard,
@@ -24,6 +25,10 @@ export const ParentDashboardScreen = ({ onBackToMenu }: ParentDashboardScreenPro
   const [openSectionIds, setOpenSectionIds] = useState<Record<string, boolean>>({});
   const progress = readBezemEscapeProgress(profileId);
   const todayAttempts = useMemo(() => countTodayAttempts(progress.attempts), [progress.attempts]);
+  const voiceSideScrollerAttempts = useMemo(
+    () => getVoiceSideScrollerAttempts(progress.attempts),
+    [progress.attempts],
+  );
   const dashboardViewModel = useMemo(
     () => buildDashboardViewModel({ progress, todayAttempts }),
     [progress, todayAttempts],
@@ -39,9 +44,14 @@ export const ParentDashboardScreen = ({ onBackToMenu }: ParentDashboardScreenPro
         todayAttempts,
         totalSpeed: progress.totalSpeed,
         totalWordStars: progress.totalWordStars,
+        voiceSideScrollerAttempts,
+        voiceSideScrollerRows: dashboardViewModel.accordionSections.find(
+          (section) => section.id === "zeg-en-vlieg",
+        )?.rows,
       }),
     [
       dashboardViewModel.allRows,
+      dashboardViewModel.accordionSections,
       profileName,
       progress.selfMadeSentences,
       progress.selfMadeSentencesWithHelp,
@@ -49,6 +59,7 @@ export const ParentDashboardScreen = ({ onBackToMenu }: ParentDashboardScreenPro
       progress.totalSpeed,
       progress.totalWordStars,
       todayAttempts,
+      voiceSideScrollerAttempts,
     ],
   );
 

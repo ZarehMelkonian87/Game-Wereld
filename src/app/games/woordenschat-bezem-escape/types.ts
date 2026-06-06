@@ -226,11 +226,26 @@ export interface BezemEscapePracticeEvent {
   selfMadeSentence?: boolean;
   speedEarned: number;
   spokenTranscript?: string;
+  voiceSideScroller?: VoiceSideScrollerObservationDetails;
   wordStarsEarned: number;
   playedAt: string;
 }
 
 export type BezemEscapeAttempt = BezemEscapePracticeEvent;
+
+export interface VoiceSideScrollerObservationDetails {
+  audioRepeats: number;
+  hintsUsed: number;
+  isRecognized: boolean;
+  spokenTranscript?: string;
+  targetWord: string;
+  wordAttempts: number;
+}
+
+export type VoiceSideScrollerPracticeEvent = BezemEscapePracticeEvent & {
+  mode: "zeg-en-vlieg";
+  voiceSideScroller: VoiceSideScrollerObservationDetails;
+};
 
 export interface ConceptProgress {
   practiced: number;

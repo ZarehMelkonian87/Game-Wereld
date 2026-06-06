@@ -7,6 +7,7 @@ import type {
   LanguageDomain,
   PracticeResult,
   SpatialConcept,
+  VoiceSideScrollerObservationDetails,
 } from "../types";
 
 export const BEZEM_ESCAPE_GAME_ID = "woordenschat-bezem-escape";
@@ -57,6 +58,7 @@ export interface PracticeEventInput {
   speedEarned: number;
   spokenTranscript?: string;
   targetWords: string[];
+  voiceSideScroller?: VoiceSideScrollerObservationDetails;
   wordStarsEarned: number;
   worldId?: string;
 }
@@ -259,6 +261,7 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
     speedEarned: input.speedEarned,
     spokenTranscript: input.spokenTranscript,
     targetWords: input.targetWords,
+    voiceSideScroller: input.voiceSideScroller,
     wordStarsEarned: input.wordStarsEarned,
     worldId: input.worldId ?? "beach-world-1",
     activeSpatialConcept: input.activeSpatialConcept,
@@ -452,6 +455,14 @@ export function recordVoiceSideScrollerWordObservation(
     speedEarned: input.isRecognized ? 1 : 0,
     spokenTranscript: input.spokenTranscript,
     targetWords: [input.targetWord],
+    voiceSideScroller: {
+      audioRepeats: input.audioRepeats,
+      hintsUsed: input.hintsUsed,
+      isRecognized: input.isRecognized,
+      spokenTranscript: input.spokenTranscript,
+      targetWord: input.targetWord,
+      wordAttempts: input.wordAttempts,
+    },
     wordStarsEarned: input.wordStarsEarned,
     worldId: "beach-world-1",
   });

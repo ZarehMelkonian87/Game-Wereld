@@ -1,12 +1,15 @@
-import { ClipboardList, Lightbulb, TrendingUp } from "lucide-react";
+import { ClipboardList, Lightbulb, Mic2, TrendingUp } from "lucide-react";
 import type { BezemEscapePracticeEvent, BezemEscapeProgress } from "../../types";
 import {
+  getRowsFromVoiceSideScrollerAttempts,
   getRowsFromActiveSpatialConcepts,
   getRowsFromConcepts,
   getRowsFromWords,
   getRowsSummary,
   getSectionStatus,
   getStatusFromConcept,
+  getVoiceSideScrollerAttempts,
+  getVoiceSideScrollerObservationStats,
 } from "./dashboardCalculations";
 import { compactStatusLabels } from "./statusDisplay";
 import type { DashboardAccordionSection, DashboardRow, DashboardStat } from "./types";
@@ -80,6 +83,11 @@ export const buildDashboardViewModel = ({
     },
   ];
   const activeSpatialConceptRows = getRowsFromActiveSpatialConcepts(progress.activeSpatialConcepts);
+  const voiceSideScrollerAttempts = getVoiceSideScrollerAttempts(progress.attempts);
+  const voiceSideScrollerRows =
+    getRowsFromVoiceSideScrollerAttempts(voiceSideScrollerAttempts);
+  const voiceSideScrollerStats =
+    getVoiceSideScrollerObservationStats(voiceSideScrollerAttempts);
   const sentenceRepeatRows: DashboardRow[] = [
     {
       detail: `${progress.languageDomains["sentence-repetition"].practiced} pogingen`,
@@ -108,6 +116,7 @@ export const buildDashboardViewModel = ({
     ...activeVocabularyRows,
     ...speakAndPlaceRows,
     ...activeSpatialConceptRows,
+    ...voiceSideScrollerRows,
     ...sentenceRepeatRows,
     ...directionsRows,
     ...categoryRows,
@@ -183,6 +192,17 @@ export const buildDashboardViewModel = ({
       status: getSectionStatus(activeSpatialConceptRows),
       summary: getRowsSummary(activeSpatialConceptRows, "plaatswoord", "plaatswoorden"),
       title: "Gebruikte plaatswoorden",
+    },
+    {
+      icon: <Mic2 className="h-5 w-5" strokeWidth={3} />,
+      id: "zeg-en-vlieg",
+      rows: voiceSideScrollerRows,
+      status: getSectionStatus(voiceSideScrollerRows),
+      summary:
+        voiceSideScrollerStats.totalAttempts > 0
+          ? `${voiceSideScrollerStats.practicedWords} woorden · ${voiceSideScrollerStats.recognized} herkend`
+          : "Nog geen stemronde",
+      title: "Zeg & Vlieg",
     },
     {
       icon: <ClipboardList className="h-5 w-5" strokeWidth={3} />,

@@ -111,11 +111,11 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 9: Data En Dashboard
 
-- [ ] Progress-event type voor voice side-scroller toevoegen.
-- [ ] Per kindprofiel opslaan: geoefende woorden, uitgesproken woorden, hints, audioherhalingen.
-- [ ] Dashboard uitbreiden met `Zeg & Vlieg` observaties.
-- [ ] Alleen oefenobservaties tonen, geen diagnose.
-- [ ] Exporttekst voor ouder/logopedist toevoegen.
+- [x] Progress-event type voor voice side-scroller toevoegen.
+- [x] Per kindprofiel opslaan: geoefende woorden, uitgesproken woorden, hints, audioherhalingen.
+- [x] Dashboard uitbreiden met `Zeg & Vlieg` observaties.
+- [x] Alleen oefenobservaties tonen, geen diagnose.
+- [x] Exporttekst voor ouder/logopedist toevoegen.
 
 ## Fase 10: QA En Acceptatie
 
