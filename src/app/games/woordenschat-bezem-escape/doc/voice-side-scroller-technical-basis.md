@@ -32,8 +32,10 @@ screens/voice-side-scroller/
   VoiceSideScrollerFallbackControls.tsx
   useVoiceSideScrollerController.ts
   voiceSideScrollerEngine.ts
+  voiceSideScrollerFrame.ts
   voiceSideScrollerModel.ts
   voiceSideScrollerSelectors.ts
+  useVoiceSideScrollerMicrophone.ts
   index.ts
 ```
 
@@ -84,14 +86,14 @@ De engine rekent daarna:
 - resterende tijd;
 - status `finished` bij ronde-einde.
 
-## Fallback Controls
+## Stemcontrole En Fallback Controls
 
-Voor Fase 2 is er nog geen echte microfoonbesturing. De screen heeft daarom fallback-knoppen:
+Vanaf Fase 3 heeft de screen echte microfoonbesturing via live volumemeting. De fallback-knoppen blijven beschikbaar voor browsers zonder microfoon of tijdens development:
 
 - `Omhoog`
 - `Omlaag`
 
-Deze knoppen sturen dezelfde verticale input die later door microfoonvolume wordt gevuld.
+Deze knoppen sturen dezelfde verticale input als de microfoonmeter.
 
 ## Mobiele Layout
 
@@ -103,9 +105,8 @@ De screen gebruikt:
 - safe-area padding;
 - geen pagina-scroll.
 
-## Nog Niet In Fase 2
+## Nog Niet In De Technische Basis
 
-- echte microfoon-input;
 - woordherkenning;
 - collisions;
 - score toekennen;
@@ -113,4 +114,3 @@ De screen gebruikt:
 - menu-card in wereldkeuze.
 
 Die onderdelen horen bij latere fases.
-

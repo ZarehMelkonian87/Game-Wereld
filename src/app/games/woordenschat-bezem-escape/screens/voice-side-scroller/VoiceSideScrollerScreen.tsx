@@ -4,6 +4,7 @@ import { VoiceSideScrollerFallbackControls } from "./VoiceSideScrollerFallbackCo
 import { VoiceSideScrollerHud } from "./VoiceSideScrollerHud";
 import { VoiceSideScrollerStage } from "./VoiceSideScrollerStage";
 import { VoiceSideScrollerStatusPanel } from "./VoiceSideScrollerStatusPanel";
+import { VoiceSideScrollerVoiceMeter } from "./VoiceSideScrollerVoiceMeter";
 
 interface VoiceSideScrollerScreenProps {
   onBackToMenu: () => void;
@@ -22,8 +23,11 @@ export const VoiceSideScrollerScreen = ({
       aria-label="Zeg en Vlieg"
       className="pointer-events-auto absolute inset-0 z-10 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-2 overflow-hidden px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)] text-slate-900 landscape:grid-cols-[minmax(0,1fr)_11rem] landscape:grid-rows-[auto_minmax(0,1fr)] landscape:gap-3"
       data-component="VoiceSideScrollerScreen"
+      data-microphone-status={controller.microphone.status}
       data-status={state.status}
       data-testid="voice-side-scroller-screen"
+      data-voice-input={controller.microphone.verticalInput.toFixed(3)}
+      data-voice-level={Math.round(controller.microphone.volumeLevel * 100)}
     >
       <div className="landscape:col-span-2">
         <VoiceSideScrollerHud
@@ -36,8 +40,9 @@ export const VoiceSideScrollerScreen = ({
         />
       </div>
       <VoiceSideScrollerStage activeTarget={activeTarget} state={state} />
-      <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_1fr]">
+      <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_auto_1fr]">
         <VoiceSideScrollerStatusPanel activeTarget={activeTarget} status={state.status} />
+        <VoiceSideScrollerVoiceMeter microphone={controller.microphone} />
         <VoiceSideScrollerFallbackControls
           disabled={controlsDisabled}
           onMoveDown={controller.fallbackDown}

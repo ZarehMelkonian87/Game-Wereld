@@ -14,6 +14,10 @@ import {
   getVoiceSideScrollerTimestamp,
   requestVoiceSideScrollerFrame,
 } from "./voiceSideScrollerFrame";
+import {
+  useVoiceSideScrollerMicrophone,
+  type VoiceSideScrollerMicrophoneState,
+} from "./useVoiceSideScrollerMicrophone";
 
 export interface VoiceSideScrollerController {
   fallbackDown: () => void;
@@ -23,12 +27,26 @@ export interface VoiceSideScrollerController {
   resetRound: () => void;
   resumeRound: () => void;
   startRound: () => void;
+  microphone: VoiceSideScrollerMicrophoneState;
   state: VoiceSideScrollerGameState;
 }
 
 export const useVoiceSideScrollerController = (): VoiceSideScrollerController => {
   const [state, setState] = useState(() => createInitialVoiceScrollerState());
   const verticalInputRef = useRef(0);
+  const {
+    microphone,
+    startMicrophoneControl,
+    stopMicrophoneControl,
+  } = useVoiceSideScrollerMicrophone();
+
+  useEffect(() => {
+    if (state.status !== "running") {
+      return;
+    }
+
+    verticalInputRef.current = microphone.verticalInput;
+  }, [microphone.verticalInput, state.status]);
 
   useEffect(() => {
     if (state.status !== "running") {
@@ -63,21 +81,25 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
   const startRound = useCallback(() => {
     verticalInputRef.current = 0;
     setState(startVoiceSideScrollerRound());
-  }, []);
+    void startMicrophoneControl();
+  }, [startMicrophoneControl]);
 
   const pauseRound = useCallback(() => {
     verticalInputRef.current = 0;
+    stopMicrophoneControl();
     setState((currentState) => pauseVoiceSideScrollerRound(currentState));
-  }, []);
+  }, [stopMicrophoneControl]);
 
   const resumeRound = useCallback(() => {
     setState((currentState) => resumeVoiceSideScrollerRound(currentState));
-  }, []);
+    void startMicrophoneControl();
+  }, [startMicrophoneControl]);
 
   const resetRound = useCallback(() => {
     verticalInputRef.current = 0;
+    stopMicrophoneControl();
     setState(createInitialVoiceScrollerState());
-  }, []);
+  }, [stopMicrophoneControl]);
 
   const fallbackUp = useCallback(() => {
     verticalInputRef.current = -1;
@@ -95,6 +117,7 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
     fallbackDown,
     fallbackNeutral,
     fallbackUp,
+    microphone,
     pauseRound,
     resetRound,
     resumeRound,

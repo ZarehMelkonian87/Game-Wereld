@@ -49,13 +49,14 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 3: Stemcontrole
 
-- [ ] Microfoon-permission flow hergebruiken uit settings.
-- [ ] Geluidsvolume meten voor omhoog/omlaag besturing.
-- [ ] Drempels instelbaar maken: zacht, normaal, hard.
-- [ ] Ruisfilter toevoegen voor stille kamers en telefoonmicrofoons.
-- [ ] Visuele stemmeter tonen zonder het scherm druk te maken.
-- [ ] Pauzeknop toevoegen die de microfoon stopt.
-- [ ] Privacyregel tonen: audio blijft lokaal, geen opname opslaan.
+- [x] Microfoon-permission flow hergebruiken uit settings.
+- [x] Geluidsvolume meten voor omhoog/omlaag besturing.
+- [x] Drempels instelbaar maken: stil, zacht, goed, hard.
+- [x] Ruisfilter toevoegen voor stille kamers en telefoonmicrofoons.
+- [x] Visuele stemmeter tonen zonder het scherm druk te maken.
+- [x] Pauzeknop toevoegen die de microfoon stopt.
+- [x] Privacyregel tonen: audio blijft lokaal, geen opname opslaan.
+- [x] Stemcontrole documenteren: `voice-side-scroller-stemcontrole.md`.
 
 ## Fase 4: Woordherkenning
 
