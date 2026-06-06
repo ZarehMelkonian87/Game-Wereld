@@ -60,12 +60,12 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 4: Woordherkenning
 
-- [ ] Nederlandse spraakherkenning hergebruiken uit `Zeg & Zet`.
-- [ ] Objectwoorden herkennen: boot, krab, dolfijn, schelp, bal, parasol, zon.
-- [ ] Synoniemen en kind-uitspraakvarianten per woord documenteren.
-- [ ] Per object een doelvenster maken: zeg het woord wanneer het object verschijnt.
-- [ ] Fout/onduidelijk vriendelijk afhandelen met hintvideo of mascot.
-- [ ] Herhalingsknop toevoegen voor de opdracht.
+- [x] Nederlandse spraakherkenning hergebruiken uit `Zeg & Zet`.
+- [x] Objectwoorden herkennen: boot, krab, dolfijn, schelp, bal, parasol, zon.
+- [x] Synoniemen en kind-uitspraakvarianten per woord documenteren.
+- [x] Per object een doelvenster maken: zeg het woord wanneer het object verschijnt.
+- [x] Fout/onduidelijk vriendelijk afhandelen met hintvideo of mascot.
+- [x] Herhalingsknop toevoegen voor de opdracht.
 
 ## Fase 5: Side-Scroller Gameplay
 

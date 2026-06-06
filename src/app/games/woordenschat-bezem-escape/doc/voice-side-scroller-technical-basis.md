@@ -29,13 +29,16 @@ screens/voice-side-scroller/
   VoiceSideScrollerPlayer.tsx
   VoiceSideScrollerTargetLayer.tsx
   VoiceSideScrollerStatusPanel.tsx
+  VoiceSideScrollerVoiceMeter.tsx
   VoiceSideScrollerFallbackControls.tsx
   useVoiceSideScrollerController.ts
+  useVoiceSideScrollerMicrophone.ts
+  useVoiceSideScrollerWordRecognition.ts
   voiceSideScrollerEngine.ts
   voiceSideScrollerFrame.ts
   voiceSideScrollerModel.ts
   voiceSideScrollerSelectors.ts
-  useVoiceSideScrollerMicrophone.ts
+  voiceSideScrollerWords.ts
   index.ts
 ```
 
@@ -95,6 +98,17 @@ Vanaf Fase 3 heeft de screen echte microfoonbesturing via live volumemeting. De 
 
 Deze knoppen sturen dezelfde verticale input als de microfoonmeter.
 
+## Woordherkenning
+
+Vanaf Fase 4 gebruikt de side-scroller dezelfde Nederlandse spraakherkenningsbasis als `Zeg & Zet`.
+
+- `useVoiceSideScrollerMicrophone` meet volume voor omhoog/omlaag vliegen.
+- `useVoiceSideScrollerWordRecognition` luistert naar het actieve objectwoord.
+- `voiceSideScrollerWords` bevat de doelwoorden en uitspraakvarianten.
+- `collectVoiceSideScrollerTarget` geeft een ster en `+1 Speed` als het actieve woord wordt herkend.
+
+De eerste MVP-woorden zijn: boot, krab, dolfijn, schelp, bal, parasol en zon.
+
 ## Mobiele Layout
 
 De screen gebruikt:
@@ -107,9 +121,7 @@ De screen gebruikt:
 
 ## Nog Niet In De Technische Basis
 
-- woordherkenning;
 - collisions;
-- score toekennen;
 - dashboard-events;
 - menu-card in wereldkeuze.
 

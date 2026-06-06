@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  collectVoiceSideScrollerTarget,
   pauseVoiceSideScrollerRound,
   resumeVoiceSideScrollerRound,
   startVoiceSideScrollerRound,
@@ -18,6 +19,12 @@ import {
   useVoiceSideScrollerMicrophone,
   type VoiceSideScrollerMicrophoneState,
 } from "./useVoiceSideScrollerMicrophone";
+import {
+  useVoiceSideScrollerWordRecognition,
+  type VoiceSideScrollerWordRecognitionState,
+} from "./useVoiceSideScrollerWordRecognition";
+import { getActiveVoiceScrollerTarget } from "./voiceSideScrollerSelectors";
+import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 
 export interface VoiceSideScrollerController {
   fallbackDown: () => void;
@@ -26,9 +33,12 @@ export interface VoiceSideScrollerController {
   pauseRound: () => void;
   resetRound: () => void;
   resumeRound: () => void;
+  repeatWordPrompt: () => boolean;
   startRound: () => void;
+  activeTarget?: VoiceSideScrollerTarget;
   microphone: VoiceSideScrollerMicrophoneState;
   state: VoiceSideScrollerGameState;
+  wordRecognition: VoiceSideScrollerWordRecognitionState;
 }
 
 export const useVoiceSideScrollerController = (): VoiceSideScrollerController => {
@@ -39,6 +49,19 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
     startMicrophoneControl,
     stopMicrophoneControl,
   } = useVoiceSideScrollerMicrophone();
+  const activeTarget = getActiveVoiceScrollerTarget(state.targets);
+  const handleWordMatched = useCallback((target: VoiceSideScrollerTarget) => {
+    setState((currentState) => collectVoiceSideScrollerTarget(currentState, target.id));
+  }, []);
+  const {
+    repeatWordPrompt,
+    stopWordRecognition,
+    wordRecognition,
+  } = useVoiceSideScrollerWordRecognition({
+    activeTarget,
+    isRunning: state.status === "running",
+    onWordMatched: handleWordMatched,
+  });
 
   useEffect(() => {
     if (state.status !== "running") {
@@ -82,24 +105,32 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
     verticalInputRef.current = 0;
     setState(startVoiceSideScrollerRound());
     void startMicrophoneControl();
-  }, [startMicrophoneControl]);
+    window.setTimeout(() => {
+      repeatWordPrompt();
+    }, 0);
+  }, [repeatWordPrompt, startMicrophoneControl]);
 
   const pauseRound = useCallback(() => {
     verticalInputRef.current = 0;
     stopMicrophoneControl();
+    stopWordRecognition();
     setState((currentState) => pauseVoiceSideScrollerRound(currentState));
-  }, [stopMicrophoneControl]);
+  }, [stopMicrophoneControl, stopWordRecognition]);
 
   const resumeRound = useCallback(() => {
     setState((currentState) => resumeVoiceSideScrollerRound(currentState));
     void startMicrophoneControl();
-  }, [startMicrophoneControl]);
+    window.setTimeout(() => {
+      repeatWordPrompt();
+    }, 0);
+  }, [repeatWordPrompt, startMicrophoneControl]);
 
   const resetRound = useCallback(() => {
     verticalInputRef.current = 0;
     stopMicrophoneControl();
+    stopWordRecognition();
     setState(createInitialVoiceScrollerState());
-  }, [stopMicrophoneControl]);
+  }, [stopMicrophoneControl, stopWordRecognition]);
 
   const fallbackUp = useCallback(() => {
     verticalInputRef.current = -1;
@@ -114,14 +145,17 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
   }, []);
 
   return {
+    activeTarget,
     fallbackDown,
     fallbackNeutral,
     fallbackUp,
     microphone,
     pauseRound,
+    repeatWordPrompt,
     resetRound,
     resumeRound,
     startRound,
     state,
+    wordRecognition,
   };
 };

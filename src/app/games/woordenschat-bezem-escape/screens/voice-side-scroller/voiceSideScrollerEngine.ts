@@ -12,6 +12,7 @@ const INPUT_SPEED_PER_SECOND = 0.52;
 const SCROLL_SPEED_PER_SECOND = 0.105;
 const TARGET_SPEED_PER_SECOND = 0.16;
 const TARGET_RECYCLE_OFFSET = 2.1;
+const SPEED_BONUS_PER_WORD = 1;
 
 export interface VoiceSideScrollerTickInput {
   deltaMs: number;
@@ -96,3 +97,27 @@ export const resumeVoiceSideScrollerRound = (
 ): VoiceSideScrollerGameState => (
   state.status === "paused" ? { ...state, status: "running" } : state
 );
+
+export const collectVoiceSideScrollerTarget = (
+  state: VoiceSideScrollerGameState,
+  targetId: string,
+): VoiceSideScrollerGameState => {
+  const target = state.targets.find((candidate) => candidate.id === targetId);
+
+  if (!target || target.collected) {
+    return state;
+  }
+
+  const targets = state.targets.map((candidate) => (
+    candidate.id === targetId ? { ...candidate, collected: true } : candidate
+  ));
+  const hasRemainingTargets = targets.some((candidate) => !candidate.collected);
+
+  return {
+    ...state,
+    speed: state.speed + SPEED_BONUS_PER_WORD,
+    stars: state.stars + 1,
+    status: hasRemainingTargets ? state.status : "finished",
+    targets,
+  };
+};
