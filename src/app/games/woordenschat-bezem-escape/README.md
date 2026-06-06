@@ -13,8 +13,8 @@ Maak eerst een kleine speelbare stranddemo waarin het kind:
 - een gesproken opdracht hoort;
 - het juiste strandplaatje kiest;
 - het plaatje op de juiste plek in de scene zet;
-- speed en woordsterren verdient;
-- daarna een korte bezemrace speelt met dezelfde woorden en plaatsbegrippen.
+- zelf een zin kan zeggen of typen;
+- speed en woordsterren verdient.
 
 ## Eerste Scope
 
@@ -24,7 +24,7 @@ Maak eerst een kleine speelbare stranddemo waarin het kind:
 - Modi:
   - Zeg & Zet.
   - Kies het Woord.
-  - Bezem Escape-run.
+- Nieuwe voice side-scroller komt in een aparte vervolgfase.
 - Beloning: bezemkleur of sticker.
 - Opslag: lokale voortgang per kindprofiel.
 
@@ -36,9 +36,8 @@ Maak eerst een kleine speelbare stranddemo waarin het kind:
 4. Plaatje plaatsen of antwoord kiezen.
 5. Positieve feedback krijgen.
 6. Speed en woordsterren verdienen.
-7. Racen met de bezem.
-8. Beloning ontvangen.
-9. Voortgang opslaan.
+7. Beloning ontvangen.
+8. Voortgang opslaan.
 
 ## Leerdoelen
 
@@ -78,16 +77,16 @@ Per oefenmoment bewaart de game observatiedata, geen officiele score:
 4. Mobiele layout bouwen.
 5. Zeg & Zet interactie bouwen.
 6. Kies het Woord interactie bouwen.
-7. Bezem Escape-run interactie bouwen.
-8. Voortgang lokaal opslaan.
-9. Resultaat- en beloningsscherm bouwen.
+7. Voortgang lokaal opslaan.
+8. Resultaat- en beloningsscherm bouwen.
+9. Nieuwe voice side-scroller ontwerpen en bouwen volgens `doc/voice-side-scroller-takenlijst.md`.
 
 ## Mobiele Layout
 
 De eerste mobiele layout bevat:
 
 - een compacte header met terugknop, titel en speed;
-- drie grote modusknoppen voor Plaats, Kies en Race;
+- grote modusknoppen voor Zeg & Zet en Kies het Woord;
 - een opdrachtpaneel met audio-, hint- en volgende-knop;
 - een strandscene met lucht, zee, strand, eiland, objecten en doelzone-highlight;
 - een objectenbalk met tikbare en voorlopig sleepbare plaatjes;

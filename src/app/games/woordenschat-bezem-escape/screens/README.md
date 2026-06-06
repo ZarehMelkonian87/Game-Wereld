@@ -10,7 +10,6 @@ Huidige schermen en mappen:
 - `settings/GameSettingsScreen`
 - `SceneBuilderScreen`
 - `WordChoiceScreen`
-- `RaceScreen`
 - `reward/RewardScreen`
 - `ParentDashboardScreen`
 
@@ -18,6 +17,7 @@ Voorbeelden die hier later komen:
 
 - `ProfileSelectScreen`
 - `AvatarSelectScreen`
+- `voice-side-scroller/VoiceSideScrollerScreen`
 
 Regels:
 

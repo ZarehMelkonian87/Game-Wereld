@@ -2,13 +2,13 @@ import { Trophy } from "lucide-react";
 import type { RewardUnlock } from "../../logic/rewards";
 import { ChipList } from "./ChipList";
 import { SummaryPill } from "./SummaryPill";
-import type { StoredRaceResult } from "./raceResultStorage";
+import type { StoredRewardResult } from "./rewardResultStorage";
 
 interface RewardResultSummaryProps {
   featuredReward?: RewardUnlock;
   practicedConcepts: string[];
   practicedWords: string[];
-  raceResult: StoredRaceResult;
+  rewardResult: StoredRewardResult;
   rewardSectionText: string;
   rewardSectionTitle: string;
 }
@@ -17,7 +17,7 @@ export const RewardResultSummary = ({
   featuredReward,
   practicedConcepts,
   practicedWords,
-  raceResult,
+  rewardResult,
   rewardSectionText,
   rewardSectionTitle,
 }: RewardResultSummaryProps) => (
@@ -27,14 +27,14 @@ export const RewardResultSummary = ({
     data-testid="reward-result-summary"
   >
     <div className="grid grid-cols-3 gap-1.5">
-      <SummaryPill label="Goed" tone="emerald" value={raceResult.correctActions} />
-      <SummaryPill label="Speed" tone="sky" value={`+${raceResult.speedEarned}`} />
-      <SummaryPill label="Hints" tone="amber" value={raceResult.hintsUsed} />
+      <SummaryPill label="Goed" tone="emerald" value={rewardResult.correctActions} />
+      <SummaryPill label="Speed" tone="sky" value={`+${rewardResult.speedEarned}`} />
+      <SummaryPill label="Hints" tone="amber" value={rewardResult.hintsUsed} />
     </div>
 
     <div className="mt-1.5 grid grid-cols-2 gap-1.5">
-      <SummaryPill label="Audio" value={raceResult.audioRepeats} />
-      <SummaryPill label="Sterren" tone="amber" value={`+${raceResult.starsEarned}`} />
+      <SummaryPill label="Audio" value={rewardResult.audioRepeats} />
+      <SummaryPill label="Sterren" tone="amber" value={`+${rewardResult.starsEarned}`} />
     </div>
 
     <section className="mt-3.5">

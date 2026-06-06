@@ -1,8 +1,8 @@
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
   landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
-  raceSideScroller: new URL(
-    "./assets/backgrounds/beach-race-side-scroller.png",
+  voiceSideScroller: new URL(
+    "./assets/backgrounds/beach-voice-side-scroller.png",
     import.meta.url,
   ).href,
 };

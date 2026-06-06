@@ -1,6 +1,6 @@
-export const RACE_RESULT_STORAGE_KEY = "woordenschat-bezem-escape:race-result";
+export const REWARD_RESULT_STORAGE_KEY = "woordenschat-bezem-escape:reward-result";
 
-export interface StoredRaceResult {
+export interface StoredRewardResult {
   audioRepeats: number;
   correctActions: number;
   hintsUsed: number;
@@ -13,7 +13,7 @@ export interface StoredRaceResult {
   starsEarned: number;
 }
 
-export const emptyRaceResult: StoredRaceResult = {
+export const emptyRewardResult: StoredRewardResult = {
   audioRepeats: 0,
   correctActions: 0,
   hintsUsed: 0,
@@ -26,19 +26,19 @@ export const emptyRaceResult: StoredRaceResult = {
   starsEarned: 0,
 };
 
-export const readStoredRaceResult = (): StoredRaceResult => {
+export const readStoredRewardResult = (): StoredRewardResult => {
   if (typeof window === "undefined") {
-    return emptyRaceResult;
+    return emptyRewardResult;
   }
 
-  const rawResult = window.sessionStorage.getItem(RACE_RESULT_STORAGE_KEY);
+  const rawResult = window.sessionStorage.getItem(REWARD_RESULT_STORAGE_KEY);
 
   if (!rawResult) {
-    return emptyRaceResult;
+    return emptyRewardResult;
   }
 
   try {
-    const parsedResult = JSON.parse(rawResult) as Partial<StoredRaceResult>;
+    const parsedResult = JSON.parse(rawResult) as Partial<StoredRewardResult>;
 
     return {
       audioRepeats: Number(parsedResult.audioRepeats) || 0,
@@ -57,6 +57,6 @@ export const readStoredRaceResult = (): StoredRaceResult => {
       starsEarned: Number(parsedResult.starsEarned) || 0,
     };
   } catch {
-    return emptyRaceResult;
+    return emptyRewardResult;
   }
 };

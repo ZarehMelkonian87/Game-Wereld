@@ -14,7 +14,6 @@ interface AdventureSelectScreenProps {
   onOpenSettings: () => void;
   onSelectWorld: (worldId: string) => void;
   onStartMode: (modeId: BezemEscapeMode) => void;
-  raceUnlocked: boolean;
   selectedWorldId: string;
   starCount?: number;
   worlds: readonly WorldDefinition[];
@@ -27,7 +26,6 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
   onOpenSettings,
   onSelectWorld,
   onStartMode,
-  raceUnlocked,
   selectedWorldId,
   starCount = 120,
   worlds,
@@ -38,8 +36,7 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
     () => worlds.find((world) => world.id === selectedWorldId) ?? worlds[0],
     [selectedWorldId, worlds],
   );
-  const selectedRaceWithoutUnlock = selectedModeId === "broom-escape-run" && !raceUnlocked;
-  const disableStart = !selectedWorld || selectedWorld.status !== "open" || selectedRaceWithoutUnlock;
+  const disableStart = !selectedWorld || selectedWorld.status !== "open";
 
   const handleSelectWorld = (world: WorldDefinition) => {
     if (world.status !== "open") {
@@ -73,7 +70,6 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
       aria-label="Avontuur kiezen"
       className="pointer-events-auto absolute inset-0 z-10 overflow-hidden text-slate-900"
       data-component="AdventureSelectScreen"
-      data-race-unlocked={raceUnlocked}
       data-selected-mode-id={selectedModeId}
       data-selected-world-id={selectedWorld.id}
       data-testid="adventure-select-screen"
@@ -83,7 +79,6 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
       <AdventureSelectContent
         onSelectMode={handleSelectMode}
         onSelectWorld={handleSelectWorld}
-        raceUnlocked={raceUnlocked}
         selectedModeId={selectedModeId}
         selectedWorld={selectedWorld}
         worlds={worlds}

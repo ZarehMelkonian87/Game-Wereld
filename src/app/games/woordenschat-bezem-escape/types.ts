@@ -1,7 +1,6 @@
 export type BezemEscapeMode =
   | "listen-and-place"
   | "choose-word"
-  | "broom-escape-run"
   | "zeg-en-bouw";
 
 export type PlannedPracticeMode =
@@ -137,23 +136,9 @@ export interface VocabularyChoiceInstruction extends BaseGameInstruction {
     | "same-category";
 }
 
-export interface BroomRaceInstruction extends BaseGameInstruction {
-  mode: "broom-escape-run";
-  raceAction:
-    | "fly-under"
-    | "fly-over"
-    | "go-left"
-    | "go-right"
-    | "collect"
-    | "fly-between"
-    | "follow-sequence";
-  durationSeconds?: number;
-}
-
 export type GameInstruction =
   | SceneBuilderInstruction
-  | VocabularyChoiceInstruction
-  | BroomRaceInstruction;
+  | VocabularyChoiceInstruction;
 
 export interface BroomReward {
   id: string;

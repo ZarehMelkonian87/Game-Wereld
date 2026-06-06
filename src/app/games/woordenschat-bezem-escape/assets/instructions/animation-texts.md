@@ -179,43 +179,12 @@ Deze clips horen bij `Kies het Woord`.
 
 Let op voor latere verbetering: de huidige gegenereerde feedback zegt bij sommige het-woorden `de zandkasteel` en `de vliegtuig`. Als we feedbackvideo's maken, kunnen we dit beter corrigeren naar `het zandkasteel` en `het vliegtuig` in de contentdata.
 
-## Bezem Race - Opdrachtclips
-
-Deze clips horen bij de race-opdrachtbubble.
-
-| Klaar | ID | Niveau | Tekst | Bestandsnaam voorstel |
-|---|---:|---:|---|---|
-| [ ] | `br-001` | 1 | Vlieg onder het vliegtuig door. | `br-001-opdracht-vlieg-onder-het-vliegtuig-door.mp4` |
-| [ ] | `br-002` | 1 | Spring over de bal. | `br-002-opdracht-spring-over-de-bal.mp4` |
-| [ ] | `br-003` | 2 | Ga links langs de vuurtoren. | `br-003-opdracht-ga-links-langs-de-vuurtoren.mp4` |
-| [ ] | `br-004` | 2 | Ga rechts langs de boot. | `br-004-opdracht-ga-rechts-langs-de-boot.mp4` |
-| [ ] | `br-005` | 2 | Pak de schelp naast de boot. | `br-005-opdracht-pak-de-schelp-naast-de-boot.mp4` |
-| [ ] | `br-006` | 2 | Vlieg tussen de parasol en het zandkasteel. | `br-006-opdracht-vlieg-tussen-de-parasol-en-het-zandkasteel.mp4` |
-| [ ] | `br-007` | 2 | Pak de dolfijnster in de zee. | `br-007-opdracht-pak-de-dolfijnster-in-de-zee.mp4` |
-| [ ] | `br-008` | 3 | Vlieg boven de krab. | `br-008-opdracht-vlieg-boven-de-krab.mp4` |
-| [ ] | `br-009` | 3 | Vlieg door het midden. | `br-009-opdracht-vlieg-door-het-midden.mp4` |
-| [ ] | `br-010` | 3 | Pak eerst de zonster en daarna de schelp. | `br-010-opdracht-pak-eerst-de-zonster-en-daarna-de-schelp.mp4` |
-
-## Bezem Race - Hint En Feedback
-
-| Klaar | ID | Hinttekst | Feedbacktekst |
-|---|---|---|---|
-| [ ] | `br-001` | Stuur de bezem lager dan het vliegtuig. | Gelukt! Je vloog onder het vliegtuig. +1 Speed! |
-| [ ] | `br-002` | Over betekent boven de bal langs. | Ja! Je ging over de bal. +1 Speed! |
-| [ ] | `br-003` | Links is de kant van je linkerhand. | Knap! Je ging links langs de vuurtoren. +1 Speed! |
-| [ ] | `br-004` | Rechts is de kant van je rechterhand. | Goed! Je ging rechts langs de boot. +1 Speed! |
-| [ ] | `br-005` | Zoek de schelp dicht bij de boot. | Mooi! Je pakte de schelp naast de boot. +1 Speed! |
-| [ ] | `br-006` | Tussen betekent in het midden van twee dingen. | Gelukt! Je vloog tussen de parasol en het zandkasteel. +1 Speed! |
-| [ ] | `br-007` | De dolfijnster ligt in het water. | Ja! Je pakte de dolfijnster in de zee. +1 Speed! |
-| [ ] | `br-008` | Stuur de bezem hoger dan de krab. | Knap! Je vloog boven de krab. +1 Speed! |
-| [ ] | `br-009` | Midden is tussen links en rechts. | Goed! Je vloog door het midden. +1 Speed! |
-| [ ] | `br-010` | Eerst komt de zon, daarna komt de schelp. | Mooi! Je volgde de goede volgorde. +1 Speed! |
-
 ## Aanbevolen Productievolgorde
 
 1. Maak alle `lp-*` hoofdopdrachtvideo's.
 2. Maak alle `lp-*` hint-01-object video's.
 3. Maak alle `lp-*` hint-02-oplichten video's.
 4. Maak de herbruikbare plaatsbegrip-clips.
-5. Maak pas daarna `cw-*` en `br-*` video's.
+5. Maak pas daarna `cw-*` video's.
+6. Maak voor de nieuwe voice side-scroller pas clipteksten nadat het nieuwe gameconcept is goedgekeurd.
 6. Maak feedbackvideo's alleen als de opdrachtvideo's goed werken in de app.

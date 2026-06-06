@@ -61,19 +61,6 @@ export interface PracticeEventInput {
   worldId?: string;
 }
 
-export interface RaceProgressSummaryInput {
-  audioRepeats: number;
-  correctActions: number;
-  hintsUsed: number;
-  mistakes: number;
-  playedAt?: string;
-  practicedConcepts: string[];
-  practicedWords: string[];
-  resultId?: string;
-  speedEarned: number;
-  starsEarned: number;
-}
-
 export type AdultRating = "good" | "help" | "partial";
 
 export interface SpeakAndPlaceObservationInput {
@@ -398,39 +385,5 @@ export function recordSpeakAndPlaceObservation(
     targetWords: input.targetWord ? [input.targetWord] : [],
     wordStarsEarned: input.wordStarsEarned,
     worldId: input.worldId,
-  });
-}
-
-export function recordRaceProgressSummary(profileId: string, input: RaceProgressSummaryInput) {
-  const resultId = input.resultId ?? `race-summary:${input.playedAt ?? Date.now()}`;
-  const result: PracticeResult =
-    input.correctActions > 0
-      ? input.hintsUsed > 0 || input.mistakes > 0
-        ? "correct-with-help"
-        : "correct-without-help"
-      : "needs-more-practice";
-
-  return appendPracticeEvent(profileId, {
-    assistance: input.hintsUsed > 0 ? "hint" : "none",
-    attempts: input.correctActions + input.mistakes,
-    audioRepeats: input.audioRepeats,
-    hintsUsed: input.hintsUsed,
-    id: `race-summary:${resultId}`,
-    instructionId: "race-summary",
-    isCorrect: input.correctActions > 0,
-    languageDomains: [
-      "concepts-and-directions",
-      "following-directions",
-      "sentence-comprehension",
-      "spatial-language",
-    ],
-    mode: "broom-escape-run",
-    result,
-    spatialConcepts: input.practicedConcepts.filter((concept): concept is SpatialConcept =>
-      spatialConcepts.includes(concept as SpatialConcept),
-    ),
-    speedEarned: input.speedEarned,
-    targetWords: input.practicedWords,
-    wordStarsEarned: input.starsEarned,
   });
 }

@@ -1,5 +1,4 @@
 import type {
-  BroomRaceInstruction,
   GameWorld,
   SceneBuilderInstruction,
   VocabularyChoiceInstruction,
@@ -28,16 +27,3 @@ export const getVocabularyChoiceInstructions = (world: GameWorld) => {
 
   return instructions;
 };
-
-export const getBroomRaceInstructions = (world: GameWorld) => {
-  const instructions = world.instructions.filter(
-    (item): item is BroomRaceInstruction => item.mode === "broom-escape-run",
-  );
-
-  if (instructions.length === 0) {
-    throw new Error("Woordenschat Bezem Escape mist race-opdrachten.");
-  }
-
-  return instructions;
-};
-

@@ -67,7 +67,6 @@ interface SceneBuilderScreenProps {
   instructions: SceneBuilderInstruction[];
   instructionText?: string;
   objects: SceneObject[];
-  onStartRace?: () => void;
   spokenCommandPreviewText?: string;
   zones: SceneZone[];
   showTrayLabels?: boolean;
@@ -276,7 +275,6 @@ export function SceneBuilderScreen({
   instructions,
   instructionText,
   objects,
-  onStartRace,
   spokenCommandPreviewText,
   zones,
   showTrayLabels = false,
@@ -375,12 +373,7 @@ export function SceneBuilderScreen({
   }, [rewardProfileId]);
 
   useEffect(() => {
-    setActiveInstructionIndex(0);
-    resetSelection();
-    setPlacedObjects([]);
-    setSceneComplete(false);
-    setSceneCompletionSummary(null);
-    setFeedback(null);
+    resetSceneBuilderRound();
   }, [instructions]);
 
   useEffect(() => {
@@ -684,6 +677,15 @@ export function SceneBuilderScreen({
     setFeedback(null);
   }
 
+  function resetSceneBuilderRound() {
+    setActiveInstructionIndex(0);
+    resetSelection();
+    setPlacedObjects([]);
+    setSceneComplete(false);
+    setSceneCompletionSummary(null);
+    setFeedback(null);
+  }
+
   function placeCorrectObject() {
     if (!pendingPlacement) {
       return;
@@ -808,28 +810,17 @@ export function SceneBuilderScreen({
           : instruction.feedbackCopy.correct,
         speakAndPlaceReward?.independentSentence ? "Extra bonus voor zelf zeggen!" : "",
         bonusEarned ? "Bonus zonder hint!" : "",
-        nextSceneComplete ? "De scene is klaar. Je kunt de race starten!" : "",
-        nextSceneComplete ? "Druk op Start race." : "Druk op Volgende.",
+        nextSceneComplete ? "De scene is klaar." : "",
+        nextSceneComplete ? "Druk op Opnieuw voor een nieuwe ronde." : "Druk op Volgende.",
       ]
         .filter(Boolean)
         .join(" "),
     });
   }
 
-  function startRace() {
-    if (typeof window !== "undefined" && sceneCompletionSummary) {
-      window.sessionStorage.setItem(
-        "woordenschat-bezem-escape:race-state",
-        JSON.stringify(sceneCompletionSummary),
-      );
-    }
-
-    onStartRace?.();
-  }
-
   function handleConfirm() {
     if (sceneComplete && feedback?.kind === "correct") {
-      startRace();
+      resetSceneBuilderRound();
       return;
     }
 
@@ -1427,7 +1418,7 @@ export function SceneBuilderScreen({
   const shouldRenderFeedbackCard = Boolean(feedback || hintFeedbackVideoUrl);
   const actionLabel =
     sceneComplete && feedback?.kind === "correct"
-      ? "Start race"
+      ? "Opnieuw"
       : feedback?.kind === "correct"
         ? "Volgende"
         : "Klaar";

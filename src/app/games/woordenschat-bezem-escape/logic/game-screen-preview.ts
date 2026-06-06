@@ -1,7 +1,6 @@
 export type GameScreenPreview =
   | "dashboard"
   | "mode-select"
-  | "race"
   | "reward"
   | "scene-builder"
   | "settings"
@@ -42,10 +41,6 @@ export const getScreenPreview = (): GameScreenPreview => {
 
   if (screen === "word-choice") {
     return "word-choice";
-  }
-
-  if (screen === "race") {
-    return "race";
   }
 
   if (screen === "reward") {

@@ -27,7 +27,7 @@ export const FeaturedWorldCard: DevtoolsComponent<FeaturedWorldCardProps> = ({ w
         className="mt-1 max-w-[11rem] text-[0.78rem] font-black leading-tight text-slate-800 landscape:max-w-[12rem] landscape:text-[0.82rem]"
         data-slot="description"
       >
-        Woorden plaatsen, luisteren en daarna racen.
+        Woorden horen, zeggen, typen en op de goede plek zetten.
       </p>
     </div>
 

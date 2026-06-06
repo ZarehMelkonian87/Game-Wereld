@@ -95,8 +95,7 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
     });
 
     if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem("woordenschat-bezem-escape:race-state");
-      window.sessionStorage.removeItem("woordenschat-bezem-escape:race-result");
+      window.sessionStorage.removeItem("woordenschat-bezem-escape:reward-result");
     }
 
     setIsResetDialogOpen(false);

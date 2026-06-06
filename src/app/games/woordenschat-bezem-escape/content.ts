@@ -1,5 +1,4 @@
 import type {
-  BroomRaceInstruction,
   BroomReward,
   GameInstruction,
   GameWorld,
@@ -431,47 +430,6 @@ function choiceTask(params: {
   };
 }
 
-function raceTask(params: {
-  id: string;
-  level: TaskDifficulty;
-  prompt: string;
-  objectIds: string[];
-  zoneIds: string[];
-  concepts: SpatialConcept[];
-  raceAction: BroomRaceInstruction["raceAction"];
-  hint: string;
-  feedbackSentence: string;
-  tags?: string[];
-}): BroomRaceInstruction {
-  return {
-    id: params.id,
-    mode: "broom-escape-run",
-    level: params.level,
-    prompt: params.prompt,
-    audioText: params.prompt,
-    targetObjectIds: params.objectIds,
-    targetZoneIds: params.zoneIds,
-    spatialConcepts: params.concepts,
-    languageDomains: directionDomains,
-    tags: [
-      "mvp",
-      "race",
-      ...params.concepts,
-      ...params.objectIds,
-      ...(params.tags ?? []),
-    ],
-    hint: params.hint,
-    feedback: `${params.feedbackSentence} +1 Speed!`,
-    feedbackCopy: placementFeedback(
-      params.feedbackSentence,
-      params.concepts[0] ?? "op",
-    ),
-    raceAction: params.raceAction,
-    durationSeconds: 30,
-    reward: { speed: 1, wordStars: 1 },
-  };
-}
-
 export const sceneBuilderInstructions: SceneBuilderInstruction[] = [
   sceneTask({
     id: "lp-001",
@@ -750,124 +708,9 @@ export const vocabularyChoiceInstructions: VocabularyChoiceInstruction[] = [
   }),
 ];
 
-export const broomRaceInstructions: BroomRaceInstruction[] = [
-  raceTask({
-    id: "br-001",
-    level: 1,
-    prompt: "Vlieg onder het vliegtuig door.",
-    objectIds: ["vliegtuig"],
-    zoneIds: ["lucht"],
-    concepts: ["onder"],
-    raceAction: "fly-under",
-    hint: "Stuur de bezem lager dan het vliegtuig.",
-    feedbackSentence: "Gelukt! Je vloog onder het vliegtuig.",
-  }),
-  raceTask({
-    id: "br-002",
-    level: 1,
-    prompt: "Spring over de bal.",
-    objectIds: ["bal"],
-    zoneIds: ["strand"],
-    concepts: ["boven"],
-    raceAction: "fly-over",
-    hint: "Over betekent boven de bal langs.",
-    feedbackSentence: "Ja! Je ging over de bal.",
-  }),
-  raceTask({
-    id: "br-003",
-    level: 2,
-    prompt: "Ga links langs de vuurtoren.",
-    objectIds: ["vuurtoren"],
-    zoneIds: ["eiland"],
-    concepts: ["links"],
-    raceAction: "go-left",
-    hint: "Links is de kant van je linkerhand.",
-    feedbackSentence: "Knap! Je ging links langs de vuurtoren.",
-  }),
-  raceTask({
-    id: "br-004",
-    level: 2,
-    prompt: "Ga rechts langs de boot.",
-    objectIds: ["boot"],
-    zoneIds: ["zee"],
-    concepts: ["rechts"],
-    raceAction: "go-right",
-    hint: "Rechts is de kant van je rechterhand.",
-    feedbackSentence: "Goed! Je ging rechts langs de boot.",
-  }),
-  raceTask({
-    id: "br-005",
-    level: 2,
-    prompt: "Pak de schelp naast de boot.",
-    objectIds: ["schelp", "boot"],
-    zoneIds: ["zee", "strand"],
-    concepts: ["naast"],
-    raceAction: "collect",
-    hint: "Zoek de schelp dicht bij de boot.",
-    feedbackSentence: "Mooi! Je pakte de schelp naast de boot.",
-  }),
-  raceTask({
-    id: "br-006",
-    level: 2,
-    prompt: "Vlieg tussen de parasol en het zandkasteel.",
-    objectIds: ["parasol", "zandkasteel"],
-    zoneIds: ["tussen-bal-zandkasteel"],
-    concepts: ["tussen"],
-    raceAction: "fly-between",
-    hint: "Tussen betekent in het midden van twee dingen.",
-    feedbackSentence: "Gelukt! Je vloog tussen de parasol en het zandkasteel.",
-  }),
-  raceTask({
-    id: "br-007",
-    level: 2,
-    prompt: "Pak de dolfijnster in de zee.",
-    objectIds: ["dolfijn"],
-    zoneIds: ["zee"],
-    concepts: ["in"],
-    raceAction: "collect",
-    hint: "De dolfijnster ligt in het water.",
-    feedbackSentence: "Ja! Je pakte de dolfijnster in de zee.",
-  }),
-  raceTask({
-    id: "br-008",
-    level: 3,
-    prompt: "Vlieg boven de krab.",
-    objectIds: ["krab"],
-    zoneIds: ["strand"],
-    concepts: ["boven"],
-    raceAction: "fly-over",
-    hint: "Stuur de bezem hoger dan de krab.",
-    feedbackSentence: "Knap! Je vloog boven de krab.",
-  }),
-  raceTask({
-    id: "br-009",
-    level: 3,
-    prompt: "Vlieg door het midden.",
-    objectIds: [],
-    zoneIds: ["midden-strand"],
-    concepts: ["midden"],
-    raceAction: "collect",
-    hint: "Midden is tussen links en rechts.",
-    feedbackSentence: "Goed! Je vloog door het midden.",
-  }),
-  raceTask({
-    id: "br-010",
-    level: 3,
-    prompt: "Pak eerst de zonster en daarna de schelp.",
-    objectIds: ["zon", "schelp"],
-    zoneIds: ["lucht", "strand"],
-    concepts: ["boven", "op"],
-    raceAction: "follow-sequence",
-    hint: "Eerst komt de zon, daarna komt de schelp.",
-    feedbackSentence: "Mooi! Je volgde de goede volgorde.",
-    tags: ["sequence", "eerst-daarna"],
-  }),
-];
-
 export const beachInstructions: GameInstruction[] = [
   ...sceneBuilderInstructions,
   ...vocabularyChoiceInstructions,
-  ...broomRaceInstructions,
 ];
 
 export const beachRewards: BroomReward[] = [

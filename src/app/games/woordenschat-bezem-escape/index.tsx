@@ -5,7 +5,6 @@ import {
   AdventureSelectScreen,
   GameSettingsScreen,
   ParentDashboardScreen,
-  RaceScreen,
   RewardScreen,
   SceneBuilderScreen,
   StartScreen,
@@ -18,7 +17,6 @@ export const WoordenschatBezemEscapeGame = () => {
   const {
     instructionText,
     instructions,
-    raceUnlocked,
     screenPreview,
     selectedWorld,
     showTrayLabels,
@@ -62,15 +60,8 @@ export const WoordenschatBezemEscapeGame = () => {
               onOpenSettings={() => actions.setScreen("settings")}
               onSelectWorld={actions.selectWorld}
               onStartMode={actions.startSelectedMode}
-              raceUnlocked={raceUnlocked}
               selectedWorldId={selectedWorld.id}
               worlds={worldDefinitions}
-            />
-          ) : screenPreview === "race" ? (
-            <RaceScreen
-              instructions={instructions.race}
-              objects={beachWorld.objects}
-              onShowReward={() => actions.setScreen("reward")}
             />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen instructions={instructions.wordChoice} objects={beachWorld.objects} />
@@ -79,7 +70,6 @@ export const WoordenschatBezemEscapeGame = () => {
               instructionText={instructionText}
               instructions={instructions.sceneBuilder}
               objects={beachWorld.objects}
-              onStartRace={actions.startRaceFromSceneBuilder}
               showTrayLabels={showTrayLabels}
               showZoneDevTools={showZoneDevTools}
               spokenCommandPreviewText={spokenCommandPreviewText}

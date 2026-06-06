@@ -469,7 +469,7 @@ Als een bestand groter wordt, splitsen we het op.
 ### Fase C: Grote Screens Opsplitsen
 
 - [ ] Splits `SceneBuilderScreen.tsx`.
-- [ ] Splits `RaceScreen.tsx`.
+- [ ] Bouw en splits de nieuwe `VoiceSideScrollerScreen`.
 - [ ] Splits `ParentDashboardScreen.tsx`.
 - [ ] Splits `RewardScreen.tsx`.
 - [ ] Splits `WordChoiceScreen.tsx`.
@@ -478,7 +478,7 @@ Als een bestand groter wordt, splitsen we het op.
 ### Fase D: Logica Uit UI Halen
 
 - [ ] Verplaats scene-builder state naar `useSceneBuilderController`.
-- [ ] Verplaats race state naar `useRaceController`.
+- [ ] Verplaats voice side-scroller state naar `useVoiceSideScrollerController`.
 - [ ] Verplaats dashboard berekeningen naar `useDashboardController`.
 - [ ] Verplaats scoreberekening naar `logic/scoring.ts`.
 - [ ] Verplaats progress mapping naar `logic/progressMapper.ts`.
@@ -531,7 +531,7 @@ Voor `+1 Woordenschat Bezem Escape` is de beste volgorde:
 1. Eerst `game-platform` aanmaken.
 2. Daarna shared primitives maken.
 3. Daarna `SceneBuilderScreen.tsx` opsplitsen.
-4. Daarna `RaceScreen.tsx` opsplitsen.
+4. Daarna de nieuwe `VoiceSideScrollerScreen` bouwen volgens het nieuwe concept.
 5. Daarna `ParentDashboardScreen.tsx` opsplitsen.
 6. Daarna content en state verder structureren.
 7. Daarna `_template` aanpassen voor toekomstige games.

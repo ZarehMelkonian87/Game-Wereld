@@ -8,7 +8,6 @@ import { FeaturedAdventureWorldCard } from "./FeaturedAdventureWorldCard";
 interface AdventureSelectContentProps {
   onSelectMode: (modeId: BezemEscapeMode) => void;
   onSelectWorld: (world: WorldDefinition) => void;
-  raceUnlocked: boolean;
   selectedModeId: BezemEscapeMode;
   selectedWorld: WorldDefinition;
   worlds: readonly WorldDefinition[];
@@ -17,7 +16,6 @@ interface AdventureSelectContentProps {
 export const AdventureSelectContent: DevtoolsComponent<AdventureSelectContentProps> = ({
   onSelectMode,
   onSelectWorld,
-  raceUnlocked,
   selectedModeId,
   selectedWorld,
   worlds,
@@ -38,7 +36,6 @@ export const AdventureSelectContent: DevtoolsComponent<AdventureSelectContentPro
       <AdventureSectionTitle>Kies spel</AdventureSectionTitle>
       <CompactGameModeList
         onSelectMode={onSelectMode}
-        raceUnlocked={raceUnlocked}
         selectedModeId={selectedModeId}
       />
     </div>

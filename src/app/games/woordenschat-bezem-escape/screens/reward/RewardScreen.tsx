@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useProfile } from "../../../../contexts/ProfileContext";
-import { BEZEM_ESCAPE_GAME_ID, recordRaceProgressSummary } from "../../logic/progress";
 import {
   firstRewardUnlocks,
   readUnlockedRewardIds,
@@ -11,7 +10,7 @@ import {
 import { formatList } from "./rewardDisplay";
 import { RewardActionsPanel } from "./RewardActionsPanel";
 import { RewardCard } from "./RewardCard";
-import { readStoredRaceResult } from "./raceResultStorage";
+import { readStoredRewardResult } from "./rewardResultStorage";
 
 interface RewardScreenProps {
   onBackToMenu?: () => void;
@@ -24,18 +23,17 @@ export const RewardScreen = ({
   onChooseWorld,
   onPlayAgain,
 }: RewardScreenProps) => {
-  const { currentProfile, updateProgress } = useProfile();
+  const { currentProfile } = useProfile();
   const rewardProfileId = currentProfile?.id ?? "demo-profile";
-  const progressSavedRef = useRef(false);
-  const [raceResult] = useState(() => readStoredRaceResult());
+  const [rewardResult] = useState(() => readStoredRewardResult());
   const [newRewards, setNewRewards] = useState<RewardUnlock[]>([]);
   const practicedWords = useMemo(
-    () => formatList(raceResult.practicedWords, "nog geen woorden"),
-    [raceResult.practicedWords],
+    () => formatList(rewardResult.practicedWords, "nog geen woorden"),
+    [rewardResult.practicedWords],
   );
   const practicedConcepts = useMemo(
-    () => formatList(raceResult.practicedConcepts, "nog geen plaatswoorden"),
-    [raceResult.practicedConcepts],
+    () => formatList(rewardResult.practicedConcepts, "nog geen plaatswoorden"),
+    [rewardResult.practicedConcepts],
   );
   const featuredReward = newRewards[0] ?? firstRewardUnlocks[0];
   const featuredRewardName = featuredReward?.label ?? "Woordster verzameld";
@@ -48,8 +46,8 @@ export const RewardScreen = ({
   useEffect(() => {
     const unlockedRewardIds = readUnlockedRewardIds(rewardProfileId);
     const nextRewards = resolveNewRewardUnlocks({
-      totalSpeed: raceResult.speedEarned,
-      totalWordStars: raceResult.starsEarned,
+      totalSpeed: rewardResult.speedEarned,
+      totalWordStars: rewardResult.starsEarned,
       unlockedRewardIds,
     });
 
@@ -63,55 +61,22 @@ export const RewardScreen = ({
       ...unlockedRewardIds,
       ...nextRewards.map((reward) => reward.id),
     ]);
-  }, [raceResult.speedEarned, raceResult.starsEarned, rewardProfileId]);
-
-  useEffect(() => {
-    const hasMeaningfulResult =
-      raceResult.correctActions > 0 ||
-      raceResult.practicedWords.length > 0 ||
-      raceResult.starsEarned > 0;
-
-    if (!hasMeaningfulResult || progressSavedRef.current) {
-      return;
-    }
-
-    progressSavedRef.current = true;
-    const progress = recordRaceProgressSummary(rewardProfileId, {
-      audioRepeats: raceResult.audioRepeats,
-      correctActions: raceResult.correctActions,
-      hintsUsed: raceResult.hintsUsed,
-      mistakes: raceResult.mistakes,
-      playedAt: raceResult.playedAt,
-      practicedConcepts: raceResult.practicedConcepts,
-      practicedWords: raceResult.practicedWords,
-      resultId: raceResult.resultId,
-      speedEarned: raceResult.speedEarned,
-      starsEarned: raceResult.starsEarned,
-    });
-
-    updateProgress(BEZEM_ESCAPE_GAME_ID, {
-      completed: true,
-      lastPlayed: raceResult.playedAt ?? new Date().toISOString(),
-      score: progress.totalSpeed,
-      stars: Math.min(3, Math.max(1, Math.ceil(raceResult.starsEarned / 4))),
-    });
-  }, [raceResult, rewardProfileId, updateProgress]);
+  }, [rewardResult.speedEarned, rewardResult.starsEarned, rewardProfileId]);
 
   return (
     <div
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[4.25rem] landscape:px-3 landscape:pb-[calc(env(safe-area-inset-bottom)+0.5rem)] landscape:pt-[3.75rem]"
-      data-audio-repeats={raceResult.audioRepeats}
-      data-correct-actions={raceResult.correctActions}
-      data-hints-used={raceResult.hintsUsed}
+      data-audio-repeats={rewardResult.audioRepeats}
+      data-correct-actions={rewardResult.correctActions}
+      data-hints-used={rewardResult.hintsUsed}
       data-new-rewards={newRewards.map((reward) => reward.id).join(",")}
-      data-practiced-concepts={raceResult.practicedConcepts.join(",")}
-      data-practiced-words={raceResult.practicedWords.join(",")}
+      data-practiced-concepts={rewardResult.practicedConcepts.join(",")}
+      data-practiced-words={rewardResult.practicedWords.join(",")}
       data-profile-id={rewardProfileId}
-      data-progress-saved={progressSavedRef.current ? "true" : "false"}
-      data-result-id={raceResult.resultId ?? ""}
+      data-result-id={rewardResult.resultId ?? ""}
       data-shown-rewards={featuredReward?.id ?? ""}
-      data-speed-earned={raceResult.speedEarned}
-      data-stars-earned={raceResult.starsEarned}
+      data-speed-earned={rewardResult.speedEarned}
+      data-stars-earned={rewardResult.starsEarned}
       data-testid="reward-screen"
     >
       <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_auto] gap-2">
@@ -120,7 +85,7 @@ export const RewardScreen = ({
           featuredRewardName={featuredRewardName}
           practicedConcepts={practicedConcepts}
           practicedWords={practicedWords}
-          raceResult={raceResult}
+          rewardResult={rewardResult}
           rewardSectionText={rewardSectionText}
           rewardSectionTitle={rewardSectionTitle}
         />

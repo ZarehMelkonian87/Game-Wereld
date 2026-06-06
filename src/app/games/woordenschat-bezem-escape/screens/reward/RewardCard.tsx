@@ -1,6 +1,6 @@
 import { PanelCard } from "../../components/ui";
 import type { RewardUnlock } from "../../logic/rewards";
-import type { StoredRaceResult } from "./raceResultStorage";
+import type { StoredRewardResult } from "./rewardResultStorage";
 import { RewardPrizePanel } from "./RewardPrizePanel";
 import { RewardResultSummary } from "./RewardResultSummary";
 
@@ -9,7 +9,7 @@ interface RewardCardProps {
   featuredRewardName: string;
   practicedConcepts: string[];
   practicedWords: string[];
-  raceResult: StoredRaceResult;
+  rewardResult: StoredRewardResult;
   rewardSectionText: string;
   rewardSectionTitle: string;
 }
@@ -19,7 +19,7 @@ export const RewardCard = ({
   featuredRewardName,
   practicedConcepts,
   practicedWords,
-  raceResult,
+  rewardResult,
   rewardSectionText,
   rewardSectionTitle,
 }: RewardCardProps) => (
@@ -32,13 +32,13 @@ export const RewardCard = ({
       <RewardPrizePanel
         featuredReward={featuredReward}
         featuredRewardName={featuredRewardName}
-        starsEarned={raceResult.starsEarned}
+        starsEarned={rewardResult.starsEarned}
       />
       <RewardResultSummary
         featuredReward={featuredReward}
         practicedConcepts={practicedConcepts}
         practicedWords={practicedWords}
-        raceResult={raceResult}
+        rewardResult={rewardResult}
         rewardSectionText={rewardSectionText}
         rewardSectionTitle={rewardSectionTitle}
       />

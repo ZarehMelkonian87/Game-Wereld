@@ -68,15 +68,15 @@ export const beachBackgroundAssets: BezemEscapeImageAsset[] = [
     readiness: "ready",
   },
   {
-    id: "beach-race-side-scroller",
-    label: "Strand race side-scroller",
+    id: "beach-voice-side-scroller",
+    label: "Strand voice side-scroller",
     kind: "background",
-    path: "backgrounds/beach-race-side-scroller.png",
+    path: "backgrounds/beach-voice-side-scroller.png",
     width: 1983,
     height: 793,
     hasAlpha: false,
     readiness: "ready",
-    notes: "Brede strandachtergrond voor de nieuwe voice-controlled side-scroller race.",
+    notes: "Brede strandachtergrond voor het nieuwe voice-controlled side-scroller concept.",
   },
 ];
 

@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useProfile } from "../../../contexts/ProfileContext";
 import { beachWorld } from "../content";
 import {
-  getBroomRaceInstructions,
   getSceneBuilderInstructions,
   getVocabularyChoiceInstructions,
 } from "../logic/instruction-groups";
@@ -20,7 +19,6 @@ import {
   shouldShowZoneDevTools,
 } from "../logic/game-screen-preview";
 import type { GameScreenPreview } from "../logic/game-screen-preview";
-import { clearStoredRaceResult, hasSavedRaceState } from "../logic/race-session-storage";
 import { readSelectedWorldId, saveSelectedWorldId } from "../logic/world-selection";
 import type { BezemEscapeMode } from "../types";
 import { getWorldDefinition, worldDefinitions } from "../worlds";
@@ -29,14 +27,12 @@ export const useBezemEscapeGameController = () => {
   const { currentProfile } = useProfile();
   const profileId = currentProfile?.id ?? "demo-profile";
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
-  const [raceUnlocked, setRaceUnlocked] = useState(() => hasSavedRaceState());
   const [roundSeed, setRoundSeed] = useState(() => createRoundSeed());
   const [selectedWorldId, setSelectedWorldId] = useState(() => readSelectedWorldId(profileId));
   const selectedWorld = getWorldDefinition(selectedWorldId);
 
   const baseInstructions = useMemo(
     () => ({
-      race: getBroomRaceInstructions(beachWorld),
       sceneBuilder: getSceneBuilderInstructions(beachWorld),
       wordChoice: getVocabularyChoiceInstructions(beachWorld),
     }),
@@ -44,7 +40,6 @@ export const useBezemEscapeGameController = () => {
   );
   const instructions = useMemo(
     () => ({
-      race: baseInstructions.race,
       sceneBuilder: shuffleSceneBuilderInstructions(baseInstructions.sceneBuilder, roundSeed),
       wordChoice: shuffleVocabularyChoiceInstructions(baseInstructions.wordChoice, roundSeed + 101),
     }),
@@ -60,14 +55,12 @@ export const useBezemEscapeGameController = () => {
   };
 
   const resetRound = () => {
-    clearStoredRaceResult();
     setRoundSeed(createRoundSeed());
     setScreenPreview("scene-builder");
   };
 
   const openModeSelect = () => {
     saveSelectedWorldId(profileId, selectedWorld.id);
-    setRaceUnlocked(hasSavedRaceState());
     setScreenPreview("mode-select");
   };
 
@@ -91,19 +84,6 @@ export const useBezemEscapeGameController = () => {
     setSelectedWorldId(saveSelectedWorldId(profileId, world.id));
   };
 
-  const startRaceFromSceneBuilder = () => {
-    setRaceUnlocked(true);
-    setScreenPreview("race");
-  };
-
-  const startUnlockedRace = () => {
-    if (!raceUnlocked) {
-      return;
-    }
-
-    setScreenPreview("race");
-  };
-
   const startSelectedMode = (modeId: BezemEscapeMode) => {
     if (selectedWorld.status !== "open") {
       return;
@@ -117,15 +97,6 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
-    if (modeId === "broom-escape-run") {
-      if (!raceUnlocked) {
-        return;
-      }
-
-      setScreenPreview("race");
-      return;
-    }
-
     setScreenPreview("scene-builder");
   };
 
@@ -136,14 +107,11 @@ export const useBezemEscapeGameController = () => {
       resetRound,
       selectWorld,
       setScreen,
-      startRaceFromSceneBuilder,
       startSelectedMode,
-      startUnlockedRace,
     },
     viewModel: {
       instructionText: getInstructionPreviewText(),
       instructions,
-      raceUnlocked,
       screenPreview,
       selectedWorld,
       showTrayLabels: shouldShowTrayLabels(),

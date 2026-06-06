@@ -9,10 +9,8 @@ interface ModeSelectScreenProps {
   onOpenDashboard: () => void;
   onOpenRewards: () => void;
   onOpenSettings: () => void;
-  onStartRace: () => void;
   onStartSceneBuilder: () => void;
   onStartWordChoice: () => void;
-  raceUnlocked: boolean;
 }
 
 export const ModeSelectScreen: DevtoolsComponent<ModeSelectScreenProps> = ({
@@ -20,16 +18,13 @@ export const ModeSelectScreen: DevtoolsComponent<ModeSelectScreenProps> = ({
   onOpenDashboard,
   onOpenRewards,
   onOpenSettings,
-  onStartRace,
   onStartSceneBuilder,
   onStartWordChoice,
-  raceUnlocked,
 }) => (
   <section
     aria-label="Spelkeuze"
     className="pointer-events-auto absolute inset-0 z-10 overflow-hidden text-slate-900"
     data-component="ModeSelectScreen"
-    data-race-unlocked={raceUnlocked}
     data-testid="mode-select-screen"
   >
     <ModeSelectBackground />
@@ -40,10 +35,8 @@ export const ModeSelectScreen: DevtoolsComponent<ModeSelectScreenProps> = ({
       data-slot="mode-select-layout"
     >
       <ModeGrid
-        onStartRace={onStartRace}
         onStartSceneBuilder={onStartSceneBuilder}
         onStartWordChoice={onStartWordChoice}
-        raceUnlocked={raceUnlocked}
       />
       <ModeSecondaryActions
         onOpenDashboard={onOpenDashboard}
