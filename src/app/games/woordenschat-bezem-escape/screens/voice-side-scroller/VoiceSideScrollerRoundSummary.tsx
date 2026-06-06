@@ -39,6 +39,11 @@ export const VoiceSideScrollerRoundSummary = ({
     : "geen duidelijk moeilijk woord";
   const totalHints = state.obstacleHits + getTotalWordHints(state);
   const audioRepeats = getTotalAudioRepeats(state);
+  const isGameOver = state.status === "game-over";
+  const title = isGameOver ? "Game over" : "Ronde klaar";
+  const resultText = isGameOver
+    ? "Je raakte een obstakel. Probeer opnieuw en ontwijk goed."
+    : "De tijd is op. Kijk hoeveel plaatjes je hebt gepakt.";
 
   return (
     <div
@@ -59,7 +64,10 @@ export const VoiceSideScrollerRoundSummary = ({
           />
         </div>
         <div>
-          <h2 className="text-2xl font-black leading-none text-slate-900">Ronde klaar</h2>
+          <h2 className="text-2xl font-black leading-none text-slate-900">{title}</h2>
+          <p className="mt-2 text-sm font-black leading-tight text-sky-900">
+            {resultText}
+          </p>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
             Focus: {focusText}
           </p>
@@ -69,7 +77,7 @@ export const VoiceSideScrollerRoundSummary = ({
         </div>
         <div className="grid grid-cols-3 gap-2 text-xs font-black text-slate-900">
           <span className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-2">
-            {state.stars}/{state.targets.length}
+            {state.stars}
             <br />
             sterren
           </span>

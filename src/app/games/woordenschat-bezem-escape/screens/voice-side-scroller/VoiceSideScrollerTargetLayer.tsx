@@ -4,12 +4,10 @@ import { classNames } from "../../components/ui/classNames";
 import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerTargetLayerProps {
-  activeTargetId?: string;
   targets: VoiceSideScrollerTarget[];
 }
 
 export const VoiceSideScrollerTargetLayer = ({
-  activeTargetId,
   targets,
 }: VoiceSideScrollerTargetLayerProps) => (
   <div
@@ -23,7 +21,6 @@ export const VoiceSideScrollerTargetLayer = ({
         voiceSideScrollerObjectSpriteUrls[
           target.assetId as keyof typeof voiceSideScrollerObjectSpriteUrls
         ];
-      const isActive = target.id === activeTargetId;
 
       if (!objectUrl) {
         return null;
@@ -32,13 +29,11 @@ export const VoiceSideScrollerTargetLayer = ({
       return (
         <div
           className={classNames(
-            "absolute h-20 w-20 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 landscape:h-24 landscape:w-24",
-            isActive
-              ? "scale-110 drop-shadow-[0_0_18px_rgba(250,204,21,0.85)]"
-              : "drop-shadow-[0_5px_0_rgba(21,48,74,0.15)]",
+            "absolute h-20 w-20 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150 landscape:h-24 landscape:w-24",
+            "drop-shadow-[0_5px_0_rgba(21,48,74,0.15)]",
             target.collected && "scale-75 opacity-0",
           )}
-          data-active={isActive ? "true" : "false"}
+          data-active="false"
           data-collectible-label={target.collectibleLabel}
           data-testid={`voice-side-scroller-target-${target.assetId}`}
           key={target.id}

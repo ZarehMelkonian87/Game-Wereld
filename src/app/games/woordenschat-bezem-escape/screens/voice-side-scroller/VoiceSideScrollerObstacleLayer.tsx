@@ -21,6 +21,10 @@ export const VoiceSideScrollerObstacleLayer = ({
           "absolute -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200",
           obstacle.hit && "opacity-45",
         )}
+        data-collision-height={obstacle.collisionBox.height}
+        data-collision-offset-x={obstacle.collisionBox.offsetX}
+        data-collision-offset-y={obstacle.collisionBox.offsetY}
+        data-collision-width={obstacle.collisionBox.width}
         data-hit={obstacle.hit ? "true" : "false"}
         data-obstacle-kind={obstacle.kind}
         data-testid={`voice-side-scroller-obstacle-${obstacle.kind}`}

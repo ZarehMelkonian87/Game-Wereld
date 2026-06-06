@@ -36,7 +36,7 @@ De oude stemmeter is verwijderd. Beweging gebeurt met twee grote knoppen:
 - `Omhoog`
 - `Omlaag`
 
-Het statuspaneel blijft de actieve woordopdracht tonen. Hierdoor hoeft het kind niet tegelijk met stemvolume te sturen en woorden uit te spreken.
+Het statuspaneel toont geen verplichte woordopdracht meer. Het kind noemt zelf een zichtbaar plaatje en probeert zo veel mogelijk items te verzamelen.
 
 ## Mobiele Knoppen
 

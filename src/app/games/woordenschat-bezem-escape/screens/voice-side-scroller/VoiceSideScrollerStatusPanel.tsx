@@ -5,20 +5,22 @@ import type { VoiceSideScrollerWordRecognitionState } from "./useVoiceSideScroll
 import type {
   VoiceSideScrollerGameplayFeedback,
   VoiceSideScrollerStatus,
-  VoiceSideScrollerTarget,
 } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerStatusPanelProps {
-  activeTarget?: VoiceSideScrollerTarget;
   gameplayFeedback?: VoiceSideScrollerGameplayFeedback;
   onRepeatWordPrompt: () => boolean;
   recognition: VoiceSideScrollerWordRecognitionState;
   status: VoiceSideScrollerStatus;
 }
 
-const getStatusText = (status: VoiceSideScrollerStatus, activeTarget?: VoiceSideScrollerTarget) => {
+const getStatusText = (status: VoiceSideScrollerStatus) => {
   if (status === "running") {
-    return activeTarget ? `Zeg: ${activeTarget.word}` : "Zeg het woord";
+    return "Noem wat je ziet";
+  }
+
+  if (status === "game-over") {
+    return "Game over";
   }
 
   if (status === "paused") {
@@ -75,7 +77,11 @@ const getSubText = (
   status: VoiceSideScrollerStatus,
   recognition: VoiceSideScrollerWordRecognitionState,
 ) => {
-  if (status === "running" && gameplayFeedback?.kind === "hint") {
+  if (status === "game-over") {
+    return gameplayFeedback?.message ?? "Raak geen obstakels. Probeer opnieuw.";
+  }
+
+  if (status === "running" && gameplayFeedback) {
     return gameplayFeedback.message;
   }
 
@@ -84,14 +90,13 @@ const getSubText = (
   }
 
   if (status === "finished") {
-    return "Alle woorden zijn klaar of de tijd is op.";
+    return "De tijd is op.";
   }
 
-  return "Klaar voor ronde";
+  return "Pak zoveel mogelijk plaatjes";
 };
 
 export const VoiceSideScrollerStatusPanel = ({
-  activeTarget,
   gameplayFeedback,
   onRepeatWordPrompt,
   recognition,
@@ -100,7 +105,6 @@ export const VoiceSideScrollerStatusPanel = ({
   <PanelCard
     aria-label="Actieve opdracht"
     className="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 !rounded-[1.35rem] !p-3"
-    data-active-word={activeTarget?.word ?? ""}
     data-component="VoiceSideScrollerStatusPanel"
     data-recognition-status={recognition.status}
     data-testid="voice-side-scroller-status-panel"
@@ -110,7 +114,7 @@ export const VoiceSideScrollerStatusPanel = ({
     </div>
     <div className="min-w-0">
       <p className="text-[1.25rem] font-black leading-none text-slate-900">
-        {getStatusText(status, activeTarget)}
+        {getStatusText(status)}
       </p>
       <p className="mt-1 text-xs font-black leading-tight text-sky-900">
         {getSubText(gameplayFeedback, status, recognition)}
@@ -119,7 +123,7 @@ export const VoiceSideScrollerStatusPanel = ({
     <HudIconButton
       disabled={status !== "running"}
       icon={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
-      label="Herhaal woord"
+      label="Luister opnieuw"
       onClick={onRepeatWordPrompt}
       tone="yellow"
     />

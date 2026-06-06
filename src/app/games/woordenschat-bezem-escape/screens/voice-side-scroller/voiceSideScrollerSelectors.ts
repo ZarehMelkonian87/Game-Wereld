@@ -4,14 +4,12 @@ import type {
 } from "./voiceSideScrollerModel";
 import { VOICE_SCROLLER_ROUND_DURATION_MS } from "./voiceSideScrollerModel";
 
-export const getActiveVoiceScrollerTarget = (
+export const getVisibleVoiceScrollerTargets = (
   targets: VoiceSideScrollerTarget[],
 ) =>
   targets
-    .filter((target) => !target.collected && target.x > 0.12 && target.x < 1.15)
-    .sort((leftTarget, rightTarget) => leftTarget.x - rightTarget.x)[0] ??
-  targets.find((target) => !target.collected) ??
-  targets[0];
+    .filter((target) => !target.collected && target.x > 0.02 && target.x < 0.98)
+    .sort((leftTarget, rightTarget) => leftTarget.x - rightTarget.x);
 
 export const getVoiceScrollerProgressPercent = (
   state: VoiceSideScrollerGameState,

@@ -1,4 +1,4 @@
-import type { VoiceSideScrollerGameState, VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
+import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 import { VoiceSideScrollerBackground } from "./VoiceSideScrollerBackground";
 import { VoiceSideScrollerObstacleLayer } from "./VoiceSideScrollerObstacleLayer";
 import { VoiceSideScrollerPlayer } from "./VoiceSideScrollerPlayer";
@@ -7,7 +7,6 @@ import { VoiceSideScrollerStartOverlay } from "./VoiceSideScrollerStartOverlay";
 import { VoiceSideScrollerTargetLayer } from "./VoiceSideScrollerTargetLayer";
 
 interface VoiceSideScrollerStageProps {
-  activeTarget?: VoiceSideScrollerTarget;
   onBackToMenu: () => void;
   onRestart: () => void;
   onStart: () => void;
@@ -15,7 +14,6 @@ interface VoiceSideScrollerStageProps {
 }
 
 export const VoiceSideScrollerStage = ({
-  activeTarget,
   onBackToMenu,
   onRestart,
   onStart,
@@ -31,10 +29,7 @@ export const VoiceSideScrollerStage = ({
   >
     <VoiceSideScrollerBackground scrollX={state.scrollX} />
     <VoiceSideScrollerObstacleLayer obstacles={state.obstacles} />
-    <VoiceSideScrollerTargetLayer
-      activeTargetId={activeTarget?.id}
-      targets={state.targets}
-    />
+    <VoiceSideScrollerTargetLayer targets={state.targets} />
     <VoiceSideScrollerPlayer
       isSlowed={state.collisionSlowdownMs > 0}
       playerY={state.playerY}
@@ -46,7 +41,7 @@ export const VoiceSideScrollerStage = ({
         state={state}
       />
     ) : null}
-    {state.status === "finished" ? (
+    {state.status === "finished" || state.status === "game-over" ? (
       <VoiceSideScrollerRoundSummary
         onBackToMenu={onBackToMenu}
         onRestart={onRestart}

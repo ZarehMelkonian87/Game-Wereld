@@ -8,20 +8,16 @@ export const getVoiceSideScrollerTimestamp = () => {
   return Date.now();
 };
 
-const shouldUseAnimationFrame = () =>
-  typeof window !== "undefined" &&
-  typeof window.requestAnimationFrame === "function" &&
-  typeof document !== "undefined" &&
-  !document.hidden;
-
 export const requestVoiceSideScrollerFrame = (
   callback: VoiceSideScrollerFrameCallback,
 ) => {
-  if (shouldUseAnimationFrame()) {
-    return window.requestAnimationFrame(callback);
+  if (typeof window !== "undefined" && typeof window.setTimeout === "function") {
+    return window.setTimeout(() => {
+      callback(getVoiceSideScrollerTimestamp());
+    }, 16);
   }
 
-  return window.setTimeout(() => {
+  return setTimeout(() => {
     callback(getVoiceSideScrollerTimestamp());
   }, 16);
 };
@@ -29,10 +25,6 @@ export const requestVoiceSideScrollerFrame = (
 export const cancelVoiceSideScrollerFrame = (frameId: number) => {
   if (typeof window === "undefined") {
     return;
-  }
-
-  if (typeof window.cancelAnimationFrame === "function") {
-    window.cancelAnimationFrame(frameId);
   }
 
   window.clearTimeout(frameId);

@@ -62,12 +62,13 @@ Canvas blijft een optie voor later als we veel objecten, particles, physics of c
 
 De eerste state bevat:
 
-- `status`: ready, running, paused, finished;
+- `status`: ready, running, paused, finished, game-over;
 - `playerY`: genormaliseerde verticale spelerpositie;
 - `scrollX`: achtergrondscroll;
-- `targets`: objecten die van rechts naar links bewegen;
-- `obstacles`: strandobstakels die veilig botsing kunnen geven;
-- `collisionSlowdownMs`: korte vertraging na botsing;
+- `targets`: objecten die rechts buiten beeld starten, naar links bewegen en links verdwijnen als ze niet worden genoemd;
+- `obstacles`: strandobstakels die bij botsing game-over geven;
+- `obstacles.collisionBox`: kleinere hitbox per obstakel, los van de volledige sprite;
+- `collisionSlowdownMs`: korte visuele botsing-state voor het einde-scherm;
 - `gameplayFeedback`: tijdelijke kindvriendelijke feedback;
 - `speed`: taal-speedwaarde;
 - `stars`: scorewaarde;
@@ -94,7 +95,7 @@ De engine rekent daarna:
 - nieuwe scrollpositie;
 - nieuwe objectposities;
 - nieuwe obstakelposities;
-- veilige botsing met tijdelijke vertraging;
+- game-over bij botsing met een obstakel;
 - resterende tijd;
 - status `finished` bij ronde-einde.
 
@@ -114,9 +115,9 @@ Deze knoppen sturen de verticale input van de engine.
 Vanaf Fase 4 gebruikt de side-scroller dezelfde Nederlandse spraakherkenningsbasis als `Zeg & Zet`.
 
 - `VoiceSideScrollerMovementControls` stuurt omhoog/omlaag vliegen.
-- `useVoiceSideScrollerWordRecognition` luistert naar het actieve objectwoord.
+- `useVoiceSideScrollerWordRecognition` luistert naar alle zichtbare objectwoorden.
 - `voiceSideScrollerWords` bevat de doelwoorden en uitspraakvarianten.
-- `collectVoiceSideScrollerTarget` geeft een ster en `+1 Speed` als het actieve woord wordt herkend.
+- `collectVoiceSideScrollerTarget` geeft een ster en `+1 Speed` als een zichtbaar objectwoord wordt herkend.
 
 De eerste MVP-woorden zijn: boot, krab, dolfijn, schelp, bal, parasol en zon.
 
@@ -127,7 +128,7 @@ Vanaf Fase 5 bevat de stage:
 - parallax-lagen voor lucht, zee en strand;
 - woordsterren rond de strandobjecten;
 - strandobstakels: wolk, meeuw, haai en zeeleeuw;
-- veilige botsingen zonder game-over;
+- game-over bij botsing met een obstakel;
 - einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
 
 Vanaf Fase 7 blijft tekstfeedback buiten de drukke stage. Het statuspaneel toont hints en woordfeedback, terwijl de stage vooral beeld, speler en objecten toont.

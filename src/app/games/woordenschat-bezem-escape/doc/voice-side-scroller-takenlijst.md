@@ -12,7 +12,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 
 - Knop `Omhoog`: de speler stijgt.
 - Knop `Omlaag`: de speler daalt.
-- Objectnaam goed zeggen: het juiste object licht op of wordt verzameld.
+- Objectnaam goed zeggen: een zichtbaar object wordt verzameld.
 - Verkeerde of onduidelijke uitspraak: vriendelijke hint, geen harde game-over.
 - Voorbeelden: "boot", "krab", "dolfijn", "schelp".
 
@@ -74,7 +74,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Objecten laten binnenkomen van rechts naar links.
 - [x] Obstakels toevoegen die passen bij strand: wolk, meeuw, haai, zeeleeuw.
 - [x] Verzamelobjecten toevoegen: bootster, krabster, schelpster.
-- [x] Botsing veilig maken: vertragen en hint geven, geen harde game-over.
+- [x] Botsing met obstakel maakt game-over.
 - [x] Ronde-einde maken met samenvatting.
 
 ## Fase 6: Educatieve Regels

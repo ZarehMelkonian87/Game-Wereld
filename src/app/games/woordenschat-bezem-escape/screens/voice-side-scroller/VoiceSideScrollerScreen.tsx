@@ -23,7 +23,6 @@ export const VoiceSideScrollerScreen = ({
       aria-label="Zeg en Vlieg"
       className="pointer-events-auto absolute inset-0 z-10 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-2 overflow-hidden px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)] text-slate-900 landscape:grid-cols-[minmax(0,1fr)_9.5rem] landscape:grid-rows-[auto_minmax(0,1fr)] landscape:gap-3"
       data-component="VoiceSideScrollerScreen"
-      data-active-word={controller.activeTarget?.word ?? ""}
       data-focus-words={state.education.focusWords.join(",")}
       data-recognition-status={controller.wordRecognition.status}
       data-status={state.status}
@@ -40,7 +39,6 @@ export const VoiceSideScrollerScreen = ({
         />
       </div>
       <VoiceSideScrollerStage
-        activeTarget={controller.activeTarget}
         onBackToMenu={onBackToMenu}
         onRestart={controller.startRound}
         onStart={controller.startRound}
@@ -48,7 +46,6 @@ export const VoiceSideScrollerScreen = ({
       />
       <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_auto]">
         <VoiceSideScrollerStatusPanel
-          activeTarget={controller.activeTarget}
           gameplayFeedback={state.gameplayFeedback}
           onRepeatWordPrompt={controller.repeatWordPrompt}
           recognition={controller.wordRecognition}

@@ -25,7 +25,9 @@ De eerste ronde gebruikt woordsterren:
 - parasolster;
 - zonster.
 
-Een woordster wordt verzameld als het actieve woord wordt herkend. Dan krijgt het kind `+1 Speed` en een ster.
+Een woordster start rechts buiten beeld en scrolt rustig naar links. Het kind krijgt tijd om het woord te noemen. Als het kind het woord niet noemt, verdwijnt het item vanzelf links uit beeld en komt het later opnieuw binnen.
+
+Een woordster wordt verzameld als het kind een zichtbaar objectwoord noemt. Dan krijgt het kind `+1 Speed` en een ster.
 
 ## Obstakels
 
@@ -36,12 +38,12 @@ De eerste strandobstakels zijn:
 - haai;
 - zeeleeuw.
 
-Botsingen zijn veilig. De ronde stopt niet. De bezem vertraagt kort en de game geeft een vriendelijke hint.
+Bij botsing met een obstakel is de ronde direct klaar. Dit maakt de game spannender, terwijl onduidelijke uitspraak alleen vriendelijke feedback geeft.
 
 Voorbeeldfeedback:
 
 ```text
-Rustig, vlieg om de haai heen.
+Game over. Je raakte de haai.
 ```
 
 ## Einde Van De Ronde

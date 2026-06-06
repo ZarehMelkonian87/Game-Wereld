@@ -53,7 +53,7 @@ De gameplay voelt als een simpele side-scroller, maar het leerdoel is actieve wo
    - `Omhoog`: bezem stijgt;
    - `Omlaag`: bezem daalt.
 6. Een doelobject verschijnt, bijvoorbeeld een boot.
-7. De game zegt of toont: `Zeg: boot`.
+7. De game toont: `Noem wat je ziet`.
 8. Het kind zegt `boot`.
 9. Bij herkenning krijgt het kind:
    - object verzameld;
@@ -164,10 +164,10 @@ MVP-obstakels:
 
 Bij botsing:
 
-- geen game-over;
-- korte vertraging;
+- game-over;
+- ronde stopt direct;
 - vriendelijke feedback;
-- speler kan direct verder.
+- speler kan opnieuw starten.
 
 ### Hulp En Herhaling
 

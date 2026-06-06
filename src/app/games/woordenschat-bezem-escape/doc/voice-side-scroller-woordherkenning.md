@@ -21,7 +21,7 @@ Het kind vliegt met klik/touch-knoppen en zegt het actieve strandwoord wanneer h
 ## Gameplay-Regel
 
 1. Het actieve object licht op.
-2. De opdracht toont `Zeg: [woord]`.
+2. De status toont dat het kind elk zichtbaar plaatje mag noemen.
 3. De app luistert kort naar Nederlandse spraak.
 4. Bij een herkenning wordt het object verzameld.
 5. Bij onduidelijke herkenning krijgt het kind vriendelijke feedback en kan de opdracht opnieuw worden gestart met `Herhaal`.
@@ -41,12 +41,12 @@ De side-scroller hergebruikt `useDutchSpeechRecognition`. De woordmatch zit in `
 Beweging en woordherkenning zijn bewust gescheiden:
 
 - `VoiceSideScrollerMovementControls` stuurt de vlieghoogte met knoppen.
-- `useVoiceSideScrollerWordRecognition` controleert het actieve objectwoord.
+- `useVoiceSideScrollerWordRecognition` controleert alle zichtbare objectwoorden.
 
 ## Acceptatie
 
 - De eerste demo herkent boot, krab, dolfijn, schelp, bal, parasol en zon.
 - Synoniemen en kind-uitspraakvarianten staan vastgelegd.
-- Het actieve woord kan opnieuw worden beluisterd of geprobeerd met de herhaalknop.
+- De microfoon kan opnieuw luisteren met de herhaalknop.
 - Correcte herkenning geeft `+1 Speed` en een ster.
 - Onduidelijke herkenning geeft vriendelijke hulp, geen game-over.

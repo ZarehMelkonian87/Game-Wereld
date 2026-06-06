@@ -1,4 +1,5 @@
 export type VoiceSideScrollerStatus =
+  | "game-over"
   | "ready"
   | "running"
   | "paused"
@@ -37,6 +38,7 @@ export type VoiceSideScrollerObstacleKind =
   | "shark";
 
 export interface VoiceSideScrollerObstacle {
+  collisionBox: VoiceSideScrollerObstacleCollisionBox;
   height: number;
   hit: boolean;
   id: string;
@@ -45,6 +47,13 @@ export interface VoiceSideScrollerObstacle {
   width: number;
   x: number;
   y: number;
+}
+
+export interface VoiceSideScrollerObstacleCollisionBox {
+  height: number;
+  offsetX: number;
+  offsetY: number;
+  width: number;
 }
 
 export type VoiceSideScrollerGameplayFeedbackKind =
@@ -75,7 +84,42 @@ export interface VoiceSideScrollerGameState {
 }
 
 export const VOICE_SCROLLER_ROUND_DURATION_MS = 45_000;
-export const VOICE_SCROLLER_FOCUS_WORD_COUNT = 5;
+export const VOICE_SCROLLER_FOCUS_WORD_COUNT = 7;
+
+const TARGET_SPAWN_SPACING = 0.46;
+const TARGET_START_X = 1.18;
+const TARGET_Y_JITTER = 0.08;
+
+const clampTargetY = (value: number) => Math.min(0.8, Math.max(0.22, value));
+
+const getRandomizedTargetY = (target: VoiceSideScrollerTarget) =>
+  clampTargetY(target.y + (Math.random() - 0.5) * TARGET_Y_JITTER);
+
+const shuffleVoiceScrollerTargets = (
+  targets: VoiceSideScrollerTarget[],
+) => {
+  const shuffledTargets = [...targets];
+
+  for (let index = shuffledTargets.length - 1; index > 0; index -= 1) {
+    const targetIndex = Math.floor(Math.random() * (index + 1));
+    const currentTarget = shuffledTargets[index];
+
+    shuffledTargets[index] = shuffledTargets[targetIndex];
+    shuffledTargets[targetIndex] = currentTarget;
+  }
+
+  return shuffledTargets;
+};
+
+const createSpawnedTarget = (
+  target: VoiceSideScrollerTarget,
+  index: number,
+): VoiceSideScrollerTarget => ({
+  ...target,
+  collected: false,
+  x: TARGET_START_X + index * TARGET_SPAWN_SPACING + Math.random() * 0.22,
+  y: getRandomizedTargetY(target),
+});
 
 export const VOICE_SCROLLER_DEMO_TARGETS: VoiceSideScrollerTarget[] = [
   { id: "target-boot", word: "boot", assetId: "boot", collectibleLabel: "bootster", x: 0.72, y: 0.54, collected: false },
@@ -88,10 +132,50 @@ export const VOICE_SCROLLER_DEMO_TARGETS: VoiceSideScrollerTarget[] = [
 ];
 
 export const VOICE_SCROLLER_DEMO_OBSTACLES: VoiceSideScrollerObstacle[] = [
-  { id: "obstacle-cloud", kind: "cloud", label: "wolk", x: 0.58, y: 0.25, width: 0.28, height: 0.19, hit: false },
-  { id: "obstacle-seagull", kind: "seagull", label: "meeuw", x: 1.14, y: 0.25, width: 0.24, height: 0.2, hit: false },
-  { id: "obstacle-shark", kind: "shark", label: "haai", x: 1.7, y: 0.58, width: 0.3, height: 0.17, hit: false },
-  { id: "obstacle-sea-lion", kind: "sea-lion", label: "zeeleeuw", x: 2.26, y: 0.8, width: 0.25, height: 0.23, hit: false },
+  {
+    collisionBox: { height: 0.07, offsetX: 0, offsetY: 0.01, width: 0.14 },
+    height: 0.19,
+    hit: false,
+    id: "obstacle-cloud",
+    kind: "cloud",
+    label: "wolk",
+    width: 0.28,
+    x: 0.58,
+    y: 0.25,
+  },
+  {
+    collisionBox: { height: 0.07, offsetX: -0.01, offsetY: 0.01, width: 0.11 },
+    height: 0.2,
+    hit: false,
+    id: "obstacle-seagull",
+    kind: "seagull",
+    label: "meeuw",
+    width: 0.24,
+    x: 1.14,
+    y: 0.25,
+  },
+  {
+    collisionBox: { height: 0.06, offsetX: -0.01, offsetY: 0.01, width: 0.16 },
+    height: 0.17,
+    hit: false,
+    id: "obstacle-shark",
+    kind: "shark",
+    label: "haai",
+    width: 0.3,
+    x: 1.7,
+    y: 0.58,
+  },
+  {
+    collisionBox: { height: 0.08, offsetX: 0.01, offsetY: 0, width: 0.11 },
+    height: 0.23,
+    hit: false,
+    id: "obstacle-sea-lion",
+    kind: "sea-lion",
+    label: "zeeleeuw",
+    width: 0.25,
+    x: 2.26,
+    y: 0.8,
+  },
 ];
 
 export interface CreateInitialVoiceScrollerStateOptions {
@@ -137,21 +221,32 @@ const createRoundEducationState = (
 export const createInitialVoiceScrollerState = ({
   focusWords,
 }: CreateInitialVoiceScrollerStateOptions = {}): VoiceSideScrollerGameState => {
-  const targets = createVoiceScrollerTargets(focusWords).map((target) => ({ ...target }));
+  const targets = shuffleVoiceScrollerTargets(createVoiceScrollerTargets(focusWords))
+    .map(createSpawnedTarget);
 
   return {
-  collisionSlowdownMs: 0,
-  education: createRoundEducationState(targets),
-  elapsedMs: 0,
-  gameplayFeedback: undefined,
-  obstacleHits: 0,
-  obstacles: VOICE_SCROLLER_DEMO_OBSTACLES.map((obstacle) => ({ ...obstacle })),
-  playerY: 0.48,
-  scrollX: 0,
-  speed: 1,
-  stars: 0,
-  status: "ready",
-  targets,
-  timeLeftMs: VOICE_SCROLLER_ROUND_DURATION_MS,
+    collisionSlowdownMs: 0,
+    education: createRoundEducationState(targets),
+    elapsedMs: 0,
+    gameplayFeedback: undefined,
+    obstacleHits: 0,
+    obstacles: VOICE_SCROLLER_DEMO_OBSTACLES.map((obstacle) => ({ ...obstacle })),
+    playerY: 0.48,
+    scrollX: 0,
+    speed: 1,
+    stars: 0,
+    status: "ready",
+    targets,
+    timeLeftMs: VOICE_SCROLLER_ROUND_DURATION_MS,
   };
 };
+
+export const recycleVoiceScrollerTarget = (
+  target: VoiceSideScrollerTarget,
+  x: number,
+): VoiceSideScrollerTarget => ({
+  ...target,
+  collected: false,
+  x,
+  y: getRandomizedTargetY(target),
+});

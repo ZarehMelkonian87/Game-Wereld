@@ -13,7 +13,7 @@ De vorige versie gebruikte stemvolume voor omhoog/omlaag vliegen. Dat was onduid
 Nieuwe regel:
 
 - Knoppen sturen de bezem.
-- Stem pakt het actieve woordobject.
+- Stem pakt elk zichtbaar woordobject.
 
 ## Beweging
 
@@ -36,7 +36,7 @@ Hierdoor kan het kind bewegen zonder te praten en praten zonder dat de beweging 
 
 Spraakherkenning blijft actief voor het educatieve doel:
 
-1. De game toont het actieve woord, bijvoorbeeld `Zeg: boot`.
+1. De game toont dat alle zichtbare plaatjes genoemd mogen worden.
 2. Het kind zegt het woord.
 3. De game vergelijkt de gehoorde tekst met de woordvarianten.
 4. Bij herkenning wordt het object verzameld.

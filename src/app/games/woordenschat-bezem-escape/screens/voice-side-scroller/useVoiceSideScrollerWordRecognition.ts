@@ -32,46 +32,45 @@ export interface VoiceSideScrollerWordRecognitionController {
 }
 
 interface UseVoiceSideScrollerWordRecognitionOptions {
-  activeTarget?: VoiceSideScrollerTarget;
   isRunning: boolean;
-  onWordMissed: (target: VoiceSideScrollerTarget, transcript: string) => void;
+  onWordMissed: (target: VoiceSideScrollerTarget | undefined, transcript: string) => void;
   onWordMatched: (target: VoiceSideScrollerTarget, transcript: string) => void;
-  onWordPromptRepeated: (target: VoiceSideScrollerTarget) => void;
+  onWordPromptRepeated: (target: VoiceSideScrollerTarget | undefined) => void;
+  visibleTargets: VoiceSideScrollerTarget[];
 }
 
 const createIdleWordRecognitionState = (
-  supportMessage = "Zeg het woord wanneer het plaatje komt.",
+  supportMessage = "Noem een plaatje wanneer het in beeld komt.",
 ): VoiceSideScrollerWordRecognitionState => ({
-  feedbackText: "Zeg het woord wanneer het plaatje komt.",
+  feedbackText: "Noem een plaatje wanneer het in beeld komt.",
   isListening: false,
   status: "idle",
   supportMessage,
 });
 
-const getListeningFeedbackText = (targetWord?: string) =>
-  targetWord ? `Luister nu: zeg ${targetWord}.` : "Luister nu.";
+const getListeningFeedbackText = () =>
+  "Noem een plaatje dat je ziet.";
 
 const getSpeechStatusFeedback = (
   speechStatus: VoiceRecognitionStatus,
-  targetWord?: string,
 ) => {
   if (speechStatus === "listening") {
-    return getListeningFeedbackText(targetWord);
+    return getListeningFeedbackText();
   }
 
   if (speechStatus === "processing") {
     return "Ik luister mee...";
   }
 
-  return targetWord ? `Zeg rustig: ${targetWord}.` : "Zeg het woord.";
+  return "Noem snel een plaatje.";
 };
 
 export const useVoiceSideScrollerWordRecognition = ({
-  activeTarget,
   isRunning,
   onWordMissed,
   onWordMatched,
   onWordPromptRepeated,
+  visibleTargets,
 }: UseVoiceSideScrollerWordRecognitionOptions): VoiceSideScrollerWordRecognitionController => {
   const {
     confidence,
@@ -83,48 +82,34 @@ export const useVoiceSideScrollerWordRecognition = ({
     supportMessage,
     transcript,
   } = useDutchSpeechRecognition({ autoStopMs: 4_500, maxAlternatives: 4 });
-  const activeTargetRef = useRef<VoiceSideScrollerTarget | undefined>(activeTarget);
+  const visibleTargetsRef = useRef<VoiceSideScrollerTarget[]>(visibleTargets);
   const lastProcessedResultRef = useRef("");
-  const lastStartedTargetIdRef = useRef<string>();
   const [wordRecognition, setWordRecognition] = useState<VoiceSideScrollerWordRecognitionState>(
     () => createIdleWordRecognitionState(),
   );
 
   useEffect(() => {
-    activeTargetRef.current = activeTarget;
-  }, [activeTarget]);
+    visibleTargetsRef.current = visibleTargets;
+  }, [visibleTargets]);
 
   const stopWordRecognition = useCallback(() => {
     stopListening();
-    lastStartedTargetIdRef.current = undefined;
     setWordRecognition(createIdleWordRecognitionState(supportMessage));
   }, [stopListening, supportMessage]);
 
   const startWordPrompt = useCallback((isManualRepeat = false) => {
-    const target = activeTargetRef.current;
-
-    if (!target) {
-      setWordRecognition({
-        ...createIdleWordRecognitionState(supportMessage),
-        feedbackText: "Er is nu geen woord om te zeggen.",
-      });
-      return false;
-    }
-
     resetTranscript();
     lastProcessedResultRef.current = "";
-    lastStartedTargetIdRef.current = target.id;
 
     if (isManualRepeat) {
-      onWordPromptRepeated(target);
+      onWordPromptRepeated(visibleTargetsRef.current[0]);
     }
 
     setWordRecognition({
-      feedbackText: getListeningFeedbackText(target.word),
+      feedbackText: getListeningFeedbackText(),
       isListening: true,
       status: "listening",
       supportMessage,
-      targetWord: target.word,
     });
 
     return startListening();
@@ -138,25 +123,16 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
-    if (!activeTarget || activeTarget.collected) {
-      return;
-    }
-
-    if (lastStartedTargetIdRef.current === activeTarget.id) {
-      return;
-    }
-
     startWordPrompt(false);
-  }, [activeTarget?.collected, activeTarget?.id, isRunning, startWordPrompt, stopWordRecognition]);
+  }, [isRunning, startWordPrompt, stopWordRecognition]);
 
   useEffect(() => {
-    const target = activeTargetRef.current;
-
-    if (!isRunning || !target || !transcript) {
+    if (!isRunning || !transcript) {
       return;
     }
 
-    const resultKey = `${target.id}:${transcript}`;
+    const visibleTargetsSnapshot = visibleTargetsRef.current;
+    const resultKey = transcript;
 
     if (lastProcessedResultRef.current === resultKey) {
       return;
@@ -164,41 +140,60 @@ export const useVoiceSideScrollerWordRecognition = ({
 
     lastProcessedResultRef.current = resultKey;
 
-    const matchResult = matchVoiceSideScrollerWord({
-      targetWord: target.word,
-      transcript,
-    });
+    const matchedItem = visibleTargetsSnapshot
+      .map((target) => ({
+        matchResult: matchVoiceSideScrollerWord({
+          targetWord: target.word,
+          transcript,
+        }),
+        target,
+      }))
+      .find((item) => item.matchResult.isMatch);
 
-    if (matchResult.isMatch) {
+    if (matchedItem) {
       setWordRecognition({
         confidence,
-        feedbackText: `Goed gehoord: ${target.word}. +1 Speed!`,
+        feedbackText: `Goed gehoord: ${matchedItem.target.word}. +1 Speed!`,
         isListening: false,
         lastHeard: transcript,
-        matchedAlias: matchResult.matchedAlias,
+        matchedAlias: matchedItem.matchResult.matchedAlias,
         status: "matched",
         supportMessage,
-        targetWord: target.word,
+        targetWord: matchedItem.target.word,
       });
-      onWordMatched(target, transcript);
+      onWordMatched(matchedItem.target, transcript);
       return;
     }
 
+    const practiceTarget = visibleTargetsSnapshot[0];
+
     setWordRecognition({
       confidence,
-      feedbackText: `Bijna. Ik hoorde "${transcript}". Zeg rustig: ${target.word}.`,
+      feedbackText: `Ik hoorde "${transcript}". Noem een plaatje in beeld.`,
       isListening: false,
       lastHeard: transcript,
       status: "missed",
       supportMessage,
-      targetWord: target.word,
+      targetWord: practiceTarget?.word,
     });
-    onWordMissed(target, transcript);
+    onWordMissed(practiceTarget, transcript);
   }, [confidence, isRunning, onWordMatched, onWordMissed, supportMessage, transcript]);
 
   useEffect(() => {
-    const targetWord = activeTargetRef.current?.word;
+    if (!isRunning || (wordRecognition.status !== "matched" && wordRecognition.status !== "missed")) {
+      return undefined;
+    }
 
+    const restartTimer = window.setTimeout(() => {
+      startWordPrompt(false);
+    }, 550);
+
+    return () => {
+      window.clearTimeout(restartTimer);
+    };
+  }, [isRunning, startWordPrompt, wordRecognition.status]);
+
+  useEffect(() => {
     if (status === "unsupported") {
       setWordRecognition((currentState) => ({
         ...currentState,
@@ -207,7 +202,6 @@ export const useVoiceSideScrollerWordRecognition = ({
         isListening: false,
         status: "unsupported",
         supportMessage,
-        targetWord,
       }));
       return;
     }
@@ -216,11 +210,10 @@ export const useVoiceSideScrollerWordRecognition = ({
       setWordRecognition((currentState) => ({
         ...currentState,
         errorMessage,
-        feedbackText: errorMessage ?? `Probeer nog eens rustig: ${targetWord ?? "het woord"}.`,
+        feedbackText: errorMessage ?? "Probeer nog eens rustig een plaatje te noemen.",
         isListening: false,
         status: "error",
         supportMessage,
-        targetWord,
       }));
       return;
     }
@@ -236,11 +229,10 @@ export const useVoiceSideScrollerWordRecognition = ({
 
       return {
         ...currentState,
-        feedbackText: getSpeechStatusFeedback(status, targetWord),
+        feedbackText: getSpeechStatusFeedback(status),
         isListening: status === "listening",
         status: status === "listening" ? "listening" : currentState.status,
         supportMessage,
-        targetWord,
       };
     });
   }, [errorMessage, status, supportMessage]);
