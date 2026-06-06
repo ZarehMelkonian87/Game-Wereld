@@ -94,6 +94,8 @@ interface SpeechRecognitionWindow extends Window {
 
 interface CreateDutchSpeechRecognitionOptions {
   autoStopMs?: number;
+  continuous?: boolean;
+  interimResults?: boolean;
   lang?: string;
   maxAlternatives?: number;
   onEnd?: () => void;
@@ -266,6 +268,8 @@ const readBestRecognitionResult = (
 
 export const createDutchSpeechRecognition = ({
   autoStopMs = 7000,
+  continuous = false,
+  interimResults = false,
   lang = DUTCH_SPEECH_RECOGNITION_LANGUAGE,
   maxAlternatives = 3,
   onEnd,
@@ -301,20 +305,28 @@ export const createDutchSpeechRecognition = ({
   };
 
   recognition.lang = lang;
-  recognition.continuous = false;
-  recognition.interimResults = false;
+  recognition.continuous = continuous;
+  recognition.interimResults = interimResults;
   recognition.maxAlternatives = maxAlternatives;
 
   recognition.onstart = () => {
     onStatusChange?.("listening");
     clearAutoStopTimer();
-    autoStopTimer = window.setTimeout(() => {
-      onStatusChange?.("processing");
-      safeStop();
-    }, autoStopMs);
+
+    if (autoStopMs > 0) {
+      autoStopTimer = window.setTimeout(() => {
+        onStatusChange?.("processing");
+        safeStop();
+      }, autoStopMs);
+    }
   };
 
   recognition.onspeechend = () => {
+    if (continuous) {
+      onStatusChange?.("listening");
+      return;
+    }
+
     onStatusChange?.("processing");
     clearAutoStopTimer();
     safeStop();
@@ -329,7 +341,7 @@ export const createDutchSpeechRecognition = ({
     }
 
     onResult?.(result);
-    onStatusChange?.("heard");
+    onStatusChange?.(continuous ? "listening" : "heard");
   };
 
   recognition.onnomatch = () => {

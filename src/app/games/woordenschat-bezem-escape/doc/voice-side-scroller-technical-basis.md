@@ -115,7 +115,9 @@ Deze knoppen sturen de verticale input van de engine.
 Vanaf Fase 4 gebruikt de side-scroller dezelfde Nederlandse spraakherkenningsbasis als `Zeg & Zet`.
 
 - `VoiceSideScrollerMovementControls` stuurt omhoog/omlaag vliegen.
-- `useVoiceSideScrollerWordRecognition` luistert naar alle zichtbare objectwoorden.
+- `useVoiceSideScrollerWordRecognition` luistert continu naar alle zichtbare objectwoorden.
+- De side-scroller gebruikt interim-resultaten en meerdere alternatieven zodat korte woorden sneller opgepakt worden.
+- Na een match blijft de recognizer actief; de speler hoeft niet opnieuw op opnemen te drukken.
 - `voiceSideScrollerWords` bevat de doelwoorden en uitspraakvarianten.
 - `collectVoiceSideScrollerTarget` geeft een ster en `+1 Speed` als een zichtbaar objectwoord wordt herkend.
 
@@ -141,7 +143,7 @@ Vanaf Fase 8 gebruikt de stage vaste productie-assets:
 
 ## Educatieve Regels
 
-Vanaf Fase 6 kiest elke ronde maximaal vijf focuswoorden. De selectie gebruikt oefenobservaties:
+Vanaf Fase 6 kiest elke ronde maximaal zeven focuswoorden. De selectie gebruikt oefenobservaties:
 
 - woorden met `needs-more-practice` krijgen voorrang;
 - daarna komen woorden die minder vaak geoefend zijn;

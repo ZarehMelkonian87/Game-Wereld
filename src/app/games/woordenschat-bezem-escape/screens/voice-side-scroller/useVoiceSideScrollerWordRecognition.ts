@@ -65,6 +65,19 @@ const getSpeechStatusFeedback = (
   return "Noem snel een plaatje.";
 };
 
+const getTranscriptCandidates = (
+  transcript: string | undefined,
+  alternatives: { transcript: string }[],
+) => [
+  transcript,
+  ...alternatives.map((alternative) => alternative.transcript),
+]
+  .filter((candidate): candidate is string => Boolean(candidate?.trim()))
+  .map((candidate) => candidate.trim());
+
+const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
+  Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));
+
 export const useVoiceSideScrollerWordRecognition = ({
   isRunning,
   onWordMissed,
@@ -73,17 +86,26 @@ export const useVoiceSideScrollerWordRecognition = ({
   visibleTargets,
 }: UseVoiceSideScrollerWordRecognitionOptions): VoiceSideScrollerWordRecognitionController => {
   const {
+    alternatives,
     confidence,
     errorMessage,
+    isFinal,
     resetTranscript,
+    resultId,
     startListening,
     status,
     stopListening,
     supportMessage,
     transcript,
-  } = useDutchSpeechRecognition({ autoStopMs: 4_500, maxAlternatives: 4 });
+  } = useDutchSpeechRecognition({
+    autoStopMs: 0,
+    continuous: true,
+    interimResults: true,
+    maxAlternatives: 8,
+    restartOnEnd: true,
+  });
   const visibleTargetsRef = useRef<VoiceSideScrollerTarget[]>(visibleTargets);
-  const lastProcessedResultRef = useRef("");
+  const lastProcessedResultIdRef = useRef(0);
   const [wordRecognition, setWordRecognition] = useState<VoiceSideScrollerWordRecognitionState>(
     () => createIdleWordRecognitionState(),
   );
@@ -99,7 +121,7 @@ export const useVoiceSideScrollerWordRecognition = ({
 
   const startWordPrompt = useCallback((isManualRepeat = false) => {
     resetTranscript();
-    lastProcessedResultRef.current = "";
+    lastProcessedResultIdRef.current = 0;
 
     if (isManualRepeat) {
       onWordPromptRepeated(visibleTargetsRef.current[0]);
@@ -127,71 +149,114 @@ export const useVoiceSideScrollerWordRecognition = ({
   }, [isRunning, startWordPrompt, stopWordRecognition]);
 
   useEffect(() => {
-    if (!isRunning || !transcript) {
+    if (!isRunning || resultId === 0) {
       return;
     }
 
     const visibleTargetsSnapshot = visibleTargetsRef.current;
-    const resultKey = transcript;
+    const transcriptCandidates = getTranscriptCandidates(transcript, alternatives);
 
-    if (lastProcessedResultRef.current === resultKey) {
+    if (transcriptCandidates.length === 0 || lastProcessedResultIdRef.current === resultId) {
       return;
     }
 
-    lastProcessedResultRef.current = resultKey;
+    lastProcessedResultIdRef.current = resultId;
 
     const matchedItem = visibleTargetsSnapshot
-      .map((target) => ({
-        matchResult: matchVoiceSideScrollerWord({
-          targetWord: target.word,
-          transcript,
-        }),
-        target,
-      }))
+      .flatMap((target) =>
+        transcriptCandidates.map((candidate) => ({
+          matchResult: matchVoiceSideScrollerWord({
+            targetWord: target.word,
+            transcript: candidate,
+          }),
+          target,
+          transcript: candidate,
+        })),
+      )
       .find((item) => item.matchResult.isMatch);
 
     if (matchedItem) {
       setWordRecognition({
         confidence,
         feedbackText: `Goed gehoord: ${matchedItem.target.word}. +1 Speed!`,
-        isListening: false,
-        lastHeard: transcript,
+        isListening: true,
+        lastHeard: matchedItem.transcript,
         matchedAlias: matchedItem.matchResult.matchedAlias,
         status: "matched",
         supportMessage,
         targetWord: matchedItem.target.word,
       });
-      onWordMatched(matchedItem.target, transcript);
+      onWordMatched(matchedItem.target, matchedItem.transcript);
+      return;
+    }
+
+    if (!isFinal) {
       return;
     }
 
     const practiceTarget = visibleTargetsSnapshot[0];
+    const heardText = transcriptCandidates[0];
 
     setWordRecognition({
       confidence,
-      feedbackText: `Ik hoorde "${transcript}". Noem een plaatje in beeld.`,
-      isListening: false,
-      lastHeard: transcript,
+      feedbackText: `Ik hoorde "${heardText}". Noem een plaatje in beeld.`,
+      isListening: true,
+      lastHeard: heardText,
       status: "missed",
       supportMessage,
       targetWord: practiceTarget?.word,
     });
-    onWordMissed(practiceTarget, transcript);
-  }, [confidence, isRunning, onWordMatched, onWordMissed, supportMessage, transcript]);
+    onWordMissed(practiceTarget, heardText);
+  }, [
+    alternatives,
+    confidence,
+    isFinal,
+    isRunning,
+    onWordMatched,
+    onWordMissed,
+    resultId,
+    supportMessage,
+    transcript,
+  ]);
 
   useEffect(() => {
     if (!isRunning || (wordRecognition.status !== "matched" && wordRecognition.status !== "missed")) {
       return undefined;
     }
 
-    const restartTimer = window.setTimeout(() => {
-      startWordPrompt(false);
+    const feedbackTimer = window.setTimeout(() => {
+      setWordRecognition((currentState) => {
+        if (currentState.status !== "matched" && currentState.status !== "missed") {
+          return currentState;
+        }
+
+        return {
+          ...currentState,
+          feedbackText: getListeningFeedbackText(),
+          isListening: true,
+          status: "listening",
+        };
+      });
     }, 550);
 
     return () => {
-      window.clearTimeout(restartTimer);
+      window.clearTimeout(feedbackTimer);
     };
-  }, [isRunning, startWordPrompt, wordRecognition.status]);
+  }, [isRunning, wordRecognition.status]);
+
+  useEffect(() => {
+    if (!isRunning || status !== "error" || getHasBlockingSpeechError(errorMessage)) {
+      return undefined;
+    }
+
+    const recoverTimer = window.setTimeout(() => {
+      startWordPrompt(false);
+    }, 900);
+
+    return () => {
+      window.clearTimeout(recoverTimer);
+    };
+  }, [errorMessage, isRunning, startWordPrompt, status]);
 
   useEffect(() => {
     if (status === "unsupported") {

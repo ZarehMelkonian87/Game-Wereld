@@ -38,9 +38,12 @@ Spraakherkenning blijft actief voor het educatieve doel:
 
 1. De game toont dat alle zichtbare plaatjes genoemd mogen worden.
 2. Het kind zegt het woord.
-3. De game vergelijkt de gehoorde tekst met de woordvarianten.
+3. De game vergelijkt tussentijdse en definitieve herkenningsresultaten met de woordvarianten.
 4. Bij herkenning wordt het object verzameld.
-5. Bij onduidelijke herkenning krijgt het kind vriendelijke feedback.
+5. Na herkenning blijft de game automatisch luisteren voor het volgende object.
+6. Bij een definitief onduidelijk resultaat krijgt het kind vriendelijke feedback.
+
+De game gebruikt meerdere herkenningsalternatieven. Als de browser bijvoorbeeld naast de eerste transcriptie ook een betere variant meegeeft, kan het object alsnog meteen worden verzameld.
 
 ## UI
 
