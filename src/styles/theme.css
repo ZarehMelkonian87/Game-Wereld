@@ -179,12 +179,51 @@
   animation-delay: 0.75s;
 }
 
+@keyframes bezem-scroller-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.4deg);
+  }
+
+  50% {
+    transform: translateY(-0.28rem) rotate(0.7deg);
+  }
+}
+
+@keyframes bezem-scroller-bump {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+
+  45% {
+    transform: translateX(-0.38rem) rotate(-2.5deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}
+
+.bezem-scroller-float {
+  animation: bezem-scroller-float 2.2s ease-in-out infinite;
+  transform-origin: 50% 70%;
+  will-change: transform;
+}
+
+.bezem-scroller-bump {
+  animation: bezem-scroller-bump 0.42s ease-out;
+  transform-origin: 50% 70%;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bezem-feedback-toast,
   .bezem-start-flyer,
   .bezem-start-mascot,
   .bezem-start-trail,
-  .bezem-start-sparkle {
+  .bezem-start-sparkle,
+  .bezem-scroller-float,
+  .bezem-scroller-bump {
     animation: none;
   }
 }

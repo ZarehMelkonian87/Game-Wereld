@@ -39,7 +39,12 @@ export const VoiceSideScrollerScreen = ({
           state={state}
         />
       </div>
-      <VoiceSideScrollerStage activeTarget={controller.activeTarget} state={state} />
+      <VoiceSideScrollerStage
+        activeTarget={controller.activeTarget}
+        onBackToMenu={onBackToMenu}
+        onRestart={controller.startRound}
+        state={state}
+      />
       <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_auto_1fr]">
         <VoiceSideScrollerStatusPanel
           activeTarget={controller.activeTarget}

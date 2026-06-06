@@ -69,14 +69,14 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 5: Side-Scroller Gameplay
 
-- [ ] Strandachtergrond als brede scrollende laag gebruiken.
-- [ ] Parallax-lagen bepalen: lucht, zee, strand, objecten.
-- [ ] Speler op bezem laten zweven met stemhoogte.
-- [ ] Objecten laten binnenkomen van rechts naar links.
-- [ ] Obstakels toevoegen die passen bij strand: wolk, golf, rots, parasolrand.
-- [ ] Verzamelobjecten toevoegen: bootster, krabster, schelpster.
-- [ ] Botsing veilig maken: vertragen en hint geven, geen harde game-over.
-- [ ] Ronde-einde maken met samenvatting.
+- [x] Strandachtergrond als brede scrollende laag gebruiken.
+- [x] Parallax-lagen bepalen: lucht, zee, strand, objecten.
+- [x] Speler op bezem laten zweven met stemhoogte.
+- [x] Objecten laten binnenkomen van rechts naar links.
+- [x] Obstakels toevoegen die passen bij strand: wolk, golf, rots, parasolrand.
+- [x] Verzamelobjecten toevoegen: bootster, krabster, schelpster.
+- [x] Botsing veilig maken: vertragen en hint geven, geen harde game-over.
+- [x] Ronde-einde maken met samenvatting.
 
 ## Fase 6: Educatieve Regels
 

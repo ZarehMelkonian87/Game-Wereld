@@ -28,6 +28,9 @@ screens/voice-side-scroller/
   VoiceSideScrollerBackground.tsx
   VoiceSideScrollerPlayer.tsx
   VoiceSideScrollerTargetLayer.tsx
+  VoiceSideScrollerObstacleLayer.tsx
+  VoiceSideScrollerGameplayFeedback.tsx
+  VoiceSideScrollerRoundSummary.tsx
   VoiceSideScrollerStatusPanel.tsx
   VoiceSideScrollerVoiceMeter.tsx
   VoiceSideScrollerFallbackControls.tsx
@@ -64,8 +67,12 @@ De eerste state bevat:
 - `playerY`: genormaliseerde verticale spelerpositie;
 - `scrollX`: achtergrondscroll;
 - `targets`: objecten die van rechts naar links bewegen;
-- `speed`: toekomstige speedwaarde;
-- `stars`: toekomstige scorewaarde;
+- `obstacles`: strandobstakels die veilig botsing kunnen geven;
+- `collisionSlowdownMs`: korte vertraging na botsing;
+- `gameplayFeedback`: tijdelijke kindvriendelijke feedback;
+- `speed`: taal-speedwaarde;
+- `stars`: scorewaarde;
+- `obstacleHits`;
 - `elapsedMs`;
 - `timeLeftMs`.
 
@@ -86,6 +93,8 @@ De engine rekent daarna:
 - nieuwe spelerhoogte;
 - nieuwe scrollpositie;
 - nieuwe objectposities;
+- nieuwe obstakelposities;
+- veilige botsing met tijdelijke vertraging;
 - resterende tijd;
 - status `finished` bij ronde-einde.
 
@@ -109,6 +118,16 @@ Vanaf Fase 4 gebruikt de side-scroller dezelfde Nederlandse spraakherkenningsbas
 
 De eerste MVP-woorden zijn: boot, krab, dolfijn, schelp, bal, parasol en zon.
 
+## Side-Scroller Gameplay
+
+Vanaf Fase 5 bevat de stage:
+
+- parallax-lagen voor lucht, zee en strand;
+- woordsterren rond de strandobjecten;
+- strandobstakels: wolk, golf, rots en parasolrand;
+- veilige botsingen zonder game-over;
+- einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
+
 ## Mobiele Layout
 
 De screen gebruikt:
@@ -121,7 +140,6 @@ De screen gebruikt:
 
 ## Nog Niet In De Technische Basis
 
-- collisions;
 - dashboard-events;
 - menu-card in wereldkeuze.
 
