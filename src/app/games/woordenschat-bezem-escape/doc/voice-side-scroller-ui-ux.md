@@ -12,7 +12,7 @@ De mini-game heeft een eigen start-overlay met:
 
 - duidelijke titel;
 - vijf focuswoorden;
-- microfoonstatus;
+- korte uitleg: knoppen sturen, stem pakt woorden;
 - privacyregel;
 - grote startknop.
 
@@ -29,16 +29,14 @@ De stage blijft rustig:
 
 Tekstfeedback staat in het statuspaneel naast of onder de stage. Zo komt er geen lange tekst over de actie heen.
 
-## Stemindicator
+## Beweging En Spraak
 
-De stemmeter toont vier eenvoudige niveaus:
+De oude stemmeter is verwijderd. Beweging gebeurt met twee grote knoppen:
 
-- stil;
-- zacht;
-- goed;
-- hard.
+- `Omhoog`
+- `Omlaag`
 
-Dit is bedoeld als kindvriendelijke feedback voor stemcontrole, niet als meetinstrument.
+Het statuspaneel blijft de actieve woordopdracht tonen. Hierdoor hoeft het kind niet tegelijk met stemvolume te sturen en woorden uit te spreken.
 
 ## Mobiele Knoppen
 
@@ -48,7 +46,7 @@ De hoofdacties blijven groot genoeg voor telefoons:
 - pauze/verder;
 - opnieuw;
 - terug;
-- omhoog/omlaag fallback;
+- omhoog/omlaag;
 - herhaal woord.
 
 Alle knoppen zijn minimaal touch-friendly en blijven binnen de safe-area.

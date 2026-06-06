@@ -11,7 +11,7 @@ De game gebruikt een brede strandachtergrond met rustige parallax-lagen:
 - zandlaag beweegt het snelst;
 - objecten en obstakels komen van rechts naar links.
 
-De speler blijft links in beeld en beweegt verticaal met stemhoogte.
+De speler blijft links in beeld en beweegt verticaal met de knoppen `Omhoog` en `Omlaag`.
 
 ## Verzamelobjecten
 

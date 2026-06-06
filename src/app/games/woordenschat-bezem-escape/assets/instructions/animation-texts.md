@@ -52,8 +52,8 @@ Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 | [x]   | `lp-012` |      2 | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
 | [x]   | `lp-013` |      2 | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
 | [x]   | `lp-014` |      3 | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
-| [ ]   | `lp-015` |      3 | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
-| [ ]   | `lp-016` |      3 | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
+| [x]   | `lp-015` |      3 | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
+| [x]   | `lp-016` |      3 | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
 
 ## Scene Builder - Hint 1: Zoek Het Object
 

@@ -28,8 +28,8 @@ Resultaat:
 
 - `VoiceSideScrollerScreen` zichtbaar.
 - `VoiceSideScrollerStage` zichtbaar.
-- `VoiceSideScrollerVoiceMeter` zichtbaar.
-- Fallback controls zichtbaar.
+- `VoiceSideScrollerMovementControls` zichtbaar.
+- `VoiceSideScrollerVoiceMeter` niet zichtbaar.
 - Start-overlay zichtbaar.
 - Geen horizontale overflow.
 - Geen verticale overflow.
@@ -45,8 +45,8 @@ Resultaat:
 
 - `VoiceSideScrollerScreen` zichtbaar.
 - `VoiceSideScrollerStage` zichtbaar.
-- `VoiceSideScrollerVoiceMeter` zichtbaar.
-- Fallback controls zichtbaar.
+- `VoiceSideScrollerMovementControls` zichtbaar.
+- `VoiceSideScrollerVoiceMeter` niet zichtbaar.
 - Start-overlay zichtbaar.
 - Geen horizontale overflow.
 - Geen verticale overflow.
@@ -91,10 +91,10 @@ Deze punten moeten op echte toestellen worden getest:
 
 - iPhone Safari via HTTPS.
 - Android Chrome via HTTPS.
-- Telefoonmicrofoon aan/uit.
-- Headsetmicrofoon.
-- Microfoon-permission prompt accepteren/weigeren.
-- Stemhoogte-besturing in een echte kamer met achtergrondgeluid.
+- Spraakherkenning aan/uit.
+- Telefoonmicrofoon voor woordherkenning.
+- Headsetmicrofoon voor woordherkenning.
+- Spraakherkenning-permission prompt accepteren/weigeren.
 - Woordherkenning met kinderstem.
 
 ## Acceptatiecriteria
@@ -102,7 +102,7 @@ Deze punten moeten op echte toestellen worden getest:
 `Zeg & Vlieg` is technisch accepteerbaar wanneer:
 
 - De game opent in portrait en landscape zonder layout-overlap.
-- De stage, speler, targetwoorden, stemmeter en fallback-bediening zichtbaar blijven.
+- De stage, speler, targetwoorden, actieve opdracht en vliegknoppen zichtbaar blijven.
 - De oude Bezem Race niet meer bereikbaar is als actieve game.
 - Typecheck en build groen zijn.
 - Het dashboard blijft alleen oefenobservaties tonen.

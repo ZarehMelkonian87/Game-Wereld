@@ -1,98 +1,58 @@
-# Stemcontrole: Zeg & Vlieg
+# Besturing En Woordspraak: Zeg & Vlieg
 
 ## Status
 
-Dit document legt Fase 3 vast: microfoonbesturing voor `Zeg & Vlieg`.
+Dit document legt de actuele besturing vast voor `Zeg & Vlieg`.
 
-## Privacyregel
+De speler bestuurt de bezem niet meer met stemvolume. Dat gaf conflict met het uitspreken van objectnamen. De stem wordt nu alleen gebruikt voor woordherkenning.
 
-De game gebruikt de microfoon alleen om live volume te meten.
+## Waarom Gewijzigd
 
-- Er wordt geen audio-opname gemaakt.
-- Er wordt geen audiobestand opgeslagen.
-- De gemeten volumewaarde blijft lokaal in de browser.
-- Voor Fase 3 wordt nog geen woordherkenning gedaan.
+De vorige versie gebruikte stemvolume voor omhoog/omlaag vliegen. Dat was onduidelijk voor het kind, omdat hetzelfde kanaal ook nodig was om woorden zoals `boot`, `krab` en `dolfijn` uit te spreken.
 
-## Permission Flow
+Nieuwe regel:
 
-De game hergebruikt de bestaande microfoon-permission flow:
+- Knoppen sturen de bezem.
+- Stem pakt het actieve woordobject.
 
-1. Controleer of de browser microfoon kan gebruiken.
-2. Controleer of de pagina veilig genoeg is voor microfoon.
-3. Vraag toestemming via de browser-popup.
-4. Als microfoon niet werkt, blijven fallback-knoppen beschikbaar.
+## Beweging
 
-## Audio-analyse
+De game heeft twee vaste klik/touch-knoppen:
 
-De game gebruikt een lokale `AudioContext` met `AnalyserNode`.
+- `Omhoog`
+- `Omlaag`
 
-Per frame:
-
-1. Lees time-domain samples uit de analyser.
-2. Bereken RMS-volume.
-3. Trek de ruisvloer af.
-4. Zet het bruikbare signaal om naar `volumeLevel` van `0` tot `1`.
-5. Zet `volumeLevel` om naar verticale input.
-
-## Ruisfilter
-
-De ruisvloer start op `0.012`.
-
-Als het huidige volume laag genoeg is, wordt de ruisvloer rustig bijgewerkt. Zo past de game zich aan aan:
-
-- stille kamers;
-- lichte achtergrondruis;
-- verschillende telefoonmicrofoons.
-
-De ruisvloer wordt begrensd, zodat een harde stem niet per ongeluk als achtergrondruis wordt geleerd.
-
-## Drempels
-
-De eerste drempels zijn bewust simpel:
-
-| Niveau | Volume | Effect |
-|---|---:|---|
-| stil | lager dan 0.08 | bezem zakt door natuurlijke val |
-| zacht | 0.08 tot 0.45 | bezem stijgt licht |
-| goed | 0.45 tot 0.78 | bezem stijgt duidelijk |
-| hard | 0.78 tot 1.00 | bezem stijgt snel |
-
-Belangrijk: de game moet schreeuwen niet nodig maken. De drempels zijn voorlopig en moeten later op echte telefoons worden getest.
-
-## Besturing
-
-De side-scroller engine gebruikt een verticale input:
+De knoppen schrijven direct naar de verticale input van de side-scroller engine.
 
 ```text
-0 = geen steminput, bezem zakt rustig
--1 = maximale steminput, bezem stijgt snel
+0 = geen knop ingedrukt, bezem zakt rustig
+-1 = Omhoog ingedrukt, bezem stijgt
+1 = Omlaag ingedrukt, bezem daalt
 ```
 
-De fallbackknoppen gebruiken dezelfde input:
+Hierdoor kan het kind bewegen zonder te praten en praten zonder dat de beweging verandert.
 
-- `Omhoog` = `-1`
-- `Omlaag` = `1`
+## Woordspraak
 
-Hierdoor kan de game zonder microfoon getest worden.
+Spraakherkenning blijft actief voor het educatieve doel:
 
-## Pauze En Stoppen
-
-Wanneer de speler pauzeert of opnieuw start:
-
-- animation loop stopt niet volledig, maar game-state pauzeert;
-- microfoonstream stopt;
-- alle tracks worden gestopt;
-- AudioContext wordt gesloten;
-- vertical input gaat terug naar `0`.
+1. De game toont het actieve woord, bijvoorbeeld `Zeg: boot`.
+2. Het kind zegt het woord.
+3. De game vergelijkt de gehoorde tekst met de woordvarianten.
+4. Bij herkenning wordt het object verzameld.
+5. Bij onduidelijke herkenning krijgt het kind vriendelijke feedback.
 
 ## UI
 
-De stemmeter toont:
+De oude stemmeterkaart is verwijderd.
 
-- microfoonstatus;
-- volumebalk;
-- tekstfeedback;
-- privacyregel.
+Daardoor krijgt de stage meer ruimte en blijft het scherm rustiger:
 
-De stemmeter is compact en bedoeld als technische basis. In latere UI-fases kunnen we hem visueel kindvriendelijker maken.
+- geen volumelevels;
+- geen stilte/zacht/goed/hard labels;
+- geen instructie om harder te praten voor beweging;
+- alleen actieve opdracht, herhaalknop en vliegknoppen.
 
+## Privacyregel
+
+De app slaat geen audio-opname op. Alleen oefenobservaties zoals doelwoord, transcripttekst indien beschikbaar, hints en herhalingen worden opgeslagen.

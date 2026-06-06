@@ -4,7 +4,7 @@ Dit document beschrijft Fase 4 van de nieuwe side-scroller. De game gebruikt Ned
 
 ## Doel
 
-Het kind vliegt met stemvolume en zegt het actieve strandwoord wanneer het object verschijnt. Als het woord wordt herkend, verzamelt de game het object en krijgt het kind `+1 Speed` en een woordster.
+Het kind vliegt met klik/touch-knoppen en zegt het actieve strandwoord wanneer het object verschijnt. Als het woord wordt herkend, verzamelt de game het object en krijgt het kind `+1 Speed` en een woordster.
 
 ## MVP-Woorden
 
@@ -38,9 +38,9 @@ De game zegt niet hard dat iets fout is. De feedback blijft oefengericht:
 
 De side-scroller hergebruikt `useDutchSpeechRecognition`. De woordmatch zit in `voiceSideScrollerWords.ts`, zodat de matching later per wereld kan worden uitgebreid zonder de UI of engine aan te passen.
 
-Stemvolume en woordherkenning zijn bewust gescheiden:
+Beweging en woordherkenning zijn bewust gescheiden:
 
-- `useVoiceSideScrollerMicrophone` stuurt de vlieghoogte.
+- `VoiceSideScrollerMovementControls` stuurt de vlieghoogte met knoppen.
 - `useVoiceSideScrollerWordRecognition` controleert het actieve objectwoord.
 
 ## Acceptatie

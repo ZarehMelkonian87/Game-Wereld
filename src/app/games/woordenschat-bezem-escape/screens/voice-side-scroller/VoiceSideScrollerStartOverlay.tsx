@@ -2,28 +2,13 @@ import { Play, ShieldCheck, Star } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
 import { PanelCard, PrimaryActionButton } from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
-import type { VoiceSideScrollerMicrophoneState } from "./useVoiceSideScrollerMicrophone";
 
 interface VoiceSideScrollerStartOverlayProps {
-  microphone: VoiceSideScrollerMicrophoneState;
   onStart: () => void;
   state: VoiceSideScrollerGameState;
 }
 
-const getMicrophoneLabel = (microphone: VoiceSideScrollerMicrophoneState) => {
-  if (microphone.status === "blocked") {
-    return "Microfoon geblokkeerd";
-  }
-
-  if (microphone.status === "unsupported") {
-    return "Fallback beschikbaar";
-  }
-
-  return "Microfoon klaar";
-};
-
 export const VoiceSideScrollerStartOverlay = ({
-  microphone,
   onStart,
   state,
 }: VoiceSideScrollerStartOverlayProps) => (
@@ -47,7 +32,7 @@ export const VoiceSideScrollerStartOverlay = ({
       <div>
         <h2 className="text-2xl font-black leading-none text-slate-900">Zeg & Vlieg</h2>
         <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-          {state.education.focusWords.length} strandwoorden
+          Knoppen sturen de bezem. Je stem pakt de woorden.
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-1.5">
@@ -63,7 +48,7 @@ export const VoiceSideScrollerStartOverlay = ({
       </div>
       <p className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-2 text-xs font-black leading-tight text-emerald-950">
         <ShieldCheck className="mr-1 inline h-4 w-4" strokeWidth={3} />
-        {getMicrophoneLabel(microphone)} · audio blijft lokaal.
+        We slaan geen opname op.
       </p>
       <PrimaryActionButton
         aria-label="Start Zeg en Vlieg"

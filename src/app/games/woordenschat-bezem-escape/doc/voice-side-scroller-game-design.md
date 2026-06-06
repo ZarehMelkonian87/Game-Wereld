@@ -31,7 +31,7 @@ Zeg & Vlieg
 
 ## Korte Samenvatting
 
-Het kind vliegt op een magische bezem door een strandwereld. De stem bestuurt de hoogte van de bezem. Tijdens het vliegen verschijnen strandobjecten. De game vraagt een woord, bijvoorbeeld `boot`. Het kind zegt het woord. Als het woord goed genoeg herkend wordt, licht het object op en kan het kind het verzamelen.
+Het kind vliegt op een magische bezem door een strandwereld. Klik/touch-knoppen besturen de hoogte van de bezem. Tijdens het vliegen verschijnen strandobjecten. De game vraagt een woord, bijvoorbeeld `boot`. Het kind zegt het woord. Als het woord goed genoeg herkend wordt, licht het object op en kan het kind het verzamelen.
 
 De gameplay voelt als een simpele side-scroller, maar het leerdoel is actieve woordenschat, uitspraakpogingen, luisterbegrip en zelfvertrouwen bij spreken.
 
@@ -46,12 +46,12 @@ De gameplay voelt als een simpele side-scroller, maar het leerdoel is actieve wo
 ## Core Loop
 
 1. De speler kiest `Zeg & Vlieg`.
-2. De game vraagt toegang tot de microfoon als dat nog niet is gebeurd.
+2. De game gebruikt spraakherkenning wanneer het kind een objectwoord moet zeggen.
 3. De speler ziet een korte opdrachtvideo of hoort een opdracht.
 4. De speler vliegt automatisch vooruit door een strandlevel.
-5. De stem bestuurt de hoogte:
-   - stil of zacht: bezem zakt rustig;
-   - luider praten of stem maken: bezem stijgt.
+5. De speler bestuurt de hoogte met knoppen:
+   - `Omhoog`: bezem stijgt;
+   - `Omlaag`: bezem daalt.
 6. Een doelobject verschijnt, bijvoorbeeld een boot.
 7. De game zegt of toont: `Zeg: boot`.
 8. Het kind zegt `boot`.
@@ -134,16 +134,15 @@ Deze woorden zijn nuttig, maar voor de eerste demo iets complexer of langer. Ze 
 
 ## MVP Acties
 
-### Stemhoogte Besturing
+### Klikbesturing
 
-De bezem beweegt omhoog of omlaag op basis van geluidsvolume.
+De bezem beweegt omhoog of omlaag met klik/touch-knoppen.
 
-- Stil: bezem zakt langzaam.
-- Zacht praten: bezem blijft laag of stabiel.
-- Normaal praten: bezem stijgt licht.
-- Harder praten: bezem stijgt sneller.
+- Geen knop: bezem zakt rustig.
+- `Omhoog`: bezem stijgt.
+- `Omlaag`: bezem daalt.
 
-De game moet geen schreeuwen belonen. De drempel moet kindvriendelijk zijn.
+De stem wordt niet gebruikt voor beweging, zodat het kind rustig objectnamen kan uitspreken.
 
 ### Object Pakken
 
@@ -176,7 +175,7 @@ Altijd zichtbaar:
 
 - herhaal opdracht;
 - pauze;
-- microfoonstatus.
+- vliegknoppen.
 
 Hintregels:
 
@@ -244,4 +243,3 @@ Fase 1 is klaar wanneer:
 - de eerste strandwoorden gekozen zijn;
 - de MVP-acties gekozen zijn;
 - de takenlijst voor Fase 1 is bijgewerkt.
-

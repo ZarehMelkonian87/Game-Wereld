@@ -1,26 +1,27 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { PrimaryActionButton } from "../../components/ui";
 
-interface VoiceSideScrollerFallbackControlsProps {
+interface VoiceSideScrollerMovementControlsProps {
   disabled: boolean;
   onMoveDown: () => void;
   onMoveUp: () => void;
   onRelease: () => void;
 }
 
-export const VoiceSideScrollerFallbackControls = ({
+export const VoiceSideScrollerMovementControls = ({
   disabled,
   onMoveDown,
   onMoveUp,
   onRelease,
-}: VoiceSideScrollerFallbackControlsProps) => (
+}: VoiceSideScrollerMovementControlsProps) => (
   <div
+    aria-label="Vliegknoppen"
     className="grid grid-cols-2 gap-2 landscape:grid-cols-1"
-    data-component="VoiceSideScrollerFallbackControls"
-    data-testid="voice-side-scroller-fallback-controls"
+    data-component="VoiceSideScrollerMovementControls"
+    data-testid="voice-side-scroller-movement-controls"
   >
     <PrimaryActionButton
-      aria-label="Omhoog"
+      aria-label="Omhoog vliegen"
       className="h-14 min-w-0 touch-none select-none text-sm"
       disabled={disabled}
       iconLeft={<ArrowUp className="h-5 w-5" strokeWidth={3.5} />}
@@ -33,7 +34,7 @@ export const VoiceSideScrollerFallbackControls = ({
       Omhoog
     </PrimaryActionButton>
     <PrimaryActionButton
-      aria-label="Omlaag"
+      aria-label="Omlaag vliegen"
       className="h-14 min-w-0 touch-none select-none text-sm"
       disabled={disabled}
       iconLeft={<ArrowDown className="h-5 w-5" strokeWidth={3.5} />}
@@ -48,4 +49,4 @@ export const VoiceSideScrollerFallbackControls = ({
   </div>
 );
 
-VoiceSideScrollerFallbackControls.displayName = "VoiceSideScrollerFallbackControls";
+VoiceSideScrollerMovementControls.displayName = "VoiceSideScrollerMovementControls";

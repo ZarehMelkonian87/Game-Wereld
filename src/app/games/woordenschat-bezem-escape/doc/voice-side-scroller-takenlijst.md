@@ -2,19 +2,19 @@
 
 ## Doel
 
-De oude Bezem Race wordt vervangen door een nieuwe side-scroller game waarin het kind met de stem vliegt en strandwoorden oefent door objectnamen duidelijk uit te spreken.
+De oude Bezem Race wordt vervangen door een nieuwe side-scroller game waarin het kind met klik/touch-knoppen vliegt en strandwoorden oefent door objectnamen duidelijk uit te spreken.
 
 De game is een oefenspel, geen toets. Er worden geen officiele CELF Preschool- of PPVT-items, normtabellen of diagnostische scores gebruikt.
 
 ## Kernconcept
 
-Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdrachten bepalen wat het kind moet pakken of ontwijken.
+Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaalt welke objecten het kind pakt.
 
-- Stil of zacht praten: de speler zakt rustig.
-- Harder geluid of stem: de speler stijgt.
+- Knop `Omhoog`: de speler stijgt.
+- Knop `Omlaag`: de speler daalt.
 - Objectnaam goed zeggen: het juiste object licht op of wordt verzameld.
 - Verkeerde of onduidelijke uitspraak: vriendelijke hint, geen harde game-over.
-- Voorbeelden: "boot", "krab", "dolfijn", "schelp", "vlieg omhoog", "ga omlaag".
+- Voorbeelden: "boot", "krab", "dolfijn", "schelp".
 
 ## Fase 0: Oude Bezem Race Verwijderen
 
@@ -47,16 +47,15 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 - [x] Fallback bediening maken voor browsers zonder microfoon.
 - [x] Technische basisdocument toevoegen: `voice-side-scroller-technical-basis.md`.
 
-## Fase 3: Stemcontrole
+## Fase 3: Besturing En Spraak
 
-- [x] Microfoon-permission flow hergebruiken uit settings.
-- [x] Geluidsvolume meten voor omhoog/omlaag besturing.
-- [x] Drempels instelbaar maken: stil, zacht, goed, hard.
-- [x] Ruisfilter toevoegen voor stille kamers en telefoonmicrofoons.
-- [x] Visuele stemmeter tonen zonder het scherm druk te maken.
-- [x] Pauzeknop toevoegen die de microfoon stopt.
-- [x] Privacyregel tonen: audio blijft lokaal, geen opname opslaan.
-- [x] Stemcontrole documenteren: `voice-side-scroller-stemcontrole.md`.
+- [x] Beweging loskoppelen van stemvolume.
+- [x] Klik/touch-knoppen gebruiken voor omhoog/omlaag.
+- [x] Spraak alleen gebruiken voor het noemen van objectwoorden.
+- [x] Stemmeterkaart verwijderen om meer ruimte voor de game-stage te maken.
+- [x] Pauzeknop stopt woordherkenning.
+- [x] Privacyregel tonen: de app slaat geen opname op.
+- [x] Besturing documenteren: `voice-side-scroller-stemcontrole.md`.
 
 ## Fase 4: Woordherkenning
 
@@ -71,7 +70,7 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 - [x] Strandachtergrond als brede scrollende laag gebruiken.
 - [x] Parallax-lagen bepalen: lucht, zee, strand, objecten.
-- [x] Speler op bezem laten zweven met stemhoogte.
+- [x] Speler op bezem laten zweven met klik/touch-knoppen.
 - [x] Objecten laten binnenkomen van rechts naar links.
 - [x] Obstakels toevoegen die passen bij strand: wolk, golf, rots, parasolrand.
 - [x] Verzamelobjecten toevoegen: bootster, krabster, schelpster.
@@ -92,9 +91,9 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 - [x] Nieuwe menu-card maken voor de side-scroller.
 - [x] Startscherm van de mini-game maken met grote speelknop.
-- [x] Microfoonstatus duidelijk tonen.
+- [x] Actieve woordherkenning duidelijk tonen.
 - [x] Eenvoudige pauze- en terugknop toevoegen.
-- [x] Stemindicator kindvriendelijk ontwerpen.
+- [x] Knopbediening kindvriendelijk ontwerpen.
 - [x] Score tonen als sterren of woordpunten.
 - [x] Geen tekst op drukke plekken over gameplay leggen.
 - [x] Alle knoppen bruikbaar maken op telefoonformaat.
@@ -124,7 +123,7 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 - [ ] Testen met headset en telefoonmicrofoon. Handmatig op toestel nodig.
 - [x] Testen in portrait.
 - [x] Testen in landscape.
-- [ ] Testen met microfoon aan/uit. Microfoonstatus en fallback UI gecontroleerd; echte permission-test blijft handmatig.
+- [ ] Testen met spraakherkenning aan/uit. Woordherkenning UI gecontroleerd; echte permission-test blijft handmatig.
 - [x] Testen dat de oude Bezem Race niet meer bereikbaar is.
 - [x] Build en typecheck groen maken.
 - [x] QA-document toevoegen: `voice-side-scroller-qa-acceptatie.md`.

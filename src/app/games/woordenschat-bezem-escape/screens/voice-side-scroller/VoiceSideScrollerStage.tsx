@@ -5,11 +5,9 @@ import { VoiceSideScrollerPlayer } from "./VoiceSideScrollerPlayer";
 import { VoiceSideScrollerRoundSummary } from "./VoiceSideScrollerRoundSummary";
 import { VoiceSideScrollerStartOverlay } from "./VoiceSideScrollerStartOverlay";
 import { VoiceSideScrollerTargetLayer } from "./VoiceSideScrollerTargetLayer";
-import type { VoiceSideScrollerMicrophoneState } from "./useVoiceSideScrollerMicrophone";
 
 interface VoiceSideScrollerStageProps {
   activeTarget?: VoiceSideScrollerTarget;
-  microphone: VoiceSideScrollerMicrophoneState;
   onBackToMenu: () => void;
   onRestart: () => void;
   onStart: () => void;
@@ -18,7 +16,6 @@ interface VoiceSideScrollerStageProps {
 
 export const VoiceSideScrollerStage = ({
   activeTarget,
-  microphone,
   onBackToMenu,
   onRestart,
   onStart,
@@ -45,7 +42,6 @@ export const VoiceSideScrollerStage = ({
     />
     {state.status === "ready" ? (
       <VoiceSideScrollerStartOverlay
-        microphone={microphone}
         onStart={onStart}
         state={state}
       />

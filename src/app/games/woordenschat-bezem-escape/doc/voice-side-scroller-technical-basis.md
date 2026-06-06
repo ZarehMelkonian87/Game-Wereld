@@ -32,10 +32,8 @@ screens/voice-side-scroller/
   VoiceSideScrollerRoundSummary.tsx
   VoiceSideScrollerStartOverlay.tsx
   VoiceSideScrollerStatusPanel.tsx
-  VoiceSideScrollerVoiceMeter.tsx
-  VoiceSideScrollerFallbackControls.tsx
+  VoiceSideScrollerMovementControls.tsx
   useVoiceSideScrollerController.ts
-  useVoiceSideScrollerMicrophone.ts
   useVoiceSideScrollerWordRecognition.ts
   voiceSideScrollerEducation.ts
   voiceSideScrollerEngine.ts
@@ -100,20 +98,22 @@ De engine rekent daarna:
 - resterende tijd;
 - status `finished` bij ronde-einde.
 
-## Stemcontrole En Fallback Controls
+## Klikbesturing En Woordspraak
 
-Vanaf Fase 3 heeft de screen echte microfoonbesturing via live volumemeting. De fallback-knoppen blijven beschikbaar voor browsers zonder microfoon of tijdens development:
+De side-scroller gebruikt geen stemvolume meer om de speler omhoog of omlaag te sturen. Dat voorkomt conflict met het uitspreken van objectnamen.
+
+Beweging gebeurt met vaste klik/touch-knoppen:
 
 - `Omhoog`
 - `Omlaag`
 
-Deze knoppen sturen dezelfde verticale input als de microfoonmeter.
+Deze knoppen sturen de verticale input van de engine.
 
 ## Woordherkenning
 
 Vanaf Fase 4 gebruikt de side-scroller dezelfde Nederlandse spraakherkenningsbasis als `Zeg & Zet`.
 
-- `useVoiceSideScrollerMicrophone` meet volume voor omhoog/omlaag vliegen.
+- `VoiceSideScrollerMovementControls` stuurt omhoog/omlaag vliegen.
 - `useVoiceSideScrollerWordRecognition` luistert naar het actieve objectwoord.
 - `voiceSideScrollerWords` bevat de doelwoorden en uitspraakvarianten.
 - `collectVoiceSideScrollerTarget` geeft een ster en `+1 Speed` als het actieve woord wordt herkend.
