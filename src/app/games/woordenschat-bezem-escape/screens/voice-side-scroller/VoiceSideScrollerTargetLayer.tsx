@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { getBeachObjectStickerUrl } from "../../asset-urls";
+import { voiceSideScrollerObjectSpriteUrls } from "../../asset-urls";
 import { classNames } from "../../components/ui/classNames";
 import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 
@@ -19,7 +19,10 @@ export const VoiceSideScrollerTargetLayer = ({
     data-testid="voice-side-scroller-target-layer"
   >
     {targets.map((target) => {
-      const objectUrl = getBeachObjectStickerUrl(target.assetId);
+      const objectUrl =
+        voiceSideScrollerObjectSpriteUrls[
+          target.assetId as keyof typeof voiceSideScrollerObjectSpriteUrls
+        ];
       const isActive = target.id === activeTargetId;
 
       if (!objectUrl) {

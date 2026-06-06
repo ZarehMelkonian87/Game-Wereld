@@ -1,4 +1,5 @@
-import { Mic2, Play, ShieldCheck, Star } from "lucide-react";
+import { Play, ShieldCheck, Star } from "lucide-react";
+import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
 import { PanelCard, PrimaryActionButton } from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 import type { VoiceSideScrollerMicrophoneState } from "./useVoiceSideScrollerMicrophone";
@@ -36,7 +37,12 @@ export const VoiceSideScrollerStartOverlay = ({
       className="grid w-full max-w-[22rem] gap-3 !rounded-[1.5rem] !p-4 text-center"
     >
       <div className="mx-auto grid h-16 w-16 place-items-center rounded-[1.35rem] border-[3px] border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">
-        <Mic2 className="h-9 w-9" strokeWidth={3} />
+        <img
+          alt=""
+          className="h-14 w-14 object-contain"
+          draggable={false}
+          src={voiceSideScrollerMascotStateUrls.ready}
+        />
       </div>
       <div>
         <h2 className="text-2xl font-black leading-none text-slate-900">Zeg & Vlieg</h2>

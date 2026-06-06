@@ -102,12 +102,12 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 ## Fase 8: Assets
 
 - [x] Eerste brede strandachtergrond als conceptasset toevoegen.
-- [ ] Achtergrond visueel controleren in portrait en landscape.
-- [ ] Objectsprites voor side-scroller selecteren uit bestaande strandstickers.
-- [ ] Obstacle-sprites maken of genereren.
-- [ ] Bezem/avatar animatiestates bepalen.
-- [ ] Mascot hint-animaties kiezen.
-- [ ] Instructievideo-teksten maken voor de nieuwe game.
+- [x] Achtergrond visueel controleren in portrait en landscape.
+- [x] Objectsprites voor side-scroller selecteren uit bestaande strandstickers.
+- [x] Obstacle-sprites maken of genereren.
+- [x] Bezem/avatar animatiestates bepalen.
+- [x] Mascot hint-animaties kiezen.
+- [x] Instructievideo-teksten maken voor de nieuwe game.
 
 ## Fase 9: Data En Dashboard
 

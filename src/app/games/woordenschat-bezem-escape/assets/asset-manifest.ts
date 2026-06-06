@@ -1,6 +1,7 @@
 export type BezemEscapeAssetKind =
   | "background"
   | "object"
+  | "obstacle"
   | "avatar"
   | "broom"
   | "mascot"
@@ -155,6 +156,33 @@ export const beachObjectAssets: BezemEscapeImageAsset[] = [
   ),
 ];
 
+export const sideScrollerObstacleAssets: BezemEscapeImageAsset[] = [
+  readyAsset(
+    "cloud-obstacle",
+    "Wolk Obstakel",
+    "obstacle",
+    "objects/side-scroller/cloud-obstacle.svg",
+  ),
+  readyAsset(
+    "wave-obstacle",
+    "Golf Obstakel",
+    "obstacle",
+    "objects/side-scroller/wave-obstacle.svg",
+  ),
+  readyAsset(
+    "rock-obstacle",
+    "Rots Obstakel",
+    "obstacle",
+    "objects/side-scroller/rock-obstacle.svg",
+  ),
+  readyAsset(
+    "parasol-edge-obstacle",
+    "Parasolrand Obstakel",
+    "obstacle",
+    "objects/transparent/beach-umbrella-sticker.png",
+  ),
+];
+
 export const avatarAssets: BezemEscapeImageAsset[] = Array.from({ length: 8 }, (_, index) => {
   const number = String(index + 1).padStart(2, "0");
 
@@ -222,6 +250,7 @@ export const bezemEscapeAssets = {
   audio: audioAssets,
   backgrounds: beachBackgroundAssets,
   objects: beachObjectAssets,
+  obstacles: sideScrollerObstacleAssets,
   avatars: avatarAssets,
   brooms: broomAssets,
   mascot: mascotAssets,

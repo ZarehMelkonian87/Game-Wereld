@@ -1,5 +1,5 @@
 import { CheckCircle2, Mic, RotateCcw, Sparkles } from "lucide-react";
-import { mascotIconUrls } from "../../asset-urls";
+import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
 import { HudIconButton, PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerWordRecognitionState } from "./useVoiceSideScrollerWordRecognition";
 import type {
@@ -50,7 +50,7 @@ const getStatusIcon = (
         alt=""
         className="h-9 w-9 object-contain"
         draggable={false}
-        src={mascotIconUrls.hint}
+        src={voiceSideScrollerMascotStateUrls.hint}
       />
     );
   }

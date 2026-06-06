@@ -49,7 +49,7 @@ Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 | [x]   | `lp-009` |      2 | Zet het zandkasteel naast de schelp.            | `lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4`            |
 | [x]   | `lp-010` |      2 | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
 | [x]   | `lp-011` |      2 | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
-| [ ]   | `lp-012` |      2 | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
+| [x]   | `lp-012` |      2 | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
 | [ ]   | `lp-013` |      2 | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
 | [ ]   | `lp-014` |      3 | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
 | [ ]   | `lp-015` |      3 | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
@@ -179,6 +179,25 @@ Deze clips horen bij `Kies het Woord`.
 
 Let op voor latere verbetering: de huidige gegenereerde feedback zegt bij sommige het-woorden `de zandkasteel` en `de vliegtuig`. Als we feedbackvideo's maken, kunnen we dit beter corrigeren naar `het zandkasteel` en `het vliegtuig` in de contentdata.
 
+## Zeg & Vlieg - Instructievideo's
+
+Deze clips horen bij de voice side-scroller. Ze kunnen later in de start-overlay, het statuspaneel of als korte mascot-hint gebruikt worden.
+
+| Klaar | ID       | Type      | Tekst                                      | Bestandsnaam voorstel                             |
+| ----- | -------- | --------- | ------------------------------------------ | ------------------------------------------------- |
+| [ ]   | `zv-001` | start     | Zeg het woord en vlieg naar de woordster.  | `zv-001-start-zeg-het-woord-en-vlieg.mp4`         |
+| [ ]   | `zv-002` | opdracht  | Zeg: boot.                                 | `zv-002-opdracht-zeg-boot.mp4`                    |
+| [ ]   | `zv-003` | opdracht  | Zeg: krab.                                 | `zv-003-opdracht-zeg-krab.mp4`                    |
+| [ ]   | `zv-004` | opdracht  | Zeg: dolfijn.                              | `zv-004-opdracht-zeg-dolfijn.mp4`                 |
+| [ ]   | `zv-005` | opdracht  | Zeg: schelp.                               | `zv-005-opdracht-zeg-schelp.mp4`                  |
+| [ ]   | `zv-006` | opdracht  | Zeg: bal.                                  | `zv-006-opdracht-zeg-bal.mp4`                     |
+| [ ]   | `zv-007` | opdracht  | Zeg: parasol.                              | `zv-007-opdracht-zeg-parasol.mp4`                 |
+| [ ]   | `zv-008` | opdracht  | Zeg: zon.                                  | `zv-008-opdracht-zeg-zon.mp4`                     |
+| [ ]   | `zv-009` | hint      | Probeer het woord rustig nog een keer.     | `zv-009-hint-probeer-rustig-nog-een-keer.mp4`     |
+| [ ]   | `zv-010` | obstakel  | Vlieg om het obstakel heen.                | `zv-010-hint-vlieg-om-het-obstakel-heen.mp4`      |
+| [ ]   | `zv-011` | feedback  | Goed gehoord. Je krijgt plus een speed.    | `zv-011-feedback-goed-gehoord-plus-een-speed.mp4` |
+| [ ]   | `zv-012` | eindronde | Goed gedaan. Je hebt strandwoorden gezegd. | `zv-012-eindronde-strandwoorden-gezegd.mp4`       |
+
 ## Aanbevolen Productievolgorde
 
 1. Maak alle `lp-*` hoofdopdrachtvideo's.
@@ -186,5 +205,5 @@ Let op voor latere verbetering: de huidige gegenereerde feedback zegt bij sommig
 3. Maak alle `lp-*` hint-02-oplichten video's.
 4. Maak de herbruikbare plaatsbegrip-clips.
 5. Maak pas daarna `cw-*` video's.
-6. Maak voor de nieuwe voice side-scroller pas clipteksten nadat het nieuwe gameconcept is goedgekeurd.
+6. Maak daarna de `zv-*` clips voor `Zeg & Vlieg`.
 7. Maak feedbackvideo's alleen als de opdrachtvideo's goed werken in de app.

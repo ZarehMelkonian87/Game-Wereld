@@ -41,6 +41,7 @@ export const VoiceSideScrollerStage = ({
     <VoiceSideScrollerPlayer
       isSlowed={state.collisionSlowdownMs > 0}
       playerY={state.playerY}
+      speed={state.speed}
     />
     {state.status === "ready" ? (
       <VoiceSideScrollerStartOverlay

@@ -1,4 +1,5 @@
-import { Home, RotateCcw, Star } from "lucide-react";
+import { Home, RotateCcw } from "lucide-react";
+import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
 import { PanelCard, PrimaryActionButton } from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 
@@ -50,7 +51,12 @@ export const VoiceSideScrollerRoundSummary = ({
         className="grid w-full max-w-[22rem] gap-3 !rounded-[1.5rem] !p-4 text-center"
       >
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-3xl border-2 border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">
-          <Star className="h-8 w-8" fill="currentColor" strokeWidth={2.5} />
+          <img
+            alt=""
+            className="h-12 w-12 object-contain"
+            draggable={false}
+            src={voiceSideScrollerMascotStateUrls.celebration}
+          />
         </div>
         <div>
           <h2 className="text-2xl font-black leading-none text-slate-900">Ronde klaar</h2>

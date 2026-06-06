@@ -132,6 +132,13 @@ Vanaf Fase 5 bevat de stage:
 
 Vanaf Fase 7 blijft tekstfeedback buiten de drukke stage. Het statuspaneel toont hints en woordfeedback, terwijl de stage vooral beeld, speler en objecten toont.
 
+Vanaf Fase 8 gebruikt de stage vaste productie-assets:
+
+- bestaande strandstickers voor woordobjecten;
+- SVG obstacle-sprites voor wolk, golf en rots;
+- bestaande parasolsticker voor parasolrand;
+- bestaande bezem-, avatar- en mascot-assets voor states.
+
 ## Educatieve Regels
 
 Vanaf Fase 6 kiest elke ronde maximaal vijf focuswoorden. De selectie gebruikt oefenobservaties:

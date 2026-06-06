@@ -32,6 +32,23 @@ export const beachObjectStickerUrls = {
   zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
 
+export const voiceSideScrollerObjectSpriteUrls = {
+  bal: beachObjectStickerUrls.bal,
+  boot: beachObjectStickerUrls.boot,
+  dolfijn: beachObjectStickerUrls.dolfijn,
+  krab: beachObjectStickerUrls.krab,
+  parasol: beachObjectStickerUrls.parasol,
+  schelp: beachObjectStickerUrls.schelp,
+  zon: beachObjectStickerUrls.zon,
+};
+
+export const voiceSideScrollerObstacleSpriteUrls = {
+  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.svg", import.meta.url).href,
+  "parasol-edge": beachObjectStickerUrls.parasol,
+  rock: new URL("./assets/objects/side-scroller/rock-obstacle.svg", import.meta.url).href,
+  wave: new URL("./assets/objects/side-scroller/wave-obstacle.svg", import.meta.url).href,
+};
+
 export const worldIconUrls = {
   barn: new URL("./assets/icons/worlds/world-farm.png", import.meta.url).href,
   book: new URL("./assets/icons/worlds/world-school.png", import.meta.url).href,
@@ -73,10 +90,29 @@ export const avatarIconUrls = {
 
 export const broomIconUrls = {
   basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
+  beach: new URL("./assets/icons/brooms/broom-02-beach.png", import.meta.url).href,
+  speed: new URL("./assets/icons/brooms/broom-06-speed.png", import.meta.url).href,
 };
 
 export const mascotIconUrls = {
   hint: new URL("./assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
   celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
   neutral: new URL("./assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
+};
+
+export const voiceSideScrollerBroomStateUrls = {
+  boosted: broomIconUrls.speed,
+  flying: broomIconUrls.basic,
+  slowed: broomIconUrls.beach,
+};
+
+export const voiceSideScrollerAvatarStateUrls = {
+  flying: avatarIconUrls.avatar01,
+  slowed: avatarIconUrls.avatar01,
+};
+
+export const voiceSideScrollerMascotStateUrls = {
+  celebration: mascotIconUrls.celebration,
+  hint: mascotIconUrls.hint,
+  ready: mascotIconUrls.neutral,
 };
