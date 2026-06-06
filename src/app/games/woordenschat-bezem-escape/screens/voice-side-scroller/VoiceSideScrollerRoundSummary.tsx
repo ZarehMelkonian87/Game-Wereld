@@ -11,13 +11,33 @@ interface VoiceSideScrollerRoundSummaryProps {
 const getCollectedWords = (state: VoiceSideScrollerGameState) =>
   state.targets.filter((target) => target.collected).map((target) => target.word);
 
+const getNeedsPracticeWords = (state: VoiceSideScrollerGameState) =>
+  Object.values(state.education.wordObservations)
+    .filter((observation) => observation.needsPractice && !observation.recognized)
+    .map((observation) => observation.word);
+
+const getTotalWordHints = (state: VoiceSideScrollerGameState) =>
+  Object.values(state.education.wordObservations)
+    .reduce((sum, observation) => sum + observation.hintsUsed, 0);
+
+const getTotalAudioRepeats = (state: VoiceSideScrollerGameState) =>
+  Object.values(state.education.wordObservations)
+    .reduce((sum, observation) => sum + observation.audioRepeats, 0);
+
 export const VoiceSideScrollerRoundSummary = ({
   onBackToMenu,
   onRestart,
   state,
 }: VoiceSideScrollerRoundSummaryProps) => {
   const collectedWords = getCollectedWords(state);
+  const focusText = state.education.focusWords.join(", ");
   const practicedText = collectedWords.length > 0 ? collectedWords.join(", ") : "nog geen woorden";
+  const needsPracticeWords = getNeedsPracticeWords(state);
+  const needsPracticeText = needsPracticeWords.length > 0
+    ? needsPracticeWords.join(", ")
+    : "geen duidelijk moeilijk woord";
+  const totalHints = state.obstacleHits + getTotalWordHints(state);
+  const audioRepeats = getTotalAudioRepeats(state);
 
   return (
     <div
@@ -35,7 +55,10 @@ export const VoiceSideScrollerRoundSummary = ({
         <div>
           <h2 className="text-2xl font-black leading-none text-slate-900">Ronde klaar</h2>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-            Geoefend: {practicedText}
+            Focus: {focusText}
+          </p>
+          <p className="mt-1 text-xs font-black leading-tight text-slate-700">
+            Actief gezegd: {practicedText}
           </p>
         </div>
         <div className="grid grid-cols-3 gap-2 text-xs font-black text-slate-900">
@@ -50,11 +73,14 @@ export const VoiceSideScrollerRoundSummary = ({
             speed
           </span>
           <span className="rounded-2xl border-2 border-sky-200 bg-sky-50 p-2">
-            {state.obstacleHits}
+            {totalHints}
             <br />
             hints
           </span>
         </div>
+        <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-2 text-xs font-black leading-tight text-amber-950">
+          Extra oefenen: {needsPracticeText}. Herhaald: {audioRepeats}x.
+        </p>
         <div className="grid grid-cols-2 gap-2">
           <PrimaryActionButton
             aria-label="Speel opnieuw"

@@ -1,5 +1,6 @@
 import {
   createInitialVoiceScrollerState,
+  type CreateInitialVoiceScrollerStateOptions,
   VOICE_SCROLLER_ROUND_DURATION_MS,
   type VoiceSideScrollerGameState,
   type VoiceSideScrollerObstacle,
@@ -184,8 +185,10 @@ export const tickVoiceSideScrollerState = ({
   };
 };
 
-export const startVoiceSideScrollerRound = (): VoiceSideScrollerGameState => ({
-  ...createInitialVoiceScrollerState(),
+export const startVoiceSideScrollerRound = (
+  options: CreateInitialVoiceScrollerStateOptions = {},
+): VoiceSideScrollerGameState => ({
+  ...createInitialVoiceScrollerState(options),
   status: "running",
 });
 

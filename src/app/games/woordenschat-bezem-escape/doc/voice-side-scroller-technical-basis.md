@@ -37,6 +37,7 @@ screens/voice-side-scroller/
   useVoiceSideScrollerController.ts
   useVoiceSideScrollerMicrophone.ts
   useVoiceSideScrollerWordRecognition.ts
+  voiceSideScrollerEducation.ts
   voiceSideScrollerEngine.ts
   voiceSideScrollerFrame.ts
   voiceSideScrollerModel.ts
@@ -73,6 +74,7 @@ De eerste state bevat:
 - `speed`: taal-speedwaarde;
 - `stars`: scorewaarde;
 - `obstacleHits`;
+- `education`: focuswoorden, gehoorde pogingen, hints en herhalingen per woord;
 - `elapsedMs`;
 - `timeLeftMs`.
 
@@ -127,6 +129,25 @@ Vanaf Fase 5 bevat de stage:
 - strandobstakels: wolk, golf, rots en parasolrand;
 - veilige botsingen zonder game-over;
 - einde-ronde samenvatting met sterren, speed, hints en geoefende woorden.
+
+## Educatieve Regels
+
+Vanaf Fase 6 kiest elke ronde maximaal vijf focuswoorden. De selectie gebruikt oefenobservaties:
+
+- woorden met `needs-more-practice` krijgen voorrang;
+- daarna komen woorden die minder vaak geoefend zijn;
+- een herkenning telt als actieve woordenschat omdat het kind het woord zelf zegt;
+- onduidelijke herkenning telt alleen als oefenobservatie, niet als uitspraakscore.
+
+De game bewaart per poging:
+
+- doelwoord;
+- gehoord transcript;
+- herhalingen;
+- hints;
+- correct zonder hulp, correct met hulp of extra oefenen.
+
+Dit blijft oefendata. De app toont geen officiele score, normvergelijking of diagnose.
 
 ## Mobiele Layout
 

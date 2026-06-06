@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  readBezemEscapeProgress,
+  recordVoiceSideScrollerWordObservation,
+} from "../../logic/progress";
+import {
   collectVoiceSideScrollerTarget,
   pauseVoiceSideScrollerRound,
   resumeVoiceSideScrollerRound,
@@ -8,6 +12,7 @@ import {
 } from "./voiceSideScrollerEngine";
 import {
   createInitialVoiceScrollerState,
+  VOICE_SCROLLER_DEMO_TARGETS,
   type VoiceSideScrollerGameState,
 } from "./voiceSideScrollerModel";
 import {
@@ -15,6 +20,12 @@ import {
   getVoiceSideScrollerTimestamp,
   requestVoiceSideScrollerFrame,
 } from "./voiceSideScrollerFrame";
+import {
+  getVoiceSideScrollerWordObservation,
+  recordVoiceSideScrollerPromptRepeat,
+  recordVoiceSideScrollerWordHeard,
+  selectVoiceSideScrollerFocusWords,
+} from "./voiceSideScrollerEducation";
 import {
   useVoiceSideScrollerMicrophone,
   type VoiceSideScrollerMicrophoneState,
@@ -41,8 +52,28 @@ export interface VoiceSideScrollerController {
   wordRecognition: VoiceSideScrollerWordRecognitionState;
 }
 
-export const useVoiceSideScrollerController = (): VoiceSideScrollerController => {
-  const [state, setState] = useState(() => createInitialVoiceScrollerState());
+interface UseVoiceSideScrollerControllerOptions {
+  profileId: string;
+}
+
+const createFocusedRoundState = (profileId: string) => {
+  const progress = readBezemEscapeProgress(profileId);
+  const focusWords = selectVoiceSideScrollerFocusWords({
+    availableTargets: VOICE_SCROLLER_DEMO_TARGETS,
+    progress,
+  });
+
+  return createInitialVoiceScrollerState({ focusWords });
+};
+
+const getVoiceSideScrollerInstructionId = (targetId: string) =>
+  `zeg-en-vlieg:${targetId}`;
+
+export const useVoiceSideScrollerController = ({
+  profileId,
+}: UseVoiceSideScrollerControllerOptions): VoiceSideScrollerController => {
+  const [state, setState] = useState(() => createFocusedRoundState(profileId));
+  const stateRef = useRef(state);
   const verticalInputRef = useRef(0);
   const {
     microphone,
@@ -50,17 +81,93 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
     stopMicrophoneControl,
   } = useVoiceSideScrollerMicrophone();
   const activeTarget = getActiveVoiceScrollerTarget(state.targets);
-  const handleWordMatched = useCallback((target: VoiceSideScrollerTarget) => {
-    setState((currentState) => collectVoiceSideScrollerTarget(currentState, target.id));
+
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
+  useEffect(() => {
+    if (stateRef.current.status === "ready") {
+      const nextState = createFocusedRoundState(profileId);
+      stateRef.current = nextState;
+      setState(nextState);
+    }
+  }, [profileId]);
+
+  const recordWordObservation = useCallback((
+    nextState: VoiceSideScrollerGameState,
+    target: VoiceSideScrollerTarget,
+    transcript: string,
+    isRecognized: boolean,
+  ) => {
+    const observation = getVoiceSideScrollerWordObservation(nextState, target.id);
+
+    if (!observation) {
+      return;
+    }
+
+    recordVoiceSideScrollerWordObservation(profileId, {
+      audioRepeats: observation.audioRepeats,
+      hintsUsed: observation.hintsUsed,
+      id: `${target.id}:${isRecognized ? "recognized" : "practice"}:${observation.attempts}:${Date.now()}`,
+      instructionId: getVoiceSideScrollerInstructionId(target.id),
+      isRecognized,
+      spokenTranscript: transcript,
+      targetWord: target.word,
+      wordAttempts: observation.attempts,
+      wordStarsEarned: isRecognized ? 1 : 0,
+    });
+  }, [profileId]);
+
+  const handleWordMatched = useCallback((
+    target: VoiceSideScrollerTarget,
+    transcript: string,
+  ) => {
+    const nextWithHeardWord = recordVoiceSideScrollerWordHeard(stateRef.current, {
+      isRecognized: true,
+      targetId: target.id,
+      transcript,
+    });
+    const nextState = collectVoiceSideScrollerTarget(nextWithHeardWord, target.id);
+
+    stateRef.current = nextState;
+    setState(nextState);
+    recordWordObservation(nextState, target, transcript, true);
+  }, [recordWordObservation]);
+
+  const handleWordMissed = useCallback((
+    target: VoiceSideScrollerTarget,
+    transcript: string,
+  ) => {
+    const nextState = recordVoiceSideScrollerWordHeard(stateRef.current, {
+      isRecognized: false,
+      targetId: target.id,
+      transcript,
+    });
+
+    stateRef.current = nextState;
+    setState(nextState);
+    recordWordObservation(nextState, target, transcript, false);
+  }, [recordWordObservation]);
+
+  const handleWordPromptRepeated = useCallback((target: VoiceSideScrollerTarget) => {
+    const nextState = recordVoiceSideScrollerPromptRepeat(stateRef.current, target.id);
+
+    stateRef.current = nextState;
+    setState(nextState);
   }, []);
+
   const {
     repeatWordPrompt,
+    startWordPrompt,
     stopWordRecognition,
     wordRecognition,
   } = useVoiceSideScrollerWordRecognition({
     activeTarget,
     isRunning: state.status === "running",
+    onWordMissed: handleWordMissed,
     onWordMatched: handleWordMatched,
+    onWordPromptRepeated: handleWordPromptRepeated,
   });
 
   useEffect(() => {
@@ -83,13 +190,16 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
       const deltaMs = timestamp - previousTimestamp;
       previousTimestamp = timestamp;
 
-      setState((currentState) =>
-        tickVoiceSideScrollerState({
+      setState((currentState) => {
+        const nextState = tickVoiceSideScrollerState({
           deltaMs,
           state: currentState,
           verticalInput: verticalInputRef.current,
-        }),
-      );
+        });
+
+        stateRef.current = nextState;
+        return nextState;
+      });
 
       animationFrameId = requestVoiceSideScrollerFrame(tick);
     };
@@ -103,34 +213,55 @@ export const useVoiceSideScrollerController = (): VoiceSideScrollerController =>
 
   const startRound = useCallback(() => {
     verticalInputRef.current = 0;
-    setState(startVoiceSideScrollerRound());
+    const progress = readBezemEscapeProgress(profileId);
+    const focusWords = selectVoiceSideScrollerFocusWords({
+      availableTargets: VOICE_SCROLLER_DEMO_TARGETS,
+      progress,
+    });
+    const nextState = startVoiceSideScrollerRound({ focusWords });
+
+    stateRef.current = nextState;
+    setState(nextState);
     void startMicrophoneControl();
     window.setTimeout(() => {
-      repeatWordPrompt();
+      startWordPrompt();
     }, 0);
-  }, [repeatWordPrompt, startMicrophoneControl]);
+  }, [profileId, startMicrophoneControl, startWordPrompt]);
 
   const pauseRound = useCallback(() => {
     verticalInputRef.current = 0;
     stopMicrophoneControl();
     stopWordRecognition();
-    setState((currentState) => pauseVoiceSideScrollerRound(currentState));
+    setState((currentState) => {
+      const nextState = pauseVoiceSideScrollerRound(currentState);
+
+      stateRef.current = nextState;
+      return nextState;
+    });
   }, [stopMicrophoneControl, stopWordRecognition]);
 
   const resumeRound = useCallback(() => {
-    setState((currentState) => resumeVoiceSideScrollerRound(currentState));
+    setState((currentState) => {
+      const nextState = resumeVoiceSideScrollerRound(currentState);
+
+      stateRef.current = nextState;
+      return nextState;
+    });
     void startMicrophoneControl();
     window.setTimeout(() => {
-      repeatWordPrompt();
+      startWordPrompt();
     }, 0);
-  }, [repeatWordPrompt, startMicrophoneControl]);
+  }, [startMicrophoneControl, startWordPrompt]);
 
   const resetRound = useCallback(() => {
     verticalInputRef.current = 0;
     stopMicrophoneControl();
     stopWordRecognition();
-    setState(createInitialVoiceScrollerState());
-  }, [stopMicrophoneControl, stopWordRecognition]);
+    const nextState = createFocusedRoundState(profileId);
+
+    stateRef.current = nextState;
+    setState(nextState);
+  }, [profileId, stopMicrophoneControl, stopWordRecognition]);
 
   const fallbackUp = useCallback(() => {
     verticalInputRef.current = -1;

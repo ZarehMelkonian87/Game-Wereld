@@ -26,6 +26,7 @@ export interface VoiceSideScrollerWordRecognitionState {
 
 export interface VoiceSideScrollerWordRecognitionController {
   repeatWordPrompt: () => boolean;
+  startWordPrompt: () => boolean;
   stopWordRecognition: () => void;
   wordRecognition: VoiceSideScrollerWordRecognitionState;
 }
@@ -33,7 +34,9 @@ export interface VoiceSideScrollerWordRecognitionController {
 interface UseVoiceSideScrollerWordRecognitionOptions {
   activeTarget?: VoiceSideScrollerTarget;
   isRunning: boolean;
+  onWordMissed: (target: VoiceSideScrollerTarget, transcript: string) => void;
   onWordMatched: (target: VoiceSideScrollerTarget, transcript: string) => void;
+  onWordPromptRepeated: (target: VoiceSideScrollerTarget) => void;
 }
 
 const createIdleWordRecognitionState = (
@@ -66,7 +69,9 @@ const getSpeechStatusFeedback = (
 export const useVoiceSideScrollerWordRecognition = ({
   activeTarget,
   isRunning,
+  onWordMissed,
   onWordMatched,
+  onWordPromptRepeated,
 }: UseVoiceSideScrollerWordRecognitionOptions): VoiceSideScrollerWordRecognitionController => {
   const {
     confidence,
@@ -95,7 +100,7 @@ export const useVoiceSideScrollerWordRecognition = ({
     setWordRecognition(createIdleWordRecognitionState(supportMessage));
   }, [stopListening, supportMessage]);
 
-  const repeatWordPrompt = useCallback(() => {
+  const startWordPrompt = useCallback((isManualRepeat = false) => {
     const target = activeTargetRef.current;
 
     if (!target) {
@@ -110,6 +115,10 @@ export const useVoiceSideScrollerWordRecognition = ({
     lastProcessedResultRef.current = "";
     lastStartedTargetIdRef.current = target.id;
 
+    if (isManualRepeat) {
+      onWordPromptRepeated(target);
+    }
+
     setWordRecognition({
       feedbackText: getListeningFeedbackText(target.word),
       isListening: true,
@@ -119,7 +128,9 @@ export const useVoiceSideScrollerWordRecognition = ({
     });
 
     return startListening();
-  }, [resetTranscript, startListening, supportMessage]);
+  }, [onWordPromptRepeated, resetTranscript, startListening, supportMessage]);
+
+  const repeatWordPrompt = useCallback(() => startWordPrompt(true), [startWordPrompt]);
 
   useEffect(() => {
     if (!isRunning) {
@@ -135,8 +146,8 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
-    repeatWordPrompt();
-  }, [activeTarget?.collected, activeTarget?.id, isRunning, repeatWordPrompt, stopWordRecognition]);
+    startWordPrompt(false);
+  }, [activeTarget?.collected, activeTarget?.id, isRunning, startWordPrompt, stopWordRecognition]);
 
   useEffect(() => {
     const target = activeTargetRef.current;
@@ -182,7 +193,8 @@ export const useVoiceSideScrollerWordRecognition = ({
       supportMessage,
       targetWord: target.word,
     });
-  }, [confidence, isRunning, onWordMatched, supportMessage, transcript]);
+    onWordMissed(target, transcript);
+  }, [confidence, isRunning, onWordMatched, onWordMissed, supportMessage, transcript]);
 
   useEffect(() => {
     const targetWord = activeTargetRef.current?.word;
@@ -235,6 +247,7 @@ export const useVoiceSideScrollerWordRecognition = ({
 
   return {
     repeatWordPrompt,
+    startWordPrompt,
     stopWordRecognition,
     wordRecognition,
   };

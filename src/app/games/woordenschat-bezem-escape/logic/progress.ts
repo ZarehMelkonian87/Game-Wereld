@@ -82,6 +82,18 @@ export interface SpeakAndPlaceObservationInput {
   worldId?: string;
 }
 
+export interface VoiceSideScrollerObservationInput {
+  audioRepeats: number;
+  hintsUsed: number;
+  id?: string;
+  instructionId: string;
+  isRecognized: boolean;
+  spokenTranscript?: string;
+  targetWord: string;
+  wordAttempts: number;
+  wordStarsEarned: number;
+}
+
 function getProgressStorageKey(profileId: string) {
   return `woordenschat-bezem-escape:${profileId}:progress`;
 }
@@ -256,8 +268,18 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
 
   event.targetWords.forEach((word) => incrementCounter(progress.practicedWords, word));
 
-  if (event.mode === "choose-word" && event.isCorrect) {
+  if ((event.mode === "choose-word" || event.mode === "zeg-en-vlieg") && event.isCorrect) {
     event.targetWords.forEach((word) => incrementCounter(progress.recognizedWords, word));
+  }
+
+  if (event.mode === "zeg-en-vlieg") {
+    if (event.activelyNamedWord && event.isCorrect) {
+      incrementCounter(progress.activelyNamedWords, event.activelyNamedWord);
+    }
+
+    if (!event.isCorrect) {
+      progress.misunderstoodSpeechAttempts += 1;
+    }
   }
 
   if (event.mode === "zeg-en-bouw") {
@@ -385,5 +407,52 @@ export function recordSpeakAndPlaceObservation(
     targetWords: input.targetWord ? [input.targetWord] : [],
     wordStarsEarned: input.wordStarsEarned,
     worldId: input.worldId,
+  });
+}
+
+const getVoiceSideScrollerAssistance = ({
+  audioRepeats,
+  hintsUsed,
+}: Pick<VoiceSideScrollerObservationInput, "audioRepeats" | "hintsUsed">): AssistanceLevel => {
+  if (hintsUsed > 0) {
+    return "hint";
+  }
+
+  if (audioRepeats > 0) {
+    return "audio-repeat";
+  }
+
+  return "none";
+};
+
+export function recordVoiceSideScrollerWordObservation(
+  profileId: string,
+  input: VoiceSideScrollerObservationInput,
+) {
+  const assistance = getVoiceSideScrollerAssistance(input);
+  const result: PracticeResult = input.isRecognized
+    ? assistance === "none"
+      ? "correct-without-help"
+      : "correct-with-help"
+    : "needs-more-practice";
+
+  return appendPracticeEvent(profileId, {
+    activelyNamedWord: input.isRecognized ? input.targetWord : undefined,
+    assistance,
+    attempts: input.wordAttempts,
+    audioRepeats: input.audioRepeats,
+    hintsUsed: input.hintsUsed,
+    id: input.id,
+    instructionId: input.instructionId,
+    isCorrect: input.isRecognized,
+    languageDomains: ["active-vocabulary", "receptive-vocabulary"],
+    mode: "zeg-en-vlieg",
+    result,
+    spatialConcepts: [],
+    speedEarned: input.isRecognized ? 1 : 0,
+    spokenTranscript: input.spokenTranscript,
+    targetWords: [input.targetWord],
+    wordStarsEarned: input.wordStarsEarned,
+    worldId: "beach-world-1",
   });
 }

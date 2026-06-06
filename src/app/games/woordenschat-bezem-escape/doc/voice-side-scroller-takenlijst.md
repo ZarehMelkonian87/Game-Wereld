@@ -80,13 +80,13 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 6: Educatieve Regels
 
-- [ ] Elke ronde focust op 3 tot 5 woorden.
-- [ ] Herkenning registreren: woord gehoord en gekozen.
-- [ ] Actieve taal registreren: woord zelf gezegd.
-- [ ] Uitspraak niet streng scoren, alleen observatie vastleggen.
-- [ ] Hints, herhalingen en hulp apart registreren.
-- [ ] Woorden die moeilijk blijven vaker laten terugkomen.
-- [ ] Geen officiele testscore of diagnose tonen.
+- [x] Elke ronde focust op 3 tot 5 woorden.
+- [x] Herkenning registreren: woord gehoord en gekozen.
+- [x] Actieve taal registreren: woord zelf gezegd.
+- [x] Uitspraak niet streng scoren, alleen observatie vastleggen.
+- [x] Hints, herhalingen en hulp apart registreren.
+- [x] Woorden die moeilijk blijven vaker laten terugkomen.
+- [x] Geen officiele testscore of diagnose tonen.
 
 ## Fase 7: UI En UX
 

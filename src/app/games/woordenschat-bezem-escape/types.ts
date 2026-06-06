@@ -1,7 +1,8 @@
 export type BezemEscapeMode =
   | "listen-and-place"
   | "choose-word"
-  | "zeg-en-bouw";
+  | "zeg-en-bouw"
+  | "zeg-en-vlieg";
 
 export type PlannedPracticeMode =
   | BezemEscapeMode

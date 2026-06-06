@@ -1,3 +1,4 @@
+import { useProfile } from "../../../../contexts/ProfileContext";
 import { useVoiceSideScrollerController } from "./useVoiceSideScrollerController";
 import { VoiceSideScrollerFallbackControls } from "./VoiceSideScrollerFallbackControls";
 import { VoiceSideScrollerHud } from "./VoiceSideScrollerHud";
@@ -12,7 +13,9 @@ interface VoiceSideScrollerScreenProps {
 export const VoiceSideScrollerScreen = ({
   onBackToMenu,
 }: VoiceSideScrollerScreenProps) => {
-  const controller = useVoiceSideScrollerController();
+  const { currentProfile } = useProfile();
+  const profileId = currentProfile?.id ?? "demo-profile";
+  const controller = useVoiceSideScrollerController({ profileId });
   const { state } = controller;
   const controlsDisabled = state.status !== "running";
 
@@ -22,6 +25,7 @@ export const VoiceSideScrollerScreen = ({
       className="pointer-events-auto absolute inset-0 z-10 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-2 overflow-hidden px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-[calc(env(safe-area-inset-top)+0.75rem)] text-slate-900 landscape:grid-cols-[minmax(0,1fr)_11rem] landscape:grid-rows-[auto_minmax(0,1fr)] landscape:gap-3"
       data-component="VoiceSideScrollerScreen"
       data-active-word={controller.activeTarget?.word ?? ""}
+      data-focus-words={state.education.focusWords.join(",")}
       data-microphone-status={controller.microphone.status}
       data-recognition-status={controller.wordRecognition.status}
       data-status={state.status}
