@@ -8,6 +8,7 @@ import {
   RewardScreen,
   SceneBuilderScreen,
   StartScreen,
+  VoiceSideScrollerScreen,
   WordChoiceScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
@@ -63,6 +64,8 @@ export const WoordenschatBezemEscapeGame = () => {
               selectedWorldId={selectedWorld.id}
               worlds={worldDefinitions}
             />
+          ) : screenPreview === "voice-side-scroller" ? (
+            <VoiceSideScrollerScreen onBackToMenu={actions.openModeSelect} />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen instructions={instructions.wordChoice} objects={beachWorld.objects} />
           ) : (

@@ -9,6 +9,7 @@ Huidige schermen en mappen:
 - `ModeSelectScreen`
 - `settings/GameSettingsScreen`
 - `SceneBuilderScreen`
+- `voice-side-scroller/VoiceSideScrollerScreen`
 - `WordChoiceScreen`
 - `reward/RewardScreen`
 - `ParentDashboardScreen`
@@ -17,7 +18,6 @@ Voorbeelden die hier later komen:
 
 - `ProfileSelectScreen`
 - `AvatarSelectScreen`
-- `voice-side-scroller/VoiceSideScrollerScreen`
 
 Regels:
 

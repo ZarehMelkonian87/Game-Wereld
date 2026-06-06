@@ -5,6 +5,7 @@ export type GameScreenPreview =
   | "scene-builder"
   | "settings"
   | "start"
+  | "voice-side-scroller"
   | "word-choice"
   | "world-select";
 
@@ -41,6 +42,10 @@ export const getScreenPreview = (): GameScreenPreview => {
 
   if (screen === "word-choice") {
     return "word-choice";
+  }
+
+  if (screen === "voice-side-scroller" || screen === "zeg-en-vlieg") {
+    return "voice-side-scroller";
   }
 
   if (screen === "reward") {

@@ -28,22 +28,24 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 
 ## Fase 1: Game Design Vastleggen
 
-- [ ] Definitieve naam kiezen: bijvoorbeeld `Zeg & Vlieg`, `Woordvlucht` of `Stem Bezem`.
-- [ ] Core loop vastleggen: luisteren, vliegen, woord zeggen, object pakken, feedback, beloning.
-- [ ] Bepalen of het kind alleen objectnamen zegt of ook korte zinnen.
-- [ ] Bepalen hoe lang een ronde duurt: 30, 45 of 60 seconden.
-- [ ] Bepalen welke strandwoorden in de eerste demo zitten.
-- [ ] Bepalen welke acties in MVP zitten: omhoog, omlaag, pak object, ontwijk obstakel.
+- [x] Definitieve naam kiezen: `Zeg & Vlieg`.
+- [x] Core loop vastleggen: luisteren, vliegen, woord zeggen, object pakken, feedback, beloning.
+- [x] Bepalen of het kind alleen objectnamen zegt of ook korte zinnen.
+- [x] Bepalen hoe lang een ronde duurt: 45 seconden.
+- [x] Bepalen welke strandwoorden in de eerste demo zitten.
+- [x] Bepalen welke acties in MVP zitten: omhoog, omlaag, pak object, ontwijk obstakel.
+- [x] Game design document toevoegen: `voice-side-scroller-game-design.md`.
 
 ## Fase 2: Technische Basis
 
-- [ ] Nieuwe gamefolder maken binnen `woordenschat-bezem-escape/screens/voice-side-scroller`.
-- [ ] Nieuwe route/screen toevoegen zonder de oude race terug te brengen.
-- [ ] Side-scroller state-model maken: spelerpositie, snelheid, objecten, score, tijd.
-- [ ] Game-loop bouwen met `requestAnimationFrame`.
-- [ ] Layout mobile-first maken voor portrait en landscape.
-- [ ] Canvas of DOM-keuze vastleggen en documenteren.
-- [ ] Fallback bediening maken voor browsers zonder microfoon.
+- [x] Nieuwe gamefolder maken binnen `woordenschat-bezem-escape/screens/voice-side-scroller`.
+- [x] Nieuwe route/screen toevoegen zonder de oude race terug te brengen.
+- [x] Side-scroller state-model maken: spelerpositie, snelheid, objecten, score, tijd.
+- [x] Game-loop bouwen met `requestAnimationFrame`.
+- [x] Layout mobile-first maken voor portrait en landscape.
+- [x] Canvas of DOM-keuze vastleggen en documenteren.
+- [x] Fallback bediening maken voor browsers zonder microfoon.
+- [x] Technische basisdocument toevoegen: `voice-side-scroller-technical-basis.md`.
 
 ## Fase 3: Stemcontrole
 
@@ -124,4 +126,3 @@ Het kind vliegt door een strandlevel. De stem bestuurt de hoogte en taalopdracht
 - [ ] Testen met microfoon aan/uit.
 - [ ] Testen dat de oude Bezem Race niet meer bereikbaar is.
 - [ ] Build en typecheck groen maken.
-
