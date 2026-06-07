@@ -53,7 +53,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Klik/touch-knoppen gebruiken voor omhoog/omlaag.
 - [x] Spraak alleen gebruiken voor het noemen van objectwoorden.
 - [x] Stemmeterkaart verwijderen om meer ruimte voor de game-stage te maken.
-- [x] Pauzeknop stopt woordherkenning.
+- [x] Pauzeknop verwijderd uit de live HUD; de run speelt door tot game-over.
 - [x] Privacyregel tonen: de app slaat geen opname op.
 - [x] Besturing documenteren: `voice-side-scroller-stemcontrole.md`.
 
@@ -64,7 +64,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Synoniemen en kind-uitspraakvarianten per woord documenteren.
 - [x] Per object een doelvenster maken: zeg het woord wanneer het object verschijnt.
 - [x] Fout/onduidelijk vriendelijk afhandelen met hintvideo of mascot.
-- [x] Herhalingsknop toevoegen voor de opdracht.
+- [x] Herhalingsknop verwijderd uit de run; woorden komen opnieuw terug via scrollende items.
 
 ## Fase 5: Side-Scroller Gameplay
 
@@ -92,7 +92,7 @@ Het kind vliegt door een strandlevel. Knoppen besturen de hoogte en spraak bepaa
 - [x] Nieuwe menu-card maken voor de side-scroller.
 - [x] Startscherm van de mini-game maken met grote speelknop.
 - [x] Actieve woordherkenning duidelijk tonen.
-- [x] Eenvoudige pauze- en terugknop toevoegen.
+- [x] Live HUD houdt alleen terug, afstand, score en level zichtbaar.
 - [x] Knopbediening kindvriendelijk ontwerpen.
 - [x] Score tonen als sterren of woordpunten.
 - [x] Geen tekst op drukke plekken over gameplay leggen.

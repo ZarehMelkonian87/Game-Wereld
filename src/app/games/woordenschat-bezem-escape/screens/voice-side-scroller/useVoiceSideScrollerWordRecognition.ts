@@ -25,9 +25,6 @@ export interface VoiceSideScrollerWordRecognitionState {
 }
 
 export interface VoiceSideScrollerWordRecognitionController {
-  repeatWordPrompt: () => boolean;
-  startWordPrompt: () => boolean;
-  stopWordRecognition: () => void;
   wordRecognition: VoiceSideScrollerWordRecognitionState;
 }
 
@@ -35,7 +32,6 @@ interface UseVoiceSideScrollerWordRecognitionOptions {
   isRunning: boolean;
   onWordMissed: (target: VoiceSideScrollerTarget | undefined, transcript: string) => void;
   onWordMatched: (target: VoiceSideScrollerTarget, transcript: string) => void;
-  onWordPromptRepeated: (target: VoiceSideScrollerTarget | undefined) => void;
   visibleTargets: VoiceSideScrollerTarget[];
 }
 
@@ -78,11 +74,13 @@ const getTranscriptCandidates = (
 const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
   Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));
 
+const VOICE_SCROLLER_RELISTEN_DELAY_MS = 90;
+const VOICE_SCROLLER_FEEDBACK_VISIBLE_MS = 360;
+
 export const useVoiceSideScrollerWordRecognition = ({
   isRunning,
   onWordMissed,
   onWordMatched,
-  onWordPromptRepeated,
   visibleTargets,
 }: UseVoiceSideScrollerWordRecognitionOptions): VoiceSideScrollerWordRecognitionController => {
   const {
@@ -106,26 +104,35 @@ export const useVoiceSideScrollerWordRecognition = ({
   });
   const visibleTargetsRef = useRef<VoiceSideScrollerTarget[]>(visibleTargets);
   const lastProcessedResultIdRef = useRef(0);
+  const isRelisteningRef = useRef(false);
+  const relistenTimerRef = useRef<number>();
   const [wordRecognition, setWordRecognition] = useState<VoiceSideScrollerWordRecognitionState>(
     () => createIdleWordRecognitionState(),
   );
+
+  const clearRelistenTimer = useCallback(() => {
+    if (relistenTimerRef.current !== undefined) {
+      window.clearTimeout(relistenTimerRef.current);
+      relistenTimerRef.current = undefined;
+    }
+
+    isRelisteningRef.current = false;
+  }, []);
 
   useEffect(() => {
     visibleTargetsRef.current = visibleTargets;
   }, [visibleTargets]);
 
   const stopWordRecognition = useCallback(() => {
+    clearRelistenTimer();
     stopListening();
     setWordRecognition(createIdleWordRecognitionState(supportMessage));
-  }, [stopListening, supportMessage]);
+  }, [clearRelistenTimer, stopListening, supportMessage]);
 
-  const startWordPrompt = useCallback((isManualRepeat = false) => {
+  const startWordPrompt = useCallback(() => {
+    clearRelistenTimer();
     resetTranscript();
     lastProcessedResultIdRef.current = 0;
-
-    if (isManualRepeat) {
-      onWordPromptRepeated(visibleTargetsRef.current[0]);
-    }
 
     setWordRecognition({
       feedbackText: getListeningFeedbackText(),
@@ -135,9 +142,33 @@ export const useVoiceSideScrollerWordRecognition = ({
     });
 
     return startListening();
-  }, [onWordPromptRepeated, resetTranscript, startListening, supportMessage]);
+  }, [clearRelistenTimer, resetTranscript, startListening, supportMessage]);
 
-  const repeatWordPrompt = useCallback(() => startWordPrompt(true), [startWordPrompt]);
+  const restartWordPromptAfterMatch = useCallback(() => {
+    clearRelistenTimer();
+    isRelisteningRef.current = true;
+    stopListening();
+    resetTranscript();
+    lastProcessedResultIdRef.current = 0;
+
+    relistenTimerRef.current = window.setTimeout(() => {
+      relistenTimerRef.current = undefined;
+
+      if (!isRunning) {
+        isRelisteningRef.current = false;
+        return;
+      }
+
+      setWordRecognition((currentState) => ({
+        ...currentState,
+        feedbackText: getListeningFeedbackText(),
+        isListening: true,
+        status: "listening",
+      }));
+      startListening();
+      isRelisteningRef.current = false;
+    }, VOICE_SCROLLER_RELISTEN_DELAY_MS);
+  }, [clearRelistenTimer, isRunning, resetTranscript, startListening, stopListening]);
 
   useEffect(() => {
     if (!isRunning) {
@@ -145,11 +176,11 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
-    startWordPrompt(false);
+    startWordPrompt();
   }, [isRunning, startWordPrompt, stopWordRecognition]);
 
   useEffect(() => {
-    if (!isRunning || resultId === 0) {
+    if (!isRunning || resultId === 0 || isRelisteningRef.current) {
       return;
     }
 
@@ -187,6 +218,7 @@ export const useVoiceSideScrollerWordRecognition = ({
         targetWord: matchedItem.target.word,
       });
       onWordMatched(matchedItem.target, matchedItem.transcript);
+      restartWordPromptAfterMatch();
       return;
     }
 
@@ -214,6 +246,7 @@ export const useVoiceSideScrollerWordRecognition = ({
     isRunning,
     onWordMatched,
     onWordMissed,
+    restartWordPromptAfterMatch,
     resultId,
     supportMessage,
     transcript,
@@ -237,7 +270,7 @@ export const useVoiceSideScrollerWordRecognition = ({
           status: "listening",
         };
       });
-    }, 550);
+    }, VOICE_SCROLLER_FEEDBACK_VISIBLE_MS);
 
     return () => {
       window.clearTimeout(feedbackTimer);
@@ -250,13 +283,17 @@ export const useVoiceSideScrollerWordRecognition = ({
     }
 
     const recoverTimer = window.setTimeout(() => {
-      startWordPrompt(false);
+      startWordPrompt();
     }, 900);
 
     return () => {
       window.clearTimeout(recoverTimer);
     };
   }, [errorMessage, isRunning, startWordPrompt, status]);
+
+  useEffect(() => () => {
+    clearRelistenTimer();
+  }, [clearRelistenTimer]);
 
   useEffect(() => {
     if (status === "unsupported") {
@@ -303,9 +340,6 @@ export const useVoiceSideScrollerWordRecognition = ({
   }, [errorMessage, status, supportMessage]);
 
   return {
-    repeatWordPrompt,
-    startWordPrompt,
-    stopWordRecognition,
     wordRecognition,
   };
 };

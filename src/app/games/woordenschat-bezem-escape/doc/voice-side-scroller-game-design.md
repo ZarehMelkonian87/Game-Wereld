@@ -174,18 +174,21 @@ Bij botsing:
 - vriendelijke feedback;
 - speler kan opnieuw starten.
 
-### Hulp En Herhaling
+### Hulp En Herstart
 
 Altijd zichtbaar:
 
-- herhaal opdracht;
-- pauze;
 - vliegknoppen.
+- terug naar menu.
+
+Alleen zichtbaar buiten de actieve run:
+
+- startknop op de start-overlay;
+- opnieuw spelen op het game-over scherm.
 
 Hintregels:
 
-- Eerst de opdracht herhalen.
-- Daarna doelobject laten oplichten.
+- Doelobject visueel duidelijk houden.
 - Daarna het woord langzaam voordoen.
 
 ## Eerste Levelstructuur

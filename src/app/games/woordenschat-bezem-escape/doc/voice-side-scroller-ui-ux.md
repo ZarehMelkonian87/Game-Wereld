@@ -35,7 +35,7 @@ De HUD toont:
 - punten;
 - woordsterren;
 - huidig moeilijkheidslevel;
-- pauze, opnieuw en terug.
+- terug naar menu.
 
 ## Beweging En Spraak
 
@@ -50,11 +50,9 @@ Het statuspaneel toont geen verplichte woordopdracht meer. Het kind noemt zelf e
 
 De hoofdacties blijven groot genoeg voor telefoons:
 
-- start;
-- pauze/verder;
-- opnieuw;
 - terug;
 - omhoog/omlaag;
-- herhaal woord.
+- start via de start-overlay;
+- opnieuw alleen via het game-over scherm.
 
 Alle knoppen zijn minimaal touch-friendly en blijven binnen de safe-area.

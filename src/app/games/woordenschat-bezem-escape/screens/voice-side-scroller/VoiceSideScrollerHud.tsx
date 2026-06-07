@@ -1,4 +1,4 @@
-import { Gauge, Home, Pause, Play, RotateCcw, Star, Trophy } from "lucide-react";
+import { Gauge, Home, Star, Trophy } from "lucide-react";
 import { HudIconButton, PanelCard, ProgressBar } from "../../components/ui";
 import { VOICE_SCROLLER_LEVEL_DISTANCE } from "./voiceSideScrollerModel";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
@@ -9,34 +9,20 @@ import {
 
 interface VoiceSideScrollerHudProps {
   onBackToMenu: () => void;
-  onPause: () => void;
-  onReset: () => void;
-  onResume: () => void;
-  onStart: () => void;
   state: VoiceSideScrollerGameState;
 }
 
 export const VoiceSideScrollerHud = ({
   onBackToMenu,
-  onPause,
-  onReset,
-  onResume,
-  onStart,
   state,
 }: VoiceSideScrollerHudProps) => {
   const distanceMeters = getVoiceScrollerDistanceMeters(state);
   const difficultyProgress = getVoiceScrollerDifficultyProgress(state);
-  const isRunning = state.status === "running";
-  const isPaused = state.status === "paused";
-  const canResume = isPaused;
-  const primaryAction = isRunning ? onPause : canResume ? onResume : onStart;
-  const primaryLabel = isRunning ? "Pauze" : canResume ? "Verder" : "Start";
-  const PrimaryIcon = isRunning ? Pause : Play;
 
   return (
     <PanelCard
       aria-label="Zeg en Vlieg status"
-      className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto] items-center gap-2 !rounded-[1.35rem] !p-2"
+      className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 !rounded-[1.35rem] !p-2"
       data-component="VoiceSideScrollerHud"
       data-testid="voice-side-scroller-hud"
     >
@@ -70,24 +56,6 @@ export const VoiceSideScrollerHud = ({
           Level {state.difficultyLevel}
         </span>
       </div>
-      <HudIconButton
-        icon={
-          <PrimaryIcon
-            className="h-5 w-5"
-            fill={isRunning ? "currentColor" : "none"}
-            strokeWidth={3}
-          />
-        }
-        label={primaryLabel}
-        onClick={primaryAction}
-        tone={isRunning ? "yellow" : "green"}
-      />
-      <HudIconButton
-        icon={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
-        label="Opnieuw"
-        onClick={onReset}
-        tone="white"
-      />
     </PanelCard>
   );
 };

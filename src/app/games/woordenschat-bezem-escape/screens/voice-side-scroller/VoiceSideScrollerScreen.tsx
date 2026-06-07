@@ -31,10 +31,6 @@ export const VoiceSideScrollerScreen = ({
       <div className="landscape:col-span-2">
         <VoiceSideScrollerHud
           onBackToMenu={onBackToMenu}
-          onPause={controller.pauseRound}
-          onReset={controller.resetRound}
-          onResume={controller.resumeRound}
-          onStart={controller.startRound}
           state={state}
         />
       </div>
@@ -47,7 +43,6 @@ export const VoiceSideScrollerScreen = ({
       <div className="grid gap-2 landscape:min-h-0 landscape:grid-rows-[auto_auto]">
         <VoiceSideScrollerStatusPanel
           gameplayFeedback={state.gameplayFeedback}
-          onRepeatWordPrompt={controller.repeatWordPrompt}
           recognition={controller.wordRecognition}
           status={state.status}
         />

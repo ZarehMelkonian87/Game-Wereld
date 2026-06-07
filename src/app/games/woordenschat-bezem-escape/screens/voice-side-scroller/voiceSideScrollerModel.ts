@@ -1,8 +1,7 @@
 export type VoiceSideScrollerStatus =
   | "game-over"
   | "ready"
-  | "running"
-  | "paused";
+  | "running";
 
 export interface VoiceSideScrollerTarget {
   id: string;

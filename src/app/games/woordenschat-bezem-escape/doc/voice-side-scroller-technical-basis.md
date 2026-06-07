@@ -62,7 +62,7 @@ Canvas blijft een optie voor later als we veel objecten, particles, physics of c
 
 De eerste state bevat:
 
-- `status`: ready, running, paused, game-over;
+- `status`: ready, running, game-over;
 - `playerY`: genormaliseerde verticale spelerpositie;
 - `scrollX`: achtergrondscroll;
 - `distance`: afgelegde afstand in meters;

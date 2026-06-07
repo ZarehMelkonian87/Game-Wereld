@@ -213,18 +213,6 @@ export const startVoiceSideScrollerRound = (
   status: "running",
 });
 
-export const pauseVoiceSideScrollerRound = (
-  state: VoiceSideScrollerGameState,
-): VoiceSideScrollerGameState => (
-  state.status === "running" ? { ...state, status: "paused" } : state
-);
-
-export const resumeVoiceSideScrollerRound = (
-  state: VoiceSideScrollerGameState,
-): VoiceSideScrollerGameState => (
-  state.status === "paused" ? { ...state, status: "running" } : state
-);
-
 export const collectVoiceSideScrollerTarget = (
   state: VoiceSideScrollerGameState,
   targetId: string,

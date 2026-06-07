@@ -5,8 +5,6 @@ import {
 } from "../../logic/progress";
 import {
   collectVoiceSideScrollerTarget,
-  pauseVoiceSideScrollerRound,
-  resumeVoiceSideScrollerRound,
   startVoiceSideScrollerRound,
   tickVoiceSideScrollerState,
 } from "./voiceSideScrollerEngine";
@@ -22,7 +20,6 @@ import {
 } from "./voiceSideScrollerFrame";
 import {
   getVoiceSideScrollerWordObservation,
-  recordVoiceSideScrollerPromptRepeat,
   recordVoiceSideScrollerWordHeard,
   selectVoiceSideScrollerFocusWords,
 } from "./voiceSideScrollerEducation";
@@ -37,10 +34,6 @@ export interface VoiceSideScrollerController {
   moveDown: () => void;
   moveNeutral: () => void;
   moveUp: () => void;
-  pauseRound: () => void;
-  resetRound: () => void;
-  resumeRound: () => void;
-  repeatWordPrompt: () => boolean;
   startRound: () => void;
   state: VoiceSideScrollerGameState;
   wordRecognition: VoiceSideScrollerWordRecognitionState;
@@ -143,26 +136,10 @@ export const useVoiceSideScrollerController = ({
     recordWordObservation(nextState, target, transcript, false);
   }, [recordWordObservation]);
 
-  const handleWordPromptRepeated = useCallback((target: VoiceSideScrollerTarget | undefined) => {
-    if (!target) {
-      return;
-    }
-
-    const nextState = recordVoiceSideScrollerPromptRepeat(stateRef.current, target.id);
-
-    stateRef.current = nextState;
-    setState(nextState);
-  }, []);
-
-  const {
-    repeatWordPrompt,
-    stopWordRecognition,
-    wordRecognition,
-  } = useVoiceSideScrollerWordRecognition({
+  const { wordRecognition } = useVoiceSideScrollerWordRecognition({
     isRunning: state.status === "running",
     onWordMissed: handleWordMissed,
     onWordMatched: handleWordMatched,
-    onWordPromptRepeated: handleWordPromptRepeated,
     visibleTargets,
   });
 
@@ -212,35 +189,6 @@ export const useVoiceSideScrollerController = ({
     setState(nextState);
   }, [profileId]);
 
-  const pauseRound = useCallback(() => {
-    verticalInputRef.current = 0;
-    stopWordRecognition();
-    setState((currentState) => {
-      const nextState = pauseVoiceSideScrollerRound(currentState);
-
-      stateRef.current = nextState;
-      return nextState;
-    });
-  }, [stopWordRecognition]);
-
-  const resumeRound = useCallback(() => {
-    setState((currentState) => {
-      const nextState = resumeVoiceSideScrollerRound(currentState);
-
-      stateRef.current = nextState;
-      return nextState;
-    });
-  }, []);
-
-  const resetRound = useCallback(() => {
-    verticalInputRef.current = 0;
-    stopWordRecognition();
-    const nextState = createFocusedRoundState(profileId);
-
-    stateRef.current = nextState;
-    setState(nextState);
-  }, [profileId, stopWordRecognition]);
-
   const moveUp = useCallback(() => {
     verticalInputRef.current = -1;
   }, []);
@@ -257,10 +205,6 @@ export const useVoiceSideScrollerController = ({
     moveDown,
     moveNeutral,
     moveUp,
-    pauseRound,
-    repeatWordPrompt,
-    resetRound,
-    resumeRound,
     startRound,
     state,
     wordRecognition,

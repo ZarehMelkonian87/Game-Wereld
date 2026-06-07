@@ -1,6 +1,6 @@
-import { CheckCircle2, Mic, RotateCcw, Sparkles } from "lucide-react";
+import { CheckCircle2, Mic, Sparkles } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
-import { HudIconButton, PanelCard } from "../../components/ui";
+import { PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerWordRecognitionState } from "./useVoiceSideScrollerWordRecognition";
 import type {
   VoiceSideScrollerGameplayFeedback,
@@ -9,7 +9,6 @@ import type {
 
 interface VoiceSideScrollerStatusPanelProps {
   gameplayFeedback?: VoiceSideScrollerGameplayFeedback;
-  onRepeatWordPrompt: () => boolean;
   recognition: VoiceSideScrollerWordRecognitionState;
   status: VoiceSideScrollerStatus;
 }
@@ -21,10 +20,6 @@ const getStatusText = (status: VoiceSideScrollerStatus) => {
 
   if (status === "game-over") {
     return "Game over";
-  }
-
-  if (status === "paused") {
-    return "Pauze";
   }
 
   return "Zeg & Vlieg";
@@ -90,13 +85,12 @@ const getSubText = (
 
 export const VoiceSideScrollerStatusPanel = ({
   gameplayFeedback,
-  onRepeatWordPrompt,
   recognition,
   status,
 }: VoiceSideScrollerStatusPanelProps) => (
   <PanelCard
     aria-label="Actieve opdracht"
-    className="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 !rounded-[1.35rem] !p-3"
+    className="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)] items-center gap-3 !rounded-[1.35rem] !p-3"
     data-component="VoiceSideScrollerStatusPanel"
     data-recognition-status={recognition.status}
     data-testid="voice-side-scroller-status-panel"
@@ -112,13 +106,6 @@ export const VoiceSideScrollerStatusPanel = ({
         {getSubText(gameplayFeedback, status, recognition)}
       </p>
     </div>
-    <HudIconButton
-      disabled={status !== "running"}
-      icon={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
-      label="Luister opnieuw"
-      onClick={onRepeatWordPrompt}
-      tone="yellow"
-    />
   </PanelCard>
 );
 
