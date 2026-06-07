@@ -41,6 +41,42 @@
   --sidebar-ring: rgba(0, 212, 255, 0.5);
 }
 
+html {
+  background: #bae6fd;
+  height: 100%;
+  overscroll-behavior: none;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #bae6fd;
+  min-height: 100%;
+  margin: 0;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+button,
+a,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (display-mode: fullscreen), (display-mode: standalone) {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+}
+
 /* Safe area for mobile devices */
 .safe-area-inset {
   padding-top: env(safe-area-inset-top);
