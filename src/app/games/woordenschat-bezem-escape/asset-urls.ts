@@ -62,16 +62,73 @@ export const worldIconUrls = {
 };
 
 export const instructionVideoUrls = {
-  lp001: new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
-  lp002: new URL(
+  "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
+  "lp-002": new URL(
     "./assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4",
     import.meta.url,
   ).href,
-  lp003: new URL(
+  "lp-003": new URL(
     "./assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4",
     import.meta.url,
   ).href,
-};
+  "lp-004": new URL(
+    "./assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4",
+    import.meta.url,
+  ).href,
+  "lp-005": new URL(
+    "./assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-006": new URL(
+    "./assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-007": new URL(
+    "./assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-008": new URL(
+    "./assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4",
+    import.meta.url,
+  ).href,
+  "lp-009": new URL(
+    "./assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4",
+    import.meta.url,
+  ).href,
+  "lp-010": new URL(
+    "./assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-011": new URL(
+    "./assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-012": new URL(
+    "./assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-013": new URL(
+    "./assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-014": new URL(
+    "./assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-015": new URL(
+    "./assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4",
+    import.meta.url,
+  ).href,
+  "lp-016": new URL(
+    "./assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
+    import.meta.url,
+  ).href,
+} as const;
+
+type InstructionVideoId = keyof typeof instructionVideoUrls;
+
+export const getInstructionVideoUrl = (instructionId: string) =>
+  instructionVideoUrls[instructionId as InstructionVideoId];
 
 export const hintVideoUrls = {
   lp001SeekBoot: new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,

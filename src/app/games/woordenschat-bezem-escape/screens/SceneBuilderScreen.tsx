@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   getBeachObjectStickerUrl,
+  getInstructionVideoUrl,
   hintVideoUrls,
-  instructionVideoUrls,
 } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import {
@@ -165,22 +165,6 @@ const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | 
   }
 
   return objects.find((object) => object.id === objectId)?.label ?? objectId;
-};
-
-const getInstructionVideoUrl = (instructionId: string) => {
-  if (instructionId === "lp-001") {
-    return instructionVideoUrls.lp001;
-  }
-
-  if (instructionId === "lp-002") {
-    return instructionVideoUrls.lp002;
-  }
-
-  if (instructionId === "lp-003") {
-    return instructionVideoUrls.lp003;
-  }
-
-  return undefined;
 };
 
 const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number) => {

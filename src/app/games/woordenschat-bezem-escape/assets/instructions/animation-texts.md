@@ -27,33 +27,32 @@ Gebruik dit als productielijst naast de MP4-bestanden in deze map.
 
 ## Al Gemaakte Video's
 
-| Klaar | ID       | Type              | Tekst                                    | Bestand                                        |
-| ----- | -------- | ----------------- | ---------------------------------------- | ---------------------------------------------- |
-| [x]   | `lp-001` | opdracht          | Zet de boot in de zee.                   | `zet-de-boot-in-de-zee.mp4`                    |
-| [x]   | `lp-001` | hint-01-object    | Zoek de boot.                            | `zoek-de-boot.mp4`                             |
-| [x]   | `lp-001` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: boot. | `kijk-naar-het-plaatje-dat-oplicht-boot.mp4`   |
-| [x]   | `lp-002` | opdracht          | Zet de dolfijn in de zee.                | `lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4` |
-| [x]   | `lp-003` | opdracht          | Zet de bal op het strand.                | `lp-003-opdracht-zet-de-bal-op-het-strand.mp4` |
+| Klaar | ID       | Type              | Tekst                                           | Bestand                                                              |
+| ----- | -------- | ----------------- | ----------------------------------------------- | -------------------------------------------------------------------- |
+| [x]   | `lp-001` | opdracht          | Zet de boot in de zee.                          | `zet-de-boot-in-de-zee.mp4`                                          |
+| [x]   | `lp-001` | hint-01-object    | Zoek de boot.                                   | `zoek-de-boot.mp4`                                                   |
+| [x]   | `lp-001` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: boot.        | `kijk-naar-het-plaatje-dat-oplicht-boot.mp4`                         |
+| [x]   | `lp-002` | opdracht          | Zet de dolfijn in de zee.                       | `lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4`                       |
+| [x]   | `lp-003` | opdracht          | Zet de bal op het strand.                       | `lp-003-opdracht-zet-de-bal-op-het-strand.mp4`                       |
+| [x]   | `lp-004` | opdracht          | Zet de vuurtoren op het eiland.                 | `lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4`                 |
+| [x]   | `lp-005` | opdracht          | Zet de vlieger boven het strand.                | `lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4`                |
+| [x]   | `lp-006` | opdracht          | Zet het vliegtuig boven de zee.                 | `lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4`                 |
+| [x]   | `lp-007` | opdracht          | Leg de schelp op het strand.                    | `lp-007-opdracht-leg-de-schelp-op-het-strand.mp4`                    |
+| [x]   | `lp-008` | opdracht          | Zet de krab op de handdoek.                     | `lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4`                     |
+| [x]   | `lp-009` | opdracht          | Zet het zandkasteel naast de schelp.            | `lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4`            |
+| [x]   | `lp-010` | opdracht          | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
+| [x]   | `lp-011` | opdracht          | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
+| [x]   | `lp-012` | opdracht          | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
+| [x]   | `lp-013` | opdracht          | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
+| [x]   | `lp-014` | opdracht          | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
+| [x]   | `lp-015` | opdracht          | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
+| [x]   | `lp-016` | opdracht          | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
 
 ## Scene Builder - Hoofdopdrachten
 
 Deze clips vervangen de gewone audio-opdracht in `Zeg & Zet`.
 
-| Klaar |       ID | Niveau | Tekst                                           | Bestandsnaam voorstel                                                |
-| ----- | -------: | -----: | ----------------------------------------------- | -------------------------------------------------------------------- |
-| [x]   | `lp-004` |      1 | Zet de vuurtoren op het eiland.                 | `lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4`                 |
-| [x]   | `lp-005` |      1 | Zet de vlieger boven het strand.                | `lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4`                |
-| [x]   | `lp-006` |      1 | Zet het vliegtuig boven de zee.                 | `lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4`                 |
-| [x]   | `lp-007` |      1 | Leg de schelp op het strand.                    | `lp-007-opdracht-leg-de-schelp-op-het-strand.mp4`                    |
-| [x]   | `lp-008` |      1 | Zet de krab op de handdoek.                     | `lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4`                     |
-| [x]   | `lp-009` |      2 | Zet het zandkasteel naast de schelp.            | `lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4`            |
-| [x]   | `lp-010` |      2 | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
-| [x]   | `lp-011` |      2 | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
-| [x]   | `lp-012` |      2 | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
-| [x]   | `lp-013` |      2 | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
-| [x]   | `lp-014` |      3 | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
-| [x]   | `lp-015` |      3 | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
-| [x]   | `lp-016` |      3 | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
+Alle hoofdopdrachtvideo's voor `lp-001` t/m `lp-016` zijn gemaakt en gekoppeld.
 
 ## Scene Builder - Hint 1: Zoek Het Object
 
