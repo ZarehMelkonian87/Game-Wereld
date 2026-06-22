@@ -187,12 +187,69 @@ type SeekObjectHintVideoId = keyof typeof seekObjectHintVideoUrls;
 export const getSeekObjectHintVideoUrl = (instructionId: string) =>
   seekObjectHintVideoUrls[instructionId as SeekObjectHintVideoId];
 
-export const hintVideoUrls = {
-  lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
-  lp001LookAtHighlightedBoot: new URL(
+const highlightedObjectHintVideoUrls = {
+  "lp-001": new URL(
     "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
     import.meta.url,
   ).href,
+  "lp-002": new URL(
+    "./assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4",
+    import.meta.url,
+  ).href,
+  "lp-003": new URL(
+    "./assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4",
+    import.meta.url,
+  ).href,
+  "lp-004": new URL(
+    "./assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4",
+    import.meta.url,
+  ).href,
+  "lp-005": new URL(
+    "./assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4",
+    import.meta.url,
+  ).href,
+  "lp-006": new URL(
+    "./assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4",
+    import.meta.url,
+  ).href,
+  "lp-007": new URL(
+    "./assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4",
+    import.meta.url,
+  ).href,
+  "lp-008": new URL(
+    "./assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4",
+    import.meta.url,
+  ).href,
+  "lp-009": new URL(
+    "./assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4",
+    import.meta.url,
+  ).href,
+  "lp-010": new URL(
+    "./assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4",
+    import.meta.url,
+  ).href,
+  "lp-011": new URL(
+    "./assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4",
+    import.meta.url,
+  ).href,
+  "lp-012": new URL(
+    "./assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4",
+    import.meta.url,
+  ).href,
+  "lp-013": new URL(
+    "./assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4",
+    import.meta.url,
+  ).href,
+} as const;
+
+type HighlightedObjectHintVideoId = keyof typeof highlightedObjectHintVideoUrls;
+
+export const getHighlightedObjectHintVideoUrl = (instructionId: string) =>
+  highlightedObjectHintVideoUrls[instructionId as HighlightedObjectHintVideoId];
+
+export const hintVideoUrls = {
+  lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
+  lp001LookAtHighlightedBoot: highlightedObjectHintVideoUrls["lp-001"],
 };
 
 type BeachObjectStickerId = keyof typeof beachObjectStickerUrls;

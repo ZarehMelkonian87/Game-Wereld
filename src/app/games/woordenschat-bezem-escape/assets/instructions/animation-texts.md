@@ -34,28 +34,40 @@ Gebruik dit als productielijst naast de MP4-bestanden in deze map.
 | [x]   | `lp-001` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: boot.        | `kijk-naar-het-plaatje-dat-oplicht-boot.mp4`                         |
 | [x]   | `lp-002` | opdracht          | Zet de dolfijn in de zee.                       | `lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4`                       |
 | [x]   | `lp-002` | hint-01-object    | Zoek de dolfijn.                                | `lp-002-hint-01-zoek-de-dolfijn.mp4`                                 |
+| [x]   | `lp-002` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: dolfijn.     | `lp-002-hint-02-kijk-naar-dolfijn.mp4`                               |
 | [x]   | `lp-003` | opdracht          | Zet de bal op het strand.                       | `lp-003-opdracht-zet-de-bal-op-het-strand.mp4`                       |
 | [x]   | `lp-003` | hint-01-object    | Zoek de bal.                                    | `lp-003-hint-01-zoek-de-bal.mp4`                                     |
+| [x]   | `lp-003` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: bal.         | `lp-003-hint-02-kijk-naar-bal.mp4`                                   |
 | [x]   | `lp-004` | opdracht          | Zet de vuurtoren op het eiland.                 | `lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4`                 |
 | [x]   | `lp-004` | hint-01-object    | Zoek de vuurtoren.                              | `lp-004-hint-01-zoek-de-vuurtoren.mp4`                               |
+| [x]   | `lp-004` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: vuurtoren.   | `lp-004-hint-02-kijk-naar-vuurtoren.mp4`                             |
 | [x]   | `lp-005` | opdracht          | Zet de vlieger boven het strand.                | `lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4`                |
 | [x]   | `lp-005` | hint-01-object    | Zoek de vlieger.                                | `lp-005-hint-01-zoek-de-vlieger.mp4`                                 |
+| [x]   | `lp-005` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: vlieger.     | `lp-005-hint-02-kijk-naar-vlieger.mp4`                               |
 | [x]   | `lp-006` | opdracht          | Zet het vliegtuig boven de zee.                 | `lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4`                 |
 | [x]   | `lp-006` | hint-01-object    | Zoek het vliegtuig.                             | `lp-006-hint-01-zoek-het-vliegtuig.mp4`                              |
+| [x]   | `lp-006` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: vliegtuig.   | `lp-006-hint-02-kijk-naar-vliegtuig.mp4`                             |
 | [x]   | `lp-007` | opdracht          | Leg de schelp op het strand.                    | `lp-007-opdracht-leg-de-schelp-op-het-strand.mp4`                    |
 | [x]   | `lp-007` | hint-01-object    | Zoek de schelp.                                 | `lp-007-hint-01-zoek-de-schelp.mp4`                                  |
+| [x]   | `lp-007` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: schelp.      | `lp-007-hint-02-kijk-naar-schelp.mp4`                                |
 | [x]   | `lp-008` | opdracht          | Zet de krab op de handdoek.                     | `lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4`                     |
 | [x]   | `lp-008` | hint-01-object    | Zoek de krab.                                   | `lp-008-hint-01-zoek-de-krab.mp4`                                    |
+| [x]   | `lp-008` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: krab.        | `lp-008-hint-02-kijk-naar-krab.mp4`                                  |
 | [x]   | `lp-009` | opdracht          | Zet het zandkasteel naast de schelp.            | `lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4`            |
 | [x]   | `lp-009` | hint-01-object    | Zoek het zandkasteel.                           | `lp-009-hint-01-zoek-het-zandkasteel.mp4`                            |
+| [x]   | `lp-009` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: zandkasteel. | `lp-009-hint-02-kijk-naar-zandkasteel.mp4`                           |
 | [x]   | `lp-010` | opdracht          | Zet de parasol rechts op het strand.            | `lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4`            |
 | [x]   | `lp-010` | hint-01-object    | Zoek de parasol.                                | `lp-010-hint-01-zoek-de-parasol.mp4`                                 |
+| [x]   | `lp-010` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: parasol.     | `lp-010-hint-02-kijk-naar-parasol.mp4`                               |
 | [x]   | `lp-011` | opdracht          | Zet de zon boven de zee.                        | `lp-011-opdracht-zet-de-zon-boven-de-zee.mp4`                        |
 | [x]   | `lp-011` | hint-01-object    | Zoek de zon.                                    | `lp-011-hint-01-zoek-de-zon.mp4`                                     |
+| [x]   | `lp-011` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: zon.         | `lp-011-hint-02-kijk-naar-zon.mp4`                                   |
 | [x]   | `lp-012` | opdracht          | Leg de handdoek midden op het strand.           | `lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4`           |
 | [x]   | `lp-012` | hint-01-object    | Zoek de handdoek.                               | `lp-012-hint-01-zoek-de-handdoek.mp4`                                |
+| [x]   | `lp-012` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: handdoek.    | `lp-012-hint-02-kijk-naar-handdoek.mp4`                              |
 | [x]   | `lp-013` | opdracht          | Zet de boot links in de zee.                    | `lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4`                    |
 | [x]   | `lp-013` | hint-01-object    | Zoek de boot.                                   | `lp-013-hint-01-zoek-de-boot.mp4`                                    |
+| [x]   | `lp-013` | hint-02-oplichten | Kijk naar het plaatje dat oplicht: boot.        | `lp-013-hint-02-kijk-naar-boot.mp4`                                  |
 | [x]   | `lp-014` | opdracht          | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
 | [x]   | `lp-015` | opdracht          | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
 | [x]   | `lp-016` | opdracht          | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
@@ -91,18 +103,18 @@ Deze clips verschijnen bij de tweede hint.
 
 | Klaar | ID       | Tekst                                           | Bestandsnaam voorstel                      |
 | ----- | -------- | ----------------------------------------------- | ------------------------------------------ |
-| [ ]   | `lp-002` | Kijk naar het plaatje dat oplicht: dolfijn.     | `lp-002-hint-02-kijk-naar-dolfijn.mp4`     |
-| [ ]   | `lp-003` | Kijk naar het plaatje dat oplicht: bal.         | `lp-003-hint-02-kijk-naar-bal.mp4`         |
-| [ ]   | `lp-004` | Kijk naar het plaatje dat oplicht: vuurtoren.   | `lp-004-hint-02-kijk-naar-vuurtoren.mp4`   |
-| [ ]   | `lp-005` | Kijk naar het plaatje dat oplicht: vlieger.     | `lp-005-hint-02-kijk-naar-vlieger.mp4`     |
-| [ ]   | `lp-006` | Kijk naar het plaatje dat oplicht: vliegtuig.   | `lp-006-hint-02-kijk-naar-vliegtuig.mp4`   |
-| [ ]   | `lp-007` | Kijk naar het plaatje dat oplicht: schelp.      | `lp-007-hint-02-kijk-naar-schelp.mp4`      |
-| [ ]   | `lp-008` | Kijk naar het plaatje dat oplicht: krab.        | `lp-008-hint-02-kijk-naar-krab.mp4`        |
-| [ ]   | `lp-009` | Kijk naar het plaatje dat oplicht: zandkasteel. | `lp-009-hint-02-kijk-naar-zandkasteel.mp4` |
-| [ ]   | `lp-010` | Kijk naar het plaatje dat oplicht: parasol.     | `lp-010-hint-02-kijk-naar-parasol.mp4`     |
-| [ ]   | `lp-011` | Kijk naar het plaatje dat oplicht: zon.         | `lp-011-hint-02-kijk-naar-zon.mp4`         |
-| [ ]   | `lp-012` | Kijk naar het plaatje dat oplicht: handdoek.    | `lp-012-hint-02-kijk-naar-handdoek.mp4`    |
-| [ ]   | `lp-013` | Kijk naar het plaatje dat oplicht: boot.        | `lp-013-hint-02-kijk-naar-boot.mp4`        |
+| [x]   | `lp-002` | Kijk naar het plaatje dat oplicht: dolfijn.     | `lp-002-hint-02-kijk-naar-dolfijn.mp4`     |
+| [x]   | `lp-003` | Kijk naar het plaatje dat oplicht: bal.         | `lp-003-hint-02-kijk-naar-bal.mp4`         |
+| [x]   | `lp-004` | Kijk naar het plaatje dat oplicht: vuurtoren.   | `lp-004-hint-02-kijk-naar-vuurtoren.mp4`   |
+| [x]   | `lp-005` | Kijk naar het plaatje dat oplicht: vlieger.     | `lp-005-hint-02-kijk-naar-vlieger.mp4`     |
+| [x]   | `lp-006` | Kijk naar het plaatje dat oplicht: vliegtuig.   | `lp-006-hint-02-kijk-naar-vliegtuig.mp4`   |
+| [x]   | `lp-007` | Kijk naar het plaatje dat oplicht: schelp.      | `lp-007-hint-02-kijk-naar-schelp.mp4`      |
+| [x]   | `lp-008` | Kijk naar het plaatje dat oplicht: krab.        | `lp-008-hint-02-kijk-naar-krab.mp4`        |
+| [x]   | `lp-009` | Kijk naar het plaatje dat oplicht: zandkasteel. | `lp-009-hint-02-kijk-naar-zandkasteel.mp4` |
+| [x]   | `lp-010` | Kijk naar het plaatje dat oplicht: parasol.     | `lp-010-hint-02-kijk-naar-parasol.mp4`     |
+| [x]   | `lp-011` | Kijk naar het plaatje dat oplicht: zon.         | `lp-011-hint-02-kijk-naar-zon.mp4`         |
+| [x]   | `lp-012` | Kijk naar het plaatje dat oplicht: handdoek.    | `lp-012-hint-02-kijk-naar-handdoek.mp4`    |
+| [x]   | `lp-013` | Kijk naar het plaatje dat oplicht: boot.        | `lp-013-hint-02-kijk-naar-boot.mp4`        |
 
 ## Scene Builder - Herbruikbare Hintclips
 

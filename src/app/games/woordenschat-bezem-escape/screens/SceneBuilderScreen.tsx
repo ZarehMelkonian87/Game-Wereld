@@ -3,9 +3,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   getBeachObjectStickerUrl,
+  getHighlightedObjectHintVideoUrl,
   getInstructionVideoUrl,
   getSeekObjectHintVideoUrl,
-  hintVideoUrls,
 } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import {
@@ -173,8 +173,8 @@ const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number) => {
     return getSeekObjectHintVideoUrl(instructionId);
   }
 
-  if (instructionId === "lp-001" && hintLevel === 2) {
-    return hintVideoUrls.lp001LookAtHighlightedBoot;
+  if (hintLevel === 2) {
+    return getHighlightedObjectHintVideoUrl(instructionId);
   }
 
   return undefined;
