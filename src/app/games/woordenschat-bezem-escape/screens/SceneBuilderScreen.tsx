@@ -4,6 +4,7 @@ import { flushSync } from "react-dom";
 import {
   getBeachObjectStickerUrl,
   getInstructionVideoUrl,
+  getSeekObjectHintVideoUrl,
   hintVideoUrls,
 } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
@@ -168,15 +169,11 @@ const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | 
 };
 
 const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number) => {
-  if (instructionId !== "lp-001") {
-    return undefined;
-  }
-
   if (hintLevel === 1) {
-    return hintVideoUrls.lp001SeekBoot;
+    return getSeekObjectHintVideoUrl(instructionId);
   }
 
-  if (hintLevel === 2) {
+  if (instructionId === "lp-001" && hintLevel === 2) {
     return hintVideoUrls.lp001LookAtHighlightedBoot;
   }
 

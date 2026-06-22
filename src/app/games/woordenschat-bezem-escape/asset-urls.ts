@@ -130,8 +130,65 @@ type InstructionVideoId = keyof typeof instructionVideoUrls;
 export const getInstructionVideoUrl = (instructionId: string) =>
   instructionVideoUrls[instructionId as InstructionVideoId];
 
+const seekObjectHintVideoUrls = {
+  "lp-001": new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
+  "lp-002": new URL(
+    "./assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4",
+    import.meta.url,
+  ).href,
+  "lp-003": new URL(
+    "./assets/instructions/lp-003-hint-01-zoek-de-bal.mp4",
+    import.meta.url,
+  ).href,
+  "lp-004": new URL(
+    "./assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4",
+    import.meta.url,
+  ).href,
+  "lp-005": new URL(
+    "./assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4",
+    import.meta.url,
+  ).href,
+  "lp-006": new URL(
+    "./assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4",
+    import.meta.url,
+  ).href,
+  "lp-007": new URL(
+    "./assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4",
+    import.meta.url,
+  ).href,
+  "lp-008": new URL(
+    "./assets/instructions/lp-008-hint-01-zoek-de-krab.mp4",
+    import.meta.url,
+  ).href,
+  "lp-009": new URL(
+    "./assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4",
+    import.meta.url,
+  ).href,
+  "lp-010": new URL(
+    "./assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4",
+    import.meta.url,
+  ).href,
+  "lp-011": new URL(
+    "./assets/instructions/lp-011-hint-01-zoek-de-zon.mp4",
+    import.meta.url,
+  ).href,
+  "lp-012": new URL(
+    "./assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4",
+    import.meta.url,
+  ).href,
+  "lp-013": new URL(
+    "./assets/instructions/lp-013-hint-01-zoek-de-boot.mp4",
+    import.meta.url,
+  ).href,
+} as const;
+
+type SeekObjectHintVideoId = keyof typeof seekObjectHintVideoUrls;
+
+export const getSeekObjectHintVideoUrl = (instructionId: string) =>
+  seekObjectHintVideoUrls[instructionId as SeekObjectHintVideoId];
+
 export const hintVideoUrls = {
-  lp001SeekBoot: new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
+  lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
   lp001LookAtHighlightedBoot: new URL(
     "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
     import.meta.url,
