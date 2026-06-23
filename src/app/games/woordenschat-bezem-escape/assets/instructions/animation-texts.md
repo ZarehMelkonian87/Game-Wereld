@@ -71,6 +71,18 @@ Gebruik dit als productielijst naast de MP4-bestanden in deze map.
 | [x]   | `lp-014` | opdracht          | Zet het vliegtuig ver weg boven de zee.         | `lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4`         |
 | [x]   | `lp-015` | opdracht          | Leg de bal dichtbij de parasol.                 | `lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4`                 |
 | [x]   | `lp-016` | opdracht          | Leg de schelp tussen de bal en het zandkasteel. | `lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4` |
+| [x]   | `shared` | hint-03-plek      | Kijk naar de plek die oplicht.                  | `shared-hint-kijk-naar-de-plek-die-oplicht.mp4`                      |
+| [x]   | `in`     | hint-04-begrip    | In betekent binnenin, zoals in het water.       | `concept-in.mp4`                                                     |
+| [x]   | `op`     | hint-04-begrip    | Op betekent erop, aan de bovenkant.             | `concept-op.mp4`                                                     |
+| [x]   | `onder`  | hint-04-begrip    | Onder betekent lager dan iets anders.           | `concept-onder.mp4`                                                  |
+| [x]   | `boven`  | hint-04-begrip    | Boven betekent hoog, aan de bovenkant.          | `concept-boven.mp4`                                                  |
+| [x]   | `naast`  | hint-04-begrip    | Naast betekent dichtbij aan de zijkant.         | `concept-naast.mp4`                                                  |
+| [x]   | `tussen` | hint-04-begrip    | Tussen betekent in het midden van twee dingen.  | `concept-tussen.mp4`                                                 |
+| [x]   | `links`  | hint-04-begrip    | Links is de kant van je linkerhand.             | `concept-links.mp4`                                                  |
+| [x]   | `rechts` | hint-04-begrip    | Rechts is de kant van je rechterhand.           | `concept-rechts.mp4`                                                 |
+| [x]   | `midden` | hint-04-begrip    | Midden is tussen links en rechts.               | `concept-midden.mp4`                                                 |
+| [x]   | `dichtbij` | hint-04-begrip  | Dichtbij betekent niet ver weg.                 | `concept-dichtbij.mp4`                                               |
+| [x]   | `ver weg` | hint-04-begrip   | Ver weg betekent verder naar achteren in de scene. | `concept-ver-weg.mp4`                                             |
 
 ## Scene Builder - Hoofdopdrachten
 
@@ -122,18 +134,18 @@ Deze clips kunnen door meerdere opdrachten gebruikt worden.
 
 | Klaar | Type      | Tekst                                              | Bestandsnaam voorstel                           |
 | ----- | --------- | -------------------------------------------------- | ----------------------------------------------- |
-| [ ]   | plek-hint | Kijk naar de plek die oplicht.                     | `shared-hint-kijk-naar-de-plek-die-oplicht.mp4` |
-| [ ]   | begrip    | In betekent binnenin, zoals in het water.          | `concept-in.mp4`                                |
-| [ ]   | begrip    | Op betekent erop, aan de bovenkant.                | `concept-op.mp4`                                |
-| [ ]   | begrip    | Onder betekent lager dan iets anders.              | `concept-onder.mp4`                             |
-| [ ]   | begrip    | Boven betekent hoog, aan de bovenkant.             | `concept-boven.mp4`                             |
-| [ ]   | begrip    | Naast betekent dichtbij aan de zijkant.            | `concept-naast.mp4`                             |
-| [ ]   | begrip    | Tussen betekent in het midden van twee dingen.     | `concept-tussen.mp4`                            |
-| [ ]   | begrip    | Links is de kant van je linkerhand.                | `concept-links.mp4`                             |
-| [ ]   | begrip    | Rechts is de kant van je rechterhand.              | `concept-rechts.mp4`                            |
-| [ ]   | begrip    | Midden is tussen links en rechts.                  | `concept-midden.mp4`                            |
-| [ ]   | begrip    | Dichtbij betekent niet ver weg.                    | `concept-dichtbij.mp4`                          |
-| [ ]   | begrip    | Ver weg betekent verder naar achteren in de scene. | `concept-ver-weg.mp4`                           |
+| [x]   | plek-hint | Kijk naar de plek die oplicht.                     | `shared-hint-kijk-naar-de-plek-die-oplicht.mp4` |
+| [x]   | begrip    | In betekent binnenin, zoals in het water.          | `concept-in.mp4`                                |
+| [x]   | begrip    | Op betekent erop, aan de bovenkant.                | `concept-op.mp4`                                |
+| [x]   | begrip    | Onder betekent lager dan iets anders.              | `concept-onder.mp4`                             |
+| [x]   | begrip    | Boven betekent hoog, aan de bovenkant.             | `concept-boven.mp4`                             |
+| [x]   | begrip    | Naast betekent dichtbij aan de zijkant.            | `concept-naast.mp4`                             |
+| [x]   | begrip    | Tussen betekent in het midden van twee dingen.     | `concept-tussen.mp4`                            |
+| [x]   | begrip    | Links is de kant van je linkerhand.                | `concept-links.mp4`                             |
+| [x]   | begrip    | Rechts is de kant van je rechterhand.              | `concept-rechts.mp4`                            |
+| [x]   | begrip    | Midden is tussen links en rechts.                  | `concept-midden.mp4`                            |
+| [x]   | begrip    | Dichtbij betekent niet ver weg.                    | `concept-dichtbij.mp4`                          |
+| [x]   | begrip    | Ver weg betekent verder naar achteren in de scene. | `concept-ver-weg.mp4`                           |
 
 ## Scene Builder - Positieve Feedback
 

@@ -3,9 +3,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   getBeachObjectStickerUrl,
+  getConceptHintVideoUrl,
   getHighlightedObjectHintVideoUrl,
   getInstructionVideoUrl,
   getSeekObjectHintVideoUrl,
+  sharedPlaceHintVideoUrl,
 } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import {
@@ -168,13 +170,21 @@ const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | 
   return objects.find((object) => object.id === objectId)?.label ?? objectId;
 };
 
-const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number) => {
+const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number, relation: string) => {
   if (hintLevel === 1) {
     return getSeekObjectHintVideoUrl(instructionId);
   }
 
   if (hintLevel === 2) {
     return getHighlightedObjectHintVideoUrl(instructionId);
+  }
+
+  if (hintLevel === 3) {
+    return sharedPlaceHintVideoUrl;
+  }
+
+  if (hintLevel === 4) {
+    return getConceptHintVideoUrl(relation);
   }
 
   return undefined;
@@ -1049,7 +1059,11 @@ export function SceneBuilderScreen({
       hintVideoUrl:
         spokenCommandResult && spokenCommandResult.status !== "ready"
           ? undefined
-          : getHintVideoUrlForLevel(instruction.id, nextHintLevel),
+          : getHintVideoUrlForLevel(
+              instruction.id,
+              nextHintLevel,
+              instruction.placement.relation,
+            ),
       kind: "ready",
       mascot: "hint",
       text: hintText,
@@ -1394,7 +1408,7 @@ export function SceneBuilderScreen({
   const preparedHintVideoUrl =
     feedback || (spokenCommandResult && spokenCommandResult.status !== "ready")
       ? undefined
-      : getHintVideoUrlForLevel(instruction.id, nextHintLevel);
+      : getHintVideoUrlForLevel(instruction.id, nextHintLevel, instruction.placement.relation);
   const hintFeedbackVideoUrl = feedback?.hintVideoUrl ?? preparedHintVideoUrl;
   const shouldRenderFeedbackCard = Boolean(feedback || hintFeedbackVideoUrl);
   const actionLabel =

@@ -247,6 +247,30 @@ type HighlightedObjectHintVideoId = keyof typeof highlightedObjectHintVideoUrls;
 export const getHighlightedObjectHintVideoUrl = (instructionId: string) =>
   highlightedObjectHintVideoUrls[instructionId as HighlightedObjectHintVideoId];
 
+export const sharedPlaceHintVideoUrl = new URL(
+  "./assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4",
+  import.meta.url,
+).href;
+
+const conceptHintVideoUrls = {
+  boven: new URL("./assets/instructions/concept-boven.mp4", import.meta.url).href,
+  dichtbij: new URL("./assets/instructions/concept-dichtbij.mp4", import.meta.url).href,
+  in: new URL("./assets/instructions/concept-in.mp4", import.meta.url).href,
+  links: new URL("./assets/instructions/concept-links.mp4", import.meta.url).href,
+  midden: new URL("./assets/instructions/concept-midden.mp4", import.meta.url).href,
+  naast: new URL("./assets/instructions/concept-naast.mp4", import.meta.url).href,
+  onder: new URL("./assets/instructions/concept-onder.mp4", import.meta.url).href,
+  op: new URL("./assets/instructions/concept-op.mp4", import.meta.url).href,
+  rechts: new URL("./assets/instructions/concept-rechts.mp4", import.meta.url).href,
+  tussen: new URL("./assets/instructions/concept-tussen.mp4", import.meta.url).href,
+  "ver weg": new URL("./assets/instructions/concept-ver-weg.mp4", import.meta.url).href,
+} as const;
+
+type ConceptHintVideoId = keyof typeof conceptHintVideoUrls;
+
+export const getConceptHintVideoUrl = (concept: string) =>
+  conceptHintVideoUrls[concept as ConceptHintVideoId];
+
 export const hintVideoUrls = {
   lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
   lp001LookAtHighlightedBoot: highlightedObjectHintVideoUrls["lp-001"],
