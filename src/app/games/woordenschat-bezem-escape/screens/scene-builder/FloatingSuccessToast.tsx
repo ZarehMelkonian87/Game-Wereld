@@ -3,7 +3,10 @@ import { mascotIconUrls } from "../../asset-urls";
 import { PanelCard } from "../../components/ui";
 import type { SceneCommandChoice, SceneCommandExecutionResult } from "../../logic/scene-command-executor";
 import { classNames } from "../../components/ui/classNames";
-import { createForegroundAudioSession } from "../../logic/game-audio-events";
+import {
+  createForegroundAudioSession,
+  GAME_FOREGROUND_AUDIO_VOLUME,
+} from "../../logic/game-audio-events";
 
 interface FeedbackToastState {
   hintVideoUrl?: string;
@@ -15,6 +18,7 @@ interface FeedbackToastState {
 }
 
 interface FloatingSuccessToastProps {
+  autoPlayFeedbackVideo?: boolean;
   feedback: FeedbackToastState | null;
   hintVideoUrl?: string;
   onHintVideoClick: (event: MouseEvent<HTMLVideoElement>) => void;
@@ -50,6 +54,7 @@ const compactFeedbackText = (feedback: FeedbackToastState) => {
 };
 
 export const FloatingSuccessToast = ({
+  autoPlayFeedbackVideo = false,
   feedback,
   hintVideoUrl,
   onHintVideoClick,
@@ -58,8 +63,10 @@ export const FloatingSuccessToast = ({
   spokenCommandResult,
 }: FloatingSuccessToastProps) => {
   const stopHintAudioSessionRef = useRef<(() => void) | undefined>();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const shouldRender = Boolean(feedback || hintVideoUrl);
   const isCorrectFeedback = feedback?.kind === "correct";
+  const videoLabel = isCorrectFeedback ? "Speel feedbackvideo" : "Speel hintvideo";
 
   const startHintAudioSession = () => {
     stopHintAudioSessionRef.current?.();
@@ -73,6 +80,31 @@ export const FloatingSuccessToast = ({
 
   useEffect(() => stopHintAudioSession, []);
 
+  useEffect(() => {
+    if (!autoPlayFeedbackVideo || !isCorrectFeedback || !hintVideoUrl || !videoRef.current) {
+      return undefined;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      const video = videoRef.current;
+
+      if (!video) {
+        return;
+      }
+
+      video.pause();
+      if (video.readyState === 0) {
+        video.load();
+      }
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = GAME_FOREGROUND_AUDIO_VOLUME;
+      void video.play().catch(stopHintAudioSession);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [autoPlayFeedbackVideo, hintVideoUrl, isCorrectFeedback]);
+
   if (!shouldRender) {
     return null;
   }
@@ -84,7 +116,10 @@ export const FloatingSuccessToast = ({
       className={classNames(
         "absolute bottom-3 left-3 right-3 mx-auto max-w-[28rem] !rounded-[1.25rem] !border-white/85 !bg-white/92 !p-2 shadow-[0_4px_0_rgba(15,23,42,0.1)]",
         feedback ? "opacity-100" : "pointer-events-none opacity-0",
-        isCorrectFeedback ? "pointer-events-none bezem-feedback-toast" : "pointer-events-auto",
+        isCorrectFeedback && !hintVideoUrl
+          ? "pointer-events-none bezem-feedback-toast"
+          : "pointer-events-auto",
+        isCorrectFeedback && hintVideoUrl ? "bezem-feedback-toast" : "",
       )}
       data-kind={feedback?.kind ?? "prepared"}
       data-testid="scene-builder-feedback"
@@ -92,8 +127,10 @@ export const FloatingSuccessToast = ({
       <div className="flex items-center gap-2">
         {hintVideoUrl ? (
           <video
-            aria-label="Speel hintvideo"
+            aria-label={videoLabel}
+            autoPlay={autoPlayFeedbackVideo && isCorrectFeedback}
             className="h-10 w-10 shrink-0 rounded-full bg-transparent object-cover"
+            data-auto-play-feedback-video={autoPlayFeedbackVideo ? "true" : "false"}
             data-component="HintFeedbackVideo"
             draggable={false}
             onClick={onHintVideoClick}
@@ -103,11 +140,12 @@ export const FloatingSuccessToast = ({
             onPlay={startHintAudioSession}
             playsInline
             preload="auto"
+            ref={videoRef}
             src={hintVideoUrl}
             style={{
               clipPath: "circle(50% at 50% 50%)",
             }}
-            title="Speel hintvideo"
+            title={videoLabel}
           />
         ) : feedback?.mascot ? (
           <img

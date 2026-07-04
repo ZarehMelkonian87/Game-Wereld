@@ -4,6 +4,7 @@ import { flushSync } from "react-dom";
 import {
   getBeachObjectStickerUrl,
   getConceptHintVideoUrl,
+  getFeedbackVideoUrl,
   getHighlightedObjectHintVideoUrl,
   getInstructionVideoUrl,
   getSeekObjectHintVideoUrl,
@@ -790,7 +791,10 @@ export function SceneBuilderScreen({
       saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
     }
 
+    const feedbackVideoUrl = getFeedbackVideoUrl(instruction.id);
+
     setFeedback({
+      hintVideoUrl: feedbackVideoUrl,
       kind: "correct",
       mascot: "celebration",
       rewardLabels: newRewardUnlocks.map((reward) => reward.label),
@@ -807,6 +811,7 @@ export function SceneBuilderScreen({
         .filter(Boolean)
         .join(" "),
     });
+
   }
 
   function handleConfirm() {
@@ -1076,7 +1081,10 @@ export function SceneBuilderScreen({
     return true;
   };
 
-  const playHintVideoElement = async (video: HTMLVideoElement) => {
+  const playHintVideoElement = async (
+    video: HTMLVideoElement,
+    options: { trackAudioRepeat?: boolean } = {},
+  ) => {
     if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
       return;
     }
@@ -1090,13 +1098,15 @@ export function SceneBuilderScreen({
       video.muted = false;
       video.volume = GAME_FOREGROUND_AUDIO_VOLUME;
       await video.play();
-      handleHintVideoPlaybackStart();
+      if (options.trackAudioRepeat !== false) {
+        handleHintVideoPlaybackStart();
+      }
     } catch {
       handleHintVideoPlaybackError();
     }
   };
 
-  const playVisibleHintVideo = async () => {
+  const playVisibleHintVideo = async (options: { trackAudioRepeat?: boolean } = {}) => {
     const feedbackElement = sceneAreaRef.current?.querySelector(
       '[data-testid="scene-builder-feedback"]',
     );
@@ -1108,7 +1118,7 @@ export function SceneBuilderScreen({
       return;
     }
 
-    await playHintVideoElement(video);
+    await playHintVideoElement(video, options);
   };
 
   const playPreparedHintVideo = () => {
@@ -1575,6 +1585,11 @@ export function SceneBuilderScreen({
           ) : null}
 
           <FloatingSuccessToast
+            autoPlayFeedbackVideo={Boolean(
+              feedback?.kind === "correct" &&
+                feedback.hintVideoUrl &&
+                readBezemEscapeSettings(rewardProfileId).audioEnabled,
+            )}
             feedback={feedback}
             hintVideoUrl={shouldRenderFeedbackCard ? hintFeedbackVideoUrl : undefined}
             onHintVideoClick={handleHintFeedbackVideoClick}

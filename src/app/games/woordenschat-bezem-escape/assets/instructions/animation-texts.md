@@ -153,21 +153,21 @@ Deze clips zijn optioneel. Ze kunnen na een goed antwoord gespeeld worden.
 
 | Klaar | ID       | Tekst                                                            | Bestandsnaam voorstel                                  |
 | ----- | -------- | ---------------------------------------------------------------- | ------------------------------------------------------ |
-| [ ]   | `lp-001` | Goed zo! De boot vaart in de zee. +1 Speed!                      | `lp-001-feedback-boot-vaart-in-de-zee.mp4`             |
-| [ ]   | `lp-002` | Mooi! De dolfijn zwemt in de zee. +1 Speed!                      | `lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4`          |
-| [ ]   | `lp-003` | Ja! De bal ligt op het strand. +1 Speed!                         | `lp-003-feedback-bal-ligt-op-het-strand.mp4`           |
-| [ ]   | `lp-004` | Goed gedaan! De vuurtoren staat op het eiland. +1 Speed!         | `lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4`    |
-| [ ]   | `lp-005` | Goed zo! De vlieger is boven het strand. +1 Speed!               | `lp-005-feedback-vlieger-boven-het-strand.mp4`         |
-| [ ]   | `lp-006` | Knap! Het vliegtuig vliegt boven de zee. +1 Speed!               | `lp-006-feedback-vliegtuig-boven-de-zee.mp4`           |
-| [ ]   | `lp-007` | Ja! De schelp ligt op het strand. +1 Speed!                      | `lp-007-feedback-schelp-ligt-op-het-strand.mp4`        |
-| [ ]   | `lp-008` | Goed! De krab zit op de handdoek. +1 Speed!                      | `lp-008-feedback-krab-zit-op-de-handdoek.mp4`          |
-| [ ]   | `lp-009` | Mooi! Het zandkasteel staat naast de schelp. +1 Speed!           | `lp-009-feedback-zandkasteel-naast-schelp.mp4`         |
-| [ ]   | `lp-010` | Ja! De parasol staat rechts op het strand. +1 Speed!             | `lp-010-feedback-parasol-rechts-op-strand.mp4`         |
-| [ ]   | `lp-011` | Goed zo! De zon staat boven de zee. +1 Speed!                    | `lp-011-feedback-zon-boven-de-zee.mp4`                 |
-| [ ]   | `lp-012` | Knap! De handdoek ligt midden op het strand. +1 Speed!           | `lp-012-feedback-handdoek-midden-op-strand.mp4`        |
-| [ ]   | `lp-013` | Goed! De boot vaart links in de zee. +1 Speed!                   | `lp-013-feedback-boot-links-in-de-zee.mp4`             |
-| [ ]   | `lp-014` | Mooi! Het vliegtuig vliegt ver weg boven de zee. +1 Speed!       | `lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4`   |
-| [ ]   | `lp-015` | Ja! De bal ligt dichtbij de parasol. +1 Speed!                   | `lp-015-feedback-bal-dichtbij-parasol.mp4`             |
+| [x]   | `lp-001` | Goed zo! De boot vaart in de zee. +1 Speed!                      | `lp-001-feedback-boot-vaart-in-de-zee.mp4`             |
+| [x]   | `lp-002` | Mooi! De dolfijn zwemt in de zee. +1 Speed!                      | `lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4`          |
+| [x]   | `lp-003` | Ja! De bal ligt op het strand. +1 Speed!                         | `lp-003-feedback-bal-ligt-op-het-strand.mp4`           |
+| [x]   | `lp-004` | Goed gedaan! De vuurtoren staat op het eiland. +1 Speed!         | `lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4`    |
+| [x]   | `lp-005` | Goed zo! De vlieger is boven het strand. +1 Speed!               | `lp-005-feedback-vlieger-boven-het-strand.mp4`         |
+| [x]   | `lp-006` | Knap! Het vliegtuig vliegt boven de zee. +1 Speed!               | `lp-006-feedback-vliegtuig-boven-de-zee.mp4`           |
+| [x]   | `lp-007` | Ja! De schelp ligt op het strand. +1 Speed!                      | `lp-007-feedback-schelp-ligt-op-het-strand.mp4`        |
+| [x]   | `lp-008` | Goed! De krab zit op de handdoek. +1 Speed!                      | `lp-008-feedback-krab-zit-op-de-handdoek.mp4`          |
+| [x]   | `lp-009` | Mooi! Het zandkasteel staat naast de schelp. +1 Speed!           | `lp-009-feedback-zandkasteel-naast-schelp.mp4`         |
+| [x]   | `lp-010` | Ja! De parasol staat rechts op het strand. +1 Speed!             | `lp-010-feedback-parasol-rechts-op-strand.mp4`         |
+| [x]   | `lp-011` | Goed zo! De zon staat boven de zee. +1 Speed!                    | `lp-011-feedback-zon-boven-de-zee.mp4`                 |
+| [x]   | `lp-012` | Knap! De handdoek ligt midden op het strand. +1 Speed!           | `lp-012-feedback-handdoek-midden-op-strand.mp4`        |
+| [x]   | `lp-013` | Goed! De boot vaart links in de zee. +1 Speed!                   | `lp-013-feedback-boot-links-in-de-zee.mp4`             |
+| [x]   | `lp-014` | Mooi! Het vliegtuig vliegt ver weg boven de zee. +1 Speed!       | `lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4`   |
+| [x]   | `lp-015` | Ja! De bal ligt dichtbij de parasol. +1 Speed!                   | `lp-015-feedback-bal-dichtbij-parasol.mp4`             |
 | [ ]   | `lp-016` | Knap! De schelp ligt tussen de bal en het zandkasteel. +1 Speed! | `lp-016-feedback-schelp-tussen-bal-en-zandkasteel.mp4` |
 
 ## Woord Kiezen - Opdrachtclips

@@ -271,6 +271,74 @@ type ConceptHintVideoId = keyof typeof conceptHintVideoUrls;
 export const getConceptHintVideoUrl = (concept: string) =>
   conceptHintVideoUrls[concept as ConceptHintVideoId];
 
+const feedbackVideoUrls = {
+  "lp-001": new URL(
+    "./assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-002": new URL(
+    "./assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-003": new URL(
+    "./assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-004": new URL(
+    "./assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4",
+    import.meta.url,
+  ).href,
+  "lp-005": new URL(
+    "./assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-006": new URL(
+    "./assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-007": new URL(
+    "./assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-008": new URL(
+    "./assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4",
+    import.meta.url,
+  ).href,
+  "lp-009": new URL(
+    "./assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4",
+    import.meta.url,
+  ).href,
+  "lp-010": new URL(
+    "./assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-011": new URL(
+    "./assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-012": new URL(
+    "./assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4",
+    import.meta.url,
+  ).href,
+  "lp-013": new URL(
+    "./assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-014": new URL(
+    "./assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4",
+    import.meta.url,
+  ).href,
+  "lp-015": new URL(
+    "./assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4",
+    import.meta.url,
+  ).href,
+} as const;
+
+type FeedbackVideoId = keyof typeof feedbackVideoUrls;
+
+export const getFeedbackVideoUrl = (instructionId: string) =>
+  feedbackVideoUrls[instructionId as FeedbackVideoId];
+
 export const hintVideoUrls = {
   lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
   lp001LookAtHighlightedBoot: highlightedObjectHintVideoUrls["lp-001"],
