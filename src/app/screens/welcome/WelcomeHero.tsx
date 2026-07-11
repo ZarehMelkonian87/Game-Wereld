@@ -18,13 +18,21 @@ export const WelcomeHero = ({ onStart }: WelcomeHeroProps) => (
       className="mb-4 sm:mb-6"
       transition={{ duration: 2, repeat: Infinity }}
     >
-      <div className="relative inline-block">
-        <div className="absolute inset-0 bg-cyan-400 blur-2xl opacity-50 rounded-full" />
+      <motion.div
+        className="relative inline-block cursor-pointer"
+        whileHover={{ scale: 1.08 }}
+      >
+        <motion.div
+          animate={{ opacity: [0.4, 0.6, 0.4] }}
+          className="absolute inset-0 bg-cyan-400 blur-2xl rounded-full"
+          transition={{ duration: 2, repeat: Infinity }}
+          whileHover={{ opacity: 0.8, scale: 1.2 }}
+        />
         <Gamepad2
-          className="w-20 h-20 sm:w-32 sm:h-32 text-cyan-400 relative"
+          className="w-20 h-20 sm:w-32 sm:h-32 text-cyan-400 relative transition-all duration-300 hover:text-cyan-300 filter hover:drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]"
           strokeWidth={2.5}
         />
-      </div>
+      </motion.div>
     </motion.div>
 
     <motion.h1

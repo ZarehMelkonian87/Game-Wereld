@@ -10,11 +10,11 @@ Deze takenlijst bevat alle geïdentificeerde verbeterpunten uit de UI-analyse. W
   * Bestanden: [theme.css](file:///Users/melkonian/git/Game-Wereld/src/styles/theme.css)
   * Actie: De body achtergrondkleur `#bae6fd` aanpassen naar de donkere gaming achtergrondkleur om een opstart-flits te voorkomen.
 
-## [ ] 🚀 2. Welcome Screen
-- [ ] **Gamepad Interactie**
+## [x] 🚀 2. Welcome Screen
+- [x] **Gamepad Interactie**
   * Bestanden: [WelcomeHero.tsx](file:///Users/melkonian/git/Game-Wereld/src/app/screens/welcome/WelcomeHero.tsx)
   * Actie: Voeg hover-glow en schaal-effecten (`scale: 1.08`) toe aan het grote Gamepad-icoon.
-- [ ] **Quick Mute**
+- [x] **Quick Mute**
   * Bestanden: [WelcomeScreen.tsx](file:///Users/melkonian/git/Game-Wereld/src/app/screens/welcome/WelcomeScreen.tsx)
   * Actie: Voeg een subtiele, zwevende audio/mute-knop toe aan het startscherm.
 
