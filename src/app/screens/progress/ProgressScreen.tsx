@@ -8,6 +8,8 @@ import { PeriodSelector } from "./PeriodSelector";
 import { ProgressHeader } from "./ProgressHeader";
 import { getProgressData, periods } from "./progressData";
 import { ThemeProgressCard } from "./ThemeProgressCard";
+import { ActivityChartCard } from "./ActivityChartCard";
+import { AchievementsCard } from "./AchievementsCard";
 import type { TimePeriod } from "./progressTypes";
 
 export const ProgressScreen = () => {
@@ -36,6 +38,16 @@ export const ProgressScreen = () => {
           />
 
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
+            <ActivityChartCard
+              delay={0.05}
+              selectedPeriod={selectedPeriod}
+            />
+
+            <AchievementsCard
+              delay={0.1}
+              profile={currentProfile}
+            />
+
             {progressData.map((themeData, index) => {
               const theme = gameThemes.find((candidate) => candidate.id === themeData.themeId);
 
@@ -56,7 +68,7 @@ export const ProgressScreen = () => {
 
             <OverallSummaryCard
               childName={currentProfile.name}
-              delay={progressData.length * 0.1}
+              delay={(progressData.length + 2) * 0.05}
               selectedPeriod={selectedPeriod}
             />
           </div>

@@ -27,21 +27,16 @@ export const GameListCard = ({
 }: GameListCardProps) => (
   <motion.button
     animate={{ opacity: 1, x: 0 }}
-    className={`game-card-3d bg-gradient-to-br from-slate-700 to-slate-800 border-3 sm:border-4 border-slate-600 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl min-h-[140px] sm:min-h-[150px] flex items-center gap-3 sm:gap-4 relative overflow-hidden ${
-      isLocked ? "opacity-50" : ""
+    className={`game-card-3d bg-gradient-to-br from-slate-700 to-slate-800 border-3 sm:border-4 border-slate-600 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl min-h-[140px] sm:min-h-[150px] flex items-center gap-3 sm:gap-4 relative overflow-hidden transition-all duration-300 ${
+      isLocked ? "opacity-60 grayscale border-slate-700/50" : ""
     }`}
     data-component="GameListCard"
-    disabled={isLocked}
     initial={{ opacity: 0, x: -20 }}
-    onClick={() => {
-      if (!isLocked) {
-        onSelect(game);
-      }
-    }}
+    onClick={() => onSelect(game)}
     transition={{ delay: index * 0.05 }}
     type="button"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
+    whileHover={isLocked ? { scale: 1 } : { scale: 1.02 }}
+    whileTap={isLocked ? { scale: 1 } : { scale: 0.98 }}
   >
     <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-cyan-400/10 rounded-full blur-3xl" />
 

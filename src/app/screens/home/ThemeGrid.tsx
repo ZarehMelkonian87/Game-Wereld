@@ -1,12 +1,14 @@
 import { Zap } from "lucide-react";
+import type { Profile } from "../../game-platform";
 import { gameThemes } from "../../data/games";
 import { ThemeCard } from "./ThemeCard";
 
 interface ThemeGridProps {
   onSelectTheme: (themeId: string) => void;
+  profile: Profile;
 }
 
-export const ThemeGrid = ({ onSelectTheme }: ThemeGridProps) => (
+export const ThemeGrid = ({ onSelectTheme, profile }: ThemeGridProps) => (
   <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 sm:py-5" data-component="ThemeGrid">
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 px-2">
@@ -19,7 +21,13 @@ export const ThemeGrid = ({ onSelectTheme }: ThemeGridProps) => (
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 pb-6">
         {gameThemes.map((theme, index) => (
-          <ThemeCard index={index} key={theme.id} onSelect={onSelectTheme} theme={theme} />
+          <ThemeCard
+            index={index}
+            key={theme.id}
+            onSelect={onSelectTheme}
+            profile={profile}
+            theme={theme}
+          />
         ))}
       </div>
     </div>

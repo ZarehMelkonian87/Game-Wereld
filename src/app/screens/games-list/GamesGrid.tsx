@@ -15,7 +15,7 @@ export const GamesGrid = ({ games, getGameProgress, onSelectGame, theme }: Games
       <GameListCard
         game={game}
         index={index}
-        isLocked={false}
+        isLocked={game.id !== "woordenschat-bezem-escape"}
         key={game.id}
         onSelect={onSelectGame}
         progress={getGameProgress(game.id)}

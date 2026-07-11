@@ -17,6 +17,7 @@ interface ProfileContextType {
   setCurrentProfile: (profile: Profile | null) => void;
   createProfile: (name: string, avatar: Avatar) => void;
   updateProgress: (gameId: string, progress: Partial<GameProgress>) => void;
+  updateSettings: (settings: Partial<Profile["settings"]>) => void;
   deleteProfile: (id: string) => void;
 }
 
@@ -104,6 +105,25 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const updateSettings = (settingsUpdate: Partial<Profile["settings"]>) => {
+    if (!currentProfile) return;
+
+    const updatedProfiles = profiles.map((profile) => {
+      if (profile.id === currentProfile.id) {
+        return {
+          ...profile,
+          settings: { ...profile.settings, ...settingsUpdate },
+        };
+      }
+      return profile;
+    });
+
+    setProfiles(updatedProfiles);
+    setCurrentProfileState(
+      updatedProfiles.find((profile) => profile.id === currentProfile.id) || null,
+    );
+  };
+
   const deleteProfile = (id: string) => {
     setProfiles(profiles.filter((profile) => profile.id !== id));
     if (currentProfile?.id === id) {
@@ -119,6 +139,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         setCurrentProfile,
         createProfile,
         updateProgress,
+        updateSettings,
         deleteProfile,
       }}
     >

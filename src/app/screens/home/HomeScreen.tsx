@@ -27,7 +27,10 @@ export const HomeScreen = () => {
         onOpenProgress={() => navigate("/progress")}
         onOpenSettings={() => navigate("/settings")}
       />
-      <ThemeGrid onSelectTheme={(themeId) => navigate(`/games/${themeId}`)} />
+      <ThemeGrid
+        onSelectTheme={(themeId) => navigate(`/games/${themeId}`)}
+        profile={currentProfile}
+      />
     </div>
   );
 };

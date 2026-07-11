@@ -13,6 +13,11 @@ export const ProfileSelectScreen = () => {
     navigate("/home");
   };
 
+  const handleEditProfile = (profile: Profile) => {
+    setCurrentProfile(profile);
+    navigate("/settings");
+  };
+
   return (
     <div
       className="min-h-screen flex flex-col px-4 py-6 safe-area-inset"
@@ -22,6 +27,7 @@ export const ProfileSelectScreen = () => {
       <ProfileGrid
         onCreate={() => navigate("/avatar")}
         onSelectProfile={handleSelectProfile}
+        onEditProfile={handleEditProfile}
         profiles={profiles}
       />
     </div>
