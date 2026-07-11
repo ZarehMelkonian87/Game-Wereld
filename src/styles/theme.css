@@ -42,7 +42,7 @@
 }
 
 html {
-  background: #bae6fd;
+  background: var(--background);
   height: 100%;
   overscroll-behavior: none;
   text-size-adjust: 100%;
@@ -50,7 +50,7 @@ html {
 }
 
 body {
-  background: #bae6fd;
+  background: var(--background);
   min-height: 100%;
   margin: 0;
   overscroll-behavior: none;
@@ -302,6 +302,7 @@ a,
 }
 
 @theme inline {
+  --font-sans: 'Fredoka', 'Outfit', sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
