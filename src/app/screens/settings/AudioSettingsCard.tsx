@@ -2,15 +2,6 @@ import { motion } from "motion/react";
 import { Music, Volume2, VolumeX } from "lucide-react";
 import type { Profile } from "../../game-platform";
 import { AudioSettingRow } from "./AudioSettingRow";
-
-interface AudioSettingsCardProps {
-  profile: Profile;
-}
-
-import { motion } from "motion/react";
-import { Music, Volume2, VolumeX } from "lucide-react";
-import type { Profile } from "../../game-platform";
-import { AudioSettingRow } from "./AudioSettingRow";
 import { useProfile } from "../../contexts/ProfileContext";
 
 interface AudioSettingsCardProps {
