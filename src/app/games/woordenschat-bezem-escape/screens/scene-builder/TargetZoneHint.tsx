@@ -17,11 +17,22 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
         preserveAspectRatio="none"
         viewBox="0 0 100 100"
       >
-        {/* Soft back-glow to highlight the target region beautifully */}
+        {/* Soft back-glow to highlight the target region beautifully (always shown, pulses in interactive mode) */}
         <path
           className={classNames(
-            "fill-amber-400/10 stroke-amber-400/25 blur-[4px] transition-all duration-700",
-            pulsing && "fill-amber-400/20 stroke-amber-500/40"
+            "fill-amber-400/12 transition-all duration-700 blur-[8px]",
+            pulsing ? "animate-pulse fill-amber-400/22" : "fill-amber-400/12"
+          )}
+          d={zone.visualHintPath}
+          fillRule="evenodd"
+          vectorEffect="non-scaling-stroke"
+        />
+
+        {/* Ambient edge-glow blur (shown slightly stronger in hint mode, pulses in interactive mode) */}
+        <path
+          className={classNames(
+            "fill-none stroke-amber-400/20 blur-[3px] transition-all duration-700",
+            pulsing ? "stroke-amber-400/35" : "stroke-amber-400/15"
           )}
           d={zone.visualHintPath}
           fillRule="evenodd"
@@ -30,19 +41,19 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
           strokeWidth="6"
           vectorEffect="non-scaling-stroke"
         />
-        {/* Primary golden border and transparent card overlay */}
-        <path
-          className={classNames(
-            "fill-amber-400/15 stroke-amber-400/80 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-700",
-            pulsing && "animate-pulse fill-amber-400/25 stroke-amber-500"
-          )}
-          d={zone.visualHintPath}
-          fillRule="evenodd"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2.5"
-          vectorEffect="non-scaling-stroke"
-        />
+
+        {/* Crisp Border with subtle inner/outer glow - ONLY SHOWN WHEN DRAGGING/SELECTING (pulsing === true) */}
+        {pulsing && (
+          <path
+            className="fill-none stroke-amber-400/90 drop-shadow-[0_0_6px_rgba(245,158,11,0.65)] animate-pulse"
+            d={zone.visualHintPath}
+            fillRule="evenodd"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.2"
+            vectorEffect="non-scaling-stroke"
+          />
+        )}
       </svg>
     );
   }
@@ -51,8 +62,10 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
     <span
       aria-hidden="true"
       className={classNames(
-        "pointer-events-none absolute rounded-[1.5rem] border-2 border-amber-400 bg-amber-400/15 shadow-[0_0_12px_rgba(245,158,11,0.5),inset_0_0_8px_rgba(245,158,11,0.2)] transition-all duration-500",
-        pulsing && "animate-pulse border-amber-500 bg-amber-400/25"
+        "pointer-events-none absolute rounded-[1.5rem] transition-all duration-500",
+        pulsing
+          ? "border-2 border-amber-400 bg-amber-400/20 shadow-[0_0_12px_rgba(245,158,11,0.5),inset_0_0_8px_rgba(245,158,11,0.2)] animate-pulse"
+          : "bg-amber-400/12 shadow-[0_0_16px_rgba(245,158,11,0.3)] blur-[2px]"
       )}
       data-shape="rect"
       data-testid="target-zone-hint"
