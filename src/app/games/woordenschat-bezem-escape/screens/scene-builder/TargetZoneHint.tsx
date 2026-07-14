@@ -17,17 +17,30 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
         preserveAspectRatio="none"
         viewBox="0 0 100 100"
       >
+        {/* Soft back-glow to highlight the target region beautifully */}
         <path
           className={classNames(
-            "fill-amber-200/20 stroke-amber-400 drop-shadow-[0_0_0.45rem_rgba(255,255,255,0.72)]",
-            pulsing && "animate-pulse fill-amber-300/30 stroke-amber-500"
+            "fill-amber-400/10 stroke-amber-400/25 blur-[4px] transition-all duration-700",
+            pulsing && "fill-amber-400/20 stroke-amber-500/40"
           )}
           d={zone.visualHintPath}
           fillRule="evenodd"
-          strokeDasharray="2.6 2.1"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="1.3"
+          strokeWidth="6"
+          vectorEffect="non-scaling-stroke"
+        />
+        {/* Primary golden border and transparent card overlay */}
+        <path
+          className={classNames(
+            "fill-amber-400/15 stroke-amber-400/80 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-700",
+            pulsing && "animate-pulse fill-amber-400/25 stroke-amber-500"
+          )}
+          d={zone.visualHintPath}
+          fillRule="evenodd"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2.5"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
@@ -38,8 +51,8 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
     <span
       aria-hidden="true"
       className={classNames(
-        "pointer-events-none absolute rounded-[1.5rem] border-4 border-dashed border-amber-400 bg-amber-200/20 shadow-[0_0_0_5px_rgba(255,255,255,0.72)]",
-        pulsing && "animate-pulse border-amber-500 bg-amber-300/30"
+        "pointer-events-none absolute rounded-[1.5rem] border-2 border-amber-400 bg-amber-400/15 shadow-[0_0_12px_rgba(245,158,11,0.5),inset_0_0_8px_rgba(245,158,11,0.2)] transition-all duration-500",
+        pulsing && "animate-pulse border-amber-500 bg-amber-400/25"
       )}
       data-shape="rect"
       data-testid="target-zone-hint"
