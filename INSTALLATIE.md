@@ -129,6 +129,36 @@ Voor telefoon/tablet/laptop op hetzelfde wifi-netwerk gebruik je het `Network` a
 
 ---
 
+## 🌐 Mobiel Testen & Microfoon (Cloudflare Tunnel)
+
+Voor het testen van de gesproken opdrachten (**"Zeg & Zet"**) op mobiele apparaten is een veilige verbinding (**HTTPS**) vereist. Mobiele browsers blokkeren de microfoon op onbeveiligde `http://` IP-adressen.
+
+Je kunt een gratis, veilige publieke tunnel opzetten met Cloudflare:
+
+### Stap 1: Zorg dat de app draait
+Start eerst de app in je terminal:
+```bash
+npm run dev
+```
+
+### Stap 2: Start de Cloudflare Tunnel
+Open een **nieuw** terminal-venster of tabblad en start de tunnel:
+```bash
+cloudflared tunnel --url http://localhost:3000
+```
+
+*Heb je `cloudflared` nog niet geïnstalleerd? Installeer het via Homebrew (Mac):*
+```bash
+brew install cloudflare/cloudflare/cloudflared
+```
+
+### Stap 3: Open de HTTPS link op je mobiel
+De terminal toont een willekeurig HTTPS-adres dat eindigt op `.trycloudflare.com` (bijvoorbeeld `https://taught-blowing-gathering-causes.trycloudflare.com`). 
+
+Open deze link op je mobiel of tablet om te spelen met werkende microfoon-ondersteuning!
+
+---
+
 ## Veelvoorkomende Problemen
 
 ### "Cannot find module"

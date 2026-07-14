@@ -27,12 +27,24 @@ export const WoordenschatBezemEscapeGame = () => {
     worldDefinitions,
   } = viewModel;
 
+  const isSceneBuilder =
+    screenPreview !== "reward" &&
+    screenPreview !== "dashboard" &&
+    screenPreview !== "settings" &&
+    screenPreview !== "start" &&
+    screenPreview !== "world-select" &&
+    screenPreview !== "mode-select" &&
+    screenPreview !== "voice-side-scroller" &&
+    screenPreview !== "word-choice";
+
   return (
     <BezemEscapeShell world={beachWorld}>
-      <BeachBackground
-        landscapeUrl={beachBackgrounds.landscape}
-        portraitUrl={beachBackgrounds.portrait}
-      />
+      {!isSceneBuilder && (
+        <BeachBackground
+          landscapeUrl={beachBackgrounds.landscape}
+          portraitUrl={beachBackgrounds.portrait}
+        />
+      )}
       {showUiPreview ? (
         <UiBuildingBlocksPreview />
       ) : (

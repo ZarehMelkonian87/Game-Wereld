@@ -114,7 +114,7 @@ export const FloatingSuccessToast = ({
       aria-hidden={feedback ? undefined : true}
       aria-live="polite"
       className={classNames(
-        "absolute bottom-3 left-3 right-3 mx-auto max-w-[28rem] !rounded-[1.25rem] !border-white/85 !bg-white/92 !p-2 shadow-[0_4px_0_rgba(15,23,42,0.1)]",
+        "absolute bottom-[calc(clamp(4.75rem,11dvh,6rem)+6rem)] left-3 right-3 mx-auto max-w-[28rem] z-20 !rounded-[1.25rem] !border-white/85 !bg-white/92 !p-2 shadow-[0_4px_0_rgba(15,23,42,0.1)]",
         feedback ? "opacity-100" : "pointer-events-none opacity-0",
         isCorrectFeedback && !hintVideoUrl
           ? "pointer-events-none bezem-feedback-toast"

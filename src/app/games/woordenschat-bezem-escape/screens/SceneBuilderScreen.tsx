@@ -2,6 +2,7 @@ import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
+  beachBackgrounds,
   getBeachObjectStickerUrl,
   getConceptHintVideoUrl,
   getFeedbackVideoUrl,
@@ -10,6 +11,7 @@ import {
   getSeekObjectHintVideoUrl,
   sharedPlaceHintVideoUrl,
 } from "../asset-urls";
+import { BeachBackground } from "../components/layout/BeachBackground";
 import { ObjectStickerButton } from "../components/ui";
 import {
   findSmallestZoneAtPoint,
@@ -148,6 +150,35 @@ interface PendingPlacement {
 function toDisplayLabel(label: string) {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
+
+const getConceptPictogram = (concept: string): string => {
+  switch (concept) {
+    case "boven":
+      return "⬆️";
+    case "onder":
+      return "⬇️";
+    case "links":
+      return "⬅️";
+    case "rechts":
+      return "➡️";
+    case "in":
+      return "📥";
+    case "op":
+      return "🔝";
+    case "naast":
+      return "➡️ naast ⬅️";
+    case "tussen":
+      return "↔️";
+    case "midden":
+      return "🎯";
+    case "dichtbij":
+      return "🔍";
+    case "ver weg":
+      return "🌐";
+    default:
+      return "";
+  }
+};
 
 function getTrayObjects(objects: SceneObject[]) {
   return objects
@@ -294,6 +325,8 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
+  const [showSubtitles, setShowSubtitles] = useState(false);
+  const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
@@ -398,19 +431,24 @@ export function SceneBuilderScreen({
       return undefined;
     }
 
-    const isInsideScene =
-      clientX >= sceneBounds.left &&
-      clientX <= sceneBounds.right &&
-      clientY >= sceneBounds.top &&
-      clientY <= sceneBounds.bottom;
+    const tolerance = 30; // 30px buiten de scene
+    const isWithinTolerance =
+      clientX >= sceneBounds.left - tolerance &&
+      clientX <= sceneBounds.right + tolerance &&
+      clientY >= sceneBounds.top - tolerance &&
+      clientY <= sceneBounds.bottom + tolerance;
 
-    if (!isInsideScene) {
+    if (!isWithinTolerance) {
       return undefined;
     }
 
+    // Klem coördinaten tot de grenzen van de scene
+    const clampedClientX = Math.min(sceneBounds.right, Math.max(sceneBounds.left, clientX));
+    const clampedClientY = Math.min(sceneBounds.bottom, Math.max(sceneBounds.top, clientY));
+
     return {
-      x: Math.min(96, Math.max(4, ((clientX - sceneBounds.left) / sceneBounds.width) * 100)),
-      y: Math.min(94, Math.max(6, ((clientY - sceneBounds.top) / sceneBounds.height) * 100)),
+      x: Math.min(96, Math.max(4, ((clampedClientX - sceneBounds.left) / sceneBounds.width) * 100)),
+      y: Math.min(94, Math.max(6, ((clampedClientY - sceneBounds.top) / sceneBounds.height) * 100)),
     };
   }
 
@@ -1460,144 +1498,201 @@ export function SceneBuilderScreen({
       data-spoken-hint-zone-id={spokenHintZoneId ?? ""}
       data-spoken-command-status={spokenCommandResult?.status ?? "none"}
       data-spoken-command-transcript={spokenCommandResult?.transcript ?? ""}
-      className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[calc(env(safe-area-inset-top)+0.5rem)] landscape:gap-1.5 landscape:px-3"
+      className="absolute inset-0 z-10 overflow-hidden"
     >
-      <SceneBuilderTopBar
-        actionLabel={actionLabel}
-        isCorrectFeedback={feedback?.kind === "correct"}
-        onAction={handleConfirm}
-        onHint={handleHint}
-        onHintPointerDown={playPreparedHintVideo}
-        starCount={wordStarValue}
-      />
+      {/* 1. Fullscreen interactive scene-area background */}
+      <section
+        aria-label="Scenegebied"
+        data-testid="scene-builder-scene-area"
+        ref={sceneAreaRef}
+        className="absolute inset-0 z-0 overflow-hidden"
+      >
+        <BeachBackground
+          landscapeUrl={beachBackgrounds.landscape}
+          portraitUrl={beachBackgrounds.portrait}
+        />
 
-      <CompactInstructionCard
-        actionControls={
-          <SpokenCommandControls
-            exampleText={instruction.prompt}
-            onTranscript={applySpokenCommandTranscript}
-            profileId={rewardProfileId}
+        <button
+          aria-label="Kies plek in de scene"
+          className="pointer-events-auto absolute inset-0 touch-manipulation"
+          data-testid="scene-tap-target"
+          onClick={handleSceneTap}
+          type="button"
+        />
+
+        {(showTargetZoneHint || selectedObjectId !== null || dragState !== null) && visualHintZone ? (
+          <TargetZoneHint
+            zone={visualHintZone}
+            pulsing={selectedObjectId !== null || dragState !== null}
           />
-        }
-        leadingControl={
-          currentInstructionVideoUrl ? (
-            <InstructionVideoButton
-              label="Speel video-opdracht"
-              onPlaybackError={handleInstructionVideoPlaybackError}
-              onPlaybackStart={handleInstructionVideoPlaybackStart}
-              onPlayRequest={handleInstructionVideoRequest}
-              src={currentInstructionVideoUrl}
+        ) : null}
+
+        {showZoneDevTools ? (
+          <SceneZoneDevTools initialZoneId={visualHintZone?.id} zones={effectiveZones} />
+        ) : null}
+
+        {placedObjects.map((placedObject) => {
+          const object = objects.find((sceneObject) => sceneObject.id === placedObject.objectId);
+
+          if (!object) {
+            return null;
+          }
+
+          return (
+            <img
+              alt=""
+              className="pointer-events-none absolute h-[clamp(4.2rem,12vw,5.5rem)] w-[clamp(4.2rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
+              data-testid={`placed-object-${placedObject.objectId}`}
+              draggable={false}
+              key={placedObject.instructionId}
+              src={getBeachObjectStickerUrl(object.assetId)}
+              style={{
+                left: `${placedObject.x}%`,
+                top: `${placedObject.y}%`,
+              }}
             />
-          ) : undefined
-        }
-        text={currentInstructionText}
-      />
+          );
+        })}
 
-      <div className="flex min-h-0 flex-1 flex-col gap-2 landscape:gap-1.5">
+        {pendingPlacement ? (
+          (() => {
+            const object = objects.find(
+              (sceneObject) => sceneObject.id === pendingPlacement.objectId,
+            );
+            const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
 
-        <section
-          aria-label="Scenegebied"
-          data-testid="scene-builder-scene-area"
-          ref={sceneAreaRef}
-          className="relative min-h-0 flex-1 overflow-hidden rounded-[1.35rem] border border-white/35 bg-white/0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]"
-        >
-          <button
-            aria-label="Kies plek in de scene"
-            className="pointer-events-auto absolute inset-0 touch-manipulation"
-            data-testid="scene-tap-target"
-            onClick={handleSceneTap}
-            type="button"
-          />
-
-          {showTargetZoneHint && visualHintZone ? <TargetZoneHint zone={visualHintZone} /> : null}
-
-          {showZoneDevTools ? (
-            <SceneZoneDevTools initialZoneId={visualHintZone?.id} zones={effectiveZones} />
-          ) : null}
-
-          {placedObjects.map((placedObject) => {
-            const object = objects.find((sceneObject) => sceneObject.id === placedObject.objectId);
-
-            if (!object) {
+            if (!object || !imageUrl) {
               return null;
             }
 
             return (
-              <img
-                alt=""
-                className="pointer-events-none absolute h-[clamp(3rem,12vw,5.5rem)] w-[clamp(3rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
-                data-testid={`placed-object-${placedObject.objectId}`}
-                draggable={false}
-                key={placedObject.instructionId}
-                src={getBeachObjectStickerUrl(object.assetId)}
+              <button
+                aria-label={`Verplaats ${object.label}`}
+                className={`pointer-events-auto absolute h-[clamp(4.2rem,12vw,5.5rem)] w-[clamp(4.2rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none ${
+                  pendingPlacement.source === "spoken"
+                    ? "drop-shadow-[0_0_18px_rgba(56,189,248,0.55)] motion-safe:animate-[bounce_550ms_ease-out_1]"
+                    : ""
+                }`}
+                data-placement-source={pendingPlacement.source ?? "manual"}
+                data-testid={`pending-object-${pendingPlacement.objectId}`}
+                onPointerCancel={(event) =>
+                  handleObjectPointerCancel(event, pendingPlacement.objectId)
+                }
+                onPointerDown={handlePendingObjectPointerDown}
+                onPointerMove={(event) =>
+                  handleObjectPointerMove(event, pendingPlacement.objectId)
+                }
+                onPointerUp={(event) => handleObjectPointerUp(event, pendingPlacement.objectId)}
                 style={{
-                  left: `${placedObject.x}%`,
-                  top: `${placedObject.y}%`,
+                  left: `${pendingPlacement.x}%`,
+                  top: `${pendingPlacement.y}%`,
                 }}
-              />
+                type="button"
+              >
+                <img
+                  alt=""
+                  className="h-full w-full object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
+                  draggable={false}
+                  src={imageUrl}
+                />
+              </button>
             );
-          })}
+          })()
+        ) : null}
 
-          {pendingPlacement ? (
-            (() => {
-              const object = objects.find(
-                (sceneObject) => sceneObject.id === pendingPlacement.objectId,
-              );
-              const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
+        {/* Subtitles Overlay */}
+        {showSubtitles && (
+          <div
+            className="pointer-events-none absolute top-4 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center justify-center gap-1 rounded-2xl border border-white/40 bg-slate-900/90 px-4 py-2.5 shadow-xl backdrop-blur-md"
+            data-testid="subtitles-card"
+          >
+            <span className="text-[0.65rem] font-black tracking-wide text-white/60 uppercase">
+              Ondertiteling
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-black text-white">
+                {currentInstructionText}
+              </span>
+              {instruction.placement.relation && (
+                <span className="flex items-center gap-1 rounded-lg bg-amber-400 px-2 py-0.5 text-xs font-black text-slate-900 shadow-sm animate-pulse">
+                  <span>{getConceptPictogram(instruction.placement.relation)}</span>
+                  <span className="uppercase text-[0.6rem] tracking-wide">
+                    {instruction.placement.relation}
+                  </span>
+                </span>
+              )}
+            </div>
+          </div>
+        )}
 
-              if (!object || !imageUrl) {
-                return null;
+        {/* Speech Wave Animation */}
+        {voiceRecognitionStatus === "listening" && (
+          <>
+            <style>{`
+              @keyframes speechWave {
+                0%, 100% { transform: scaleY(0.4); }
+                50% { transform: scaleY(1.2); }
               }
+              .speech-bar {
+                animation: speechWave 0.8s infinite ease-in-out;
+                transform-origin: center;
+              }
+            `}</style>
+            <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center gap-2 rounded-2xl border border-white/40 bg-sky-500/95 px-5 py-3 shadow-xl backdrop-blur-md">
+              <span className="text-xs font-black tracking-wide text-white uppercase mr-1.5 animate-pulse">
+                Ik luister...
+              </span>
+              <div className="flex items-center gap-1 h-6 w-12">
+                <div className="speech-bar w-1.5 h-4 rounded-full bg-white" style={{ animationDelay: "0.1s" }} />
+                <div className="speech-bar w-1.5 h-6 rounded-full bg-white" style={{ animationDelay: "0.25s" }} />
+                <div className="speech-bar w-1.5 h-5 rounded-full bg-white" style={{ animationDelay: "0.4s" }} />
+                <div className="speech-bar w-1.5 h-6 rounded-full bg-white" style={{ animationDelay: "0.15s" }} />
+                <div className="speech-bar w-1.5 h-3 rounded-full bg-white" style={{ animationDelay: "0.3s" }} />
+              </div>
+            </div>
+          </>
+        )}
 
-              return (
-                <button
-                  aria-label={`Verplaats ${object.label}`}
-                  className={`pointer-events-auto absolute h-[clamp(3rem,12vw,5.5rem)] w-[clamp(3rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none ${
-                    pendingPlacement.source === "spoken"
-                      ? "drop-shadow-[0_0_18px_rgba(56,189,248,0.55)] motion-safe:animate-[bounce_550ms_ease-out_1]"
-                      : ""
-                  }`}
-                  data-placement-source={pendingPlacement.source ?? "manual"}
-                  data-testid={`pending-object-${pendingPlacement.objectId}`}
-                  onPointerCancel={(event) =>
-                    handleObjectPointerCancel(event, pendingPlacement.objectId)
-                  }
-                  onPointerDown={handlePendingObjectPointerDown}
-                  onPointerMove={(event) =>
-                    handleObjectPointerMove(event, pendingPlacement.objectId)
-                  }
-                  onPointerUp={(event) => handleObjectPointerUp(event, pendingPlacement.objectId)}
-                  style={{
-                    left: `${pendingPlacement.x}%`,
-                    top: `${pendingPlacement.y}%`,
-                  }}
-                  type="button"
-                >
-                  <img
-                    alt=""
-                    className="h-full w-full object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
-                    draggable={false}
-                    src={imageUrl}
-                  />
-                </button>
-              );
-            })()
-          ) : null}
+      </section>
 
-          <FloatingSuccessToast
-            autoPlayFeedbackVideo={Boolean(
-              feedback?.kind === "correct" &&
-                feedback.hintVideoUrl &&
-                readBezemEscapeSettings(rewardProfileId).audioEnabled,
-            )}
-            feedback={feedback}
-            hintVideoUrl={shouldRenderFeedbackCard ? hintFeedbackVideoUrl : undefined}
-            onHintVideoClick={handleHintFeedbackVideoClick}
-            onRepeatSpokenCommand={handleRepeatSpokenCommand}
-            onSpokenCommandChoice={handleSpokenCommandChoice}
-            spokenCommandResult={spokenCommandResult}
-          />
-        </section>
+      {/* 2. Interactive UI controls overlaying the background */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[calc(env(safe-area-inset-top)+0.5rem)] landscape:gap-1.5 landscape:px-3">
+        <SceneBuilderTopBar
+          actionLabel={actionLabel}
+          isCorrectFeedback={feedback?.kind === "correct"}
+          onAction={handleConfirm}
+          onHint={handleHint}
+          onHintPointerDown={playPreparedHintVideo}
+          starCount={wordStarValue}
+          showSubtitles={showSubtitles}
+          onToggleSubtitles={() => setShowSubtitles((prev) => !prev)}
+        />
+
+        <CompactInstructionCard
+          actionControls={
+            <SpokenCommandControls
+              exampleText={instruction.prompt}
+              onTranscript={applySpokenCommandTranscript}
+              profileId={rewardProfileId}
+              onVoiceStatusChange={(status) => setVoiceRecognitionStatus(status)}
+            />
+          }
+          leadingControl={
+            currentInstructionVideoUrl ? (
+              <InstructionVideoButton
+                label="Speel video-opdracht"
+                onPlaybackError={handleInstructionVideoPlaybackError}
+                onPlaybackStart={handleInstructionVideoPlaybackStart}
+                onPlayRequest={handleInstructionVideoRequest}
+                src={currentInstructionVideoUrl}
+              />
+            ) : undefined
+          }
+          text={currentInstructionText}
+        />
+
+        {/* Transparent spacer to push tray to bottom */}
+        <div className="flex-1 min-h-0 pointer-events-none" />
 
         <CompactProgressBar
           boosting={speedBoosting}
@@ -1630,6 +1725,20 @@ export function SceneBuilderScreen({
           ))}
         </ObjectCarousel>
       </div>
+
+      <FloatingSuccessToast
+        autoPlayFeedbackVideo={Boolean(
+          feedback?.kind === "correct" &&
+            feedback.hintVideoUrl &&
+            readBezemEscapeSettings(rewardProfileId).audioEnabled,
+        )}
+        feedback={feedback}
+        hintVideoUrl={shouldRenderFeedbackCard ? hintFeedbackVideoUrl : undefined}
+        onHintVideoClick={handleHintFeedbackVideoClick}
+        onRepeatSpokenCommand={handleRepeatSpokenCommand}
+        onSpokenCommandChoice={handleSpokenCommandChoice}
+        spokenCommandResult={spokenCommandResult}
+      />
 
       <ParentObservationSheet
         notice={observationNotice}

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ButtonHTMLAttributes } from "react";
 import { classNames } from "../../utils/classNames";
 
@@ -20,17 +21,30 @@ export const StickerObject = ({
   ...buttonProps
 }: StickerObjectProps) => {
   const isTraySize = size === "tray";
+  const [isInteracting, setIsInteracting] = useState(false);
 
   return (
     <button
       {...buttonProps}
       aria-label={label}
       aria-pressed={selected || undefined}
+      onPointerDown={(e) => {
+        setIsInteracting(true);
+        buttonProps.onPointerDown?.(e);
+      }}
+      onPointerUp={(e) => {
+        setIsInteracting(false);
+        buttonProps.onPointerUp?.(e);
+      }}
+      onPointerCancel={(e) => {
+        setIsInteracting(false);
+        buttonProps.onPointerCancel?.(e);
+      }}
       className={classNames(
         "flex max-h-full shrink-0 flex-col items-center justify-center gap-1 text-slate-900 transition duration-150 active:translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
-        isTraySize ? "touch-pan-x" : "touch-manipulation",
+        isInteracting ? "touch-none" : (isTraySize ? "touch-pan-x" : "touch-manipulation"),
         isTraySize
-          ? "min-h-[56px] min-w-[54px] rounded-xl border-0 bg-transparent px-1 py-1 shadow-none"
+          ? "min-h-[clamp(4.2rem,10vw,5rem)] min-w-[clamp(4.2rem,10vw,5rem)] rounded-xl border-0 bg-transparent px-2.5 py-2.5 shadow-none"
           : "min-h-[82px] min-w-[78px] rounded-2xl border-2 bg-white/95 px-2 py-2 shadow-[0_3px_0_rgba(15,23,42,0.18)] active:shadow-none",
         isTraySize && selected && "scale-105 drop-shadow-[0_0_0.45rem_rgba(16,185,129,0.75)]",
         !isTraySize &&

@@ -23,6 +23,7 @@ interface SpokenCommandControlsProps {
   exampleText: string;
   onTranscript: (transcript: string) => void;
   profileId?: string;
+  onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
 }
 
 const shouldShowStatusBubble = ({
@@ -48,6 +49,7 @@ export const SpokenCommandControls = ({
   exampleText,
   onTranscript,
   profileId = "demo-profile",
+  onVoiceStatusChange,
 }: SpokenCommandControlsProps) => {
   const handledTranscriptRef = useRef<string | undefined>();
   const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(() =>
@@ -86,6 +88,10 @@ export const SpokenCommandControls = ({
   useEffect(() => {
     setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId));
   }, [profileId]);
+
+  useEffect(() => {
+    onVoiceStatusChange?.(status);
+  }, [status, onVoiceStatusChange]);
 
   useEffect(() => {
     if (
