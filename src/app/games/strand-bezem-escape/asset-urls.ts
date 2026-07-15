@@ -8,7 +8,7 @@ export const beachBackgrounds = {
 };
 
 export const startLogoUrl = new URL(
-  "../woordenschat-bezem-escape/assets/logos/start-logo-b-generated-magenta.png",
+  "./assets/logos/start-logo-beach.png",
   import.meta.url,
 ).href;
 
