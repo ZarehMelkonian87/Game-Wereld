@@ -17,7 +17,7 @@ import { StarCounter } from "./StarCounter";
 import { VoiceCommandButton } from "./VoiceCommandButton";
 
 const previewStickerUrl = new URL(
-  "../../assets/objects/transparent/sailboat-sticker.png",
+  "../../../../woordenschat-bezem-escape/assets/objects/transparent/sailboat-sticker.png",
   import.meta.url,
 ).href;
 
