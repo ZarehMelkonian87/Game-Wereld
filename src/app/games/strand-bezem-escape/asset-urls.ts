@@ -1,8 +1,8 @@
 export const beachBackgrounds = {
-  portrait: new URL("../woordenschat-bezem-escape/assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
-  landscape: new URL("../woordenschat-bezem-escape/assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
+  portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
+  landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
   voiceSideScroller: new URL(
-    "../woordenschat-bezem-escape/assets/backgrounds/beach-voice-side-scroller.png",
+    "./assets/backgrounds/beach-voice-side-scroller.png",
     import.meta.url,
   ).href,
 };
@@ -13,23 +13,23 @@ export const startLogoUrl = new URL(
 ).href;
 
 export const backgroundMusicUrl = new URL(
-  "../woordenschat-bezem-escape/assets/audio/background-music.mp3",
+  "./assets/audio/background-music.mp3",
   import.meta.url,
 ).href;
 
 export const beachObjectStickerUrls = {
-  dolfijn: new URL("../woordenschat-bezem-escape/assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
-  boot: new URL("../woordenschat-bezem-escape/assets/objects/transparent/sailboat-sticker.png", import.meta.url).href,
-  vuurtoren: new URL("../woordenschat-bezem-escape/assets/objects/transparent/lighthouse-sticker.png", import.meta.url).href,
-  vliegtuig: new URL("../woordenschat-bezem-escape/assets/objects/transparent/airplane-sticker.png", import.meta.url).href,
-  vlieger: new URL("../woordenschat-bezem-escape/assets/objects/transparent/kite-sticker.png", import.meta.url).href,
-  bal: new URL("../woordenschat-bezem-escape/assets/objects/transparent/beach-ball-sticker.png", import.meta.url).href,
-  parasol: new URL("../woordenschat-bezem-escape/assets/objects/transparent/beach-umbrella-sticker.png", import.meta.url).href,
-  schelp: new URL("../woordenschat-bezem-escape/assets/objects/transparent/seashells-sticker.png", import.meta.url).href,
-  krab: new URL("../woordenschat-bezem-escape/assets/objects/transparent/crab-sticker.png", import.meta.url).href,
-  zandkasteel: new URL("../woordenschat-bezem-escape/assets/objects/transparent/sandcastle-sticker.png", import.meta.url).href,
-  handdoek: new URL("../woordenschat-bezem-escape/assets/objects/transparent/beach-towel-sticker.png", import.meta.url).href,
-  zon: new URL("../woordenschat-bezem-escape/assets/objects/transparent/sun-sticker.png", import.meta.url).href,
+  dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
+  boot: new URL("./assets/objects/transparent/sailboat-sticker.png", import.meta.url).href,
+  vuurtoren: new URL("./assets/objects/transparent/lighthouse-sticker.png", import.meta.url).href,
+  vliegtuig: new URL("./assets/objects/transparent/airplane-sticker.png", import.meta.url).href,
+  vlieger: new URL("./assets/objects/transparent/kite-sticker.png", import.meta.url).href,
+  bal: new URL("./assets/objects/transparent/beach-ball-sticker.png", import.meta.url).href,
+  parasol: new URL("./assets/objects/transparent/beach-umbrella-sticker.png", import.meta.url).href,
+  schelp: new URL("./assets/objects/transparent/seashells-sticker.png", import.meta.url).href,
+  krab: new URL("./assets/objects/transparent/crab-sticker.png", import.meta.url).href,
+  zandkasteel: new URL("./assets/objects/transparent/sandcastle-sticker.png", import.meta.url).href,
+  handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.png", import.meta.url).href,
+  zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
 
 export const voiceSideScrollerObjectSpriteUrls = {
@@ -43,84 +43,84 @@ export const voiceSideScrollerObjectSpriteUrls = {
 };
 
 export const voiceSideScrollerObstacleSpriteUrls = {
-  cloud: new URL("../woordenschat-bezem-escape/assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
+  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
   "sea-lion": new URL(
-    "../woordenschat-bezem-escape/assets/objects/side-scroller/sea-lion-obstacle.png",
+    "./assets/objects/side-scroller/sea-lion-obstacle.png",
     import.meta.url,
   ).href,
-  seagull: new URL("../woordenschat-bezem-escape/assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
-  shark: new URL("../woordenschat-bezem-escape/assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
+  seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
+  shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
 
 export const worldIconUrls = {
-  barn: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-farm.png", import.meta.url).href,
-  book: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-school.png", import.meta.url).href,
-  paw: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-zoo.png", import.meta.url).href,
-  planet: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-space.png", import.meta.url).href,
-  slide: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-playground.png", import.meta.url).href,
-  waves: new URL("../woordenschat-bezem-escape/assets/icons/worlds/world-beach.png", import.meta.url).href,
+  barn: new URL("./assets/icons/worlds/world-farm.png", import.meta.url).href,
+  book: new URL("./assets/icons/worlds/world-school.png", import.meta.url).href,
+  paw: new URL("./assets/icons/worlds/world-zoo.png", import.meta.url).href,
+  planet: new URL("./assets/icons/worlds/world-space.png", import.meta.url).href,
+  slide: new URL("./assets/icons/worlds/world-playground.png", import.meta.url).href,
+  waves: new URL("./assets/icons/worlds/world-beach.png", import.meta.url).href,
 };
 
 export const instructionVideoUrls = {
-  "lp-001": new URL("../woordenschat-bezem-escape/assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
+  "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
   "lp-002": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4",
+    "./assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-003": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4",
+    "./assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-004": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4",
+    "./assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4",
     import.meta.url,
   ).href,
   "lp-005": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4",
+    "./assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-006": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4",
+    "./assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-007": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4",
+    "./assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-008": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4",
+    "./assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4",
     import.meta.url,
   ).href,
   "lp-009": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4",
+    "./assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4",
     import.meta.url,
   ).href,
   "lp-010": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4",
+    "./assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-011": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4",
+    "./assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-012": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4",
+    "./assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-013": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4",
+    "./assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-014": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4",
+    "./assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-015": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4",
+    "./assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4",
     import.meta.url,
   ).href,
   "lp-016": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
+    "./assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
     import.meta.url,
   ).href,
 } as const;
@@ -131,53 +131,53 @@ export const getInstructionVideoUrl = (instructionId: string) =>
   instructionVideoUrls[instructionId as InstructionVideoId];
 
 const seekObjectHintVideoUrls = {
-  "lp-001": new URL("../woordenschat-bezem-escape/assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
+  "lp-001": new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
   "lp-002": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4",
+    "./assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4",
     import.meta.url,
   ).href,
   "lp-003": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-003-hint-01-zoek-de-bal.mp4",
+    "./assets/instructions/lp-003-hint-01-zoek-de-bal.mp4",
     import.meta.url,
   ).href,
   "lp-004": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4",
+    "./assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4",
     import.meta.url,
   ).href,
   "lp-005": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4",
+    "./assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4",
     import.meta.url,
   ).href,
   "lp-006": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4",
+    "./assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4",
     import.meta.url,
   ).href,
   "lp-007": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4",
+    "./assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4",
     import.meta.url,
   ).href,
   "lp-008": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-008-hint-01-zoek-de-krab.mp4",
+    "./assets/instructions/lp-008-hint-01-zoek-de-krab.mp4",
     import.meta.url,
   ).href,
   "lp-009": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4",
+    "./assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4",
     import.meta.url,
   ).href,
   "lp-010": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4",
+    "./assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4",
     import.meta.url,
   ).href,
   "lp-011": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-011-hint-01-zoek-de-zon.mp4",
+    "./assets/instructions/lp-011-hint-01-zoek-de-zon.mp4",
     import.meta.url,
   ).href,
   "lp-012": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4",
+    "./assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4",
     import.meta.url,
   ).href,
   "lp-013": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-013-hint-01-zoek-de-boot.mp4",
+    "./assets/instructions/lp-013-hint-01-zoek-de-boot.mp4",
     import.meta.url,
   ).href,
 } as const;
@@ -189,55 +189,55 @@ export const getSeekObjectHintVideoUrl = (instructionId: string) =>
 
 const highlightedObjectHintVideoUrls = {
   "lp-001": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
+    "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
     import.meta.url,
   ).href,
   "lp-002": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4",
+    "./assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4",
     import.meta.url,
   ).href,
   "lp-003": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4",
+    "./assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4",
     import.meta.url,
   ).href,
   "lp-004": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4",
+    "./assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4",
     import.meta.url,
   ).href,
   "lp-005": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4",
+    "./assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4",
     import.meta.url,
   ).href,
   "lp-006": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4",
+    "./assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4",
     import.meta.url,
   ).href,
   "lp-007": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4",
+    "./assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4",
     import.meta.url,
   ).href,
   "lp-008": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4",
+    "./assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4",
     import.meta.url,
   ).href,
   "lp-009": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4",
+    "./assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4",
     import.meta.url,
   ).href,
   "lp-010": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4",
+    "./assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4",
     import.meta.url,
   ).href,
   "lp-011": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4",
+    "./assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4",
     import.meta.url,
   ).href,
   "lp-012": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4",
+    "./assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4",
     import.meta.url,
   ).href,
   "lp-013": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4",
+    "./assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4",
     import.meta.url,
   ).href,
 } as const;
@@ -248,22 +248,22 @@ export const getHighlightedObjectHintVideoUrl = (instructionId: string) =>
   highlightedObjectHintVideoUrls[instructionId as HighlightedObjectHintVideoId];
 
 export const sharedPlaceHintVideoUrl = new URL(
-  "../woordenschat-bezem-escape/assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4",
+  "./assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4",
   import.meta.url,
 ).href;
 
 const conceptHintVideoUrls = {
-  boven: new URL("../woordenschat-bezem-escape/assets/instructions/concept-boven.mp4", import.meta.url).href,
-  dichtbij: new URL("../woordenschat-bezem-escape/assets/instructions/concept-dichtbij.mp4", import.meta.url).href,
-  in: new URL("../woordenschat-bezem-escape/assets/instructions/concept-in.mp4", import.meta.url).href,
-  links: new URL("../woordenschat-bezem-escape/assets/instructions/concept-links.mp4", import.meta.url).href,
-  midden: new URL("../woordenschat-bezem-escape/assets/instructions/concept-midden.mp4", import.meta.url).href,
-  naast: new URL("../woordenschat-bezem-escape/assets/instructions/concept-naast.mp4", import.meta.url).href,
-  onder: new URL("../woordenschat-bezem-escape/assets/instructions/concept-onder.mp4", import.meta.url).href,
-  op: new URL("../woordenschat-bezem-escape/assets/instructions/concept-op.mp4", import.meta.url).href,
-  rechts: new URL("../woordenschat-bezem-escape/assets/instructions/concept-rechts.mp4", import.meta.url).href,
-  tussen: new URL("../woordenschat-bezem-escape/assets/instructions/concept-tussen.mp4", import.meta.url).href,
-  "ver weg": new URL("../woordenschat-bezem-escape/assets/instructions/concept-ver-weg.mp4", import.meta.url).href,
+  boven: new URL("./assets/instructions/concept-boven.mp4", import.meta.url).href,
+  dichtbij: new URL("./assets/instructions/concept-dichtbij.mp4", import.meta.url).href,
+  in: new URL("./assets/instructions/concept-in.mp4", import.meta.url).href,
+  links: new URL("./assets/instructions/concept-links.mp4", import.meta.url).href,
+  midden: new URL("./assets/instructions/concept-midden.mp4", import.meta.url).href,
+  naast: new URL("./assets/instructions/concept-naast.mp4", import.meta.url).href,
+  onder: new URL("./assets/instructions/concept-onder.mp4", import.meta.url).href,
+  op: new URL("./assets/instructions/concept-op.mp4", import.meta.url).href,
+  rechts: new URL("./assets/instructions/concept-rechts.mp4", import.meta.url).href,
+  tussen: new URL("./assets/instructions/concept-tussen.mp4", import.meta.url).href,
+  "ver weg": new URL("./assets/instructions/concept-ver-weg.mp4", import.meta.url).href,
 } as const;
 
 type ConceptHintVideoId = keyof typeof conceptHintVideoUrls;
@@ -273,63 +273,63 @@ export const getConceptHintVideoUrl = (concept: string) =>
 
 const feedbackVideoUrls = {
   "lp-001": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4",
+    "./assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-002": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4",
+    "./assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-003": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4",
+    "./assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-004": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4",
+    "./assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4",
     import.meta.url,
   ).href,
   "lp-005": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4",
+    "./assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-006": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4",
+    "./assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-007": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4",
+    "./assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4",
     import.meta.url,
   ).href,
   "lp-008": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4",
+    "./assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4",
     import.meta.url,
   ).href,
   "lp-009": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4",
+    "./assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4",
     import.meta.url,
   ).href,
   "lp-010": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4",
+    "./assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4",
     import.meta.url,
   ).href,
   "lp-011": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4",
+    "./assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-012": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4",
+    "./assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4",
     import.meta.url,
   ).href,
   "lp-013": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4",
+    "./assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-014": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4",
+    "./assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4",
     import.meta.url,
   ).href,
   "lp-015": new URL(
-    "../woordenschat-bezem-escape/assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4",
+    "./assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4",
     import.meta.url,
   ).href,
 } as const;
@@ -351,19 +351,19 @@ export function getBeachObjectStickerUrl(assetId: string) {
 }
 
 export const avatarIconUrls = {
-  avatar01: new URL("../woordenschat-bezem-escape/assets/icons/avatars/avatar-01.png", import.meta.url).href,
+  avatar01: new URL("./assets/icons/avatars/avatar-01.png", import.meta.url).href,
 };
 
 export const broomIconUrls = {
-  basic: new URL("../woordenschat-bezem-escape/assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
-  beach: new URL("../woordenschat-bezem-escape/assets/icons/brooms/broom-02-beach.png", import.meta.url).href,
-  speed: new URL("../woordenschat-bezem-escape/assets/icons/brooms/broom-06-speed.png", import.meta.url).href,
+  basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
+  beach: new URL("./assets/icons/brooms/broom-02-beach.png", import.meta.url).href,
+  speed: new URL("./assets/icons/brooms/broom-06-speed.png", import.meta.url).href,
 };
 
 export const mascotIconUrls = {
-  hint: new URL("../woordenschat-bezem-escape/assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
-  celebration: new URL("../woordenschat-bezem-escape/assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
-  neutral: new URL("../woordenschat-bezem-escape/assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
+  hint: new URL("./assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
+  celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
+  neutral: new URL("./assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
 };
 
 export const voiceSideScrollerBroomStateUrls = {
