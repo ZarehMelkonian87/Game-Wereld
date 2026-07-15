@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { BezemEscapeMode, WorldDefinition } from "../../types";
-import { WorldSelectBackground } from "../world-select/WorldSelectBackground";
-import { WorldSelectMessage } from "../world-select/WorldSelectMessage";
+import { WorldSelectBackground } from "./WorldSelectBackground";
+import { WorldSelectMessage } from "./WorldSelectMessage";
 import { AdventureActionZone } from "./AdventureActionZone";
 import { AdventureSelectContent } from "./AdventureSelectContent";
 import { AdventureSelectHeader } from "./AdventureSelectHeader";

@@ -1,9 +1,7 @@
 export { GameSettingsScreen } from "./settings";
 export { AdventureSelectScreen } from "./adventure-select";
-export { ModeSelectScreen } from "./ModeSelectScreen";
 export { RewardScreen } from "./reward";
 export { SceneBuilderScreen } from "./SceneBuilderScreen";
 export { StartScreen } from "./start";
 export { VoiceSideScrollerScreen } from "./voice-side-scroller";
 export { WordChoiceScreen } from "./WordChoiceScreen";
-export { WorldSelectScreen } from "./WorldSelectScreen";

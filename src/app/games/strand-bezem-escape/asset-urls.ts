@@ -52,14 +52,7 @@ export const voiceSideScrollerObstacleSpriteUrls = {
   shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
 
-export const worldIconUrls = {
-  barn: new URL("./assets/icons/worlds/world-farm.png", import.meta.url).href,
-  book: new URL("./assets/icons/worlds/world-school.png", import.meta.url).href,
-  paw: new URL("./assets/icons/worlds/world-zoo.png", import.meta.url).href,
-  planet: new URL("./assets/icons/worlds/world-space.png", import.meta.url).href,
-  slide: new URL("./assets/icons/worlds/world-playground.png", import.meta.url).href,
-  waves: new URL("./assets/icons/worlds/world-beach.png", import.meta.url).href,
-};
+
 
 export const instructionVideoUrls = {
   "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,

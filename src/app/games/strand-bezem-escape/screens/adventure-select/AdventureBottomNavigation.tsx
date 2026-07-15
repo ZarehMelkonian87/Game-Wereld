@@ -1,6 +1,6 @@
 import { Gift, Settings } from "lucide-react";
 import { PanelCard } from "../../components/ui";
-import { SecondaryActionButton } from "../mode-select/SecondaryActionButton";
+import { SecondaryActionButton } from "./SecondaryActionButton";
 import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureBottomNavigationProps {
