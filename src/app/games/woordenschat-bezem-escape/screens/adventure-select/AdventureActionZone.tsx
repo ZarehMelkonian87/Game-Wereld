@@ -4,7 +4,6 @@ import { AdventureStartButton } from "./AdventureStartButton";
 
 interface AdventureActionZoneProps {
   disableStart: boolean;
-  onOpenDashboard: () => void;
   onOpenRewards: () => void;
   onOpenSettings: () => void;
   onStart: () => void;
@@ -12,7 +11,6 @@ interface AdventureActionZoneProps {
 
 export const AdventureActionZone: DevtoolsComponent<AdventureActionZoneProps> = ({
   disableStart,
-  onOpenDashboard,
   onOpenRewards,
   onOpenSettings,
   onStart,
@@ -23,7 +21,6 @@ export const AdventureActionZone: DevtoolsComponent<AdventureActionZoneProps> = 
   >
     <AdventureStartButton disabled={disableStart} onStart={onStart} />
     <AdventureBottomNavigation
-      onOpenDashboard={onOpenDashboard}
       onOpenRewards={onOpenRewards}
       onOpenSettings={onOpenSettings}
     />

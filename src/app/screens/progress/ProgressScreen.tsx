@@ -23,7 +23,7 @@ export const ProgressScreen = () => {
     return null;
   }
 
-  const progressData = getProgressData(selectedPeriod);
+  const progressData = getProgressData(selectedPeriod, currentProfile?.id);
 
   return (
     <div className="min-h-screen flex flex-col safe-area-inset" data-component="ProgressScreen">

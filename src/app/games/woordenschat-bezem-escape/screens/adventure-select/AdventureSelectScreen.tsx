@@ -9,7 +9,6 @@ import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureSelectScreenProps {
   onBackToStart: () => void;
-  onOpenDashboard: () => void;
   onOpenRewards: () => void;
   onOpenSettings: () => void;
   onSelectWorld: (worldId: string) => void;
@@ -21,7 +20,6 @@ interface AdventureSelectScreenProps {
 
 export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps> = ({
   onBackToStart,
-  onOpenDashboard,
   onOpenRewards,
   onOpenSettings,
   onSelectWorld,
@@ -86,7 +84,6 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
       {message ? <WorldSelectMessage message={message} /> : null}
       <AdventureActionZone
         disableStart={disableStart}
-        onOpenDashboard={onOpenDashboard}
         onOpenRewards={onOpenRewards}
         onOpenSettings={onOpenSettings}
         onStart={handleStart}

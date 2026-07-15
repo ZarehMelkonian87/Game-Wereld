@@ -25,10 +25,10 @@ export const ProgressHeader = ({ onBack, profile }: ProgressHeaderProps) => (
         </div>
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl sm:text-3xl md:text-4xl text-white font-black mb-1">
-            Voortgang
+            Voortgang & Rapportage
           </h1>
           <p className="text-sm sm:text-base text-cyan-300 font-semibold">
-            {profile.name}'s Groei
+            Groeirapport & resultaten voor {profile.name}
           </p>
         </div>
         <Award className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-400 flex-shrink-0" />

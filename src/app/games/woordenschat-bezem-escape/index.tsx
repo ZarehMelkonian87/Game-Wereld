@@ -4,7 +4,6 @@ import { beachWorld } from "./content";
 import {
   AdventureSelectScreen,
   GameSettingsScreen,
-  ParentDashboardScreen,
   RewardScreen,
   SceneBuilderScreen,
   StartScreen,
@@ -29,7 +28,6 @@ export const WoordenschatBezemEscapeGame = () => {
 
   const isSceneBuilder =
     screenPreview !== "reward" &&
-    screenPreview !== "dashboard" &&
     screenPreview !== "settings" &&
     screenPreview !== "start" &&
     screenPreview !== "world-select" &&
@@ -55,20 +53,16 @@ export const WoordenschatBezemEscapeGame = () => {
               onChooseWorld={() => actions.setScreen("world-select")}
               onPlayAgain={actions.resetRound}
             />
-          ) : screenPreview === "dashboard" ? (
-            <ParentDashboardScreen onBackToMenu={actions.openModeSelect} />
           ) : screenPreview === "settings" ? (
             <GameSettingsScreen onBackToMenu={actions.openModeSelect} />
           ) : screenPreview === "start" ? (
             <StartScreen
-              onOpenDashboard={() => actions.setScreen("dashboard")}
               onOpenSettings={() => actions.setScreen("settings")}
               onPlay={() => actions.setScreen("world-select")}
             />
           ) : screenPreview === "world-select" || screenPreview === "mode-select" ? (
             <AdventureSelectScreen
               onBackToStart={() => actions.setScreen("start")}
-              onOpenDashboard={() => actions.setScreen("dashboard")}
               onOpenRewards={() => actions.setScreen("reward")}
               onOpenSettings={() => actions.setScreen("settings")}
               onSelectWorld={actions.selectWorld}

@@ -5,14 +5,12 @@ import { StartSparkles } from "./StartSparkles";
 import { StartTopBar } from "./StartTopBar";
 
 interface StartScreenProps {
-  onOpenDashboard: () => void;
   onOpenSettings: () => void;
   onPlay: () => void;
   starCount?: number;
 }
 
 export const StartScreen = ({
-  onOpenDashboard,
   onOpenSettings,
   onPlay,
   starCount = 120,
@@ -26,7 +24,7 @@ export const StartScreen = ({
     <StartTopBar onOpenSettings={onOpenSettings} starCount={starCount} />
     <StartHero />
     <StartSparkles />
-    <StartActions onOpenDashboard={onOpenDashboard} onPlay={onPlay} />
+    <StartActions onPlay={onPlay} />
   </section>
 );
 

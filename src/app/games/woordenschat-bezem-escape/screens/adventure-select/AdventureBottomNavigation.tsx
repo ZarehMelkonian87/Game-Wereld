@@ -1,22 +1,20 @@
-import { BarChart3, Gift, Settings } from "lucide-react";
+import { Gift, Settings } from "lucide-react";
 import { PanelCard } from "../../components/ui";
 import { SecondaryActionButton } from "../mode-select/SecondaryActionButton";
 import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureBottomNavigationProps {
-  onOpenDashboard: () => void;
   onOpenRewards: () => void;
   onOpenSettings: () => void;
 }
 
 export const AdventureBottomNavigation: DevtoolsComponent<AdventureBottomNavigationProps> = ({
-  onOpenDashboard,
   onOpenRewards,
   onOpenSettings,
 }: AdventureBottomNavigationProps) => (
   <PanelCard
     aria-label="Avontuur navigatie"
-    className="grid min-h-[4.25rem] grid-cols-3 gap-2 !rounded-[1.35rem] !p-2"
+    className="grid min-h-[4.25rem] grid-cols-2 gap-2 !rounded-[1.35rem] !p-2"
     data-component="AdventureBottomNavigation"
     data-testid="adventure-bottom-navigation"
   >
@@ -27,14 +25,6 @@ export const AdventureBottomNavigation: DevtoolsComponent<AdventureBottomNavigat
       tone="amber"
     >
       Beloning
-    </SecondaryActionButton>
-    <SecondaryActionButton
-      icon={<BarChart3 className="h-5 w-5" strokeWidth={3} />}
-      onClick={onOpenDashboard}
-      testId="adventure-dashboard-button"
-      tone="sky"
-    >
-      Groei
     </SecondaryActionButton>
     <SecondaryActionButton
       icon={<Settings className="h-5 w-5" strokeWidth={3} />}

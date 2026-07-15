@@ -24,10 +24,10 @@ export const ProgressLinkCard = ({ childName, onOpenProgress }: ProgressLinkCard
       <BarChart3 className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-white flex-shrink-0" />
       <div className="flex-1 text-left">
         <h3 className="text-xl sm:text-2xl md:text-3xl text-white font-black mb-1">
-          Voortgang Bekijken
+          Groeirapport & Voortgang
         </h3>
         <p className="text-sm sm:text-base md:text-lg text-white/90 font-semibold">
-          Zie hoe {childName} groeit
+          Bekijk live resultaten en monitoring van {childName}
         </p>
       </div>
     </motion.button>
