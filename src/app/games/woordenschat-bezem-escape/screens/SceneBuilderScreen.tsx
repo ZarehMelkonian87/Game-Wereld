@@ -42,10 +42,6 @@ import {
 } from "../logic/rewards";
 import {
   appendPracticeEvent,
-  recordActiveVocabularyObservation,
-  recordSpeakAndPlaceObservation,
-  recordSentenceRepeatObservation,
-  type AdultRating,
 } from "../logic/progress";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { speakDutch } from "../logic/speech";
@@ -61,10 +57,8 @@ import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useProfile } from "../../../contexts/ProfileContext";
 import { CompactInstructionCard } from "./scene-builder/CompactInstructionCard";
-import { CompactProgressBar } from "./scene-builder/CompactProgressBar";
 import { FloatingSuccessToast } from "./scene-builder/FloatingSuccessToast";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
-import { ParentObservationSheet } from "./scene-builder/ParentObservationSheet";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
 import { SceneZoneDevTools } from "./scene-builder/SceneZoneDevTools";
 import { TargetZoneHint } from "./scene-builder/TargetZoneHint";
@@ -125,18 +119,7 @@ interface HintUsageEvent {
   usedAt: string;
 }
 
-interface PracticeRatingStats {
-  good: number;
-  help: number;
-  partial: number;
-}
 
-interface SpeakAndPlaceStats {
-  autoExecuted: number;
-  retry: number;
-  selfMade: number;
-  withHelp: number;
-}
 
 interface PendingPlacement {
   objectId: string;
@@ -151,34 +134,7 @@ function toDisplayLabel(label: string) {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
-const getConceptPictogram = (concept: string): string => {
-  switch (concept) {
-    case "boven":
-      return "⬆️";
-    case "onder":
-      return "⬇️";
-    case "links":
-      return "⬅️";
-    case "rechts":
-      return "➡️";
-    case "in":
-      return "📥";
-    case "op":
-      return "🔝";
-    case "naast":
-      return "➡️ naast ⬅️";
-    case "tussen":
-      return "↔️";
-    case "midden":
-      return "🎯";
-    case "dichtbij":
-      return "🔍";
-    case "ver weg":
-      return "🌐";
-    default:
-      return "";
-  }
-};
+
 
 function getTrayObjects(objects: SceneObject[]) {
   return objects
@@ -190,9 +146,7 @@ function getTrayObjects(objects: SceneObject[]) {
     .filter((object): object is TrayObject => Boolean(object.imageUrl));
 }
 
-function uniquePush(values: string[], value: string) {
-  return values.includes(value) ? values : [...values, value];
-}
+
 
 const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | undefined) => {
   if (!objectId) {
@@ -325,7 +279,6 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
-  const [showSubtitles, setShowSubtitles] = useState(false);
   const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
@@ -334,27 +287,7 @@ export function SceneBuilderScreen({
   const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
   const [hintEvents, setHintEvents] = useState<HintUsageEvent[]>([]);
   const [spokenHelpByInstruction, setSpokenHelpByInstruction] = useState<Record<string, number>>({});
-  const [activelyNamedWords, setActivelyNamedWords] = useState<string[]>([]);
-  const [showObservationPanel, setShowObservationPanel] = useState(false);
-  const [observationNotice, setObservationNotice] = useState<string | null>(null);
-  const [activeVocabularyStats, setActiveVocabularyStats] = useState<PracticeRatingStats>({
-    good: 0,
-    help: 0,
-    partial: 0,
-  });
-  const [sentenceRepeatStats, setSentenceRepeatStats] = useState<PracticeRatingStats>({
-    good: 0,
-    help: 0,
-    partial: 0,
-  });
-  const [speakAndPlaceStats, setSpeakAndPlaceStats] = useState<SpeakAndPlaceStats>({
-    autoExecuted: 0,
-    retry: 0,
-    selfMade: 0,
-    withHelp: 0,
-  });
   const [speedValue, setSpeedValue] = useState(0);
-  const [speedBoosting, setSpeedBoosting] = useState(false);
   const [wordStarValue, setWordStarValue] = useState(0);
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
     readUnlockedRewardIds(rewardProfileId),
@@ -470,8 +403,6 @@ export function SceneBuilderScreen({
     setShowTargetZoneHint(false);
     setSpokenHintZoneId(null);
     setHighlightedObjectId(null);
-    setShowObservationPanel(false);
-    setObservationNotice(null);
   }
 
   function handleObjectSelect(objectId: string) {
@@ -546,34 +477,11 @@ export function SceneBuilderScreen({
       setSpokenCommandResult(executionResult);
 
       if (executionResult.status !== "ready" || !executionResult.placement) {
-        const nextSpokenHelpCount = activeSpokenHelpCount + 1;
-        const targetWord = getObjectLabelById(objects, executionResult.parseResult.objectId);
-
         setSpokenHelpByInstruction((currentHelp) => ({
           ...currentHelp,
           [instruction.id]: (currentHelp[instruction.id] ?? 0) + 1,
         }));
-        setSpeakAndPlaceStats((currentStats) => ({
-          ...currentStats,
-          retry: currentStats.retry + 1,
-        }));
-        recordSpeakAndPlaceObservation(rewardProfileId, {
-          assistance: "hint",
-          audioRepeats: activeAudioRepeats,
-          autoExecuted: false,
-          hintsUsed: activeHintsUsed + nextSpokenHelpCount,
-          id: `${instruction.id}:zeg-en-bouw:retry:${Date.now()}`,
-          instructionId: instruction.id,
-          isCorrect: false,
-          languageDomains: instruction.languageDomains,
-          result: "needs-more-practice",
-          selfMadeSentence: false,
-          spatialConcept: executionResult.parseResult.relation,
-          speedEarned: 0,
-          targetWord,
-          transcript: transcript.trim() || undefined,
-          wordStarsEarned: 0,
-        });
+
         setPendingPlacement(null);
         setSelectedObjectId(executionResult.visualHint.objectId ?? null);
         setSelectedZoneId(executionResult.visualHint.zoneId ?? null);
@@ -775,35 +683,35 @@ export function SceneBuilderScreen({
     setPendingPlacement(null);
     setSceneComplete(nextSceneComplete);
     setSceneCompletionSummary(nextSceneComplete ? nextCompletionSummary : null);
-    setShowObservationPanel(false);
-    setObservationNotice(null);
     setSpeedValue(nextSpeedValue);
     setWordStarValue(nextWordStarValue);
-    setSpeedBoosting(true);
-    window.setTimeout(() => setSpeedBoosting(false), 450);
 
     if (speakAndPlaceReward) {
-      setSpeakAndPlaceStats((currentStats) => ({
-        ...currentStats,
-        autoExecuted: currentStats.autoExecuted + (speakAndPlaceReward.autoExecuted ? 1 : 0),
-        selfMade: currentStats.selfMade + (speakAndPlaceReward.selfMadeSentence ? 1 : 0),
-        withHelp: currentStats.withHelp + (speakAndPlaceReward.assistance === "none" ? 0 : 1),
-      }));
-      recordSpeakAndPlaceObservation(rewardProfileId, {
+      appendPracticeEvent(rewardProfileId, {
+        activeSpatialConcept: speakAndPlaceReward.activeSpatialConcept,
+        activelyNamedWord: speakAndPlaceReward.targetWord,
         assistance: speakAndPlaceReward.assistance,
+        attempts: 1,
         audioRepeats: activeAudioRepeats,
         autoExecuted: speakAndPlaceReward.autoExecuted,
         hintsUsed: activeHintsUsed + activeSpokenHelpCount,
         id: `${instruction.id}:zeg-en-bouw:success:${Date.now()}`,
         instructionId: instruction.id,
         isCorrect: true,
-        languageDomains: instruction.languageDomains,
+        languageDomains: [
+          "active-vocabulary",
+          "concepts-and-directions",
+          "sentence-comprehension",
+          "spatial-language",
+          ...(instruction.languageDomains ?? []),
+        ],
+        mode: "zeg-en-bouw",
         result: speakAndPlaceReward.result,
         selfMadeSentence: speakAndPlaceReward.selfMadeSentence,
-        spatialConcept: speakAndPlaceReward.activeSpatialConcept,
+        spatialConcepts: speakAndPlaceReward.activeSpatialConcept ? [speakAndPlaceReward.activeSpatialConcept] : [],
         speedEarned: earnedSpeed,
-        targetWord: speakAndPlaceReward.targetWord,
-        transcript: speakAndPlaceReward.transcript ?? pendingPlacement.transcript,
+        spokenTranscript: speakAndPlaceReward.transcript ?? pendingPlacement.transcript,
+        targetWords: speakAndPlaceReward.targetWord ? [speakAndPlaceReward.targetWord] : [],
         wordStarsEarned: earnedWordStars,
       });
     } else {
@@ -921,21 +829,30 @@ export function SceneBuilderScreen({
 
     const isSpokenPendingPlacement = pendingPlacement.source === "spoken";
     const recordSpokenPlacementMiss = (reason: string) => {
-      recordSpeakAndPlaceObservation(rewardProfileId, {
+      appendPracticeEvent(rewardProfileId, {
+        activeSpatialConcept: spokenCommandResult?.parseResult.relation,
         assistance: "hint",
+        attempts: 1,
         audioRepeats: activeAudioRepeats,
         autoExecuted: spokenCommandResult?.status === "ready",
         hintsUsed: activeHintsUsed + activeSpokenHelpCount + 1,
         id: `${instruction.id}:zeg-en-bouw:${reason}:${Date.now()}`,
         instructionId: instruction.id,
         isCorrect: false,
-        languageDomains: instruction.languageDomains,
+        languageDomains: [
+          "active-vocabulary",
+          "concepts-and-directions",
+          "sentence-comprehension",
+          "spatial-language",
+          ...(instruction.languageDomains ?? []),
+        ],
+        mode: "zeg-en-bouw",
         result: "needs-more-practice",
         selfMadeSentence: false,
-        spatialConcept: spokenCommandResult?.parseResult.relation,
+        spatialConcepts: spokenCommandResult?.parseResult.relation ? [spokenCommandResult.parseResult.relation] : [],
         speedEarned: 0,
-        targetWord: getObjectLabelById(objects, spokenCommandResult?.parseResult.objectId),
-        transcript: spokenCommandResult?.transcript ?? pendingPlacement.transcript,
+        spokenTranscript: spokenCommandResult?.transcript ?? pendingPlacement.transcript,
+        targetWords: [getObjectLabelById(objects, spokenCommandResult?.parseResult.objectId) ?? instruction.placement.objectId],
         wordStarsEarned: 0,
       });
     };
@@ -1227,34 +1144,7 @@ export function SceneBuilderScreen({
     void playHintVideoElement(event.currentTarget);
   };
 
-  function recordActiveVocabulary(rating: keyof PracticeRatingStats) {
-    const word = targetObject?.label ?? instruction.placement.objectId;
 
-    setActivelyNamedWords((currentWords) => uniquePush(currentWords, word));
-    setActiveVocabularyStats((currentStats) => ({
-      ...currentStats,
-      [rating]: currentStats[rating] + 1,
-    }));
-    setObservationNotice("Woordobservatie opgeslagen.");
-    recordActiveVocabularyObservation(rewardProfileId, {
-      instructionId: instruction.id,
-      rating: rating as AdultRating,
-      word,
-    });
-  }
-
-  function recordSentenceRepeat(rating: keyof PracticeRatingStats) {
-    setSentenceRepeatStats((currentStats) => ({
-      ...currentStats,
-      [rating]: currentStats[rating] + 1,
-    }));
-    setObservationNotice("Zinobservatie opgeslagen.");
-    recordSentenceRepeatObservation(rewardProfileId, {
-      instructionId: instruction.id,
-      rating: rating as AdultRating,
-      sentence: instruction.feedbackCopy.repeatAfterSuccess ?? instruction.prompt,
-    });
-  }
 
   function handleObjectDrop(objectId: string, clientX: number, clientY: number) {
     const scenePoint = getScenePointFromViewportPoint(clientX, clientY);
@@ -1473,26 +1363,14 @@ export function SceneBuilderScreen({
       data-active-instruction-id={instruction.id}
       data-active-audio-repeats={activeAudioRepeats}
       data-active-hints-used={activeHintsUsed}
-      data-active-vocabulary-good={activeVocabularyStats.good}
-      data-active-vocabulary-help={activeVocabularyStats.help}
-      data-active-vocabulary-partial={activeVocabularyStats.partial}
       data-audio-supported={
         typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
       }
-      data-speak-and-place-auto-executed={speakAndPlaceStats.autoExecuted}
-      data-speak-and-place-retry={speakAndPlaceStats.retry}
-      data-speak-and-place-self-made={speakAndPlaceStats.selfMade}
-      data-speak-and-place-with-help={speakAndPlaceStats.withHelp}
-      data-named-words={activelyNamedWords.join(",")}
       data-practiced-concepts={sceneCompletionSummary?.practicedConcepts.join(",") ?? ""}
       data-practiced-words={sceneCompletionSummary?.practicedWords.join(",") ?? ""}
       data-scene-complete={sceneComplete ? "true" : "false"}
       data-scene-complete-count={sceneCompletionTarget}
-      data-speed-value={speedValue}
       data-unlocked-rewards={unlockedRewardIds.join(",")}
-      data-sentence-repeat-good={sentenceRepeatStats.good}
-      data-sentence-repeat-help={sentenceRepeatStats.help}
-      data-sentence-repeat-partial={sentenceRepeatStats.partial}
       data-hint-event-count={hintEvents.length}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
       data-spoken-hint-zone-id={spokenHintZoneId ?? ""}
@@ -1600,30 +1478,7 @@ export function SceneBuilderScreen({
           })()
         ) : null}
 
-        {/* Subtitles Overlay */}
-        {showSubtitles && (
-          <div
-            className="pointer-events-none absolute top-4 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center justify-center gap-1 rounded-2xl border border-white/40 bg-slate-900/90 px-4 py-2.5 shadow-xl backdrop-blur-md"
-            data-testid="subtitles-card"
-          >
-            <span className="text-[0.65rem] font-black tracking-wide text-white/60 uppercase">
-              Ondertiteling
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-black text-white">
-                {currentInstructionText}
-              </span>
-              {instruction.placement.relation && (
-                <span className="flex items-center gap-1 rounded-lg bg-amber-400 px-2 py-0.5 text-xs font-black text-slate-900 shadow-sm animate-pulse">
-                  <span>{getConceptPictogram(instruction.placement.relation)}</span>
-                  <span className="uppercase text-[0.6rem] tracking-wide">
-                    {instruction.placement.relation}
-                  </span>
-                </span>
-              )}
-            </div>
-          </div>
-        )}
+
 
         {/* Speech Wave Animation */}
         {voiceRecognitionStatus === "listening" && (
@@ -1664,8 +1519,6 @@ export function SceneBuilderScreen({
           onHint={handleHint}
           onHintPointerDown={playPreparedHintVideo}
           starCount={wordStarValue}
-          showSubtitles={showSubtitles}
-          onToggleSubtitles={() => setShowSubtitles((prev) => !prev)}
         />
 
         <CompactInstructionCard
@@ -1693,15 +1546,6 @@ export function SceneBuilderScreen({
 
         {/* Transparent spacer to push tray to bottom */}
         <div className="flex-1 min-h-0 pointer-events-none" />
-
-        <CompactProgressBar
-          boosting={speedBoosting}
-          onOpenObservation={() => setShowObservationPanel(true)}
-          speedMax={10}
-          speedValue={speedValue}
-          starMax={30}
-          starValue={wordStarValue}
-        />
 
         <ObjectCarousel>
           {trayObjects.map((object) => (
@@ -1740,13 +1584,7 @@ export function SceneBuilderScreen({
         spokenCommandResult={spokenCommandResult}
       />
 
-      <ParentObservationSheet
-        notice={observationNotice}
-        onClose={() => setShowObservationPanel(false)}
-        onRecordActiveVocabulary={recordActiveVocabulary}
-        onRecordSentenceRepeat={recordSentenceRepeat}
-        open={showObservationPanel}
-      />
+
 
       {dragState ? (
         <img
