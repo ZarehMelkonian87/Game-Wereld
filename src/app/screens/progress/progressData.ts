@@ -1,5 +1,6 @@
 import type { PeriodDefinition, ThemeProgress, TimePeriod } from "./progressTypes";
 import { readBezemEscapeProgress } from "../../games/woordenschat-bezem-escape/logic/progress";
+import { readBezemEscapeProgress as readStrandProgress } from "../../games/strand-bezem-escape/logic/progress";
 
 export const periods: PeriodDefinition[] = [
   { id: "week", label: "Deze Week", shortLabel: "Week" },
@@ -10,8 +11,13 @@ export const periods: PeriodDefinition[] = [
 
 export const getProgressData = (period: TimePeriod, profileId?: string): ThemeProgress[] => {
   const defaultProfileId = profileId ?? "demo-profile";
-  const progress = readBezemEscapeProgress(defaultProfileId);
-  const events = progress.attempts ?? [];
+  const progressOriginal = readBezemEscapeProgress(defaultProfileId);
+  const progressStrand = readStrandProgress(defaultProfileId);
+  
+  const events = [
+    ...(progressOriginal.attempts ?? []),
+    ...(progressStrand.attempts ?? []),
+  ];
 
   // Filter events by period
   const now = new Date();

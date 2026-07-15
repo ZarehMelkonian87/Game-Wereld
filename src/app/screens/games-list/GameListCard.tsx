@@ -8,6 +8,11 @@ import {
   getDifficultyText,
 } from "./gameDifficulty";
 
+const beachIcon = new URL(
+  "../../games/woordenschat-bezem-escape/assets/icons/worlds/world-beach.png",
+  import.meta.url
+).href;
+
 interface GameListCardProps {
   game: MiniGame;
   index: number;
@@ -40,8 +45,18 @@ export const GameListCard = ({
   >
     <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-cyan-400/10 rounded-full blur-3xl" />
 
-    <div className="text-4xl sm:text-5xl md:text-6xl flex-shrink-0 drop-shadow-lg relative z-10">
-      {game.icon}
+    <div className="flex-shrink-0 relative z-10">
+      {game.icon === "world-beach.png" ? (
+        <img
+          src={beachIcon}
+          alt={game.name}
+          className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain rounded-xl drop-shadow-md"
+        />
+      ) : (
+        <div className="text-4xl sm:text-5xl md:text-6xl drop-shadow-lg">
+          {game.icon}
+        </div>
+      )}
     </div>
 
     <div className="flex-1 text-left relative z-10 min-w-0">

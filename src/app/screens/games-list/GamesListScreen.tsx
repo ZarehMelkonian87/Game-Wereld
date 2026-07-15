@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import { useProfile } from "../../contexts/ProfileContext";
 import { gameThemes, miniGames, type MiniGame } from "../../data/games";
+import { getGameRegistryEntry } from "../../games";
 import { EmptyGamesMessage } from "./EmptyGamesMessage";
 import { GamesGrid } from "./GamesGrid";
 import { GamesListHeader } from "./GamesListHeader";
@@ -34,7 +35,7 @@ export const GamesListScreen = () => {
     currentProfile?.progress.find((progress) => progress.gameId === gameId);
 
   const handleSelectGame = (game: MiniGame) => {
-    if (game.id === "woordenschat-bezem-escape") {
+    if (getGameRegistryEntry(game.id)) {
       navigate(`/games/${theme.id}/${game.id}`);
       return;
     }
