@@ -1,10 +1,20 @@
+/// <reference types="vite/client" />
+
 const shouldRegisterServiceWorker = () =>
+  import.meta.env.PROD &&
   "serviceWorker" in navigator &&
   window.isSecureContext &&
   !["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
 
 export const registerServiceWorker = () => {
   if (!shouldRegisterServiceWorker()) {
+    if ("serviceWorker" in navigator && !import.meta.env.PROD) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
     return;
   }
 
