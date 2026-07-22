@@ -9,7 +9,7 @@ import {
 } from "./gameDifficulty";
 
 const beachIcon = new URL(
-  "../../games/woordenschat-bezem-escape/assets/icons/worlds/world-beach.png",
+  "../../games/strand-bezem-escape/assets/icons/worlds/world-beach.png",
   import.meta.url
 ).href;
 

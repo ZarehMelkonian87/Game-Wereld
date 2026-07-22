@@ -49,14 +49,6 @@ export const gameThemes: GameTheme[] = [
 export const miniGames: MiniGame[] = [
   // Categorie: Speciale Woordenschat
   {
-    id: "woordenschat-bezem-escape",
-    themeId: "vocabulary",
-    name: "Bezem Escape",
-    description: "Luister naar de opdrachten, zet de stickers op de juiste plek en vlieg weg!",
-    difficulty: "easy",
-    icon: "🧹",
-  },
-  {
     id: "strand-bezem-escape",
     themeId: "vocabulary",
     name: "Magisch Strand-Avontuur",
@@ -65,14 +57,6 @@ export const miniGames: MiniGame[] = [
     icon: "world-beach.png",
   },
   // Categorie: Taal & Lezen
-  {
-    id: "taal-bezem-escape",
-    themeId: "language",
-    name: "Taal Bezem Escape",
-    description: "Letters, spelling en klankzuivere woorden oefenen op de magische bezem!",
-    difficulty: "easy",
-    icon: "🧹",
-  },
   {
     id: "taal-strand-bezem-escape",
     themeId: "language",
@@ -83,14 +67,6 @@ export const miniGames: MiniGame[] = [
   },
   // Categorie: Rekenen & Getallen
   {
-    id: "rekenen-bezem-escape",
-    themeId: "math",
-    name: "Rekenen Bezem Escape",
-    description: "Tellen, optellen en getalbegrip trainen met de vliegende bezem!",
-    difficulty: "easy",
-    icon: "🧹",
-  },
-  {
     id: "rekenen-strand-bezem-escape",
     themeId: "math",
     name: "Rekenen Strand-Avontuur",
@@ -99,14 +75,6 @@ export const miniGames: MiniGame[] = [
     icon: "world-beach.png",
   },
   // Categorie: Wereldoriëntatie
-  {
-    id: "wereld-bezem-escape",
-    themeId: "world",
-    name: "Wereld Bezem Escape",
-    description: "Ontdek seizoenen, natuur en het verkeer op de vliegende bezem!",
-    difficulty: "easy",
-    icon: "🧹",
-  },
   {
     id: "wereld-strand-bezem-escape",
     themeId: "world",
