@@ -139,7 +139,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
   const pointDragStateRef = useRef<PointDragState | null>(null);
   const [activeZoneId, setActiveZoneId] = useState(initialZoneId ?? zones[0]?.id ?? "");
   const [pointsByZone, setPointsByZone] = useState<Record<string, ZonePoint[]>>({});
-  const [panelPosition, setPanelPosition] = useState<PanelPosition>({ x: 8, y: 8 });
+  const [panelPosition, setPanelPosition] = useState<PanelPosition>({ x: 12, y: 72 });
   const [selectedPointIndex, setSelectedPointIndex] = useState<number | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -337,25 +337,33 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
     };
   };
 
-  const movePointToClientPoint = (
-    zoneId: string,
-    pointIndex: number,
-    clientX: number,
-    clientY: number,
-  ) => {
-    const point = getPointFromClientPoint(clientX, clientY);
+  const dockPanel = (corner: "top-left" | "top-right" | "bottom-left" | "bottom-right") => {
+    const rootBounds = rootRef.current?.getBoundingClientRect();
+    const panelBounds = panelRef.current?.getBoundingClientRect();
+    const width = panelBounds?.width ?? 240;
+    const height = panelBounds?.height ?? 220;
+    const rootW = rootBounds?.width ?? (typeof window !== "undefined" ? window.innerWidth : 360);
+    const rootH = rootBounds?.height ?? (typeof window !== "undefined" ? window.innerHeight : 640);
 
-    if (!point) {
-      return;
+    const margin = 12;
+
+    switch (corner) {
+      case "top-left":
+        setPanelPosition({ x: margin, y: margin });
+        break;
+      case "top-right":
+        setPanelPosition({ x: Math.max(margin, rootW - width - margin), y: margin });
+        break;
+      case "bottom-left":
+        setPanelPosition({ x: margin, y: Math.max(margin, rootH - height - margin) });
+        break;
+      case "bottom-right":
+        setPanelPosition({
+          x: Math.max(margin, rootW - width - margin),
+          y: Math.max(margin, rootH - height - margin),
+        });
+        break;
     }
-
-    setPointsByZone((currentPoints) => ({
-      ...currentPoints,
-      [zoneId]: (currentPoints[zoneId] ?? []).map((currentPoint, index) =>
-        index === pointIndex ? point : currentPoint,
-      ),
-    }));
-    setCopyStatus("");
   };
 
   const startPointDrag = (zoneId: string, pointIndex: number) => {
@@ -630,7 +638,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
           <div className="flex items-center justify-between gap-1">
             <button
               aria-label="Devtools verplaatsen"
-              className="flex min-h-8 flex-1 touch-none items-center justify-between rounded-xl border-2 border-slate-200 bg-slate-950 px-2 text-left text-white active:translate-y-0.5"
+              className="flex min-h-8 flex-1 touch-none items-center justify-between rounded-xl border-2 border-slate-700 bg-slate-950 px-2 text-left text-white active:translate-y-0.5"
               data-testid="scene-zone-devtools-drag-handle"
               onPointerCancel={handlePanelDragEnd}
               onPointerDown={handlePanelDragStart}
@@ -639,9 +647,43 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
               onMouseDown={handlePanelMouseDown}
               type="button"
             >
-              <span className="text-[0.72rem] font-black leading-none">🛠 Zone Tool</span>
-              <span className="text-[0.62rem] font-black leading-none text-amber-300">Sleep ✥</span>
+              <span className="text-[0.72rem] font-black leading-none text-amber-300">🛠 Zone Tool</span>
+              <span className="text-[0.6rem] font-bold text-slate-400">Sleep ✥</span>
             </button>
+            <div className="flex items-center gap-0.5 rounded-xl border border-slate-300 bg-slate-100 p-0.5">
+              <button
+                className="h-6 w-6 rounded-lg text-[0.65rem] font-black text-slate-800 hover:bg-slate-200 active:bg-amber-400"
+                onClick={() => dockPanel("top-left")}
+                title="Linksboven"
+                type="button"
+              >
+                ↖
+              </button>
+              <button
+                className="h-6 w-6 rounded-lg text-[0.65rem] font-black text-slate-800 hover:bg-slate-200 active:bg-amber-400"
+                onClick={() => dockPanel("top-right")}
+                title="Rechtsboven"
+                type="button"
+              >
+                ↗
+              </button>
+              <button
+                className="h-6 w-6 rounded-lg text-[0.65rem] font-black text-slate-800 hover:bg-slate-200 active:bg-amber-400"
+                onClick={() => dockPanel("bottom-left")}
+                title="Linksonder"
+                type="button"
+              >
+                ↙
+              </button>
+              <button
+                className="h-6 w-6 rounded-lg text-[0.65rem] font-black text-slate-800 hover:bg-slate-200 active:bg-amber-400"
+                onClick={() => dockPanel("bottom-right")}
+                title="Rechtsonder"
+                type="button"
+              >
+                ↘
+              </button>
+            </div>
             <button
               aria-label="Inklappen"
               className="flex min-h-8 min-w-8 items-center justify-center rounded-xl border-2 border-slate-300 bg-slate-100 text-xs font-black text-slate-800 active:scale-95"

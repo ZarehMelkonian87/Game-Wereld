@@ -1513,7 +1513,12 @@ export function SceneBuilderScreen({
       </section>
 
       {/* 2. Interactive UI controls overlaying the background */}
-      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[calc(env(safe-area-inset-top)+0.5rem)] landscape:gap-1.5 landscape:px-3">
+      <div
+        className={classNames(
+          "pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-[calc(env(safe-area-inset-top)+0.5rem)] landscape:gap-1.5 landscape:px-3 transition-opacity duration-300",
+          showZoneDevTools ? "opacity-20 pointer-events-none" : "",
+        )}
+      >
         <SceneBuilderTopBar
           actionLabel={actionLabel}
           isCorrectFeedback={feedback?.kind === "correct"}
@@ -1574,15 +1579,17 @@ export function SceneBuilderScreen({
         </ObjectCarousel>
       </div>
 
-      <FloatingSuccessToast
-        autoPlayFeedbackVideo={readBezemEscapeSettings(rewardProfileId).audioEnabled}
-        feedback={feedback}
-        hintVideoUrl={feedback?.hintVideoUrl}
-        onHintVideoClick={handleHintFeedbackVideoClick}
-        onRepeatSpokenCommand={handleRepeatSpokenCommand}
-        onSpokenCommandChoice={handleSpokenCommandChoice}
-        spokenCommandResult={spokenCommandResult}
-      />
+      <div className={showZoneDevTools ? "opacity-20 pointer-events-none" : ""}>
+        <FloatingSuccessToast
+          autoPlayFeedbackVideo={readBezemEscapeSettings(rewardProfileId).audioEnabled}
+          feedback={feedback}
+          hintVideoUrl={feedback?.hintVideoUrl}
+          onHintVideoClick={handleHintFeedbackVideoClick}
+          onRepeatSpokenCommand={handleRepeatSpokenCommand}
+          onSpokenCommandChoice={handleSpokenCommandChoice}
+          spokenCommandResult={spokenCommandResult}
+        />
+      </div>
 
 
 
