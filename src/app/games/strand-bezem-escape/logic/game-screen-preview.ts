@@ -32,7 +32,9 @@ export const getInstructionPreviewText = () => {
 
 export const shouldShowTrayLabels = () => getSearchParams()?.get("trayLabels") === "true";
 
-export const shouldShowZoneDevTools = () => getSearchParams()?.get("zoneDevTools") === "true";
+export const shouldShowZoneDevTools = () =>
+  getSearchParams()?.get("zoneDevTools") === "true" ||
+  getSearchParams()?.get("dev") === "true";
 
 export const getSpokenCommandPreviewText = () =>
   getSearchParams()?.get("spokenCommandPreview") ?? undefined;
@@ -73,6 +75,10 @@ export const getScreenPreview = (): GameScreenPreview => {
   }
 
   if (screen === "scene-builder" || screen === "listen-and-place") {
+    return "scene-builder";
+  }
+
+  if (shouldShowZoneDevTools()) {
     return "scene-builder";
   }
 

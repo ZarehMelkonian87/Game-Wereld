@@ -142,6 +142,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
   const [panelPosition, setPanelPosition] = useState<PanelPosition>({ x: 8, y: 8 });
   const [selectedPointIndex, setSelectedPointIndex] = useState<number | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const activeZone = zones.find((zone) => zone.id === activeZoneId) ?? zones[0];
   const activePoints = activeZone ? pointsByZone[activeZone.id] ?? [] : [];
   const generatedPath = useMemo(() => buildPathFromPoints(activePoints), [activePoints]);
@@ -261,6 +262,48 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
 
     clearSceneZoneVisualHintOverride(activeZone.id);
     setCopyStatus(`Reset: ${activeZone.label}.`);
+  };
+
+  const nudgePoint = (deltaX: number, deltaY: number) => {
+    if (!activeZone || selectedPointIndex === null) {
+      return;
+    }
+
+    setPointsByZone((currentPoints) => {
+      const zonePoints = currentPoints[activeZone.id] ?? [];
+
+      return {
+        ...currentPoints,
+        [activeZone.id]: zonePoints.map((point, index) => {
+          if (index !== selectedPointIndex) {
+            return point;
+          }
+
+          return {
+            x: clamp(formatPointValue(point.x + deltaX), 0, 100),
+            y: clamp(formatPointValue(point.y + deltaY), 0, 100),
+          };
+        }),
+      };
+    });
+    setCopyStatus("");
+  };
+
+  const deleteSelectedPoint = () => {
+    if (!activeZone || selectedPointIndex === null) {
+      return;
+    }
+
+    setPointsByZone((currentPoints) => {
+      const zonePoints = currentPoints[activeZone.id] ?? [];
+
+      return {
+        ...currentPoints,
+        [activeZone.id]: zonePoints.filter((_, index) => index !== selectedPointIndex),
+      };
+    });
+    setSelectedPointIndex(null);
+    setCopyStatus("");
   };
 
   const movePanelToClientPoint = (clientX: number, clientY: number) => {
@@ -455,14 +498,14 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
   return (
     <div
       aria-label="Zone devtools"
-      className="pointer-events-none absolute inset-0 z-50"
+      className="pointer-events-none absolute inset-0 z-50 overflow-hidden"
       data-component="SceneZoneDevTools"
       data-testid="scene-zone-devtools"
       ref={rootRef}
     >
       <button
         aria-label="Zonepunt toevoegen"
-        className="pointer-events-auto absolute inset-0 z-10 cursor-crosshair bg-transparent"
+        className="pointer-events-auto absolute inset-0 z-10 cursor-crosshair bg-transparent touch-none"
         data-testid="scene-zone-devtools-add-point-target"
         onClick={handleAddPoint}
         type="button"
@@ -509,7 +552,6 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
             vectorEffect="non-scaling-stroke"
           />
         ) : null}
-
       </svg>
 
       <div
@@ -523,12 +565,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
           return (
             <button
               aria-label={`Punt ${index + 1} verplaatsen`}
-              className={classNames(
-                "pointer-events-auto absolute grid h-[1.125rem] w-[1.125rem] -translate-x-1/2 -translate-y-1/2 touch-none cursor-grab place-items-center rounded-full border-2 text-[0.52rem] font-black leading-none active:cursor-grabbing",
-                selected
-                  ? "border-slate-950 bg-amber-300 text-slate-950"
-                  : "border-slate-950/70 bg-amber-100 text-slate-950",
-              )}
+              className="pointer-events-auto absolute grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center touch-none cursor-grab active:cursor-grabbing"
               data-testid={`scene-zone-devtools-point-${index}`}
               key={`${point.x}-${point.y}-${index}-handle`}
               onClick={(event) => {
@@ -547,115 +584,209 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
               }}
               type="button"
             >
-              <span aria-hidden="true">{index + 1}</span>
+              <span
+                className={classNames(
+                  "grid h-6 w-6 place-items-center rounded-full border-2 text-[0.62rem] font-black leading-none shadow-md transition-transform",
+                  selected
+                    ? "border-slate-950 bg-amber-300 text-slate-950 scale-110"
+                    : "border-slate-950/80 bg-amber-100 text-slate-950",
+                )}
+                aria-hidden="true"
+              >
+                {index + 1}
+              </span>
             </button>
           );
         })}
       </div>
 
-      <section
-        className="pointer-events-auto absolute z-30 grid w-[min(13.25rem,calc(100%-0.75rem))] gap-1 rounded-2xl border-2 border-slate-900/20 bg-white/92 p-1 text-slate-950 shadow-[0_4px_0_rgba(15,23,42,0.18)] backdrop-blur-md"
-        data-slot="panel"
-        ref={panelRef}
-        style={{
-          left: `${panelPosition.x}px`,
-          top: `${panelPosition.y}px`,
-        }}
-      >
+      {isCollapsed ? (
         <button
-          aria-label="Devtools verplaatsen"
-          className="flex min-h-7 touch-none items-center justify-between rounded-xl border-2 border-slate-200 bg-slate-950 px-2 text-left text-white active:translate-y-0.5"
-          data-testid="scene-zone-devtools-drag-handle"
-          onPointerCancel={handlePanelDragEnd}
-          onPointerDown={handlePanelDragStart}
-          onPointerMove={handlePanelDragMove}
-          onPointerUp={handlePanelDragEnd}
-          onMouseDown={handlePanelMouseDown}
+          aria-label="Zone editor uitklappen"
+          className="pointer-events-auto absolute z-30 flex items-center gap-1.5 rounded-2xl border-2 border-slate-900/30 bg-slate-950/92 px-3 py-2 text-white shadow-[0_4px_0_rgba(15,23,42,0.25)] backdrop-blur-md active:scale-95"
+          onClick={() => setIsCollapsed(false)}
+          style={{
+            left: `${panelPosition.x}px`,
+            top: `${panelPosition.y}px`,
+          }}
           type="button"
         >
-          <span className="text-[0.7rem] font-black leading-none">Zone tool</span>
-          <span className="text-[0.62rem] font-black leading-none text-amber-200">sleep</span>
-        </button>
-
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-1">
-          <label className="grid min-w-0 gap-0.5 text-[0.54rem] font-black uppercase leading-none text-slate-600">
-            Zone
-            <select
-              className="min-h-7 rounded-xl border-2 border-slate-300 bg-white px-1.5 text-[0.68rem] font-black normal-case text-slate-950"
-              data-testid="scene-zone-devtools-zone-select"
-              onChange={(event) => {
-                setActiveZoneId(event.currentTarget.value);
-                setCopyStatus("");
-              }}
-              value={activeZone?.id ?? ""}
-            >
-              {zones.map((zone) => (
-                <option key={zone.id} value={zone.id}>
-                  {zone.id} - {zone.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <span className="rounded-xl bg-amber-100 px-1.5 py-1 text-center text-[0.58rem] font-black leading-tight text-amber-950">
-            {activePoints.length} punten
+          <span className="text-xs font-black text-amber-300">🛠 {activeZone?.id ?? "Zone"}</span>
+          <span className="text-[0.65rem] font-bold text-slate-300">({activePoints.length} pnt)</span>
+          <span className="ml-1 rounded-xl bg-amber-400 px-2 py-0.5 text-[0.65rem] font-black text-slate-950">
+            Open ✏️
           </span>
-        </div>
-
-        <div className="grid grid-cols-5 gap-1">
-          <button
-            className="min-h-7 rounded-xl border-2 border-slate-300 bg-white px-0.5 text-[0.52rem] font-black text-slate-950 active:translate-y-0.5"
-            onClick={handleUndoPoint}
-            type="button"
-          >
-            Undo
-          </button>
-          <button
-            className="min-h-7 rounded-xl border-2 border-rose-300 bg-rose-50 px-0.5 text-[0.52rem] font-black text-rose-950 active:translate-y-0.5"
-            onClick={handleClearPoints}
-            type="button"
-          >
-            Wis
-          </button>
-          <button
-            className="min-h-7 rounded-xl border-2 border-emerald-500 bg-emerald-100 px-0.5 text-[0.52rem] font-black text-emerald-950 active:translate-y-0.5"
-            onClick={handleSavePath}
-            type="button"
-          >
-            Save
-          </button>
-          <button
-            className="min-h-7 rounded-xl border-2 border-sky-400 bg-sky-50 px-0.5 text-[0.52rem] font-black text-sky-950 active:translate-y-0.5"
-            onClick={handleCopyPath}
-            type="button"
-          >
-            Copy
-          </button>
-          <button
-            className="min-h-7 rounded-xl border-2 border-slate-300 bg-slate-50 px-0.5 text-[0.52rem] font-black text-slate-800 active:translate-y-0.5"
-            onClick={handleResetSavedPath}
-            type="button"
-          >
-            Reset
-          </button>
-        </div>
-
-        <code
-          className={classNames(
-            "block max-h-9 overflow-y-auto rounded-xl border-2 border-slate-200 bg-slate-950/95 p-1.5 text-[0.54rem] font-bold leading-tight text-amber-100",
-            !generatedPath && "text-slate-400",
-          )}
-          data-testid="scene-zone-devtools-path"
+        </button>
+      ) : (
+        <section
+          className="pointer-events-auto absolute z-30 grid w-[min(15.5rem,calc(100vw-1rem))] gap-1.5 rounded-2xl border-2 border-slate-900/20 bg-white/95 p-2 text-slate-950 shadow-[0_6px_0_rgba(15,23,42,0.18)] backdrop-blur-md"
+          data-slot="panel"
+          ref={panelRef}
+          style={{
+            left: `${panelPosition.x}px`,
+            top: `${panelPosition.y}px`,
+          }}
         >
-          {generatedPath ? `visualHintPath: "${generatedPath}",` : "Nog geen path. Plaats punten op de scene."}
-        </code>
+          <div className="flex items-center justify-between gap-1">
+            <button
+              aria-label="Devtools verplaatsen"
+              className="flex min-h-8 flex-1 touch-none items-center justify-between rounded-xl border-2 border-slate-200 bg-slate-950 px-2 text-left text-white active:translate-y-0.5"
+              data-testid="scene-zone-devtools-drag-handle"
+              onPointerCancel={handlePanelDragEnd}
+              onPointerDown={handlePanelDragStart}
+              onPointerMove={handlePanelDragMove}
+              onPointerUp={handlePanelDragEnd}
+              onMouseDown={handlePanelMouseDown}
+              type="button"
+            >
+              <span className="text-[0.72rem] font-black leading-none">🛠 Zone Tool</span>
+              <span className="text-[0.62rem] font-black leading-none text-amber-300">Sleep ✥</span>
+            </button>
+            <button
+              aria-label="Inklappen"
+              className="flex min-h-8 min-w-8 items-center justify-center rounded-xl border-2 border-slate-300 bg-slate-100 text-xs font-black text-slate-800 active:scale-95"
+              onClick={() => setIsCollapsed(true)}
+              title="Inklappen"
+              type="button"
+            >
+              _
+            </button>
+          </div>
 
-        <p
-          aria-live="polite"
-          className="min-h-3 truncate text-[0.54rem] font-black leading-tight text-slate-700"
-        >
-          {copyStatus || "Tik voor punt. Sleep punt of paneel."}
-        </p>
-      </section>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-1.5">
+            <label className="grid min-w-0 gap-0.5 text-[0.56rem] font-black uppercase leading-none text-slate-600">
+              Zone
+              <select
+                className="min-h-9 rounded-xl border-2 border-slate-300 bg-white px-2 text-[0.75rem] font-black normal-case text-slate-950 shadow-sm"
+                data-testid="scene-zone-devtools-zone-select"
+                onChange={(event) => {
+                  setActiveZoneId(event.currentTarget.value);
+                  setSelectedPointIndex(null);
+                  setCopyStatus("");
+                }}
+                value={activeZone?.id ?? ""}
+              >
+                {zones.map((zone) => (
+                  <option key={zone.id} value={zone.id}>
+                    {zone.id} - {zone.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <span className="rounded-xl bg-amber-100 px-2 py-1.5 text-center text-[0.62rem] font-black leading-tight text-amber-950">
+              {activePoints.length} pnt
+            </span>
+          </div>
+
+          {/* Selected Point Nudge Controls for Mobile */}
+          {selectedPointIndex !== null && activePoints[selectedPointIndex] ? (
+            <div className="grid gap-1 rounded-xl border border-amber-300 bg-amber-50/80 p-1.5">
+              <div className="flex items-center justify-between text-[0.65rem] font-black text-amber-950">
+                <span>Punt {selectedPointIndex + 1}: ({activePoints[selectedPointIndex].x}, {activePoints[selectedPointIndex].y})</span>
+                <button
+                  className="rounded-lg bg-rose-200 px-1.5 py-0.5 text-[0.6rem] font-black text-rose-950 active:scale-95"
+                  onClick={deleteSelectedPoint}
+                  type="button"
+                >
+                  🗑 Wis
+                </button>
+              </div>
+              <div className="flex items-center justify-between gap-1">
+                <span className="text-[0.6rem] font-bold text-amber-900">Stel in:</span>
+                <div className="flex gap-1">
+                  <button
+                    className="h-7 w-7 rounded-lg border border-amber-300 bg-white text-xs font-black active:bg-amber-200"
+                    onClick={() => nudgePoint(-0.5, 0)}
+                    title="Naar links"
+                    type="button"
+                  >
+                    ◄
+                  </button>
+                  <button
+                    className="h-7 w-7 rounded-lg border border-amber-300 bg-white text-xs font-black active:bg-amber-200"
+                    onClick={() => nudgePoint(0.5, 0)}
+                    title="Naar rechts"
+                    type="button"
+                  >
+                    ►
+                  </button>
+                  <button
+                    className="h-7 w-7 rounded-lg border border-amber-300 bg-white text-xs font-black active:bg-amber-200"
+                    onClick={() => nudgePoint(0, -0.5)}
+                    title="Omhoog"
+                    type="button"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    className="h-7 w-7 rounded-lg border border-amber-300 bg-white text-xs font-black active:bg-amber-200"
+                    onClick={() => nudgePoint(0, 0.5)}
+                    title="Omlaag"
+                    type="button"
+                  >
+                    ▼
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="grid grid-cols-5 gap-1">
+            <button
+              className="min-h-8 rounded-xl border-2 border-slate-300 bg-white px-1 text-[0.6rem] font-black text-slate-950 active:translate-y-0.5"
+              onClick={handleUndoPoint}
+              type="button"
+            >
+              Undo
+            </button>
+            <button
+              className="min-h-8 rounded-xl border-2 border-rose-300 bg-rose-50 px-1 text-[0.6rem] font-black text-rose-950 active:translate-y-0.5"
+              onClick={handleClearPoints}
+              type="button"
+            >
+              Wis
+            </button>
+            <button
+              className="min-h-8 rounded-xl border-2 border-emerald-500 bg-emerald-100 px-1 text-[0.6rem] font-black text-emerald-950 active:translate-y-0.5"
+              onClick={handleSavePath}
+              type="button"
+            >
+              Save
+            </button>
+            <button
+              className="min-h-8 rounded-xl border-2 border-sky-400 bg-sky-50 px-1 text-[0.6rem] font-black text-sky-950 active:translate-y-0.5"
+              onClick={handleCopyPath}
+              type="button"
+            >
+              Copy
+            </button>
+            <button
+              className="min-h-8 rounded-xl border-2 border-slate-300 bg-slate-50 px-1 text-[0.6rem] font-black text-slate-800 active:translate-y-0.5"
+              onClick={handleResetSavedPath}
+              type="button"
+            >
+              Reset
+            </button>
+          </div>
+
+          <code
+            className={classNames(
+              "block max-h-12 overflow-y-auto rounded-xl border-2 border-slate-200 bg-slate-950/95 p-1.5 text-[0.58rem] font-bold leading-tight text-amber-100",
+              !generatedPath && "text-slate-400",
+            )}
+            data-testid="scene-zone-devtools-path"
+          >
+            {generatedPath ? `visualHintPath: "${generatedPath}",` : "Tik op scherm voor punten."}
+          </code>
+
+          <p
+            aria-live="polite"
+            className="min-h-3 truncate text-[0.58rem] font-black leading-tight text-slate-700"
+          >
+            {copyStatus || "Tik scherm voor punten. Sleep of gebruik ◄►▲▼."}
+          </p>
+        </section>
+      )}
     </div>
   );
 };

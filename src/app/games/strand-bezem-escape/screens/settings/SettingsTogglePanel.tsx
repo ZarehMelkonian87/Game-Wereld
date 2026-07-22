@@ -1,6 +1,7 @@
-import { EyeOff, Lightbulb, Music2, Volume2 } from "lucide-react";
+import { EyeOff, Lightbulb, Music2, Volume2, Wrench } from "lucide-react";
 import { PanelCard } from "../../components/ui";
 import type { BezemEscapeSettings } from "../../logic/settings";
+import { shouldShowZoneDevTools } from "../../logic/game-screen-preview";
 import { SettingsToggleRow } from "./SettingsToggleRow";
 
 interface SettingsTogglePanelProps {
@@ -53,6 +54,24 @@ export const SettingsTogglePanel = ({
           onUpdateSettings({ ...settings, reducedMotion: !settings.reducedMotion })
         }
         testId="settings-reduced-motion-toggle"
+      />
+      <SettingsToggleRow
+        checked={shouldShowZoneDevTools()}
+        description="Open de interactieve zone-locatie editor."
+        icon={<Wrench className="h-6 w-6" strokeWidth={3} />}
+        label="Zone Editor (DevTools)"
+        onToggle={() => {
+          const url = new URL(window.location.href);
+          if (shouldShowZoneDevTools()) {
+            url.searchParams.delete("zoneDevTools");
+            url.searchParams.delete("dev");
+          } else {
+            url.searchParams.set("zoneDevTools", "true");
+            url.searchParams.set("screen", "scene-builder");
+          }
+          window.location.href = url.toString();
+        }}
+        testId="settings-zone-editor-toggle"
       />
     </PanelCard>
   </div>
