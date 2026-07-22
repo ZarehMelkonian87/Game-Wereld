@@ -13,6 +13,7 @@ import {
 } from "../asset-urls";
 import { BeachBackground } from "../components/layout/BeachBackground";
 import { ObjectStickerButton } from "../components/ui";
+import { classNames } from "../components/ui/classNames";
 import {
   findSmallestZoneAtPoint,
   selectedZoneMatchesTarget,
