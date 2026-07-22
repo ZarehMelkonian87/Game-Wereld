@@ -123,6 +123,54 @@ export const instructionVideoUrls = {
     "./assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
     import.meta.url,
   ).href,
+  "cw-001": new URL(
+    "./assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4",
+    import.meta.url,
+  ).href,
+  "cw-002": new URL(
+    "./assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4",
+    import.meta.url,
+  ).href,
+  "cw-003": new URL(
+    "./assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4",
+    import.meta.url,
+  ).href,
+  "cw-004": new URL(
+    "./assets/instructions/cw-004-opdracht-waar-is-de-vuurtoren.mp4",
+    import.meta.url,
+  ).href,
+  "cw-005": new URL(
+    "./assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4",
+    import.meta.url,
+  ).href,
+  "cw-006": new URL(
+    "./assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4",
+    import.meta.url,
+  ).href,
+  "cw-007": new URL(
+    "./assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4",
+    import.meta.url,
+  ).href,
+  "cw-008": new URL(
+    "./assets/instructions/cw-008-opdracht-waar-is-de-handdoek.mp4",
+    import.meta.url,
+  ).href,
+  "cw-009": new URL(
+    "./assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4",
+    import.meta.url,
+  ).href,
+  "cw-010": new URL(
+    "./assets/instructions/cw-010-opdracht-waar-is-het-zandkasteel.mp4",
+    import.meta.url,
+  ).href,
+  "cw-011": new URL(
+    "./assets/instructions/cw-011-opdracht-waar-is-het-vliegtuig.mp4",
+    import.meta.url,
+  ).href,
+  "cw-012": new URL(
+    "./assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4",
+    import.meta.url,
+  ).href,
 } as const;
 
 type InstructionVideoId = keyof typeof instructionVideoUrls;

@@ -1,6 +1,6 @@
 import { Sparkles, Volume2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { broomIconUrls, getBeachObjectStickerUrl } from "../asset-urls";
+import { broomIconUrls, getBeachObjectStickerUrl, getInstructionVideoUrl } from "../asset-urls";
 import { TopHud } from "../components";
 import {
   GameplayStatusBar,
@@ -9,6 +9,7 @@ import {
   PanelCard,
   PrimaryActionButton,
 } from "../components/ui";
+import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { speakDutch } from "../logic/speech";
 import {
   readUnlockedRewardIds,
@@ -233,6 +234,8 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
     setFeedback(null);
   }
 
+  const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
+
   return (
     <div
       data-testid="word-choice-screen"
@@ -256,6 +259,14 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
         <InstructionBubble
           aria-label="Vraagpaneel"
           data-testid="word-choice-question-panel"
+          leadingControl={
+            currentInstructionVideoUrl ? (
+              <InstructionVideoButton
+                label="Speel video-opdracht"
+                src={currentInstructionVideoUrl}
+              />
+            ) : undefined
+          }
           onAudioClick={() => playQuestionAudio()}
           text={instruction.prompt}
           className="landscape:col-start-1 landscape:row-start-1"
