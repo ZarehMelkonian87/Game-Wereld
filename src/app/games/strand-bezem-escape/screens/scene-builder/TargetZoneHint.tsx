@@ -1,4 +1,5 @@
 import type { SceneZone } from "../../types";
+import { getZoneCenter, parseSimplePolygonPath } from "../../logic/scene-zones";
 
 interface TargetZoneHintProps {
   zone: SceneZone;
@@ -6,6 +7,22 @@ interface TargetZoneHintProps {
 }
 
 export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) => {
+  const center = getZoneCenter(zone);
+  const polygonPoints = parseSimplePolygonPath(zone.visualHintPath);
+
+  let ringWidth = Math.min(zone.width * 0.7, 42);
+  let ringHeight = Math.min(zone.height * 0.7, 32);
+
+  if (polygonPoints.length >= 3) {
+    const minX = Math.min(...polygonPoints.map((p) => p.x));
+    const maxX = Math.max(...polygonPoints.map((p) => p.x));
+    const minY = Math.min(...polygonPoints.map((p) => p.y));
+    const maxY = Math.max(...polygonPoints.map((p) => p.y));
+
+    ringWidth = Math.max(16, Math.min((maxX - minX) * 0.65, 42));
+    ringHeight = Math.max(14, Math.min((maxY - minY) * 0.65, 32));
+  }
+
   return (
     <>
       {/* 1. Ambient Sunbeam Glow (renders boundary polygon if visualHintPath is defined) */}
@@ -76,16 +93,16 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
         />
       )}
 
-      {/* 2. Rotating Concentric Magic Rings (rendered at the center of the drop zone) */}
+      {/* 2. Rotating Concentric Magic Rings (rendered at the true centroid of the target zone) */}
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute"
         data-testid="target-zone-hint-magic-rings"
         style={{
-          left: `${zone.x}%`,
-          top: `${zone.y}%`,
-          width: `${zone.width}%`,
-          height: `${zone.height}%`,
+          left: `${center.x - ringWidth / 2}%`,
+          top: `${center.y - ringHeight / 2}%`,
+          width: `${ringWidth}%`,
+          height: `${ringHeight}%`,
         }}
         viewBox="0 0 100 100"
       >

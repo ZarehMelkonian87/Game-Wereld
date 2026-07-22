@@ -24,6 +24,47 @@ export function getZoneCenter(zone?: SceneZone): ScenePoint {
     return { x: 50, y: 50 };
   }
 
+  const polygonPoints = parseSimplePolygonPath(zone.visualHintPath);
+
+  if (polygonPoints.length >= 3) {
+    const sum = polygonPoints.reduce(
+      (acc, pt) => ({ x: acc.x + pt.x, y: acc.y + pt.y }),
+      { x: 0, y: 0 },
+    );
+    const centroid = {
+      x: sum.x / polygonPoints.length,
+      y: sum.y / polygonPoints.length,
+    };
+
+    if (pointIsInsidePolygon(centroid, polygonPoints)) {
+      return {
+        x: Math.round(centroid.x * 10) / 10,
+        y: Math.round(centroid.y * 10) / 10,
+      };
+    }
+
+    const minX = Math.min(...polygonPoints.map((p) => p.x));
+    const maxX = Math.max(...polygonPoints.map((p) => p.x));
+    const minY = Math.min(...polygonPoints.map((p) => p.y));
+    const maxY = Math.max(...polygonPoints.map((p) => p.y));
+    const bboxCenter = {
+      x: (minX + maxX) / 2,
+      y: (minY + maxY) / 2,
+    };
+
+    if (pointIsInsidePolygon(bboxCenter, polygonPoints)) {
+      return {
+        x: Math.round(bboxCenter.x * 10) / 10,
+        y: Math.round(bboxCenter.y * 10) / 10,
+      };
+    }
+
+    return {
+      x: Math.round(centroid.x * 10) / 10,
+      y: Math.round(centroid.y * 10) / 10,
+    };
+  }
+
   return {
     x: zone.x + zone.width / 2,
     y: zone.y + zone.height / 2,
