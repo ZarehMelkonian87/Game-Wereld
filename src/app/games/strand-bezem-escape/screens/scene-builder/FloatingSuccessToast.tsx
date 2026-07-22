@@ -22,6 +22,7 @@ interface FloatingSuccessToastProps {
   feedback: FeedbackToastState | null;
   hintVideoUrl?: string;
   onHintVideoClick: (event: MouseEvent<HTMLVideoElement>) => void;
+  onHintVideoPlaybackStateChange?: (isPlaying: boolean) => void;
   onRepeatSpokenCommand: () => void;
   onSpokenCommandChoice: (choice: SceneCommandChoice) => void;
   spokenCommandResult: SceneCommandExecutionResult | null;
@@ -58,6 +59,7 @@ export const FloatingSuccessToast = ({
   feedback,
   hintVideoUrl,
   onHintVideoClick,
+  onHintVideoPlaybackStateChange,
   onRepeatSpokenCommand,
   onSpokenCommandChoice,
   spokenCommandResult,
@@ -76,12 +78,14 @@ export const FloatingSuccessToast = ({
     stopHintAudioSessionRef.current = createForegroundAudioSession();
     setIsVideoPlaying(true);
     setHasVideoEnded(false);
+    onHintVideoPlaybackStateChange?.(true);
   };
 
   const stopHintAudioSession = () => {
     stopHintAudioSessionRef.current?.();
     stopHintAudioSessionRef.current = undefined;
     setIsVideoPlaying(false);
+    onHintVideoPlaybackStateChange?.(false);
   };
 
   const handleVideoEnded = () => {

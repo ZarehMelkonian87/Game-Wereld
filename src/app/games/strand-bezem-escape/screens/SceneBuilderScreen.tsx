@@ -282,6 +282,7 @@ export function SceneBuilderScreen({
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
+  const [isHintVideoPlaying, setIsHintVideoPlaying] = useState(false);
   const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
@@ -1403,7 +1404,7 @@ export function SceneBuilderScreen({
           type="button"
         />
 
-        {showTargetZoneHint && visualHintZone ? (
+        {showTargetZoneHint && isHintVideoPlaying && visualHintZone ? (
           <TargetZoneHint
             zone={visualHintZone}
             pulsing={true}
@@ -1588,6 +1589,7 @@ export function SceneBuilderScreen({
           feedback={feedback}
           hintVideoUrl={feedback?.hintVideoUrl}
           onHintVideoClick={handleHintFeedbackVideoClick}
+          onHintVideoPlaybackStateChange={setIsHintVideoPlaying}
           onRepeatSpokenCommand={handleRepeatSpokenCommand}
           onSpokenCommandChoice={handleSpokenCommandChoice}
           spokenCommandResult={spokenCommandResult}
