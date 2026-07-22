@@ -1,4 +1,14 @@
-**Add your own guidelines here**
+# 📐 Project Guidelines & Architecture Standards
+
+Please refer to [docs/code-quality-and-architecture.md](file:///Users/melkonian/git/Game-Wereld/docs/code-quality-and-architecture.md) for full architectural guidelines.
+
+### Core Rules:
+1. **Component Size Limit**: No component file should exceed **250 lines of code**. Large components must be split into logical sub-components in structured sub-directories.
+2. **Separation of Concerns**:
+   - **Render Components (`components/`, `screens/`)**: Responsible ONLY for JSX layout and UI rendering.
+   - **Custom Hooks (`hooks/`)**: Responsible for state, side-effects, and event subscriptions.
+   - **Pure Logic (`logic/`)**: Pure TypeScript functions for math, calculations, and domain rules.
+3. **Code Quality**: Strict TypeScript types, explicit return signatures, no swallowed errors, and touch-friendly mobile layouts (min 40x40px hit areas).
 <!--
 
 System Guidelines
