@@ -1,4 +1,4 @@
-import { useEffect, useRef, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { mascotIconUrls } from "../../asset-urls";
 import { PanelCard } from "../../components/ui";
 import type { SceneCommandChoice, SceneCommandExecutionResult } from "../../logic/scene-command-executor";
@@ -64,24 +64,40 @@ export const FloatingSuccessToast = ({
 }: FloatingSuccessToastProps) => {
   const stopHintAudioSessionRef = useRef<(() => void) | undefined>();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const shouldRender = Boolean(feedback || hintVideoUrl);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [hasVideoEnded, setHasVideoEnded] = useState(false);
+  const activeHintVideoUrl = feedback?.hintVideoUrl ?? hintVideoUrl;
+  const shouldRender = Boolean(feedback && (feedback.text || activeHintVideoUrl));
   const isCorrectFeedback = feedback?.kind === "correct";
   const videoLabel = isCorrectFeedback ? "Speel feedbackvideo" : "Speel hintvideo";
 
   const startHintAudioSession = () => {
     stopHintAudioSessionRef.current?.();
     stopHintAudioSessionRef.current = createForegroundAudioSession();
+    setIsVideoPlaying(true);
+    setHasVideoEnded(false);
   };
 
   const stopHintAudioSession = () => {
     stopHintAudioSessionRef.current?.();
     stopHintAudioSessionRef.current = undefined;
+    setIsVideoPlaying(false);
+  };
+
+  const handleVideoEnded = () => {
+    stopHintAudioSession();
+    setHasVideoEnded(true);
   };
 
   useEffect(() => stopHintAudioSession, []);
 
   useEffect(() => {
-    if (!autoPlayFeedbackVideo || !isCorrectFeedback || !hintVideoUrl || !videoRef.current) {
+    setIsVideoPlaying(false);
+    setHasVideoEnded(false);
+  }, [activeHintVideoUrl]);
+
+  useEffect(() => {
+    if (!autoPlayFeedbackVideo || !activeHintVideoUrl || !videoRef.current || !feedback) {
       return undefined;
     }
 
@@ -103,23 +119,41 @@ export const FloatingSuccessToast = ({
     });
 
     return () => window.cancelAnimationFrame(frameId);
-  }, [autoPlayFeedbackVideo, hintVideoUrl, isCorrectFeedback]);
+  }, [autoPlayFeedbackVideo, activeHintVideoUrl, feedback]);
 
-  if (!shouldRender) {
+  useEffect(() => {
+    if (!activeHintVideoUrl || isVideoPlaying || hasVideoEnded || !feedback) {
+      return undefined;
+    }
+
+    const timer = setTimeout(() => {
+      setHasVideoEnded(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [activeHintVideoUrl, feedback, hasVideoEnded, isVideoPlaying]);
+
+  if (!shouldRender || !feedback) {
     return null;
   }
+
+  const animationClass = isCorrectFeedback
+    ? hintVideoUrl
+      ? hasVideoEnded
+        ? "bezem-feedback-toast-after-ended"
+        : ""
+      : "bezem-feedback-toast"
+    : "";
 
   return (
     <PanelCard
       aria-hidden={feedback ? undefined : true}
       aria-live="polite"
       className={classNames(
-        "absolute bottom-[calc(clamp(4.75rem,11dvh,6rem)+6rem)] left-3 right-3 mx-auto max-w-[28rem] z-20 !rounded-[1.25rem] !border-white/85 !bg-white/92 !p-2 shadow-[0_4px_0_rgba(15,23,42,0.1)]",
+        "absolute bottom-[calc(clamp(4.75rem,11dvh,6rem)+env(safe-area-inset-bottom,0px)+1.125rem)] left-3 right-3 mx-auto max-w-[28rem] z-20 !rounded-[1.25rem] !border-white/85 !bg-white/92 !p-2 shadow-[0_4px_0_rgba(15,23,42,0.1)]",
         feedback ? "opacity-100" : "pointer-events-none opacity-0",
-        isCorrectFeedback && !hintVideoUrl
-          ? "pointer-events-none bezem-feedback-toast"
-          : "pointer-events-auto",
-        isCorrectFeedback && hintVideoUrl ? "bezem-feedback-toast" : "",
+        isCorrectFeedback && !hintVideoUrl ? "pointer-events-none" : "pointer-events-auto",
+        animationClass,
       )}
       data-kind={feedback?.kind ?? "prepared"}
       data-testid="scene-builder-feedback"
@@ -128,13 +162,13 @@ export const FloatingSuccessToast = ({
         {hintVideoUrl ? (
           <video
             aria-label={videoLabel}
-            autoPlay={autoPlayFeedbackVideo && isCorrectFeedback}
+            autoPlay={autoPlayFeedbackVideo}
             className="h-10 w-10 shrink-0 rounded-full bg-transparent object-cover"
             data-auto-play-feedback-video={autoPlayFeedbackVideo ? "true" : "false"}
             data-component="HintFeedbackVideo"
             draggable={false}
             onClick={onHintVideoClick}
-            onEnded={stopHintAudioSession}
+            onEnded={handleVideoEnded}
             onError={stopHintAudioSession}
             onPause={stopHintAudioSession}
             onPlay={startHintAudioSession}

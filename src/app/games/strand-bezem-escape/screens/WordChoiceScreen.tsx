@@ -264,6 +264,7 @@ export function WordChoiceScreen({ instructions, objects, onBackToMenu }: WordCh
           leadingControl={
             currentInstructionVideoUrl ? (
               <InstructionVideoButton
+                autoPlayOnMount={readBezemEscapeSettings(rewardProfileId).audioEnabled}
                 label="Speel video-opdracht"
                 src={currentInstructionVideoUrl}
               />

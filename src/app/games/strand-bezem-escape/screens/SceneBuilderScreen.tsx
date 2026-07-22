@@ -1536,6 +1536,7 @@ export function SceneBuilderScreen({
           leadingControl={
             currentInstructionVideoUrl ? (
               <InstructionVideoButton
+                autoPlayOnMount={readBezemEscapeSettings(rewardProfileId).audioEnabled}
                 label="Speel video-opdracht"
                 onPlaybackError={handleInstructionVideoPlaybackError}
                 onPlaybackStart={handleInstructionVideoPlaybackStart}
@@ -1574,13 +1575,9 @@ export function SceneBuilderScreen({
       </div>
 
       <FloatingSuccessToast
-        autoPlayFeedbackVideo={Boolean(
-          feedback?.kind === "correct" &&
-            feedback.hintVideoUrl &&
-            readBezemEscapeSettings(rewardProfileId).audioEnabled,
-        )}
+        autoPlayFeedbackVideo={readBezemEscapeSettings(rewardProfileId).audioEnabled}
         feedback={feedback}
-        hintVideoUrl={shouldRenderFeedbackCard ? hintFeedbackVideoUrl : undefined}
+        hintVideoUrl={feedback?.hintVideoUrl}
         onHintVideoClick={handleHintFeedbackVideoClick}
         onRepeatSpokenCommand={handleRepeatSpokenCommand}
         onSpokenCommandChoice={handleSpokenCommandChoice}
