@@ -5,14 +5,11 @@ import {
   getDynamicRelationHintZone,
   type SceneObjectPlacementPoint,
 } from "../../../logic/dynamic-scene-relations";
-import {
-  readUnlockedRewardIds,
-} from "../../../logic/rewards";
+import { readUnlockedRewardIds } from "../../../logic/rewards";
 import {
   applySceneZoneVisualHintOverrides,
   zoneVisualHintOverridesChangedEvent,
 } from "../../../logic/scene-zone-visual-overrides";
-import type { SceneCommandExecutionResult } from "../../../logic/scene-command-executor";
 import type {
   PlacedObject,
   SceneBuilderInstruction,
@@ -20,31 +17,15 @@ import type {
   SceneObject,
   SceneZone,
 } from "../../../types";
+import type {
+  FeedbackState,
+  HintUsageEvent,
+  PendingPlacement,
+  SceneCommandExecutionResult,
+} from "../logic/scene-builder-types";
 import type { DragState } from "./useSceneBuilderDragAndDrop";
 
-export interface PendingPlacement {
-  objectId: string;
-  source?: "manual" | "spoken";
-  transcript?: string;
-  x: number;
-  y: number;
-  zoneId: string;
-}
-
-export interface FeedbackState {
-  hintVideoUrl?: string;
-  kind: "almost" | "correct" | "ready";
-  mascot?: "celebration" | "hint";
-  repeatText?: string;
-  rewardLabels?: string[];
-  text: string;
-}
-
-export interface HintUsageEvent {
-  hintLevel: number;
-  instructionId: string;
-  usedAt: string;
-}
+export type { FeedbackState, HintUsageEvent, PendingPlacement };
 
 export const useSceneBuilderState = ({
   instructions,
@@ -100,91 +81,104 @@ export const useSceneBuilderState = ({
     () =>
       placedObjects.map((placedObject) => ({
         objectId: placedObject.objectId,
-        x: placedObject.x,
-        y: placedObject.y,
+        point: { x: placedObject.x, y: placedObject.y },
       })),
     [placedObjects],
   );
 
-  const instruction = instructions[activeInstructionIndex] ?? instructions[0];
-  const sceneCompletionTarget = instructions.length;
-  const currentInstructionText = instructionText ?? instruction.prompt;
-  const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
-  const selectedZone = effectiveZones.find((zone) => zone.id === selectedZoneId);
-  const targetZone = effectiveZones.find((zone) => zone.id === instruction.placement.zoneId);
-
-  const dynamicTargetZone = getDynamicRelationHintZone({
-    anchorObjectIds: instruction.placement.anchorObjectIds,
-    placements: placedObjectPoints,
-    relation: instruction.placement.relation,
-    zoneId: instruction.placement.zoneId,
-  });
-
-  const spokenVisualHintZone =
-    effectiveZones.find((zone) => zone.id === spokenHintZoneId) ??
-    (spokenHintZoneId === instruction.placement.zoneId ? dynamicTargetZone : undefined);
-
-  const visualHintZone = spokenVisualHintZone ?? dynamicTargetZone ?? targetZone;
-  const targetObject = objects.find((object) => object.id === instruction.placement.objectId);
-
-  const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
-  const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
-  const activeSpokenHelpCount = spokenHelpByInstruction[instruction.id] ?? 0;
-
   useEffect(() => {
-    setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
-  }, [rewardProfileId]);
+    function handleOverridesChanged() {
+      setZoneOverrideVersion((v) => v + 1);
+    }
 
-  useEffect(() => {
-    const handleZoneOverridesChanged = () => {
-      setZoneOverrideVersion((currentVersion) => currentVersion + 1);
-    };
-
-    window.addEventListener(zoneVisualHintOverridesChangedEvent, handleZoneOverridesChanged);
+    if (typeof window !== "undefined") {
+      window.addEventListener(zoneVisualHintOverridesChangedEvent, handleOverridesChanged);
+    }
 
     return () => {
-      window.removeEventListener(zoneVisualHintOverridesChangedEvent, handleZoneOverridesChanged);
+      if (typeof window !== "undefined") {
+        window.removeEventListener(zoneVisualHintOverridesChangedEvent, handleOverridesChanged);
+      }
     };
   }, []);
 
-  function resetSelection() {
+  const instruction = instructions[activeInstructionIndex] ?? instructions[0];
+  const currentInstructionText = instructionText ?? instruction.prompt;
+  const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
+  const sceneCompletionTarget = instructions.length;
+
+  const targetObject = useMemo(
+    () => objects.find((object) => object.id === instruction.placement.objectId),
+    [instruction.placement.objectId, objects],
+  );
+
+  const selectedZone = useMemo(
+    () => effectiveZones.find((zone) => zone.id === selectedZoneId),
+    [effectiveZones, selectedZoneId],
+  );
+
+  const targetZone = useMemo(
+    () => effectiveZones.find((zone) => zone.id === instruction.placement.zoneId),
+    [effectiveZones, instruction.placement.zoneId],
+  );
+
+  const visualHintZone = useMemo(() => {
+    if (spokenHintZoneId) {
+      return effectiveZones.find((zone) => zone.id === spokenHintZoneId);
+    }
+
+    return (
+      getDynamicRelationHintZone({
+        anchorObjectIds: instruction.placement.anchorObjectIds,
+        placements: placedObjectPoints,
+        relation: instruction.placement.relation,
+        zones: effectiveZones,
+      }) ?? targetZone
+    );
+  }, [effectiveZones, instruction.placement.anchorObjectIds, instruction.placement.relation, placedObjectPoints, spokenHintZoneId, targetZone]);
+
+  const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
+  const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
+  const activeSpokenHelpCount = spokenHelpByInstruction[instruction.id] ?? 0;
+
+  const resetSceneBuilderRound = () => {
+    setActiveInstructionIndex(0);
     setSelectedObjectId(null);
     setSelectedZoneId(null);
     setPendingPlacement(null);
-    setSpokenCommandResult(null);
-    setShowTargetZoneHint(false);
-    setSpokenHintZoneId(null);
-    setHighlightedObjectId(null);
-  }
-
-  function advanceInstruction() {
-    setActiveInstructionIndex((currentIndex) =>
-      Math.min(currentIndex + 1, instructions.length - 1),
-    );
-    resetSelection();
-    setFeedback(null);
-  }
-
-  function resetSceneBuilderRound() {
-    setActiveInstructionIndex(0);
-    resetSelection();
     setPlacedObjects([]);
     setSceneComplete(false);
     setSceneCompletionSummary(null);
     setFeedback(null);
-  }
+    setShowTargetZoneHint(false);
+    setIsHintVideoPlaying(false);
+    setSpokenHintZoneId(null);
+    setHighlightedObjectId(null);
+    setSpokenCommandResult(null);
+  };
 
-  useEffect(() => {
-    resetSceneBuilderRound();
-  }, [instructions]);
+  const advanceInstruction = () => {
+    if (activeInstructionIndex < instructions.length - 1) {
+      setActiveInstructionIndex((index) => index + 1);
+      setSelectedObjectId(null);
+      setSelectedZoneId(null);
+      setPendingPlacement(null);
+      setSpokenCommandResult(null);
+      setShowTargetZoneHint(false);
+      setIsHintVideoPlaying(false);
+      setSpokenHintZoneId(null);
+      setHighlightedObjectId(null);
+      setFeedback(null);
+    } else {
+      setSceneComplete(true);
+    }
+  };
 
   return {
     activeAudioRepeats,
-
     activeHintsUsed,
     activeInstructionIndex,
     activeSpokenHelpCount,
-
     advanceInstruction,
     appliedSpokenCommandPreviewText,
     audioRepeatsByInstruction,
@@ -195,30 +189,26 @@ export const useSceneBuilderState = ({
     feedback,
     highlightedObjectId,
     hintEvents,
-
     hintsByInstruction,
+
     instruction,
 
     isHintVideoPlaying,
     pendingPlacement,
+
     placedObjectPoints,
     placedObjects,
     resetSceneBuilderRound,
-    resetSelection,
     rewardProfileId,
     sceneComplete,
-
     sceneCompletionSummary,
     sceneCompletionTarget,
-
     selectedObjectId,
     selectedZone,
-    selectedZoneId,
-    setActiveInstructionIndex,
 
     setAppliedSpokenCommandPreviewText,
-    setAudioRepeatsByInstruction,
 
+    setAudioRepeatsByInstruction,
     setDragState,
     setFeedback,
 
@@ -226,47 +216,43 @@ export const useSceneBuilderState = ({
     setHintEvents,
 
     setHintsByInstruction,
-
-    setIsHintVideoPlaying,
     setPendingPlacement,
 
     setPlacedObjects,
+
     setSceneComplete,
 
     setSceneCompletionSummary,
-
     setSelectedObjectId,
 
     setSelectedZoneId,
+
     setShowTargetZoneHint,
-
     setSpeedValue,
-    setSpokenCommandResult,
 
+    setSpokenCommandResult,
     setSpokenHelpByInstruction,
 
     setSpokenHintZoneId,
     setUnlockedRewardIds,
-
     setVoiceRecognitionStatus,
+
     setWordStarValue,
     showTargetZoneHint,
-
     speedValue,
+
     spokenCommandResult,
-
     spokenHelpByInstruction,
-
     spokenHintZoneId,
+
     suppressNextClickRef,
     targetObject,
-
     targetZone,
+
     unlockedRewardIds,
-
     visualHintZone,
-    voiceRecognitionStatus,
 
+    voiceRecognitionStatus,
     wordStarValue,
   };
 };

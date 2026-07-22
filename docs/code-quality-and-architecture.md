@@ -6,10 +6,11 @@ This document defines the architectural standards, code quality guidelines, and 
 
 ## 1. 🎯 Core Architectural Principles
 
-### 1.1 Component Size Limit (Max 250 Lines Rule)
-- **Strict Limit**: No single component file should exceed **250 lines of code**.
-- **Refactoring Requirement**: When a component approaches or exceeds 250 lines, it **must** be decomposed into smaller, single-responsibility sub-components, custom hooks, or utility modules.
-- **Logical Co-location**: Feature-specific sub-components should be placed in a dedicated `components/` subfolder adjacent to the feature screen or module.
+### 1.1 Component & Hook Size Limit (Max 250 Lines Rule)
+- **Strict Universal Limit**: No single file—whether a UI component (`.tsx`), custom hook (`.ts`), or utility module (`.ts`)—should exceed **250 lines of code**.
+- **Refactoring Requirement**: When any file approaches or exceeds 250 lines, it **must** be decomposed into smaller, single-responsibility sub-components, modular sub-hooks, or pure logic helpers.
+- **Hook Decomposition Rule**: Large composite hooks must be broken down by domain responsibility (e.g., separating point dragging, panel docking, hint handling, and spoken command execution into dedicated sub-hooks).
+- **Logical Co-location**: Feature-specific sub-components, hooks, and helpers should be placed in dedicated `components/`, `hooks/`, and `logic/` subfolders co-located next to the feature module.
 
 ### 1.2 Separation of Concerns
 Every module in the codebase must have a single, well-defined responsibility:
