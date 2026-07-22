@@ -1,20 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import { Keyboard } from "lucide-react";
-import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import { VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
-import {
-  getMicrophonePermissionStatus,
-  initialMicrophonePermissionResult,
-  requestMicrophonePermission,
-  type MicrophonePermissionResult,
-} from "../../logic/microphone-permission";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
-import {
-  readVoicePrivacyAccepted,
-  saveVoicePrivacyAccepted,
-  voicePrivacyCopy,
-} from "../../logic/voice-privacy";
+import { voicePrivacyCopy } from "../../logic/voice-privacy";
+import { useSpokenCommandControlsState } from "./hooks/useSpokenCommandControlsState";
 import { TypedCommandFallback } from "./TypedCommandFallback";
 import { VoicePrivacyNotice } from "./VoicePrivacyNotice";
 
@@ -22,163 +11,36 @@ interface SpokenCommandControlsProps {
   className?: string;
   exampleText: string;
   onTranscript: (transcript: string) => void;
-  profileId?: string;
   onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
+  profileId?: string;
 }
-
-const shouldShowStatusBubble = ({
-  errorMessage,
-  hasMicrophonePermissionMessage,
-  status,
-  transcript,
-}: {
-  errorMessage?: string;
-  hasMicrophonePermissionMessage: boolean;
-  status: VoiceRecognitionStatus;
-  transcript?: string;
-}) =>
-  status === "listening" ||
-  status === "processing" ||
-  status === "unsupported" ||
-  hasMicrophonePermissionMessage ||
-  Boolean(errorMessage) ||
-  Boolean(transcript);
 
 export const SpokenCommandControls = ({
   className,
   exampleText,
   onTranscript,
-  profileId = "demo-profile",
   onVoiceStatusChange,
+  profileId = "demo-profile",
 }: SpokenCommandControlsProps) => {
-  const handledTranscriptRef = useRef<string | undefined>();
-  const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(() =>
-    readVoicePrivacyAccepted(profileId),
-  );
-  const [manualText, setManualText] = useState("");
-  const [
-    hasRequestedMicrophonePermission,
-    setHasRequestedMicrophonePermission,
-  ] = useState(false);
-  const [microphonePermission, setMicrophonePermission] =
-    useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
-  const [showManualFallback, setShowManualFallback] = useState(false);
-  const [showPrivacyNotice, setShowPrivacyNotice] = useState(false);
   const {
-    errorMessage,
-    resetTranscript,
-    startListening,
+    handleAcceptPrivacy,
+    handleStartListening,
+    handleSubmitTypedCommand,
+    hasAcceptedPrivacy,
+    hasMicrophonePermissionMessage,
+    manualText,
+    microphonePermission,
+    setManualText,
+    setShowManualFallback,
+    setShowPrivacyNotice,
+    shouldShowFallback,
+    shouldShowPopover,
+    showPrivacyNotice,
+    showStatusBubble,
     status,
     stopListening,
     support,
-    transcript,
-  } = useDutchSpeechRecognition({ autoStopMs: 6500 });
-  const hasMicrophonePermissionMessage =
-    hasRequestedMicrophonePermission && !microphonePermission.canUse;
-  const showStatusBubble = shouldShowStatusBubble({
-    errorMessage,
-    hasMicrophonePermissionMessage,
-    status,
-    transcript,
-  });
-  const shouldShowFallback = showManualFallback || !support.isSupported;
-  const shouldShowPopover =
-    showPrivacyNotice || shouldShowFallback || showStatusBubble;
-
-  useEffect(() => {
-    setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId));
-  }, [profileId]);
-
-  useEffect(() => {
-    onVoiceStatusChange?.(status);
-  }, [status, onVoiceStatusChange]);
-
-  useEffect(() => {
-    if (
-      !transcript ||
-      status !== "heard" ||
-      handledTranscriptRef.current === transcript
-    ) {
-      return;
-    }
-
-    handledTranscriptRef.current = transcript;
-    onTranscript(transcript);
-  }, [onTranscript, status, transcript]);
-
-  useEffect(() => {
-    if (!support.isSupported) {
-      setShowManualFallback(true);
-    }
-  }, [support.isSupported]);
-
-  useEffect(() => {
-    handledTranscriptRef.current = undefined;
-    setManualText("");
-    setShowManualFallback(!support.isSupported);
-    setShowPrivacyNotice(false);
-    resetTranscript();
-  }, [exampleText, resetTranscript, support.isSupported]);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    getMicrophonePermissionStatus().then((permissionStatus) => {
-      if (isMounted) {
-        setMicrophonePermission(permissionStatus);
-      }
-    });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const startListeningAfterPermission = async () => {
-    if (!support.isSupported) {
-      setShowManualFallback(true);
-      return false;
-    }
-
-    setHasRequestedMicrophonePermission(true);
-    const permissionStatus = await requestMicrophonePermission();
-    setMicrophonePermission(permissionStatus);
-
-    if (!permissionStatus.canUse) {
-      setShowManualFallback(true);
-      return false;
-    }
-
-    return startListening();
-  };
-
-  const handleStartListening = () => {
-    if (!support.isSupported) {
-      setShowManualFallback(true);
-      return;
-    }
-
-    if (!hasAcceptedPrivacy) {
-      setShowPrivacyNotice(true);
-      return;
-    }
-
-    void startListeningAfterPermission();
-  };
-
-  const handleAcceptPrivacy = () => {
-    saveVoicePrivacyAccepted(profileId);
-    setHasAcceptedPrivacy(true);
-    setShowPrivacyNotice(false);
-    void startListeningAfterPermission();
-  };
-
-  const handleSubmitTypedCommand = (transcriptText: string) => {
-    handledTranscriptRef.current = transcriptText;
-    onTranscript(transcriptText);
-    setManualText("");
-    setShowManualFallback(false);
-  };
+  } = useSpokenCommandControlsState({ exampleText, onTranscript, onVoiceStatusChange, profileId });
 
   return (
     <div
@@ -187,13 +49,13 @@ export const SpokenCommandControls = ({
         className,
       )}
       data-component="SpokenCommandControls"
-      data-slot="spoken-command-controls"
       data-fallback-visible={shouldShowFallback ? "true" : "false"}
       data-microphone-permission={microphonePermission.state}
       data-privacy-accepted={hasAcceptedPrivacy ? "true" : "false"}
       data-privacy-notice-visible={showPrivacyNotice ? "true" : "false"}
-      data-speech-supported={support.isSupported ? "true" : "false"}
+      data-slot="spoken-command-controls"
       data-speech-status={status}
+      data-speech-supported={support.isSupported ? "true" : "false"}
     >
       <VoiceCommandButton
         className="border-2"

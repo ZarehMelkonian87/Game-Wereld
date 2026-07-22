@@ -1,0 +1,176 @@
+import { useEffect, useRef, useState } from "react";
+import { useDutchSpeechRecognition } from "../../../hooks/useDutchSpeechRecognition";
+import {
+  getMicrophonePermissionStatus,
+  initialMicrophonePermissionResult,
+  requestMicrophonePermission,
+  type MicrophonePermissionResult,
+} from "../../../logic/microphone-permission";
+import type { VoiceRecognitionStatus } from "../../../logic/speech-recognition";
+import {
+  readVoicePrivacyAccepted,
+  saveVoicePrivacyAccepted,
+} from "../../../logic/voice-privacy";
+
+export const useSpokenCommandControlsState = ({
+  exampleText,
+  onTranscript,
+  onVoiceStatusChange,
+  profileId,
+}: {
+  exampleText: string;
+  onTranscript: (transcript: string) => void;
+  onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
+  profileId: string;
+}) => {
+  const handledTranscriptRef = useRef<string | undefined>();
+  const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(() =>
+    readVoicePrivacyAccepted(profileId),
+  );
+  const [manualText, setManualText] = useState("");
+  const [hasRequestedMicrophonePermission, setHasRequestedMicrophonePermission] =
+    useState(false);
+  const [microphonePermission, setMicrophonePermission] =
+    useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
+  const [showManualFallback, setShowManualFallback] = useState(false);
+  const [showPrivacyNotice, setShowPrivacyNotice] = useState(false);
+
+  const {
+    errorMessage,
+    resetTranscript,
+    startListening,
+    status,
+    stopListening,
+    support,
+    transcript,
+  } = useDutchSpeechRecognition({ autoStopMs: 6500 });
+
+  const hasMicrophonePermissionMessage =
+    hasRequestedMicrophonePermission && !microphonePermission.canUse;
+
+  const showStatusBubble =
+    status === "listening" ||
+    status === "processing" ||
+    status === "unsupported" ||
+    hasMicrophonePermissionMessage ||
+    Boolean(errorMessage) ||
+    Boolean(transcript);
+
+  const shouldShowFallback = showManualFallback || !support.isSupported;
+  const shouldShowPopover = showPrivacyNotice || shouldShowFallback || showStatusBubble;
+
+  useEffect(() => {
+    setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId));
+  }, [profileId]);
+
+  useEffect(() => {
+    onVoiceStatusChange?.(status);
+  }, [status, onVoiceStatusChange]);
+
+  useEffect(() => {
+    if (
+      !transcript ||
+      status !== "heard" ||
+      handledTranscriptRef.current === transcript
+    ) {
+      return;
+    }
+
+    handledTranscriptRef.current = transcript;
+    onTranscript(transcript);
+  }, [onTranscript, status, transcript]);
+
+  useEffect(() => {
+    if (!support.isSupported) {
+      setShowManualFallback(true);
+    }
+  }, [support.isSupported]);
+
+  useEffect(() => {
+    handledTranscriptRef.current = undefined;
+    setManualText("");
+    setShowManualFallback(!support.isSupported);
+    setShowPrivacyNotice(false);
+    resetTranscript();
+  }, [exampleText, resetTranscript, support.isSupported]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getMicrophonePermissionStatus().then((permissionStatus) => {
+      if (isMounted) {
+        setMicrophonePermission(permissionStatus);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const startListeningAfterPermission = async () => {
+    if (!support.isSupported) {
+      setShowManualFallback(true);
+      return false;
+    }
+
+    setHasRequestedMicrophonePermission(true);
+    const permissionStatus = await requestMicrophonePermission();
+    setMicrophonePermission(permissionStatus);
+
+    if (!permissionStatus.canUse) {
+      setShowManualFallback(true);
+      return false;
+    }
+
+    return startListening();
+  };
+
+  const handleStartListening = () => {
+    if (!support.isSupported) {
+      setShowManualFallback(true);
+      return;
+    }
+
+    if (!hasAcceptedPrivacy) {
+      setShowPrivacyNotice(true);
+      return;
+    }
+
+    void startListeningAfterPermission();
+  };
+
+  const handleAcceptPrivacy = () => {
+    saveVoicePrivacyAccepted(profileId);
+    setHasAcceptedPrivacy(true);
+    setShowPrivacyNotice(false);
+    void startListeningAfterPermission();
+  };
+
+  const handleSubmitTypedCommand = (transcriptText: string) => {
+    handledTranscriptRef.current = transcriptText;
+    onTranscript(transcriptText);
+    setManualText("");
+    setShowManualFallback(false);
+  };
+
+  return {
+    handleAcceptPrivacy,
+    handleStartListening,
+    handleSubmitTypedCommand,
+    hasAcceptedPrivacy,
+    hasMicrophonePermissionMessage,
+    manualText,
+    microphonePermission,
+    setManualText,
+    setShowManualFallback,
+    setShowPrivacyNotice,
+    shouldShowFallback,
+    shouldShowPopover,
+    showPrivacyNotice,
+    showStatusBubble,
+    status,
+    stopListening,
+    support,
+  };
+};
