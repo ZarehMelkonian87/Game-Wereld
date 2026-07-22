@@ -195,7 +195,7 @@ export const beachZones: SceneZone[] = [
     description: "De lucht boven de zee en het strand.",
     kind: "absolute",
     visualHintPath:
-      "M0.9 31.6 L71.3 31.1 L77.2 28.3 L81.7 24.5 L77.8 20.7 L76 15.3 L82 10.6 L89.2 10.6 L90.7 4.9 L94.9 0.7 L86.2 0 L6 0.9 L0.9 4.7 Z",
+      "M1.9 32.1 L27.7 38.8 L67 38.6 L72.3 31 L81.3 23.8 L98.8 22 L97.8 15.7 L1.5 16.2 Z",
     x: 0,
     y: 0,
     width: 100,
@@ -210,7 +210,7 @@ export const beachZones: SceneZone[] = [
     description: "Het watergebied in de scene.",
     kind: "absolute",
     visualHintPath:
-      "M0.5 57.5 L8.9 58.2 L18.2 59.6 L26.9 59.6 L35.8 58.7 L44.3 58 L53.6 60.1 L64.2 59.6 L71 57.5 L77.2 57.9 L84.5 58.9 L91.4 57.1 L99.2 57.5 L99.7 40.7 L92.2 40 L86.4 39.1 L80.3 38.4 L71.1 38.4 L60.8 37.1 L66.1 33.7 L70.4 30.1 L0.4 31.7 Z",
+      "M99 52.2 L88.1 52.5 L76.5 54.4 L65 53.8 L55.8 54.6 L44.7 54 L32.3 55.2 L21.4 55.1 L14.3 54 L0.7 53.3 L0.5 38.8 L63.6 39 L59.2 42.1 L76.2 43.2 L99.3 43.8 Z",
     x: 0,
     y: 38,
     width: 100,
@@ -231,7 +231,7 @@ export const beachZones: SceneZone[] = [
     description: "Linkerkant van de zee.",
     kind: "horizontal",
     visualHintPath:
-      "M0.9 32 L40.8 31.6 L40.8 58 L30.8 60.3 L23 60.9 L16 60.2 L7.8 58 L1.3 58.1 L0 54.5 Z",
+      "M1 32.1 L48.8 31.7 L47.5 53.3 L40 54.3 L27.4 55.6 L15.8 53.9 L0.1 53.7 Z",
     x: 4,
     y: 42,
     width: 28,
@@ -243,7 +243,7 @@ export const beachZones: SceneZone[] = [
     label: "boven de zee",
     description: "Luchtgebied boven de zee.",
     kind: "relative",
-    visualHintPath: "M0.6 31.2 L72.5 30.9 L72.5 14.3 L0.6 14.3 Z",
+    visualHintPath: "M0.7 31.4 L72.3 31.6 L72.3 16.1 L0.5 16.5 Z",
     x: 12,
     y: 10,
     width: 76,
@@ -255,7 +255,7 @@ export const beachZones: SceneZone[] = [
     label: "ver weg boven zee",
     description: "Een plek ver weg in de lucht boven de zee.",
     kind: "relative",
-    visualHintPath: "M0.7 16.9 L10.5 18.7 L18.6 24 L21.9 31.3 L0.9 32 Z",
+    visualHintPath: "M0 32.1 L0.2 16.5 L64.1 16.1 L64.3 31.6 Z",
     x: 70,
     y: 8,
     width: 22,
@@ -268,7 +268,7 @@ export const beachZones: SceneZone[] = [
     description: "Klein eiland rechts in de zee.",
     kind: "landmark",
     visualHintPath:
-      "M61.4 36.5 L70.4 37.9 L84.7 38.6 L94.9 38.6 L98.8 39.8 L98.8 26.4 L85 27.6 L74.3 30.1 L66.8 33.4 Z",
+      "M99.3 43.2 L85.9 43.6 L75 42.8 L60.4 41.9 L64.3 39 L73.3 36.8 L78.4 34.9 L84.2 32.7 L90.3 31.6 L100 30.9 Z",
     x: 68,
     y: 42,
     width: 24,
@@ -283,7 +283,7 @@ export const beachZones: SceneZone[] = [
     description: "Het zandgebied onderaan de scene.",
     kind: "absolute",
     visualHintPath:
-      "M1.8 58.6 L8.4 57.7 L15.9 61.5 L30.2 61.7 L39.8 60.8 L44.9 59.6 L55.1 61 L66.2 59.8 L74.6 58.4 L85.6 59.8 L95.8 58.2 L98.8 59.8 L99.7 95.9 L93.4 99.2 L5.4 99.9 L0 96.1 Z",
+      "M0 53.8 L7.8 54.4 L15.3 54.1 L25 55.6 L36.4 55.3 L44.4 54.2 L57 55.1 L66 53.9 L77.9 54.8 L86.2 53.6 L91.7 52.9 L99.5 52.8 L98.8 88 L0.5 88.3 Z",
     x: 0,
     y: 66,
     width: 100,
@@ -305,7 +305,7 @@ export const beachZones: SceneZone[] = [
     description: "Midden van het strand.",
     kind: "horizontal",
     visualHintPath:
-      "M24.6 61.7 L23.7 99.4 L69.8 99.2 L71.3 59.1 L60.2 60.3 L42.2 59.3 Z",
+      "M65.3 53.6 L65.3 88.4 L25.2 88.5 L26.2 55.8 L36.4 55.3 L43.2 54 L54.1 55.4 Z",
     x: 36,
     y: 72,
     width: 28,
@@ -318,7 +318,7 @@ export const beachZones: SceneZone[] = [
     description: "Rechterkant van het strand.",
     kind: "horizontal",
     visualHintPath:
-      "M71.6 57.9 L69.5 99.2 L95.2 99.6 L99.4 97.3 L99.4 56.5 L89.5 59.3 L79.9 59.1 Z",
+      "M66 53.8 L73.8 54.5 L84 53.9 L92.3 52.5 L100 52.7 L98.8 88.1 L66.3 88.3 Z",
     x: 66,
     y: 72,
     width: 28,
