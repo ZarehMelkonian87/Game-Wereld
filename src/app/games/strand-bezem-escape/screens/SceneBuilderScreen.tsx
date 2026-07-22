@@ -997,11 +997,13 @@ export function SceneBuilderScreen({
       setHighlightedObjectId(spokenCommandResult.visualHint.objectId ?? null);
       setSpokenHintZoneId(spokenCommandResult.visualHint.zoneId ?? null);
       setShowTargetZoneHint(Boolean(spokenCommandResult.visualHint.zoneId));
-    } else if (nextHintLevel >= 2) {
+    } else if (nextHintLevel === 1) {
+      // 1st Hint button press: Highlight object & play video hint (keep zone hint hidden)
       setHighlightedObjectId(instruction.placement.objectId);
-    }
-
-    if (!(spokenCommandResult && spokenCommandResult.status !== "ready") && nextHintLevel >= 3) {
+      setShowTargetZoneHint(false);
+    } else {
+      // 2nd+ Hint button press: Reveal the visual zone hint on the beach
+      setHighlightedObjectId(instruction.placement.objectId);
       setShowTargetZoneHint(true);
     }
 
@@ -1013,7 +1015,7 @@ export function SceneBuilderScreen({
         : nextHintLevel === 1
         ? `Zoek ${targetWord}.`
         : nextHintLevel === 2
-          ? `Kijk naar het plaatje dat oplicht: ${targetObject?.label ?? "plaatje"}.`
+          ? `Kijk naar de plek die oplicht: ${targetObject?.label ?? "plaatje"}.`
           : nextHintLevel === 3
             ? `Kijk naar de plek die oplicht.`
             : conceptExplanation[instruction.placement.relation] ?? instruction.hint;
@@ -1401,10 +1403,10 @@ export function SceneBuilderScreen({
           type="button"
         />
 
-        {(showTargetZoneHint || selectedObjectId !== null || dragState !== null) && visualHintZone ? (
+        {showTargetZoneHint && visualHintZone ? (
           <TargetZoneHint
             zone={visualHintZone}
-            pulsing={selectedObjectId !== null || dragState !== null}
+            pulsing={true}
           />
         ) : null}
 
