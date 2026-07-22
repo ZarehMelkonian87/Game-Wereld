@@ -73,12 +73,17 @@ export const StrandBezemEscapeGame = () => {
           ) : screenPreview === "voice-side-scroller" ? (
             <VoiceSideScrollerScreen onBackToMenu={actions.openModeSelect} />
           ) : screenPreview === "word-choice" ? (
-            <WordChoiceScreen instructions={instructions.wordChoice} objects={beachWorld.objects} />
+            <WordChoiceScreen
+              instructions={instructions.wordChoice}
+              objects={beachWorld.objects}
+              onBackToMenu={actions.openModeSelect}
+            />
           ) : (
             <SceneBuilderScreen
               instructionText={instructionText}
               instructions={instructions.sceneBuilder}
               objects={beachWorld.objects}
+              onBackToMenu={actions.openModeSelect}
               showTrayLabels={showTrayLabels}
               showZoneDevTools={showZoneDevTools}
               spokenCommandPreviewText={spokenCommandPreviewText}

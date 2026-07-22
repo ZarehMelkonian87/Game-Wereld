@@ -1,10 +1,11 @@
-import { ArrowLeft, CheckCircle2, LockKeyhole, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 import { GameButton, GameIconButton, GameStarCounter, HintButton } from "../../../../game-platform";
 
 interface SceneBuilderTopBarProps {
   actionLabel: string;
   isCorrectFeedback: boolean;
   onAction: () => void;
+  onBackToMenu?: () => void;
   onHint: () => void;
   onHintPointerDown: () => void;
   starCount: number;
@@ -14,6 +15,7 @@ export const SceneBuilderTopBar = ({
   actionLabel,
   isCorrectFeedback,
   onAction,
+  onBackToMenu,
   onHint,
   onHintPointerDown,
   starCount,
@@ -24,16 +26,9 @@ export const SceneBuilderTopBar = ({
   >
     <GameIconButton
       className="bg-white/95"
-      icon={
-        <span className="relative flex h-6 w-6 items-center justify-center">
-          <ArrowLeft className="h-5 w-5" strokeWidth={3} />
-          <LockKeyhole
-            className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-white text-slate-700"
-            strokeWidth={3}
-          />
-        </span>
-      }
-      label="Ouder terug, houd vast"
+      icon={<ArrowLeft className="h-5 w-5" strokeWidth={3} />}
+      label="Terug"
+      onClick={onBackToMenu}
       tone="white"
     />
     <div className="flex min-w-0 justify-start">

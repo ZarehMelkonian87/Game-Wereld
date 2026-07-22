@@ -24,6 +24,7 @@ import { useProfile } from "../../../contexts/ProfileContext";
 interface WordChoiceScreenProps {
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
+  onBackToMenu?: () => void;
 }
 
 interface FeedbackState {
@@ -41,7 +42,7 @@ function uniquePush(values: string[], value: string) {
   return values.includes(value) ? values : [...values, value];
 }
 
-export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProps) {
+export function WordChoiceScreen({ instructions, objects, onBackToMenu }: WordChoiceScreenProps) {
   const { currentProfile } = useProfile();
   const rewardProfileId = currentProfile?.id ?? "demo-profile";
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
@@ -250,6 +251,7 @@ export function WordChoiceScreen({ instructions, objects }: WordChoiceScreenProp
     >
       <TopHud
         onAudioClick={() => playQuestionAudio()}
+        onBackToMenu={onBackToMenu}
         onHintClick={handleHint}
         showParentBack
         starCount={wordStarValue}

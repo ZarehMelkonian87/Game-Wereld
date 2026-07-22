@@ -69,6 +69,7 @@ interface SceneBuilderScreenProps {
   objects: SceneObject[];
   spokenCommandPreviewText?: string;
   zones: SceneZone[];
+  onBackToMenu?: () => void;
   showTrayLabels?: boolean;
   showZoneDevTools?: boolean;
 }
@@ -254,6 +255,7 @@ export function SceneBuilderScreen({
   objects,
   spokenCommandPreviewText,
   zones,
+  onBackToMenu,
   showTrayLabels = false,
   showZoneDevTools = false,
 }: SceneBuilderScreenProps) {
@@ -1516,6 +1518,7 @@ export function SceneBuilderScreen({
           actionLabel={actionLabel}
           isCorrectFeedback={feedback?.kind === "correct"}
           onAction={handleConfirm}
+          onBackToMenu={onBackToMenu}
           onHint={handleHint}
           onHintPointerDown={playPreparedHintVideo}
           starCount={wordStarValue}
