@@ -81,7 +81,6 @@ export const createFakeGameRuntime = (): FakeGameRuntime => {
         return success(undefined);
       },
     },
-    profile: { updateProgress: () => undefined },
     speech: {
       createRecognition: () => null,
       getMicrophonePermission: async () => ({

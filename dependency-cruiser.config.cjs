@@ -30,7 +30,17 @@ module.exports = {
       comment: "Games gebruiken poorten, geen concrete infrastructurele adapters.",
       severity: "error",
       from: { path: "^src/app/games/" },
-      to: { path: "^src/(app/)?infrastructure/" },
+      to: { path: "^src/(app/)?(infrastructure|storage)/" },
+    },
+    {
+      name: "no-storage-adapter-leak",
+      comment:
+        "UI en games gebruiken opslagcontracten; alleen de storage-composition-root kent Dexie en migratie-adapters.",
+      severity: "error",
+      from: { path: "^src/app/(?!storage/)" },
+      to: {
+        path: "^src/app/storage/(database|dexieRepositories|legacyMigration|platform)\\.",
+      },
     },
     {
       name: "no-platform-to-game",

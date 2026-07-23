@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { useProfile } from "../contexts/ProfileContext";
 import {
   createBrowserGameRuntime,
+  createEventId,
   createProfileId,
   createSessionId,
   isLoadableGameEntry,
@@ -12,15 +13,22 @@ import {
 } from "../game-platform";
 import { getGameRegistryEntry, resolveCanonicalGameId } from "../games";
 import { ComingSoonGameScreen } from "../screens/game-play/ComingSoonGameScreen";
+import {
+  createRepositoryPracticeWriter,
+  createRepositoryRuntimeStorage,
+  gameSessionRecordSchema,
+  reportStorageWriteFailure,
+  useStorageRepositories,
+  type SettingsRecord,
+} from "../storage";
 import { GameHostStatusScreen } from "./GameHostStatusScreen";
 import { GameRuntimeBoundary } from "./GameRuntimeBoundary";
 import { getMissingRequiredCapabilities, loadGameModule } from "./gameHostContracts";
-import { gameSessionRepository } from "./sessionRepository";
 
 type LoadState =
   | { status: "loading" }
   | { error: Error; status: "error" }
-  | { module: GameModule; status: "ready" };
+  | { module: GameModule; settings: SettingsRecord[]; status: "ready" };
 
 const availableCapabilities = (): Set<GameCapability> => {
   const capabilities = new Set<GameCapability>();
@@ -39,24 +47,38 @@ const availableCapabilities = (): Set<GameCapability> => {
 
 export const GameHost = () => {
   const navigate = useNavigate();
+  const { repositories } = useStorageRepositories();
   const { currentProfile, updateProgress } = useProfile();
   const { gameId: routeGameId, theme } = useParams();
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const closedRef = useRef(false);
   const sessionStartedRef = useRef(false);
+  const sessionStartPromiseRef = useRef<Promise<void>>(Promise.resolve());
   const correlationIdRef = useRef(crypto.randomUUID());
   const sessionIdRef = useRef(createSessionId(crypto.randomUUID()));
+  const runtimeClockRef = useRef({ now: () => new Date() });
+  const runtimeIdsRef = useRef({
+    eventId: () => createEventId(crypto.randomUUID()),
+    sessionId: () => createSessionId(crypto.randomUUID()),
+  });
   const profileId = currentProfile ? createProfileId(currentProfile.id) : undefined;
   const canonicalGameId = routeGameId ? resolveCanonicalGameId(routeGameId) : undefined;
   const registryEntry = routeGameId ? getGameRegistryEntry(routeGameId) : undefined;
   const backPath = theme ? `/games/${theme}` : "/home";
 
-  const closeSession = useCallback((status: "abandoned" | "completed" | "crashed") => {
-    if (closedRef.current) return;
-    closedRef.current = true;
-    gameSessionRepository.finish(sessionIdRef.current, status, new Date().toISOString());
-  }, []);
+  const closeSession = useCallback(
+    (status: "abandoned" | "completed" | "crashed") => {
+      if (closedRef.current) return;
+      closedRef.current = true;
+      void sessionStartPromiseRef.current
+        .then(() =>
+          repositories.sessions.finish(sessionIdRef.current, status, new Date().toISOString()),
+        )
+        .catch(reportStorageWriteFailure);
+    },
+    [repositories.sessions],
+  );
 
   useEffect(() => {
     if (routeGameId && canonicalGameId && canonicalGameId !== routeGameId && theme) {
@@ -75,23 +97,27 @@ export const GameHost = () => {
       return;
     }
     sessionStartedRef.current = true;
-    gameSessionRepository.start({
-      gameId: canonicalGameId,
-      profileId,
-      sessionId: sessionIdRef.current,
-      startedAt: new Date().toISOString(),
-      status: "started",
-    });
+    sessionStartPromiseRef.current = repositories.sessions.start(
+      gameSessionRecordSchema.parse({
+        contractVersion: 1,
+        gameId: canonicalGameId,
+        id: sessionIdRef.current,
+        profileId,
+        startedAt: new Date().toISOString(),
+        status: "started",
+      }),
+    );
+    void sessionStartPromiseRef.current.catch(reportStorageWriteFailure);
     return () => closeSession("abandoned");
-  }, [canonicalGameId, closeSession, profileId, registryEntry]);
+  }, [canonicalGameId, closeSession, profileId, registryEntry, repositories.sessions]);
 
   useEffect(() => {
-    if (!registryEntry || !isLoadableGameEntry(registryEntry)) return;
+    if (!registryEntry || !isLoadableGameEntry(registryEntry) || !profileId) return;
     let active = true;
     setLoadState({ status: "loading" });
-    loadGameModule(registryEntry)
-      .then((module) => {
-        if (active) setLoadState({ module, status: "ready" });
+    Promise.all([loadGameModule(registryEntry), repositories.settings.listForProfile(profileId)])
+      .then(([module, settings]) => {
+        if (active) setLoadState({ module, settings, status: "ready" });
       })
       .catch((error: unknown) => {
         if (active) {
@@ -104,7 +130,7 @@ export const GameHost = () => {
     return () => {
       active = false;
     };
-  }, [loadAttempt, registryEntry]);
+  }, [loadAttempt, profileId, registryEntry, repositories.settings]);
 
   useEffect(() => {
     const handlePreloadError = (event: Event) => {
@@ -119,28 +145,57 @@ export const GameHost = () => {
   }, []);
 
   const runtime = useMemo<GameRuntime | null>(() => {
-    if (!profileId || !canonicalGameId) return null;
-    return createBrowserGameRuntime({
+    if (!profileId || !canonicalGameId || loadState.status !== "ready") return null;
+    const identity = {
       gameId: canonicalGameId,
+      profileId,
+      sessionId: sessionIdRef.current,
+    };
+    const storage = createRepositoryRuntimeStorage({
+      initialRecords: loadState.settings,
+      profileId,
+      settings: repositories.settings,
+    });
+    const practice = createRepositoryPracticeWriter({
+      clock: runtimeClockRef.current,
+      identity,
+      ids: runtimeIdsRef.current,
+      practice: repositories.practice,
+    });
+    return createBrowserGameRuntime({
+      clock: runtimeClockRef.current,
+      gameId: canonicalGameId,
+      ids: runtimeIdsRef.current,
       onComplete: (summary) => {
         closeSession("completed");
-        updateProgress(canonicalGameId, {
+        void updateProgress(canonicalGameId, {
           completed: true,
           lastPlayed: new Date().toISOString(),
           score: summary.score,
           stars: summary.stars,
-        });
+        }).catch(reportStorageWriteFailure);
         void navigate(backPath);
       },
       onExit: () => {
         closeSession("abandoned");
         void navigate(backPath);
       },
-      onUpdateProgress: (progress) => updateProgress(canonicalGameId, progress),
+      practice,
       profileId,
       sessionId: sessionIdRef.current,
+      storage,
     });
-  }, [backPath, canonicalGameId, closeSession, navigate, profileId, updateProgress]);
+  }, [
+    backPath,
+    canonicalGameId,
+    closeSession,
+    loadState,
+    navigate,
+    profileId,
+    repositories.practice,
+    repositories.settings,
+    updateProgress,
+  ]);
 
   if (!currentProfile) {
     return (

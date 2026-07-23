@@ -9,6 +9,7 @@ interface AudioSettingRowProps {
 
 export const AudioSettingRow = ({ enabled, icon, label, onToggle }: AudioSettingRowProps) => (
   <button
+    aria-pressed={enabled}
     className="flex items-center justify-between p-4 sm:p-5 bg-slate-600/50 rounded-lg sm:rounded-xl border-2 border-slate-500 hover:bg-slate-600/80 transition-colors w-full cursor-pointer text-left"
     data-component="AudioSettingRow"
     onClick={onToggle}

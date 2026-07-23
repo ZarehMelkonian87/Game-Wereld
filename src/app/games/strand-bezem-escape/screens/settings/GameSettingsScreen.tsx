@@ -81,13 +81,6 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   const handleResetProgress = () => {
     void runtime.practice.reset();
     saveUnlockedRewardIds(profileId, [], runtime.storage);
-    runtime.profile.updateProgress({
-      completed: false,
-      lastPlayed: new Date().toISOString(),
-      score: 0,
-      stars: 0,
-    });
-
     if (typeof window !== "undefined") {
       runtime.storage.remove("strand-bezem-escape:reward-result", "session");
     }

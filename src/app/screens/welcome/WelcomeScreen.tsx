@@ -3,20 +3,19 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useProfile } from "../../contexts/ProfileContext";
+import { readGlobalMute, saveGlobalMute } from "../../storage";
 import { WelcomeBackground } from "./WelcomeBackground";
 import { WelcomeHero } from "./WelcomeHero";
 
 export const WelcomeScreen = () => {
   const navigate = useNavigate();
   const { currentProfile } = useProfile();
-  const [isMuted, setIsMuted] = useState(() => {
-    return localStorage.getItem("game-wereld-global-mute") === "true";
-  });
+  const [isMuted, setIsMuted] = useState(readGlobalMute);
 
   const toggleMute = () => {
     const newState = !isMuted;
     setIsMuted(newState);
-    localStorage.setItem("game-wereld-global-mute", String(newState));
+    saveGlobalMute(newState);
   };
 
   useEffect(() => {

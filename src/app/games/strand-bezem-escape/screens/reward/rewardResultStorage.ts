@@ -1,59 +1,41 @@
-export const REWARD_RESULT_STORAGE_KEY = "strand-bezem-escape:reward-result";
+import { z } from "zod";
+import type { RuntimeStorage } from "../../../../game-platform/contracts";
 
-export interface StoredRewardResult {
-  audioRepeats: number;
-  correctActions: number;
-  hintsUsed: number;
-  mistakes: number;
-  playedAt?: string;
-  practicedConcepts: string[];
-  practicedWords: string[];
-  resultId?: string;
-  speedEarned: number;
-  starsEarned: number;
-}
+export const REWARD_RESULT_STORAGE_KEY = "strand-bezem-escape:reward-result";
+const storedRewardResultSchema = z.object({
+  audioRepeats: z.number().nonnegative(),
+  correctActions: z.number().nonnegative(),
+  hintsUsed: z.number().nonnegative(),
+  mistakes: z.number().nonnegative(),
+  playedAt: z.string().datetime().optional(),
+  practicedConcepts: z.array(z.string()),
+  practicedWords: z.array(z.string()),
+  resultId: z.string().optional(),
+  speedEarned: z.number().nonnegative(),
+  starsEarned: z.number().nonnegative(),
+});
+export type StoredRewardResult = z.infer<typeof storedRewardResultSchema>;
 
 export const emptyRewardResult: StoredRewardResult = {
   audioRepeats: 0,
   correctActions: 0,
   hintsUsed: 0,
   mistakes: 0,
-  playedAt: undefined,
   practicedConcepts: [],
   practicedWords: [],
-  resultId: undefined,
   speedEarned: 0,
   starsEarned: 0,
 };
 
 export const readStoredRewardResult = (storage: RuntimeStorage): StoredRewardResult => {
   const rawResult = storage.get(REWARD_RESULT_STORAGE_KEY, "session");
-
-  if (!rawResult) {
-    return emptyRewardResult;
-  }
-
+  if (!rawResult) return emptyRewardResult;
   try {
-    const parsedResult = JSON.parse(rawResult) as Partial<StoredRewardResult>;
-
-    return {
-      audioRepeats: Number(parsedResult.audioRepeats) || 0,
-      correctActions: Number(parsedResult.correctActions) || 0,
-      hintsUsed: Number(parsedResult.hintsUsed) || 0,
-      mistakes: Number(parsedResult.mistakes) || 0,
-      playedAt: typeof parsedResult.playedAt === "string" ? parsedResult.playedAt : undefined,
-      practicedConcepts: Array.isArray(parsedResult.practicedConcepts)
-        ? parsedResult.practicedConcepts.filter(Boolean)
-        : [],
-      practicedWords: Array.isArray(parsedResult.practicedWords)
-        ? parsedResult.practicedWords.filter(Boolean)
-        : [],
-      resultId: typeof parsedResult.resultId === "string" ? parsedResult.resultId : undefined,
-      speedEarned: Number(parsedResult.speedEarned) || 0,
-      starsEarned: Number(parsedResult.starsEarned) || 0,
-    };
+    return storedRewardResultSchema.parse({
+      ...emptyRewardResult,
+      ...storedRewardResultSchema.partial().parse(JSON.parse(rawResult)),
+    });
   } catch {
     return emptyRewardResult;
   }
 };
-import type { RuntimeStorage } from "../../../../game-platform/contracts";

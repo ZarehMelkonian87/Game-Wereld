@@ -17,12 +17,15 @@ import {
 } from "./browserSpeech";
 
 interface CreateBrowserGameRuntimeOptions {
+  clock?: GameRuntime["clock"];
   gameId: GameId;
+  ids?: GameRuntime["ids"];
   onComplete: GameRuntime["lifecycle"]["complete"];
   onExit: GameRuntime["lifecycle"]["exit"];
-  onUpdateProgress: GameRuntime["profile"]["updateProgress"];
+  practice: GameRuntime["practice"];
   profileId: ProfileId;
   sessionId?: SessionId;
+  storage: GameRuntime["storage"];
 }
 
 const runtimeFailure = (
@@ -31,23 +34,20 @@ const runtimeFailure = (
   recoverable = true,
 ): RuntimeFailure => ({ code, message, recoverable });
 
-const safeStorage = (scope: "local" | "session") =>
-  scope === "session" ? window.sessionStorage : window.localStorage;
-
 export const createBrowserGameRuntime = ({
+  clock = { now: () => new Date() },
   gameId,
-  onComplete,
-  onExit,
-  onUpdateProgress,
-  profileId,
-  sessionId = createSessionId(crypto.randomUUID()),
-}: CreateBrowserGameRuntimeOptions): GameRuntime => {
-  const clock = { now: () => new Date() };
-  const ids = {
+  ids = {
     eventId: () => createEventId(crypto.randomUUID()),
     sessionId: () => createSessionId(crypto.randomUUID()),
-  };
-  const practiceStorageKey = `game-runtime:practice:${profileId}:${gameId}`;
+  },
+  onComplete,
+  onExit,
+  practice,
+  profileId,
+  sessionId = createSessionId(crypto.randomUUID()),
+  storage,
+}: CreateBrowserGameRuntimeOptions): GameRuntime => {
   let lifecycleClosed = false;
   const completeOnce: GameRuntime["lifecycle"]["complete"] = (summary) => {
     if (lifecycleClosed) return;
@@ -115,56 +115,7 @@ export const createBrowserGameRuntime = ({
         }
       },
     },
-    practice: {
-      append: async (observation) => {
-        try {
-          const stored = window.localStorage.getItem(practiceStorageKey);
-          const existing: unknown = stored ? JSON.parse(stored) : [];
-          const events = Array.isArray(existing) ? existing : [];
-          if (
-            observation.eventId &&
-            events.some(
-              (event) =>
-                typeof event === "object" &&
-                event !== null &&
-                Reflect.get(event, "eventId") === observation.eventId,
-            )
-          ) {
-            return success(undefined);
-          }
-          const event = {
-            ...observation,
-            eventId: observation.eventId ?? ids.eventId(),
-            gameId,
-            profileId,
-            recordedAt: clock.now().toISOString(),
-            schemaVersion: 1,
-            sessionId,
-          };
-          window.localStorage.setItem(practiceStorageKey, JSON.stringify([...events, event]));
-          onUpdateProgress({
-            completed: observation.isCorrect,
-            lastPlayed: event.recordedAt,
-            score: observation.isCorrect ? observation.wordStarsEarned * 100 : 0,
-            stars: observation.wordStarsEarned,
-          });
-          return success(undefined);
-        } catch {
-          return failure(
-            runtimeFailure("quota-exceeded", "Oefenresultaat kon niet lokaal worden opgeslagen."),
-          );
-        }
-      },
-      reset: async () => {
-        try {
-          window.localStorage.removeItem(practiceStorageKey);
-          return success(undefined);
-        } catch {
-          return failure(runtimeFailure("unexpected", "Voortgang kon niet worden gewist."));
-        }
-      },
-    },
-    profile: { updateProgress: onUpdateProgress },
+    practice,
     speech: {
       createRecognition: createBrowserSpeechRecognition,
       getMicrophonePermission: getBrowserMicrophonePermission,
@@ -182,17 +133,6 @@ export const createBrowserGameRuntime = ({
         return success(undefined);
       },
     },
-    storage: {
-      get: (key, scope = "local") => safeStorage(scope).getItem(key),
-      remove: (key, scope = "local") => safeStorage(scope).removeItem(key),
-      set: (key, value, scope = "local") => {
-        try {
-          safeStorage(scope).setItem(key, value);
-          return success(undefined);
-        } catch {
-          return failure(runtimeFailure("quota-exceeded", "Lokale opslag is vol."));
-        }
-      },
-    },
+    storage,
   };
 };

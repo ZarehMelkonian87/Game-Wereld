@@ -107,14 +107,6 @@ export interface GameRuntime {
   };
   media: MediaController;
   practice: PracticeEventWriter;
-  profile: {
-    updateProgress: (progress: {
-      completed?: boolean;
-      lastPlayed?: string;
-      score?: number;
-      stars?: number;
-    }) => void;
-  };
   speech: SpeechController;
   storage: RuntimeStorage;
 }

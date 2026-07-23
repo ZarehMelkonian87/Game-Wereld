@@ -18,7 +18,9 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   const expectNoBrowserErrors = failOnBrowserErrors(page);
 
   await page.goto("/");
-  await page.evaluate(() => window.localStorage.clear());
+  await page.evaluate(() => {
+    window.localStorage.clear();
+  });
   await page.reload();
   await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
   const accessibility = await new AxeBuilder({ page })
@@ -38,11 +40,53 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   await page.reload();
   await expect(page.getByText("Codex Tester", { exact: true })).toBeVisible();
 
+  await page.getByTitle("Profiel Instellingen").click();
+  const soundSetting = page.getByRole("button", { name: /Sound FX/ });
+  await expect(soundSetting).toHaveAttribute("aria-pressed", "true");
+  await soundSetting.click();
+  await expect(soundSetting).toHaveAttribute("aria-pressed", "false");
+  await page.reload();
+  await expect(page.getByRole("button", { name: /Sound FX/ })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.getByRole("button", { name: "Terug" }).click();
+
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
 
   await page.goBack();
   await expect(page.getByRole("heading", { name: "Speciale Woordenschat" })).toBeVisible();
+
+  await page.goto("/settings");
+  await page.getByRole("button", { name: "Delete Speler" }).click();
+  const equation = await page.getByText(/Wat is \d+ \+ \d+\?/).textContent();
+  const operands = equation?.match(/(\d+) \+ (\d+)/);
+  expect(operands).not.toBeNull();
+  await page.getByPlaceholder("?").fill(String(Number(operands?.[1]) + Number(operands?.[2])));
+  await page.getByRole("button", { name: "Ja, Delete" }).click();
+  await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: "START" }).click();
+  await expect(page.getByText("Codex Tester", { exact: true })).toHaveCount(0);
   expectNoBrowserErrors();
+});
+
+test("herstelt van ontbrekende duurzame opslag met zichtbare tijdelijke modus", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "indexedDB", {
+      configurable: true,
+      get: () => undefined,
+    });
+  });
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Voortgangsopslag is niet beschikbaar" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Tijdelijk spelen" }).click();
+  await expect(page.getByText(/Tijdelijke modus: voortgang wordt niet bewaard/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
 });

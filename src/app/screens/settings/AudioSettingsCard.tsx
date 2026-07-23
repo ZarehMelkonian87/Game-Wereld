@@ -3,6 +3,7 @@ import { Music, Volume2, VolumeX } from "lucide-react";
 import type { Profile } from "../../game-platform";
 import { AudioSettingRow } from "./AudioSettingRow";
 import { useProfile } from "../../contexts/ProfileContext";
+import { reportStorageWriteFailure } from "../../storage";
 
 interface AudioSettingsCardProps {
   profile: Profile;
@@ -47,13 +48,13 @@ export const AudioSettingsCard = ({ profile }: AudioSettingsCardProps) => {
 
   const handleToggleSound = () => {
     const nextState = !profile.settings.soundEnabled;
-    updateSettings({ soundEnabled: nextState });
+    void updateSettings({ soundEnabled: nextState }).catch(reportStorageWriteFailure);
     playToggleSound(nextState);
   };
 
   const handleToggleMusic = () => {
     const nextState = !profile.settings.musicEnabled;
-    updateSettings({ musicEnabled: nextState });
+    void updateSettings({ musicEnabled: nextState }).catch(reportStorageWriteFailure);
     playToggleSound(nextState);
   };
 

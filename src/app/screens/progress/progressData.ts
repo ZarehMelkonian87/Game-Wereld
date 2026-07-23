@@ -1,5 +1,5 @@
 import type { PeriodDefinition, ThemeProgress, TimePeriod } from "./progressTypes";
-import { createGameId, createProfileId, readBrowserPracticeEvents } from "../../game-platform";
+import type { PracticeEventEnvelope } from "../../storage";
 
 export const periods: PeriodDefinition[] = [
   { id: "week", label: "Deze Week", shortLabel: "Week" },
@@ -8,18 +8,15 @@ export const periods: PeriodDefinition[] = [
   { id: "alltime", label: "Sinds Begin", shortLabel: "Alles" },
 ];
 
-export const getProgressData = (period: TimePeriod, profileId?: string): ThemeProgress[] => {
-  const defaultProfileId = profileId ?? "demo-profile";
-  const events = readBrowserPracticeEvents(
-    createProfileId(defaultProfileId),
-    createGameId("strand-bezem-escape"),
-  );
-
+export const getProgressData = (
+  period: TimePeriod,
+  events: PracticeEventEnvelope[],
+): ThemeProgress[] => {
   // Filter events by period
   const now = new Date();
   const periodEvents = events.filter((event) => {
     if (period === "alltime") return true;
-    const playedAt = event.recordedAt ? new Date(event.recordedAt) : new Date();
+    const playedAt = new Date(event.occurredAt);
     const daysLimit = period === "week" ? 7 : period === "month" ? 30 : 90;
     const limitTime = now.getTime() - daysLimit * 24 * 60 * 60 * 1000;
     return playedAt.getTime() >= limitTime;
@@ -33,15 +30,18 @@ export const getProgressData = (period: TimePeriod, profileId?: string): ThemePr
 
   if (total > 0) {
     const inEenKeerGoedCount = periodEvents.filter(
-      (e) => e.attempts === 1 && e.hintsUsed === 0 && e.isCorrect,
+      (event) =>
+        event.attemptNumber === 1 && event.assistance.length === 0 && event.outcome === "correct",
     ).length;
     inEenKeerGoedPct = Math.round((inEenKeerGoedCount / total) * 100);
 
-    const noHintsCount = periodEvents.filter((e) => e.hintsUsed === 0).length;
+    const noHintsCount = periodEvents.filter(
+      (event) => !event.assistance.includes("visual-hint"),
+    ).length;
     noHintsPct = Math.round((noHintsCount / total) * 100);
 
-    const spokenEvents = periodEvents.filter((e) => e.mode === "zeg-en-bouw");
-    const spokenSuccessCount = spokenEvents.filter((e) => e.isCorrect).length;
+    const spokenEvents = periodEvents.filter((event) => event.assistance.includes("spoken-help"));
+    const spokenSuccessCount = spokenEvents.filter((event) => event.outcome === "correct").length;
     spokenPct =
       spokenEvents.length > 0 ? Math.round((spokenSuccessCount / spokenEvents.length) * 100) : 0;
   }

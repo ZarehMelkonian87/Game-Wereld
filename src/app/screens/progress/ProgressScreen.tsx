@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext";
 import { gameThemes } from "../../data/games";
@@ -11,19 +11,42 @@ import { ThemeProgressCard } from "./ThemeProgressCard";
 import { ActivityChartCard } from "./ActivityChartCard";
 import { AchievementsCard } from "./AchievementsCard";
 import type { TimePeriod } from "./progressTypes";
+import { createGameId, createProfileId } from "../../game-platform";
+import {
+  useStorageRepositories,
+  type PracticeEventEnvelope,
+  type StorageApplicationError,
+} from "../../storage";
 
 export const ProgressScreen = () => {
   const navigate = useNavigate();
   const { currentProfile } = useProfile();
+  const { repositories } = useStorageRepositories();
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("month");
+  const [events, setEvents] = useState<PracticeEventEnvelope[]>([]);
+  const [loadError, setLoadError] = useState<StorageApplicationError | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useRequireProfile(currentProfile, navigate);
+
+  useEffect(() => {
+    if (!currentProfile) return;
+    setIsLoading(true);
+    void repositories.practice
+      .listForProfile(createProfileId(currentProfile.id), createGameId("strand-bezem-escape"))
+      .then((records) => {
+        setEvents(records);
+        setLoadError(null);
+      })
+      .catch((error: StorageApplicationError) => setLoadError(error))
+      .finally(() => setIsLoading(false));
+  }, [currentProfile, repositories.practice]);
 
   if (!currentProfile) {
     return null;
   }
 
-  const progressData = getProgressData(selectedPeriod, currentProfile?.id);
+  const progressData = getProgressData(selectedPeriod, events);
 
   return (
     <div className="min-h-screen flex flex-col safe-area-inset" data-component="ProgressScreen">
@@ -36,6 +59,13 @@ export const ProgressScreen = () => {
             periods={periods}
             selectedPeriod={selectedPeriod}
           />
+
+          {isLoading ? <p role="status">Voortgang laden…</p> : null}
+          {loadError ? (
+            <p className="rounded-xl bg-red-700 p-4 text-white" role="alert">
+              {loadError.message}
+            </p>
+          ) : null}
 
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
             <ActivityChartCard delay={0.05} selectedPeriod={selectedPeriod} />

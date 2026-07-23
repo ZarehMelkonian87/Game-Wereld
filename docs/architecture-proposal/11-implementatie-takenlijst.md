@@ -381,134 +381,146 @@ Deze groep vervangt verspreide browseropslag zonder bestaande gebruikersdata sti
 
 ### IMP-C01 — Alle persistente keys en payloads inventariseren
 
-- [ ] **IMP-C01 afgerond**
+- [x] **IMP-C01 afgerond**
 
 Afhankelijkheden: groep A.
 
 Doel: vóór migratie exact weten welke data bestaat en wie eigenaar is.
 
-- [ ] Inventariseer iedere `localStorage`- en `sessionStorage`-key, payloadvorm, reader, writer en deletepad.
-- [ ] Neem profielen, current profile, globale mute, settings, wereldselectie, rewards, progressie, voice privacy, zone devtools en reward result op.
-- [ ] Classificeer data als duurzaam domeinrecord, sessiestate, ontwikkeltoolconfiguratie of niet-kritieke bootvoorkeur.
-- [ ] Leg voorbeeldfixtures vast zonder echte persoonsgegevens.
-- [ ] Bepaal per key doelrepository, migratiepad, retentie en verwijdergedrag.
-- [ ] Acceptatie: geen directe opslagcall in `src` ontbreekt in de inventaris.
-- [ ] Verificatie: vergelijk inventaris met `rg "localStorage|sessionStorage|indexedDB" src`.
-- [ ] **Kwaliteitscontrole:** toets dataminimalisatie, privacy en eigenaarschap aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Inventariseer iedere `localStorage`- en `sessionStorage`-key, payloadvorm, reader, writer en deletepad.
+- [x] Neem profielen, current profile, globale mute, settings, wereldselectie, rewards, progressie, voice privacy, zone devtools en reward result op.
+- [x] Classificeer data als duurzaam domeinrecord, sessiestate, ontwikkeltoolconfiguratie of niet-kritieke bootvoorkeur.
+- [x] Leg voorbeeldfixtures vast zonder echte persoonsgegevens.
+- [x] Bepaal per key doelrepository, migratiepad, retentie en verwijdergedrag.
+- [x] Acceptatie: geen directe opslagcall in `src` ontbreekt in de inventaris.
+- [x] Verificatie: vergelijk inventaris met `rg "localStorage|sessionStorage|indexedDB" src`.
+- [x] **Kwaliteitscontrole:** toets dataminimalisatie, privacy en eigenaarschap aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C02 — Runtime-schema's en databaseversie ontwerpen
 
-- [ ] **IMP-C02 afgerond**
+- [x] **IMP-C02 afgerond**
 
 Afhankelijkheden: IMP-C01 en IMP-B01.
 
 Doel: valideerbare records en een expliciet evolutiepad definiëren.
 
-- [ ] Definieer Zod-schema's voor profile, settings, session, practice event envelope en progress projection.
-- [ ] Modelleer oude payloadschema's alleen voor migratieparsers.
-- [ ] Definieer eerste Dexie-databaseversie en indexen op daadwerkelijke querypatronen.
-- [ ] Documenteer UTC-tijden, ids, contractversies en onbekende-veldenbeleid.
-- [ ] Maak schemafixtures voor geldig, gedeeltelijk oud, corrupt en toekomstig/onbekend materiaal.
-- [ ] Schrijf ADR voor IndexedDB/Dexie, migratiebeleid en `localStorage`-uitzonderingen.
-- [ ] Acceptatie: alle persistente types komen uit schemas of zijn aantoonbaar daarvan afgeleid.
-- [ ] Verificatie: schematests accepteren geldige fixtures en weigeren corrupte data met benoemde fouten.
-- [ ] **Kwaliteitscontrole:** toets schemas, dependencykeuze en migratiebeleid aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer Zod-schema's voor profile, settings, session, practice event envelope en progress projection.
+- [x] Modelleer oude payloadschema's alleen voor migratieparsers.
+- [x] Definieer eerste Dexie-databaseversie en indexen op daadwerkelijke querypatronen.
+- [x] Documenteer UTC-tijden, ids, contractversies en onbekende-veldenbeleid.
+- [x] Maak schemafixtures voor geldig, gedeeltelijk oud, corrupt en toekomstig/onbekend materiaal.
+- [x] Schrijf ADR voor IndexedDB/Dexie, migratiebeleid en `localStorage`-uitzonderingen.
+- [x] Acceptatie: alle persistente types komen uit schemas of zijn aantoonbaar daarvan afgeleid.
+- [x] Verificatie: schematests accepteren geldige fixtures en weigeren corrupte data met benoemde fouten.
+- [x] **Kwaliteitscontrole:** toets schemas, dependencykeuze en migratiebeleid aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C03 — Dexie-adapter en repositories implementeren
 
-- [ ] **IMP-C03 afgerond**
+- [x] **IMP-C03 afgerond**
 
 Afhankelijkheden: IMP-C02.
 
 Doel: één testbare toegangspoort voor duurzame gestructureerde data bouwen.
 
-- [ ] Implementeer databasebootstrap met expliciete `opening`, `ready`, `migration-failed` en `unavailable` states.
-- [ ] Implementeer `ProfileRepository`, `SettingsRepository`, `SessionRepository` en `PracticeRepository` interfaces.
-- [ ] Vertaal Dexie/DOMException-fouten naar benoemde application-errors.
-- [ ] Voeg transactionele cascade delete toe.
-- [ ] Voeg in-memory testrepositories toe die hetzelfde contract implementeren.
-- [ ] Exporteer geen Dexie-instance naar UI of games.
-- [ ] Acceptatie: repositories werken in integratietests zonder dat consumers Dexie kennen.
-- [ ] Verificatie: CRUD-, duplicate-, transaction rollback-, quota-/unavailable- en cascade-tests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets transacties, fouten, exports en testisolatie aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Implementeer databasebootstrap met expliciete `opening`, `ready`, `migration-failed` en `unavailable` states.
+- [x] Implementeer `ProfileRepository`, `SettingsRepository`, `SessionRepository` en `PracticeRepository` interfaces.
+- [x] Vertaal Dexie/DOMException-fouten naar benoemde application-errors.
+- [x] Voeg transactionele cascade delete toe.
+- [x] Voeg in-memory testrepositories toe die hetzelfde contract implementeren.
+- [x] Exporteer geen Dexie-instance naar UI of games.
+- [x] Acceptatie: repositories werken in integratietests zonder dat consumers Dexie kennen.
+- [x] Verificatie: CRUD-, duplicate-, transaction rollback-, quota-/unavailable- en cascade-tests zijn groen.
+- [x] **Kwaliteitscontrole:** toets transacties, fouten, exports en testisolatie aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C04 — Eenmalige idempotente importmigratie bouwen
 
-- [ ] **IMP-C04 afgerond**
+- [x] **IMP-C04 afgerond**
 
 Afhankelijkheden: IMP-C01 tot en met IMP-C03.
 
 Doel: bestaande browserdata veilig naar repositories overzetten.
 
-- [ ] Lees oude keys read-only en parseer ze met hun versie-/legacy-schema.
-- [ ] Migreer in een transactie of per duidelijk herstelbare batch.
-- [ ] Schrijf migratiestatus en bronfingerprint zodat herhalen geen duplicaten maakt.
-- [ ] Behoud oude keys gedurende minimaal één stabiele release als read-only rollbackbron.
-- [ ] Overschrijf corrupte data niet met lege defaults; bied diagnose/export/reset.
-- [ ] Test iedere fixture uit IMP-C01, inclusief gedeeltelijke migratie en tweede run.
-- [ ] Acceptatie: geldige oude data blijft semantisch gelijk en een tweede migratie verandert niets.
-- [ ] Verificatie: fixturevergelijking vóór/na plus transaction rollbacktest.
-- [ ] **Kwaliteitscontrole:** toets dataveiligheid, fout-UX, privacy en rollback aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Lees oude keys read-only en parseer ze met hun versie-/legacy-schema.
+- [x] Migreer in een transactie of per duidelijk herstelbare batch.
+- [x] Schrijf migratiestatus en bronfingerprint zodat herhalen geen duplicaten maakt.
+- [x] Behoud oude keys gedurende minimaal één stabiele release als read-only rollbackbron.
+- [x] Overschrijf corrupte data niet met lege defaults; bied diagnose/export/reset.
+- [x] Test iedere fixture uit IMP-C01, inclusief gedeeltelijke migratie en tweede run.
+- [x] Acceptatie: geldige oude data blijft semantisch gelijk en een tweede migratie verandert niets.
+- [x] Verificatie: fixturevergelijking vóór/na plus transaction rollbacktest.
+- [x] **Kwaliteitscontrole:** toets dataveiligheid, fout-UX, privacy en rollback aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C05 — Profielen en settings omschakelen naar repositories
 
-- [ ] **IMP-C05 afgerond**
+- [x] **IMP-C05 afgerond**
 
 Afhankelijkheden: IMP-C03 en IMP-C04.
 
 Doel: de monolithische context reduceren tot kleine feature-API's boven repositories.
 
-- [ ] Splits actief profiel-id van profielenlijst en settingsqueries.
-- [ ] Gebruik functionele updates of application-use-cases; vermijd closures over verouderde profielarrays.
-- [ ] Modelleer boot/loading/error/empty expliciet.
-- [ ] Laat create/update/delete via repositories lopen.
-- [ ] Behoud een kleine context alleen voor laagfrequente shellidentity indien nodig.
-- [ ] Voeg component-/integratietests toe voor create, select, reload, update en delete.
-- [ ] Acceptatie: `ProfileContext` schrijft geen volledige arrays meer naar `localStorage` en gameprogressie zit niet in de profielwriter.
-- [ ] Verificatie: profiel-E2E plus repositorytests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets statelevensduur, effects, foutstates en accessibility aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Splits actief profiel-id van profielenlijst en settingsqueries.
+- [x] Gebruik functionele updates of application-use-cases; vermijd closures over verouderde profielarrays.
+- [x] Modelleer boot/loading/error/empty expliciet.
+- [x] Laat create/update/delete via repositories lopen.
+- [x] Behoud een kleine context alleen voor laagfrequente shellidentity indien nodig.
+- [x] Voeg component-/integratietests toe voor create, select, reload, update en delete.
+- [x] Acceptatie: `ProfileContext` schrijft geen volledige arrays meer naar `localStorage` en gameprogressie zit niet in de profielwriter.
+- [x] Verificatie: profiel-E2E plus repositorytests zijn groen.
+- [x] **Kwaliteitscontrole:** toets statelevensduur, effects, foutstates en accessibility aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C06 — Game-instellingen, rewards en wereldselectie migreren
 
-- [ ] **IMP-C06 afgerond**
+- [x] **IMP-C06 afgerond**
 
 Afhankelijkheden: IMP-C03 tot en met IMP-C05 en IMP-B06.
 
 Doel: directe gameopslag vervangen zonder game-platformgrenzen te doorbreken.
 
-- [ ] Bepaal welke instellingen platformbreed en welke game-specifiek zijn.
-- [ ] Maak capabilitygerichte runtime-/applicationpoorten voor settings, rewards en wereldselectie waar duurzaamheid nodig is.
-- [ ] Migreer bestaande keys via IMP-C04-mechanisme.
-- [ ] Houd vluchtige rewardresultaten in sessiestate; persisteer alleen wanneer reloadherstel een expliciete requirement is.
-- [ ] Houd zone-devtoolsoverdride als development-only data buiten kindprofielanalytics.
-- [ ] Verwijder directe `localStorage`/`sessionStorage`-calls uit de game.
-- [ ] Acceptatie: de gamemap benadert geen browseropslag rechtstreeks.
-- [ ] Verificatie: search, architectuurcheck en reloadtests voor settings/rewards/world zijn groen.
-- [ ] **Kwaliteitscontrole:** toets data-eigenaarschap, privacy, storage en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Bepaal welke instellingen platformbreed en welke game-specifiek zijn.
+- [x] Maak capabilitygerichte runtime-/applicationpoorten voor settings, rewards en wereldselectie waar duurzaamheid nodig is.
+- [x] Migreer bestaande keys via IMP-C04-mechanisme.
+- [x] Houd vluchtige rewardresultaten in sessiestate; persisteer alleen wanneer reloadherstel een expliciete requirement is.
+- [x] Houd zone-devtoolsoverdride als development-only data buiten kindprofielanalytics.
+- [x] Verwijder directe `localStorage`/`sessionStorage`-calls uit de game.
+- [x] Acceptatie: de gamemap benadert geen browseropslag rechtstreeks.
+- [x] Verificatie: search, architectuurcheck en reloadtests voor settings/rewards/world zijn groen.
+- [x] **Kwaliteitscontrole:** toets data-eigenaarschap, privacy, storage en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C07 — Opslagfouten en tijdelijke modus productwaardig maken
 
-- [ ] **IMP-C07 afgerond**
+- [x] **IMP-C07 afgerond**
 
 Afhankelijkheden: IMP-C03 tot en met IMP-C06.
 
 Doel: quota, private browsing, corruptie en migratiefouten herstelbaar maken.
 
-- [ ] Bouw shell-UI voor storage unavailable, quota exceeded en migration failed.
-- [ ] Geef concrete acties: retry, diagnose-export, opslagbeheer of expliciete tijdelijke modus.
-- [ ] Toon permanent en begrijpelijk wanneer voortgang in tijdelijke modus niet wordt bewaard.
-- [ ] Buffer alleen een begrensd aantal sessie-events in geheugen en meld write failure.
-- [ ] Voeg fake storage failures toe aan component- en Playwright-tests.
-- [ ] Acceptatie: geen opslagfout resulteert in een blanco scherm of stil dataverlies.
-- [ ] Verificatie: geautomatiseerde quota-, denial- en corruptiescenario's zijn groen.
-- [ ] **Kwaliteitscontrole:** toets foutmeldingen, toegankelijkheid, privacy en recovery aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Bouw shell-UI voor storage unavailable, quota exceeded en migration failed.
+- [x] Geef concrete acties: retry, diagnose-export, opslagbeheer of expliciete tijdelijke modus.
+- [x] Toon permanent en begrijpelijk wanneer voortgang in tijdelijke modus niet wordt bewaard.
+- [x] Buffer alleen een begrensd aantal sessie-events in geheugen en meld write failure.
+- [x] Voeg fake storage failures toe aan component- en Playwright-tests.
+- [x] Acceptatie: geen opslagfout resulteert in een blanco scherm of stil dataverlies.
+- [x] Verificatie: geautomatiseerde quota-, denial- en corruptiescenario's zijn groen.
+- [x] **Kwaliteitscontrole:** toets foutmeldingen, toegankelijkheid, privacy en recovery aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+### Uitvoerbewijs Groep C
+
+- Alle oude browseropslagkeys, payloads, eigenaren, retentie- en verwijderpaden zijn geïnventariseerd.
+- Dexie blijft intern achter Zod-gevalideerde repositorycontracten; UI en games kennen geen database-instance.
+- De legacy-import is transactioneel, read-only aan de bron, idempotent door een fingerprint en getest met geldige, gedeeltelijke, corrupte en toekomstige fixtures.
+- Profielen, settings, sessies, oefenevents en voortgangsprojecties gebruiken repositories; profielverwijdering voert een geteste cascade uit.
+- Game-instellingen, rewards en wereldselectie zijn duurzaam via runtimepoorten; rewardresultaten en zone-devtoolsdata blijven bewust vluchtig.
+- Storage-, quota- en migratiefouten hebben zichtbare recovery; tijdelijke modus gebruikt een begrensde buffer en een permanente waarschuwing.
+- Formatting, lint, typecheck, 36 tests, architectuurcontrole, Knip, audit, productiebuild, bundelbudget en Chromium-/WebKit-E2E zijn groen.
+- Gedetailleerd bewijs en ontwerpafwegingen: `docs/architecture/group-c-report-2026-07.md`.
+- Commitbericht voor de volledige groep: `feat(storage): migrate profiles and game data to repository-backed IndexedDB`
 
 </details>
 
