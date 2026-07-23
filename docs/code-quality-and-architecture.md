@@ -124,7 +124,9 @@ Reviewers onderzoeken bestanden boven ongeveer 300 regels en functies boven onge
 - Afleidbare waarden worden berekend; ze worden niet via een effect naar tweede state gekopieerd.
 - Semantische HTML heeft voorkeur boven generieke elementen met ARIA-reparaties.
 - Props zijn taakgericht en zo klein als praktisch.
-- Een component hoeft geen arrow function te zijn. Function declarations en arrows zijn beide toegestaan.
+- Alle functies MOETEN als arrow function worden geschreven. Dit geldt voor React-components, hooks, helpers, callbacks, factories en testfuncties.
+- Function declarations met het `function`-keyword zijn niet toegestaan.
+- Als een arrow function technisch niet mogelijk is, bijvoorbeeld voor een generator of een API-contract dat een dynamische `this` vereist, is een expliciete tijdelijke uitzondering volgens hoofdstuk 16 verplicht.
 - `displayName` is alleen verplicht voor wrappers waarbij React DevTools anders geen bruikbare naam toont.
 - `data-component` en `data-slot` worden alleen gebruikt als stabiel test- of diagnosecontract.
 
