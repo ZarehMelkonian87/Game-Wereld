@@ -61,6 +61,7 @@ const StrandBezemEscapeExperience = () => {
             <GameSettingsScreen onBackToMenu={actions.openModeSelect} />
           ) : screenPreview === "start" ? (
             <StartScreen
+              onExit={actions.exitGame}
               onOpenSettings={() => actions.setScreen("settings")}
               onPlay={() => actions.setScreen("world-select")}
             />

@@ -5,19 +5,25 @@ import { StartSparkles } from "./StartSparkles";
 import { StartTopBar } from "./StartTopBar";
 
 interface StartScreenProps {
+  onExit: () => void;
   onOpenSettings: () => void;
   onPlay: () => void;
   starCount?: number;
 }
 
-export const StartScreen = ({ onOpenSettings, onPlay, starCount = 120 }: StartScreenProps) => (
+export const StartScreen = ({
+  onExit,
+  onOpenSettings,
+  onPlay,
+  starCount = 120,
+}: StartScreenProps) => (
   <section
     aria-label="Startscherm"
     className="pointer-events-auto absolute inset-0 z-10 overflow-hidden"
     data-testid="start-screen"
   >
     <StartBackground />
-    <StartTopBar onOpenSettings={onOpenSettings} starCount={starCount} />
+    <StartTopBar onExit={onExit} onOpenSettings={onOpenSettings} starCount={starCount} />
     <StartHero />
     <StartSparkles />
     <StartActions onPlay={onPlay} />

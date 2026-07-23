@@ -24,7 +24,7 @@ import { getWorldDefinition, worldDefinitions } from "../worlds";
 import { useGameRuntime } from "../runtime/GameRuntimeContext";
 
 export const useBezemEscapeGameController = () => {
-  const { identity, storage } = useGameRuntime();
+  const { identity, lifecycle, storage } = useGameRuntime();
   const profileId = identity.profileId;
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
   const [roundSeed, setRoundSeed] = useState(() => createRoundSeed());
@@ -54,6 +54,10 @@ export const useBezemEscapeGameController = () => {
 
   const setScreen = (screen: GameScreenPreview) => {
     setScreenPreview(screen);
+  };
+
+  const exitGame = () => {
+    lifecycle.exit("back");
   };
 
   const resetRound = () => {
@@ -109,6 +113,7 @@ export const useBezemEscapeGameController = () => {
 
   return {
     actions: {
+      exitGame,
       openModeSelect,
       openSelectedWorld,
       resetRound,

@@ -93,6 +93,21 @@ describe("generiek gamecontract", () => {
     ).toBe(false);
   });
 
+  it("sluit de strandgame vanaf het startscherm via de lifecycle af", async () => {
+    const entry = getGameRegistryEntry("strand-bezem-escape");
+    expect(entry && "load" in entry).toBe(true);
+    if (!entry || !("load" in entry)) return;
+
+    const module = await loadGameModule(entry);
+    const runtime = createFakeGameRuntime();
+    const user = userEvent.setup();
+    render(<module.Game runtime={runtime} />);
+
+    await user.click(screen.getByRole("button", { name: "Terug naar spellen" }));
+
+    expect(runtime.captured.exits).toEqual(["back"]);
+  });
+
   it("sluit complete en exit samen maximaal één keer af", () => {
     const runtime = createFakeGameRuntime();
     runtime.lifecycle.complete({ correctActions: 1, score: 100, stars: 1 });
