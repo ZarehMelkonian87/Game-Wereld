@@ -1,5 +1,7 @@
 # App Architectuur Voor Game Wereld
 
+> **Let op:** dit document beschrijft de bestaande/transitie-architectuur. Bij tegenstrijdige regels gelden [Code Quality & Architecture Requirements](../../docs/code-quality-and-architecture.md) en het [nieuwe architectuurvoorstel](../../docs/architecture-proposal/README.md). Met name verplichte arrow functions, universele bestandslimieten, `displayName` en decoratieve `data-component`-attributen zijn niet langer projectbrede eisen.
+
 Dit document beschrijft een nieuw architectuurvoorstel voor de hele app. Het vult `src/app/games/ARCHITECTURE.md` aan: dat bestaande document blijft de standaard voor individuele mini-games, terwijl dit document de bovenliggende app-structuur, gedeelde platformlaag, dataflow en ontwikkelregels vastlegt.
 
 ## Doel

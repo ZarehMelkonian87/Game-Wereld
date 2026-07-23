@@ -1,5 +1,7 @@
 # Game Architectuur Voor Alle Mini-Games
 
+> **Let op:** dit document beschrijft de bestaande/transitie-architectuur. Bij tegenstrijdige regels gelden [Code Quality & Architecture Requirements](../../../docs/code-quality-and-architecture.md) en het [nieuwe architectuurvoorstel](../../../docs/architecture-proposal/README.md). Met name verplichte arrow functions, universele bestandslimieten, `displayName` en decoratieve `data-component`-attributen zijn niet langer projectbrede eisen.
+
 Dit document beschrijft de standaard architectuur voor `+1 Woordenschat Bezem Escape` en alle toekomstige mini-games in de app.
 
 Het doel is dat elke game dezelfde technische structuur volgt, zodat nieuwe games later sneller, schoner en beter onderhoudbaar gebouwd kunnen worden.
