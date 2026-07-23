@@ -13,6 +13,9 @@ export default defineConfig({
     trace: "on-first-retry",
     viewport: { width: 1024, height: 768 },
   },
+  // De PWA-updateproef vervangt tijdelijk dezelfde dist/service-workerbestanden als de andere
+  // productieproeven gebruiken. Serieel draaien voorkomt cross-test reloads en houdt de audit zuiver.
+  workers: 1,
   projects: [
     { name: "chromium-tablet", use: { browserName: "chromium" } },
     { name: "webkit-tablet", use: { browserName: "webkit" } },

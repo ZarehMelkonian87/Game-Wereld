@@ -26,7 +26,7 @@ export const ResetProgressCard = ({ onOpenResetDialog, resetMessage }: ResetProg
 
     <button
       aria-label="Voortgang resetten"
-      className="mx-auto inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 text-[0.78rem] font-black leading-none text-rose-700 underline-offset-4 active:translate-y-0.5"
+      className="mx-auto inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl px-3 text-[0.78rem] font-black leading-none text-rose-700 underline-offset-4 outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-rose-200 motion-reduce:transform-none"
       data-component="ResetProgressLink"
       data-testid="settings-reset-progress-button"
       onClick={onOpenResetDialog}

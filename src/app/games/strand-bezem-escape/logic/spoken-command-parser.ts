@@ -106,7 +106,12 @@ const customZoneAliases: Record<string, readonly string[]> = {
     "tussen bal en zandkasteel",
     "tussen de bal en de zandkasteel",
   ],
-  "ver-weg-zee": ["ver weg boven zee", "ver weg in de lucht", "ver weg bij de zee"],
+  "ver-weg-zee": [
+    "ver weg boven de zee",
+    "ver weg boven zee",
+    "ver weg in de lucht",
+    "ver weg bij de zee",
+  ],
   zee: ["zee", "water", "in de zee", "in zee", "in het water", "op het water"],
 };
 
@@ -244,7 +249,15 @@ const getZoneMatches = (normalizedTranscript: string, zones: readonly SceneZone[
 const chooseSpatialConcept = (
   spatialConceptMatches: Array<SpokenCommandMatch & { id: SpatialConcept }>,
 ) => {
-  const matchedConcepts = new Set(spatialConceptMatches.map((match) => match.id));
+  const highestWordCount = Math.max(
+    0,
+    ...spatialConceptMatches.map((match) => getAliasWordCount(match.alias)),
+  );
+  const matchedConcepts = new Set(
+    spatialConceptMatches
+      .filter((match) => getAliasWordCount(match.alias) === highestWordCount)
+      .map((match) => match.id),
+  );
 
   return spatialConceptPriority.find((concept) => matchedConcepts.has(concept));
 };

@@ -14,12 +14,12 @@ const variantClasses = {
 export const BackButton = ({ label = "Terug", onClick, variant = "dark" }: BackButtonProps) => (
   <button
     aria-label={label}
-    className={`p-2.5 sm:p-3 rounded-lg sm:rounded-xl border-2 ${variantClasses[variant]}`}
+    className={`inline-flex min-h-12 min-w-12 touch-manipulation items-center justify-center rounded-lg border-2 p-2.5 outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 sm:rounded-xl sm:p-3 ${variantClasses[variant]}`}
     data-component="BackButton"
     onClick={onClick}
     type="button"
   >
-    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+    <ArrowLeft aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
   </button>
 );
 

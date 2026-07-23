@@ -69,7 +69,7 @@ export const ConfirmResetDialog = ({ onCancel, onConfirm }: ConfirmResetDialogPr
       >
         <button
           aria-label="Sluiten"
-          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-2xl border-2 border-slate-200 bg-white text-slate-700 shadow-[0_2px_0_rgba(15,23,42,0.14)] active:translate-y-0.5"
+          className="absolute right-3 top-3 grid h-12 w-12 place-items-center rounded-2xl border-2 border-slate-200 bg-white text-slate-700 shadow-[0_2px_0_rgba(15,23,42,0.14)] outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transform-none"
           onClick={onCancel}
           type="button"
         >

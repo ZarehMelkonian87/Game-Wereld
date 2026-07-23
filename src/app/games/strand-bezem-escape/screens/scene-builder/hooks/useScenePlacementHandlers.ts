@@ -27,6 +27,7 @@ export const useScenePlacementHandlers = ({
     activeHintsUsed,
     activeSpokenHelpCount,
     advanceInstruction,
+    effectiveZones,
     feedback,
     instruction,
     pendingPlacement,
@@ -37,7 +38,6 @@ export const useScenePlacementHandlers = ({
     sceneComplete,
     sceneCompletionTarget,
     selectedObjectId,
-    selectedZone,
     setFeedback,
     setPendingPlacement,
     setPlacedObjects,
@@ -156,6 +156,7 @@ export const useScenePlacementHandlers = ({
       return;
     }
     const isCorrectObject = selectedObjectId === instruction.placement.objectId;
+    const pendingZone = effectiveZones.find((zone) => zone.id === pendingPlacement.zoneId);
     const usesDynamicRelation = usesDynamicRelationZone(instruction.placement);
     const dynamicRelationEvaluation = evaluateDynamicRelationPlacement({
       anchorObjectIds: instruction.placement.anchorObjectIds,
@@ -168,10 +169,10 @@ export const useScenePlacementHandlers = ({
     });
     const isCorrectZone = usesDynamicRelation
       ? dynamicRelationEvaluation.matches
-      : selectedZoneMatchesTarget(selectedZone, targetZone);
+      : selectedZoneMatchesTarget(pendingZone, targetZone);
     const isCorrectRelation = usesDynamicRelation
       ? dynamicRelationEvaluation.matches
-      : zoneSupportsConcept(selectedZone, instruction.placement.relation);
+      : zoneSupportsConcept(pendingZone, instruction.placement.relation);
     if (isCorrectObject && isCorrectZone && isCorrectRelation) {
       placeCorrectObject();
       return;

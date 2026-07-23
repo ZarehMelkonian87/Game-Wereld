@@ -36,7 +36,7 @@ export const VoicePrivacyNotice = ({ onAccept, onClose }: VoicePrivacyNoticeProp
     </div>
     <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-2">
       <button
-        className="min-h-10 rounded-2xl border-2 border-emerald-500 bg-emerald-500 px-3 text-xs font-black text-white shadow-[0_3px_0_rgba(21,128,61,0.35)] active:translate-y-0.5"
+        className="min-h-12 rounded-2xl border-2 border-emerald-500 bg-emerald-500 px-3 text-xs font-black text-white shadow-[0_3px_0_rgba(21,128,61,0.35)] outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-emerald-200 motion-reduce:transform-none"
         data-testid="voice-privacy-accept-button"
         onClick={onAccept}
         type="button"
@@ -44,7 +44,7 @@ export const VoicePrivacyNotice = ({ onAccept, onClose }: VoicePrivacyNoticeProp
         {voicePrivacyCopy.acknowledgement}
       </button>
       <button
-        className="min-h-10 rounded-2xl border-2 border-slate-300 bg-white px-3 text-xs font-black text-slate-700 shadow-[0_3px_0_rgba(71,85,105,0.16)] active:translate-y-0.5"
+        className="min-h-12 rounded-2xl border-2 border-slate-300 bg-white px-3 text-xs font-black text-slate-700 shadow-[0_3px_0_rgba(71,85,105,0.16)] outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transform-none"
         data-testid="voice-privacy-close-button"
         onClick={onClose}
         type="button"

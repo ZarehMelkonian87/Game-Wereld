@@ -66,6 +66,7 @@ export const SceneBuilderScreen = ({
     sceneCompletionSummary,
     sceneCompletionTarget,
     selectedObjectId,
+    selectedZone,
     setAppliedSpokenCommandPreviewText,
     setDragState,
     setIsHintVideoPlaying,
@@ -73,6 +74,8 @@ export const SceneBuilderScreen = ({
     showTargetZoneHint,
     spokenCommandResult,
     spokenHintZoneId,
+    targetZone,
+    targetObject,
     unlockedRewardIds,
     visualHintZone,
     voiceRecognitionStatus,
@@ -94,6 +97,7 @@ export const SceneBuilderScreen = ({
     handleObjectPointerUp,
     handlePendingObjectPointerDown,
     handleRepeatSpokenCommand,
+    handleSceneKeyboardPlace,
     handleSceneTap,
     handleSpokenCommandChoice,
     playPreparedHintVideo,
@@ -134,18 +138,25 @@ export const SceneBuilderScreen = ({
       data-active-audio-repeats={activeAudioRepeats}
       data-active-hints-used={activeHintsUsed}
       data-active-instruction-id={instruction.id}
+      data-active-relation={instruction.placement.relation}
       data-audio-supported={runtime.speech.isRecognitionAvailable() ? "true" : "false"}
       data-hint-event-count={hintEvents.length}
+      data-feedback-kind={feedback?.kind ?? "none"}
       data-mode="listen-and-place"
       data-practiced-concepts={sceneCompletionSummary?.practicedConcepts.join(",") ?? ""}
       data-practiced-words={sceneCompletionSummary?.practicedWords.join(",") ?? ""}
       data-scene-builder-screen="true"
       data-scene-complete={sceneComplete ? "true" : "false"}
       data-scene-complete-count={sceneCompletionTarget}
+      data-selected-zone-id={selectedZone?.id ?? ""}
+      data-selected-zone-concepts={selectedZone?.supportedConcepts.join(",") ?? ""}
+      data-selected-object-id={selectedObjectId ?? ""}
       data-spoken-command-status={spokenCommandResult?.status ?? "none"}
       data-spoken-command-transcript={spokenCommandResult?.transcript ?? ""}
       data-spoken-hint-zone-id={spokenHintZoneId ?? ""}
       data-supported-concepts={supportedSceneBuilderConcepts.join(",")}
+      data-target-zone-id={targetZone?.id ?? ""}
+      data-target-object-id={targetObject?.id ?? ""}
       data-testid="scene-builder-screen"
       data-unlocked-rewards={unlockedRewardIds.join(",")}
     >
@@ -155,6 +166,7 @@ export const SceneBuilderScreen = ({
         handleObjectPointerMove={handleObjectPointerMove}
         handleObjectPointerUp={handleObjectPointerUp}
         handlePendingObjectPointerDown={handlePendingObjectPointerDown}
+        handleSceneKeyboardPlace={handleSceneKeyboardPlace}
         handleSceneTap={handleSceneTap}
         isHintVideoPlaying={isHintVideoPlaying}
         objects={objects}
@@ -163,6 +175,7 @@ export const SceneBuilderScreen = ({
         sceneAreaRef={sceneAreaRef}
         showTargetZoneHint={showTargetZoneHint}
         showZoneDevTools={showZoneDevTools}
+        selectedObjectId={selectedObjectId}
         visualHintZone={visualHintZone}
         voiceRecognitionStatus={voiceRecognitionStatus}
       />

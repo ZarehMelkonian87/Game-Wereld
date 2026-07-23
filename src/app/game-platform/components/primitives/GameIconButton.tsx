@@ -27,7 +27,7 @@ export const GameIconButton = ({
   className,
   icon,
   label,
-  pressed = false,
+  pressed,
   showLabel = false,
   tone = "white",
   type = "button",
@@ -36,10 +36,10 @@ export const GameIconButton = ({
   <button
     {...buttonProps}
     aria-label={label}
-    aria-pressed={pressed || undefined}
+    aria-pressed={pressed}
     className={classNames(
-      "inline-flex min-h-11 shrink-0 touch-manipulation items-center justify-center gap-2 rounded-2xl border-2 font-black leading-none shadow-[0_3px_0] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
-      showLabel ? "px-3 text-sm" : "w-11 px-0",
+      "inline-flex min-h-12 shrink-0 touch-manipulation items-center justify-center gap-2 rounded-2xl border-2 font-black leading-none shadow-[0_3px_0] outline-none transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none focus-visible:ring-4 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sky-700 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none",
+      showLabel ? "px-3 text-sm" : "w-12 px-0",
       pressed && "translate-y-0.5 shadow-none ring-2 ring-white ring-offset-2 ring-offset-sky-200",
       toneClasses[tone],
       className,

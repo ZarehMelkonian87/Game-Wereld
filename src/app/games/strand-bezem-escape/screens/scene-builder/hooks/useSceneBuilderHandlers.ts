@@ -40,6 +40,7 @@ export const useSceneBuilderHandlers = ({
     handleObjectPointerUp: pointers.handleObjectPointerUp,
     handlePendingObjectPointerDown: pointers.handlePendingObjectPointerDown,
     handleRepeatSpokenCommand: spoken.handleRepeatSpokenCommand,
+    handleSceneKeyboardPlace: pointers.handleSceneKeyboardPlace,
     handleSceneTap: pointers.handleSceneTap,
     handleSpokenCommandChoice: spoken.handleSpokenCommandChoice,
     playInstructionAudio: hints.playInstructionAudio,

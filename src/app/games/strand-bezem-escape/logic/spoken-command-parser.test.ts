@@ -1,6 +1,7 @@
 // @vitest-environment node
 
 import { describe, expect, it } from "vitest";
+import { beachWorld, sceneBuilderInstructions } from "../content";
 import type { SceneObject, SceneZone } from "../types";
 import { normalizeSpokenCommand, parseSpokenPlacementCommand } from "./spoken-command-parser";
 
@@ -63,5 +64,26 @@ describe("spoken command parser", () => {
 
     expect(result.confidence).toBe("needs-help");
     expect(result.missing).toEqual(["spatial-concept", "zone"]);
+  });
+
+  it("houdt iedere zelfstandige opdrachtzin gelijk aan het bedoelde object en de bedoelde plek", () => {
+    const independentInstructions = sceneBuilderInstructions.filter(
+      (instruction) => !instruction.placement.anchorObjectIds?.length,
+    );
+
+    independentInstructions.forEach((instruction) => {
+      const result = parseSpokenPlacementCommand({
+        objects: beachWorld.objects,
+        transcript: instruction.prompt,
+        zones: beachWorld.zones,
+      });
+
+      expect(result, instruction.id).toMatchObject({
+        confidence: "high",
+        objectId: instruction.placement.objectId,
+        relation: instruction.placement.relation,
+        zoneId: instruction.placement.zoneId,
+      });
+    });
   });
 });

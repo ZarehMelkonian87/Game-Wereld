@@ -116,7 +116,7 @@ export const WordChoiceScreen = ({
           </div>
           {feedback?.kind === "correct" ? (
             <PrimaryActionButton
-              className="pointer-events-auto min-h-10 px-3 py-2 text-sm"
+              className="pointer-events-auto min-h-12 px-3 py-2 text-sm"
               data-testid="word-choice-next-button"
               iconLeft={<Sparkles className="h-5 w-5" strokeWidth={3} />}
               onClick={advanceInstruction}

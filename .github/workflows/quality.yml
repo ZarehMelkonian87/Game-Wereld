@@ -98,10 +98,10 @@ jobs:
       - run: npm run test:e2e -- --project=${{ matrix.project }}
         if: matrix.run
       - uses: actions/upload-artifact@v4
-        if: failure() && matrix.run
+        if: always() && matrix.run
         with:
-          name: playwright-${{ matrix.project }}
+          name: playwright-qa-${{ matrix.project }}
           path: |
             playwright-report/
             test-results/
-          retention-days: 7
+          retention-days: 14

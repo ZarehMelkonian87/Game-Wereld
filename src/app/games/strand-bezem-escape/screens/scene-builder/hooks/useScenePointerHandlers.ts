@@ -8,6 +8,8 @@ import {
   getScenePointFromViewportPoint,
   getZoneFromViewportPoint,
 } from "../logic/scene-geometry-utils";
+import { findSmallestZoneAtPoint } from "../../../logic/scene-zones";
+import type { ScenePoint } from "../../../logic/scene-zones";
 import type { DragState } from "./useSceneBuilderDragAndDrop";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
 
@@ -241,6 +243,40 @@ export const useScenePointerHandlers = ({
     });
   };
 
+  const handleSceneKeyboardPlace = (scenePoint: ScenePoint) => {
+    if (!selectedObjectId) {
+      setFeedback({
+        kind: "almost",
+        text: "Kies eerst een plaatje onderaan.",
+      });
+      return;
+    }
+
+    const selectedKeyboardZone = findSmallestZoneAtPoint(effectiveZones, scenePoint);
+    if (!selectedKeyboardZone) {
+      setSelectedZoneId(null);
+      setShowTargetZoneHint(true);
+      setFeedback({
+        kind: "almost",
+        text: "Hier is geen plek. Verplaats het kruispunt met de pijltoetsen.",
+      });
+      return;
+    }
+
+    setSelectedZoneId(selectedKeyboardZone.id);
+    setPendingPlacement({
+      objectId: selectedObjectId,
+      source: "manual",
+      x: scenePoint.x,
+      y: scenePoint.y,
+      zoneId: selectedKeyboardZone.id,
+    });
+    setFeedback({
+      kind: "ready",
+      text: `Plek gekozen: ${selectedKeyboardZone.label}. Je kunt nog verplaatsen. Druk daarna op Klaar.`,
+    });
+  };
+
   return {
     handleObjectActivate,
     handleObjectDrop,
@@ -249,6 +285,7 @@ export const useScenePointerHandlers = ({
     handleObjectPointerMove,
     handleObjectPointerUp,
     handlePendingObjectPointerDown,
+    handleSceneKeyboardPlace,
     handleSceneTap,
     updateDragState,
   };

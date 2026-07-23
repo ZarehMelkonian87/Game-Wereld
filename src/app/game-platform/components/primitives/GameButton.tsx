@@ -23,7 +23,7 @@ const toneClasses: Record<GameButtonTone, string> = {
 };
 
 const sizeClasses: Record<GameButtonSize, string> = {
-  compact: "min-h-10 rounded-xl px-3 py-2 text-sm",
+  compact: "min-h-12 rounded-xl px-3 py-2 text-sm",
   default: "min-h-12 rounded-2xl px-5 py-3 text-base",
   large: "min-h-14 rounded-3xl px-6 py-4 text-lg",
 };
@@ -41,7 +41,7 @@ export const GameButton = ({
   <button
     {...buttonProps}
     className={classNames(
-      "inline-flex touch-manipulation items-center justify-center gap-2 border-2 font-black leading-none transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none disabled:pointer-events-none disabled:opacity-50",
+      "inline-flex touch-manipulation items-center justify-center gap-2 border-2 font-black leading-none outline-none transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none focus-visible:ring-4 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sky-700 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transform-none motion-reduce:transition-none",
       toneClasses[tone],
       sizeClasses[size],
       className,

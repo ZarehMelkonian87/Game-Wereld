@@ -33,7 +33,7 @@ export const WelcomeScreen = () => {
       <div className="absolute top-4 right-4 z-20">
         <motion.button
           aria-label={isMuted ? "Geluid aanzetten" : "Geluid dempen"}
-          className="p-3 bg-slate-800/80 backdrop-blur border-2 border-cyan-500/50 rounded-full text-cyan-400 hover:text-cyan-300 active:scale-95 shadow-lg transition-colors cursor-pointer"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-2 border-cyan-500/50 bg-slate-800/80 p-3 text-cyan-400 shadow-lg outline-none backdrop-blur transition-colors active:scale-95 focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none"
           onClick={toggleMute}
           type="button"
           whileHover={{ scale: 1.1 }}

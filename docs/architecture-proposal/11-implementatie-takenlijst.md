@@ -826,60 +826,90 @@ Doel: voorkomen dat shell, gamechunks en offlinepakketten ongemerkt opnieuw groe
 
 ### IMP-F01 — Gedeelde primitives en kernschermen auditen
 
-- [ ] **IMP-F01 afgerond**
+- [x] **IMP-F01 afgerond**
 
 Afhankelijkheden: groep A.
 
 Doel: semantiek en interactiegedrag consistent maken zonder een extra designsysteem in te voeren.
 
-- [ ] Inventariseer gebruikte platformprimitives en ongebruikte Radix/MUI/shadcn-componenten.
-- [ ] Controleer button semantics, toegankelijke naam, disabled/focus/pressed states en 48×48 touchdoelen.
-- [ ] Controleer terug, pauze, audio, hint, voortgang en exit op consistente betekenis.
-- [ ] Respecteer `prefers-reduced-motion` in gedeelde animaties.
-- [ ] Voeg gedrags- en axe-tests toe aan de meest gebruikte primitives.
-- [ ] Verwijder geen component uitsluitend omdat hij nu ongebruikt lijkt zonder Knip/buildcontrole.
-- [ ] Acceptatie: kernprimitives hebben gedocumenteerd interactiecontract en tests.
-- [ ] Verificatie: Testing Library, axe en handmatige toetsenbordcontrole zijn groen.
-- [ ] **Kwaliteitscontrole:** toets UI-librarykeuze, semantics, tests en touchvereisten aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Inventariseer gebruikte platformprimitives en ongebruikte Radix/MUI/shadcn-componenten.
+- [x] Controleer button semantics, toegankelijke naam, disabled/focus/pressed states en 48×48 touchdoelen.
+- [x] Controleer terug, pauze, audio, hint, voortgang en exit op consistente betekenis.
+- [x] Respecteer `prefers-reduced-motion` in gedeelde animaties.
+- [x] Voeg gedrags- en axe-tests toe aan de meest gebruikte primitives.
+- [x] Verwijder geen component uitsluitend omdat hij nu ongebruikt lijkt zonder Knip/buildcontrole.
+- [x] Acceptatie: kernprimitives hebben gedocumenteerd interactiecontract en tests.
+- [x] Verificatie: Testing Library, axe en handmatige toetsenbordcontrole zijn groen.
+- [x] **Kwaliteitscontrole:** toets UI-librarykeuze, semantics, tests en touchvereisten aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Gewijzigde bestanden: `src/app/game-platform/components`, `src/app/components/ui/button.tsx`, `src/app/screens/shared/BackButton.tsx`, `src/app/App.tsx`, `src/styles/theme.css`.
+- Uitgevoerde commando's: `npm run test`, `npm run test:e2e:a11y`, handmatige productiebrowsercontrole.
+- Resultaten/meting: 66 component-/unit-tests en 4 accessibility-E2E-tests groen; kerncontrols minimaal 48 px.
+- Handmatige controle: focus/semantiek, portrait, landscape, 200%-zoomequivalent en touchdoel gecontroleerd.
+- ADR/documentatie: `docs/accessibility/gedeeld-interactiecontract.md`.
+- Kwaliteitscontrole: geslaagd; JSDOM-contrastexceptie is specifiek gedocumenteerd en in echte browsers gedekt.
+- Voorgesteld commitbericht: `feat(a11y): standardize inclusive controls and game alternatives`.
 
 ### IMP-F02 — Niet-spraak- en niet-dragalternatieven voltooien
 
-- [ ] **IMP-F02 afgerond**
+- [x] **IMP-F02 afgerond**
 
 Afhankelijkheden: IMP-B06 en IMP-F01.
 
 Doel: kernflows bruikbaar houden zonder microfoon, audio, hover of precieze drag.
 
-- [ ] Inventariseer iedere actie die alleen via speech of drag kan.
-- [ ] Bied voor speech een visuele/tapbediening met dezelfde pedagogische uitkomst.
-- [ ] Bied voor drag waar nodig selecteer-en-plaats of toetsenbordbediening.
-- [ ] Maak permission denied een normale capabilitytoestand, geen technische fout.
-- [ ] Zorg dat audio-instructies visueel/tekstueel beschikbaar zijn.
-- [ ] Voeg E2E toe met geweigerde microfoon en toetsenbord-only kernflow.
-- [ ] Acceptatie: een kind kan de kernopdracht zonder microfoon en zonder precieze drag voltooien.
-- [ ] Verificatie: Chromium/WebKit tests en handmatige touch-/toetsenbordtest zijn groen.
-- [ ] **Kwaliteitscontrole:** toets gelijkwaardigheid, privacy, focus en feedback aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Inventariseer iedere actie die alleen via speech of drag kan.
+- [x] Bied voor speech een visuele/tapbediening met dezelfde pedagogische uitkomst.
+- [x] Bied voor drag waar nodig selecteer-en-plaats of toetsenbordbediening.
+- [x] Maak permission denied een normale capabilitytoestand, geen technische fout.
+- [x] Zorg dat audio-instructies visueel/tekstueel beschikbaar zijn.
+- [x] Voeg E2E toe met geweigerde microfoon en toetsenbord-only kernflow.
+- [x] Acceptatie: een kind kan de kernopdracht zonder microfoon en zonder precieze drag voltooien.
+- [x] Verificatie: Chromium/WebKit tests en handmatige touch-/toetsenbordtest zijn groen.
+- [x] **Kwaliteitscontrole:** toets gelijkwaardigheid, privacy, focus en feedback aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Gewijzigde bestanden: scene-builder toetsenbordlogica, vliegbediening, typfallback en `e2e/accessibility.spec.ts`.
+- Uitgevoerde commando's: `npm run test`, `npm run test:e2e:a11y`.
+- Resultaten/meting: microfoon-denied, typen, pijltoetsen en Enter slagen in Chromium en WebKit.
+- Handmatige controle: zichtbare instructie en selecteer-en-plaatsroute op productiebuild gecontroleerd.
+- ADR/documentatie: alternatiefbedieningscontract in `docs/accessibility/gedeeld-interactiecontract.md`.
+- Kwaliteitscontrole: geslaagd; dezelfde parser/oefenregistratie, geen transcriptlogging en geen tweede voortgangspad.
+- Voorgesteld commitbericht: `feat(a11y): standardize inclusive controls and game alternatives`.
 
 ### IMP-F03 — Volledige accessibility-releasecontrole opzetten
 
-- [ ] **IMP-F03 afgerond**
+- [x] **IMP-F03 afgerond**
 
 Afhankelijkheden: IMP-F01 en IMP-F02.
 
 Doel: geautomatiseerde signalering combineren met menselijke controles.
 
-- [ ] Voeg `@axe-core/playwright` toe aan welcome, profiel, catalogus, gamehost, settings en progressie.
-- [ ] Documenteer handmatige checklist voor toetsenbord, screenreader, contrast, zoom, reduced motion, portrait/landscape en touch.
-- [ ] Selecteer doel-screenreaders/browsers voor releasecontrole.
-- [ ] Registreer bekende false positives zeer specifiek met reden en eigenaar.
-- [ ] Laat kritieke automatische overtredingen CI blokkeren.
-- [ ] Bewaar releasecheckresultaat bij release-notes of QA-artifact.
-- [ ] Acceptatie: zowel automatische als handmatige controle hebben eigenaar en herhaalbare stappen.
-- [ ] Verificatie: voer één volledige audit uit en registreer/herstel bevindingen.
-- [ ] **Kwaliteitscontrole:** toets dekking, uitzonderingen en documentatie aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Voeg `@axe-core/playwright` toe aan welcome, profiel, catalogus, gamehost, settings en progressie.
+- [x] Documenteer handmatige checklist voor toetsenbord, screenreader, contrast, zoom, reduced motion, portrait/landscape en touch.
+- [x] Selecteer doel-screenreaders/browsers voor releasecontrole.
+- [x] Registreer bekende false positives zeer specifiek met reden en eigenaar.
+- [x] Laat kritieke automatische overtredingen CI blokkeren.
+- [x] Bewaar releasecheckresultaat bij release-notes of QA-artifact.
+- [x] Acceptatie: zowel automatische als handmatige controle hebben eigenaar en herhaalbare stappen.
+- [x] Verificatie: voer één volledige audit uit en registreer/herstel bevindingen.
+- [x] **Kwaliteitscontrole:** toets dekking, uitzonderingen en documentatie aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Gewijzigde bestanden: `e2e/accessibility.spec.ts`, `.github/workflows/quality.yml`, `docs/accessibility/release-checklist.md`.
+- Uitgevoerde commando's: `npm run test:e2e:a11y` en handmatige productiebrowseraudit.
+- Resultaten/meting: zes kernschermen zonder axe WCAG 2.2 A/AA-overtredingen in Chromium en WebKit.
+- Handmatige controle: viewport-, zoom-, focus-, semantiek- en touchcontrole geregistreerd.
+- ADR/documentatie: `docs/architecture/group-f-report-2026-07.md`.
+- Kwaliteitscontrole: geslaagd; geen productfalse-positives, QA-artifact veertien dagen bewaard.
+- Voorgesteld commitbericht: `feat(a11y): standardize inclusive controls and game alternatives`.
 
 </details>
 
@@ -1087,10 +1117,10 @@ Werk dit overzicht bij wanneer een hoofdtaak wordt afgerond. De detailcheckboxes
 | C          | Opslag, schema's en migraties              |      7 |      7 |
 | D          | Oefenevents, sessies en projecties         |      7 |      7 |
 | E          | PWA, assets en performance                 |      6 |      6 |
-| F          | Toegankelijkheid en gedeelde UI            |      0 |      3 |
+| F          | Toegankelijkheid en gedeelde UI            |      3 |      3 |
 | G          | Debugging en observability                 |      0 |      4 |
 | H          | Tweede game en hardening                   |      0 |      5 |
-| **Totaal** |                                            |  **0** | **46** |
+| **Totaal** |                                            | **37** | **46** |
 
 ## Bewijsformat bij een afgeronde taak
 

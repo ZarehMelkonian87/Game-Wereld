@@ -27,7 +27,7 @@ export const InstructionVideoButton = ({
   const stopForegroundAudioSessionRef = useRef<(() => void) | undefined>();
   const buttonClassName =
     variant === "feedbackIcon"
-      ? "pointer-events-auto h-10 min-h-10 w-10 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
+      ? "pointer-events-auto h-12 min-h-12 w-12 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
       : "pointer-events-auto h-14 min-h-14 w-14 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
 
   const playVideo = useCallback(async () => {

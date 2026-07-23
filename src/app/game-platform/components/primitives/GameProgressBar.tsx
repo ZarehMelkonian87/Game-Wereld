@@ -70,7 +70,7 @@ export const GameProgressBar = ({
       >
         <div
           className={classNames(
-            "h-full rounded-full bg-gradient-to-r transition-[width] duration-300",
+            "h-full rounded-full bg-gradient-to-r transition-[width] duration-300 motion-reduce:transition-none",
             fillClasses[tone],
           )}
           data-slot="fill"
