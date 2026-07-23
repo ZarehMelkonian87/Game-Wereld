@@ -18,6 +18,7 @@ import {
 
 interface CreateBrowserGameRuntimeOptions {
   clock?: GameRuntime["clock"];
+  diagnostics: GameRuntime["diagnostics"];
   gameId: GameId;
   ids?: GameRuntime["ids"];
   onComplete: GameRuntime["lifecycle"]["complete"];
@@ -36,6 +37,7 @@ const runtimeFailure = (
 
 export const createBrowserGameRuntime = ({
   clock = { now: () => new Date() },
+  diagnostics,
   gameId,
   ids = {
     eventId: () => createEventId(crypto.randomUUID()),
@@ -62,11 +64,7 @@ export const createBrowserGameRuntime = ({
 
   return {
     clock,
-    diagnostics: {
-      log: (event) => {
-        window.dispatchEvent(new CustomEvent("game-runtime:diagnostic", { detail: event }));
-      },
-    },
+    diagnostics,
     identity: { gameId, profileId, sessionId },
     ids,
     lifecycle: { complete: completeOnce, exit: exitOnce },

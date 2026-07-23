@@ -45,7 +45,7 @@ export const useDutchSpeechRecognition = ({
   maxAlternatives = 3,
   restartOnEnd = false,
 }: UseDutchSpeechRecognitionOptions = {}): UseDutchSpeechRecognitionState => {
-  const { speech } = useGameRuntime();
+  const { diagnostics, identity, speech } = useGameRuntime();
   const [support, setSupport] = useState<SpeechRecognitionSupport>(() =>
     speech.getRecognitionSupport(),
   );
@@ -110,11 +110,27 @@ export const useDutchSpeechRecognition = ({
     [continuous],
   );
 
-  const handleError = useCallback((errorCode: VoiceRecognitionErrorCode, message: string) => {
-    lastErrorCodeRef.current = errorCode;
-    setErrorMessage(getSpeechRecognitionErrorMessage(errorCode, message));
-    setStatus("error");
-  }, []);
+  const handleError = useCallback(
+    (errorCode: VoiceRecognitionErrorCode, message: string) => {
+      lastErrorCodeRef.current = errorCode;
+      diagnostics.log({
+        context: {
+          capability: "speech-recognition",
+          errorCode,
+          gameId: identity.gameId,
+          operation: "recognize-speech",
+          recovery: "typed-input-or-retry",
+        },
+        correlationId: crypto.randomUUID(),
+        event: "speech-recognition-failed",
+        severity: "warn",
+        subsystem: "speech",
+      });
+      setErrorMessage(getSpeechRecognitionErrorMessage(errorCode, message));
+      setStatus("error");
+    },
+    [diagnostics, identity.gameId],
+  );
 
   const handleNoMatch = useCallback(() => {
     setErrorMessage("Ik kon de zin niet goed horen. Probeer het nog eens rustig.");

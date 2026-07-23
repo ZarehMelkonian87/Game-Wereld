@@ -26,16 +26,37 @@ export interface IdGenerator {
   sessionId: () => SessionId;
 }
 
+export interface DiagnosticContext {
+  capability?: string;
+  contentVersion?: string;
+  errorCode?: string;
+  gameId?: string;
+  operation?: string;
+  recovery?: string;
+  route?: string;
+  state?: string;
+}
+
+export interface DiagnosticInput {
+  context?: DiagnosticContext;
+  correlationId?: string;
+  event: string;
+  severity: "debug" | "error" | "info" | "warn";
+  subsystem: string;
+}
+
 export interface DiagnosticEvent {
+  context: DiagnosticContext;
   correlationId: string;
   event: string;
+  release: string;
   severity: "debug" | "error" | "info" | "warn";
   subsystem: string;
   timestamp: string;
 }
 
 export interface DiagnosticLogger {
-  log: (event: DiagnosticEvent) => void;
+  log: (event: DiagnosticInput) => void;
 }
 
 export interface PracticeObservation {

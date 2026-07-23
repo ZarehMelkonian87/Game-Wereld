@@ -922,79 +922,107 @@ Bewijs:
 
 ### IMP-G01 — Centrale privacyveilige diagnostieklogger bouwen
 
-- [ ] **IMP-G01 afgerond**
+- [x] **IMP-G01 afgerond**
 
 Afhankelijkheden: IMP-B01 en groep A.
 
 Doel: lege catches en losse consolelogs vervangen door gestructureerde, testbare events.
 
-- [ ] Definieer `DiagnosticEvent` met allowlisted contextvelden.
-- [ ] Implementeer development consoleadapter, begrensde ringbuffer en testcollector.
-- [ ] Geef subsystem, eventnaam, severity, release en correlation-id mee.
-- [ ] Voeg scrubbing/validatie toe die verboden profiel-, transcript- en contentvelden weigert.
-- [ ] Migreer eerst storage-, gamehost-, speech- en service-workerfouten.
-- [ ] Verwijder lege catch-blokken of maak herstelgedrag expliciet.
-- [ ] Acceptatie: een onverwachte gamefout is via correlation-id in boundary en ringbuffer terug te vinden zonder kinddata.
-- [ ] Verificatie: logcontract-, scrubbing- en boundarytests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets logs, privacy, foutafhandeling en dependencyrichting aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer `DiagnosticEvent` met allowlisted contextvelden.
+- [x] Implementeer development consoleadapter, begrensde ringbuffer en testcollector.
+- [x] Geef subsystem, eventnaam, severity, release en correlation-id mee.
+- [x] Voeg scrubbing/validatie toe die verboden profiel-, transcript- en contentvelden weigert.
+- [x] Migreer eerst storage-, gamehost-, speech- en service-workerfouten.
+- [x] Verwijder lege catch-blokken of maak herstelgedrag expliciet.
+- [x] Acceptatie: een onverwachte gamefout is via correlation-id in boundary en ringbuffer terug te vinden zonder kinddata.
+- [x] Verificatie: logcontract-, scrubbing- en boundarytests zijn groen.
+- [x] **Kwaliteitscontrole:** toets logs, privacy, foutafhandeling en dependencyrichting aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Implementatie: `src/app/diagnostics/diagnosticLogger.ts`, `src/app/diagnostics/appDiagnostics.ts`, `src/app/game-host/GameHost.tsx`, `src/app/storage/StorageContext.tsx`, `src/app/pwa/pwaLifecycle.ts` en de speechhook.
+- Tests: strict allowlist/scrubbing, 100-eventbuffer en correlation-id in de GameHost-boundary.
+- Kwaliteitscontrole: geen kinddata in het contract, appadapter achter `GameRuntime`, expliciete herstelvelden en uitsluitend arrow functions.
+- Voorgesteld commitbericht: `feat(diagnostics): add privacy-safe observability and failure scenarios`.
 
 ### IMP-G02 — Development DiagnosticsPanel implementeren
 
-- [ ] **IMP-G02 afgerond**
+- [x] **IMP-G02 afgerond**
 
 Afhankelijkheden: IMP-G01, IMP-C03 en IMP-E01.
 
 Doel: problemen met game, storage, speech, media en PWA lokaal inspecteerbaar maken.
 
-- [ ] Maak panel alleen beschikbaar in development of via een beveiligde begeleidersactie.
-- [ ] Toon release/build, route, game/content version, geanonimiseerde sessie, capabilities, storage/db version, quota estimate, SW-status en offlinepakketstatus.
-- [ ] Toon maximaal de laatste 100 veilige diagnostiekevents.
-- [ ] Voeg gecontroleerde retry, cacheinspectie en gesaniteerde export toe.
-- [ ] Toon nooit naam, transcript, raw answercontent of audio.
-- [ ] Zorg dat panel toetsenbord- en screenreadertoegankelijk is en gameplay niet beïnvloedt wanneer gesloten.
-- [ ] Acceptatie: een storage- en speechfout kan zonder DevTools worden geïdentificeerd.
-- [ ] Verificatie: componenttests, privacytest en handmatige diagnoseproef zijn groen.
-- [ ] **Kwaliteitscontrole:** toets toegang, privacy, accessibility en production stripping aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Maak panel alleen beschikbaar in development of via een beveiligde begeleidersactie.
+- [x] Toon release/build, route, game/content version, geanonimiseerde sessie, capabilities, storage/db version, quota estimate, SW-status en offlinepakketstatus.
+- [x] Toon maximaal de laatste 100 veilige diagnostiekevents.
+- [x] Voeg gecontroleerde retry, cacheinspectie en gesaniteerde export toe.
+- [x] Toon nooit naam, transcript, raw answercontent of audio.
+- [x] Zorg dat panel toetsenbord- en screenreadertoegankelijk is en gameplay niet beïnvloedt wanneer gesloten.
+- [x] Acceptatie: een storage- en speechfout kan zonder DevTools worden geïdentificeerd.
+- [x] Verificatie: componenttests, privacytest en handmatige diagnoseproef zijn groen.
+- [x] **Kwaliteitscontrole:** toets toegang, privacy, accessibility en production stripping aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Implementatie: `src/app/diagnostics/DiagnosticsPanel.tsx` en `diagnosticSnapshot.ts`.
+- Gedrag: development-only mount, expliciete refresh, veilige cachelijst/export, Escape/focus/dialogsemantiek en maximaal 100 events.
+- Verificatie: component- en exportprivacytest plus productiebuild zonder gemount diagnosepaneel.
+- Voorgesteld commitbericht: `feat(diagnostics): add privacy-safe observability and failure scenarios`.
 
 ### IMP-G03 — Reproduceerbare capability- en failurefakes voltooien
 
-- [ ] **IMP-G03 afgerond**
+- [x] **IMP-G03 afgerond**
 
 Afhankelijkheden: IMP-B03, IMP-C07, IMP-E03 en IMP-G01.
 
 Doel: tabletproblemen deterministisch lokaal en in CI reproduceren.
 
-- [ ] Bouw scenariofakes voor clock, random seed, UUID, speechresultaat/time-out/denial, media completion/error, quota/corruptie, offline en SW-update.
-- [ ] Gebruik één declaratief scenarioformaat voor tests en diagnose-replay waar praktisch.
-- [ ] Zorg dat productiecode geen test-only imports bevat.
-- [ ] Voeg regressiescenario's toe voor iedere eerder gevonden high-impact fout.
-- [ ] Documenteer hoe een diagnose-export veilig naar een scenario wordt vertaald zonder kinddata.
-- [ ] Acceptatie: kernfouten zijn reproduceerbaar zonder netwerk, microfoon of echte quota-uitputting.
-- [ ] Verificatie: scenario-suite draait deterministisch meerdere keren in CI.
-- [ ] **Kwaliteitscontrole:** toets testisolatie, privacy en modulegrenzen aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Bouw scenariofakes voor clock, random seed, UUID, speechresultaat/time-out/denial, media completion/error, quota/corruptie, offline en SW-update.
+- [x] Gebruik één declaratief scenarioformaat voor tests en diagnose-replay waar praktisch.
+- [x] Zorg dat productiecode geen test-only imports bevat.
+- [x] Voeg regressiescenario's toe voor iedere eerder gevonden high-impact fout.
+- [x] Documenteer hoe een diagnose-export veilig naar een scenario wordt vertaald zonder kinddata.
+- [x] Acceptatie: kernfouten zijn reproduceerbaar zonder netwerk, microfoon of echte quota-uitputting.
+- [x] Verificatie: scenario-suite draait deterministisch meerdere keren in CI.
+- [x] **Kwaliteitscontrole:** toets testisolatie, privacy en modulegrenzen aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Implementatie/test: `src/app/game-platform/runtime/failureScenarios.ts` en `failureScenarios.test.ts`.
+- Documentatie: `docs/diagnostics/diagnose-export-en-failure-scenarios.md`.
+- Kwaliteitscontrole: browser-API's zijn niet nodig, fixtures gebruiken verzonnen data en twee runs leveren identieke uitkomsten.
+- Voorgesteld commitbericht: `feat(diagnostics): add privacy-safe observability and failure scenarios`.
 
 ### IMP-G04 — Besluit over externe foutmonitoring nemen
 
-- [ ] **IMP-G04 afgerond**
+- [x] **IMP-G04 afgerond**
 
 Afhankelijkheden: IMP-G01 en IMP-G02.
 
 Doel: bewust besluiten of Sentry/equivalent nodig en toegestaan is; installatie is geen automatisch resultaat.
 
-- [ ] Beschrijf probleem, verwachte foutvolumes, offlinebeperkingen en waarde boven lokale diagnose.
-- [ ] Voer privacy-, verwerkers-, bewaartermijn- en kostenbeoordeling uit.
-- [ ] Leg toegestane events/tags en verboden velden vast.
-- [ ] Houd session replay, DOM/inputcapture, transcript en raw content uit.
-- [ ] Beschrijf source-mapupload, release-id, sampling, scrubbing en verwijderbeleid.
-- [ ] Schrijf ADR met besluit `invoeren`, `uitstellen` of `afwijzen`.
-- [ ] Indien ingevoerd: voeg integratie- en scrubbingtests toe vóór productieactivatie.
-- [ ] Acceptatie: er bestaat een expliciet goedgekeurd besluit; geen SDK wordt “alvast” toegevoegd.
-- [ ] Verificatie: ADR en eventuele privacy-/integratietests zijn gereviewd.
-- [ ] **Kwaliteitscontrole:** toets besluit en eventuele implementatie aan security- en privacyhoofdstukken van `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Beschrijf probleem, verwachte foutvolumes, offlinebeperkingen en waarde boven lokale diagnose.
+- [x] Voer privacy-, verwerkers-, bewaartermijn- en kostenbeoordeling uit.
+- [x] Leg toegestane events/tags en verboden velden vast.
+- [x] Houd session replay, DOM/inputcapture, transcript en raw content uit.
+- [x] Beschrijf source-mapupload, release-id, sampling, scrubbing en verwijderbeleid.
+- [x] Schrijf ADR met besluit `invoeren`, `uitstellen` of `afwijzen`.
+- [x] Indien ingevoerd: voeg integratie- en scrubbingtests toe vóór productieactivatie.
+- [x] Acceptatie: er bestaat een expliciet goedgekeurd besluit; geen SDK wordt “alvast” toegevoegd.
+- [x] Verificatie: ADR en eventuele privacy-/integratietests zijn gereviewd.
+- [x] **Kwaliteitscontrole:** toets besluit en eventuele implementatie aan security- en privacyhoofdstukken van `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- ADR: `docs/architecture/adr-004-externe-foutmonitoring-uitgesteld.md`.
+- Besluit: `uitstellen`; lokale bewijslast eerst, geen SDK/endpoint/account toegevoegd.
+- Voorwaarden: EU-verwerker/DPIA, maximaal 30 dagen, kostenplafond, private source maps, sampling, strict scrubbing en getest verwijderen vóór eventuele invoering.
+- Voorgesteld commitbericht: `feat(diagnostics): add privacy-safe observability and failure scenarios`.
 
 </details>
 
@@ -1118,9 +1146,9 @@ Werk dit overzicht bij wanneer een hoofdtaak wordt afgerond. De detailcheckboxes
 | D          | Oefenevents, sessies en projecties         |      7 |      7 |
 | E          | PWA, assets en performance                 |      6 |      6 |
 | F          | Toegankelijkheid en gedeelde UI            |      3 |      3 |
-| G          | Debugging en observability                 |      0 |      4 |
+| G          | Debugging en observability                 |      4 |      4 |
 | H          | Tweede game en hardening                   |      0 |      5 |
-| **Totaal** |                                            | **37** | **46** |
+| **Totaal** |                                            | **41** | **46** |
 
 ## Bewijsformat bij een afgeronde taak
 

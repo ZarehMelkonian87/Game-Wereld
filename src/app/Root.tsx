@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import { ProfileProvider } from "./contexts/ProfileContext";
+import { DiagnosticsPanel } from "./diagnostics/DiagnosticsPanel";
 import { PwaUpdateBanner } from "./pwa/PwaUpdateBanner";
 import { StorageProvider } from "./storage";
 export const Root = () => {
@@ -12,6 +13,7 @@ export const Root = () => {
             <Outlet />
           </div>
           <PwaUpdateBanner />
+          {import.meta.env.DEV ? <DiagnosticsPanel /> : null}
         </div>
       </ProfileProvider>
     </StorageProvider>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useProfile } from "../contexts/ProfileContext";
+import { appDiagnostics } from "../diagnostics";
 import {
   createBrowserGameRuntime,
   createEventId,
@@ -132,6 +133,19 @@ export const GameHost = () => {
       })
       .catch((error: unknown) => {
         if (active) {
+          appDiagnostics.record({
+            context: {
+              errorCode: error instanceof Error ? error.name : "unknown",
+              gameId: canonicalGameId,
+              operation: "load-game-module",
+              recovery: "retry-or-update",
+              route: window.location.pathname,
+            },
+            correlationId: correlationIdRef.current,
+            event: "game-load-failed",
+            severity: "error",
+            subsystem: "game-host",
+          });
           setLoadState({
             error: error instanceof Error ? error : new Error("Gamechunk kon niet laden."),
             status: "error",
@@ -141,11 +155,23 @@ export const GameHost = () => {
     return () => {
       active = false;
     };
-  }, [loadAttempt, profileId, registryEntry, repositories.settings]);
+  }, [canonicalGameId, loadAttempt, profileId, registryEntry, repositories.settings]);
 
   useEffect(() => {
     const handlePreloadError = (event: Event) => {
       event.preventDefault();
+      appDiagnostics.record({
+        context: {
+          gameId: canonicalGameId,
+          operation: "load-game-chunk",
+          recovery: "update",
+          route: window.location.pathname,
+        },
+        correlationId: correlationIdRef.current,
+        event: "preload-failed",
+        severity: "error",
+        subsystem: "game-host",
+      });
       setLoadState({
         error: new Error("Er is een nieuwe appversie beschikbaar."),
         status: "error",
@@ -153,7 +179,7 @@ export const GameHost = () => {
     };
     window.addEventListener("vite:preloadError", handlePreloadError);
     return () => window.removeEventListener("vite:preloadError", handlePreloadError);
-  }, []);
+  }, [canonicalGameId]);
 
   const runtime = useMemo<GameRuntime | null>(() => {
     if (!profileId || !canonicalGameId || !contentVersion || loadState.status !== "ready")
@@ -177,6 +203,7 @@ export const GameHost = () => {
     });
     return createBrowserGameRuntime({
       clock: runtimeClockRef.current,
+      diagnostics: appDiagnostics,
       gameId: canonicalGameId,
       ids: runtimeIdsRef.current,
       onComplete: () => {
@@ -289,12 +316,18 @@ export const GameHost = () => {
         navigate(backPath);
       }}
       onCrash={() => {
-        runtime.diagnostics.log({
+        appDiagnostics.record({
+          context: {
+            contentVersion,
+            gameId: canonicalGameId,
+            operation: "render-game",
+            recovery: "retry-or-back",
+            route: window.location.pathname,
+          },
           correlationId: correlationIdRef.current,
           event: "game-runtime-crash",
           severity: "error",
           subsystem: "game-host",
-          timestamp: runtime.clock.now().toISOString(),
         });
         closeSession("crashed");
       }}

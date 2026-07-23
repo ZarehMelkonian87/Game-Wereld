@@ -74,6 +74,16 @@ export const activateWaitingPwaUpdate = async () => {
   try {
     await updateServiceWorker(true);
   } catch (error) {
+    appDiagnostics.record({
+      context: {
+        errorCode: error instanceof Error ? error.name : "unknown",
+        operation: "activate-update",
+        recovery: "retry",
+      },
+      event: "service-worker-update-failed",
+      severity: "error",
+      subsystem: "service-worker",
+    });
     publish({
       error: error instanceof Error ? error.message : "De app-update kon niet worden geactiveerd.",
       status: "error",
@@ -98,6 +108,16 @@ export const registerPwaWorker = (registerWorker: RegisterWorker) => {
       },
       onOfflineReady: () => publish({ status: "offline-ready" }),
       onRegisterError: (error) => {
+        appDiagnostics.record({
+          context: {
+            errorCode: error instanceof Error ? error.name : "unknown",
+            operation: "register",
+            recovery: "retry-on-next-load",
+          },
+          event: "service-worker-register-failed",
+          severity: "error",
+          subsystem: "service-worker",
+        });
         publish({
           error: error instanceof Error ? error.message : "Service worker registreren is mislukt.",
           status: "error",
@@ -119,3 +139,4 @@ export const resetPwaLifecycleForTests = () => {
   snapshot = { gameSessionActive: false, status: "registering" };
   listeners.clear();
 };
+import { appDiagnostics } from "../diagnostics";

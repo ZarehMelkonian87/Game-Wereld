@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { appDiagnostics } from "../diagnostics";
 import {
   bootstrapDurableStorage,
   createStorageDiagnostic,
@@ -126,6 +127,17 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
       .catch((error: unknown) => {
         if (!active) return;
         const storageError = error as StorageApplicationError;
+        appDiagnostics.record({
+          context: {
+            errorCode: storageError.code,
+            operation: "bootstrap-durable-storage",
+            recovery: "retry-temporary-or-reset",
+          },
+          correlationId: storageError.correlationId,
+          event: "storage-bootstrap-failed",
+          severity: "error",
+          subsystem: "storage",
+        });
         setState({
           error: storageError,
           status: storageError.code === "migration-failed" ? "migration-failed" : "unavailable",
@@ -140,6 +152,17 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const handleWriteFailure = (event: Event) => {
       const detail = event instanceof CustomEvent ? event.detail : undefined;
+      appDiagnostics.record({
+        context: {
+          errorCode: typeof detail?.code === "string" ? detail.code : "write-failed",
+          operation: "repository-write",
+          recovery: "retry",
+        },
+        correlationId: typeof detail?.correlationId === "string" ? detail.correlationId : undefined,
+        event: "storage-write-failed",
+        severity: "error",
+        subsystem: "storage",
+      });
       setWriteFailure(
         typeof detail?.message === "string"
           ? detail.message
