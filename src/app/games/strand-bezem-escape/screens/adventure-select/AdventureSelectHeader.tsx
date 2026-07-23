@@ -1,5 +1,5 @@
 import { ArrowLeft, Star } from "lucide-react";
-import { HudIconButton } from "../../components/ui";
+import { HudIconButton, RibbonTitle } from "../../components/ui";
 import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureSelectHeaderProps {
@@ -23,12 +23,9 @@ export const AdventureSelectHeader: DevtoolsComponent<AdventureSelectHeaderProps
       tone="white"
     />
 
-    <div
-      className="flex min-h-12 min-w-0 flex-1 items-center justify-center rounded-[1.15rem] border-[4px] border-white bg-white/95 px-2 text-center text-[clamp(1rem,4.3vw,1.35rem)] font-black leading-none text-slate-900 shadow-[0_5px_0_rgba(21,48,74,0.16)]"
-      data-slot="title"
-    >
+    <RibbonTitle className="min-w-0 flex-1" data-slot="title">
       Kies avontuur
-    </div>
+    </RibbonTitle>
 
     <div
       aria-label={`${starCount} sterren`}

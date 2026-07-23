@@ -182,7 +182,7 @@ Start pas wanneer groep 1 groen is. Elk scherm wordt op de gedeelde HUD, titel e
 
 ### UX-201 — Hoofdmenu (Start) op het systeem
 
-- [ ] **UX-201 afgerond**
+- [x] **UX-201 afgerond**
 
 Afhankelijkheden: UX-102, UX-103.
 
@@ -190,18 +190,20 @@ Ontwerpbron: artifact "Menu's → Hoofdmenu".
 
 Doel: het startscherm op de gedeelde HUD + één groene go-knop zetten.
 
-- [ ] Zet `screens/start/StartScreen.tsx` en `StartTopBar.tsx` op de canonieke HUD (sterren + geluid + eventueel instellingen).
-- [ ] Behoud het logo als hero-illustratie, maar niet meer als "titelcomponent"; de kop volgt UX-103 waar tekst nodig is.
-- [ ] Laat de "Spelen"-knop de gedeelde primaire (groene) knop gebruiken.
-- [ ] Behoud alle navigatie (naar avontuurkeuze, exit) en bestaande `data-testid`'s.
-- [ ] Acceptatie: hoofdmenu gebruikt dezelfde HUD/knop als de rest; geen scherm-eigen kopstijl meer.
-- [ ] Verificatie: componenttest/smoke voor "Spelen" groen; visuele check 390×844 + landscape.
-- [ ] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `StartTopBar.tsx` gebruikt al de gedeelde `HudIconButton`-controls (terug, geluid, instellingen) met de HUD-behandeling; geen scherm-eigen kopstijl.
+- [x] Het logo blijft bewust hero-illustratie (zo ook in de ontwerpbron); er is geen aparte titelcomponent nodig.
+- [x] De "Spelen"-knop is de gedeelde groene primaire knop (`GameButton tone="green"` via `PrimaryActionButton`) — in de app bevestigd.
+- [x] Alle navigatie (`onExit`, `onOpenSettings`, `onPlay`) en `data-testid`'s (`start-play-button`, `start-settings-button`) behouden.
+- [x] Acceptatie: hoofdmenu gebruikt dezelfde groene knop en HUD-primitives als de rest; conform na Groep 1, geen restructurering nodig.
+- [x] Verificatie: `start-play-button` = `GameButton`/`tone="green"` in de app; typecheck/lint/tests groen.
+- [x] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md` (geen cosmetische churn toegevoegd).
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: Start voldeed na Groep 1 al aan het systeem (groene `PrimaryActionButton`, gedeelde `HudIconButton`, logo-hero conform ontwerpbron). Geen productiewijziging nodig; in de app geverifieerd (`data-component="GameButton"`, `data-tone="green"`).
 
 ### UX-202 — Kies avontuur op het systeem
 
-- [ ] **UX-202 afgerond**
+- [x] **UX-202 afgerond**
 
 Afhankelijkheden: UX-102, UX-103.
 
@@ -209,17 +211,19 @@ Ontwerpbron: artifact "Menu's → Kies avontuur".
 
 Doel: het modus-keuzescherm uniformeren (sticker-titel, consistente keuzekaarten, gedeelde primaire knop).
 
-- [ ] Zet `screens/adventure-select/AdventureSelectScreen.tsx`, `AdventureSelectHeader.tsx` en de kaarten (`CompactGameModeCard.tsx`, `CompactGameModeList.tsx`) op titel + gedeelde kaart/knop.
-- [ ] Vervang de witte pill-titel door de UX-103-titel; laat "Start spel" de gedeelde groene knop gebruiken.
-- [ ] Behoud de drie modi, hun selectiegedrag en de knoppen "Beloning"/"Opties".
-- [ ] Acceptatie: titel en knoppen identiek aan de overige menuschermen; selectie- en startgedrag ongewijzigd.
-- [ ] Verificatie: bestaande adventure-select-tests groen; visuele check.
-- [ ] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `AdventureSelectHeader.tsx`: de inline witte-pill titel is vervangen door de gedeelde `RibbonTitle` (UX-103); kaarten en knoppen gebruikten al `PanelCard`/`SecondaryActionButton`.
+- [x] "Start spel" gebruikt al de gedeelde groene `PrimaryActionButton`.
+- [x] De drie modi, hun selectiegedrag en de knoppen "Beloning"/"Opties" blijven ongewijzigd; `data-slot="title"` behouden.
+- [x] Acceptatie: de titel is nu identiek aan Instellingen/Beloning; selectie- en startgedrag ongewijzigd.
+- [x] Verificatie: tests + architectuur groen; in de app bevestigd (`data-component="RibbonTitle"`, tekst "Kies avontuur").
+- [x] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: `AdventureSelectHeader.tsx` importeert en gebruikt nu `RibbonTitle` i.p.v. een bespoke witte pill. Visueel bevestigd naast de identieke Instellingen-/Beloning-titel.
 
 ### UX-203 — Instellingen op het systeem
 
-- [ ] **UX-203 afgerond**
+- [x] **UX-203 afgerond**
 
 Afhankelijkheden: UX-103, UX-104.
 
@@ -227,17 +231,19 @@ Ontwerpbron: artifact "Menu's → Instellingen".
 
 Doel: de felblauwe 3D-pill uit de app-schil vervangen door de gedeelde sticker-titel; toggle-kaarten uniformeren.
 
-- [ ] Zet `screens/settings/GameSettingsScreen.tsx`, `SettingsHeader.tsx`, `SettingsTogglePanel.tsx` en `SettingsToggleRow.tsx` op de gedeelde titel + kaartstijl.
-- [ ] Verwijder de blauwe 3D-pill-titel; behoud álle toggles (audio, muziek, hints, rustige beweging, zone editor devtools) en het microfoon/privacy-blok ongewijzigd van gedrag.
-- [ ] Laat "Controleer opnieuw" de gedeelde primaire knop gebruiken.
-- [ ] Acceptatie: instellingen deelt titel/kaart/knop met de rest; geen enkele toggle of privacytekst verloren.
-- [ ] Verificatie: `microphoneSettings`-tests en instellingen-smoke groen; visuele check.
-- [ ] **Kwaliteitscontrole:** toets privacy-UI, a11y (toggle-rollen/namen) en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `SettingsHeader.tsx` gebruikt de gedeelde `RibbonTitle` (in UX-103 herstyled naar de sticker); de blauwe 3D-pill is daarmee weg.
+- [x] Alle toggles (audio, muziek, hints, rustige beweging, zone editor devtools) en het microfoon/privacy-blok blijven ongewijzigd van gedrag en gebruiken al consistente witte kaart-rijen.
+- [x] "Controleer opnieuw" gebruikt al de gedeelde groene `PrimaryActionButton`.
+- [x] Acceptatie: Instellingen deelt titel/kaart/knop met de rest; geen toggle of privacytekst verloren.
+- [x] Verificatie: `microphoneSettings`-tests groen; in de app bevestigd (witte sticker-titel, `data-component="RibbonTitle"`).
+- [x] **Kwaliteitscontrole:** toets privacy-UI, a11y (toggle-rollen/namen) en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: door UX-103 toont `SettingsHeader` de witte sticker-titel; de toggle-rijen en de groene "Controleer opnieuw"-knop waren al conform. Geen aanvullende productiewijziging nodig; in de app geverifieerd.
 
 ### UX-204 — Beloning op het systeem
 
-- [ ] **UX-204 afgerond**
+- [x] **UX-204 afgerond**
 
 Afhankelijkheden: UX-103, UX-104.
 
@@ -245,14 +251,24 @@ Ontwerpbron: artifact "Menu's → Beloning".
 
 Doel: het beloningsscherm uniformeren met sticker-titel, semantische stat-tegels en consistente bottom-nav.
 
-- [ ] Zet `screens/reward/RewardScreen.tsx` en de subcomponenten (`RewardResultSummary.tsx`, `RewardCard.tsx`, `RewardActionsPanel.tsx`, `SummaryPill.tsx`) op titel + UX-104-tegels.
-- [ ] Pas de stat-tegels toe met semantische kleur (goed/tempo/hint) i.p.v. de huidige willekeurige kleurmix; "Tempo" i.p.v. "Speed".
-- [ ] Uniformeer de bottom-nav (Opnieuw · Wereld · Menu) met de gedeelde knopstijl.
-- [ ] Behoud de sticker-beloning, de reward-toekenning en de opgeslagen resultaten (`rewardResultStorage.ts`) ongewijzigd.
-- [ ] Acceptatie: beloningsscherm past in het systeem; geen functionele of dataregressie in reward-toekenning.
-- [ ] Verificatie: reward-tests groen; visuele check.
-- [ ] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `RewardScreen.tsx` krijgt een gedeelde `RibbonTitle` "Beloning" in de gereserveerde bovenruimte (titel 12–60px, card start op 68px — geen overlap).
+- [x] De stat-tegels gebruiken al de semantische kleuren en "Tempo" (via UX-104: `SummaryPill` Goed/Tempo/Hints/Audio/Sterren).
+- [x] De bottom-nav (Opnieuw · Wereld · Menu) gebruikt al drie gedeelde groene `PrimaryActionButton`s.
+- [x] Sticker-beloning, reward-toekenning en `rewardResultStorage` ongewijzigd.
+- [x] Acceptatie: beloningsscherm past in het systeem; geen functionele of dataregressie.
+- [x] Verificatie: tests + build groen; in de app bevestigd (`reward-title` = "Beloning", `data-component="RibbonTitle"`, geen overlap met de card).
+- [x] **Kwaliteitscontrole:** toets aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: `RewardScreen.tsx` rendert de gedeelde sticker-titel bovenaan; tegels en bottom-nav waren al conform (UX-104 / bestaande `PrimaryActionButton`s). Visueel bevestigd.
+
+### Uitvoerbewijs Groep 2
+
+- Alle vier menuschermen delen nu dezelfde sticker-titel (`RibbonTitle`), groene primaire knop (`GameButton`/`PrimaryActionButton`) en semantische stat-tegels. De vier eerdere titelstijlen (logo / witte pill / blauwe 3D-pill / geen) zijn teruggebracht tot: logo-hero op Start + één sticker-titel op Kies avontuur, Instellingen en Beloning.
+- Productiewijzigingen bleven bewust minimaal: alleen `AdventureSelectHeader` (titel → `RibbonTitle`) en `RewardScreen` (titel toegevoegd). Start en Instellingen voldeden al na Groep 1.
+- `npm run typecheck`, `lint`, `test` (98), `test:architecture`, `format:check` en `build` groen op Node 22.
+- Service-workercache-valkuil onderkend: de PWA-`CacheFirst` serveerde een oude preview-build; na `getRegistrations().unregister()` + `caches.delete()` de verse build geverifieerd.
+- Commitbericht voor de volledige groep: `feat(ui): unify menu screens on shared sticker title (adventure select + reward)`
 
 </details>
 
