@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createFakeGameRuntime,
@@ -28,6 +29,13 @@ describe("generiek gamecontract", () => {
       expect(parseGameManifest(entry.manifest)).toMatchObject({ ok: true });
       expect(entry.manifest.id).toBe(key);
     });
+  });
+
+  it("gebruikt world-beach alleen als kaartafbeelding van de strandgame", () => {
+    const manifest = getGameRegistryEntry("strand-bezem-escape")?.manifest;
+
+    expect(manifest?.cardImageUrl).toContain("world-beach.png");
+    expect(manifest?.icon).toBe("🏖️");
   });
 
   it("weigert een ongeldige tijdelijke registryentry duidelijk", () => {
@@ -62,6 +70,28 @@ describe("generiek gamecontract", () => {
       expect(setItem).not.toHaveBeenCalled();
     },
   );
+
+  it("start de strandgame zonder recursieve statusupdates", async () => {
+    const entry = getGameRegistryEntry("strand-bezem-escape");
+    expect(entry && "load" in entry).toBe(true);
+    if (!entry || !("load" in entry)) return;
+
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const module = await loadGameModule(entry);
+    const runtime = createFakeGameRuntime();
+    const user = userEvent.setup();
+    render(<module.Game runtime={runtime} />);
+
+    await user.click(screen.getByRole("button", { name: "Spel starten" }));
+    await user.click(screen.getByRole("button", { name: "Start spel" }));
+
+    expect(await screen.findByTestId("scene-builder-screen")).toBeVisible();
+    expect(
+      consoleError.mock.calls.some(([message]) =>
+        String(message).includes("Maximum update depth exceeded"),
+      ),
+    ).toBe(false);
+  });
 
   it("sluit complete en exit samen maximaal één keer af", () => {
     const runtime = createFakeGameRuntime();

@@ -24,7 +24,13 @@ export const InstructionVideoButton = ({
   variant = "control",
 }: InstructionVideoButtonProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const onPlaybackErrorRef = useRef(onPlaybackError);
+  const onPlaybackStartRef = useRef(onPlaybackStart);
+  const onPlayRequestRef = useRef(onPlayRequest);
   const stopForegroundAudioSessionRef = useRef<(() => void) | undefined>();
+  onPlaybackErrorRef.current = onPlaybackError;
+  onPlaybackStartRef.current = onPlaybackStart;
+  onPlayRequestRef.current = onPlayRequest;
   const buttonClassName =
     variant === "feedbackIcon"
       ? "pointer-events-auto h-12 min-h-12 w-12 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
@@ -48,11 +54,11 @@ export const InstructionVideoButton = ({
       await video.play();
       stopForegroundAudioSessionRef.current?.();
       stopForegroundAudioSessionRef.current = createForegroundAudioSession();
-      onPlaybackStart?.();
+      onPlaybackStartRef.current?.();
     } catch {
-      onPlaybackError?.();
+      onPlaybackErrorRef.current?.();
     }
-  }, [onPlaybackError, onPlaybackStart]);
+  }, []);
 
   const stopForegroundAudioSession = useCallback(() => {
     stopForegroundAudioSessionRef.current?.();
@@ -64,17 +70,17 @@ export const InstructionVideoButton = ({
       return;
     }
 
-    if (onPlayRequest && !onPlayRequest()) {
+    if (onPlayRequestRef.current && !onPlayRequestRef.current()) {
       return;
     }
 
     void playVideo();
 
     return stopForegroundAudioSession;
-  }, [autoPlayOnMount, onPlayRequest, playVideo, src, stopForegroundAudioSession]);
+  }, [autoPlayOnMount, playVideo, src, stopForegroundAudioSession]);
 
   const handleClick = async () => {
-    if (onPlayRequest && !onPlayRequest()) {
+    if (onPlayRequestRef.current && !onPlayRequestRef.current()) {
       return;
     }
 

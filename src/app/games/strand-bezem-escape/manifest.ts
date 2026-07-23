@@ -1,8 +1,12 @@
 import { defineGameManifest } from "../../game-platform/contracts";
 
+const strandGameCardImageUrl = new URL("./assets/icons/worlds/world-beach.png", import.meta.url)
+  .href;
+
 export const strandBezemEscapeManifest = defineGameManifest({
   ageRange: { max: 8, min: 4 },
   capabilities: ["audio", "microphone", "offline-package"],
+  cardImageUrl: strandGameCardImageUrl,
   contentVersion: "strand-bezem-escape-2026.07",
   contractVersion: 1,
   description:

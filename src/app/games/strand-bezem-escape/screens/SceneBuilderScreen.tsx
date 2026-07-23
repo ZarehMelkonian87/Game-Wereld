@@ -201,7 +201,7 @@ export const SceneBuilderScreen = ({
             <SpokenCommandControls
               exampleText={instruction.prompt}
               onTranscript={applySpokenCommandTranscript}
-              onVoiceStatusChange={(status) => setVoiceRecognitionStatus(status)}
+              onVoiceStatusChange={setVoiceRecognitionStatus}
               profileId={rewardProfileId}
             />
           }

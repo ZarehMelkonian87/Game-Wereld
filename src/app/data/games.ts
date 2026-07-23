@@ -9,6 +9,7 @@ export interface GameTheme {
 }
 
 export interface MiniGame {
+  cardImageUrl?: string;
   description: string;
   difficulty: "easy" | "medium" | "hard";
   icon: string;
@@ -50,6 +51,7 @@ export const gameThemes: GameTheme[] = [
 ];
 
 export const miniGames: MiniGame[] = Object.values(gameRegistry).map(({ manifest }) => ({
+  cardImageUrl: manifest.cardImageUrl,
   description: manifest.description,
   difficulty: "easy",
   icon: manifest.icon,
