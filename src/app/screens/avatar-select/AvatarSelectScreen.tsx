@@ -41,7 +41,9 @@ export const AvatarSelectScreen = () => {
     );
   }
 
-  return <AvatarGridStep onBack={() => navigate("/profiles")} onSelectAvatar={handleAvatarSelect} />;
+  return (
+    <AvatarGridStep onBack={() => navigate("/profiles")} onSelectAvatar={handleAvatarSelect} />
+  );
 };
 
 AvatarSelectScreen.displayName = "AvatarSelectScreen";

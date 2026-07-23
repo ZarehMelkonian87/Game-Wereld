@@ -29,8 +29,7 @@ const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\
 const isKnownVoiceSideScrollerWord = (word: string): word is VoiceSideScrollerWordId =>
   word in VOICE_SIDE_SCROLLER_WORD_ALIASES;
 
-const createAliasExpression = (alias: string) =>
-  new RegExp(`(?:^| )${escapeRegExp(alias)}(?= |$)`);
+const createAliasExpression = (alias: string) => new RegExp(`(?:^| )${escapeRegExp(alias)}(?= |$)`);
 
 export const getVoiceSideScrollerWordAliases = (word: string): string[] => {
   const normalizedWord = normalizeSpokenCommand(word);

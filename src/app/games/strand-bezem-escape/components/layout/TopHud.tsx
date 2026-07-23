@@ -6,4 +6,3 @@ export type TopHudProps = GameTopHudProps;
 export const TopHud = (props: TopHudProps) => <GameTopHud {...props} />;
 
 TopHud.displayName = "TopHud";
-

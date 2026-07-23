@@ -6,4 +6,3 @@ export type PanelCardProps = GamePanelProps;
 export const PanelCard = (props: PanelCardProps) => <GamePanel {...props} />;
 
 PanelCard.displayName = "PanelCard";
-

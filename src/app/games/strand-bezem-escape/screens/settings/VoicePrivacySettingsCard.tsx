@@ -90,10 +90,7 @@ export const VoicePrivacySettingsCard = ({
           )}
           data-expanded={isPrivacyExpanded}
         >
-          <div
-            aria-hidden={!isPrivacyExpanded}
-            id={privacyDetailsId}
-          >
+          <div aria-hidden={!isPrivacyExpanded} id={privacyDetailsId}>
             <p className="rounded-2xl border-2 border-white/80 bg-white/86 p-2 text-[0.72rem] font-bold leading-tight text-slate-700">
               {voicePrivacyCopy.body} {voicePrivacyCopy.browserNote}
             </p>

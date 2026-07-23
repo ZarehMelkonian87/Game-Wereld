@@ -56,148 +56,168 @@ Het type is bijvoorbeeld `feat`, `fix`, `refactor`, `test`, `docs`, `build`, `ci
 
 ---
 
+<details open>
+<summary><strong>Groep A — Baseline en kwaliteitsstraat</strong></summary>
+
 ## Groep A — Baseline en kwaliteitsstraat
 
 Deze groep blokkeert alle brede architectuurwijzigingen. Eerst moet de repository betrouwbaar kunnen aantonen of code correct is.
 
 ### IMP-A01 — Technische baseline vastleggen
 
-- [ ] **IMP-A01 afgerond**
+- [x] **IMP-A01 afgerond**
 
 Afhankelijkheden: geen.
 
 Doel: een reproduceerbaar vertrekpunt vastleggen voor typefouten, bundles, assets, browserflows en ondersteunde omgevingen.
 
-- [ ] Leg de gebruikte Node- en npm-versie vast in `package.json` `engines` en/of een versieconfiguratie die CI en lokale ontwikkeling delen.
-- [ ] Voer `npm ci`, `npm run build` en `npx tsc --noEmit` uit en sla de samenvatting van resultaten op in `docs/architecture/baseline-2026-07.md` of een gelijkwaardige actuele baselinepagina.
-- [ ] Noteer de initiële JS- en CSS-gzipgrootte, totale `dist`-grootte, aantal media-assets en vijf grootste assets.
-- [ ] Leg de officieel ondersteunde browser-/devicematrix vast, met minimaal Chromium-tablet en iPad/Safari of WebKit als doel.
-- [ ] Beschrijf de handmatige happy path: profiel maken, game openen, één opdracht voltooien, voortgang bekijken.
-- [ ] Controleer dat gegenereerde buildbestanden niet onbedoeld als bronwijziging worden meegenomen.
-- [ ] Acceptatie: de baseline bevat exacte commando's, datum, omgeving en meetwaarden waarmee latere taken kunnen vergelijken.
-- [ ] Verificatie: een tweede uitvoerder kan de commando's volgen en dezelfde categorieën resultaten produceren.
-- [ ] **Kwaliteitscontrole:** toets de taak aan `docs/code-quality-and-architecture.md` en noteer bewijs of gemotiveerde tijdelijke afwijkingen.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Leg de gebruikte Node- en npm-versie vast in `package.json` `engines` en/of een versieconfiguratie die CI en lokale ontwikkeling delen.
+- [x] Voer `npm ci`, `npm run build` en `npx tsc --noEmit` uit en sla de samenvatting van resultaten op in `docs/architecture/baseline-2026-07.md` of een gelijkwaardige actuele baselinepagina.
+- [x] Noteer de initiële JS- en CSS-gzipgrootte, totale `dist`-grootte, aantal media-assets en vijf grootste assets.
+- [x] Leg de officieel ondersteunde browser-/devicematrix vast, met minimaal Chromium-tablet en iPad/Safari of WebKit als doel.
+- [x] Beschrijf de handmatige happy path: profiel maken, game openen, één opdracht voltooien, voortgang bekijken.
+- [x] Controleer dat gegenereerde buildbestanden niet onbedoeld als bronwijziging worden meegenomen.
+- [x] Acceptatie: de baseline bevat exacte commando's, datum, omgeving en meetwaarden waarmee latere taken kunnen vergelijken.
+- [x] Verificatie: een tweede uitvoerder kan de commando's volgen en dezelfde categorieën resultaten produceren.
+- [x] **Kwaliteitscontrole:** toets de taak aan `docs/code-quality-and-architecture.md` en noteer bewijs of gemotiveerde tijdelijke afwijkingen.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: `.nvmrc`, `package.json` en [de baseline](../architecture/baseline-2026-07.md) leggen omgeving, commando's, bundelmetingen, assetinventaris, browsermatrix en handmatige happy path vast. `dist/` en rapportoutput blijven genegeerd.
 
 ### IMP-A02 — Kwaliteitsscripts en ontwikkeldependencies invoeren
 
-- [ ] **IMP-A02 afgerond**
+- [x] **IMP-A02 afgerond**
 
 Afhankelijkheden: IMP-A01.
 
 Doel: de in de kwaliteitsstandaard genoemde lokale controles daadwerkelijk uitvoerbaar maken.
 
-- [ ] Voeg scripts toe voor `typecheck`, `lint`, `format:check`, `test`, `test:watch`, `test:architecture` en `check`.
-- [ ] Installeer compatibele versies van TypeScript-tooling, ESLint flat config, typescript-eslint, React Hooks-linting, jsx-a11y, Prettier en Vitest.
-- [ ] Configureer linting voor TypeScript/React zonder bestaande typefouten te maskeren.
-- [ ] Configureer testomgevingen bewust: Node voor pure logica en een DOM-omgeving alleen voor componenttests die dit nodig hebben.
-- [ ] Sluit gegenereerde output, distributie-assets en externe bronbestanden correct uit zonder `src` breed te negeren.
-- [ ] Voeg geen automatische formattering toe aan `check`; de check moet alleen rapporteren en een non-zero exitcode geven.
-- [ ] Acceptatie: ieder script bestaat, eindigt deterministisch en heeft een korte toelichting in README of ontwikkeldocumentatie.
-- [ ] Verificatie: voer ieder script afzonderlijk uit en noteer bestaande failures als input voor IMP-A03, niet als permanente ignore.
-- [ ] **Kwaliteitscontrole:** toets configuratie, dependencies en uitzonderingen aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Voeg scripts toe voor `typecheck`, `lint`, `format:check`, `test`, `test:watch`, `test:architecture` en `check`.
+- [x] Installeer compatibele versies van TypeScript-tooling, ESLint flat config, typescript-eslint, React Hooks-linting, jsx-a11y, Prettier en Vitest.
+- [x] Configureer linting voor TypeScript/React zonder bestaande typefouten te maskeren.
+- [x] Configureer testomgevingen bewust: Node voor pure logica en een DOM-omgeving alleen voor componenttests die dit nodig hebben.
+- [x] Sluit gegenereerde output, distributie-assets en externe bronbestanden correct uit zonder `src` breed te negeren.
+- [x] Voeg geen automatische formattering toe aan `check`; de check moet alleen rapporteren en een non-zero exitcode geven.
+- [x] Acceptatie: ieder script bestaat, eindigt deterministisch en heeft een korte toelichting in README of ontwikkeldocumentatie.
+- [x] Verificatie: voer ieder script afzonderlijk uit en noteer bestaande failures als input voor IMP-A03, niet als permanente ignore.
+- [x] **Kwaliteitscontrole:** toets configuratie, dependencies en uitzonderingen aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: `package.json`, `eslint.config.mjs`, `.prettierrc.json`, `vitest.config.ts`, `test/setup.ts` en de README definiëren en verklaren de lokale kwaliteitsstraat. De negatieve probes in [het kwaliteitsstraatrapport](../architecture/quality-gate-report-2026-07.md) bewijzen non-zero exitcodes.
 
 ### IMP-A03 — Alle bestaande TypeScript-fouten herstellen
 
-- [ ] **IMP-A03 afgerond**
+- [x] **IMP-A03 afgerond**
 
 Afhankelijkheden: IMP-A02.
 
 Doel: `tsc --noEmit` groen krijgen zonder asserts of ignores die echte contractfouten verbergen.
 
-- [ ] Groepeer de baselinefouten per oorzaak: ontbrekende types/exports, incompatibele refs, onjuiste events, ongebruikte code en verouderde controllercontracten.
-- [ ] Herstel eerst de brontypes in `strand-bezem-escape/types.ts` en progressiecontracten; vermijd lokale casts in consumers.
-- [ ] Breng `PracticeResult`-waarden en aangeroepen payloads tijdelijk consistent zonder vooruit te lopen op de nieuwe eventarchitectuur.
-- [ ] Herstel component-/hookcontracten rond scene builder en zone devtools.
-- [ ] Verwijder werkelijk ongebruikte imports en parameters; prefix alleen bewust vereiste ongebruikte callbackparameters volgens lintconfig.
-- [ ] Voeg regressietests toe voor fouten die gedragslogica raken.
-- [ ] Acceptatie: `npm run typecheck` slaagt zonder nieuwe `any`, `@ts-ignore` of brede uitschakeling van strict-regels.
-- [ ] Verificatie: `npm run typecheck`, `npm run build` en de relevante tests zijn groen.
-- [ ] **Kwaliteitscontrole:** controleer iedere reparatie tegen `docs/code-quality-and-architecture.md`, vooral type assertions, foutafhandeling en module-eigenaarschap.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Groepeer de baselinefouten per oorzaak: ontbrekende types/exports, incompatibele refs, onjuiste events, ongebruikte code en verouderde controllercontracten.
+- [x] Herstel eerst de brontypes in `strand-bezem-escape/types.ts` en progressiecontracten; vermijd lokale casts in consumers.
+- [x] Breng `PracticeResult`-waarden en aangeroepen payloads tijdelijk consistent zonder vooruit te lopen op de nieuwe eventarchitectuur.
+- [x] Herstel component-/hookcontracten rond scene builder en zone devtools.
+- [x] Verwijder werkelijk ongebruikte imports en parameters; prefix alleen bewust vereiste ongebruikte callbackparameters volgens lintconfig.
+- [x] Voeg regressietests toe voor fouten die gedragslogica raken.
+- [x] Acceptatie: `npm run typecheck` slaagt zonder nieuwe `any`, `@ts-ignore` of brede uitschakeling van strict-regels.
+- [x] Verificatie: `npm run typecheck`, `npm run build` en de relevante tests zijn groen.
+- [x] **Kwaliteitscontrole:** controleer iedere reparatie tegen `docs/code-quality-and-architecture.md`, vooral type assertions, foutafhandeling en module-eigenaarschap.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: de 27 baselinefouten in types, refs, events, hooks en devtoolscontracten zijn bij de bron hersteld. `npm run typecheck`, relevante regressietests en `npm run build` zijn groen zonder `@ts-ignore` of nieuwe expliciete `any`.
 
 ### IMP-A04 — Eerste unit- en componenttestbasis toevoegen
 
-- [ ] **IMP-A04 afgerond**
+- [x] **IMP-A04 afgerond**
 
 Afhankelijkheden: IMP-A02 en bij voorkeur IMP-A03.
 
 Doel: de belangrijkste bestaande pure regels en één Reactflow onder een snel testsysteem brengen.
 
-- [ ] Voeg testsetup en Testing Library toe voor Reactgedrag.
-- [ ] Test minimaal instruction randomization met vaste seed, spoken command parsing, rewards/progressieberekening en een geometrische plaatsingsregel.
-- [ ] Voeg één componenttest toe die gedrag via rol en toegankelijke naam controleert.
-- [ ] Gebruik geen snapshots als hoofdassertie voor gamegedrag.
-- [ ] Maak fake clock, idgenerator en storagehelpers alleen wanneer minimaal één test ze direct nodig heeft.
-- [ ] Configureer coverage-rapportage, maar blokkeer nog niet op een kunstmatig hoge globale grens.
-- [ ] Acceptatie: tests falen aantoonbaar wanneer de bijbehorende kernregel bewust wordt gebroken.
-- [ ] Verificatie: `npm run test` is groen en draait zonder afhankelijkheid van netwerk of bestaande browseropslag.
-- [ ] **Kwaliteitscontrole:** toets testgedrag, testisolatie en fake boundaries aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Voeg testsetup en Testing Library toe voor Reactgedrag.
+- [x] Test minimaal instruction randomization met vaste seed, spoken command parsing, rewards/progressieberekening en een geometrische plaatsingsregel.
+- [x] Voeg één componenttest toe die gedrag via rol en toegankelijke naam controleert.
+- [x] Gebruik geen snapshots als hoofdassertie voor gamegedrag.
+- [x] Maak fake clock, idgenerator en storagehelpers alleen wanneer minimaal één test ze direct nodig heeft.
+- [x] Configureer coverage-rapportage, maar blokkeer nog niet op een kunstmatig hoge globale grens.
+- [x] Acceptatie: tests falen aantoonbaar wanneer de bijbehorende kernregel bewust wordt gebroken.
+- [x] Verificatie: `npm run test` is groen en draait zonder afhankelijkheid van netwerk of bestaande browseropslag.
+- [x] **Kwaliteitscontrole:** toets testgedrag, testisolatie en fake boundaries aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: vijf testbestanden dekken randomisatie, commandoparsing, rewards/progressie, scenegeometrie en toegankelijk knopgedrag. Vitest draait 11 tests zonder netwerk of bestaande opslag; V8-coveragerapportage is beschikbaar.
 
 ### IMP-A05 — Playwright-smoke en fouttraces invoeren
 
-- [ ] **IMP-A05 afgerond**
+- [x] **IMP-A05 afgerond**
 
 Afhankelijkheden: IMP-A01 en IMP-A02.
 
 Doel: een echte browserflow en reproduceerbare foutinformatie beschikbaar maken.
 
-- [ ] Installeer en configureer Playwright met een productieachtige webserver.
-- [ ] Voeg `chromium-tablet` en `webkit-tablet` projecten toe met afgesproken viewports.
-- [ ] Automatiseer profiel aanmaken, herladen, game openen en veilig terugkeren.
-- [ ] Configureer trace `on-first-retry`, screenshot bij falen en een HTML-report.
-- [ ] Laat onverwachte console-errors een test falen; documenteer een minimale tijdelijke allowlist.
-- [ ] Voeg stabiele selectors toe via rollen/namen; gebruik `data-*` alleen als een betekenisvol testcontract ontbreekt.
-- [ ] Acceptatie: een geforceerde fout produceert een bruikbare trace met DOM-, console- en netwerkcontext.
-- [ ] Verificatie: de smoke slaagt lokaal in Chromium en WebKit.
-- [ ] **Kwaliteitscontrole:** controleer privacy van traces, accessibility van selectors en teststabiliteit tegen `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Installeer en configureer Playwright met een productieachtige webserver.
+- [x] Voeg `chromium-tablet` en `webkit-tablet` projecten toe met afgesproken viewports.
+- [x] Automatiseer profiel aanmaken, herladen, game openen en veilig terugkeren.
+- [x] Configureer trace `on-first-retry`, screenshot bij falen en een HTML-report.
+- [x] Laat onverwachte console-errors een test falen; documenteer een minimale tijdelijke allowlist.
+- [x] Voeg stabiele selectors toe via rollen/namen; gebruik `data-*` alleen als een betekenisvol testcontract ontbreekt.
+- [x] Acceptatie: een geforceerde fout produceert een bruikbare trace met DOM-, console- en netwerkcontext.
+- [x] Verificatie: de smoke slaagt lokaal in Chromium en WebKit.
+- [x] **Kwaliteitscontrole:** controleer privacy van traces, accessibility van selectors en teststabiliteit tegen `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: `playwright.config.ts` en `e2e/critical-user-journey.spec.ts` voeren de kritieke route uit in Chromium-tablet en WebKit-tablet. Beide projecten zijn groen, console/page errors zijn blokkerend en axe controleert het welkomstscherm op WCAG 2.2 A/AA.
 
 ### IMP-A06 — CI-pipeline activeren
 
-- [ ] **IMP-A06 afgerond**
+- [x] **IMP-A06 afgerond**
 
 Afhankelijkheden: IMP-A02 tot en met IMP-A05.
 
 Doel: dezelfde kwaliteitscontroles op iedere wijziging laten draaien.
 
-- [ ] Voeg een CI-workflow toe met `npm ci` en gepinde/ondersteunde Node-versie.
-- [ ] Draai format, lint, typecheck en unit tests vroeg en waar veilig parallel.
-- [ ] Start productiebuild pas nadat statische controles groen zijn.
-- [ ] Draai de snelle Chromium-smoke per pull request en WebKit volgens de afgesproken PR- of nightlymatrix.
-- [ ] Upload Playwrightreport/traces en coverage als tijdelijk artifact bij falen.
-- [ ] Gebruik dependencycache zonder `node_modules` als buildartifact te delen.
-- [ ] Beperk workflowpermissions tot wat nodig is.
-- [ ] Acceptatie: een bewuste typefout, lintfout en falende test blokkeren ieder afzonderlijk de pipeline.
-- [ ] Verificatie: documenteer links of screenshots van één succesvolle en één bewust falende proefrun.
-- [ ] **Kwaliteitscontrole:** toets CI, secrets, artifacts en privacy aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Voeg een CI-workflow toe met `npm ci` en gepinde/ondersteunde Node-versie.
+- [x] Draai format, lint, typecheck en unit tests vroeg en waar veilig parallel.
+- [x] Start productiebuild pas nadat statische controles groen zijn.
+- [x] Draai de snelle Chromium-smoke per pull request en WebKit volgens de afgesproken PR- of nightlymatrix.
+- [x] Upload Playwrightreport/traces en coverage als tijdelijk artifact bij falen.
+- [x] Gebruik dependencycache zonder `node_modules` als buildartifact te delen.
+- [x] Beperk workflowpermissions tot wat nodig is.
+- [x] Acceptatie: een bewuste typefout, lintfout en falende test blokkeren ieder afzonderlijk de pipeline.
+- [x] Verificatie: documenteer links of screenshots van één succesvolle en één bewust falende proefrun.
+- [x] **Kwaliteitscontrole:** toets CI, secrets, artifacts en privacy aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: `.github/workflows/quality.yml` gebruikt minimale read-permissions, npm-cache, parallelle statische/unitjobs, een afhankelijke build, Chromium op wijzigingen en WebKit op schedule/handmatig. Lokale groene en bewust falende proefruns staan in [het kwaliteitsstraatrapport](../architecture/quality-gate-report-2026-07.md); echte Actions-links volgen noodzakelijkerwijs pas na de commit en push door de gebruiker.
 
 ### IMP-A07 — Architectuurregels en dode-codecontrole invoeren
 
-- [ ] **IMP-A07 afgerond**
+- [x] **IMP-A07 afgerond**
 
 Afhankelijkheden: IMP-A03 en IMP-A06.
 
 Doel: modulegrenzen automatisch bewaken en de brede ongebruikte dependencyset beheersen.
 
-- [ ] Installeer Dependency Cruiser en Knip.
-- [ ] Maak regels voor cycles, game-naar-game, game-naar-app/context/infrastructure, platform-naar-game en domain-naar-React/browser.
-- [ ] Definieer huidige transitiepaden expliciet; gebruik tijdelijke uitzonderingen met issue en verwijdercriterium.
-- [ ] Configureer Knip voor Vite, tests en entrypoints zodat dynamische registryimports niet als ongebruikt worden gezien.
-- [ ] Rapporteer eerst bestaande violations, herstel ze of leg korte aflopende uitzonderingen vast.
-- [ ] Verwijder bewezen ongebruikte dependencies zoals MUI/react-dnd alleen na Knip-, import- en buildcontrole.
-- [ ] Voeg `test:architecture` en een periodieke `check:dead-code` aan CI toe.
-- [ ] Acceptatie: een testimport van game naar `ProfileContext` of andere game laat de architectuurcheck bewust falen.
-- [ ] Verificatie: archiveer een kort dependencyrapport en de actuele uitzonderingenlijst.
-- [ ] **Kwaliteitscontrole:** toets regels, uitzonderingen en dependencywijzigingen aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Installeer Dependency Cruiser en Knip.
+- [x] Maak regels voor cycles, game-naar-game, game-naar-app/context/infrastructure, platform-naar-game en domain-naar-React/browser.
+- [x] Definieer huidige transitiepaden expliciet; gebruik tijdelijke uitzonderingen met issue en verwijdercriterium.
+- [x] Configureer Knip voor Vite, tests en entrypoints zodat dynamische registryimports niet als ongebruikt worden gezien.
+- [x] Rapporteer eerst bestaande violations, herstel ze of leg korte aflopende uitzonderingen vast.
+- [x] Verwijder bewezen ongebruikte dependencies zoals MUI/react-dnd alleen na Knip-, import- en buildcontrole.
+- [x] Voeg `test:architecture` en een periodieke `check:dead-code` aan CI toe.
+- [x] Acceptatie: een testimport van game naar `ProfileContext` of andere game laat de architectuurcheck bewust falen.
+- [x] Verificatie: archiveer een kort dependencyrapport en de actuele uitzonderingenlijst.
+- [x] **Kwaliteitscontrole:** toets regels, uitzonderingen en dependencywijzigingen aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs: `dependency-cruiser.config.cjs`, `knip.json`, [de uitzonderingenlijst](../architecture/temporary-exceptions.md) en [het dependencyrapport](../architecture/quality-gate-report-2026-07.md) leggen regels en aflopende uitzonderingen vast. Een tijdelijke `ProfileContext`-import faalde aantoonbaar; elf ongebruikte runtimepackages en één ongebruikt componentbestand zijn verwijderd.
 
 </details>
 
 ---
+
+<details>
+<summary><strong>Groep B — Modulecontracten, GameHost en lazy loading</strong></summary>
 
 ## Groep B — Modulecontracten, GameHost en lazy loading
 
@@ -340,6 +360,9 @@ Doel: iedere huidige en toekomstige game automatisch aan hetzelfde hostcontract 
 
 ---
 
+<details>
+<summary><strong>Groep C — Opslag, schema's en migraties</strong></summary>
+
 ## Groep C — Opslag, schema's en migraties
 
 Deze groep vervangt verspreide browseropslag zonder bestaande gebruikersdata stil te verliezen.
@@ -478,6 +501,9 @@ Doel: quota, private browsing, corruptie en migratiefouten herstelbaar maken.
 </details>
 
 ---
+
+<details>
+<summary><strong>Groep D — Oefenevents, sessies en voortgangsprojecties</strong></summary>
 
 ## Groep D — Oefenevents, sessies en voortgangsprojecties
 
@@ -619,6 +645,9 @@ Doel: beheer van kinddata volledig, uitlegbaar en testbaar maken.
 
 ---
 
+<details>
+<summary><strong>Groep E — PWA, assets, offlinepakketten en performance</strong></summary>
+
 ## Groep E — PWA, assets, offlinepakketten en performance
 
 Offlinebetrouwbaarheid wordt hier een aantoonbare producttoestand in plaats van alleen een geregistreerde service worker.
@@ -741,6 +770,9 @@ Doel: voorkomen dat shell, gamechunks en offlinepakketten ongemerkt opnieuw groe
 
 ---
 
+<details>
+<summary><strong>Groep F — Toegankelijkheid en gedeelde UI</strong></summary>
+
 ## Groep F — Toegankelijkheid en gedeelde UI
 
 ### IMP-F01 — Gedeelde primitives en kernschermen auditen
@@ -803,6 +835,9 @@ Doel: geautomatiseerde signalering combineren met menselijke controles.
 </details>
 
 ---
+
+<details>
+<summary><strong>Groep G — Debugging, diagnostiek en observability</strong></summary>
 
 ## Groep G — Debugging, diagnostiek en observability
 
@@ -885,6 +920,9 @@ Doel: bewust besluiten of Sentry/equivalent nodig en toegestaan is; installatie 
 </details>
 
 ---
+
+<details>
+<summary><strong>Groep H — Tweede game, hardening en afronding</strong></summary>
 
 ## Groep H — Tweede game, hardening en afronding
 
@@ -993,17 +1031,17 @@ Doel: aantoonbaar beslissen of de architectuurdoelen zijn bereikt.
 
 Werk dit overzicht bij wanneer een hoofdtaak wordt afgerond. De detailcheckboxes blijven de bron van waarheid.
 
-| Groep | Onderwerp | Gereed | Totaal |
-| --- | --- | ---: | ---: |
-| A | Baseline en kwaliteitsstraat | 0 | 7 |
-| B | Modulecontracten, GameHost en lazy loading | 0 | 7 |
-| C | Opslag, schema's en migraties | 0 | 7 |
-| D | Oefenevents, sessies en projecties | 0 | 7 |
-| E | PWA, assets en performance | 0 | 6 |
-| F | Toegankelijkheid en gedeelde UI | 0 | 3 |
-| G | Debugging en observability | 0 | 4 |
-| H | Tweede game en hardening | 0 | 5 |
-| **Totaal** |  | **0** | **46** |
+| Groep      | Onderwerp                                  | Gereed | Totaal |
+| ---------- | ------------------------------------------ | -----: | -----: |
+| A          | Baseline en kwaliteitsstraat               |      0 |      7 |
+| B          | Modulecontracten, GameHost en lazy loading |      0 |      7 |
+| C          | Opslag, schema's en migraties              |      0 |      7 |
+| D          | Oefenevents, sessies en projecties         |      0 |      7 |
+| E          | PWA, assets en performance                 |      0 |      6 |
+| F          | Toegankelijkheid en gedeelde UI            |      0 |      3 |
+| G          | Debugging en observability                 |      0 |      4 |
+| H          | Tweede game en hardening                   |      0 |      5 |
+| **Totaal** |                                            |  **0** | **46** |
 
 ## Bewijsformat bij een afgeronde taak
 
@@ -1011,6 +1049,7 @@ Voeg direct onder de afgeronde taak of in het gekoppelde issue/PR minimaal toe:
 
 ```md
 Bewijs:
+
 - Gewijzigde bestanden: ...
 - Uitgevoerde commando's: ...
 - Resultaten/meting: ...

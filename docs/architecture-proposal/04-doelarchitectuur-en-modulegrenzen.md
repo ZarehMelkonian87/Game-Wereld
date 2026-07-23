@@ -43,12 +43,12 @@ Dit is een doelbeeld, geen verzoek om alles in één big-bang te verplaatsen. De
 
 Binnen een feature of complexe game gebruiken we maximaal vier rollen:
 
-| Rol | Verantwoordelijkheid | Mag afhankelijk zijn van |
-| --- | --- | --- |
-| `domain` | Pure regels, waardetypes en invarianten | Alleen eigen domain en smalle shared types |
-| `application` | Use-cases, reducer/controller, poorten aanroepen | Eigen domain en platformcontracten |
-| `ui` | React-weergave en interactie | Eigen application/domain en platform-UI |
-| `infrastructure` | Implementatie van browser- of leveranciersgrens | Contract dat wordt geïmplementeerd |
+| Rol              | Verantwoordelijkheid                             | Mag afhankelijk zijn van                   |
+| ---------------- | ------------------------------------------------ | ------------------------------------------ |
+| `domain`         | Pure regels, waardetypes en invarianten          | Alleen eigen domain en smalle shared types |
+| `application`    | Use-cases, reducer/controller, poorten aanroepen | Eigen domain en platformcontracten         |
+| `ui`             | React-weergave en interactie                     | Eigen application/domain en platform-UI    |
+| `infrastructure` | Implementatie van browser- of leveranciersgrens  | Contract dat wordt geïmplementeerd         |
 
 Niet iedere map heeft alle vier nodig. Een klein scherm met alleen presentatie blijft één co-located component.
 

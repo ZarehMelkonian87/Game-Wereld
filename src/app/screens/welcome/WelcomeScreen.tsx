@@ -33,17 +33,14 @@ export const WelcomeScreen = () => {
       {/* Floating Audio Button */}
       <div className="absolute top-4 right-4 z-20">
         <motion.button
+          aria-label={isMuted ? "Geluid aanzetten" : "Geluid dempen"}
           className="p-3 bg-slate-800/80 backdrop-blur border-2 border-cyan-500/50 rounded-full text-cyan-400 hover:text-cyan-300 active:scale-95 shadow-lg transition-colors cursor-pointer"
           onClick={toggleMute}
           type="button"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          {isMuted ? (
-            <VolumeX className="w-6 h-6" />
-          ) : (
-            <Volume2 className="w-6 h-6" />
-          )}
+          {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
         </motion.button>
       </div>
 

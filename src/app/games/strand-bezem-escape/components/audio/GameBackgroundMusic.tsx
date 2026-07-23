@@ -7,10 +7,7 @@ import {
   GAME_BACKGROUND_MUSIC_DUCKED_VOLUME,
   GAME_BACKGROUND_MUSIC_VOLUME,
 } from "../../logic/game-audio-events";
-import {
-  BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT,
-  readBezemEscapeSettings,
-} from "../../logic/settings";
+import { BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, readBezemEscapeSettings } from "../../logic/settings";
 
 export const GameBackgroundMusic = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -129,24 +126,15 @@ export const GameBackgroundMusic = () => {
       setTargetVolume();
     };
 
-    window.addEventListener(
-      BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT,
-      handleForegroundAudioStart,
-    );
-    window.addEventListener(
-      BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT,
-      handleForegroundAudioEnd,
-    );
+    window.addEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT, handleForegroundAudioStart);
+    window.addEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
 
     return () => {
       window.removeEventListener(
         BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT,
         handleForegroundAudioStart,
       );
-      window.removeEventListener(
-        BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT,
-        handleForegroundAudioEnd,
-      );
+      window.removeEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
     };
   }, []);
 

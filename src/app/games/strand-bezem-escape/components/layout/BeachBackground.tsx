@@ -10,10 +10,7 @@ export function BeachBackground({
   forceLandscape = false,
 }: BeachBackgroundProps) {
   return (
-    <div
-      data-testid="beach-scene-board"
-      className="absolute inset-0 overflow-hidden bg-sky-100"
-    >
+    <div data-testid="beach-scene-board" className="absolute inset-0 overflow-hidden bg-sky-100">
       {!forceLandscape && (
         <img
           src={portraitUrl}

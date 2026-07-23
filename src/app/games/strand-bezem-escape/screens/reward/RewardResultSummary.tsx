@@ -64,9 +64,7 @@ export const RewardResultSummary = ({
           <Trophy className="h-4 w-4" fill="currentColor" strokeWidth={2.5} />
           {rewardSectionTitle}
         </h2>
-        <p className="mt-1 text-xs font-black leading-tight text-amber-950">
-          {rewardSectionText}
-        </p>
+        <p className="mt-1 text-xs font-black leading-tight text-amber-950">{rewardSectionText}</p>
       </section>
     ) : null}
   </div>

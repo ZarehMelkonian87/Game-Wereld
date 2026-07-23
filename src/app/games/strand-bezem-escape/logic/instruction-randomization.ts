@@ -1,7 +1,6 @@
 import type { SceneBuilderInstruction, VocabularyChoiceInstruction } from "../types";
 
-export const createRoundSeed = () =>
-  Math.floor(Date.now() + Math.random() * 1_000_000);
+export const createRoundSeed = () => Math.floor(Date.now() + Math.random() * 1_000_000);
 
 const createSeededRandom = (seed: number) => {
   let state = seed % 2_147_483_647;

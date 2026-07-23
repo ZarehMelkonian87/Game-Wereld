@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   createForegroundAudioSession,
   GAME_FOREGROUND_AUDIO_VOLUME,
@@ -30,7 +30,7 @@ export const InstructionVideoButton = ({
       ? "pointer-events-auto h-10 min-h-10 w-10 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
       : "pointer-events-auto h-14 min-h-14 w-14 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
 
-  const playVideo = async () => {
+  const playVideo = useCallback(async () => {
     const video = videoRef.current;
 
     if (!video) {
@@ -52,12 +52,12 @@ export const InstructionVideoButton = ({
     } catch {
       onPlaybackError?.();
     }
-  };
+  }, [onPlaybackError, onPlaybackStart]);
 
-  const stopForegroundAudioSession = () => {
+  const stopForegroundAudioSession = useCallback(() => {
     stopForegroundAudioSessionRef.current?.();
     stopForegroundAudioSessionRef.current = undefined;
-  };
+  }, []);
 
   useEffect(() => {
     if (!autoPlayOnMount) {
@@ -71,7 +71,7 @@ export const InstructionVideoButton = ({
     void playVideo();
 
     return stopForegroundAudioSession;
-  }, [autoPlayOnMount, src]);
+  }, [autoPlayOnMount, onPlayRequest, playVideo, src, stopForegroundAudioSession]);
 
   const handleClick = async () => {
     if (onPlayRequest && !onPlayRequest()) {

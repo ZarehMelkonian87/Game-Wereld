@@ -171,17 +171,13 @@ export const useSceneHintHandlers = ({
             ? `Kijk naar het plaatje dat oplicht: ${targetObject?.label ?? "plaatje"}.`
             : nextHintLevel === 3
               ? `Kijk naar de plek die oplicht.`
-              : conceptExplanation[instruction.placement.relation] ?? instruction.hint;
+              : (conceptExplanation[instruction.placement.relation] ?? instruction.hint);
 
     setFeedback({
       hintVideoUrl:
         spokenCommandResult && spokenCommandResult.status !== "ready"
           ? undefined
-          : getHintVideoUrlForLevel(
-              instruction.id,
-              nextHintLevel,
-              instruction.placement.relation,
-            ),
+          : getHintVideoUrlForLevel(instruction.id, nextHintLevel, instruction.placement.relation),
       kind: "ready",
       mascot: "hint",
       text: hintText,

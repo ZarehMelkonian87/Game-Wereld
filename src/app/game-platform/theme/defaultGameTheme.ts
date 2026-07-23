@@ -8,4 +8,3 @@ export const defaultGameTheme: GameTheme = {
   reward: "amber",
   secondary: "sky",
 };
-

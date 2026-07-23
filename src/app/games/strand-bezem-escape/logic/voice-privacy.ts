@@ -2,10 +2,8 @@ export const VOICE_PRIVACY_NOTICE_VERSION = "2026-06-01";
 
 export const voicePrivacyCopy = {
   acknowledgement: "Vraag toestemming",
-  body:
-    "De app bewaart geen geluidsopnames. De microfoon wordt alleen gebruikt om een korte zin naar tekst om te zetten. Die tekstzin kan als oefenobservatie bij de voortgang staan.",
-  browserNote:
-    "Spraakherkenning loopt via de spraakfunctie van de browser of het apparaat.",
+  body: "De app bewaart geen geluidsopnames. De microfoon wordt alleen gebruikt om een korte zin naar tekst om te zetten. Die tekstzin kan als oefenobservatie bij de voortgang staan.",
+  browserNote: "Spraakherkenning loopt via de spraakfunctie van de browser of het apparaat.",
   fallback:
     "Werkt spraak niet op dit apparaat? Typ dezelfde zin. De game oefent dan dezelfde taalopdracht.",
   permissionNote:

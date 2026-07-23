@@ -18,11 +18,7 @@ interface RewardScreenProps {
   onPlayAgain?: () => void;
 }
 
-export const RewardScreen = ({
-  onBackToMenu,
-  onChooseWorld,
-  onPlayAgain,
-}: RewardScreenProps) => {
+export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: RewardScreenProps) => {
   const { currentProfile } = useProfile();
   const rewardProfileId = currentProfile?.id ?? "demo-profile";
   const [rewardResult] = useState(() => readStoredRewardResult());

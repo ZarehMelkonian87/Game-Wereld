@@ -27,10 +27,10 @@ export function getZoneCenter(zone?: SceneZone): ScenePoint {
   const polygonPoints = parseSimplePolygonPath(zone.visualHintPath);
 
   if (polygonPoints.length >= 3) {
-    const sum = polygonPoints.reduce(
-      (acc, pt) => ({ x: acc.x + pt.x, y: acc.y + pt.y }),
-      { x: 0, y: 0 },
-    );
+    const sum = polygonPoints.reduce((acc, pt) => ({ x: acc.x + pt.x, y: acc.y + pt.y }), {
+      x: 0,
+      y: 0,
+    });
     const centroid = {
       x: sum.x / polygonPoints.length,
       y: sum.y / polygonPoints.length,

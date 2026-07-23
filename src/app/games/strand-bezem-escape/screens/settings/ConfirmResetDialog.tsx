@@ -9,10 +9,7 @@ interface ConfirmResetDialogProps {
 const focusableSelector =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-export const ConfirmResetDialog = ({
-  onCancel,
-  onConfirm,
-}: ConfirmResetDialogProps) => {
+export const ConfirmResetDialog = ({ onCancel, onConfirm }: ConfirmResetDialogProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 

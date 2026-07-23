@@ -3,6 +3,7 @@
 ## ✅ Wat is er klaar?
 
 ### 🏗️ Volledige Standalone React + Vite App
+
 - ✅ Kan volledig lokaal gedownload en gedraaid worden
 - ✅ Alle dependencies geïnstalleerd via npm
 - ✅ Development server met hot reload
@@ -11,6 +12,7 @@
 - ✅ Tailwind CSS 4 setup
 
 ### 📱 Mobile-First Design
+
 - ✅ Volledig responsive layout
 - ✅ Portrait & Landscape ondersteuning
 - ✅ Touch-friendly buttons (min. 80px)
@@ -18,6 +20,7 @@
 - ✅ Optimaal voor telefoons en tablets
 
 ### 🎨 Roblox-achtige Gaming Aesthetics
+
 - ✅ Donker thema met neon kleuren (cyan, purple, pink)
 - ✅ 3D button effecten met shadows
 - ✅ Glowing effecten en gradients
@@ -26,6 +29,7 @@
 - ✅ Gaming-style badges en icons
 
 ### 👤 Profielbeheer Systeem
+
 - ✅ Meerdere kindprofielen
 - ✅ Profiel aanmaken/verwijderen
 - ✅ Automatische profile switching
@@ -33,6 +37,7 @@
 - ✅ Profile settings per kind
 
 ### 🎭 16 Epic Avatars
+
 - ✅ Shadow Cat, Thunder Dog, Dragon Master
 - ✅ Robo Player, Space Alien, Epic Wizard
 - ✅ Fire Fox, King Lion, Storm Tiger
@@ -41,6 +46,7 @@
 - ✅ Gaming-style namen
 
 ### 🎯 8 Game Zones (Thema's)
+
 1. ✅ **Number Zone** - Rekenen battles
 2. ✅ **Word Quest** - Taal avonturen
 3. ✅ **Beast Arena** - Dieren wereld
@@ -51,6 +57,7 @@
 8. ✅ **Beat Zone** - Muziek en ritme
 
 ### 🎮 18 Mini-Games (Voorbereid)
+
 - ✅ Addition Attack, Minus Mission, Count Challenge
 - ✅ ABC Battle, Word Warrior
 - ✅ Sound Safari, Beast Hunt
@@ -61,9 +68,10 @@
 - ✅ Piano Pro, Rhythm Rush
 - ✅ En 1 extra!
 
-*Note: Game implementaties komen later*
+_Note: Game implementaties komen later_
 
 ### 📊 Progress Tracking
+
 - ✅ Scores per game
 - ✅ Sterren systeem (1-3 sterren)
 - ✅ Voltooiings status
@@ -72,6 +80,7 @@
 - ✅ Per profiel gescheiden
 
 ### 🖥️ 6 Volledige Schermen
+
 1. ✅ **Welcome Screen** - Epic intro met animaties
 2. ✅ **Profile Select** - Kies je speler
 3. ✅ **Avatar Select** - Kies je karakter
@@ -80,6 +89,7 @@
 6. ✅ **Settings** - Profiel en audio instellingen
 
 ### 🛠️ Tech Stack
+
 - ✅ React 18.3.1
 - ✅ TypeScript 5.4+
 - ✅ Vite 6.3.5
@@ -90,6 +100,7 @@
 - ✅ Radix UI Components
 
 ### 🎯 Navigatie & Routing
+
 - ✅ React Router setup
 - ✅ 6 routes volledig werkend
 - ✅ Smooth transitions
@@ -97,6 +108,7 @@
 - ✅ URL parameters voor thema's
 
 ### 💾 Data Persistence
+
 - ✅ LocalStorage integratie
 - ✅ Auto-save profielen
 - ✅ Auto-save progress
@@ -104,6 +116,7 @@
 - ✅ Profile selection opslaan
 
 ### 📱 User Experience
+
 - ✅ Intuïtieve navigatie
 - ✅ Kindvriendelijke interface
 - ✅ Grote, makkelijk klikbare buttons
@@ -117,12 +130,14 @@
 ## 🚀 Hoe te gebruiken
 
 ### Lokaal Starten
+
 ```bash
 npm install
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm run build
 npm run preview
@@ -143,6 +158,7 @@ npm run preview
 ## 🔮 Wat kan er nog toegevoegd worden?
 
 ### Toekomstige Features
+
 - 🎮 Echte mini-game implementaties
 - 🎵 Geluid effecten en muziek
 - 🏆 Achievements systeem
@@ -156,6 +172,7 @@ npm run preview
 - 🌍 Meerdere talen
 
 ### Game Categorieën Uitbreiden
+
 - 🧮 Meer reken levels
 - 📖 Verhalen en lezen
 - 🔬 Wetenschap games
@@ -188,40 +205,47 @@ npm run preview
 ✅ **Progress tracking & opslag**  
 ✅ **Schaalbare architectuur**  
 ✅ **Ready voor game implementaties**  
-✅ **Production-ready build setup**  
+✅ **Production-ready build setup**
 
 ---
 
 ## 💡 Belangrijke Bestanden
 
 ### Configuratie
+
 - `package.json` - Dependencies en scripts
 - `vite.config.ts` - Vite configuratie
 - `tsconfig.json` - TypeScript config
 
 ### Entry Points
+
 - `index.html` - HTML template
 - `src/main.tsx` - App entry point
 - `src/app/App.tsx` - Main component
 
 ### Routing
+
 - `src/app/routes.tsx` - Route definitie
 - `src/app/Root.tsx` - Root layout
 
 ### Data
+
 - `src/app/data/avatars.ts` - Avatar data
 - `src/app/data/games.ts` - Games & themes data
 
 ### Games
+
 - `src/app/games/` - Centrale map voor alle mini-games
 - `src/app/games/_template/` - Template voor nieuwe games
 - `src/app/games/<game-id>/README.md` - Ontwerp en meetdata per game
 - `src/app/games/<game-id>/index.tsx` - Game component/entrypoint
 
 ### Context
+
 - `src/app/contexts/ProfileContext.tsx` - Profile state management
 
 ### Styling
+
 - `src/styles/theme.css` - Tailwind theme + custom CSS
 - `src/styles/fonts.css` - Font imports
 

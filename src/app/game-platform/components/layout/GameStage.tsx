@@ -17,4 +17,3 @@ export const GameStage = ({ children, name }: GameStageProps) => (
 );
 
 GameStage.displayName = "GameStage";
-

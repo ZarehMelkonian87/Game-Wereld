@@ -1,7 +1,4 @@
-export type VoiceSideScrollerStatus =
-  | "game-over"
-  | "ready"
-  | "running";
+export type VoiceSideScrollerStatus = "game-over" | "ready" | "running";
 
 export interface VoiceSideScrollerTarget {
   id: string;
@@ -29,11 +26,7 @@ export interface VoiceSideScrollerRoundEducationState {
   wordObservations: Record<string, VoiceSideScrollerWordEducationState>;
 }
 
-export type VoiceSideScrollerObstacleKind =
-  | "cloud"
-  | "sea-lion"
-  | "seagull"
-  | "shark";
+export type VoiceSideScrollerObstacleKind = "cloud" | "sea-lion" | "seagull" | "shark";
 
 export interface VoiceSideScrollerObstacle {
   collisionBox: VoiceSideScrollerObstacleCollisionBox;
@@ -54,9 +47,7 @@ export interface VoiceSideScrollerObstacleCollisionBox {
   width: number;
 }
 
-export type VoiceSideScrollerGameplayFeedbackKind =
-  | "boost"
-  | "hint";
+export type VoiceSideScrollerGameplayFeedbackKind = "boost" | "hint";
 
 export interface VoiceSideScrollerGameplayFeedback {
   id: string;
@@ -96,9 +87,7 @@ const clampTargetY = (value: number) => Math.min(0.8, Math.max(0.22, value));
 const getRandomizedTargetY = (target: VoiceSideScrollerTarget) =>
   clampTargetY(target.y + (Math.random() - 0.5) * TARGET_Y_JITTER);
 
-const shuffleVoiceScrollerTargets = (
-  targets: VoiceSideScrollerTarget[],
-) => {
+const shuffleVoiceScrollerTargets = (targets: VoiceSideScrollerTarget[]) => {
   const shuffledTargets = [...targets];
 
   for (let index = shuffledTargets.length - 1; index > 0; index -= 1) {
@@ -123,13 +112,69 @@ const createSpawnedTarget = (
 });
 
 export const VOICE_SCROLLER_DEMO_TARGETS: VoiceSideScrollerTarget[] = [
-  { id: "target-boot", word: "boot", assetId: "boot", collectibleLabel: "bootster", x: 0.72, y: 0.54, collected: false },
-  { id: "target-krab", word: "krab", assetId: "krab", collectibleLabel: "krabster", x: 1.02, y: 0.72, collected: false },
-  { id: "target-dolfijn", word: "dolfijn", assetId: "dolfijn", collectibleLabel: "dolfijnster", x: 1.32, y: 0.42, collected: false },
-  { id: "target-schelp", word: "schelp", assetId: "schelp", collectibleLabel: "schelpster", x: 1.62, y: 0.78, collected: false },
-  { id: "target-bal", word: "bal", assetId: "bal", collectibleLabel: "balster", x: 1.92, y: 0.66, collected: false },
-  { id: "target-parasol", word: "parasol", assetId: "parasol", collectibleLabel: "parasolster", x: 2.22, y: 0.58, collected: false },
-  { id: "target-zon", word: "zon", assetId: "zon", collectibleLabel: "zonster", x: 2.52, y: 0.22, collected: false },
+  {
+    id: "target-boot",
+    word: "boot",
+    assetId: "boot",
+    collectibleLabel: "bootster",
+    x: 0.72,
+    y: 0.54,
+    collected: false,
+  },
+  {
+    id: "target-krab",
+    word: "krab",
+    assetId: "krab",
+    collectibleLabel: "krabster",
+    x: 1.02,
+    y: 0.72,
+    collected: false,
+  },
+  {
+    id: "target-dolfijn",
+    word: "dolfijn",
+    assetId: "dolfijn",
+    collectibleLabel: "dolfijnster",
+    x: 1.32,
+    y: 0.42,
+    collected: false,
+  },
+  {
+    id: "target-schelp",
+    word: "schelp",
+    assetId: "schelp",
+    collectibleLabel: "schelpster",
+    x: 1.62,
+    y: 0.78,
+    collected: false,
+  },
+  {
+    id: "target-bal",
+    word: "bal",
+    assetId: "bal",
+    collectibleLabel: "balster",
+    x: 1.92,
+    y: 0.66,
+    collected: false,
+  },
+  {
+    id: "target-parasol",
+    word: "parasol",
+    assetId: "parasol",
+    collectibleLabel: "parasolster",
+    x: 2.22,
+    y: 0.58,
+    collected: false,
+  },
+  {
+    id: "target-zon",
+    word: "zon",
+    assetId: "zon",
+    collectibleLabel: "zonster",
+    x: 2.52,
+    y: 0.22,
+    collected: false,
+  },
 ];
 
 export const VOICE_SCROLLER_DEMO_OBSTACLES: VoiceSideScrollerObstacle[] = [
@@ -222,8 +267,9 @@ const createRoundEducationState = (
 export const createInitialVoiceScrollerState = ({
   focusWords,
 }: CreateInitialVoiceScrollerStateOptions = {}): VoiceSideScrollerGameState => {
-  const targets = shuffleVoiceScrollerTargets(createVoiceScrollerTargets(focusWords))
-    .map(createSpawnedTarget);
+  const targets = shuffleVoiceScrollerTargets(createVoiceScrollerTargets(focusWords)).map(
+    createSpawnedTarget,
+  );
 
   return {
     collisionSlowdownMs: 0,

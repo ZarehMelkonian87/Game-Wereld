@@ -2,15 +2,11 @@ import { motion } from "motion/react";
 import { Lock, Star } from "lucide-react";
 import type { GameProgress } from "../../game-platform";
 import type { GameTheme, MiniGame } from "../../data/games";
-import {
-  getDifficultyColor,
-  getDifficultyIcon,
-  getDifficultyText,
-} from "./gameDifficulty";
+import { getDifficultyColor, getDifficultyIcon, getDifficultyText } from "./gameDifficulty";
 
 const beachIcon = new URL(
   "../../games/strand-bezem-escape/assets/icons/worlds/world-beach.png",
-  import.meta.url
+  import.meta.url,
 ).href;
 
 interface GameListCardProps {
@@ -53,9 +49,7 @@ export const GameListCard = ({
           className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain rounded-xl drop-shadow-md"
         />
       ) : (
-        <div className="text-4xl sm:text-5xl md:text-6xl drop-shadow-lg">
-          {game.icon}
-        </div>
+        <div className="text-4xl sm:text-5xl md:text-6xl drop-shadow-lg">{game.icon}</div>
       )}
     </div>
 
@@ -85,9 +79,7 @@ export const GameListCard = ({
             {[...Array(3)].map((_, starIndex) => (
               <Star
                 className={`w-4 h-4 sm:w-5 sm:h-5 ${
-                  starIndex < progress.stars
-                    ? "fill-yellow-400 text-yellow-400"
-                    : "text-gray-600"
+                  starIndex < progress.stars ? "fill-yellow-400 text-yellow-400" : "text-gray-600"
                 }`}
                 key={`${theme.id}-${game.id}-${starIndex}`}
               />

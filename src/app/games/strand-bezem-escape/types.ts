@@ -1,8 +1,4 @@
-export type BezemEscapeMode =
-  | "listen-and-place"
-  | "choose-word"
-  | "zeg-en-bouw"
-  | "zeg-en-vlieg";
+export type BezemEscapeMode = "listen-and-place" | "choose-word" | "zeg-en-bouw" | "zeg-en-vlieg";
 
 export type PlannedPracticeMode =
   | BezemEscapeMode
@@ -36,18 +32,9 @@ export type LanguageDomain =
   | "spatial-language"
   | "following-directions";
 
-export type AssistanceLevel =
-  | "none"
-  | "hint"
-  | "audio-repeat"
-  | "adult-help";
+export type AssistanceLevel = "none" | "hint" | "audio-repeat" | "adult-help";
 
-export type SceneObjectCategory =
-  | "dieren"
-  | "voertuigen"
-  | "strandspullen"
-  | "plekken"
-  | "natuur";
+export type SceneObjectCategory = "dieren" | "voertuigen" | "strandspullen" | "plekken" | "natuur";
 
 export type TaskDifficulty = 1 | 2 | 3 | 4 | 5;
 
@@ -65,11 +52,7 @@ export interface SceneObject {
   tags: string[];
 }
 
-export type SceneZoneKind =
-  | "absolute"
-  | "relative"
-  | "horizontal"
-  | "landmark";
+export type SceneZoneKind = "absolute" | "relative" | "horizontal" | "landmark";
 
 export interface SceneZone {
   id: string;
@@ -131,24 +114,14 @@ export interface VocabularyChoiceInstruction extends BaseGameInstruction {
   targetWord: string;
   answerOptions: string[];
   choiceCount: 2 | 3 | 4;
-  distractorStrategy:
-    | "different-category"
-    | "same-theme"
-    | "same-category";
+  distractorStrategy: "different-category" | "same-theme" | "same-category";
 }
 
-export type GameInstruction =
-  | SceneBuilderInstruction
-  | VocabularyChoiceInstruction;
+export type GameInstruction = SceneBuilderInstruction | VocabularyChoiceInstruction;
 
 export interface BroomReward {
   id: string;
-  type:
-    | "broom-color"
-    | "broom"
-    | "broom-trail"
-    | "sticker"
-    | "avatar-item";
+  type: "broom-color" | "broom" | "broom-trail" | "sticker" | "avatar-item";
   name: string;
   description: string;
   assetId?: string;
@@ -167,18 +140,9 @@ export interface GameWorld {
   rewards: BroomReward[];
 }
 
-export type WorldSelectionStatus =
-  | "open"
-  | "komt_later"
-  | "gesloten";
+export type WorldSelectionStatus = "open" | "komt_later" | "gesloten";
 
-export type WorldIconId =
-  | "waves"
-  | "barn"
-  | "paw"
-  | "slide"
-  | "book"
-  | "planet";
+export type WorldIconId = "waves" | "barn" | "paw" | "slide" | "book" | "planet";
 
 export interface WorldThemeDefinition {
   label: string;
@@ -198,10 +162,7 @@ export interface WorldDefinition {
   linkedGameWorldId?: GameWorld["id"];
 }
 
-export type PracticeResult =
-  | "correct-without-help"
-  | "correct-with-help"
-  | "needs-more-practice";
+export type PracticeResult = "correct-without-help" | "correct-with-help" | "needs-more-practice";
 
 export interface BezemEscapePracticeEvent {
   activeSpatialConcept?: SpatialConcept;

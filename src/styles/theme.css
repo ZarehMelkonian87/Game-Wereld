@@ -320,7 +320,7 @@ a,
 }
 
 @theme inline {
-  --font-sans: 'Fredoka', 'Outfit', sans-serif;
+  --font-sans: "Fredoka", "Outfit", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -11,8 +11,7 @@ import type {
   VocabularyChoiceInstruction,
 } from "./types";
 
-const assetPath = (fileName: string) =>
-  `assets/objects/transparent/${fileName}`;
+const assetPath = (fileName: string) => `assets/objects/transparent/${fileName}`;
 
 export const beachSpatialConcepts: SpatialConcept[] = [
   "in",
@@ -215,23 +214,14 @@ export const beachZones: SceneZone[] = [
     y: 38.8,
     width: 98.8,
     height: 16.4,
-    supportedConcepts: [
-      "in",
-      "op",
-      "links",
-      "rechts",
-      "midden",
-      "dichtbij",
-      "ver weg",
-    ],
+    supportedConcepts: ["in", "op", "links", "rechts", "midden", "dichtbij", "ver weg"],
   },
   {
     id: "links-zee",
     label: "links in zee",
     description: "Linkerkant van de zee.",
     kind: "horizontal",
-    visualHintPath:
-      "M1 32.1 L48.8 31.7 L47.5 53.3 L40 54.3 L27.4 55.6 L15.8 53.9 L0.1 53.7 Z",
+    visualHintPath: "M1 32.1 L48.8 31.7 L47.5 53.3 L40 54.3 L27.4 55.6 L15.8 53.9 L0.1 53.7 Z",
     x: 0.1,
     y: 31.7,
     width: 48.7,
@@ -304,8 +294,7 @@ export const beachZones: SceneZone[] = [
     label: "midden op het strand",
     description: "Midden van het strand.",
     kind: "horizontal",
-    visualHintPath:
-      "M65.3 53.6 L65.3 88.4 L25.2 88.5 L26.2 55.8 L36.4 55.3 L43.2 54 L54.1 55.4 Z",
+    visualHintPath: "M65.3 53.6 L65.3 88.4 L25.2 88.5 L26.2 55.8 L36.4 55.3 L43.2 54 L54.1 55.4 Z",
     x: 25.2,
     y: 53.6,
     width: 40.1,
@@ -317,8 +306,7 @@ export const beachZones: SceneZone[] = [
     label: "rechts op het strand",
     description: "Rechterkant van het strand.",
     kind: "horizontal",
-    visualHintPath:
-      "M66 53.8 L73.8 54.5 L84 53.9 L92.3 52.5 L100 52.7 L98.8 88.1 L66.3 88.3 Z",
+    visualHintPath: "M66 53.8 L73.8 54.5 L84 53.9 L92.3 52.5 L100 52.7 L98.8 88.1 L66.3 88.3 Z",
     x: 66.0,
     y: 52.5,
     width: 34.0,
@@ -376,13 +364,7 @@ function sceneTask(params: {
     targetZoneIds: [params.zoneId],
     spatialConcepts: [params.relation],
     languageDomains: directionDomains,
-    tags: [
-      "mvp",
-      "scene-builder",
-      params.relation,
-      params.objectId,
-      ...(params.tags ?? []),
-    ],
+    tags: ["mvp", "scene-builder", params.relation, params.objectId, ...(params.tags ?? [])],
     hint: params.hint,
     feedback: `${params.feedbackSentence} +1 Speed!`,
     feedbackCopy: placementFeedback(params.feedbackSentence, params.relation),
@@ -760,6 +742,4 @@ export const beachWorld: GameWorld = {
   rewards: beachRewards,
 };
 
-export const firstDemoInstructionIds = beachInstructions.map(
-  (instruction) => instruction.id,
-);
+export const firstDemoInstructionIds = beachInstructions.map((instruction) => instruction.id);

@@ -27,4 +27,3 @@ export const createBrowserGameStorage = (): GameStorage => ({
     window.localStorage.setItem(key, value);
   },
 });
-

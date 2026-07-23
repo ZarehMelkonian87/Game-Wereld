@@ -2,10 +2,7 @@ import type { SceneObject, SceneZone, SpatialConcept } from "../types";
 
 export type SpokenCommandConfidence = "high" | "needs-choice" | "needs-help";
 
-export type SpokenCommandMissingPart =
-  | "object"
-  | "spatial-concept"
-  | "zone";
+export type SpokenCommandMissingPart = "object" | "spatial-concept" | "zone";
 
 export interface SpokenCommandMatch {
   alias: string;
@@ -125,8 +122,9 @@ export const normalizeSpokenCommand = (transcript: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const uniqueAliases = (aliases: readonly string[]) =>
-  [...new Set(aliases.map(normalizeSpokenCommand).filter(Boolean))];
+const uniqueAliases = (aliases: readonly string[]) => [
+  ...new Set(aliases.map(normalizeSpokenCommand).filter(Boolean)),
+];
 
 const getAliasWordCount = (alias: string) => alias.split(" ").length;
 

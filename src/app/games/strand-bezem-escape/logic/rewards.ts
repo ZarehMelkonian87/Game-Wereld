@@ -33,7 +33,7 @@ export function readUnlockedRewardIds(profileId: string) {
 
   try {
     const parsedRewards = JSON.parse(storedRewards);
-    return Array.isArray(parsedRewards) ? parsedRewards.filter(Boolean) as string[] : [];
+    return Array.isArray(parsedRewards) ? (parsedRewards.filter(Boolean) as string[]) : [];
   } catch {
     return [];
   }

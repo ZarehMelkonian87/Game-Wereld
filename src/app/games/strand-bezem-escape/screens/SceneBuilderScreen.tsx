@@ -44,7 +44,7 @@ export function SceneBuilderScreen({
   spokenCommandPreviewText,
   zones,
 }: SceneBuilderScreenProps) {
-  const sceneAreaRef = useRef<HTMLElement | null>(null);
+  const sceneAreaRef = useRef<HTMLElement>(null);
 
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
@@ -111,24 +111,24 @@ export function SceneBuilderScreen({
 
   useSceneBuilderDragAndDrop({
     dragState,
-    effectiveZones,
     handleObjectDrop,
-    sceneAreaRef,
     setDragState,
     suppressNextClickRef: state.suppressNextClickRef,
   });
 
   useEffect(() => {
-    if (
-      !spokenCommandPreviewText ||
-      appliedSpokenCommandPreviewText === spokenCommandPreviewText
-    ) {
+    if (!spokenCommandPreviewText || appliedSpokenCommandPreviewText === spokenCommandPreviewText) {
       return;
     }
 
     applySpokenCommandTranscript(spokenCommandPreviewText);
     setAppliedSpokenCommandPreviewText(spokenCommandPreviewText);
-  }, [appliedSpokenCommandPreviewText, applySpokenCommandTranscript, setAppliedSpokenCommandPreviewText, spokenCommandPreviewText]);
+  }, [
+    appliedSpokenCommandPreviewText,
+    applySpokenCommandTranscript,
+    setAppliedSpokenCommandPreviewText,
+    spokenCommandPreviewText,
+  ]);
 
   const actionLabel =
     sceneComplete && feedback?.kind === "correct"

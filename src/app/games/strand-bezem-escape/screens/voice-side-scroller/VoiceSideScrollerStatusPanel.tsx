@@ -95,7 +95,9 @@ export const VoiceSideScrollerStatusPanel = ({
     data-recognition-status={recognition.status}
     data-testid="voice-side-scroller-status-panel"
   >
-    <div className={`grid h-12 w-12 place-items-center rounded-2xl border-2 ${getIconClassName(recognition)}`}>
+    <div
+      className={`grid h-12 w-12 place-items-center rounded-2xl border-2 ${getIconClassName(recognition)}`}
+    >
       {getStatusIcon(status, recognition)}
     </div>
     <div className="min-w-0">

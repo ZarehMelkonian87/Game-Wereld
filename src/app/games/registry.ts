@@ -5,7 +5,11 @@ import { StrandBezemEscapeGame } from "./strand-bezem-escape";
 export const gameRegistry: GameRegistry = {
   "woordenschat-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "woordenschat-bezem-escape", title: "Magisch Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "woordenschat-bezem-escape",
+      title: "Magisch Strand-Avontuur",
+    },
   },
   [strandBezemEscapeConfig.id]: {
     Component: StrandBezemEscapeGame,
@@ -17,23 +21,43 @@ export const gameRegistry: GameRegistry = {
   },
   "taal-strand-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "taal-strand-bezem-escape", title: "Taal Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "taal-strand-bezem-escape",
+      title: "Taal Strand-Avontuur",
+    },
   },
   "rekenen-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "rekenen-bezem-escape", title: "Rekenen Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "rekenen-bezem-escape",
+      title: "Rekenen Strand-Avontuur",
+    },
   },
   "rekenen-strand-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "rekenen-strand-bezem-escape", title: "Rekenen Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "rekenen-strand-bezem-escape",
+      title: "Rekenen Strand-Avontuur",
+    },
   },
   "wereld-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "wereld-bezem-escape", title: "Wereld Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "wereld-bezem-escape",
+      title: "Wereld Strand-Avontuur",
+    },
   },
   "wereld-strand-bezem-escape": {
     Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "wereld-strand-bezem-escape", title: "Wereld Strand-Avontuur" },
+    config: {
+      ...strandBezemEscapeConfig,
+      id: "wereld-strand-bezem-escape",
+      title: "Wereld Strand-Avontuur",
+    },
   },
 };
 

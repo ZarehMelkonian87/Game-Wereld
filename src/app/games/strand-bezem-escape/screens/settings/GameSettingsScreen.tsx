@@ -40,10 +40,10 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   const speechSupport = getSpeechRecognitionSupport();
   const speechSupportMessage = getSpeechRecognitionSupportMessage(speechSupport);
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
-  const [isCheckingMicrophonePermission, setIsCheckingMicrophonePermission] =
-    useState(false);
-  const [microphonePermission, setMicrophonePermission] =
-    useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
+  const [isCheckingMicrophonePermission, setIsCheckingMicrophonePermission] = useState(false);
+  const [microphonePermission, setMicrophonePermission] = useState<MicrophonePermissionResult>(
+    initialMicrophonePermissionResult,
+  );
   const [permissionAttemptMessage, setPermissionAttemptMessage] = useState(
     "Tik op de knop om microfoontoegang te vragen.",
   );

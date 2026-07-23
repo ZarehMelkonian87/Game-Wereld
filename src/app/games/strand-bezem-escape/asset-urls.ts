@@ -1,21 +1,14 @@
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
   landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
-  voiceSideScroller: new URL(
-    "./assets/backgrounds/beach-voice-side-scroller.png",
-    import.meta.url,
-  ).href,
+  voiceSideScroller: new URL("./assets/backgrounds/beach-voice-side-scroller.png", import.meta.url)
+    .href,
 };
 
-export const startLogoUrl = new URL(
-  "./assets/logos/start-logo-beach.png",
-  import.meta.url,
-).href;
+export const startLogoUrl = new URL("./assets/logos/start-logo-beach.png", import.meta.url).href;
 
-export const backgroundMusicUrl = new URL(
-  "./assets/audio/background-music.mp3",
-  import.meta.url,
-).href;
+export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
+  .href;
 
 export const beachObjectStickerUrls = {
   dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
@@ -44,15 +37,10 @@ export const voiceSideScrollerObjectSpriteUrls = {
 
 export const voiceSideScrollerObstacleSpriteUrls = {
   cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
-  "sea-lion": new URL(
-    "./assets/objects/side-scroller/sea-lion-obstacle.png",
-    import.meta.url,
-  ).href,
+  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.png", import.meta.url).href,
   seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
   shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
-
-
 
 export const instructionVideoUrls = {
   "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
@@ -116,42 +104,28 @@ export const instructionVideoUrls = {
     "./assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
     import.meta.url,
   ).href,
-  "cw-001": new URL(
-    "./assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4",
-    import.meta.url,
-  ).href,
-  "cw-002": new URL(
-    "./assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4",
-    import.meta.url,
-  ).href,
-  "cw-003": new URL(
-    "./assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4",
-    import.meta.url,
-  ).href,
+  "cw-001": new URL("./assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4", import.meta.url)
+    .href,
+  "cw-002": new URL("./assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4", import.meta.url)
+    .href,
+  "cw-003": new URL("./assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4", import.meta.url)
+    .href,
   "cw-004": new URL(
     "./assets/instructions/cw-004-opdracht-waar-is-de-vuurtoren.mp4",
     import.meta.url,
   ).href,
-  "cw-005": new URL(
-    "./assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4",
-    import.meta.url,
-  ).href,
-  "cw-006": new URL(
-    "./assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4",
-    import.meta.url,
-  ).href,
-  "cw-007": new URL(
-    "./assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4",
-    import.meta.url,
-  ).href,
+  "cw-005": new URL("./assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4", import.meta.url)
+    .href,
+  "cw-006": new URL("./assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4", import.meta.url)
+    .href,
+  "cw-007": new URL("./assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4", import.meta.url)
+    .href,
   "cw-008": new URL(
     "./assets/instructions/cw-008-opdracht-waar-is-de-handdoek.mp4",
     import.meta.url,
   ).href,
-  "cw-009": new URL(
-    "./assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4",
-    import.meta.url,
-  ).href,
+  "cw-009": new URL("./assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4", import.meta.url)
+    .href,
   "cw-010": new URL(
     "./assets/instructions/cw-010-opdracht-waar-is-het-zandkasteel.mp4",
     import.meta.url,
@@ -160,10 +134,8 @@ export const instructionVideoUrls = {
     "./assets/instructions/cw-011-opdracht-waar-is-het-vliegtuig.mp4",
     import.meta.url,
   ).href,
-  "cw-012": new URL(
-    "./assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4",
-    import.meta.url,
-  ).href,
+  "cw-012": new URL("./assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4", import.meta.url)
+    .href,
 } as const;
 
 type InstructionVideoId = keyof typeof instructionVideoUrls;
@@ -173,54 +145,28 @@ export const getInstructionVideoUrl = (instructionId: string) =>
 
 const seekObjectHintVideoUrls = {
   "lp-001": new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
-  "lp-002": new URL(
-    "./assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4",
-    import.meta.url,
-  ).href,
-  "lp-003": new URL(
-    "./assets/instructions/lp-003-hint-01-zoek-de-bal.mp4",
-    import.meta.url,
-  ).href,
-  "lp-004": new URL(
-    "./assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4",
-    import.meta.url,
-  ).href,
-  "lp-005": new URL(
-    "./assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4",
-    import.meta.url,
-  ).href,
-  "lp-006": new URL(
-    "./assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4",
-    import.meta.url,
-  ).href,
-  "lp-007": new URL(
-    "./assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4",
-    import.meta.url,
-  ).href,
-  "lp-008": new URL(
-    "./assets/instructions/lp-008-hint-01-zoek-de-krab.mp4",
-    import.meta.url,
-  ).href,
+  "lp-002": new URL("./assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4", import.meta.url)
+    .href,
+  "lp-003": new URL("./assets/instructions/lp-003-hint-01-zoek-de-bal.mp4", import.meta.url).href,
+  "lp-004": new URL("./assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4", import.meta.url)
+    .href,
+  "lp-005": new URL("./assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4", import.meta.url)
+    .href,
+  "lp-006": new URL("./assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4", import.meta.url)
+    .href,
+  "lp-007": new URL("./assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4", import.meta.url)
+    .href,
+  "lp-008": new URL("./assets/instructions/lp-008-hint-01-zoek-de-krab.mp4", import.meta.url).href,
   "lp-009": new URL(
     "./assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4",
     import.meta.url,
   ).href,
-  "lp-010": new URL(
-    "./assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4",
-    import.meta.url,
-  ).href,
-  "lp-011": new URL(
-    "./assets/instructions/lp-011-hint-01-zoek-de-zon.mp4",
-    import.meta.url,
-  ).href,
-  "lp-012": new URL(
-    "./assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4",
-    import.meta.url,
-  ).href,
-  "lp-013": new URL(
-    "./assets/instructions/lp-013-hint-01-zoek-de-boot.mp4",
-    import.meta.url,
-  ).href,
+  "lp-010": new URL("./assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4", import.meta.url)
+    .href,
+  "lp-011": new URL("./assets/instructions/lp-011-hint-01-zoek-de-zon.mp4", import.meta.url).href,
+  "lp-012": new URL("./assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4", import.meta.url)
+    .href,
+  "lp-013": new URL("./assets/instructions/lp-013-hint-01-zoek-de-boot.mp4", import.meta.url).href,
 } as const;
 
 type SeekObjectHintVideoId = keyof typeof seekObjectHintVideoUrls;
@@ -233,54 +179,30 @@ const highlightedObjectHintVideoUrls = {
     "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
     import.meta.url,
   ).href,
-  "lp-002": new URL(
-    "./assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4",
-    import.meta.url,
-  ).href,
-  "lp-003": new URL(
-    "./assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4",
-    import.meta.url,
-  ).href,
-  "lp-004": new URL(
-    "./assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4",
-    import.meta.url,
-  ).href,
-  "lp-005": new URL(
-    "./assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4",
-    import.meta.url,
-  ).href,
-  "lp-006": new URL(
-    "./assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4",
-    import.meta.url,
-  ).href,
-  "lp-007": new URL(
-    "./assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4",
-    import.meta.url,
-  ).href,
-  "lp-008": new URL(
-    "./assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4",
-    import.meta.url,
-  ).href,
+  "lp-002": new URL("./assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4", import.meta.url)
+    .href,
+  "lp-003": new URL("./assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4", import.meta.url).href,
+  "lp-004": new URL("./assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4", import.meta.url)
+    .href,
+  "lp-005": new URL("./assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4", import.meta.url)
+    .href,
+  "lp-006": new URL("./assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4", import.meta.url)
+    .href,
+  "lp-007": new URL("./assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4", import.meta.url)
+    .href,
+  "lp-008": new URL("./assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4", import.meta.url)
+    .href,
   "lp-009": new URL(
     "./assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4",
     import.meta.url,
   ).href,
-  "lp-010": new URL(
-    "./assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4",
-    import.meta.url,
-  ).href,
-  "lp-011": new URL(
-    "./assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4",
-    import.meta.url,
-  ).href,
-  "lp-012": new URL(
-    "./assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4",
-    import.meta.url,
-  ).href,
-  "lp-013": new URL(
-    "./assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4",
-    import.meta.url,
-  ).href,
+  "lp-010": new URL("./assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4", import.meta.url)
+    .href,
+  "lp-011": new URL("./assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4", import.meta.url).href,
+  "lp-012": new URL("./assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4", import.meta.url)
+    .href,
+  "lp-013": new URL("./assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4", import.meta.url)
+    .href,
 } as const;
 
 type HighlightedObjectHintVideoId = keyof typeof highlightedObjectHintVideoUrls;
@@ -353,10 +275,8 @@ const feedbackVideoUrls = {
     "./assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4",
     import.meta.url,
   ).href,
-  "lp-011": new URL(
-    "./assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4",
-    import.meta.url,
-  ).href,
+  "lp-011": new URL("./assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4", import.meta.url)
+    .href,
   "lp-012": new URL(
     "./assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4",
     import.meta.url,

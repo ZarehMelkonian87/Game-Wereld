@@ -3,7 +3,10 @@ import { classNames } from "../../utils/classNames";
 
 export type GameIconButtonTone = "blue" | "green" | "red" | "white" | "yellow";
 
-export interface GameIconButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+export interface GameIconButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children"
+> {
   icon: ReactNode;
   label: string;
   pressed?: boolean;
@@ -17,8 +20,7 @@ const toneClasses: Record<GameIconButtonTone, string> = {
     "border-emerald-500 bg-emerald-100 text-emerald-950 shadow-emerald-700/25 hover:bg-emerald-200",
   red: "border-rose-500 bg-rose-100 text-rose-950 shadow-rose-700/25 hover:bg-rose-200",
   white: "border-slate-300 bg-white text-slate-900 shadow-slate-500/20 hover:bg-slate-50",
-  yellow:
-    "border-amber-400 bg-amber-100 text-amber-950 shadow-amber-700/25 hover:bg-amber-200",
+  yellow: "border-amber-400 bg-amber-100 text-amber-950 shadow-amber-700/25 hover:bg-amber-200",
 };
 
 export const GameIconButton = ({
@@ -59,4 +61,3 @@ export const GameIconButton = ({
 );
 
 GameIconButton.displayName = "GameIconButton";
-

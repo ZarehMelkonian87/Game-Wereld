@@ -6,4 +6,3 @@ export type HintButtonProps = PlatformHintButtonProps;
 export const HintButton = (props: HintButtonProps) => <PlatformHintButton {...props} />;
 
 HintButton.displayName = "HintButton";
-

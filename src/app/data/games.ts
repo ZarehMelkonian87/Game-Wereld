@@ -52,7 +52,8 @@ export const miniGames: MiniGame[] = [
     id: "strand-bezem-escape",
     themeId: "vocabulary",
     name: "Magisch Strand-Avontuur",
-    description: "Zeg en zet stickers op het strand, speel het woordzoekerspel en vlieg door de wolken!",
+    description:
+      "Zeg en zet stickers op het strand, speel het woordzoekerspel en vlieg door de wolken!",
     difficulty: "easy",
     icon: "world-beach.png",
   },

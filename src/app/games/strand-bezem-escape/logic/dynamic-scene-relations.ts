@@ -23,8 +23,7 @@ const clampPercent = (value: number) => Math.min(100, Math.max(0, value));
 const getLatestObjectPlacement = (
   placements: readonly SceneObjectPlacementPoint[],
   objectId: string,
-) =>
-  [...placements].reverse().find((placement) => placement.objectId === objectId);
+) => [...placements].reverse().find((placement) => placement.objectId === objectId);
 
 const getAnchorPlacements = (
   placements: readonly SceneObjectPlacementPoint[],
@@ -68,8 +67,7 @@ const getDistanceToSegment = (
 };
 
 const relationNeedsDynamicAnchor = (placement: DynamicRelationPlacement) =>
-  dynamicRelations.includes(placement.relation) &&
-  (placement.anchorObjectIds?.length ?? 0) > 0;
+  dynamicRelations.includes(placement.relation) && (placement.anchorObjectIds?.length ?? 0) > 0;
 
 export const usesDynamicRelationZone = (placement: DynamicRelationPlacement) =>
   relationNeedsDynamicAnchor(placement);
@@ -229,7 +227,9 @@ export const evaluateDynamicRelationPlacement = ({
       placementPoint.y <= maxY;
 
     return {
-      matches: isInsideLooseBounds && getDistanceToSegment(placementPoint, firstAnchor, secondAnchor) <= 14,
+      matches:
+        isInsideLooseBounds &&
+        getDistanceToSegment(placementPoint, firstAnchor, secondAnchor) <= 14,
       missingAnchorObjectIds,
     };
   }
@@ -308,7 +308,11 @@ export const getDynamicRelationHintZone = ({
   const firstAnchor = anchors[0]?.placement;
   const secondAnchor = anchors[1]?.placement;
 
-  if (!usesDynamicRelationZone({ anchorObjectIds, relation, zoneId }) || missingAnchor || !firstAnchor) {
+  if (
+    !usesDynamicRelationZone({ anchorObjectIds, relation, zoneId }) ||
+    missingAnchor ||
+    !firstAnchor
+  ) {
     return undefined;
   }
 

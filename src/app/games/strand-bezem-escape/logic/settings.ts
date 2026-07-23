@@ -5,8 +5,7 @@ export interface BezemEscapeSettings {
   reducedMotion: boolean;
 }
 
-export const BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT =
-  "strand-bezem-escape:settings-changed";
+export const BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT = "strand-bezem-escape:settings-changed";
 
 export const defaultBezemEscapeSettings: BezemEscapeSettings = {
   audioEnabled: true,

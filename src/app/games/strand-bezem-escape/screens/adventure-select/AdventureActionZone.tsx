@@ -20,10 +20,7 @@ export const AdventureActionZone: DevtoolsComponent<AdventureActionZoneProps> = 
     data-component="AdventureActionZone"
   >
     <AdventureStartButton disabled={disableStart} onStart={onStart} />
-    <AdventureBottomNavigation
-      onOpenRewards={onOpenRewards}
-      onOpenSettings={onOpenSettings}
-    />
+    <AdventureBottomNavigation onOpenRewards={onOpenRewards} onOpenSettings={onOpenSettings} />
   </div>
 );
 

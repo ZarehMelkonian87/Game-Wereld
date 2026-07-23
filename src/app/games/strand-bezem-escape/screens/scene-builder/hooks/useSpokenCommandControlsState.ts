@@ -7,10 +7,7 @@ import {
   type MicrophonePermissionResult,
 } from "../../../logic/microphone-permission";
 import type { VoiceRecognitionStatus } from "../../../logic/speech-recognition";
-import {
-  readVoicePrivacyAccepted,
-  saveVoicePrivacyAccepted,
-} from "../../../logic/voice-privacy";
+import { readVoicePrivacyAccepted, saveVoicePrivacyAccepted } from "../../../logic/voice-privacy";
 
 export const useSpokenCommandControlsState = ({
   exampleText,
@@ -28,10 +25,10 @@ export const useSpokenCommandControlsState = ({
     readVoicePrivacyAccepted(profileId),
   );
   const [manualText, setManualText] = useState("");
-  const [hasRequestedMicrophonePermission, setHasRequestedMicrophonePermission] =
-    useState(false);
-  const [microphonePermission, setMicrophonePermission] =
-    useState<MicrophonePermissionResult>(initialMicrophonePermissionResult);
+  const [hasRequestedMicrophonePermission, setHasRequestedMicrophonePermission] = useState(false);
+  const [microphonePermission, setMicrophonePermission] = useState<MicrophonePermissionResult>(
+    initialMicrophonePermissionResult,
+  );
   const [showManualFallback, setShowManualFallback] = useState(false);
   const [showPrivacyNotice, setShowPrivacyNotice] = useState(false);
 
@@ -68,11 +65,7 @@ export const useSpokenCommandControlsState = ({
   }, [status, onVoiceStatusChange]);
 
   useEffect(() => {
-    if (
-      !transcript ||
-      status !== "heard" ||
-      handledTranscriptRef.current === transcript
-    ) {
+    if (!transcript || status !== "heard" || handledTranscriptRef.current === transcript) {
       return;
     }
 

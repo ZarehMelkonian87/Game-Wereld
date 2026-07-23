@@ -70,25 +70,20 @@ export const ActivityChartCard = ({ selectedPeriod, delay }: ActivityChartCardPr
               tickLine={false}
               axisLine={false}
             />
-            <YAxis
-              stroke="#9ca3af"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
+            <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip
-              contentStyle={{ background: "#1f2937", border: "2px solid #06b6d4", borderRadius: "10px" }}
+              contentStyle={{
+                background: "#1f2937",
+                border: "2px solid #06b6d4",
+                borderRadius: "10px",
+              }}
               labelStyle={{ color: "#22d3ee", fontWeight: "bold" }}
             />
-            <Bar
-              dataKey="minuten"
-              fill="url(#colorMinuten)"
-              radius={[6, 6, 0, 0]}
-            >
+            <Bar dataKey="minuten" fill="url(#colorMinuten)" radius={[6, 6, 0, 0]}>
               <defs>
                 <linearGradient id="colorMinuten" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#7b68ee" stopOpacity={0.8}/>
+                  <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#7b68ee" stopOpacity={0.8} />
                 </linearGradient>
               </defs>
             </Bar>

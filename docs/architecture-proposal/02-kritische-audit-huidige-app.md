@@ -28,19 +28,19 @@ Deze onderdelen worden niet weggegooid; ze zijn het migratiepunt.
 
 ## 2.3 Bevindingen, op prioriteit
 
-| Prioriteit | Bevinding | Bewijs in de huidige code | Gevolg |
-| --- | --- | --- | --- |
-| P0 | Build valideert TypeScript niet | `build` is alleen `vite build`; `tsc --noEmit` faalt | Een release kan compileerbare JavaScript bevatten met kapotte TypeScript-contracten |
-| P0 | Geen geautomatiseerde tests of CI | Geen test-, lint- of workflowconfiguratie gevonden | Kernlogica, opslagmigraties en kindflows kunnen ongemerkt breken |
-| P1 | Catalogus en registry zijn verschillende waarheden | `data/games.ts`, `games/registry.ts` en `game.config.ts` bevatten overlappende ids en titels | Route-, titel- en voortgangsmismatches |
-| P1 | Game is niet geïsoleerd of lazy | Registry importeert `StrandBezemEscapeGame` statisch; gamecontroller importeert `ProfileContext` | De app-shell kent gamecode; code splitting en zelfstandig testen ontbreken |
-| P1 | Opslag is verspreid en onveilig | Directe `localStorage`/`sessionStorage`-calls in profiel, welcome, settings, progress, rewards, privacy en werelden | Geen uniforme foutafhandeling, migratie, validatie of cascade delete |
-| P1 | Progressiemodellen lopen uiteen | Platform `PracticeResult` verschilt van gamewaarden zoals `mastered`/`supported` | Typefouten en semantisch onbetrouwbare dashboards |
-| P1 | Offlinebeleid dekt media niet | Service worker sluit `.mp4`, `.mp3`, `.webm`, `.mov` uit | De shell kan offline openen terwijl de belangrijkste instructies niet werken |
-| P2 | Geen foutgrenzen of herstelmodel | Geen route- of game-specifieke error boundary | Eén renderfout kan de volledige spelervaring beëindigen |
-| P2 | Dependencyset is breder dan gebruik | Onder andere MUI en `react-dnd` staan in dependencies zonder imports in `src` | Groter onderhouds- en securityoppervlak; onduidelijk UI-beleid |
-| P2 | Grote bestanden zijn symptoom, niet hoofdoorzaak | `content.ts` 765 regels, `progress.ts` 469, `asset-urls.ts` 425 | Moeilijk navigeren, maar een universele limiet lost samenhang en correctheid niet op |
-| P2 | Diagnostiek is ad hoc | Lege catch-blokken en losse `console.warn`; geen correlatie-id of export | Problemen op tablets zijn moeilijk reproduceerbaar |
+| Prioriteit | Bevinding                                          | Bewijs in de huidige code                                                                                           | Gevolg                                                                               |
+| ---------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| P0         | Build valideert TypeScript niet                    | `build` is alleen `vite build`; `tsc --noEmit` faalt                                                                | Een release kan compileerbare JavaScript bevatten met kapotte TypeScript-contracten  |
+| P0         | Geen geautomatiseerde tests of CI                  | Geen test-, lint- of workflowconfiguratie gevonden                                                                  | Kernlogica, opslagmigraties en kindflows kunnen ongemerkt breken                     |
+| P1         | Catalogus en registry zijn verschillende waarheden | `data/games.ts`, `games/registry.ts` en `game.config.ts` bevatten overlappende ids en titels                        | Route-, titel- en voortgangsmismatches                                               |
+| P1         | Game is niet geïsoleerd of lazy                    | Registry importeert `StrandBezemEscapeGame` statisch; gamecontroller importeert `ProfileContext`                    | De app-shell kent gamecode; code splitting en zelfstandig testen ontbreken           |
+| P1         | Opslag is verspreid en onveilig                    | Directe `localStorage`/`sessionStorage`-calls in profiel, welcome, settings, progress, rewards, privacy en werelden | Geen uniforme foutafhandeling, migratie, validatie of cascade delete                 |
+| P1         | Progressiemodellen lopen uiteen                    | Platform `PracticeResult` verschilt van gamewaarden zoals `mastered`/`supported`                                    | Typefouten en semantisch onbetrouwbare dashboards                                    |
+| P1         | Offlinebeleid dekt media niet                      | Service worker sluit `.mp4`, `.mp3`, `.webm`, `.mov` uit                                                            | De shell kan offline openen terwijl de belangrijkste instructies niet werken         |
+| P2         | Geen foutgrenzen of herstelmodel                   | Geen route- of game-specifieke error boundary                                                                       | Eén renderfout kan de volledige spelervaring beëindigen                              |
+| P2         | Dependencyset is breder dan gebruik                | Onder andere MUI en `react-dnd` staan in dependencies zonder imports in `src`                                       | Groter onderhouds- en securityoppervlak; onduidelijk UI-beleid                       |
+| P2         | Grote bestanden zijn symptoom, niet hoofdoorzaak   | `content.ts` 765 regels, `progress.ts` 469, `asset-urls.ts` 425                                                     | Moeilijk navigeren, maar een universele limiet lost samenhang en correctheid niet op |
+| P2         | Diagnostiek is ad hoc                              | Lege catch-blokken en losse `console.warn`; geen correlatie-id of export                                            | Problemen op tablets zijn moeilijk reproduceerbaar                                   |
 
 ## 2.4 Concrete architectuurproblemen
 

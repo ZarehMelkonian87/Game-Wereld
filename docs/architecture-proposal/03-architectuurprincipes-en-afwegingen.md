@@ -16,13 +16,13 @@ Een game kent geen `ProfileContext`, router, Dexie, Sentry of `localStorage`. `G
 
 ### 4. State heeft één eigenaar en een benoemde levensduur
 
-| State | Eigenaar | Levensduur | Voorbeeld |
-| --- | --- | --- | --- |
-| Renderstate | component | één renderboom | open dialoog |
-| Gamesessiestate | gamecontroller/reducer | één sessie | huidige opdracht, geplaatste objecten |
-| Shellstate | featureprovider | huidige app-run | actief profiel-id, bootstatus |
-| Duurzame data | repository | over app-runs heen | profiel, oefenevent |
-| HTTP-assets | service worker/Cache Storage | versie- en quotabeleid | video, audio, chunks |
+| State           | Eigenaar                     | Levensduur             | Voorbeeld                             |
+| --------------- | ---------------------------- | ---------------------- | ------------------------------------- |
+| Renderstate     | component                    | één renderboom         | open dialoog                          |
+| Gamesessiestate | gamecontroller/reducer       | één sessie             | huidige opdracht, geplaatste objecten |
+| Shellstate      | featureprovider              | huidige app-run        | actief profiel-id, bootstatus         |
+| Duurzame data   | repository                   | over app-runs heen     | profiel, oefenevent                   |
+| HTTP-assets     | service worker/Cache Storage | versie- en quotabeleid | video, audio, chunks                  |
 
 Dupliceren is alleen toegestaan als één kopie expliciet een afgeleide cache/projectie is en opnieuw kan worden opgebouwd.
 

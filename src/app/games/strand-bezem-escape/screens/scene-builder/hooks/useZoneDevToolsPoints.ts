@@ -1,5 +1,9 @@
-import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, RefObject } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+  RefObject,
+} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SceneZone } from "../../../types";
 import {
   buildPathFromPoints,
@@ -16,14 +20,17 @@ export const useZoneDevToolsPoints = ({
   rootRef,
 }: {
   activeZone: SceneZone | undefined;
-  rootRef: RefObject<HTMLDivElement | null>;
+  rootRef: RefObject<HTMLDivElement>;
 }) => {
   const pointDragStateRef = useRef<PointDragState | null>(null);
   const [pointsByZone, setPointsByZone] = useState<Record<string, ZonePoint[]>>({});
   const [selectedPointIndex, setSelectedPointIndex] = useState<number | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
 
-  const activePoints = activeZone ? pointsByZone[activeZone.id] ?? [] : [];
+  const activePoints = useMemo(
+    () => (activeZone ? (pointsByZone[activeZone.id] ?? []) : []),
+    [activeZone, pointsByZone],
+  );
   const generatedPath = useMemo(() => buildPathFromPoints(activePoints), [activePoints]);
 
   useEffect(() => {
@@ -49,15 +56,18 @@ export const useZoneDevToolsPoints = ({
     });
   }, [activeZone]);
 
-  const getPointFromClientPoint = (clientX: number, clientY: number) => {
-    const bounds = rootRef.current?.getBoundingClientRect();
+  const getPointFromClientPoint = useCallback(
+    (clientX: number, clientY: number) => {
+      const bounds = rootRef.current?.getBoundingClientRect();
 
-    if (!bounds) {
-      return undefined;
-    }
+      if (!bounds) {
+        return undefined;
+      }
 
-    return getPointFromBounds(bounds, clientX, clientY);
-  };
+      return getPointFromBounds(bounds, clientX, clientY);
+    },
+    [rootRef],
+  );
 
   useEffect(() => {
     function handlePointerMove(event: PointerEvent) {
@@ -88,12 +98,14 @@ export const useZoneDevToolsPoints = ({
 
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("pointercancel", handlePointerUp);
 
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("pointercancel", handlePointerUp);
     };
-  }, [rootRef]);
+  }, [getPointFromClientPoint]);
 
   const handleAddPoint = (event: ReactMouseEvent<HTMLButtonElement>) => {
     if (!activeZone) {

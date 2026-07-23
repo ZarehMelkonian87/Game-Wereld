@@ -1,7 +1,4 @@
-import {
-  createForegroundAudioSession,
-  GAME_FOREGROUND_AUDIO_VOLUME,
-} from "./game-audio-events";
+import { createForegroundAudioSession, GAME_FOREGROUND_AUDIO_VOLUME } from "./game-audio-events";
 
 export const speakDutch = (text: string) => {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {

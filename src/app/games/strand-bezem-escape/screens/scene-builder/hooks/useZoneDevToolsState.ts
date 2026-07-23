@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import type { PointerEvent as ReactPointerEvent, RefObject } from "react";
 import { useState } from "react";
 import {
   clearSceneZoneVisualHintOverride,
@@ -15,8 +15,8 @@ export const useZoneDevToolsState = ({
   zones,
 }: {
   initialZoneId?: string;
-  panelRef: RefObject<HTMLElement | null>;
-  rootRef: RefObject<HTMLDivElement | null>;
+  panelRef: RefObject<HTMLElement>;
+  rootRef: RefObject<HTMLDivElement>;
   zones: SceneZone[];
 }) => {
   const [activeZoneId, setActiveZoneId] = useState(initialZoneId ?? zones[0]?.id ?? "");
@@ -75,6 +75,15 @@ export const useZoneDevToolsState = ({
     setCopyStatus(`Reset: ${activeZone.label}.`);
   };
 
+  const handlePanelDragStart = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.button !== 0) {
+      return;
+    }
+
+    event.preventDefault();
+    docking.startPanelDrag(event.clientX, event.clientY);
+  };
+
   return {
     activePoints,
     activeZone,
@@ -86,6 +95,7 @@ export const useZoneDevToolsState = ({
     handleAddPoint,
     handleClearPoints,
     handleCopyPath,
+    handlePanelDragStart,
     handlePointDragStart,
     handleResetSavedPath,
     handleSavePath,
@@ -96,6 +106,7 @@ export const useZoneDevToolsState = ({
     panelPosition: docking.panelPosition,
     selectedPointIndex,
     setActiveZoneId,
+    setCopyStatus,
     setIsCollapsed: docking.setIsCollapsed,
     setSelectedPointIndex,
     startPanelDrag: docking.startPanelDrag,

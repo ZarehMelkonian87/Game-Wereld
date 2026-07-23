@@ -10,18 +10,14 @@ import {
   applySceneZoneVisualHintOverrides,
   zoneVisualHintOverridesChangedEvent,
 } from "../../../logic/scene-zone-visual-overrides";
-import type {
-  PlacedObject,
-  SceneBuilderInstruction,
-  SceneCompletionSummary,
-  SceneObject,
-  SceneZone,
-} from "../../../types";
+import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../../../types";
 import type {
   FeedbackState,
   HintUsageEvent,
   PendingPlacement,
+  PlacedObject,
   SceneCommandExecutionResult,
+  SceneCompletionSummary,
 } from "../logic/scene-builder-types";
 import type { DragState } from "./useSceneBuilderDragAndDrop";
 
@@ -47,8 +43,9 @@ export const useSceneBuilderState = ({
   const [pendingPlacement, setPendingPlacement] = useState<PendingPlacement | null>(null);
   const [spokenCommandResult, setSpokenCommandResult] =
     useState<SceneCommandExecutionResult | null>(null);
-  const [appliedSpokenCommandPreviewText, setAppliedSpokenCommandPreviewText] =
-    useState<string | null>(null);
+  const [appliedSpokenCommandPreviewText, setAppliedSpokenCommandPreviewText] = useState<
+    string | null
+  >(null);
   const [placedObjects, setPlacedObjects] = useState<PlacedObject[]>([]);
   const [sceneComplete, setSceneComplete] = useState(false);
   const [sceneCompletionSummary, setSceneCompletionSummary] =
@@ -61,10 +58,14 @@ export const useSceneBuilderState = ({
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
-  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
+  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<
+    Record<string, number>
+  >({});
   const [hintsByInstruction, setHintsByInstruction] = useState<Record<string, number>>({});
   const [hintEvents, setHintEvents] = useState<HintUsageEvent[]>([]);
-  const [spokenHelpByInstruction, setSpokenHelpByInstruction] = useState<Record<string, number>>({});
+  const [spokenHelpByInstruction, setSpokenHelpByInstruction] = useState<Record<string, number>>(
+    {},
+  );
   const [speedValue, setSpeedValue] = useState(0);
   const [wordStarValue, setWordStarValue] = useState(0);
   const suppressNextClickRef = useRef(false);
@@ -72,16 +73,17 @@ export const useSceneBuilderState = ({
     readUnlockedRewardIds(rewardProfileId),
   );
 
-  const effectiveZones = useMemo(
-    () => applySceneZoneVisualHintOverrides(zones),
-    [zones, zoneOverrideVersion],
-  );
+  const effectiveZones = useMemo(() => {
+    void zoneOverrideVersion;
+    return applySceneZoneVisualHintOverrides(zones);
+  }, [zones, zoneOverrideVersion]);
 
   const placedObjectPoints = useMemo<SceneObjectPlacementPoint[]>(
     () =>
       placedObjects.map((placedObject) => ({
         objectId: placedObject.objectId,
-        point: { x: placedObject.x, y: placedObject.y },
+        x: placedObject.x,
+        y: placedObject.y,
       })),
     [placedObjects],
   );
@@ -132,10 +134,18 @@ export const useSceneBuilderState = ({
         anchorObjectIds: instruction.placement.anchorObjectIds,
         placements: placedObjectPoints,
         relation: instruction.placement.relation,
-        zones: effectiveZones,
+        zoneId: instruction.placement.zoneId,
       }) ?? targetZone
     );
-  }, [effectiveZones, instruction.placement.anchorObjectIds, instruction.placement.relation, placedObjectPoints, spokenHintZoneId, targetZone]);
+  }, [
+    effectiveZones,
+    instruction.placement.anchorObjectIds,
+    instruction.placement.relation,
+    instruction.placement.zoneId,
+    placedObjectPoints,
+    spokenHintZoneId,
+    targetZone,
+  ]);
 
   const activeHintsUsed = hintsByInstruction[instruction.id] ?? 0;
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
@@ -216,6 +226,7 @@ export const useSceneBuilderState = ({
     setHintEvents,
 
     setHintsByInstruction,
+    setIsHintVideoPlaying,
     setPendingPlacement,
 
     setPlacedObjects,

@@ -1,7 +1,15 @@
-import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, RefObject } from "react";
+import type {
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+  RefObject,
+} from "react";
 import { useCallback } from "react";
-import { getScenePointFromViewportPoint, getZoneFromViewportPoint } from "../logic/scene-geometry-utils";
-import type { DragState, useSceneBuilderState } from "./useSceneBuilderState";
+import {
+  getScenePointFromViewportPoint,
+  getZoneFromViewportPoint,
+} from "../logic/scene-geometry-utils";
+import type { DragState } from "./useSceneBuilderDragAndDrop";
+import type { useSceneBuilderState } from "./useSceneBuilderState";
 
 export const useScenePointerHandlers = ({
   sceneAreaRef,
@@ -68,7 +76,17 @@ export const useScenePointerHandlers = ({
         text: `Plek gekozen: ${droppedZone.label}. Je kunt nog verplaatsen. Druk daarna op Klaar.`,
       });
     },
-    [effectiveZones, sceneAreaRef, setFeedback, setPendingPlacement, setSelectedObjectId, setSelectedZoneId, setShowTargetZoneHint, setSpokenCommandResult, setSpokenHintZoneId],
+    [
+      effectiveZones,
+      sceneAreaRef,
+      setFeedback,
+      setPendingPlacement,
+      setSelectedObjectId,
+      setSelectedZoneId,
+      setShowTargetZoneHint,
+      setSpokenCommandResult,
+      setSpokenHintZoneId,
+    ],
   );
 
   const handleObjectPointerDown = (
@@ -114,10 +132,7 @@ export const useScenePointerHandlers = ({
     });
   };
 
-  const handleObjectPointerUp = (
-    event: ReactPointerEvent<HTMLButtonElement>,
-    objectId: string,
-  ) => {
+  const handleObjectPointerUp = (event: ReactPointerEvent<HTMLButtonElement>, objectId: string) => {
     const currentDragState = dragState;
 
     if (!currentDragState || currentDragState.objectId !== objectId) {
@@ -195,7 +210,12 @@ export const useScenePointerHandlers = ({
     }
 
     const scenePoint = getScenePointFromViewportPoint(sceneAreaRef, event.clientX, event.clientY);
-    const tappedZone = getZoneFromViewportPoint(sceneAreaRef, effectiveZones, event.clientX, event.clientY);
+    const tappedZone = getZoneFromViewportPoint(
+      sceneAreaRef,
+      effectiveZones,
+      event.clientX,
+      event.clientY,
+    );
 
     if (!scenePoint || !tappedZone) {
       setSelectedZoneId(null);

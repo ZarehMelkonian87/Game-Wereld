@@ -16,11 +16,26 @@ export const SpeechWaveAnimation = () => {
           Ik luister...
         </span>
         <div className="flex items-center gap-1 h-6 w-12">
-          <div className="speech-bar w-1.5 h-4 rounded-full bg-white" style={{ animationDelay: "0.1s" }} />
-          <div className="speech-bar w-1.5 h-6 rounded-full bg-white" style={{ animationDelay: "0.25s" }} />
-          <div className="speech-bar w-1.5 h-5 rounded-full bg-white" style={{ animationDelay: "0.4s" }} />
-          <div className="speech-bar w-1.5 h-6 rounded-full bg-white" style={{ animationDelay: "0.15s" }} />
-          <div className="speech-bar w-1.5 h-3 rounded-full bg-white" style={{ animationDelay: "0.3s" }} />
+          <div
+            className="speech-bar w-1.5 h-4 rounded-full bg-white"
+            style={{ animationDelay: "0.1s" }}
+          />
+          <div
+            className="speech-bar w-1.5 h-6 rounded-full bg-white"
+            style={{ animationDelay: "0.25s" }}
+          />
+          <div
+            className="speech-bar w-1.5 h-5 rounded-full bg-white"
+            style={{ animationDelay: "0.4s" }}
+          />
+          <div
+            className="speech-bar w-1.5 h-6 rounded-full bg-white"
+            style={{ animationDelay: "0.15s" }}
+          />
+          <div
+            className="speech-bar w-1.5 h-3 rounded-full bg-white"
+            style={{ animationDelay: "0.3s" }}
+          />
         </div>
       </div>
     </>

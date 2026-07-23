@@ -66,7 +66,8 @@ export const getPointFromBounds = (
 
 export const getZoneColor = (zoneIndex: number) => zoneColors[zoneIndex % zoneColors.length];
 
-export const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+export const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value));
 
 export const getEditablePointsFromZone = (zone?: SceneZone): ZonePoint[] =>
   parseSimplePolygonPath(zone?.visualHintPath).map((point) => ({

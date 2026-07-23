@@ -4,4 +4,3 @@ export interface SpeechPermissionStatus {
   availability: SpeechAvailability;
   message: string;
 }
-

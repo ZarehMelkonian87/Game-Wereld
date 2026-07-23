@@ -21,10 +21,7 @@ export const AdventureSelectContent: DevtoolsComponent<AdventureSelectContentPro
   >
     <div className="grid gap-2.5 pb-2" data-slot="content-stack">
       <AdventureSectionTitle>Kies spel</AdventureSectionTitle>
-      <CompactGameModeList
-        onSelectMode={onSelectMode}
-        selectedModeId={selectedModeId}
-      />
+      <CompactGameModeList onSelectMode={onSelectMode} selectedModeId={selectedModeId} />
     </div>
   </div>
 );

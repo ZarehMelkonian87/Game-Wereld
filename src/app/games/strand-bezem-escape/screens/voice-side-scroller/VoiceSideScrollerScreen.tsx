@@ -9,9 +9,7 @@ interface VoiceSideScrollerScreenProps {
   onBackToMenu: () => void;
 }
 
-export const VoiceSideScrollerScreen = ({
-  onBackToMenu,
-}: VoiceSideScrollerScreenProps) => {
+export const VoiceSideScrollerScreen = ({ onBackToMenu }: VoiceSideScrollerScreenProps) => {
   const { currentProfile } = useProfile();
   const profileId = currentProfile?.id ?? "demo-profile";
   const controller = useVoiceSideScrollerController({ profileId });
@@ -29,10 +27,7 @@ export const VoiceSideScrollerScreen = ({
       data-testid="voice-side-scroller-screen"
     >
       <div className="landscape:col-span-2">
-        <VoiceSideScrollerHud
-          onBackToMenu={onBackToMenu}
-          state={state}
-        />
+        <VoiceSideScrollerHud onBackToMenu={onBackToMenu} state={state} />
       </div>
       <VoiceSideScrollerStage
         onBackToMenu={onBackToMenu}

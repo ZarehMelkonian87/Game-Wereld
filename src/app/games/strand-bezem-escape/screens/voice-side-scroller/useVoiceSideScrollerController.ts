@@ -53,8 +53,7 @@ const createFocusedRoundState = (profileId: string) => {
   return createInitialVoiceScrollerState({ focusWords });
 };
 
-const getVoiceSideScrollerInstructionId = (targetId: string) =>
-  `zeg-en-vlieg:${targetId}`;
+const getVoiceSideScrollerInstructionId = (targetId: string) => `zeg-en-vlieg:${targetId}`;
 
 export const useVoiceSideScrollerController = ({
   profileId,
@@ -76,65 +75,68 @@ export const useVoiceSideScrollerController = ({
     }
   }, [profileId]);
 
-  const recordWordObservation = useCallback((
-    nextState: VoiceSideScrollerGameState,
-    target: VoiceSideScrollerTarget,
-    transcript: string,
-    isRecognized: boolean,
-  ) => {
-    const observation = getVoiceSideScrollerWordObservation(nextState, target.id);
+  const recordWordObservation = useCallback(
+    (
+      nextState: VoiceSideScrollerGameState,
+      target: VoiceSideScrollerTarget,
+      transcript: string,
+      isRecognized: boolean,
+    ) => {
+      const observation = getVoiceSideScrollerWordObservation(nextState, target.id);
 
-    if (!observation) {
-      return;
-    }
+      if (!observation) {
+        return;
+      }
 
-    recordVoiceSideScrollerWordObservation(profileId, {
-      audioRepeats: observation.audioRepeats,
-      hintsUsed: observation.hintsUsed,
-      id: `${target.id}:${isRecognized ? "recognized" : "practice"}:${observation.attempts}:${Date.now()}`,
-      instructionId: getVoiceSideScrollerInstructionId(target.id),
-      isRecognized,
-      spokenTranscript: transcript,
-      targetWord: target.word,
-      wordAttempts: observation.attempts,
-      wordStarsEarned: isRecognized ? 1 : 0,
-    });
-  }, [profileId]);
+      recordVoiceSideScrollerWordObservation(profileId, {
+        audioRepeats: observation.audioRepeats,
+        hintsUsed: observation.hintsUsed,
+        id: `${target.id}:${isRecognized ? "recognized" : "practice"}:${observation.attempts}:${Date.now()}`,
+        instructionId: getVoiceSideScrollerInstructionId(target.id),
+        isRecognized,
+        spokenTranscript: transcript,
+        targetWord: target.word,
+        wordAttempts: observation.attempts,
+        wordStarsEarned: isRecognized ? 1 : 0,
+      });
+    },
+    [profileId],
+  );
 
-  const handleWordMatched = useCallback((
-    target: VoiceSideScrollerTarget,
-    transcript: string,
-  ) => {
-    const nextWithHeardWord = recordVoiceSideScrollerWordHeard(stateRef.current, {
-      isRecognized: true,
-      targetId: target.id,
-      transcript,
-    });
-    const nextState = collectVoiceSideScrollerTarget(nextWithHeardWord, target.id);
+  const handleWordMatched = useCallback(
+    (target: VoiceSideScrollerTarget, transcript: string) => {
+      const nextWithHeardWord = recordVoiceSideScrollerWordHeard(stateRef.current, {
+        isRecognized: true,
+        targetId: target.id,
+        transcript,
+      });
+      const nextState = collectVoiceSideScrollerTarget(nextWithHeardWord, target.id);
 
-    stateRef.current = nextState;
-    setState(nextState);
-    recordWordObservation(nextState, target, transcript, true);
-  }, [recordWordObservation]);
+      stateRef.current = nextState;
+      setState(nextState);
+      recordWordObservation(nextState, target, transcript, true);
+    },
+    [recordWordObservation],
+  );
 
-  const handleWordMissed = useCallback((
-    target: VoiceSideScrollerTarget | undefined,
-    transcript: string,
-  ) => {
-    if (!target) {
-      return;
-    }
+  const handleWordMissed = useCallback(
+    (target: VoiceSideScrollerTarget | undefined, transcript: string) => {
+      if (!target) {
+        return;
+      }
 
-    const nextState = recordVoiceSideScrollerWordHeard(stateRef.current, {
-      isRecognized: false,
-      targetId: target.id,
-      transcript,
-    });
+      const nextState = recordVoiceSideScrollerWordHeard(stateRef.current, {
+        isRecognized: false,
+        targetId: target.id,
+        transcript,
+      });
 
-    stateRef.current = nextState;
-    setState(nextState);
-    recordWordObservation(nextState, target, transcript, false);
-  }, [recordWordObservation]);
+      stateRef.current = nextState;
+      setState(nextState);
+      recordWordObservation(nextState, target, transcript, false);
+    },
+    [recordWordObservation],
+  );
 
   const { wordRecognition } = useVoiceSideScrollerWordRecognition({
     isRunning: state.status === "running",

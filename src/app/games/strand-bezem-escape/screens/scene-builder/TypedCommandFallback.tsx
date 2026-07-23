@@ -42,9 +42,7 @@ export const TypedCommandFallback = ({
           <Keyboard className="h-5 w-5" strokeWidth={3} />
         </span>
         <div className="min-w-0">
-          <p className="text-xs font-black uppercase leading-tight text-sky-900">
-            Typ de zin
-          </p>
+          <p className="text-xs font-black uppercase leading-tight text-sky-900">Typ de zin</p>
           <p className="mt-1 text-[0.68rem] font-bold leading-tight text-slate-600">
             Bijvoorbeeld: {exampleText}
           </p>

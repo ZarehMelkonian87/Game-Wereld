@@ -6,4 +6,3 @@ export type ObjectTrayContainerProps = ObjectTrayProps;
 export const ObjectTrayContainer = (props: ObjectTrayContainerProps) => <ObjectTray {...props} />;
 
 ObjectTrayContainer.displayName = "ObjectTrayContainer";
-

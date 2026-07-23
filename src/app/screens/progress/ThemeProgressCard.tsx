@@ -32,12 +32,8 @@ export const ThemeProgressCard = ({
         {theme.icon}
       </div>
       <div className="flex-1 min-w-0">
-        <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-black mb-1">
-          {theme.name}
-        </h2>
-        <p className="text-xs sm:text-sm text-cyan-300 font-semibold">
-          {theme.description}
-        </p>
+        <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-black mb-1">{theme.name}</h2>
+        <p className="text-xs sm:text-sm text-cyan-300 font-semibold">{theme.description}</p>
       </div>
     </div>
 
@@ -47,11 +43,7 @@ export const ThemeProgressCard = ({
       ))}
     </div>
 
-    <PeriodInsightPanel
-      periods={periods}
-      selectedPeriod={selectedPeriod}
-      themeData={themeData}
-    />
+    <PeriodInsightPanel periods={periods} selectedPeriod={selectedPeriod} themeData={themeData} />
   </motion.div>
 );
 

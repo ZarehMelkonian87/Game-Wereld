@@ -54,12 +54,7 @@ export function GameplayStatusBar({
           className="inline-flex shrink-0 items-center gap-1 text-xs font-black leading-none text-slate-900"
         >
           {energyIconUrl ? (
-            <img
-              src={energyIconUrl}
-              alt=""
-              className="h-5 w-5 object-contain"
-              draggable={false}
-            />
+            <img src={energyIconUrl} alt="" className="h-5 w-5 object-contain" draggable={false} />
           ) : (
             <Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
           )}
@@ -86,7 +81,9 @@ export function GameplayStatusBar({
         className="inline-flex h-8 shrink-0 items-center gap-1 rounded-2xl border-2 border-amber-300 bg-amber-100 px-2 text-xs font-black leading-none text-amber-950"
       >
         <Star className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
-        <span className="tabular-nums">{starValue}/{starMax}</span>
+        <span className="tabular-nums">
+          {starValue}/{starMax}
+        </span>
       </div>
     </div>
   );

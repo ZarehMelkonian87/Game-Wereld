@@ -1,4 +1,8 @@
-import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, RefObject } from "react";
+import type {
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+  RefObject,
+} from "react";
 import { classNames } from "../../../components/ui/classNames";
 import type { SceneZone } from "../../../types";
 import { getZoneColor, type ZonePoint } from "../logic/zone-devtools-utils";
@@ -8,11 +12,8 @@ interface ZoneDevToolsOverlayProps {
   activeZone?: SceneZone;
   generatedPath: string;
   handleAddPoint: (event: ReactMouseEvent<HTMLButtonElement>) => void;
-  handlePointDragEnd: (event: ReactPointerEvent<HTMLButtonElement>) => void;
-  handlePointDragMove: (event: ReactPointerEvent<HTMLButtonElement>) => void;
   handlePointDragStart: (event: ReactPointerEvent<HTMLButtonElement>, index: number) => void;
-  handlePointMouseDown: (event: ReactMouseEvent<HTMLButtonElement>, index: number) => void;
-  rootRef: RefObject<HTMLDivElement | null>;
+  rootRef: RefObject<HTMLDivElement>;
   selectedPointIndex: number | null;
   setSelectedPointIndex: (index: number | null) => void;
   zones: SceneZone[];
@@ -66,10 +67,7 @@ export const ZoneDevToolsOverlay = ({
   activeZone,
   generatedPath,
   handleAddPoint,
-  handlePointDragEnd,
-  handlePointDragMove,
   handlePointDragStart,
-  handlePointMouseDown,
   selectedPointIndex,
   setSelectedPointIndex,
   zones,
@@ -146,11 +144,7 @@ export const ZoneDevToolsOverlay = ({
                 event.stopPropagation();
                 setSelectedPointIndex(index);
               }}
-              onMouseDown={(event) => handlePointMouseDown(event, index)}
-              onPointerCancel={handlePointDragEnd}
               onPointerDown={(event) => handlePointDragStart(event, index)}
-              onPointerMove={handlePointDragMove}
-              onPointerUp={handlePointDragEnd}
               style={{
                 left: `${point.x}%`,
                 top: `${point.y}%`,

@@ -20,8 +20,8 @@ Een mobile-first game platform gebouwd met React, TypeScript, Vite en Tailwind C
 
 ### Vereisten
 
-- Node.js versie 16 of hoger
-- npm
+- Node.js 22.21.x (zie `.nvmrc` en `package.json`)
+- npm 10.9.x
 
 ### Stap 1: Installeer dependencies
 
@@ -56,6 +56,24 @@ De gebouwde bestanden komen in de `dist` folder.
 ```bash
 npm run preview
 ```
+
+### Kwaliteitscontroles
+
+`npm run check` voert de formatteringscheck, linting, TypeScriptcontrole, unit-/componenttests en architectuurregels uit. Het commando wijzigt geen bronbestanden. De onderdelen zijn ook afzonderlijk beschikbaar:
+
+| Commando                    | Doel                                                          |
+| --------------------------- | ------------------------------------------------------------- |
+| `npm run format:check`      | controleer consistente opmaak                                 |
+| `npm run lint`              | controleer TypeScript, React Hooks en toegankelijkheidsregels |
+| `npm run typecheck`         | typecheck app-, test- en configuratiecode zonder output       |
+| `npm run test`              | draai Vitest eenmalig                                         |
+| `npm run test:watch`        | draai Vitest interactief tijdens ontwikkeling                 |
+| `npm run test:coverage`     | genereer lokale V8-coveragerapportage                         |
+| `npm run test:architecture` | bewaak imports en cycles met Dependency Cruiser               |
+| `npm run check:dead-code`   | rapporteer ongebruikte files en dependencies met Knip         |
+| `npm run test:e2e`          | draai de kritieke flow in Chromium en WebKit                  |
+
+Gebruik `npm run format` bewust om ondersteunde bestanden te formatteren. Gegenereerde output en grote game-assets worden niet meegenomen. De normatieve eisen en tijdelijke uitzonderingen staan in `docs/code-quality-and-architecture.md` en `docs/architecture/temporary-exceptions.md`.
 
 ## 📁 Project Structuur
 
@@ -103,6 +121,7 @@ Momenteel beschikbaar:
 ## 🎭 Beschikbare Avatars
 
 16 epic avatars inclusief:
+
 - Shadow Cat 🐱
 - Thunder Dog 🐶
 - Dragon Master 🐉
@@ -133,6 +152,7 @@ Momenteel beschikbaar:
 ## 🔮 Toekomstige Uitbreidingen
 
 De app is volledig voorbereid op:
+
 - ✨ Toevoegen van echte mini-games
 - 🎯 Multiplayer functionaliteit
 - 🏅 Achievements en badges

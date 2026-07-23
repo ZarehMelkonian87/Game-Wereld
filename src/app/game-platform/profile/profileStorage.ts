@@ -4,7 +4,7 @@ import type { Profile } from "./profile.types";
 const profilesStorageKey = "kids-game-profiles";
 const currentProfileStorageKey = "kids-game-current-profile";
 
-const readJson = <TValue,>(storage: GameStorage, key: string, fallback: TValue): TValue => {
+const readJson = <TValue>(storage: GameStorage, key: string, fallback: TValue): TValue => {
   const savedValue = storage.getItem(key);
 
   if (!savedValue) {

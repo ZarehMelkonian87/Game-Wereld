@@ -1,10 +1,5 @@
 import { motion } from "motion/react";
-import {
-  getChangeColor,
-  getChangeIcon,
-  getChangeText,
-  getProgressColor,
-} from "./progressHelpers";
+import { getChangeColor, getChangeIcon, getChangeText, getProgressColor } from "./progressHelpers";
 import type { SkillProgress } from "./progressTypes";
 
 interface SkillProgressRowProps {

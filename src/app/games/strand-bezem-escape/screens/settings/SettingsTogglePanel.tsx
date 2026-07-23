@@ -9,10 +9,7 @@ interface SettingsTogglePanelProps {
   settings: BezemEscapeSettings;
 }
 
-export const SettingsTogglePanel = ({
-  onUpdateSettings,
-  settings,
-}: SettingsTogglePanelProps) => (
+export const SettingsTogglePanel = ({ onUpdateSettings, settings }: SettingsTogglePanelProps) => (
   <div className="contents" data-component="SettingsTogglePanel">
     <PanelCard className="grid gap-2 !rounded-2xl !p-2.5">
       <SettingsToggleRow
@@ -20,9 +17,7 @@ export const SettingsTogglePanel = ({
         description="Laat opdrachtspraak en video's horen."
         icon={<Volume2 className="h-6 w-6" strokeWidth={3} />}
         label="Audio"
-        onToggle={() =>
-          onUpdateSettings({ ...settings, audioEnabled: !settings.audioEnabled })
-        }
+        onToggle={() => onUpdateSettings({ ...settings, audioEnabled: !settings.audioEnabled })}
         testId="settings-audio-toggle"
       />
       <SettingsToggleRow
@@ -30,9 +25,7 @@ export const SettingsTogglePanel = ({
         description="Zachte muziek op de achtergrond."
         icon={<Music2 className="h-6 w-6" strokeWidth={3} />}
         label="Muziek"
-        onToggle={() =>
-          onUpdateSettings({ ...settings, musicEnabled: !settings.musicEnabled })
-        }
+        onToggle={() => onUpdateSettings({ ...settings, musicEnabled: !settings.musicEnabled })}
         testId="settings-music-toggle"
       />
       <SettingsToggleRow
@@ -40,9 +33,7 @@ export const SettingsTogglePanel = ({
         description="Laat de mascotte helpen wanneer nodig."
         icon={<Lightbulb className="h-6 w-6" strokeWidth={3} />}
         label="Hints"
-        onToggle={() =>
-          onUpdateSettings({ ...settings, hintsEnabled: !settings.hintsEnabled })
-        }
+        onToggle={() => onUpdateSettings({ ...settings, hintsEnabled: !settings.hintsEnabled })}
         testId="settings-hints-toggle"
       />
       <SettingsToggleRow
@@ -50,9 +41,7 @@ export const SettingsTogglePanel = ({
         description="Minder beweging en minder pulse-effecten."
         icon={<EyeOff className="h-6 w-6" strokeWidth={3} />}
         label="Rustige beweging"
-        onToggle={() =>
-          onUpdateSettings({ ...settings, reducedMotion: !settings.reducedMotion })
-        }
+        onToggle={() => onUpdateSettings({ ...settings, reducedMotion: !settings.reducedMotion })}
         testId="settings-reduced-motion-toggle"
       />
       <SettingsToggleRow

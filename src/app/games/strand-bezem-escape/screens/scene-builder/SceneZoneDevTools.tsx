@@ -23,14 +23,8 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
     handleAddPoint,
     handleClearPoints,
     handleCopyPath,
-    handlePanelDragEnd,
-    handlePanelDragMove,
     handlePanelDragStart,
-    handlePanelMouseDown,
-    handlePointDragEnd,
-    handlePointDragMove,
     handlePointDragStart,
-    handlePointMouseDown,
     handleResetSavedPath,
     handleSavePath,
     handleUndoPoint,
@@ -57,10 +51,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
         activeZone={activeZone}
         generatedPath={generatedPath}
         handleAddPoint={handleAddPoint}
-        handlePointDragEnd={handlePointDragEnd}
-        handlePointDragMove={handlePointDragMove}
         handlePointDragStart={handlePointDragStart}
-        handlePointMouseDown={handlePointMouseDown}
         rootRef={rootRef}
         selectedPointIndex={selectedPointIndex}
         setSelectedPointIndex={setSelectedPointIndex}
@@ -76,10 +67,7 @@ export const SceneZoneDevTools = ({ initialZoneId, zones }: SceneZoneDevToolsPro
         generatedPath={generatedPath}
         handleClearPoints={handleClearPoints}
         handleCopyPath={handleCopyPath}
-        handlePanelDragEnd={handlePanelDragEnd}
-        handlePanelDragMove={handlePanelDragMove}
         handlePanelDragStart={handlePanelDragStart}
-        handlePanelMouseDown={handlePanelMouseDown}
         handleResetSavedPath={handleResetSavedPath}
         handleSavePath={handleSavePath}
         handleUndoPoint={handleUndoPoint}

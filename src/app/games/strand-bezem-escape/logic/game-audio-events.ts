@@ -1,7 +1,6 @@
 export const BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT =
   "strand-bezem-escape:foreground-audio-start";
-export const BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT =
-  "strand-bezem-escape:foreground-audio-end";
+export const BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT = "strand-bezem-escape:foreground-audio-end";
 
 export const GAME_FOREGROUND_AUDIO_VOLUME = 1;
 export const GAME_BACKGROUND_MUSIC_VOLUME = 0.26;

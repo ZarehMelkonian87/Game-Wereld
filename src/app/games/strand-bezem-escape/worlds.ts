@@ -30,6 +30,4 @@ export function getWorldDefinition(worldId: string) {
   return worldDefinitions.find((world) => world.id === worldId) ?? worldDefinitions[0];
 }
 
-export const playableWorldDefinitions = worldDefinitions.filter(
-  (world) => world.status === "open",
-);
+export const playableWorldDefinitions = worldDefinitions.filter((world) => world.status === "open");

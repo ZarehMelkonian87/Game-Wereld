@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { useProfile } from "../../../../contexts/ProfileContext";
 import { getBeachObjectStickerUrl, getInstructionVideoUrl } from "../../asset-urls";
 import { appendPracticeEvent } from "../../logic/progress";
-import { readUnlockedRewardIds, resolveNewRewardUnlocks, saveUnlockedRewardIds } from "../../logic/rewards";
+import {
+  readUnlockedRewardIds,
+  resolveNewRewardUnlocks,
+  saveUnlockedRewardIds,
+} from "../../logic/rewards";
 import { readBezemEscapeSettings } from "../../logic/settings";
 import { speakDutch } from "../../logic/speech";
 import type { SceneObject, VocabularyChoiceInstruction } from "../../types";
@@ -41,7 +45,9 @@ export const useWordChoiceState = ({
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
     readUnlockedRewardIds(rewardProfileId),
   );
-  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<Record<string, number>>({});
+  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<
+    Record<string, number>
+  >({});
   const [hintUsedByInstruction, setHintUsedByInstruction] = useState<Record<string, boolean>>({});
   const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
   const [recognizedWithHint, setRecognizedWithHint] = useState<string[]>([]);
@@ -88,7 +94,9 @@ export const useWordChoiceState = ({
             label: toDisplayLabel(object.label),
           };
         })
-        .filter((option): option is { id: string; imageUrl: string; label: string } => Boolean(option)),
+        .filter((option): option is { id: string; imageUrl: string; label: string } =>
+          Boolean(option),
+        ),
     [instruction.answerOptions, objects],
   );
 

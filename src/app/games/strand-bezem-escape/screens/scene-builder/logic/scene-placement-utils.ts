@@ -5,7 +5,10 @@ import type {
   SceneObject,
 } from "../../../types";
 
-export const getObjectLabelById = (objects: readonly SceneObject[], objectId: string | undefined) => {
+export const getObjectLabelById = (
+  objects: readonly SceneObject[],
+  objectId: string | undefined,
+) => {
   if (!objectId) {
     return undefined;
   }
@@ -37,7 +40,8 @@ export const getSpeakAndPlaceReward = ({
       : activeAudioRepeats > 0
         ? "audio-repeat"
         : "none";
-  const result: PracticeResult = assistance === "none" ? "mastered" : "supported";
+  const result: PracticeResult =
+    assistance === "none" ? "correct-without-help" : "correct-with-help";
 
   return {
     activeSpatialConcept: instruction.placement.relation,

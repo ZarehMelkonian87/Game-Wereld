@@ -148,13 +148,13 @@ Reviewers onderzoeken bestanden boven ongeveer 300 regels en functies boven onge
 
 Iedere state heeft één eigenaar en een benoemde levensduur:
 
-| State | Eigenaar | Voorbeeld |
-| --- | --- | --- |
-| Renderstate | component | geopende dialoog |
-| Gamesessiestate | gamecontroller/reducer | huidige opdracht en plaatsingen |
-| Shellstate | kleine featureprovider | actief profiel-id |
-| Duurzame data | repository | profiel en oefenevent |
-| HTTP-assets | service worker/Cache Storage | chunks, audio en video |
+| State           | Eigenaar                     | Voorbeeld                       |
+| --------------- | ---------------------------- | ------------------------------- |
+| Renderstate     | component                    | geopende dialoog                |
+| Gamesessiestate | gamecontroller/reducer       | huidige opdracht en plaatsingen |
+| Shellstate      | kleine featureprovider       | actief profiel-id               |
+| Duurzame data   | repository                   | profiel en oefenevent           |
+| HTTP-assets     | service worker/Cache Storage | chunks, audio en video          |
 
 - Gamesessiestate blijft lokaal en gebruikt een reducer wanneer de toestanden en transities niet triviaal zijn.
 - Duurzame events horen niet in een globale React-store.

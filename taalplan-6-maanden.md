@@ -51,12 +51,12 @@ Per woord oefen je:
 
 Voorbeeld:
 
-| Onderdeel | Voorbeeld |
-|---|---|
-| Woord | vergelijken |
-| Betekenis | Kijken wat hetzelfde of anders is |
-| Voorbeeldzin | Ik vergelijk twee plaatjes. |
-| Vraag | Kun jij deze twee dingen vergelijken? |
+| Onderdeel    | Voorbeeld                             |
+| ------------ | ------------------------------------- |
+| Woord        | vergelijken                           |
+| Betekenis    | Kijken wat hetzelfde of anders is     |
+| Voorbeeldzin | Ik vergelijk twee plaatjes.           |
+| Vraag        | Kun jij deze twee dingen vergelijken? |
 
 ### 3. Praten en vertellen - 5 minuten
 
@@ -83,20 +83,20 @@ Ouder: "Ja, jij ging naar school. Zeg maar: ik ging naar school."
 
 Gebruik elke week een vast thema. Dat maakt woorden makkelijker te onthouden.
 
-| Week | Thema | Voorbeelden van woorden |
-|---|---|---|
-| 1 | School en klas | klas, juf, meester, opdracht, uitleg, schrift, potlood |
-| 2 | Huis en familie | kamer, keuken, broer, zus, opruimen, helpen, samen |
-| 3 | Eten en boodschappen | groente, fruit, betalen, kiezen, wegen, duur, goedkoop |
-| 4 | Lichaam en gevoelens | hoofd, buik, moe, blij, boos, bang, pijn |
-| 5 | Dieren en natuur | dier, boom, bloem, groeien, vliegen, zwemmen, verzorgen |
-| 6 | Tijd | gisteren, vandaag, morgen, eerst, daarna, straks, later |
-| 7 | Plaats | voor, achter, naast, tussen, boven, onder, dichtbij |
-| 8 | Werkwoorden | pakken, leggen, zoeken, kiezen, vragen, antwoorden |
-| 9 | Tegenstellingen | groot/klein, vol/leeg, snel/langzaam, warm/koud |
-| 10 | Verhalen vertellen | begin, midden, einde, probleem, oplossing, omdat |
-| 11 | Waarom-vragen | waarom, daarom, oorzaak, gevolg, reden, bedoeling |
-| 12 | Herhaling | woorden uit week 1 t/m 11 |
+| Week | Thema                | Voorbeelden van woorden                                 |
+| ---- | -------------------- | ------------------------------------------------------- |
+| 1    | School en klas       | klas, juf, meester, opdracht, uitleg, schrift, potlood  |
+| 2    | Huis en familie      | kamer, keuken, broer, zus, opruimen, helpen, samen      |
+| 3    | Eten en boodschappen | groente, fruit, betalen, kiezen, wegen, duur, goedkoop  |
+| 4    | Lichaam en gevoelens | hoofd, buik, moe, blij, boos, bang, pijn                |
+| 5    | Dieren en natuur     | dier, boom, bloem, groeien, vliegen, zwemmen, verzorgen |
+| 6    | Tijd                 | gisteren, vandaag, morgen, eerst, daarna, straks, later |
+| 7    | Plaats               | voor, achter, naast, tussen, boven, onder, dichtbij     |
+| 8    | Werkwoorden          | pakken, leggen, zoeken, kiezen, vragen, antwoorden      |
+| 9    | Tegenstellingen      | groot/klein, vol/leeg, snel/langzaam, warm/koud         |
+| 10   | Verhalen vertellen   | begin, midden, einde, probleem, oplossing, omdat        |
+| 11   | Waarom-vragen        | waarom, daarom, oorzaak, gevolg, reden, bedoeling       |
+| 12   | Herhaling            | woorden uit week 1 t/m 11                               |
 
 Na 12 weken begin je opnieuw met dezelfde thema's, maar met moeilijkere woorden en langere zinnen.
 
@@ -208,12 +208,12 @@ Goede mogelijkheden:
 
 Houd elke week kort bij hoe het gaat.
 
-| Week | Thema | Aantal nieuwe woorden | Woorden die goed gaan | Woorden die terug moeten komen | Opmerking |
-|---|---:|---:|---|---|---|
-| 1 | School en klas |  |  |  |  |
-| 2 | Huis en familie |  |  |  |  |
-| 3 | Eten en boodschappen |  |  |  |  |
-| 4 | Lichaam en gevoelens |  |  |  |  |
+| Week |                Thema | Aantal nieuwe woorden | Woorden die goed gaan | Woorden die terug moeten komen | Opmerking |
+| ---- | -------------------: | --------------------: | --------------------- | ------------------------------ | --------- |
+| 1    |       School en klas |                       |                       |                                |           |
+| 2    |      Huis en familie |                       |                       |                                |           |
+| 3    | Eten en boodschappen |                       |                       |                                |           |
+| 4    | Lichaam en gevoelens |                       |                       |                                |           |
 
 Let niet alleen op toetsresultaten. Let ook op:
 

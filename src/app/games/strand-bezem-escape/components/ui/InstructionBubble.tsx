@@ -8,4 +8,3 @@ export const InstructionBubble = (props: InstructionBubbleProps) => (
 );
 
 InstructionBubble.displayName = "InstructionBubble";
-

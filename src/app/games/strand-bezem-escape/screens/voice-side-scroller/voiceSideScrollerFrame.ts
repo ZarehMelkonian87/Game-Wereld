@@ -8,16 +8,12 @@ export const getVoiceSideScrollerTimestamp = () => {
   return Date.now();
 };
 
-export const requestVoiceSideScrollerFrame = (
-  callback: VoiceSideScrollerFrameCallback,
-) => {
-  if (typeof window !== "undefined" && typeof window.setTimeout === "function") {
-    return window.setTimeout(() => {
-      callback(getVoiceSideScrollerTimestamp());
-    }, 16);
+export const requestVoiceSideScrollerFrame = (callback: VoiceSideScrollerFrameCallback): number => {
+  if (typeof window === "undefined") {
+    return 0;
   }
 
-  return setTimeout(() => {
+  return window.setTimeout(() => {
     callback(getVoiceSideScrollerTimestamp());
   }, 16);
 };

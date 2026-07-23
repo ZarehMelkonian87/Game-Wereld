@@ -157,17 +157,17 @@ Elke PR moet zelfstandig releasable of achter een expliciete tijdelijke feature 
 
 ## 10.9 Risicomatrix
 
-| Risico | Kans | Impact | Beheersing |
-| --- | --- | --- | --- |
-| Bestaande lokale data raakt kwijt | Middel | Hoog | Fixtures, idempotente migratie, read-only backupkeys, cascade- en rollbacktests |
-| Refactor verandert pedagogische semantiek | Middel | Hoog | Projectorvoorbeelden met inhoudelijk eigenaar; parallelle resultaatvergelijking |
-| Safari/iPad wijkt af in storage/media/speech | Hoog | Hoog | WebKit-E2E, echt device, capabilityfakes en manual releasecheck |
-| Offlinepakket overschrijdt quota | Hoog | Middel | Grootte vooraf, estimate, expliciete download, LRU en herstel-UI |
-| Lazy chunk niet beschikbaar na release | Middel | Middel | load boundary, retry/update, consistente SW-versie en cached actieve release |
-| Te veel abstracties vertragen features | Middel | Middel | two-consumer-regel, ADR, tweede-gameproef |
-| Externe observability lekt kinddata | Laag zonder SDK | Zeer hoog | Opt-in besluit, allowlist, geen replay/transcript, privacytest |
-| CI wordt traag/flaky | Middel | Middel | snelle checks eerst, deterministische fakes, kleine PR-matrix, nightly volledige matrix |
-| Dubbele UI-stack blijft groeien | Middel | Middel | Knip, één UI-basis, dependency-approval |
+| Risico                                       | Kans            | Impact    | Beheersing                                                                              |
+| -------------------------------------------- | --------------- | --------- | --------------------------------------------------------------------------------------- |
+| Bestaande lokale data raakt kwijt            | Middel          | Hoog      | Fixtures, idempotente migratie, read-only backupkeys, cascade- en rollbacktests         |
+| Refactor verandert pedagogische semantiek    | Middel          | Hoog      | Projectorvoorbeelden met inhoudelijk eigenaar; parallelle resultaatvergelijking         |
+| Safari/iPad wijkt af in storage/media/speech | Hoog            | Hoog      | WebKit-E2E, echt device, capabilityfakes en manual releasecheck                         |
+| Offlinepakket overschrijdt quota             | Hoog            | Middel    | Grootte vooraf, estimate, expliciete download, LRU en herstel-UI                        |
+| Lazy chunk niet beschikbaar na release       | Middel          | Middel    | load boundary, retry/update, consistente SW-versie en cached actieve release            |
+| Te veel abstracties vertragen features       | Middel          | Middel    | two-consumer-regel, ADR, tweede-gameproef                                               |
+| Externe observability lekt kinddata          | Laag zonder SDK | Zeer hoog | Opt-in besluit, allowlist, geen replay/transcript, privacytest                          |
+| CI wordt traag/flaky                         | Middel          | Middel    | snelle checks eerst, deterministische fakes, kleine PR-matrix, nightly volledige matrix |
+| Dubbele UI-stack blijft groeien              | Middel          | Middel    | Knip, één UI-basis, dependency-approval                                                 |
 
 ## 10.10 Beslismomenten en ADR's
 

@@ -112,11 +112,7 @@ export const SpokenCommandControls = ({
             {shouldShowFallback ? (
               <TypedCommandFallback
                 exampleText={exampleText}
-                onClose={
-                  support.isSupported
-                    ? () => setShowManualFallback(false)
-                    : undefined
-                }
+                onClose={support.isSupported ? () => setShowManualFallback(false) : undefined}
                 onSubmit={handleSubmitTypedCommand}
                 onValueChange={setManualText}
                 value={manualText}

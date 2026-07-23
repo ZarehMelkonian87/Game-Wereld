@@ -96,16 +96,19 @@ export const useDutchSpeechRecognition = ({
     setStatus(getInitialSpeechStatus(getSpeechRecognitionSupport()));
   }, []);
 
-  const handleResult = useCallback((result: VoiceRecognitionResult) => {
-    lastErrorCodeRef.current = undefined;
-    setTranscript(result.transcript);
-    setConfidence(result.confidence);
-    setIsFinal(result.isFinal);
-    setResultId((currentResultId) => currentResultId + 1);
-    setAlternatives(result.alternatives);
-    setErrorMessage(undefined);
-    setStatus(continuous ? "listening" : "heard");
-  }, [continuous]);
+  const handleResult = useCallback(
+    (result: VoiceRecognitionResult) => {
+      lastErrorCodeRef.current = undefined;
+      setTranscript(result.transcript);
+      setConfidence(result.confidence);
+      setIsFinal(result.isFinal);
+      setResultId((currentResultId) => currentResultId + 1);
+      setAlternatives(result.alternatives);
+      setErrorMessage(undefined);
+      setStatus(continuous ? "listening" : "heard");
+    },
+    [continuous],
+  );
 
   const handleError = useCallback((errorCode: VoiceRecognitionErrorCode, message: string) => {
     lastErrorCodeRef.current = errorCode;

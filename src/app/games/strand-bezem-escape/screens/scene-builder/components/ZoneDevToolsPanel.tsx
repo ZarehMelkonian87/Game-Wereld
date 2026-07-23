@@ -1,4 +1,4 @@
-import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, RefObject } from "react";
+import type { PointerEvent as ReactPointerEvent, RefObject } from "react";
 import { classNames } from "../../../components/ui/classNames";
 import type { SceneZone } from "../../../types";
 import type { PanelPosition, ZonePoint } from "../logic/zone-devtools-utils";
@@ -12,17 +12,14 @@ interface ZoneDevToolsPanelProps {
   generatedPath: string;
   handleClearPoints: () => void;
   handleCopyPath: () => void;
-  handlePanelDragEnd: (event: ReactPointerEvent<HTMLButtonElement>) => void;
-  handlePanelDragMove: (event: ReactPointerEvent<HTMLButtonElement>) => void;
   handlePanelDragStart: (event: ReactPointerEvent<HTMLButtonElement>) => void;
-  handlePanelMouseDown: (event: ReactMouseEvent<HTMLButtonElement>) => void;
   handleResetSavedPath: () => void;
   handleSavePath: () => void;
   handleUndoPoint: () => void;
   isCollapsed: boolean;
   nudgePoint: (deltaX: number, deltaY: number) => void;
   panelPosition: PanelPosition;
-  panelRef: RefObject<HTMLElement | null>;
+  panelRef: RefObject<HTMLElement>;
   selectedPointIndex: number | null;
   setActiveZoneId: (zoneId: string) => void;
   setCopyStatus: (status: string) => void;
@@ -40,10 +37,7 @@ export const ZoneDevToolsPanel = ({
   generatedPath,
   handleClearPoints,
   handleCopyPath,
-  handlePanelDragEnd,
-  handlePanelDragMove,
   handlePanelDragStart,
-  handlePanelMouseDown,
   handleResetSavedPath,
   handleSavePath,
   handleUndoPoint,
@@ -94,11 +88,7 @@ export const ZoneDevToolsPanel = ({
           aria-label="Devtools verplaatsen"
           className="flex min-h-8 flex-1 touch-none items-center justify-between rounded-xl border-2 border-slate-700 bg-slate-950 px-2 text-left text-white active:translate-y-0.5"
           data-testid="scene-zone-devtools-drag-handle"
-          onMouseDown={handlePanelMouseDown}
-          onPointerCancel={handlePanelDragEnd}
           onPointerDown={handlePanelDragStart}
-          onPointerMove={handlePanelDragMove}
-          onPointerUp={handlePanelDragEnd}
           type="button"
         >
           <span className="text-[0.72rem] font-black leading-none text-amber-300">🛠 Zone Tool</span>

@@ -8,8 +8,12 @@ interface AchievementsCardProps {
 
 export const AchievementsCard = ({ profile, delay }: AchievementsCardProps) => {
   const getBadges = () => {
-    const hasMath = profile.progress.some(p => p.gameId.includes("numbers") || p.gameId.includes("count"));
-    const hasLanguage = profile.progress.some(p => p.gameId.includes("abc") || p.gameId.includes("word") || p.gameId.includes("bezem"));
+    const hasMath = profile.progress.some(
+      (p) => p.gameId.includes("numbers") || p.gameId.includes("count"),
+    );
+    const hasLanguage = profile.progress.some(
+      (p) => p.gameId.includes("abc") || p.gameId.includes("word") || p.gameId.includes("bezem"),
+    );
     const totalStars = profile.progress.reduce((sum, p) => sum + p.stars, 0);
     const totalPlayed = profile.progress.length;
 
@@ -73,12 +77,8 @@ export const AchievementsCard = ({ profile, delay }: AchievementsCardProps) => {
           >
             <div className="text-3xl sm:text-4xl drop-shadow-md">{badge.icon}</div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-sm sm:text-base font-bold text-white truncate">
-                {badge.name}
-              </h4>
-              <p className="text-xs text-slate-400 leading-tight">
-                {badge.description}
-              </p>
+              <h4 className="text-sm sm:text-base font-bold text-white truncate">{badge.name}</h4>
+              <p className="text-xs text-slate-400 leading-tight">{badge.description}</p>
             </div>
           </div>
         ))}

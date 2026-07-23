@@ -1,0 +1,33 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/main.tsx",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "e2e/**/*.spec.ts",
+    "src/**/*.test.{ts,tsx}"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts", "test/**/*.ts"],
+  "ignore": [
+    "src/app/components/ui/**",
+    "src/app/games/strand-bezem-escape/assets/asset-manifest.ts"
+  ],
+  "ignoreDependencies": [
+    "@radix-ui/react-*",
+    "class-variance-authority",
+    "clsx",
+    "cmdk",
+    "embla-carousel-react",
+    "input-otp",
+    "next-themes",
+    "react-day-picker",
+    "react-hook-form",
+    "react-resizable-panels",
+    "sonner",
+    "tailwindcss",
+    "tailwind-merge",
+    "tw-animate-css",
+    "vaul"
+  ]
+}

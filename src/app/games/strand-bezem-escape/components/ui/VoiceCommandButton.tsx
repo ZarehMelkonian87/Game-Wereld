@@ -3,8 +3,10 @@ import { LoaderCircle, Mic, MicOff, Square } from "lucide-react";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
 import { classNames } from "./classNames";
 
-interface VoiceCommandButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "onClick"> {
+interface VoiceCommandButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children" | "onClick"
+> {
   isSupported: boolean;
   onStartListening: () => void;
   onStopListening?: () => void;
@@ -100,4 +102,3 @@ export const VoiceCommandButton = ({
 };
 
 VoiceCommandButton.displayName = "VoiceCommandButton";
-

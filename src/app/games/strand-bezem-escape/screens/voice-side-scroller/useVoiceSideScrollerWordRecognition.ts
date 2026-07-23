@@ -5,12 +5,7 @@ import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 import { matchVoiceSideScrollerWord } from "./voiceSideScrollerWords";
 
 export type VoiceSideScrollerWordRecognitionStatus =
-  | "idle"
-  | "listening"
-  | "matched"
-  | "missed"
-  | "unsupported"
-  | "error";
+  "idle" | "listening" | "matched" | "missed" | "unsupported" | "error";
 
 export interface VoiceSideScrollerWordRecognitionState {
   confidence?: number;
@@ -44,12 +39,9 @@ const createIdleWordRecognitionState = (
   supportMessage,
 });
 
-const getListeningFeedbackText = () =>
-  "Noem een plaatje dat je ziet.";
+const getListeningFeedbackText = () => "Noem een plaatje dat je ziet.";
 
-const getSpeechStatusFeedback = (
-  speechStatus: VoiceRecognitionStatus,
-) => {
+const getSpeechStatusFeedback = (speechStatus: VoiceRecognitionStatus) => {
   if (speechStatus === "listening") {
     return getListeningFeedbackText();
   }
@@ -64,12 +56,10 @@ const getSpeechStatusFeedback = (
 const getTranscriptCandidates = (
   transcript: string | undefined,
   alternatives: { transcript: string }[],
-) => [
-  transcript,
-  ...alternatives.map((alternative) => alternative.transcript),
-]
-  .filter((candidate): candidate is string => Boolean(candidate?.trim()))
-  .map((candidate) => candidate.trim());
+) =>
+  [transcript, ...alternatives.map((alternative) => alternative.transcript)]
+    .filter((candidate): candidate is string => Boolean(candidate?.trim()))
+    .map((candidate) => candidate.trim());
 
 const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
   Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));
@@ -253,7 +243,10 @@ export const useVoiceSideScrollerWordRecognition = ({
   ]);
 
   useEffect(() => {
-    if (!isRunning || (wordRecognition.status !== "matched" && wordRecognition.status !== "missed")) {
+    if (
+      !isRunning ||
+      (wordRecognition.status !== "matched" && wordRecognition.status !== "missed")
+    ) {
       return undefined;
     }
 
@@ -291,9 +284,12 @@ export const useVoiceSideScrollerWordRecognition = ({
     };
   }, [errorMessage, isRunning, startWordPrompt, status]);
 
-  useEffect(() => () => {
-    clearRelistenTimer();
-  }, [clearRelistenTimer]);
+  useEffect(
+    () => () => {
+      clearRelistenTimer();
+    },
+    [clearRelistenTimer],
+  );
 
   useEffect(() => {
     if (status === "unsupported") {

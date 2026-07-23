@@ -38,15 +38,9 @@ export const ProgressScreen = () => {
           />
 
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <ActivityChartCard
-              delay={0.05}
-              selectedPeriod={selectedPeriod}
-            />
+            <ActivityChartCard delay={0.05} selectedPeriod={selectedPeriod} />
 
-            <AchievementsCard
-              delay={0.1}
-              profile={currentProfile}
-            />
+            <AchievementsCard delay={0.1} profile={currentProfile} />
 
             {progressData.map((themeData, index) => {
               const theme = gameThemes.find((candidate) => candidate.id === themeData.themeId);

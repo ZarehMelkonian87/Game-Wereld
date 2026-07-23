@@ -16,9 +16,7 @@ export const AudioSettingRow = ({ enabled, icon, label, onToggle }: AudioSetting
   >
     <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
       {icon}
-      <span className="text-base sm:text-lg md:text-xl text-white font-bold truncate">
-        {label}
-      </span>
+      <span className="text-base sm:text-lg md:text-xl text-white font-bold truncate">{label}</span>
     </div>
     <div
       className={`w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-xl sm:text-2xl font-black flex-shrink-0 transition-colors ${

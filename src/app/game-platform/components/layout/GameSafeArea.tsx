@@ -5,7 +5,12 @@ export interface GameSafeAreaProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export const GameSafeArea = ({ children, className, style, ...safeAreaProps }: GameSafeAreaProps) => (
+export const GameSafeArea = ({
+  children,
+  className,
+  style,
+  ...safeAreaProps
+}: GameSafeAreaProps) => (
   <div
     {...safeAreaProps}
     className={classNames("pointer-events-none absolute inset-0", className)}
@@ -23,4 +28,3 @@ export const GameSafeArea = ({ children, className, style, ...safeAreaProps }: G
 );
 
 GameSafeArea.displayName = "GameSafeArea";
-

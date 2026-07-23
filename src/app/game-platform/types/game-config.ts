@@ -10,4 +10,3 @@ export interface GameConfig {
   supportedOrientations: GameOrientation[];
   title: string;
 }
-

@@ -7,9 +7,7 @@ interface VoiceSideScrollerTargetLayerProps {
   targets: VoiceSideScrollerTarget[];
 }
 
-export const VoiceSideScrollerTargetLayer = ({
-  targets,
-}: VoiceSideScrollerTargetLayerProps) => (
+export const VoiceSideScrollerTargetLayer = ({ targets }: VoiceSideScrollerTargetLayerProps) => (
   <div
     aria-hidden
     className="absolute inset-0 z-20"

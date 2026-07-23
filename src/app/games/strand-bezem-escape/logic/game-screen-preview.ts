@@ -33,8 +33,7 @@ export const getInstructionPreviewText = () => {
 export const shouldShowTrayLabels = () => getSearchParams()?.get("trayLabels") === "true";
 
 export const shouldShowZoneDevTools = () =>
-  getSearchParams()?.get("zoneDevTools") === "true" ||
-  getSearchParams()?.get("dev") === "true";
+  getSearchParams()?.get("zoneDevTools") === "true" || getSearchParams()?.get("dev") === "true";
 
 export const getSpokenCommandPreviewText = () =>
   getSearchParams()?.get("spokenCommandPreview") ?? undefined;

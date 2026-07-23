@@ -1,14 +1,18 @@
 import type { MouseEvent, PointerEvent as ReactPointerEvent, RefObject } from "react";
 import { beachBackgrounds, getBeachObjectStickerUrl } from "../../../asset-urls";
 import { BeachBackground } from "../../../components/layout/BeachBackground";
-import type { PlacedObject, SceneObject, SceneZone } from "../../../types";
+import type { SceneObject, SceneZone } from "../../../types";
 import { TargetZoneHint } from "../TargetZoneHint";
 import { SceneZoneDevTools } from "../SceneZoneDevTools";
+import type { PlacedObject } from "../logic/scene-builder-types";
 import { SpeechWaveAnimation } from "./SpeechWaveAnimation";
 
 interface SceneAreaCanvasProps {
   effectiveZones: SceneZone[];
-  handleObjectPointerCancel: (event: ReactPointerEvent<HTMLButtonElement>, objectId: string) => void;
+  handleObjectPointerCancel: (
+    event: ReactPointerEvent<HTMLButtonElement>,
+    objectId: string,
+  ) => void;
   handleObjectPointerMove: (event: ReactPointerEvent<HTMLButtonElement>, objectId: string) => void;
   handleObjectPointerUp: (event: ReactPointerEvent<HTMLButtonElement>, objectId: string) => void;
   handlePendingObjectPointerDown: (event: ReactPointerEvent<HTMLButtonElement>) => void;
@@ -24,7 +28,7 @@ interface SceneAreaCanvasProps {
     zoneId: string;
   } | null;
   placedObjects: PlacedObject[];
-  sceneAreaRef: RefObject<HTMLElement | null>;
+  sceneAreaRef: RefObject<HTMLElement>;
   showTargetZoneHint: boolean;
   showZoneDevTools: boolean;
   visualHintZone?: SceneZone;
@@ -99,51 +103,49 @@ export const SceneAreaCanvas = ({
         );
       })}
 
-      {pendingPlacement ? (
-        (() => {
-          const object = objects.find(
-            (sceneObject) => sceneObject.id === pendingPlacement.objectId,
-          );
-          const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
+      {pendingPlacement
+        ? (() => {
+            const object = objects.find(
+              (sceneObject) => sceneObject.id === pendingPlacement.objectId,
+            );
+            const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
 
-          if (!object || !imageUrl) {
-            return null;
-          }
+            if (!object || !imageUrl) {
+              return null;
+            }
 
-          return (
-            <button
-              aria-label={`Verplaats ${object.label}`}
-              className={`pointer-events-auto absolute h-[clamp(4.2rem,12vw,5.5rem)] w-[clamp(4.2rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none ${
-                pendingPlacement.source === "spoken"
-                  ? "drop-shadow-[0_0_18px_rgba(56,189,248,0.55)] motion-safe:animate-[bounce_550ms_ease-out_1]"
-                  : ""
-              }`}
-              data-placement-source={pendingPlacement.source ?? "manual"}
-              data-testid={`pending-object-${pendingPlacement.objectId}`}
-              onPointerCancel={(event) =>
-                handleObjectPointerCancel(event, pendingPlacement.objectId)
-              }
-              onPointerDown={handlePendingObjectPointerDown}
-              onPointerMove={(event) =>
-                handleObjectPointerMove(event, pendingPlacement.objectId)
-              }
-              onPointerUp={(event) => handleObjectPointerUp(event, pendingPlacement.objectId)}
-              style={{
-                left: `${pendingPlacement.x}%`,
-                top: `${pendingPlacement.y}%`,
-              }}
-              type="button"
-            >
-              <img
-                alt=""
-                className="h-full w-full object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
-                draggable={false}
-                src={imageUrl}
-              />
-            </button>
-          );
-        })()
-      ) : null}
+            return (
+              <button
+                aria-label={`Verplaats ${object.label}`}
+                className={`pointer-events-auto absolute h-[clamp(4.2rem,12vw,5.5rem)] w-[clamp(4.2rem,12vw,5.5rem)] -translate-x-1/2 -translate-y-1/2 touch-none ${
+                  pendingPlacement.source === "spoken"
+                    ? "drop-shadow-[0_0_18px_rgba(56,189,248,0.55)] motion-safe:animate-[bounce_550ms_ease-out_1]"
+                    : ""
+                }`}
+                data-placement-source={pendingPlacement.source ?? "manual"}
+                data-testid={`pending-object-${pendingPlacement.objectId}`}
+                onPointerCancel={(event) =>
+                  handleObjectPointerCancel(event, pendingPlacement.objectId)
+                }
+                onPointerDown={handlePendingObjectPointerDown}
+                onPointerMove={(event) => handleObjectPointerMove(event, pendingPlacement.objectId)}
+                onPointerUp={(event) => handleObjectPointerUp(event, pendingPlacement.objectId)}
+                style={{
+                  left: `${pendingPlacement.x}%`,
+                  top: `${pendingPlacement.y}%`,
+                }}
+                type="button"
+              >
+                <img
+                  alt=""
+                  className="h-full w-full object-contain drop-shadow-[0_4px_0_rgba(15,23,42,0.16)]"
+                  draggable={false}
+                  src={imageUrl}
+                />
+              </button>
+            );
+          })()
+        : null}
 
       {voiceRecognitionStatus === "listening" && <SpeechWaveAnimation />}
     </section>

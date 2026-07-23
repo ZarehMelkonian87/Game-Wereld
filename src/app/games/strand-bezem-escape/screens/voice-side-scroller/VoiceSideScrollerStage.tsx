@@ -36,10 +36,7 @@ export const VoiceSideScrollerStage = ({
       speed={state.speed}
     />
     {state.status === "ready" ? (
-      <VoiceSideScrollerStartOverlay
-        onStart={onStart}
-        state={state}
-      />
+      <VoiceSideScrollerStartOverlay onStart={onStart} state={state} />
     ) : null}
     {state.status === "game-over" ? (
       <VoiceSideScrollerRoundSummary

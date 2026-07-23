@@ -1,8 +1,4 @@
-import type {
-  GameWorld,
-  SceneBuilderInstruction,
-  VocabularyChoiceInstruction,
-} from "../types";
+import type { GameWorld, SceneBuilderInstruction, VocabularyChoiceInstruction } from "../types";
 
 export const getSceneBuilderInstructions = (world: GameWorld) => {
   const instructions = world.instructions.filter(

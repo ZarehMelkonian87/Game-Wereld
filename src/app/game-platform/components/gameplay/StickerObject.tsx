@@ -2,7 +2,10 @@ import { useState } from "react";
 import type { ButtonHTMLAttributes } from "react";
 import { classNames } from "../../utils/classNames";
 
-export interface StickerObjectProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+export interface StickerObjectProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "children"
+> {
   imageUrl: string;
   label: string;
   selected?: boolean;
@@ -42,7 +45,7 @@ export const StickerObject = ({
       }}
       className={classNames(
         "flex max-h-full shrink-0 flex-col items-center justify-center gap-1 text-slate-900 transition duration-150 active:translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
-        isInteracting ? "touch-none" : (isTraySize ? "touch-pan-x" : "touch-manipulation"),
+        isInteracting ? "touch-none" : isTraySize ? "touch-pan-x" : "touch-manipulation",
         isTraySize
           ? "min-h-[clamp(4.2rem,10vw,5rem)] min-w-[clamp(4.2rem,10vw,5rem)] rounded-xl border-0 bg-transparent px-2.5 py-2.5 shadow-none"
           : "min-h-[82px] min-w-[78px] rounded-2xl border-2 bg-white/95 px-2 py-2 shadow-[0_3px_0_rgba(15,23,42,0.18)] active:shadow-none",
@@ -95,4 +98,3 @@ export const StickerObject = ({
 };
 
 StickerObject.displayName = "StickerObject";
-

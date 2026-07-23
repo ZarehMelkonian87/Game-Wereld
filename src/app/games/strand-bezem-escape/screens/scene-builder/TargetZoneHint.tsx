@@ -128,7 +128,7 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
             animation: rotateMagicCW ${pulsing ? "2.5s" : "5s"} linear infinite;
           }
         `}</style>
-        
+
         {/* Outer Ring */}
         <ellipse
           cx="50"
@@ -140,7 +140,8 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
           strokeWidth="1.6"
           className="magic-ring-outer"
           style={{
-            filter: "drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 6px rgba(251, 191, 36, 0.6))",
+            filter:
+              "drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 6px rgba(251, 191, 36, 0.6))",
           }}
         />
 
@@ -155,7 +156,8 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
           strokeWidth="1.2"
           className="magic-ring-inner"
           style={{
-            filter: "drop-shadow(0 0 2px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 4px rgba(251, 191, 36, 0.4))",
+            filter:
+              "drop-shadow(0 0 2px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 4px rgba(251, 191, 36, 0.4))",
           }}
         />
 
@@ -171,7 +173,8 @@ export const TargetZoneHint = ({ zone, pulsing = false }: TargetZoneHintProps) =
           strokeLinecap="round"
           className="magic-ring-sparkles"
           style={{
-            filter: "drop-shadow(0 0 4px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 8px rgba(251, 191, 36, 0.7))",
+            filter:
+              "drop-shadow(0 0 4px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 8px rgba(251, 191, 36, 0.7))",
           }}
         />
       </svg>

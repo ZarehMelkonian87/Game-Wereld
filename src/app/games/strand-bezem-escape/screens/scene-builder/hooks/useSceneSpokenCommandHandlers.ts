@@ -33,7 +33,6 @@ export const useSceneSpokenCommandHandlers = ({
   const applySpokenCommandTranscript = useCallback(
     (transcript: string) => {
       const executionResult = executeSpokenSceneCommand({
-        instruction,
         objects,
         placements: placedObjectPoints,
         transcript,
@@ -92,7 +91,21 @@ export const useSceneSpokenCommandHandlers = ({
 
       return executionResult;
     },
-    [effectiveZones, instruction, objects, placedObjectPoints, setFeedback, setHighlightedObjectId, setPendingPlacement, setSelectedObjectId, setSelectedZoneId, setShowTargetZoneHint, setSpokenCommandResult, setSpokenHelpByInstruction, setSpokenHintZoneId],
+    [
+      effectiveZones,
+      instruction,
+      objects,
+      placedObjectPoints,
+      setFeedback,
+      setHighlightedObjectId,
+      setPendingPlacement,
+      setSelectedObjectId,
+      setSelectedZoneId,
+      setShowTargetZoneHint,
+      setSpokenCommandResult,
+      setSpokenHelpByInstruction,
+      setSpokenHintZoneId,
+    ],
   );
 
   const handleSpokenCommandChoice = (choice: SceneCommandChoice) => {

@@ -1,10 +1,5 @@
 export type MicrophonePermissionState =
-  | "denied"
-  | "granted"
-  | "insecure-context"
-  | "prompt"
-  | "unknown"
-  | "unsupported";
+  "denied" | "granted" | "insecure-context" | "prompt" | "unknown" | "unsupported";
 
 export interface MicrophonePermissionResult {
   canAsk: boolean;
@@ -24,10 +19,7 @@ const createMicrophonePermissionResult = (
 });
 
 export const initialMicrophonePermissionResult: MicrophonePermissionResult =
-  createMicrophonePermissionResult(
-    "unknown",
-    "Tik op de microfoonknop om toestemming te vragen.",
-  );
+  createMicrophonePermissionResult("unknown", "Tik op de microfoonknop om toestemming te vragen.");
 
 const getUnavailableReason = () => {
   if (typeof window === "undefined" || typeof navigator === "undefined") {
@@ -72,22 +64,23 @@ const mapPermissionState = (state: PermissionState): MicrophonePermissionResult 
   );
 };
 
-const readBrowserMicrophonePermissionStatus =
-  async (): Promise<MicrophonePermissionResult | undefined> => {
-    if (!navigator.permissions?.query) {
-      return undefined;
-    }
+const readBrowserMicrophonePermissionStatus = async (): Promise<
+  MicrophonePermissionResult | undefined
+> => {
+  if (!navigator.permissions?.query) {
+    return undefined;
+  }
 
-    try {
-      const permissionStatus = await navigator.permissions.query({
-        name: "microphone" as PermissionName,
-      });
+  try {
+    const permissionStatus = await navigator.permissions.query({
+      name: "microphone" as PermissionName,
+    });
 
-      return mapPermissionState(permissionStatus.state);
-    } catch {
-      return undefined;
-    }
-  };
+    return mapPermissionState(permissionStatus.state);
+  } catch {
+    return undefined;
+  }
+};
 
 export const getMicrophonePermissionStatus = async (): Promise<MicrophonePermissionResult> => {
   const unavailableReason = getUnavailableReason();
@@ -117,10 +110,7 @@ export const requestMicrophonePermission = async (): Promise<MicrophonePermissio
 
   const currentPermissionStatus = await readBrowserMicrophonePermissionStatus();
 
-  if (
-    currentPermissionStatus?.state === "denied" ||
-    currentPermissionStatus?.state === "granted"
-  ) {
+  if (currentPermissionStatus?.state === "denied" || currentPermissionStatus?.state === "granted") {
     return currentPermissionStatus;
   }
 

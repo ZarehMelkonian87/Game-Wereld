@@ -12,10 +12,7 @@ interface VoiceSideScrollerHudProps {
   state: VoiceSideScrollerGameState;
 }
 
-export const VoiceSideScrollerHud = ({
-  onBackToMenu,
-  state,
-}: VoiceSideScrollerHudProps) => {
+export const VoiceSideScrollerHud = ({ onBackToMenu, state }: VoiceSideScrollerHudProps) => {
   const distanceMeters = getVoiceScrollerDistanceMeters(state);
   const difficultyProgress = getVoiceScrollerDifficultyProgress(state);
 

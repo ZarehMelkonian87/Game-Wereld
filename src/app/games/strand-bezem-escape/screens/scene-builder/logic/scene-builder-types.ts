@@ -1,4 +1,19 @@
 import type { SceneCommandExecutionResult } from "../../../logic/scene-command-executor";
+import type { SpatialConcept } from "../../../types";
+
+export interface PlacedObject {
+  instructionId: string;
+  objectId: string;
+  x: number;
+  y: number;
+  zoneId: string;
+}
+
+export interface SceneCompletionSummary {
+  placedObjects: PlacedObject[];
+  practicedConcepts: SpatialConcept[];
+  practicedWords: string[];
+}
 
 export interface PendingPlacement {
   objectId: string;

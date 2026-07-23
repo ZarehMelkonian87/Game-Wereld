@@ -74,7 +74,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
   const updateProgress = (gameId: string, progressUpdate: Partial<GameProgress>) => {
     if (!currentProfile) return;
 
-    const updatedProfiles = profiles.map(profile => {
+    const updatedProfiles = profiles.map((profile) => {
       if (profile.id === currentProfile.id) {
         const existingProgress = profile.progress.find((progress) => progress.gameId === gameId);
         const updatedProgress = existingProgress

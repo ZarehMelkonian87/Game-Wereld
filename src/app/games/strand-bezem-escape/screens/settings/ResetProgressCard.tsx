@@ -6,15 +6,12 @@ interface ResetProgressCardProps {
   resetMessage: string;
 }
 
-export const ResetProgressCard = ({
-  onOpenResetDialog,
-  resetMessage,
-}: ResetProgressCardProps) => (
+export const ResetProgressCard = ({ onOpenResetDialog, resetMessage }: ResetProgressCardProps) => (
   <div className="contents" data-component="ResetProgressCard">
     <PanelCard className="grid gap-2 !rounded-2xl !p-3">
       <p className="text-xs font-black leading-tight text-slate-800">
-        Data in deze game is oefenobservatie. Het is geen diagnose, geen officiele testscore en
-        geen vergelijking met normgroepen.
+        Data in deze game is oefenobservatie. Het is geen diagnose, geen officiele testscore en geen
+        vergelijking met normgroepen.
       </p>
       {resetMessage ? (
         <p

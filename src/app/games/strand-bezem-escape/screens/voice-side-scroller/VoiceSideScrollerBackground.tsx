@@ -4,9 +4,7 @@ interface VoiceSideScrollerBackgroundProps {
   scrollX: number;
 }
 
-export const VoiceSideScrollerBackground = ({
-  scrollX,
-}: VoiceSideScrollerBackgroundProps) => (
+export const VoiceSideScrollerBackground = ({ scrollX }: VoiceSideScrollerBackgroundProps) => (
   <div
     aria-hidden
     className="absolute inset-0 bg-sky-200"

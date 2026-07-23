@@ -1,12 +1,7 @@
 export const DUTCH_SPEECH_RECOGNITION_LANGUAGE = "nl-NL";
 
 export type VoiceRecognitionStatus =
-  | "idle"
-  | "listening"
-  | "processing"
-  | "heard"
-  | "unsupported"
-  | "error";
+  "idle" | "listening" | "processing" | "heard" | "unsupported" | "error";
 
 export type VoiceRecognitionConfidence = "high" | "medium" | "low";
 

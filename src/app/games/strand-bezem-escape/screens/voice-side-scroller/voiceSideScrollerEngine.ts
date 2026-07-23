@@ -34,8 +34,7 @@ export interface VoiceSideScrollerTickInput {
   verticalInput: number;
 }
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value));
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 const normalizeVerticalInput = (verticalInput: number) => clamp(verticalInput, -1, 1);
 
@@ -68,12 +67,7 @@ const getNextTarget = (
   deltaSeconds: number,
   speedMultiplier: number,
 ): VoiceSideScrollerTarget => {
-  const nextX = getNextMovingX(
-    target.x,
-    deltaSeconds,
-    TARGET_SPEED_PER_SECOND,
-    speedMultiplier,
-  );
+  const nextX = getNextMovingX(target.x, deltaSeconds, TARGET_SPEED_PER_SECOND, speedMultiplier);
 
   if (nextX >= -0.18) {
     return {
@@ -115,10 +109,7 @@ const getNextObstacle = (
   };
 };
 
-const hasPlayerHitObstacle = (
-  playerY: number,
-  obstacle: VoiceSideScrollerObstacle,
-) => {
+const hasPlayerHitObstacle = (playerY: number, obstacle: VoiceSideScrollerObstacle) => {
   const collisionCenterX = obstacle.x + obstacle.collisionBox.offsetX;
   const collisionCenterY = obstacle.y + obstacle.collisionBox.offsetY;
   const isCloseHorizontally =
@@ -131,19 +122,13 @@ const hasPlayerHitObstacle = (
   return isCloseHorizontally && isCloseVertically;
 };
 
-const findCollidingObstacle = (
-  obstacles: VoiceSideScrollerObstacle[],
-  playerY: number,
-) => obstacles.find((obstacle) => !obstacle.hit && hasPlayerHitObstacle(playerY, obstacle));
+const findCollidingObstacle = (obstacles: VoiceSideScrollerObstacle[], playerY: number) =>
+  obstacles.find((obstacle) => !obstacle.hit && hasPlayerHitObstacle(playerY, obstacle));
 
-const getVisibleFeedback = (
-  state: VoiceSideScrollerGameState,
-  nextElapsedMs: number,
-) => (
+const getVisibleFeedback = (state: VoiceSideScrollerGameState, nextElapsedMs: number) =>
   state.gameplayFeedback && state.gameplayFeedback.visibleUntilMs > nextElapsedMs
     ? state.gameplayFeedback
-    : undefined
-);
+    : undefined;
 
 export const tickVoiceSideScrollerState = ({
   deltaMs,
@@ -162,7 +147,9 @@ export const tickVoiceSideScrollerState = ({
   const nextDistance = state.distance + DISTANCE_PER_SECOND * speedMultiplier * deltaSeconds;
   const nextDifficultyLevel = getDifficultyLevel(nextDistance);
   const nextPlayerY = clamp(
-    state.playerY + FALL_SPEED_PER_SECOND * deltaSeconds + input * INPUT_SPEED_PER_SECOND * deltaSeconds,
+    state.playerY +
+      FALL_SPEED_PER_SECOND * deltaSeconds +
+      input * INPUT_SPEED_PER_SECOND * deltaSeconds,
     MIN_PLAYER_Y,
     MAX_PLAYER_Y,
   );
@@ -171,9 +158,9 @@ export const tickVoiceSideScrollerState = ({
   );
   const collidingObstacle = findCollidingObstacle(nextObstacles, nextPlayerY);
   const obstacles = collidingObstacle
-    ? nextObstacles.map((obstacle) => (
-        obstacle.id === collidingObstacle.id ? { ...obstacle, hit: true } : obstacle
-      ))
+    ? nextObstacles.map((obstacle) =>
+        obstacle.id === collidingObstacle.id ? { ...obstacle, hit: true } : obstacle,
+      )
     : nextObstacles;
   const collisionSlowdownMs = collidingObstacle
     ? COLLISION_SLOWDOWN_MS
@@ -200,9 +187,7 @@ export const tickVoiceSideScrollerState = ({
     scrollX: state.scrollX + SCROLL_SPEED_PER_SECOND * speedMultiplier * deltaSeconds,
     score: getScore(nextDistance, state.stars),
     status: collidingObstacle ? "game-over" : state.status,
-    targets: state.targets.map((target) =>
-      getNextTarget(target, deltaSeconds, speedMultiplier),
-    ),
+    targets: state.targets.map((target) => getNextTarget(target, deltaSeconds, speedMultiplier)),
   };
 };
 
@@ -223,9 +208,9 @@ export const collectVoiceSideScrollerTarget = (
     return state;
   }
 
-  const targets = state.targets.map((candidate) => (
-    candidate.id === targetId ? { ...candidate, collected: true } : candidate
-  ));
+  const targets = state.targets.map((candidate) =>
+    candidate.id === targetId ? { ...candidate, collected: true } : candidate,
+  );
 
   return {
     ...state,

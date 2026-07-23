@@ -8,4 +8,3 @@ export const PrimaryActionButton = (props: PrimaryActionButtonProps) => (
 );
 
 PrimaryActionButton.displayName = "PrimaryActionButton";
-

@@ -5,8 +5,7 @@ export type SceneZoneVisualHintOverrides = Record<string, string>;
 export const zoneVisualHintOverridesChangedEvent =
   "strand-bezem-escape:zone-visual-hint-overrides-changed";
 
-const zoneVisualHintOverridesStorageKey =
-  "strand-bezem-escape:zone-visual-hint-overrides";
+const zoneVisualHintOverridesStorageKey = "strand-bezem-escape:zone-visual-hint-overrides";
 
 const isBrowser = () => typeof window !== "undefined";
 
@@ -64,10 +63,7 @@ export const saveSceneZoneVisualHintOverride = (zoneId: string, visualHintPath: 
     [zoneId]: visualHintPath,
   };
 
-  window.localStorage.setItem(
-    zoneVisualHintOverridesStorageKey,
-    JSON.stringify(nextOverrides),
-  );
+  window.localStorage.setItem(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
   notifyOverridesChanged();
 };
 
@@ -79,10 +75,7 @@ export const clearSceneZoneVisualHintOverride = (zoneId: string) => {
   const currentOverrides = readSceneZoneVisualHintOverrides();
   const { [zoneId]: _removedOverride, ...nextOverrides } = currentOverrides;
 
-  window.localStorage.setItem(
-    zoneVisualHintOverridesStorageKey,
-    JSON.stringify(nextOverrides),
-  );
+  window.localStorage.setItem(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
   notifyOverridesChanged();
 };
 

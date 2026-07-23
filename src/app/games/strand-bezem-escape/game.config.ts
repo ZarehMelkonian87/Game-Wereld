@@ -10,4 +10,3 @@ export const strandBezemEscapeConfig: GameConfig = {
   supportedOrientations: ["portrait", "landscape"],
   title: "Magisch Strand-Avontuur",
 };
-

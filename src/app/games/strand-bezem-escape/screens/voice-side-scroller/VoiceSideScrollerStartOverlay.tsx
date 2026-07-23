@@ -41,7 +41,11 @@ export const VoiceSideScrollerStartOverlay = ({
             className="inline-flex min-h-7 items-center rounded-full border-2 border-white bg-amber-50 px-2.5 text-xs font-black text-amber-950 shadow-[0_2px_0_rgba(180,83,9,0.12)]"
             key={word}
           >
-            <Star className="mr-1 h-3.5 w-3.5 text-amber-400" fill="currentColor" strokeWidth={2.5} />
+            <Star
+              className="mr-1 h-3.5 w-3.5 text-amber-400"
+              fill="currentColor"
+              strokeWidth={2.5}
+            />
             {word}
           </span>
         ))}

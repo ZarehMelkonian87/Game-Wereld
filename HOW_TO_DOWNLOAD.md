@@ -3,12 +3,14 @@
 ## Methode 1: Download als ZIP (Makkelijkst)
 
 ### Als je dit project op GitHub hebt:
+
 1. Klik op de groene **"Code"** knop
 2. Klik op **"Download ZIP"**
 3. Pak het ZIP bestand uit naar een folder op je computer
 4. Volg de instructies in `QUICK_START.md` of `INSTALLATIE.md`
 
 ### Als je bestanden lokaal hebt:
+
 Je hebt al alle bestanden! Ga direct naar `QUICK_START.md`
 
 ---

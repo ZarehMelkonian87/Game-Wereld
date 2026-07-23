@@ -217,10 +217,7 @@ export function saveBezemEscapeProgress(progress: BezemEscapeProgress) {
     return;
   }
 
-  window.localStorage.setItem(
-    getProgressStorageKey(progress.profileId),
-    JSON.stringify(progress),
-  );
+  window.localStorage.setItem(getProgressStorageKey(progress.profileId), JSON.stringify(progress));
 }
 
 export function resetBezemEscapeProgress(profileId: string) {
@@ -329,11 +326,14 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
   return progress;
 }
 
-export function recordActiveVocabularyObservation(profileId: string, params: {
-  instructionId: string;
-  rating: AdultRating;
-  word: string;
-}) {
+export function recordActiveVocabularyObservation(
+  profileId: string,
+  params: {
+    instructionId: string;
+    rating: AdultRating;
+    word: string;
+  },
+) {
   const progress = readBezemEscapeProgress(profileId);
   incrementCounter(progress.activelyNamedWords, params.word);
   saveBezemEscapeProgress(progress);
@@ -355,11 +355,14 @@ export function recordActiveVocabularyObservation(profileId: string, params: {
   });
 }
 
-export function recordSentenceRepeatObservation(profileId: string, params: {
-  instructionId: string;
-  rating: AdultRating;
-  sentence: string;
-}) {
+export function recordSentenceRepeatObservation(
+  profileId: string,
+  params: {
+    instructionId: string;
+    rating: AdultRating;
+    sentence: string;
+  },
+) {
   return appendPracticeEvent(profileId, {
     assistance: mapRatingToAssistance(params.rating),
     attempts: 1,

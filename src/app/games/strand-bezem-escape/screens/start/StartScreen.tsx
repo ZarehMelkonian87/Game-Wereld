@@ -10,11 +10,7 @@ interface StartScreenProps {
   starCount?: number;
 }
 
-export const StartScreen = ({
-  onOpenSettings,
-  onPlay,
-  starCount = 120,
-}: StartScreenProps) => (
+export const StartScreen = ({ onOpenSettings, onPlay, starCount = 120 }: StartScreenProps) => (
   <section
     aria-label="Startscherm"
     className="pointer-events-auto absolute inset-0 z-10 overflow-hidden"

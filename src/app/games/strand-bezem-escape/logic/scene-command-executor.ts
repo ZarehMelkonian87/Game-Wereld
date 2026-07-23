@@ -12,10 +12,7 @@ import {
   type SpokenCommandParseResult,
 } from "./spoken-command-parser";
 
-export type SceneCommandExecutionStatus =
-  | "ready"
-  | "needs-choice"
-  | "needs-help";
+export type SceneCommandExecutionStatus = "ready" | "needs-choice" | "needs-help";
 
 export interface SceneCommandChoice {
   id: string;
@@ -54,10 +51,7 @@ const getObjectChoiceLabel = (objects: readonly SceneObject[], objectId: string)
 const getZoneChoiceLabel = (zones: readonly SceneZone[], zoneId: string) =>
   zones.find((zone) => zone.id === zoneId)?.label ?? zoneId;
 
-const getPlacementLabel = (
-  parseResult: SpokenCommandParseResult,
-  zones: readonly SceneZone[],
-) =>
+const getPlacementLabel = (parseResult: SpokenCommandParseResult, zones: readonly SceneZone[]) =>
   parseResult.zoneId
     ? getZoneChoiceLabel(zones, parseResult.zoneId)
     : getDynamicRelationLabel({
@@ -148,8 +142,7 @@ const getHelpMessage = ({
   return "Ik twijfel nog. Probeer de zin nog eens rustig.";
 };
 
-const getTranscriptDisplayText = (transcript: string) =>
-  transcript.trim().replace(/[.!?]+$/g, "");
+const getTranscriptDisplayText = (transcript: string) => transcript.trim().replace(/[.!?]+$/g, "");
 
 const getReadyMessage = (
   parseResult: SpokenCommandParseResult,
@@ -233,9 +226,10 @@ export const executeSpokenSceneCommand = ({
 }): SceneCommandExecutionResult => {
   const parseResult = parseSpokenPlacementCommand({ objects, transcript, zones });
   const choices = getChoices({ objects, parseResult, zones });
-  const placement = parseResult.confidence === "high"
-    ? resolvePlacement({ parseResult, placements, zones })
-    : undefined;
+  const placement =
+    parseResult.confidence === "high"
+      ? resolvePlacement({ parseResult, placements, zones })
+      : undefined;
   const status: SceneCommandExecutionStatus = placement
     ? "ready"
     : parseResult.confidence === "needs-choice"

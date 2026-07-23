@@ -4,16 +4,41 @@ import App from "./app/App";
 import { registerServiceWorker } from "./registerServiceWorker";
 import "./styles/index.css";
 
-try {
-  if (typeof window !== "undefined" && window.parent && window.parent !== window && (window.parent as any).__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-    (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__ = (window.parent as any).__REACT_DEVTOOLS_GLOBAL_HOOK__;
+interface ReactDevToolsWindow extends Window {
+  __REACT_DEVTOOLS_GLOBAL_HOOK__?: unknown;
+}
+
+const attachParentReactDevToolsHook = () => {
+  if (typeof window === "undefined" || !window.parent || window.parent === window) {
+    return;
   }
-} catch (e) {}
+
+  try {
+    const parentWindow = window.parent as ReactDevToolsWindow;
+    const currentWindow = window as ReactDevToolsWindow;
+
+    if (parentWindow.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+      currentWindow.__REACT_DEVTOOLS_GLOBAL_HOOK__ = parentWindow.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    }
+  } catch (error: unknown) {
+    if (import.meta.env.DEV) {
+      console.debug("React DevTools-hook uit parent frame is niet beschikbaar.", error);
+    }
+  }
+};
+
+attachParentReactDevToolsHook();
 
 registerServiceWorker();
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("App-root #root ontbreekt in index.html.");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

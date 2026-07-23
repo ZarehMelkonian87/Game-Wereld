@@ -16,4 +16,3 @@ export const HintButton = ({ label = "Hint", ...buttonProps }: HintButtonProps) 
 );
 
 HintButton.displayName = "HintButton";
-

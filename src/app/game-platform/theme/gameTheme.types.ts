@@ -8,4 +8,3 @@ export interface GameTheme {
   reward: string;
   secondary: string;
 }
-

@@ -20,12 +20,16 @@ const getNeedsPracticeWords = (state: VoiceSideScrollerGameState) =>
     .map((observation) => observation.word);
 
 const getTotalWordHints = (state: VoiceSideScrollerGameState) =>
-  Object.values(state.education.wordObservations)
-    .reduce((sum, observation) => sum + observation.hintsUsed, 0);
+  Object.values(state.education.wordObservations).reduce(
+    (sum, observation) => sum + observation.hintsUsed,
+    0,
+  );
 
 const getTotalAudioRepeats = (state: VoiceSideScrollerGameState) =>
-  Object.values(state.education.wordObservations)
-    .reduce((sum, observation) => sum + observation.audioRepeats, 0);
+  Object.values(state.education.wordObservations).reduce(
+    (sum, observation) => sum + observation.audioRepeats,
+    0,
+  );
 
 export const VoiceSideScrollerRoundSummary = ({
   onBackToMenu,
@@ -36,9 +40,8 @@ export const VoiceSideScrollerRoundSummary = ({
   const focusText = state.education.focusWords.join(", ");
   const practicedText = collectedWords.length > 0 ? collectedWords.join(", ") : "nog geen woorden";
   const needsPracticeWords = getNeedsPracticeWords(state);
-  const needsPracticeText = needsPracticeWords.length > 0
-    ? needsPracticeWords.join(", ")
-    : "geen duidelijk moeilijk woord";
+  const needsPracticeText =
+    needsPracticeWords.length > 0 ? needsPracticeWords.join(", ") : "geen duidelijk moeilijk woord";
   const totalHints = state.obstacleHits + getTotalWordHints(state);
   const audioRepeats = getTotalAudioRepeats(state);
   const distanceMeters = Math.floor(state.distance);
@@ -66,9 +69,7 @@ export const VoiceSideScrollerRoundSummary = ({
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
             Je raakte een obstakel. Je vloog {distanceMeters} meter.
           </p>
-          <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-            Focus: {focusText}
-          </p>
+          <p className="mt-2 text-sm font-black leading-tight text-sky-900">Focus: {focusText}</p>
           <p className="mt-1 text-xs font-black leading-tight text-slate-700">
             Actief gezegd: {practicedText}
           </p>

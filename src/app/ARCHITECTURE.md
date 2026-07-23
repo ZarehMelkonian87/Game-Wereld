@@ -91,14 +91,14 @@ Dit sluit aan op de huidige repo. De globale screens zijn al feature-based opges
 
 ## Verantwoordelijkheden Per Laag
 
-| Laag | Mag Bevatten | Mag Niet Bevatten |
-| --- | --- | --- |
-| `src/app/screens` | Globale app-schermen, profielkeuze, hoofdmenu, game-lijst, voortgang, settings | Gameplay-logica, game-assets, game-specifieke UI |
-| `src/app/game-platform` | Herbruikbare game UI, input types, storage adapters, progress types, speech types, theme tokens | Concrete opdrachten, concrete werelden, game-specifieke regels |
-| `src/app/games/<game-id>` | Game screens, content, assets, docs, state hooks, pure logic | Globale profielroutering, app-shell navigatie, gedeelde primitive definities |
-| `src/app/components/ui` | Lage UI-bouwstenen uit het algemene componentensysteem | Game-stijlregels of directe gameplay UI |
-| `src/app/data` | App-catalogus zoals thema's, avatars en game metadata | Grote game-content of leveldata |
-| `src/styles` | Globale CSS, fonts, basis design tokens | Per-game layout of per-game component styling |
+| Laag                      | Mag Bevatten                                                                                    | Mag Niet Bevatten                                                            |
+| ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `src/app/screens`         | Globale app-schermen, profielkeuze, hoofdmenu, game-lijst, voortgang, settings                  | Gameplay-logica, game-assets, game-specifieke UI                             |
+| `src/app/game-platform`   | Herbruikbare game UI, input types, storage adapters, progress types, speech types, theme tokens | Concrete opdrachten, concrete werelden, game-specifieke regels               |
+| `src/app/games/<game-id>` | Game screens, content, assets, docs, state hooks, pure logic                                    | Globale profielroutering, app-shell navigatie, gedeelde primitive definities |
+| `src/app/components/ui`   | Lage UI-bouwstenen uit het algemene componentensysteem                                          | Game-stijlregels of directe gameplay UI                                      |
+| `src/app/data`            | App-catalogus zoals thema's, avatars en game metadata                                           | Grote game-content of leveldata                                              |
+| `src/styles`              | Globale CSS, fonts, basis design tokens                                                         | Per-game layout of per-game component styling                                |
 
 ## App Shell
 
@@ -656,18 +656,18 @@ Niet alles hoeft tegelijk. Elke keer dat een game wordt aangeraakt, wordt hij di
 
 Status op 2 juni 2026:
 
-| Onderdeel | Status | Opmerking |
-| --- | --- | --- |
-| Globale screen feature-mappen | Gedaan | `src/app/screens` is opgesplitst per scherm met gedeelde helpers in `shared/`. |
-| Game platform basis | Gedaan | `src/app/game-platform` bevat primitives, layout, gameplay components, storage, speech, profile, progress, theme en types. |
-| Game registry | Gedaan | `src/app/games/registry.ts` koppelt game id's aan config en component. |
-| Game launcher | Gedaan | `GamePlayScreen` gebruikt de registry in plaats van een handmatige game-id check. |
-| Profile types naar platform | Gedaan | `Avatar`, `Profile`, `ProfileSettings` en `GameProgress` komen uit `game-platform`. |
-| Profile storage helper | Gedaan | Profieldata en current profile id worden gelezen en opgeslagen via `game-platform/profile/profileStorage.ts`. |
-| Practice event basis | Gedaan | `PracticeEvent` en `PracticeResult` zijn vastgelegd in `game-platform/progress`. |
-| App catalogus uit configs | Nog te doen | `src/app/data/games.ts` bevat nog handmatige metadata voor veel games. |
-| Alle placeholder games naar template | Nog te doen | Veel kleine games hebben nog alleen een eenvoudige `index.tsx` en `README.md`. |
-| Dashboard op practice events | Nog te doen | Het algemene dashboard gebruikt nog demo/afgeleide data, niet alle echte `PracticeEvent` data. |
+| Onderdeel                            | Status      | Opmerking                                                                                                                  |
+| ------------------------------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Globale screen feature-mappen        | Gedaan      | `src/app/screens` is opgesplitst per scherm met gedeelde helpers in `shared/`.                                             |
+| Game platform basis                  | Gedaan      | `src/app/game-platform` bevat primitives, layout, gameplay components, storage, speech, profile, progress, theme en types. |
+| Game registry                        | Gedaan      | `src/app/games/registry.ts` koppelt game id's aan config en component.                                                     |
+| Game launcher                        | Gedaan      | `GamePlayScreen` gebruikt de registry in plaats van een handmatige game-id check.                                          |
+| Profile types naar platform          | Gedaan      | `Avatar`, `Profile`, `ProfileSettings` en `GameProgress` komen uit `game-platform`.                                        |
+| Profile storage helper               | Gedaan      | Profieldata en current profile id worden gelezen en opgeslagen via `game-platform/profile/profileStorage.ts`.              |
+| Practice event basis                 | Gedaan      | `PracticeEvent` en `PracticeResult` zijn vastgelegd in `game-platform/progress`.                                           |
+| App catalogus uit configs            | Nog te doen | `src/app/data/games.ts` bevat nog handmatige metadata voor veel games.                                                     |
+| Alle placeholder games naar template | Nog te doen | Veel kleine games hebben nog alleen een eenvoudige `index.tsx` en `README.md`.                                             |
+| Dashboard op practice events         | Nog te doen | Het algemene dashboard gebruikt nog demo/afgeleide data, niet alle echte `PracticeEvent` data.                             |
 
 ## Verdediging Van Deze Architectuur
 

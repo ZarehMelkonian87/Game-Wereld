@@ -6,4 +6,3 @@ export type { GameStageProps };
 export const GameStage = (props: GameStageProps) => <PlatformGameStage {...props} />;
 
 GameStage.displayName = "GameStage";
-

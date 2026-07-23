@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { mascotIconUrls } from "../../asset-urls";
 import { PanelCard } from "../../components/ui";
-import type { SceneCommandChoice, SceneCommandExecutionResult } from "../../logic/scene-command-executor";
+import type {
+  SceneCommandChoice,
+  SceneCommandExecutionResult,
+} from "../../logic/scene-command-executor";
 import { classNames } from "../../components/ui/classNames";
 import {
   createForegroundAudioSession,
@@ -73,27 +76,27 @@ export const FloatingSuccessToast = ({
   const isCorrectFeedback = feedback?.kind === "correct";
   const videoLabel = isCorrectFeedback ? "Speel feedbackvideo" : "Speel hintvideo";
 
-  const startHintAudioSession = () => {
+  const startHintAudioSession = useCallback(() => {
     stopHintAudioSessionRef.current?.();
     stopHintAudioSessionRef.current = createForegroundAudioSession();
     setIsVideoPlaying(true);
     setHasVideoEnded(false);
     onHintVideoPlaybackStateChange?.(true);
-  };
+  }, [onHintVideoPlaybackStateChange]);
 
-  const stopHintAudioSession = () => {
+  const stopHintAudioSession = useCallback(() => {
     stopHintAudioSessionRef.current?.();
     stopHintAudioSessionRef.current = undefined;
     setIsVideoPlaying(false);
     onHintVideoPlaybackStateChange?.(false);
-  };
+  }, [onHintVideoPlaybackStateChange]);
 
   const handleVideoEnded = () => {
     stopHintAudioSession();
     setHasVideoEnded(true);
   };
 
-  useEffect(() => stopHintAudioSession, []);
+  useEffect(() => stopHintAudioSession, [stopHintAudioSession]);
 
   useEffect(() => {
     setIsVideoPlaying(false);
@@ -123,7 +126,7 @@ export const FloatingSuccessToast = ({
     });
 
     return () => window.cancelAnimationFrame(frameId);
-  }, [autoPlayFeedbackVideo, activeHintVideoUrl, feedback]);
+  }, [autoPlayFeedbackVideo, activeHintVideoUrl, feedback, stopHintAudioSession]);
 
   useEffect(() => {
     if (!activeHintVideoUrl || isVideoPlaying || hasVideoEnded || !feedback) {
@@ -190,11 +193,7 @@ export const FloatingSuccessToast = ({
             alt=""
             className="h-10 w-10 shrink-0 object-contain"
             draggable={false}
-            src={
-              feedback.mascot === "hint"
-                ? mascotIconUrls.hint
-                : mascotIconUrls.celebration
-            }
+            src={feedback.mascot === "hint" ? mascotIconUrls.hint : mascotIconUrls.celebration}
           />
         ) : null}
         <div className="min-w-0 flex-1">

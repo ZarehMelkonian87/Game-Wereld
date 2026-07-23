@@ -78,7 +78,11 @@ export const CompactGameModeCard: DevtoolsComponent<CompactGameModeCardProps> = 
         )}
         data-slot="selection"
       >
-        {selected ? <Check className="h-5 w-5" strokeWidth={4} /> : <ChevronRight className="h-5 w-5" strokeWidth={3} />}
+        {selected ? (
+          <Check className="h-5 w-5" strokeWidth={4} />
+        ) : (
+          <ChevronRight className="h-5 w-5" strokeWidth={3} />
+        )}
       </span>
     </button>
   );

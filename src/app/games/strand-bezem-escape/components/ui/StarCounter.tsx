@@ -6,4 +6,3 @@ export type StarCounterProps = GameStarCounterProps;
 export const StarCounter = (props: StarCounterProps) => <GameStarCounter {...props} />;
 
 StarCounter.displayName = "StarCounter";
-

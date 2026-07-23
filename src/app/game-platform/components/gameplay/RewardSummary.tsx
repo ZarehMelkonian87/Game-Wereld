@@ -14,10 +14,13 @@ export const RewardSummary = ({ actions, children, title }: RewardSummaryProps) 
         {title}
       </h2>
       <div data-slot="content">{children}</div>
-      {actions ? <div className="flex flex-wrap gap-2" data-slot="actions">{actions}</div> : null}
+      {actions ? (
+        <div className="flex flex-wrap gap-2" data-slot="actions">
+          {actions}
+        </div>
+      ) : null}
     </div>
   </GamePanel>
 );
 
 RewardSummary.displayName = "RewardSummary";
-

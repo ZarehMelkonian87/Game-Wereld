@@ -7,29 +7,32 @@ Rekenen in Groep 3 draait om het loslaten van tellen op de vingers en het overst
 ## 1. De Leerdoelen: Minimum vs. Maximum
 
 ### 🔢 Getalbegrip & Tellen
-* **Minimale Verwachting (Basis):**
+
+- **Minimale Verwachting (Basis):**
   - Tellen en terugtellen tot 100.
   - Getallen herkennen en kunnen plaatsen op een getallenlijn tot 20.
-  - Begrijpen van concepten als *meer*, *minder*, *meeste*, *minste*.
-* **Maximale Verwachting (Streefdoel):**
+  - Begrijpen van concepten als _meer_, _minder_, _meeste_, _minste_.
+- **Maximale Verwachting (Streefdoel):**
   - Getallenlijn tot 100 begrijpen en getallen daartussen kunnen schatten.
-  - Tellen met sprongen van 2, 5 en 10 (bijv. *2, 4, 6...* of *10, 20, 30...*).
+  - Tellen met sprongen van 2, 5 en 10 (bijv. _2, 4, 6..._ of _10, 20, 30..._).
   - splitsen van getallen onder de 10 (bijv. 8 splitsen in 5 en 3) volledig vloeiend beheersen.
 
 ### ➕ Bewerkingen (Optellen & Aftrekken)
-* **Minimale Verwachting:**
-  - Sommen tot 10 (bijv. *3 + 4*, *8 - 2*) kunnen oplossen zonder visuele hulp (geautomatiseerd).
-  - Sommen tot 20 kunnen oplossen met behulp van een rekenrek of vingers (met de zogenaamde "tien-overgang", bijv. *8 + 5 = 8 + 2 + 3 = 13*).
-* **Maximale Verwachting:**
+
+- **Minimale Verwachting:**
+  - Sommen tot 10 (bijv. _3 + 4_, _8 - 2_) kunnen oplossen zonder visuele hulp (geautomatiseerd).
+  - Sommen tot 20 kunnen oplossen met behulp van een rekenrek of vingers (met de zogenaamde "tien-overgang", bijv. _8 + 5 = 8 + 2 + 3 = 13_).
+- **Maximale Verwachting:**
   - Sommen tot 20 volledig vlot uit het hoofd uitrekenen (geautomatiseerd, zonder tellen of hulpmiddelen).
-  - Eenvoudige redactiesommen (verhaaltjessommen) begrijpen en oplossen: *"Er zitten 12 vogels in de boom. Er vliegen er 4 weg. Hoeveel vogels blijven er over?"*
+  - Eenvoudige redactiesommen (verhaaltjessommen) begrijpen en oplossen: _"Er zitten 12 vogels in de boom. Er vliegen er 4 weg. Hoeveel vogels blijven er over?"_
 
 ### ⏰ Meten, Tijd & Geld
-* **Minimale Verwachting:**
+
+- **Minimale Verwachting:**
   - Klokkijken: herkennen van hele uren en halve uren op een analoge klok.
   - Geld: herkennen van euromunten (1, 2 euro) en simpele bedragen samenstellen tot 10 euro.
-* **Maximale Verwachting:**
-  - Klokkijken: herkennen van kwartieren (*kwart voor*, *kwart over*) op een analoge klok.
+- **Maximale Verwachting:**
+  - Klokkijken: herkennen van kwartieren (_kwart voor_, _kwart over_) op een analoge klok.
   - Geld: betalen en teruggeven met bedragen tot 20 euro, inclusief biljetten van 5, 10 en 20 euro.
 
 ---

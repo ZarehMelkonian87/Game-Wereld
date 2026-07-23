@@ -20,10 +20,7 @@ export const SettingsScreen = () => {
   }
 
   const completedGames = currentProfile.progress.filter((progress) => progress.completed).length;
-  const totalStars = currentProfile.progress.reduce(
-    (sum, progress) => sum + progress.stars,
-    0,
-  );
+  const totalStars = currentProfile.progress.reduce((sum, progress) => sum + progress.stars, 0);
 
   const handleDeleteProfile = () => {
     deleteProfile(currentProfile.id);

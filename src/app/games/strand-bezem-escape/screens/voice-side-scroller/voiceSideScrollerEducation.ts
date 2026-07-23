@@ -17,20 +17,16 @@ interface RecordVoiceSideScrollerWordHeardParams {
   transcript: string;
 }
 
-const getVoiceSideScrollerAttemptsForWord = (
-  progress: BezemEscapeProgress,
-  word: string,
-) =>
-  progress.attempts.filter((attempt) =>
-    attempt.mode === "zeg-en-vlieg" && attempt.targetWords.includes(word),
+const getVoiceSideScrollerAttemptsForWord = (progress: BezemEscapeProgress, word: string) =>
+  progress.attempts.filter(
+    (attempt) => attempt.mode === "zeg-en-vlieg" && attempt.targetWords.includes(word),
   );
 
-const getWordPriorityScore = (
-  progress: BezemEscapeProgress,
-  word: string,
-) => {
+const getWordPriorityScore = (progress: BezemEscapeProgress, word: string) => {
   const attempts = getVoiceSideScrollerAttemptsForWord(progress, word);
-  const needsPractice = attempts.filter((attempt) => attempt.result === "needs-more-practice").length;
+  const needsPractice = attempts.filter(
+    (attempt) => attempt.result === "needs-more-practice",
+  ).length;
   const correct = attempts.filter((attempt) => attempt.isCorrect).length;
   const practiced = attempts.length;
   const difficultBonus = needsPractice > correct ? 100 : 0;
@@ -78,13 +74,14 @@ export const selectVoiceSideScrollerFocusWords = ({
 const getExistingWordObservation = (
   state: VoiceSideScrollerGameState,
   targetId: string,
-): VoiceSideScrollerWordEducationState | undefined =>
-  state.education.wordObservations[targetId];
+): VoiceSideScrollerWordEducationState | undefined => state.education.wordObservations[targetId];
 
 const updateWordObservation = (
   state: VoiceSideScrollerGameState,
   targetId: string,
-  updater: (observation: VoiceSideScrollerWordEducationState) => VoiceSideScrollerWordEducationState,
+  updater: (
+    observation: VoiceSideScrollerWordEducationState,
+  ) => VoiceSideScrollerWordEducationState,
 ) => {
   const observation = getExistingWordObservation(state, targetId);
 

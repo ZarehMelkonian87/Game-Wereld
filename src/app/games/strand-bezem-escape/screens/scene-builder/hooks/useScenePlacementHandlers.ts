@@ -4,16 +4,9 @@ import {
 } from "../../../logic/dynamic-scene-relations";
 import { appendPracticeEvent } from "../../../logic/progress";
 import { resolveNewRewardUnlocks, saveUnlockedRewardIds } from "../../../logic/rewards";
-import {
-  selectedZoneMatchesTarget,
-  zoneSupportsConcept,
-} from "../../../logic/scene-zones";
-import type {
-  SceneBuilderInstruction,
-  SceneCompletionSummary,
-  SceneObject,
-  SpatialConcept,
-} from "../../../types";
+import { selectedZoneMatchesTarget, zoneSupportsConcept } from "../../../logic/scene-zones";
+import type { SceneBuilderInstruction, SceneObject, SpatialConcept } from "../../../types";
+import type { SceneCompletionSummary } from "../logic/scene-builder-types";
 import { getSpeakAndPlaceReward } from "../logic/scene-placement-utils";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
 
@@ -79,8 +72,9 @@ export const useScenePlacementHandlers = ({
     const nextCompletionSummary: SceneCompletionSummary = {
       placedObjects: nextPlacedObjects,
       practicedConcepts: nextPlacedObjects
-        .map((placedObject) =>
-          instructions.find((item) => item.id === placedObject.instructionId)?.placement.relation,
+        .map(
+          (placedObject) =>
+            instructions.find((item) => item.id === placedObject.instructionId)?.placement.relation,
         )
         .filter((concept): concept is SpatialConcept => concept !== undefined),
       practicedWords: nextPlacedObjects.map((placedObject) => placedObject.objectId),
@@ -145,11 +139,11 @@ export const useScenePlacementHandlers = ({
       isCorrect: true,
       languageDomains: instruction.languageDomains,
       mode: "listen-and-place",
-      result: activeHintsUsed === 0 ? "mastered" : "supported",
+      result: activeHintsUsed === 0 ? "correct-without-help" : "correct-with-help",
       spatialConcepts: instruction.spatialConcepts,
-      speedEarned,
+      speedEarned: earnedSpeed,
       targetWords: [targetObject?.label ?? instruction.placement.objectId],
-      wordStarsEarned,
+      wordStarsEarned: earnedWordStars,
     });
   }
 

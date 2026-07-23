@@ -6,8 +6,8 @@ export const useZoneDevToolsDocking = ({
   panelRef,
   rootRef,
 }: {
-  panelRef: RefObject<HTMLElement | null>;
-  rootRef: RefObject<HTMLDivElement | null>;
+  panelRef: RefObject<HTMLElement>;
+  rootRef: RefObject<HTMLDivElement>;
 }) => {
   const dragStateRef = useRef<PanelDragState | null>(null);
   const [panelPosition, setPanelPosition] = useState<PanelPosition>({ x: 12, y: 72 });

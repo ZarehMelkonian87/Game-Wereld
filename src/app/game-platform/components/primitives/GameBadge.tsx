@@ -34,4 +34,3 @@ export const GameBadge = ({
 );
 
 GameBadge.displayName = "GameBadge";
-

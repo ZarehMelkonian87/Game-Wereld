@@ -20,8 +20,21 @@ export const AvatarNameStep = ({
 }: AvatarNameStepProps) => {
   const handleGenerateName = () => {
     const prefixes = [
-      "Super", "Mega", "Epic", "Turbo", "Cool", "Giga", "Hyper", "Ninja",
-      "Snelle", "Bliksem", "Cyber", "Dino", "Pixel", "Machtige", "Sterke"
+      "Super",
+      "Mega",
+      "Epic",
+      "Turbo",
+      "Cool",
+      "Giga",
+      "Hyper",
+      "Ninja",
+      "Snelle",
+      "Bliksem",
+      "Cyber",
+      "Dino",
+      "Pixel",
+      "Machtige",
+      "Sterke",
     ];
     const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
     const avatarBaseName = selectedAvatar.name.split(" ").pop() || "";

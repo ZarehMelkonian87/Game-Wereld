@@ -1,7 +1,4 @@
-import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
-import { findSmallestZoneAtPoint } from "../../../logic/scene-zones";
-import type { SceneZone } from "../../../types";
 
 export interface DragState {
   hasMoved: boolean;
@@ -23,16 +20,12 @@ function isHorizontalTrayScrollGesture(dragState: DragState, clientX: number, cl
 
 export const useSceneBuilderDragAndDrop = ({
   dragState,
-  effectiveZones,
   handleObjectDrop,
-  sceneAreaRef,
   setDragState,
   suppressNextClickRef,
 }: {
   dragState: DragState | null;
-  effectiveZones: SceneZone[];
   handleObjectDrop: (objectId: string, clientX: number, clientY: number) => void;
-  sceneAreaRef: RefObject<HTMLElement | null>;
   setDragState: (dragState: DragState | null) => void;
   suppressNextClickRef: { current: boolean };
 }) => {

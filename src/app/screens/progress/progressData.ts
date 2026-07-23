@@ -11,10 +11,8 @@ export const periods: PeriodDefinition[] = [
 export const getProgressData = (period: TimePeriod, profileId?: string): ThemeProgress[] => {
   const defaultProfileId = profileId ?? "demo-profile";
   const progressStrand = readBezemEscapeProgress(defaultProfileId);
-  
-  const events = [
-    ...(progressStrand.attempts ?? []),
-  ];
+
+  const events = [...(progressStrand.attempts ?? [])];
 
   // Filter events by period
   const now = new Date();
@@ -34,7 +32,7 @@ export const getProgressData = (period: TimePeriod, profileId?: string): ThemePr
 
   if (total > 0) {
     const inEenKeerGoedCount = periodEvents.filter(
-      (e) => e.attempts === 1 && e.hintsUsed === 0 && e.isCorrect
+      (e) => e.attempts === 1 && e.hintsUsed === 0 && e.isCorrect,
     ).length;
     inEenKeerGoedPct = Math.round((inEenKeerGoedCount / total) * 100);
 
@@ -43,7 +41,8 @@ export const getProgressData = (period: TimePeriod, profileId?: string): ThemePr
 
     const spokenEvents = periodEvents.filter((e) => e.mode === "zeg-en-bouw");
     const spokenSuccessCount = spokenEvents.filter((e) => e.isCorrect).length;
-    spokenPct = spokenEvents.length > 0 ? Math.round((spokenSuccessCount / spokenEvents.length) * 100) : 0;
+    spokenPct =
+      spokenEvents.length > 0 ? Math.round((spokenSuccessCount / spokenEvents.length) * 100) : 0;
   }
 
   // Generate dynamic strengths and challenges
