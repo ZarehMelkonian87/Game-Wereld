@@ -13,7 +13,7 @@ import {
   loadGameModule,
 } from "../src/app/game-host/gameHostContracts";
 import { gameRegistry, getLoadableGameRegistryEntries } from "../src/app/games/registry";
-import { getGameRegistryEntry, resolveCanonicalGameId } from "../src/app/games/registry";
+import { getGameRegistryEntry } from "../src/app/games/registry";
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -42,11 +42,8 @@ describe("generiek gamecontract", () => {
     });
   });
 
-  it("resolveert legacy-id's naar één canonical game en weigert onbekende id's", () => {
-    expect(resolveCanonicalGameId("woordenschat-bezem-escape")).toBe("strand-bezem-escape");
-    expect(getGameRegistryEntry("woordenschat-bezem-escape")?.manifest.id).toBe(
-      "strand-bezem-escape",
-    );
+  it("weigert ingetrokken compatibiliteitsaliases en onbekende id's", () => {
+    expect(getGameRegistryEntry("woordenschat-bezem-escape")).toBeUndefined();
     expect(getGameRegistryEntry("bestaat-niet")).toBeUndefined();
   });
 

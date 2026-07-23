@@ -3,8 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ASSET_SOURCE_PREFIX = "src/app/games/strand-bezem-escape/assets/";
-const GAME_ENTRY = "src/app/games/strand-bezem-escape/index.tsx";
+const DEFAULT_ASSET_SOURCE_PREFIX = "src/app/games/strand-bezem-escape/assets/";
+const DEFAULT_GAME_ENTRY = "src/app/games/strand-bezem-escape/index.tsx";
 const MIME_TYPES = {
   ".avif": "image/avif",
   ".css": "text/css",
@@ -42,21 +42,25 @@ export const validateGeneratedAssets = (assets) => {
   return assets;
 };
 
-const collectGameFiles = (viteManifest) => {
+const collectGameFiles = (viteManifest, packageSource) => {
+  const gameEntryPath = packageSource.entry ?? DEFAULT_GAME_ENTRY;
+  const assetSourcePrefix = packageSource.assetSourcePrefix ?? DEFAULT_ASSET_SOURCE_PREFIX;
   const gameEntry =
-    viteManifest[GAME_ENTRY] ??
+    viteManifest[gameEntryPath] ??
     Object.values(viteManifest).find(
-      (record) => record.isDynamicEntry && record.file?.includes("/game-strand-bezem-escape-"),
+      (record) =>
+        record.isDynamicEntry &&
+        record.file?.includes(`/${packageSource.chunkName ?? packageSource.gameId}-`),
     );
-  if (!gameEntry?.file) throw new Error(`Vite-manifest mist game-entry '${GAME_ENTRY}'.`);
+  if (!gameEntry?.file) throw new Error(`Vite-manifest mist game-entry '${gameEntryPath}'.`);
   const sourceAssets = Object.entries(viteManifest)
-    .filter(([sourcePath, record]) => sourcePath.startsWith(ASSET_SOURCE_PREFIX) && record.file)
+    .filter(([sourcePath, record]) => sourcePath.startsWith(assetSourcePrefix) && record.file)
     .map(([sourcePath, record]) => ({ file: record.file, sourcePath }));
-  return [{ file: gameEntry.file, sourcePath: GAME_ENTRY }, ...sourceAssets];
+  return [{ file: gameEntry.file, sourcePath: gameEntryPath }, ...sourceAssets];
 };
 
 export const createGeneratedAssetManifest = ({ distDirectory, packageSource, viteManifest }) => {
-  const assets = collectGameFiles(viteManifest).map(({ file, sourcePath }) => {
+  const assets = collectGameFiles(viteManifest, packageSource).map(({ file, sourcePath }) => {
     const outputPath = path.join(distDirectory, file);
     if (!fs.existsSync(outputPath)) {
       throw new Error(`Verplicht buildasset ontbreekt: ${file}`);
@@ -113,7 +117,7 @@ export const generateAssetManifest = ({
   );
   fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
-  const sourceRoot = path.resolve("src/app/games/strand-bezem-escape/assets");
+  const sourceRoot = path.resolve(path.dirname(packageSourcePath));
   const referencedSources = new Set(manifest.assets.map((asset) => path.resolve(asset.sourcePath)));
   const orphans = listFiles(sourceRoot)
     .filter((filePath) => !filePath.endsWith(".md") && !filePath.endsWith(".json"))
@@ -122,7 +126,7 @@ export const generateAssetManifest = ({
     .sort();
   fs.mkdirSync(reportDirectory, { recursive: true });
   fs.writeFileSync(
-    path.join(reportDirectory, "asset-report.json"),
+    path.join(reportDirectory, `asset-report-${packageSource.id}.json`),
     `${JSON.stringify(
       {
         assetCount: manifest.assets.length,
@@ -141,6 +145,38 @@ export const generateAssetManifest = ({
   return { manifest, orphans, outputPath };
 };
 
+export const generateAssetManifests = () => {
+  const packageSourcePaths = [
+    "src/app/games/strand-bezem-escape/assets/offline-package.source.json",
+    "src/app/games/rekenen-strand/assets/offline-package.source.json",
+  ];
+  const results = packageSourcePaths.map((packageSourcePath) =>
+    generateAssetManifest({ packageSourcePath: path.resolve(packageSourcePath) }),
+  );
+  const reportDirectory = path.resolve("reports");
+  fs.mkdirSync(reportDirectory, { recursive: true });
+  fs.writeFileSync(
+    path.join(reportDirectory, "asset-report.json"),
+    `${JSON.stringify(
+      {
+        assetCount: results.reduce((total, result) => total + result.manifest.assets.length, 0),
+        orphanAssets: results.flatMap((result) => result.orphans),
+        packages: results.map(({ manifest, orphans }) => ({
+          assetCount: manifest.assets.length,
+          contentVersion: manifest.contentVersion,
+          orphanAssets: orphans,
+          packageId: manifest.id,
+          totalBytes: manifest.totalBytes,
+        })),
+        totalBytes: results.reduce((total, result) => total + result.manifest.totalBytes, 0),
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  return results;
+};
+
 const isDirectInvocation =
   process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (isDirectInvocation) generateAssetManifest();
+if (isDirectInvocation) generateAssetManifests();

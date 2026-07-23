@@ -1,41 +1,10 @@
 # Games
 
-Deze map bevat alle mini-games van Game Wereld.
+Actuele gamemodules:
 
-Elke game krijgt een eigen map met minimaal:
+- `strand-bezem-escape`: uitgebreide woordenschatgame;
+- `rekenen-strand`: compacte hoeveelhedengame “Schelpen Tellen”.
 
-- `README.md` - ontwerp, leerdoel, regels en meetdata.
-- `index.tsx` - entrypoint/component van de game.
+Catalogusmetadata komt uit schema-gevalideerde manifests. De app-shell kent alleen de registry in `registry.ts`; implementaties worden dynamisch geladen.
 
-Aanbevolen extra bestanden per game:
-
-- `content.ts` - woorden, vragen, levels of opdrachten.
-- `types.ts` - TypeScript types voor deze game.
-- `progress.ts` - functies voor score en voortgang.
-- `assets/` - afbeeldingen, geluiden of andere game-assets.
-
-## Nieuwe Game Toevoegen
-
-1. Kopieer `_template/` naar een nieuwe map, bijvoorbeeld `plaatsmissie/`.
-2. Vul `README.md` in.
-3. Bouw de game in `index.tsx`.
-4. Voeg metadata toe in `src/app/data/games.ts`.
-5. Koppel de game later aan de router/game-runner.
-
-## Data Die Een Game Moet Kunnen Rapporteren
-
-Gebruik per oefenmoment zoveel mogelijk dezelfde velden:
-
-- profiel/kind id;
-- game id;
-- sessie id;
-- datum/tijd;
-- leergebied;
-- opdracht id;
-- moeilijkheid;
-- goed/fout;
-- aantal pogingen;
-- reactietijd;
-- hulp gebruikt;
-- score;
-- geoefend woord, zin, categorie of vaardigheid.
+Gebruik voor een nieuwe game het proces uit [ARCHITECTURE.md](ARCHITECTURE.md). Kopieer geen bestaande game als generieke template: begin bij het kleine `GameRuntime`-contract en deel pas code wanneer twee echte consumers dezelfde semantiek hebben.

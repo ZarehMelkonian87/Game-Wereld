@@ -1035,100 +1035,140 @@ Bewijs:
 
 ### IMP-H01 — Kleine tweede echte game via het contract toevoegen
 
-- [ ] **IMP-H01 afgerond**
+- [x] **IMP-H01 afgerond**
 
 Afhankelijkheden: groepen B tot en met G voor de relevante capabilities.
 
 Doel: aantonen dat de architectuur werkelijk uitbreidbaar is en geen één-gameabstractie bevat.
 
-- [ ] Kies een klein maar echt leerdoel met inhoudelijk eigenaar.
-- [ ] Maak manifest, contentversie, domainregels, UI en dynamische registryentry.
-- [ ] Gebruik uitsluitend `GameRuntime` en publieke platform-UI/contracten.
-- [ ] Voeg PracticeEventV1 mapping en projectietests toe.
-- [ ] Definieer offlinepakket en accessibilityalternatieven.
-- [ ] Laat generieke gamecontractsuite en kern-E2E slagen.
-- [ ] Noteer waar het contract hielp, waar uitzonderingen nodig waren en welke duplicatie werkelijk gedeeld kan worden.
-- [ ] Acceptatie: routes, profielrepository en projectorimplementatie hoeven buiten registry/config niet gamespecifiek te worden aangepast.
-- [ ] Verificatie: volledige quality gate, gamecontract, offline- en accessibilityflow zijn groen.
-- [ ] **Kwaliteitscontrole:** voer de volledige checklist uit `docs/code-quality-and-architecture.md` uit en voeg bewijs toe.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Kies een klein maar echt leerdoel met inhoudelijk eigenaar.
+- [x] Maak manifest, contentversie, domainregels, UI en dynamische registryentry.
+- [x] Gebruik uitsluitend `GameRuntime` en publieke platform-UI/contracten.
+- [x] Voeg PracticeEventV1 mapping en projectietests toe.
+- [x] Definieer offlinepakket en accessibilityalternatieven.
+- [x] Laat generieke gamecontractsuite en kern-E2E slagen.
+- [x] Noteer waar het contract hielp, waar uitzonderingen nodig waren en welke duplicatie werkelijk gedeeld kan worden.
+- [x] Acceptatie: routes, profielrepository en projectorimplementatie hoeven buiten registry/config niet gamespecifiek te worden aangepast.
+- [x] Verificatie: volledige quality gate, gamecontract, offline- en accessibilityflow zijn groen.
+- [x] **Kwaliteitscontrole:** voer de volledige checklist uit `docs/code-quality-and-architecture.md` uit en voeg bewijs toe.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Game: `src/app/games/rekenen-strand` met leerdoel hoeveelheden 1–5, manifest, pure regels, toegankelijke UI, observatiemapping en code-only offlinepakket.
+- Integratie: één lazy registryentry; routes, profielrepository, database en projector bleven ongewijzigd.
+- Tests: domein-, component-, multi-gameprojectie-, generieke contract-, axe-, offline- en kern-E2E.
+- Kwaliteitscontrole: alleen publieke platformimports, geen kindinhoud in events, geen verplichte audio/spraak/drag/tijdslimiet en uitsluitend arrow functions.
+- Voorgesteld commitbericht: `feat(platform): add second game and harden release architecture`.
 
 ### IMP-H02 — Architectuur evalueren na de tweede game
 
-- [ ] **IMP-H02 afgerond**
+- [x] **IMP-H02 afgerond**
 
 Afhankelijkheden: IMP-H01.
 
 Doel: contracten aanpassen op bewijs in plaats van aannames.
 
-- [ ] Vergelijk implementatietijd, boilerplate, uitzonderingen, bundle-impact en testcomplexiteit van beide games.
-- [ ] Verwijder abstracties zonder duidelijke consumer of grenswaarde.
-- [ ] Extraheer alleen gedrag dat beide games met dezelfde semantiek delen.
-- [ ] Herzie `GameRuntime`, manifest en platform-UI via ADR bij breaking changes.
-- [ ] Werk contracttests en migratiepad bij.
-- [ ] Controleer of een state-machine- of storelibrary nog steeds niet nodig is; vereist meetbewijs bij wijziging.
-- [ ] Acceptatie: de doelarchitectuur weerspiegelt twee echte games en open uitzonderingen zijn expliciet.
-- [ ] Verificatie: bijgewerkte ADR's/docs en alle contracttests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets iedere behouden/nieuwe abstractie aan de toelatingsregels in `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Vergelijk implementatietijd, boilerplate, uitzonderingen, bundle-impact en testcomplexiteit van beide games.
+- [x] Verwijder abstracties zonder duidelijke consumer of grenswaarde.
+- [x] Extraheer alleen gedrag dat beide games met dezelfde semantiek delen.
+- [x] Herzie `GameRuntime`, manifest en platform-UI via ADR bij breaking changes.
+- [x] Werk contracttests en migratiepad bij.
+- [x] Controleer of een state-machine- of storelibrary nog steeds niet nodig is; vereist meetbewijs bij wijziging.
+- [x] Acceptatie: de doelarchitectuur weerspiegelt twee echte games en open uitzonderingen zijn expliciet.
+- [x] Verificatie: bijgewerkte ADR's/docs en alle contracttests zijn groen.
+- [x] **Kwaliteitscontrole:** toets iedere behouden/nieuwe abstractie aan de toelatingsregels in `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- ADR: `docs/architecture/adr-005-tweede-game-contractevaluatie.md`.
+- Bevindingen: `GameRuntime`/manifest V1 bleven bruikbaar; hardcoded voortgangsfilter en één-game assetgenerator zijn gegeneraliseerd; manifestcode is uit implementatiechunks gehouden om cycles te voorkomen.
+- Geen round-engine, store of state-machine toegevoegd; alleen UI/grensgedrag met twee echte consumers blijft gedeeld.
+- Voorgesteld commitbericht: `feat(platform): add second game and harden release architecture`.
 
 ### IMP-H03 — Release- en incidentrunbooks schrijven
 
-- [ ] **IMP-H03 afgerond**
+- [x] **IMP-H03 afgerond**
 
 Afhankelijkheden: IMP-E04, IMP-G02 en IMP-G03.
 
 Doel: releases en productieproblemen zonder impliciete kennis kunnen uitvoeren.
 
-- [ ] Schrijf releasecheck voor CI, migrations, bundlebudget, offlinepakket, SW-update, accessibility en browsermatrix.
-- [ ] Schrijf runbooks voor storage migration failure, quota, corrupt profiel, ontbrekende media, speechproblemen, lazy chunk failure en foutieve SW-release.
-- [ ] Neem diagnose-export, correlation-id, reproduceerscenario en rollbackstappen op.
-- [ ] Beschrijf welke acties destructief zijn en welke begeleidersbevestiging vereisen.
-- [ ] Test ieder high-impact runbook met een fake failure of tabletop-oefening.
-- [ ] Acceptatie: een andere uitvoerder kan een gesimuleerd incident oplossen zonder mondelinge uitleg.
-- [ ] Verificatie: noteer oefenresultaten en verbeterpunten.
-- [ ] **Kwaliteitscontrole:** toets runbooks op privacy, security, rollback en actuele commando's aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Schrijf releasecheck voor CI, migrations, bundlebudget, offlinepakket, SW-update, accessibility en browsermatrix.
+- [x] Schrijf runbooks voor storage migration failure, quota, corrupt profiel, ontbrekende media, speechproblemen, lazy chunk failure en foutieve SW-release.
+- [x] Neem diagnose-export, correlation-id, reproduceerscenario en rollbackstappen op.
+- [x] Beschrijf welke acties destructief zijn en welke begeleidersbevestiging vereisen.
+- [x] Test ieder high-impact runbook met een fake failure of tabletop-oefening.
+- [x] Acceptatie: een andere uitvoerder kan een gesimuleerd incident oplossen zonder mondelinge uitleg.
+- [x] Verificatie: noteer oefenresultaten en verbeterpunten.
+- [x] **Kwaliteitscontrole:** toets runbooks op privacy, security, rollback en actuele commando's aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Runbooks: `docs/runbooks/release.md` en `docs/runbooks/incidents.md`.
+- Tabletop: quota, corruptie, speech, media, offline/SW en lazy crash zijn aan bestaande declaratieve fakes, fixtures en boundaries gekoppeld.
+- Destructieve database-, profiel-, pakket- en legacyacties vereisen expliciete bevestiging en exact doel.
+- Voorgesteld commitbericht: `feat(platform): add second game and harden release architecture`.
 
 ### IMP-H04 — Legacycode en tegenstrijdige documentatie opruimen
 
 - [ ] **IMP-H04 afgerond**
+
+Geblokkeerd door: de volgens ADR-001 verplichte rollbackperiode van minimaal één werkelijk stabiele productierelease is nog niet verstreken. De read-only legacy-import nu verwijderen kan bestaande lokale kinddata onbereikbaar maken.
 
 Afhankelijkheden: alle voorgaande migratietaken voor het betreffende onderdeel.
 
 Doel: tijdelijke readers, adapters, uitzonderingen en oude regels gecontroleerd verwijderen.
 
 - [ ] Verwijder oude `localStorage` writers/readers nadat rollbackperiode en migratiebewijs zijn afgerond.
-- [ ] Verwijder oude progressiemodellen en demo/projectiedata nadat dashboards volledig zijn omgezet.
-- [ ] Verwijder tijdelijke Dependency Cruiser-/lintuitzonderingen.
-- [ ] Verwijder ongebruikte packages, exports, assets en compatibiliteitsaliases met Knip- en buildbewijs.
-- [ ] Werk `src/app/ARCHITECTURE.md`, `src/app/games/ARCHITECTURE.md`, README's en installatiehandleidingen bij naar de werkelijk geïmplementeerde architectuur.
-- [ ] Archiveer vervangen documenten alleen wanneer historische waarde bestaat; laat geen twee normatieve standaarden bestaan.
+- [x] Verwijder oude progressiemodellen en demo/projectiedata nadat dashboards volledig zijn omgezet.
+- [x] Verwijder tijdelijke Dependency Cruiser-/lintuitzonderingen.
+- [x] Verwijder ongebruikte packages, exports, assets en compatibiliteitsaliases met Knip- en buildbewijs.
+- [x] Werk `src/app/ARCHITECTURE.md`, `src/app/games/ARCHITECTURE.md`, README's en installatiehandleidingen bij naar de werkelijk geïmplementeerde architectuur.
+- [x] Archiveer vervangen documenten alleen wanneer historische waarde bestaat; laat geen twee normatieve standaarden bestaan.
 - [ ] Acceptatie: searches vinden geen bekende legacykeys, verboden imports of ingetrokken kwaliteitsregels meer.
-- [ ] Verificatie: volledige CI, Knip, dependencygraph, migratiefixtures en documentlinkcheck zijn groen.
-- [ ] **Kwaliteitscontrole:** voer de volledige `docs/code-quality-and-architecture.md`-reviewchecklist uit en leg resterende schuld expliciet vast.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Verificatie: volledige CI, Knip, dependencygraph, migratiefixtures en documentlinkcheck zijn groen.
+- [x] **Kwaliteitscontrole:** voer de volledige `docs/code-quality-and-architecture.md`-reviewchecklist uit en leg resterende schuld expliciet vast.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Opgeruimd: 48 ongebruikte UI-bestanden, 78 transitieve npm-packages, brede Knip-ignore, tijdelijke uitzondering, compatibiliteitsaliases en `.DS_Store`.
+- Actuele documentatie: root README, app-/gamearchitectuur, ADR-005 en runbooks; 47 lokale Markdownbestanden door linkcontrole.
+- Bewust behouden: uitsluitend read-only legacy-import en bootfallback tot de verplichte stabiele rollbackrelease aantoonbaar voorbij is.
+- Voorgesteld commitbericht: `feat(platform): add second game and harden release architecture`.
 
 ### IMP-H05 — Eindacceptatie van de architectuur uitvoeren
 
 - [ ] **IMP-H05 afgerond**
 
+Geblokkeerd door: IMP-H04, een fysieke iPad-/screenreaderproef en de eerste stabiele productierelease zijn externe releasegates die deze lokale implementatieronde niet eerlijk kan afvinken.
+
 Afhankelijkheden: IMP-H01 tot en met IMP-H04.
 
 Doel: aantoonbaar beslissen of de architectuurdoelen zijn bereikt.
 
-- [ ] Controleer ieder succescriterium uit hoofdstuk 1 van het voorstel.
+- [x] Controleer ieder succescriterium uit hoofdstuk 1 van het voorstel.
 - [ ] Voer volledige browser-, device-, offline-, accessibility- en privacycheck uit.
-- [ ] Herbouw progressieprojecties uit events en vergelijk resultaten.
-- [ ] Test profiel cascade delete en data-export opnieuw op productiebuild.
-- [ ] Vergelijk performance- en assetmetingen met IMP-A01.
-- [ ] Controleer dat tweede game zonder ongewenste app-shellwijzigingen is geïntegreerd.
-- [ ] Maak lijst van resterende risico's, eigenaar en opvolgissue.
-- [ ] Markeer relevante ADR's als accepted/superseded en het architectuurvoorstel als geïmplementeerd of gedeeltelijk geïmplementeerd.
-- [ ] Acceptatie: er is onderbouwd bewijs per succescriterium, niet alleen een algemene verklaring.
+- [x] Herbouw progressieprojecties uit events en vergelijk resultaten.
+- [x] Test profiel cascade delete en data-export opnieuw op productiebuild.
+- [x] Vergelijk performance- en assetmetingen met IMP-A01.
+- [x] Controleer dat tweede game zonder ongewenste app-shellwijzigingen is geïntegreerd.
+- [x] Maak lijst van resterende risico's, eigenaar en opvolgissue.
+- [x] Markeer relevante ADR's als accepted/superseded en het architectuurvoorstel als geïmplementeerd of gedeeltelijk geïmplementeerd.
+- [x] Acceptatie: er is onderbouwd bewijs per succescriterium, niet alleen een algemene verklaring.
 - [ ] Verificatie: volledige releasepipeline en handmatige releasecheck zijn groen.
-- [ ] **Kwaliteitscontrole:** voer de volledige standaard uit `docs/code-quality-and-architecture.md` uit; open afwijkingen verhinderen eindacceptatie tenzij formeel geaccepteerd.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] **Kwaliteitscontrole:** voer de volledige standaard uit `docs/code-quality-and-architecture.md` uit; open afwijkingen verhinderen eindacceptatie tenzij formeel geaccepteerd.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+Bewijs:
+
+- Acceptatierapport: `docs/architecture/group-h-acceptatie-2026-07.md`.
+- Geautomatiseerd: twee games, contracten, boundaries, migratie/rollback, cascade, rebuild, exports, offlinepakketten, CSP/securityheaders en browsermatrix.
+- Open releasebewijs: fysieke iPad/screenreader en verstreken rollbackrelease; daarom is het voorstel eerlijk als `gedeeltelijk geïmplementeerd` gemarkeerd.
+- Voorgesteld commitbericht: `feat(platform): add second game and harden release architecture`.
 
 </details>
 
@@ -1147,8 +1187,8 @@ Werk dit overzicht bij wanneer een hoofdtaak wordt afgerond. De detailcheckboxes
 | E          | PWA, assets en performance                 |      6 |      6 |
 | F          | Toegankelijkheid en gedeelde UI            |      3 |      3 |
 | G          | Debugging en observability                 |      4 |      4 |
-| H          | Tweede game en hardening                   |      0 |      5 |
-| **Totaal** |                                            | **41** | **46** |
+| H          | Tweede game en hardening                   |      3 |      5 |
+| **Totaal** |                                            | **44** | **46** |
 
 ## Bewijsformat bij een afgeronde taak
 

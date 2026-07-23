@@ -61,7 +61,7 @@ export const ProgressScreen = () => {
           ) : null}
           {state.status === "ready" &&
           state.events.length === 0 &&
-          (state.projection?.attempts ?? 0) > 0 ? (
+          state.projections.some((projection) => projection.attempts > 0) ? (
             <p className="mt-3 rounded-xl border border-amber-300 bg-amber-950 p-4 text-amber-100">
               Er bestaat een samenvatting uit een oudere appversie, maar de onderliggende
               oefenpogingen ontbreken. Daarom tonen we daar geen nieuwe percentages voor.

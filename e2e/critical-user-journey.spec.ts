@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import fs from "node:fs";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -98,7 +99,31 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   ).toBeVisible();
   await expect(page.getByText(/Geregistreerd:.*oefenpogingen/)).toBeVisible();
 
+  await page.goto("/games/math");
+  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
+  await page.getByRole("button", { name: "Start met tellen" }).click();
+  await page.getByRole("button", { name: "1 schelpen" }).click();
+  await expect(page.getByText("Goed geteld!")).toBeVisible();
+  await expect.poll(() => countDatabaseStore(page, "practiceEvents")).toBeGreaterThan(1);
+  await page.goto("/progress");
+  await expect(page.getByText("Rekenen & Getallen")).toBeVisible();
+
   await page.goto("/settings");
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Voortgang downloaden" }).click();
+  const download = await downloadPromise;
+  const downloadPath = await download.path();
+  expect(downloadPath).toBeTruthy();
+  const exportedProgress = JSON.parse(fs.readFileSync(downloadPath ?? "", "utf8")) as {
+    practiceEvents: Array<{ gameId: string }>;
+    profileAlias: string;
+  };
+  expect(exportedProgress.profileAlias).toBe("local-profile");
+  expect(exportedProgress.practiceEvents.map((event) => event.gameId)).toEqual(
+    expect.arrayContaining(["strand-bezem-escape", "rekenen-strand-bezem-escape"]),
+  );
+  expect(JSON.stringify(exportedProgress)).not.toContain("Codex Tester");
+
   await page.evaluate(() => {
     Math.random = () => 0;
   });

@@ -4,6 +4,7 @@ import {
   type PracticeEventEnvelope,
   type ProgressProjection,
 } from "../../storage";
+import { getGameRegistryEntry } from "../../games";
 import type { PeriodDefinition, ThemeProgress, TimePeriod } from "./progressTypes";
 
 export const periods: PeriodDefinition[] = [
@@ -31,7 +32,7 @@ export const filterEventsForPeriod = (
 const percentage = (value: number, total: number) =>
   total === 0 ? 0 : Math.round((value / total) * 100);
 
-const toThemeProgress = (projection: ProgressProjection): ThemeProgress => {
+const toThemeProgress = (projection: ProgressProjection, themeId: string): ThemeProgress => {
   const correct = projection.independentCorrect + projection.supportedCorrect;
   const strengths: string[] = [];
   const nextSteps: string[] = [];
@@ -77,7 +78,7 @@ const toThemeProgress = (projection: ProgressProjection): ThemeProgress => {
         ),
       },
     ],
-    themeId: "vocabulary",
+    themeId,
   };
 };
 
@@ -87,17 +88,24 @@ export const getProgressData = (
   now = new Date(),
 ): ThemeProgress[] => {
   const periodEvents = filterEventsForPeriod(period, events, now);
-  const first = periodEvents[0];
-  if (!first) return [];
-  const projection = projectPracticeEvents({
-    calculatedAt: now.toISOString(),
-    events: periodEvents,
-    gameId: createGameId(first.gameId),
-    profileId: createProfileId(first.profileId),
-    selection: {
-      fromOccurredAt: getPeriodStart(period, now),
-      throughOccurredAt: now.toISOString(),
-    },
+  const eventsByGame = new Map<string, PracticeEventEnvelope[]>();
+  periodEvents.forEach((event) => {
+    eventsByGame.set(event.gameId, [...(eventsByGame.get(event.gameId) ?? []), event]);
   });
-  return [toThemeProgress(projection)];
+  return [...eventsByGame.entries()].flatMap(([gameId, gameEvents]) => {
+    const first = gameEvents[0];
+    const entry = getGameRegistryEntry(gameId);
+    if (!first || !entry) return [];
+    const projection = projectPracticeEvents({
+      calculatedAt: now.toISOString(),
+      events: gameEvents,
+      gameId: createGameId(gameId),
+      profileId: createProfileId(first.profileId),
+      selection: {
+        fromOccurredAt: getPeriodStart(period, now),
+        throughOccurredAt: now.toISOString(),
+      },
+    });
+    return [toThemeProgress(projection, entry.manifest.themeId)];
+  });
 };

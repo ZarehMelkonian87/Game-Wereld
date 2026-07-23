@@ -71,6 +71,12 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await auditCurrentScreen(page, "GameHost");
+
+  await page.goto("/games/math/rekenen-strand-bezem-escape");
+  await expect(page.getByRole("heading", { name: "Schelpen Tellen" })).toBeVisible();
+  await auditCurrentScreen(page, "Schelpen Tellen start");
+  await page.getByRole("button", { name: "Start met tellen" }).click();
+  await auditCurrentScreen(page, "Schelpen Tellen opdracht");
 });
 
 test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetsenbord", async ({

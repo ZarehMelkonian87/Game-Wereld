@@ -13,7 +13,7 @@ type ProgressQueryState =
   | { error: StorageApplicationError; status: "error" }
   | {
       events: PracticeEventEnvelope[];
-      projection: ProgressProjection | null;
+      projections: ProgressProjection[];
       status: "ready";
     }
   | { status: "rebuilding" };
@@ -30,25 +30,39 @@ export const useProfileProgressQuery = (
     if (!profileIdValue) return;
     let active = true;
     const profileId = createProfileId(profileIdValue);
-    const gameId = createGameId("strand-bezem-escape");
     setState({ status: "loading" });
     void Promise.all([
-      repositories.practice.listForProfile(profileId, gameId),
-      repositories.progress.get(profileId, gameId),
+      repositories.practice.listForProfile(profileId),
+      repositories.progress.listForProfile(profileId),
     ])
-      .then(async ([events, projection]) => {
-        const needsRebuild =
-          events.length > 0 &&
-          (projection?.projectorVersion !== PRACTICE_PROJECTOR_VERSION ||
-            projection.sourceSelection.eventCount !== events.length);
-        if (!needsRebuild) return { events, projection };
-        if (active) setState({ status: "rebuilding" });
-        const rebuilt = await repositories.progress.rebuild(
-          profileId,
-          gameId,
-          new Date().toISOString(),
+      .then(async ([events, projections]) => {
+        const eventsByGame = new Map<string, PracticeEventEnvelope[]>();
+        events.forEach((event) => {
+          eventsByGame.set(event.gameId, [...(eventsByGame.get(event.gameId) ?? []), event]);
+        });
+        const projectionsByGame = new Map<string, ProgressProjection>(
+          projections.map((projection) => [projection.gameId, projection]),
         );
-        return { events, projection: rebuilt };
+        const gamesToRebuild = [...eventsByGame.entries()].filter(([gameId, gameEvents]) => {
+          const projection = projectionsByGame.get(gameId);
+          return (
+            projection?.projectorVersion !== PRACTICE_PROJECTOR_VERSION ||
+            projection.sourceSelection.eventCount !== gameEvents.length
+          );
+        });
+        if (gamesToRebuild.length === 0) return { events, projections };
+        if (active) setState({ status: "rebuilding" });
+        const rebuilt = await Promise.all(
+          gamesToRebuild.map(([gameId]) =>
+            repositories.progress.rebuild(
+              profileId,
+              createGameId(gameId),
+              new Date().toISOString(),
+            ),
+          ),
+        );
+        rebuilt.forEach((projection) => projectionsByGame.set(projection.gameId, projection));
+        return { events, projections: [...projectionsByGame.values()] };
       })
       .then((result) => {
         if (active) setState({ ...result, status: "ready" });

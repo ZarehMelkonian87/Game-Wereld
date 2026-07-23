@@ -19,6 +19,16 @@ module.exports = {
       },
     },
     {
+      name: "no-counting-game-to-other-game",
+      comment: "De rekengame communiceert uitsluitend via platformcontracten.",
+      severity: "error",
+      from: { path: "^src/app/games/rekenen-strand/" },
+      to: {
+        path: "^src/app/games/",
+        pathNot: "^src/app/games/rekenen-strand/",
+      },
+    },
+    {
       name: "no-game-to-app-context",
       comment: "Games ontvangen appdiensten uitsluitend via GameRuntime.",
       severity: "error",

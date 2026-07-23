@@ -73,5 +73,27 @@ test("weigert ontbrekende verplichte output en duplicate ids", () => {
   fs.rmSync(distDirectory, { force: true, recursive: true });
 });
 
+test("genereert ook een code-only pakket voor een tweede game-entry", () => {
+  const distDirectory = createFixture();
+  const secondEntry = "src/app/games/rekenen-strand/index.tsx";
+  const manifest = createGeneratedAssetManifest({
+    distDirectory,
+    packageSource: {
+      ...packageSource,
+      assetSourcePrefix: "src/app/games/rekenen-strand/assets/",
+      entry: secondEntry,
+      gameId: "rekenen-strand-bezem-escape",
+      id: "rekenen-strand-basis",
+    },
+    viteManifest: {
+      [secondEntry]: { file: "assets/game.js" },
+    },
+  });
+
+  assert.equal(manifest.assets.length, 1);
+  assert.equal(manifest.assets[0].sourcePath, secondEntry);
+  fs.rmSync(distDirectory, { force: true, recursive: true });
+});
+
 const GAME_ENTRY = "src/app/games/strand-bezem-escape/index.tsx";
 const ASSET_SOURCE_PREFIX = "src/app/games/strand-bezem-escape/assets/";

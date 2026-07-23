@@ -1,7 +1,1 @@
-export {
-  gameRegistry,
-  getGameRegistryEntry,
-  getLoadableGameRegistryEntries,
-  legacyGameAliases,
-  resolveCanonicalGameId,
-} from "./registry";
+export { gameRegistry, getGameRegistryEntry, getLoadableGameRegistryEntries } from "./registry";

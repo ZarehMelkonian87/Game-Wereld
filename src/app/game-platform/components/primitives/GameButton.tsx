@@ -12,12 +12,12 @@ export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const toneClasses: Record<GameButtonTone, string> = {
-  blue: "border-sky-600 bg-sky-500 text-white shadow-[0_4px_0_rgba(3,105,161,0.75)] hover:bg-sky-400",
+  blue: "border-sky-800 bg-sky-700 text-white shadow-[0_4px_0_rgba(3,105,161,0.75)] hover:bg-sky-800",
   green:
-    "border-emerald-600 bg-emerald-500 text-white shadow-[0_4px_0_rgba(4,120,87,0.75)] hover:bg-emerald-400",
+    "border-emerald-800 bg-emerald-700 text-white shadow-[0_4px_0_rgba(4,120,87,0.75)] hover:bg-emerald-800",
   neutral:
     "border-slate-300 bg-white text-slate-900 shadow-[0_4px_0_rgba(15,23,42,0.16)] hover:bg-slate-50",
-  red: "border-rose-600 bg-rose-500 text-white shadow-[0_4px_0_rgba(190,18,60,0.55)] hover:bg-rose-400",
+  red: "border-rose-800 bg-rose-700 text-white shadow-[0_4px_0_rgba(190,18,60,0.55)] hover:bg-rose-800",
   yellow:
     "border-amber-400 bg-amber-300 text-amber-950 shadow-[0_4px_0_rgba(180,83,9,0.35)] hover:bg-amber-200",
 };

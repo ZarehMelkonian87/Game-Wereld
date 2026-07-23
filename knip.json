@@ -9,22 +9,5 @@
     "src/**/*.test.{ts,tsx}"
   ],
   "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts", "test/**/*.{ts,tsx}"],
-  "ignore": ["src/app/components/ui/**"],
-  "ignoreDependencies": [
-    "@radix-ui/react-*",
-    "class-variance-authority",
-    "clsx",
-    "cmdk",
-    "embla-carousel-react",
-    "input-otp",
-    "next-themes",
-    "react-day-picker",
-    "react-hook-form",
-    "react-resizable-panels",
-    "sonner",
-    "tailwindcss",
-    "tailwind-merge",
-    "tw-animate-css",
-    "vaul"
-  ]
+  "ignoreDependencies": ["tailwindcss", "tw-animate-css"]
 }

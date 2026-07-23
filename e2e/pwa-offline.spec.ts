@@ -6,37 +6,86 @@ const hash = (value: string) => `sha256-${createHash("sha256").update(value).dig
 test("downloadt, verifieert en opent de wereld daarna offline", async ({ browserName, page }) => {
   test.skip(browserName !== "chromium", "De blokkerende offlineproductieflow draait op Chromium.");
   const fixtureAssets = [
-    { body: "game", id: "fixture-game", mimeType: "text/javascript", url: "/fixture/game.js" },
-    { body: "media", id: "fixture-media", mimeType: "text/plain", url: "/fixture/media.txt" },
+    {
+      body: "game",
+      id: "fixture-game",
+      mimeType: "text/javascript",
+      packageId: "strand-bezem-escape-beach",
+      url: "/fixture/game.js",
+    },
+    {
+      body: "media",
+      id: "fixture-media",
+      mimeType: "text/plain",
+      packageId: "strand-bezem-escape-beach",
+      url: "/fixture/media.txt",
+    },
+    {
+      body: "math-game",
+      id: "fixture-math-game",
+      mimeType: "text/javascript",
+      packageId: "rekenen-strand-basis",
+      url: "/fixture/math-game.js",
+    },
   ];
-  const manifest = {
-    assets: fixtureAssets.map((asset) => ({
-      bytes: asset.body.length,
-      hash: hash(asset.body),
-      id: asset.id,
-      license: "E2E-fixture",
-      mimeType: asset.mimeType,
-      required: true,
-      source: "E2E-fixture",
-      sourcePath: asset.id,
-      url: asset.url,
-    })),
-    contentVersion: "strand-bezem-escape-2026.07",
-    gameId: "strand-bezem-escape",
-    id: "strand-bezem-escape-beach",
-    schemaVersion: 1,
-    totalBytes: fixtureAssets.reduce((total, asset) => total + asset.body.length, 0),
-    version: 1,
-    worldId: "beach",
+  const createManifest = ({
+    contentVersion,
+    gameId,
+    id,
+    worldId,
+  }: {
+    contentVersion: string;
+    gameId: string;
+    id: string;
+    worldId: string;
+  }) => {
+    const packageAssets = fixtureAssets.filter((asset) => asset.packageId === id);
+    return {
+      assets: packageAssets.map((asset) => ({
+        bytes: asset.body.length,
+        hash: hash(asset.body),
+        id: asset.id,
+        license: "E2E-fixture",
+        mimeType: asset.mimeType,
+        required: true,
+        source: "E2E-fixture",
+        sourcePath: asset.id,
+        url: asset.url,
+      })),
+      contentVersion,
+      gameId,
+      id,
+      schemaVersion: 1,
+      totalBytes: packageAssets.reduce((total, asset) => total + asset.body.length, 0),
+      version: 1,
+      worldId,
+    };
   };
+  const manifests = [
+    createManifest({
+      contentVersion: "strand-bezem-escape-2026.07",
+      gameId: "strand-bezem-escape",
+      id: "strand-bezem-escape-beach",
+      worldId: "beach",
+    }),
+    createManifest({
+      contentVersion: "rekenen-strand-2026.07",
+      gameId: "rekenen-strand-bezem-escape",
+      id: "rekenen-strand-basis",
+      worldId: "counting",
+    }),
+  ];
 
   await page.addInitScript(
-    ({ assets, packageManifest }) => {
+    ({ assets, packageManifests }) => {
       const nativeFetch = window.fetch.bind(window);
       window.fetch = async (input, init) => {
         const url =
           typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
-        if (url.endsWith("/offline/strand-bezem-escape-beach-v1.json")) {
+        const packageManifest = packageManifests.find((candidate) =>
+          url.endsWith(`/offline/${candidate.id}-v${candidate.version}.json`),
+        );
+        if (packageManifest) {
           return new Response(JSON.stringify(packageManifest), {
             headers: { "content-type": "application/json" },
           });
@@ -47,7 +96,7 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
           : nativeFetch(input, init);
       };
     },
-    { assets: fixtureAssets, packageManifest: manifest },
+    { assets: fixtureAssets, packageManifests: manifests },
   );
 
   await page.goto("/");
@@ -68,6 +117,17 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await offlineCard.getByRole("button", { name: "Downloaden" }).click();
   await expect(offlineCard.getByText(/Offline beschikbaar/)).toBeVisible();
 
+  await page.goto("/games/math");
+  const mathOfflineCard = page.locator('[data-component="OfflinePackageCard"]');
+  await mathOfflineCard.getByRole("button", { name: "Grootte controleren" }).click();
+  await mathOfflineCard.getByRole("button", { name: "Downloaden" }).click();
+  await expect(mathOfflineCard.getByText(/Offline beschikbaar/)).toBeVisible();
+  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
+  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await page.getByRole("button", { name: "Start met tellen" }).click();
+  await expect(page.getByRole("img", { name: "Er liggen 1 schelpen." })).toBeVisible();
+
+  await page.goto("/games/vocabulary");
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await page.evaluate(async () => {
@@ -91,11 +151,15 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await page.getByRole("button", { name: "Nu bijwerken" }).click();
   await page.waitForLoadState("domcontentloaded");
   await expect
-    .poll(() =>
-      page.evaluate(
-        async () => (await caches.keys()).filter((name) => name.includes("precache")).length,
-      ),
-    )
+    .poll(async () => {
+      try {
+        return await page.evaluate(
+          async () => (await caches.keys()).filter((name) => name.includes("precache")).length,
+        );
+      } catch {
+        return -1;
+      }
+    })
     .toBe(1);
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
@@ -138,4 +202,9 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await page.route("**/*", (route) => route.abort("internetdisconnected"));
   await page.reload().catch(() => undefined);
   await expect(page.getByTestId("start-screen")).toBeVisible();
+  await page.goto("/games/math");
+  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
+  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await page.getByRole("button", { name: "Start met tellen" }).click();
+  await expect(page.getByRole("img", { name: "Er liggen 1 schelpen." })).toBeVisible();
 });

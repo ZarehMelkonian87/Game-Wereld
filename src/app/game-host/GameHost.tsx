@@ -12,7 +12,7 @@ import {
   type GameModule,
   type GameRuntime,
 } from "../game-platform";
-import { getGameRegistryEntry, resolveCanonicalGameId } from "../games";
+import { getGameRegistryEntry } from "../games";
 import { acquireActiveGameSession } from "../pwa/pwaLifecycle";
 import { ComingSoonGameScreen } from "../screens/game-play/ComingSoonGameScreen";
 import {
@@ -66,8 +66,8 @@ export const GameHost = () => {
     sessionId: () => createSessionId(crypto.randomUUID()),
   });
   const profileId = currentProfile ? createProfileId(currentProfile.id) : undefined;
-  const canonicalGameId = routeGameId ? resolveCanonicalGameId(routeGameId) : undefined;
   const registryEntry = routeGameId ? getGameRegistryEntry(routeGameId) : undefined;
+  const canonicalGameId = registryEntry?.manifest.id;
   const contentVersion =
     registryEntry && isLoadableGameEntry(registryEntry)
       ? registryEntry.manifest.contentVersion
@@ -86,12 +86,6 @@ export const GameHost = () => {
     },
     [repositories.sessions],
   );
-
-  useEffect(() => {
-    if (routeGameId && canonicalGameId && canonicalGameId !== routeGameId && theme) {
-      void navigate(`/games/${theme}/${canonicalGameId}`, { replace: true });
-    }
-  }, [canonicalGameId, navigate, routeGameId, theme]);
 
   useEffect(() => {
     if (!profileId || !registryEntry || !isLoadableGameEntry(registryEntry) || !canonicalGameId) {

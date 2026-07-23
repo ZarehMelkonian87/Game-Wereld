@@ -62,21 +62,28 @@ export const checkPerformanceBudgets = ({
   const viteManifest = JSON.parse(
     fs.readFileSync(path.join(distDirectory, ".vite/manifest.json"), "utf8"),
   );
-  const packageManifest = JSON.parse(
-    fs.readFileSync(path.join(distDirectory, "offline/strand-bezem-escape-beach-v1.json"), "utf8"),
-  );
+  const offlineDirectory = path.join(distDirectory, "offline");
+  const packageManifests = fs
+    .readdirSync(offlineDirectory)
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => JSON.parse(fs.readFileSync(path.join(offlineDirectory, file), "utf8")));
   const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
   const entry = viteManifest["index.html"];
-  const game = Object.values(viteManifest).find(
-    (record) => record.isDynamicEntry && record.file?.includes("/game-strand-bezem-escape-"),
+  const games = Object.values(viteManifest).filter(
+    (record) => record.isDynamicEntry && record.file?.includes("/game-"),
   );
-  if (!entry?.file || !game?.file) {
+  if (!entry?.file || games.length === 0) {
     throw new Error("Bundlemanifest mist de shell-entry of de lazy gamechunk.");
   }
   const gzipBytes = (file) => gzipSync(fs.readFileSync(path.join(distDirectory, file))).byteLength;
+  const gameChunks = Object.fromEntries(games.map((game) => [game.file, gzipBytes(game.file)]));
   const measurements = {
-    gameJavaScriptGzip: gzipBytes(game.file),
-    offlinePackage: packageManifest.totalBytes,
+    gameChunks,
+    gameJavaScriptGzip: Math.max(...Object.values(gameChunks)),
+    offlinePackage: Math.max(...packageManifests.map((manifest) => manifest.totalBytes)),
+    offlinePackages: Object.fromEntries(
+      packageManifests.map((manifest) => [manifest.id, manifest.totalBytes]),
+    ),
     shellCssGzip: (entry.css ?? []).reduce((total, file) => total + gzipBytes(file), 0),
     shellJavaScriptGzip: gzipBytes(entry.file),
   };
