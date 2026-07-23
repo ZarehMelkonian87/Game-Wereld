@@ -26,7 +26,7 @@ const downloadExport = (snapshot: DiagnosticSnapshot, events: readonly Diagnosti
 const formatBytes = (bytes?: number) =>
   bytes === undefined ? "onbekend" : `${(bytes / 1_048_576).toFixed(1)} MB`;
 
-export const DiagnosticsPanel = () => {
+export const DiagnosticsPanel = ({ onDisable }: { onDisable?: () => void }) => {
   const [error, setError] = useState<string>();
   const [open, setOpen] = useState(false);
   const [snapshot, setSnapshot] = useState<DiagnosticSnapshot>();
@@ -181,6 +181,15 @@ export const DiagnosticsPanel = () => {
               >
                 Events wissen
               </button>
+              {onDisable ? (
+                <button
+                  className="min-h-12 rounded-xl border border-amber-300 px-4 font-bold text-amber-200"
+                  onClick={onDisable}
+                  type="button"
+                >
+                  Diagnostiek uitschakelen
+                </button>
+              ) : null}
             </div>
           </>
         ) : (
