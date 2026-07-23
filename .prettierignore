@@ -3,6 +3,7 @@ dist/
 coverage/
 playwright-report/
 test-results/
+reports/
 public/
 src/app/games/strand-bezem-escape/assets/
 package-lock.json

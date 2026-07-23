@@ -1,4 +1,4 @@
-import { useProfile } from "../../../../contexts/ProfileContext";
+import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 import { useVoiceSideScrollerController } from "./useVoiceSideScrollerController";
 import { VoiceSideScrollerHud } from "./VoiceSideScrollerHud";
 import { VoiceSideScrollerMovementControls } from "./VoiceSideScrollerMovementControls";
@@ -10,9 +10,10 @@ interface VoiceSideScrollerScreenProps {
 }
 
 export const VoiceSideScrollerScreen = ({ onBackToMenu }: VoiceSideScrollerScreenProps) => {
-  const { currentProfile } = useProfile();
-  const profileId = currentProfile?.id ?? "demo-profile";
-  const controller = useVoiceSideScrollerController({ profileId });
+  const runtime = useGameRuntime();
+  const { identity } = runtime;
+  const profileId = identity.profileId;
+  const controller = useVoiceSideScrollerController({ profileId, runtime });
   const { state } = controller;
   const controlsDisabled = state.status !== "running";
 

@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  createDutchSpeechRecognition,
   getSpeechRecognitionErrorMessage,
-  getSpeechRecognitionSupport,
   getSpeechRecognitionSupportMessage,
-  type DutchSpeechRecognitionSession,
   type SpeechRecognitionSupport,
   type VoiceRecognitionAlternative,
   type VoiceRecognitionErrorCode,
   type VoiceRecognitionResult,
   type VoiceRecognitionStatus,
 } from "../logic/speech-recognition";
+import type { SpeechRecognitionSession } from "../../../game-platform/contracts";
+import { useGameRuntime } from "../runtime/GameRuntimeContext";
 
 interface UseDutchSpeechRecognitionOptions {
   autoStopMs?: number;
@@ -46,11 +45,12 @@ export const useDutchSpeechRecognition = ({
   maxAlternatives = 3,
   restartOnEnd = false,
 }: UseDutchSpeechRecognitionOptions = {}): UseDutchSpeechRecognitionState => {
+  const { speech } = useGameRuntime();
   const [support, setSupport] = useState<SpeechRecognitionSupport>(() =>
-    getSpeechRecognitionSupport(),
+    speech.getRecognitionSupport(),
   );
   const [status, setStatus] = useState<VoiceRecognitionStatus>(() =>
-    getInitialSpeechStatus(getSpeechRecognitionSupport()),
+    getInitialSpeechStatus(speech.getRecognitionSupport()),
   );
   const [transcript, setTranscript] = useState<string>();
   const [confidence, setConfidence] = useState<number>();
@@ -58,7 +58,7 @@ export const useDutchSpeechRecognition = ({
   const [resultId, setResultId] = useState(0);
   const [alternatives, setAlternatives] = useState<VoiceRecognitionAlternative[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>();
-  const sessionRef = useRef<DutchSpeechRecognitionSession | null>(null);
+  const sessionRef = useRef<SpeechRecognitionSession | null>(null);
   const lastErrorCodeRef = useRef<VoiceRecognitionErrorCode>();
   const restartTimerRef = useRef<number>();
   const shouldRestartRef = useRef(false);
@@ -71,7 +71,7 @@ export const useDutchSpeechRecognition = ({
   }, []);
 
   useEffect(() => {
-    const nextSupport = getSpeechRecognitionSupport();
+    const nextSupport = speech.getRecognitionSupport();
     setSupport(nextSupport);
     setStatus((currentStatus) =>
       currentStatus === "unsupported" || currentStatus === "idle"
@@ -85,7 +85,7 @@ export const useDutchSpeechRecognition = ({
       sessionRef.current?.destroy();
       sessionRef.current = null;
     };
-  }, [clearRestartTimer]);
+  }, [clearRestartTimer, speech]);
 
   const resetTranscript = useCallback(() => {
     setTranscript(undefined);
@@ -93,8 +93,8 @@ export const useDutchSpeechRecognition = ({
     setIsFinal(undefined);
     setAlternatives([]);
     setErrorMessage(undefined);
-    setStatus(getInitialSpeechStatus(getSpeechRecognitionSupport()));
-  }, []);
+    setStatus(getInitialSpeechStatus(speech.getRecognitionSupport()));
+  }, [speech]);
 
   const handleResult = useCallback(
     (result: VoiceRecognitionResult) => {
@@ -129,7 +129,7 @@ export const useDutchSpeechRecognition = ({
   }, [clearRestartTimer]);
 
   const startListening = useCallback(() => {
-    const nextSupport = getSpeechRecognitionSupport();
+    const nextSupport = speech.getRecognitionSupport();
     setSupport(nextSupport);
 
     if (!nextSupport.isSupported) {
@@ -150,7 +150,7 @@ export const useDutchSpeechRecognition = ({
     setStatus("processing");
     shouldRestartRef.current = restartOnEnd;
 
-    const session = createDutchSpeechRecognition({
+    const session = speech.createRecognition({
       autoStopMs,
       continuous,
       interimResults,
@@ -200,6 +200,7 @@ export const useDutchSpeechRecognition = ({
     interimResults,
     maxAlternatives,
     restartOnEnd,
+    speech,
   ]);
 
   return {

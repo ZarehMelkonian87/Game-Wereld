@@ -18,11 +18,8 @@ export const firstRewardUnlocks: RewardUnlock[] = [
 const getRewardStorageKey = (profileId: string) => {
   return `strand-bezem-escape:${profileId}:unlocked-rewards`;
 };
-export const readUnlockedRewardIds = (profileId: string) => {
-  if (typeof window === "undefined") {
-    return [];
-  }
-  const storedRewards = window.localStorage.getItem(getRewardStorageKey(profileId));
+export const readUnlockedRewardIds = (profileId: string, storage: RuntimeStorage) => {
+  const storedRewards = storage.get(getRewardStorageKey(profileId));
   if (!storedRewards) {
     return [];
   }
@@ -33,12 +30,11 @@ export const readUnlockedRewardIds = (profileId: string) => {
     return [];
   }
 };
-export const saveUnlockedRewardIds = (profileId: string, rewardIds: string[]) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-  window.localStorage.setItem(getRewardStorageKey(profileId), JSON.stringify(rewardIds));
-};
+export const saveUnlockedRewardIds = (
+  profileId: string,
+  rewardIds: string[],
+  storage: RuntimeStorage,
+) => storage.set(getRewardStorageKey(profileId), JSON.stringify(rewardIds));
 export const resolveNewRewardUnlocks = (params: {
   totalSpeed: number;
   totalWordStars: number;
@@ -54,3 +50,4 @@ export const resolveNewRewardUnlocks = (params: {
     return params.totalSpeed >= 1;
   });
 };
+import type { RuntimeStorage } from "../../../game-platform/contracts";

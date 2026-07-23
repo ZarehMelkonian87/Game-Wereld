@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  readBezemEscapeProgress,
-  recordVoiceSideScrollerWordObservation,
-} from "../../logic/progress";
+import { createEmptyBezemEscapeProgress } from "../../logic/progress";
+import type { GameRuntime } from "../../../../game-platform/contracts";
 import {
   collectVoiceSideScrollerTarget,
   startVoiceSideScrollerRound,
@@ -41,10 +39,11 @@ export interface VoiceSideScrollerController {
 
 interface UseVoiceSideScrollerControllerOptions {
   profileId: string;
+  runtime: GameRuntime;
 }
 
 const createFocusedRoundState = (profileId: string) => {
-  const progress = readBezemEscapeProgress(profileId);
+  const progress = createEmptyBezemEscapeProgress(profileId);
   const focusWords = selectVoiceSideScrollerFocusWords({
     availableTargets: VOICE_SCROLLER_DEMO_TARGETS,
     progress,
@@ -57,6 +56,7 @@ const getVoiceSideScrollerInstructionId = (targetId: string) => `zeg-en-vlieg:${
 
 export const useVoiceSideScrollerController = ({
   profileId,
+  runtime,
 }: UseVoiceSideScrollerControllerOptions): VoiceSideScrollerController => {
   const [state, setState] = useState(() => createFocusedRoundState(profileId));
   const stateRef = useRef(state);
@@ -79,7 +79,6 @@ export const useVoiceSideScrollerController = ({
     (
       nextState: VoiceSideScrollerGameState,
       target: VoiceSideScrollerTarget,
-      transcript: string,
       isRecognized: boolean,
     ) => {
       const observation = getVoiceSideScrollerWordObservation(nextState, target.id);
@@ -88,19 +87,18 @@ export const useVoiceSideScrollerController = ({
         return;
       }
 
-      recordVoiceSideScrollerWordObservation(profileId, {
-        audioRepeats: observation.audioRepeats,
+      void runtime.practice.append({
+        assistance: observation.hintsUsed > 0 ? "hint" : "none",
+        attempts: observation.attempts,
         hintsUsed: observation.hintsUsed,
-        id: `${target.id}:${isRecognized ? "recognized" : "practice"}:${observation.attempts}:${Date.now()}`,
-        instructionId: getVoiceSideScrollerInstructionId(target.id),
-        isRecognized,
-        spokenTranscript: transcript,
-        targetWord: target.word,
-        wordAttempts: observation.attempts,
+        isCorrect: isRecognized,
+        result: isRecognized ? "correct-without-help" : "needs-more-practice",
+        taskId: getVoiceSideScrollerInstructionId(target.id),
+        targetWords: [target.word],
         wordStarsEarned: isRecognized ? 1 : 0,
       });
     },
-    [profileId],
+    [runtime.practice],
   );
 
   const handleWordMatched = useCallback(
@@ -114,7 +112,7 @@ export const useVoiceSideScrollerController = ({
 
       stateRef.current = nextState;
       setState(nextState);
-      recordWordObservation(nextState, target, transcript, true);
+      recordWordObservation(nextState, target, true);
     },
     [recordWordObservation],
   );
@@ -133,7 +131,7 @@ export const useVoiceSideScrollerController = ({
 
       stateRef.current = nextState;
       setState(nextState);
-      recordWordObservation(nextState, target, transcript, false);
+      recordWordObservation(nextState, target, false);
     },
     [recordWordObservation],
   );
@@ -180,7 +178,7 @@ export const useVoiceSideScrollerController = ({
 
   const startRound = useCallback(() => {
     verticalInputRef.current = 0;
-    const progress = readBezemEscapeProgress(profileId);
+    const progress = createEmptyBezemEscapeProgress(profileId);
     const focusWords = selectVoiceSideScrollerFocusWords({
       availableTargets: VOICE_SCROLLER_DEMO_TARGETS,
       progress,

@@ -26,12 +26,8 @@ export const emptyRewardResult: StoredRewardResult = {
   starsEarned: 0,
 };
 
-export const readStoredRewardResult = (): StoredRewardResult => {
-  if (typeof window === "undefined") {
-    return emptyRewardResult;
-  }
-
-  const rawResult = window.sessionStorage.getItem(REWARD_RESULT_STORAGE_KEY);
+export const readStoredRewardResult = (storage: RuntimeStorage): StoredRewardResult => {
+  const rawResult = storage.get(REWARD_RESULT_STORAGE_KEY, "session");
 
   if (!rawResult) {
     return emptyRewardResult;
@@ -60,3 +56,4 @@ export const readStoredRewardResult = (): StoredRewardResult => {
     return emptyRewardResult;
   }
 };
+import type { RuntimeStorage } from "../../../../game-platform/contracts";

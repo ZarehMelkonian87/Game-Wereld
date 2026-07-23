@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { useProfile } from "../../../contexts/ProfileContext";
 import { beachWorld } from "../content";
 import {
   getSceneBuilderInstructions,
@@ -22,13 +21,16 @@ import type { GameScreenPreview } from "../logic/game-screen-preview";
 import { readSelectedWorldId, saveSelectedWorldId } from "../logic/world-selection";
 import type { BezemEscapeMode } from "../types";
 import { getWorldDefinition, worldDefinitions } from "../worlds";
+import { useGameRuntime } from "../runtime/GameRuntimeContext";
 
 export const useBezemEscapeGameController = () => {
-  const { currentProfile } = useProfile();
-  const profileId = currentProfile?.id ?? "demo-profile";
+  const { identity, storage } = useGameRuntime();
+  const profileId = identity.profileId;
   const [screenPreview, setScreenPreview] = useState<GameScreenPreview>(() => getScreenPreview());
   const [roundSeed, setRoundSeed] = useState(() => createRoundSeed());
-  const [selectedWorldId, setSelectedWorldId] = useState(() => readSelectedWorldId(profileId));
+  const [selectedWorldId, setSelectedWorldId] = useState(() =>
+    readSelectedWorldId(profileId, storage),
+  );
   const selectedWorld = getWorldDefinition(selectedWorldId);
 
   const baseInstructions = useMemo(
@@ -47,8 +49,8 @@ export const useBezemEscapeGameController = () => {
   );
 
   useEffect(() => {
-    setSelectedWorldId(readSelectedWorldId(profileId));
-  }, [profileId]);
+    setSelectedWorldId(readSelectedWorldId(profileId, storage));
+  }, [profileId, storage]);
 
   const setScreen = (screen: GameScreenPreview) => {
     setScreenPreview(screen);
@@ -60,7 +62,7 @@ export const useBezemEscapeGameController = () => {
   };
 
   const openModeSelect = () => {
-    saveSelectedWorldId(profileId, selectedWorld.id);
+    saveSelectedWorldId(profileId, selectedWorld.id, storage);
     setScreenPreview("mode-select");
   };
 
@@ -69,7 +71,7 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
-    const storedWorldId = saveSelectedWorldId(profileId, selectedWorld.id);
+    const storedWorldId = saveSelectedWorldId(profileId, selectedWorld.id, storage);
     setSelectedWorldId(storedWorldId);
     setScreenPreview("mode-select");
   };
@@ -81,7 +83,7 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
-    setSelectedWorldId(saveSelectedWorldId(profileId, world.id));
+    setSelectedWorldId(saveSelectedWorldId(profileId, world.id, storage));
   };
 
   const startSelectedMode = (modeId: BezemEscapeMode) => {
@@ -89,7 +91,7 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
-    setSelectedWorldId(saveSelectedWorldId(profileId, selectedWorld.id));
+    setSelectedWorldId(saveSelectedWorldId(profileId, selectedWorld.id, storage));
     setRoundSeed(createRoundSeed());
 
     if (modeId === "choose-word") {

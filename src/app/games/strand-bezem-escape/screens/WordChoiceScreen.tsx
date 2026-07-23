@@ -9,6 +9,7 @@ import {
   PrimaryActionButton,
 } from "../components/ui";
 import { readBezemEscapeSettings } from "../logic/settings";
+import { useGameRuntime } from "../runtime/GameRuntimeContext";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useWordChoiceState } from "./word-choice/useWordChoiceState";
@@ -22,6 +23,7 @@ export const WordChoiceScreen = ({
   objects,
   onBackToMenu,
 }: WordChoiceScreenProps) => {
+  const runtime = useGameRuntime();
   const {
     activeAudioRepeats,
     advanceInstruction,
@@ -71,7 +73,9 @@ export const WordChoiceScreen = ({
           leadingControl={
             currentInstructionVideoUrl ? (
               <InstructionVideoButton
-                autoPlayOnMount={readBezemEscapeSettings(rewardProfileId).audioEnabled}
+                autoPlayOnMount={
+                  readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled
+                }
                 label="Speel video-opdracht"
                 src={currentInstructionVideoUrl}
               />

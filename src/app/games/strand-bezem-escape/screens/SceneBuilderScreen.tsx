@@ -4,6 +4,7 @@ import { ObjectStickerButton } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
 import { supportedSceneBuilderConcepts } from "../logic/scene-zones";
 import { readBezemEscapeSettings } from "../logic/settings";
+import { useGameRuntime } from "../runtime/GameRuntimeContext";
 import type { SceneBuilderInstruction, SceneObject, SceneZone } from "../types";
 import { CompactInstructionCard } from "./scene-builder/CompactInstructionCard";
 import { SceneAreaCanvas } from "./scene-builder/components/SceneAreaCanvas";
@@ -41,6 +42,7 @@ export const SceneBuilderScreen = ({
   spokenCommandPreviewText,
   zones,
 }: SceneBuilderScreenProps) => {
+  const runtime = useGameRuntime();
   const sceneAreaRef = useRef<HTMLElement>(null);
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
@@ -132,9 +134,7 @@ export const SceneBuilderScreen = ({
       data-active-audio-repeats={activeAudioRepeats}
       data-active-hints-used={activeHintsUsed}
       data-active-instruction-id={instruction.id}
-      data-audio-supported={
-        typeof window !== "undefined" && "speechSynthesis" in window ? "true" : "false"
-      }
+      data-audio-supported={runtime.speech.isRecognitionAvailable() ? "true" : "false"}
       data-hint-event-count={hintEvents.length}
       data-mode="listen-and-place"
       data-practiced-concepts={sceneCompletionSummary?.practicedConcepts.join(",") ?? ""}
@@ -195,7 +195,9 @@ export const SceneBuilderScreen = ({
           leadingControl={
             currentInstructionVideoUrl ? (
               <InstructionVideoButton
-                autoPlayOnMount={readBezemEscapeSettings(rewardProfileId).audioEnabled}
+                autoPlayOnMount={
+                  readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled
+                }
                 label="Speel video-opdracht"
                 onPlaybackError={handleInstructionVideoPlaybackError}
                 onPlaybackStart={handleInstructionVideoPlaybackStart}
@@ -234,7 +236,9 @@ export const SceneBuilderScreen = ({
 
       <div className={showZoneDevTools ? "opacity-20 pointer-events-none" : ""}>
         <FloatingSuccessToast
-          autoPlayFeedbackVideo={readBezemEscapeSettings(rewardProfileId).audioEnabled}
+          autoPlayFeedbackVideo={
+            readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled
+          }
           feedback={feedback}
           hintVideoUrl={feedback?.hintVideoUrl}
           onHintVideoClick={handleHintFeedbackVideoClick}

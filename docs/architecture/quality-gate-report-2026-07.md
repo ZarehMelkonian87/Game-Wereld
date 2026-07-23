@@ -60,6 +60,6 @@ Een tijdelijke overtredingsprobe is correct met exitcode 1 geweigerd en daarna v
 
 ## Bekende baselineafwijkingen
 
-- De initiële JavaScriptbundle is circa 300 kB gzip en overschrijdt het doelbudget van 200 kB. Lazy loading en een lichte registry zijn bewust gepland in IMP-B02 en IMP-B05.
+- De initiële JavaScriptbundle was circa 300 kB gzip en overschreed het doelbudget van 200 kB. Groep B heeft dit opgelost met route- en game-lazy-loading; de shell meet nu 101,56 kB gzip. Zie `group-b-report-2026-07.md`.
 - Grote videoassets domineren de distributiegrootte. Assetpackaging, caching en budgets volgen in de latere PWA-/assetgroep.
 - CI-uitvoerlinks zijn pas beschikbaar nadat de gebruiker commit en pusht. De eerste echte groene en bewust falende workflowrun moeten dan aan dit rapport worden toegevoegd.

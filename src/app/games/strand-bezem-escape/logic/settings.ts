@@ -14,11 +14,8 @@ export const defaultBezemEscapeSettings: BezemEscapeSettings = {
 const getSettingsStorageKey = (profileId: string) => {
   return `strand-bezem-escape:${profileId}:settings`;
 };
-export const readBezemEscapeSettings = (profileId: string) => {
-  if (typeof window === "undefined") {
-    return defaultBezemEscapeSettings;
-  }
-  const rawSettings = window.localStorage.getItem(getSettingsStorageKey(profileId));
+export const readBezemEscapeSettings = (profileId: string, storage: RuntimeStorage) => {
+  const rawSettings = storage.get(getSettingsStorageKey(profileId));
   if (!rawSettings) {
     return defaultBezemEscapeSettings;
   }
@@ -31,17 +28,21 @@ export const readBezemEscapeSettings = (profileId: string) => {
     return defaultBezemEscapeSettings;
   }
 };
-export const saveBezemEscapeSettings = (profileId: string, settings: BezemEscapeSettings) => {
-  if (typeof window === "undefined") {
-    return;
+export const saveBezemEscapeSettings = (
+  profileId: string,
+  settings: BezemEscapeSettings,
+  storage: RuntimeStorage,
+) => {
+  storage.set(getSettingsStorageKey(profileId), JSON.stringify(settings));
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, {
+        detail: {
+          profileId,
+          settings,
+        },
+      }),
+    );
   }
-  window.localStorage.setItem(getSettingsStorageKey(profileId), JSON.stringify(settings));
-  window.dispatchEvent(
-    new CustomEvent(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, {
-      detail: {
-        profileId,
-        settings,
-      },
-    }),
-  );
 };
+import type { RuntimeStorage } from "../../../game-platform/contracts";

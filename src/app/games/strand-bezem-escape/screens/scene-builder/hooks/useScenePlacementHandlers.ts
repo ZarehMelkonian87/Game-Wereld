@@ -2,13 +2,13 @@ import {
   evaluateDynamicRelationPlacement,
   usesDynamicRelationZone,
 } from "../../../logic/dynamic-scene-relations";
-import { appendPracticeEvent } from "../../../logic/progress";
 import { resolveNewRewardUnlocks, saveUnlockedRewardIds } from "../../../logic/rewards";
 import { selectedZoneMatchesTarget, zoneSupportsConcept } from "../../../logic/scene-zones";
 import type { SceneBuilderInstruction, SceneObject, SpatialConcept } from "../../../types";
 import type { SceneCompletionSummary } from "../logic/scene-builder-types";
 import { getSpeakAndPlaceReward } from "../logic/scene-placement-utils";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
+import { useGameRuntime } from "../../../runtime/GameRuntimeContext";
 export const useScenePlacementHandlers = ({
   instructions,
   objects,
@@ -18,6 +18,7 @@ export const useScenePlacementHandlers = ({
   objects: readonly SceneObject[];
   state: ReturnType<typeof useSceneBuilderState>;
 }) => {
+  const runtime = useGameRuntime();
   const {
     activeAudioRepeats,
     activeHintsUsed,
@@ -102,7 +103,7 @@ export const useScenePlacementHandlers = ({
       ...unlockedRewardIds,
       ...newRewardUnlocks.map((reward) => reward.id),
     ];
-    saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
+    saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds, runtime.storage);
     setPlacedObjects(nextPlacedObjects);
     setPendingPlacement(null);
     setSceneComplete(nextSceneComplete);
@@ -116,20 +117,13 @@ export const useScenePlacementHandlers = ({
       rewardLabels: newRewardUnlocks.map((r) => r.label),
       text: instruction.feedbackCopy.correct,
     });
-    appendPracticeEvent(rewardProfileId, {
-      activeSpatialConcept: instruction.placement.relation,
+    void runtime.practice.append({
       assistance: activeHintsUsed > 0 ? "hint" : "none",
       attempts: 1,
-      audioRepeats: activeAudioRepeats,
       hintsUsed: activeHintsUsed,
-      id: `${instruction.id}:${Date.now()}`,
-      instructionId: instruction.id,
       isCorrect: true,
-      languageDomains: instruction.languageDomains,
-      mode: "listen-and-place",
       result: activeHintsUsed === 0 ? "correct-without-help" : "correct-with-help",
-      spatialConcepts: instruction.spatialConcepts,
-      speedEarned: earnedSpeed,
+      taskId: instruction.id,
       targetWords: [targetObject?.label ?? instruction.placement.objectId],
       wordStarsEarned: earnedWordStars,
     });

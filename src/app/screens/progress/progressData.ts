@@ -1,5 +1,5 @@
 import type { PeriodDefinition, ThemeProgress, TimePeriod } from "./progressTypes";
-import { readBezemEscapeProgress } from "../../games/strand-bezem-escape/logic/progress";
+import { createGameId, createProfileId, readBrowserPracticeEvents } from "../../game-platform";
 
 export const periods: PeriodDefinition[] = [
   { id: "week", label: "Deze Week", shortLabel: "Week" },
@@ -10,15 +10,16 @@ export const periods: PeriodDefinition[] = [
 
 export const getProgressData = (period: TimePeriod, profileId?: string): ThemeProgress[] => {
   const defaultProfileId = profileId ?? "demo-profile";
-  const progressStrand = readBezemEscapeProgress(defaultProfileId);
-
-  const events = [...(progressStrand.attempts ?? [])];
+  const events = readBrowserPracticeEvents(
+    createProfileId(defaultProfileId),
+    createGameId("strand-bezem-escape"),
+  );
 
   // Filter events by period
   const now = new Date();
   const periodEvents = events.filter((event) => {
     if (period === "alltime") return true;
-    const playedAt = event.playedAt ? new Date(event.playedAt) : new Date();
+    const playedAt = event.recordedAt ? new Date(event.recordedAt) : new Date();
     const daysLimit = period === "week" ? 7 : period === "month" ? 30 : 90;
     const limitTime = now.getTime() - daysLimit * 24 * 60 * 60 * 1000;
     return playedAt.getTime() >= limitTime;

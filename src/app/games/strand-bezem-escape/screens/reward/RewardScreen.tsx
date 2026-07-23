@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useProfile } from "../../../../contexts/ProfileContext";
+import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 import {
   firstRewardUnlocks,
   readUnlockedRewardIds,
@@ -19,9 +19,9 @@ interface RewardScreenProps {
 }
 
 export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: RewardScreenProps) => {
-  const { currentProfile } = useProfile();
-  const rewardProfileId = currentProfile?.id ?? "demo-profile";
-  const [rewardResult] = useState(() => readStoredRewardResult());
+  const runtime = useGameRuntime();
+  const rewardProfileId = runtime.identity.profileId;
+  const [rewardResult] = useState(() => readStoredRewardResult(runtime.storage));
   const [newRewards, setNewRewards] = useState<RewardUnlock[]>([]);
   const practicedWords = useMemo(
     () => formatList(rewardResult.practicedWords, "nog geen woorden"),
@@ -40,7 +40,7 @@ export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: Rewar
       : featuredRewardName;
 
   useEffect(() => {
-    const unlockedRewardIds = readUnlockedRewardIds(rewardProfileId);
+    const unlockedRewardIds = readUnlockedRewardIds(rewardProfileId, runtime.storage);
     const nextRewards = resolveNewRewardUnlocks({
       totalSpeed: rewardResult.speedEarned,
       totalWordStars: rewardResult.starsEarned,
@@ -53,11 +53,12 @@ export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: Rewar
       return;
     }
 
-    saveUnlockedRewardIds(rewardProfileId, [
-      ...unlockedRewardIds,
-      ...nextRewards.map((reward) => reward.id),
-    ]);
-  }, [rewardResult.speedEarned, rewardResult.starsEarned, rewardProfileId]);
+    saveUnlockedRewardIds(
+      rewardProfileId,
+      [...unlockedRewardIds, ...nextRewards.map((reward) => reward.id)],
+      runtime.storage,
+    );
+  }, [rewardResult.speedEarned, rewardResult.starsEarned, rewardProfileId, runtime.storage]);
 
   return (
     <div

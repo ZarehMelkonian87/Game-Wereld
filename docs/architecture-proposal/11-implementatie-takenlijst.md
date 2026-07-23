@@ -225,136 +225,148 @@ Start deze groep pas wanneer groep A groen is. Het doel is echte afhankelijkheid
 
 ### IMP-B01 — Branded ids en gedeelde grenscontracten definiëren
 
-- [ ] **IMP-B01 afgerond**
+- [x] **IMP-B01 afgerond**
 
 Afhankelijkheden: IMP-A03 en IMP-A07.
 
 Doel: verwisselbare strings en impliciete globale afhankelijkheden vervangen door smalle contracten.
 
-- [ ] Definieer branded types voor minimaal `GameId`, `ThemeId`, `ProfileId`, `SessionId`, `TaskId` en `EventId`.
-- [ ] Voeg grensconstructors/parsers toe die ongeldige lege ids weigeren.
-- [ ] Definieer `Clock`, `IdGenerator`, `DiagnosticLogger` en basisresultaten voor verwachte fouten.
-- [ ] Plaats contracten in een platformmap die geen concrete adapters importeert.
-- [ ] Migreer alleen de eerstvolgende consumers; voorkom een repo-brede cosmetische castoperatie.
-- [ ] Test constructors en exhaustieve foutpaden.
-- [ ] Acceptatie: twee verschillende idtypen kunnen niet zonder expliciete conversie worden verwisseld.
-- [ ] Verificatie: typecheck plus gerichte type-/unittests zijn groen.
-- [ ] **Kwaliteitscontrole:** controleer types, assertions en modulegrenzen tegen `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer branded types voor minimaal `GameId`, `ThemeId`, `ProfileId`, `SessionId`, `TaskId` en `EventId`.
+- [x] Voeg grensconstructors/parsers toe die ongeldige lege ids weigeren.
+- [x] Definieer `Clock`, `IdGenerator`, `DiagnosticLogger` en basisresultaten voor verwachte fouten.
+- [x] Plaats contracten in een platformmap die geen concrete adapters importeert.
+- [x] Migreer alleen de eerstvolgende consumers; voorkom een repo-brede cosmetische castoperatie.
+- [x] Test constructors en exhaustieve foutpaden.
+- [x] Acceptatie: twee verschillende idtypen kunnen niet zonder expliciete conversie worden verwisseld.
+- [x] Verificatie: typecheck plus gerichte type-/unittests zijn groen.
+- [x] **Kwaliteitscontrole:** controleer types, assertions en modulegrenzen tegen `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B02 — GameManifest en catalogus als één bron van waarheid invoeren
 
-- [ ] **IMP-B02 afgerond**
+- [x] **IMP-B02 afgerond**
 
 Afhankelijkheden: IMP-B01.
 
 Doel: duplicatie tussen `data/games.ts`, `games/registry.ts` en `game.config.ts` verwijderen.
 
-- [ ] Definieer het runtime-gevalideerde `GameManifest` volgens hoofdstuk 5.
-- [ ] Maak `strand-bezem-escape/manifest.ts` licht: geen zware component-, content- of assetimports.
-- [ ] Laat catalogus en routes dezelfde canonical `gameId` gebruiken.
-- [ ] Maak oude alias-id's expliciete redirects/migraties in plaats van meerdere registryentries met dezelfde component.
-- [ ] Modelleer `coming-soon` in het manifest zonder een niet-bestaande loader.
-- [ ] Voeg tests toe voor unieke ids, geldige theme-id, leeftijd, capabilities en release status.
-- [ ] Acceptatie: titel, beschrijving, categorie en capability bestaan op één plek en registry-key is gelijk aan manifest-id.
-- [ ] Verificatie: manifestcontracttest en bestaande catalogusflow zijn groen.
-- [ ] **Kwaliteitscontrole:** toets runtimevalidatie, contentdata en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer het runtime-gevalideerde `GameManifest` volgens hoofdstuk 5.
+- [x] Maak `strand-bezem-escape/manifest.ts` licht: geen zware component-, content- of assetimports.
+- [x] Laat catalogus en routes dezelfde canonical `gameId` gebruiken.
+- [x] Maak oude alias-id's expliciete redirects/migraties in plaats van meerdere registryentries met dezelfde component.
+- [x] Modelleer `coming-soon` in het manifest zonder een niet-bestaande loader.
+- [x] Voeg tests toe voor unieke ids, geldige theme-id, leeftijd, capabilities en release status.
+- [x] Acceptatie: titel, beschrijving, categorie en capability bestaan op één plek en registry-key is gelijk aan manifest-id.
+- [x] Verificatie: manifestcontracttest en bestaande catalogusflow zijn groen.
+- [x] **Kwaliteitscontrole:** toets runtimevalidatie, contentdata en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B03 — GameRuntime-poorten definiëren
 
-- [ ] **IMP-B03 afgerond**
+- [x] **IMP-B03 afgerond**
 
 Afhankelijkheden: IMP-B01 en IMP-B02.
 
 Doel: alle diensten die een game nodig heeft expliciet via de host leveren.
 
-- [ ] Definieer `GameRuntime` met identity, clock, ids, practice writer, media, speech, diagnostics en lifecycle.
-- [ ] Houd poorten capabilitygericht; exporteer geen `db`, router, context of leveranciers-SDK.
-- [ ] Definieer benoemde resultaten voor permission denied, unavailable, quota en recoverable mediafouten.
-- [ ] Bouw testfakes voor clock, ids, practice, media, speech en lifecyclecalls.
-- [ ] Documenteer welke runtimevelden stabiel contract zijn en welke alleen intern zijn.
-- [ ] Acceptatie: een game kan in een test mounten met uitsluitend een fake runtime en zonder globale providers.
-- [ ] Verificatie: contract- en typechecks tonen geen app-/infrastructureimport vanuit het contract.
-- [ ] **Kwaliteitscontrole:** toets de contractgrootte, privacyvelden en foutmodellen aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer `GameRuntime` met identity, clock, ids, practice writer, media, speech, diagnostics en lifecycle.
+- [x] Houd poorten capabilitygericht; exporteer geen `db`, router, context of leveranciers-SDK.
+- [x] Definieer benoemde resultaten voor permission denied, unavailable, quota en recoverable mediafouten.
+- [x] Bouw testfakes voor clock, ids, practice, media, speech en lifecyclecalls.
+- [x] Documenteer welke runtimevelden stabiel contract zijn en welke alleen intern zijn.
+- [x] Acceptatie: een game kan in een test mounten met uitsluitend een fake runtime en zonder globale providers.
+- [x] Verificatie: contract- en typechecks tonen geen app-/infrastructureimport vanuit het contract.
+- [x] **Kwaliteitscontrole:** toets de contractgrootte, privacyvelden en foutmodellen aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B04 — GameHost met laad-, capability- en foutgrenzen bouwen
 
-- [ ] **IMP-B04 afgerond**
+- [x] **IMP-B04 afgerond**
 
 Afhankelijkheden: IMP-B03.
 
 Doel: één eigenaar maken voor resolve, sessiestart, runtimeconstructie, laden, afsluiten en herstel.
 
-- [ ] Bouw `GameHost` dat routeparameters valideert en een registryentry resolveert.
-- [ ] Controleer vereiste capabilities vóór mount en bied gelijkwaardige fallback waar mogelijk.
-- [ ] Start en sluit een voorlopige sessie via een tijdelijke repository/fake totdat groep C gereed is.
-- [ ] Voeg afzonderlijke loading-, load-error- en runtime-errorinterfaces toe.
-- [ ] Zorg dat complete, exit en crash maximaal één keer de lifecycle afsluiten.
-- [ ] Geef terug naar catalogus, retry en app-update als concrete herstelacties.
-- [ ] Voeg route- en game-error boundaries toe met correlation-id.
-- [ ] Acceptatie: een renderfout in de game haalt de app-shell niet neer.
-- [ ] Verificatie: component-/integratietests dekken success, onbekende id, loader rejection, ontbrekende capability en runtimecrash.
-- [ ] **Kwaliteitscontrole:** toets boundaries, accessibility, logging en lifecycle aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Bouw `GameHost` dat routeparameters valideert en een registryentry resolveert.
+- [x] Controleer vereiste capabilities vóór mount en bied gelijkwaardige fallback waar mogelijk.
+- [x] Start en sluit een voorlopige sessie via een tijdelijke repository/fake totdat groep C gereed is.
+- [x] Voeg afzonderlijke loading-, load-error- en runtime-errorinterfaces toe.
+- [x] Zorg dat complete, exit en crash maximaal één keer de lifecycle afsluiten.
+- [x] Geef terug naar catalogus, retry en app-update als concrete herstelacties.
+- [x] Voeg route- en game-error boundaries toe met correlation-id.
+- [x] Acceptatie: een renderfout in de game haalt de app-shell niet neer.
+- [x] Verificatie: component-/integratietests dekken success, onbekende id, loader rejection, ontbrekende capability en runtimecrash.
+- [x] **Kwaliteitscontrole:** toets boundaries, accessibility, logging en lifecycle aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B05 — Registry en routes daadwerkelijk lazy maken
 
-- [ ] **IMP-B05 afgerond**
+- [x] **IMP-B05 afgerond**
 
 Afhankelijkheden: IMP-B02 en IMP-B04.
 
 Doel: gamecode uit de initiële appchunk halen.
 
-- [ ] Vervang de statische gamecomponentimport door een statisch analyseerbare `import("./strand-bezem-escape")` loader.
-- [ ] Gebruik `Suspense` of route-lazy mechanismen met kindvriendelijke loading-UI.
-- [ ] Maak globale routes waar zinvol lazy zonder essentiële shellfeedback te verbergen.
-- [ ] Handel `vite:preloadError` of equivalente chunk-loadfout af via de load boundary.
-- [ ] Genereer een bundlevisualisatie vóór en na de wijziging.
-- [ ] Voeg een budgetcheck toe die de shell zonder gamecode bewaakt.
-- [ ] Acceptatie: het initiële entrypoint importeert de game-implementatie niet en er bestaat een aparte gamechunk.
-- [ ] Verificatie: vergelijk bundlegraph en netwerkrequests bij home versus game-open.
-- [ ] **Kwaliteitscontrole:** toets loading/error UX, budgets en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Vervang de statische gamecomponentimport door een statisch analyseerbare `import("./strand-bezem-escape")` loader.
+- [x] Gebruik `Suspense` of route-lazy mechanismen met kindvriendelijke loading-UI.
+- [x] Maak globale routes waar zinvol lazy zonder essentiële shellfeedback te verbergen.
+- [x] Handel `vite:preloadError` of equivalente chunk-loadfout af via de load boundary.
+- [x] Genereer een bundlevisualisatie vóór en na de wijziging.
+- [x] Voeg een budgetcheck toe die de shell zonder gamecode bewaakt.
+- [x] Acceptatie: het initiële entrypoint importeert de game-implementatie niet en er bestaat een aparte gamechunk.
+- [x] Verificatie: vergelijk bundlegraph en netwerkrequests bij home versus game-open.
+- [x] **Kwaliteitscontrole:** toets loading/error UX, budgets en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B06 — Strand Bezem Escape losmaken van globale appcontext
 
-- [ ] **IMP-B06 afgerond**
+- [x] **IMP-B06 afgerond**
 
 Afhankelijkheden: IMP-B03 tot en met IMP-B05.
 
 Doel: de eerste game uitsluitend via props/runtime met de app laten communiceren.
 
-- [ ] Verwijder imports van `ProfileContext`, router en directe globale appstate uit de gamemodule.
-- [ ] Geef profile/session identity door via `GameRuntime`.
-- [ ] Routeer exit, complete, practice, media en speech via runtimepoorten.
-- [ ] Houd gamespecifieke state lokaal in controller/reducer.
-- [ ] Voeg een test toe die de game zonder `ProfileProvider` mount.
-- [ ] Laat Dependency Cruiser deze grens blokkeren.
-- [ ] Acceptatie: zoeken in de gamemap vindt geen import uit `app/contexts`, `app/routes` of concrete storage-infrastructure.
-- [ ] Verificatie: gamecontracttest, smokeflow en architectuurcheck zijn groen.
-- [ ] **Kwaliteitscontrole:** toets state-eigenaarschap, hooks, imports en tests aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Verwijder imports van `ProfileContext`, router en directe globale appstate uit de gamemodule.
+- [x] Geef profile/session identity door via `GameRuntime`.
+- [x] Routeer exit, complete, practice, media en speech via runtimepoorten.
+- [x] Houd gamespecifieke state lokaal in controller/reducer.
+- [x] Voeg een test toe die de game zonder `ProfileProvider` mount.
+- [x] Laat Dependency Cruiser deze grens blokkeren.
+- [x] Acceptatie: zoeken in de gamemap vindt geen import uit `app/contexts`, `app/routes` of concrete storage-infrastructure.
+- [x] Verificatie: gamecontracttest, smokeflow en architectuurcheck zijn groen.
+- [x] **Kwaliteitscontrole:** toets state-eigenaarschap, hooks, imports en tests aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B07 — Generieke gamecontracttest afdwingen
 
-- [ ] **IMP-B07 afgerond**
+- [x] **IMP-B07 afgerond**
 
 Afhankelijkheden: IMP-B02 tot en met IMP-B06.
 
 Doel: iedere huidige en toekomstige game automatisch aan hetzelfde hostcontract toetsen.
 
-- [ ] Maak een herbruikbare contracttestsuite die registryentries als testcases ontvangt.
-- [ ] Controleer manifest-schema, idgelijkheid, loaderexport en mount met fake runtime.
-- [ ] Controleer dat complete/exit maximaal één keer worden aangeroepen.
-- [ ] Controleer gedrag bij ontbrekende optionele en vereiste capabilities.
-- [ ] Controleer dat gedeclareerde offlineassets na build bestaan zodra de assetpipeline beschikbaar is; markeer dit deel tot groep E als expliciete pending subtest.
-- [ ] Voeg de suite aan CI toe.
-- [ ] Acceptatie: een ongeldige tijdelijke registryentry faalt met een duidelijke contractmelding.
-- [ ] Verificatie: alle echte registryentries slagen.
-- [ ] **Kwaliteitscontrole:** toets contracttests en testfakes aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Maak een herbruikbare contracttestsuite die registryentries als testcases ontvangt.
+- [x] Controleer manifest-schema, idgelijkheid, loaderexport en mount met fake runtime.
+- [x] Controleer dat complete/exit maximaal één keer worden aangeroepen.
+- [x] Controleer gedrag bij ontbrekende optionele en vereiste capabilities.
+- [x] Controleer dat gedeclareerde offlineassets na build bestaan zodra de assetpipeline beschikbaar is; markeer dit deel tot groep E als expliciete pending subtest.
+- [x] Voeg de suite aan CI toe.
+- [x] Acceptatie: een ongeldige tijdelijke registryentry faalt met een duidelijke contractmelding.
+- [x] Verificatie: alle echte registryentries slagen.
+- [x] **Kwaliteitscontrole:** toets contracttests en testfakes aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+### Uitvoerbewijs Groep B
+
+- Contracten, runtimepoorten en de scheiding tussen stabiele API en interne adapters staan onder `src/app/game-platform`.
+- De catalogus gebruikt één runtime-gevalideerd manifest per game, canonical ids en expliciete legacy-aliases.
+- `GameHost` bezit resolutie, capabilitycontrole, sessielifecycle, lazy loading en herstelbare foutgrenzen.
+- Strand Bezem Escape mount met alleen een fake runtime en gebruikt geen appcontext, router of rechtstreekse browseropslag-, media- of speechimplementatie.
+- De productiebuild bevat een afzonderlijke gamechunk. De budgetcontrole meet 101,56 kB gzip voor de shell en 53,28 kB gzip voor de game-entry.
+- De generieke contracttest heeft één expliciete `todo` voor offlineassetcontrole; deze wordt pas in Groep E activeerbaar.
+- Formatting, lint, typecheck, 22 tests, architectuurcontrole, Knip, audit, productiebuild, bundelbudget en Chromium-/WebKit-E2E zijn groen.
+- Gedetailleerd bewijs en ontwerpafwegingen: `docs/architecture/group-b-report-2026-07.md`.
+- Commitbericht voor de volledige groep: `feat(architecture): introduce game runtime contracts and lazy GameHost`
 
 </details>
 

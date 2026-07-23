@@ -1,4 +1,5 @@
 import type { SceneZone } from "../types";
+import type { RuntimeStorage } from "../../../game-platform/contracts";
 
 export type SceneZoneVisualHintOverrides = Record<string, string>;
 
@@ -44,43 +45,42 @@ const notifyOverridesChanged = () => {
   window.dispatchEvent(new Event(zoneVisualHintOverridesChangedEvent));
 };
 
-export const readSceneZoneVisualHintOverrides = (): SceneZoneVisualHintOverrides => {
-  if (!isBrowser()) {
-    return {};
-  }
+export const readSceneZoneVisualHintOverrides = (storage: RuntimeStorage) =>
+  parseOverrides(storage.get(zoneVisualHintOverridesStorageKey));
 
-  return parseOverrides(window.localStorage.getItem(zoneVisualHintOverridesStorageKey));
-};
-
-export const saveSceneZoneVisualHintOverride = (zoneId: string, visualHintPath: string) => {
+export const saveSceneZoneVisualHintOverride = (
+  zoneId: string,
+  visualHintPath: string,
+  storage: RuntimeStorage,
+) => {
   if (!isBrowser()) {
     return;
   }
 
-  const currentOverrides = readSceneZoneVisualHintOverrides();
+  const currentOverrides = readSceneZoneVisualHintOverrides(storage);
   const nextOverrides = {
     ...currentOverrides,
     [zoneId]: visualHintPath,
   };
 
-  window.localStorage.setItem(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
+  storage.set(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
   notifyOverridesChanged();
 };
 
-export const clearSceneZoneVisualHintOverride = (zoneId: string) => {
+export const clearSceneZoneVisualHintOverride = (zoneId: string, storage: RuntimeStorage) => {
   if (!isBrowser()) {
     return;
   }
 
-  const currentOverrides = readSceneZoneVisualHintOverrides();
+  const currentOverrides = readSceneZoneVisualHintOverrides(storage);
   const { [zoneId]: _removedOverride, ...nextOverrides } = currentOverrides;
 
-  window.localStorage.setItem(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
+  storage.set(zoneVisualHintOverridesStorageKey, JSON.stringify(nextOverrides));
   notifyOverridesChanged();
 };
 
-export const applySceneZoneVisualHintOverrides = (zones: SceneZone[]) => {
-  const overrides = readSceneZoneVisualHintOverrides();
+export const applySceneZoneVisualHintOverrides = (zones: SceneZone[], storage: RuntimeStorage) => {
+  const overrides = readSceneZoneVisualHintOverrides(storage);
 
   return zones.map((zone) => {
     const visualHintPath = overrides[zone.id];

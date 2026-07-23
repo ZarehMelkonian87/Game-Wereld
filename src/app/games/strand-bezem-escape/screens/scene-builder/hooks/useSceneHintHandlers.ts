@@ -6,8 +6,8 @@ import {
   sharedPlaceHintVideoUrl,
 } from "../../../asset-urls";
 import { readBezemEscapeSettings } from "../../../logic/settings";
-import { speakDutch } from "../../../logic/speech";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
+import { useGameRuntime } from "../../../runtime/GameRuntimeContext";
 const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number, relation: string) => {
   if (hintLevel === 1) {
     return getSeekObjectHintVideoUrl(instructionId);
@@ -41,6 +41,7 @@ export const useSceneHintHandlers = ({
 }: {
   state: ReturnType<typeof useSceneBuilderState>;
 }) => {
+  const runtime = useGameRuntime();
   const hintVideoPressStartedRef = useRef(false);
   const {
     activeHintsUsed,
@@ -57,7 +58,7 @@ export const useSceneHintHandlers = ({
     targetObject,
   } = state;
   const playInstructionAudio = (text = instruction.audioText) => {
-    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled) {
       setFeedback({
         kind: "almost",
         mascot: "hint",
@@ -65,7 +66,7 @@ export const useSceneHintHandlers = ({
       });
       return;
     }
-    if (!speakDutch(text)) {
+    if (!runtime.speech.speak(text).ok) {
       setFeedback({
         kind: "almost",
         mascot: "hint",
@@ -79,7 +80,7 @@ export const useSceneHintHandlers = ({
     }));
   };
   const handleInstructionVideoRequest = () => {
-    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled) {
       setFeedback({
         kind: "almost",
         mascot: "hint",
@@ -103,7 +104,7 @@ export const useSceneHintHandlers = ({
     });
   };
   const applyHint = ({ playAudioForFirstHint }: { playAudioForFirstHint: boolean }) => {
-    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).hintsEnabled) {
       setFeedback({
         kind: "ready",
         mascot: "hint",
@@ -169,7 +170,7 @@ export const useSceneHintHandlers = ({
     applyHint({ playAudioForFirstHint: true });
   };
   const playPreparedHintVideo = () => {
-    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).hintsEnabled) {
       return;
     }
     hintVideoPressStartedRef.current = true;

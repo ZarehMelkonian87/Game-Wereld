@@ -1,5 +1,6 @@
 import { classNames } from "../../components/ui/classNames";
 import type { MicrophonePermissionResult } from "../../logic/microphone-permission";
+import type { SpeechRecognitionSupport } from "../../logic/speech-recognition";
 
 export const getMicrophonePermissionStatusClassName = ({
   canUse,
@@ -56,16 +57,16 @@ export const getMicrophonePermissionAttemptMessage = ({
   return message;
 };
 
-export const getMicrophoneEnvironmentMessage = () => {
-  if (typeof window === "undefined" || typeof navigator === "undefined") {
+export const getMicrophoneEnvironmentMessage = (support: SpeechRecognitionSupport) => {
+  if (support.reason === "ssr") {
     return "Microfoonstatus kan hier nog niet worden gecontroleerd.";
   }
 
-  if (!window.isSecureContext) {
-    return `Je opent deze web-app via ${window.location.protocol}//${window.location.host}. Op een telefoon opent de microfoon-popup meestal alleen via HTTPS.`;
+  if (support.needsSecureContext) {
+    return "Op een telefoon opent de microfoon-popup meestal alleen via HTTPS.";
   }
 
-  if (!navigator.mediaDevices?.getUserMedia) {
+  if (!support.isSupported) {
     return "Deze browser geeft geen normale microfoon-toegang aan web-apps. Probeer Chrome op Android of Safari/Chrome met HTTPS.";
   }
 

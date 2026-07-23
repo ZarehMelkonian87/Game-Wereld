@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { useProfile } from "../../../../contexts/ProfileContext";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { backgroundMusicUrl } from "../../asset-urls";
 import {
   BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT,
@@ -8,127 +7,79 @@ import {
   GAME_BACKGROUND_MUSIC_VOLUME,
 } from "../../logic/game-audio-events";
 import { BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, readBezemEscapeSettings } from "../../logic/settings";
+import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 
 export const GameBackgroundMusic = () => {
-  const audioRef = useRef<HTMLAudioElement>(null);
   const foregroundAudioCountRef = useRef(0);
   const hasUserActivatedAudioRef = useRef(false);
-  const { currentProfile } = useProfile();
-  const profileId = currentProfile?.id ?? "demo-profile";
+  const { identity, media, storage } = useGameRuntime();
+  const profileId = identity.profileId;
+  const playback = useMemo(() => media.createPlayback(backgroundMusicUrl), [media]);
   const [musicEnabled, setMusicEnabled] = useState(
-    () => readBezemEscapeSettings(profileId).musicEnabled,
+    () => readBezemEscapeSettings(profileId, storage).musicEnabled,
   );
 
   useEffect(() => {
-    setMusicEnabled(readBezemEscapeSettings(profileId).musicEnabled);
-  }, [profileId]);
+    playback.setLoop(true);
+    playback.setVolume(GAME_BACKGROUND_MUSIC_VOLUME);
+    return () => playback.dispose();
+  }, [playback]);
+
+  useEffect(() => {
+    setMusicEnabled(readBezemEscapeSettings(profileId, storage).musicEnabled);
+  }, [profileId, storage]);
 
   useEffect(() => {
     const updateFromSettings = () => {
-      setMusicEnabled(readBezemEscapeSettings(profileId).musicEnabled);
+      setMusicEnabled(readBezemEscapeSettings(profileId, storage).musicEnabled);
     };
-
     window.addEventListener(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, updateFromSettings);
-
-    return () => {
+    return () =>
       window.removeEventListener(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, updateFromSettings);
-    };
-  }, [profileId]);
+  }, [profileId, storage]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
-    audio.volume = GAME_BACKGROUND_MUSIC_VOLUME;
-  }, []);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
-    const playMusic = async () => {
-      if (!musicEnabled || !hasUserActivatedAudioRef.current) {
-        return;
-      }
-
-      audio.volume =
-        foregroundAudioCountRef.current > 0
-          ? GAME_BACKGROUND_MUSIC_DUCKED_VOLUME
-          : GAME_BACKGROUND_MUSIC_VOLUME;
-
-      try {
-        await audio.play();
-      } catch {
-        // Mobile browsers can still block playback until the next trusted tap.
-      }
-    };
-
     if (!musicEnabled) {
-      audio.pause();
-      audio.currentTime = 0;
+      playback.pause();
+      playback.reset();
       return;
     }
-
-    void playMusic();
-  }, [musicEnabled]);
+    if (hasUserActivatedAudioRef.current) {
+      void playback.play();
+    }
+  }, [musicEnabled, playback]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
     const activateAudio = () => {
       hasUserActivatedAudioRef.current = true;
-
-      if (musicEnabled) {
-        void audio.play().catch(() => undefined);
-      }
+      if (musicEnabled) void playback.play();
     };
-
     window.addEventListener("pointerdown", activateAudio, { once: true });
     window.addEventListener("keydown", activateAudio, { once: true });
-
     return () => {
       window.removeEventListener("pointerdown", activateAudio);
       window.removeEventListener("keydown", activateAudio);
     };
-  }, [musicEnabled]);
+  }, [musicEnabled, playback]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
     const setTargetVolume = () => {
-      audio.volume =
+      playback.setVolume(
         foregroundAudioCountRef.current > 0
           ? GAME_BACKGROUND_MUSIC_DUCKED_VOLUME
-          : GAME_BACKGROUND_MUSIC_VOLUME;
+          : GAME_BACKGROUND_MUSIC_VOLUME,
+      );
     };
-
     const handleForegroundAudioStart = () => {
       foregroundAudioCountRef.current += 1;
       setTargetVolume();
     };
-
     const handleForegroundAudioEnd = () => {
       foregroundAudioCountRef.current = Math.max(0, foregroundAudioCountRef.current - 1);
       setTargetVolume();
     };
-
     window.addEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT, handleForegroundAudioStart);
     window.addEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
-
     return () => {
       window.removeEventListener(
         BEZEM_ESCAPE_FOREGROUND_AUDIO_START_EVENT,
@@ -136,19 +87,9 @@ export const GameBackgroundMusic = () => {
       );
       window.removeEventListener(BEZEM_ESCAPE_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
     };
-  }, []);
+  }, [playback]);
 
-  return (
-    <audio
-      aria-hidden="true"
-      data-component="GameBackgroundMusic"
-      data-music-enabled={musicEnabled ? "true" : "false"}
-      loop
-      preload="auto"
-      ref={audioRef}
-      src={backgroundMusicUrl}
-    />
-  );
+  return null;
 };
 
 GameBackgroundMusic.displayName = "GameBackgroundMusic";

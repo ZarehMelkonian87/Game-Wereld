@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
-import { useProfile } from "../../../../contexts/ProfileContext";
 import {
-  getMicrophonePermissionStatus,
   initialMicrophonePermissionResult,
-  requestMicrophonePermission,
   type MicrophonePermissionResult,
 } from "../../logic/microphone-permission";
-import { resetBezemEscapeProgress, BEZEM_ESCAPE_GAME_ID } from "../../logic/progress";
 import { saveUnlockedRewardIds } from "../../logic/rewards";
 import {
   readBezemEscapeSettings,
   saveBezemEscapeSettings,
   type BezemEscapeSettings,
 } from "../../logic/settings";
-import {
-  getSpeechRecognitionSupport,
-  getSpeechRecognitionSupportMessage,
-} from "../../logic/speech-recognition";
+import { getSpeechRecognitionSupportMessage } from "../../logic/speech-recognition";
 import {
   getMicrophoneEnvironmentMessage,
   getMicrophonePermissionAttemptMessage,
@@ -26,18 +19,19 @@ import { ResetProgressCard } from "./ResetProgressCard";
 import { SettingsHeader } from "./SettingsHeader";
 import { SettingsTogglePanel } from "./SettingsTogglePanel";
 import { VoicePrivacySettingsCard } from "./VoicePrivacySettingsCard";
+import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 
 interface GameSettingsScreenProps {
   onBackToMenu?: () => void;
 }
 
 export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) => {
-  const { currentProfile, updateProgress } = useProfile();
-  const profileId = currentProfile?.id ?? "demo-profile";
+  const runtime = useGameRuntime();
+  const profileId = runtime.identity.profileId;
   const [settings, setSettings] = useState<BezemEscapeSettings>(() =>
-    readBezemEscapeSettings(profileId),
+    readBezemEscapeSettings(profileId, runtime.storage),
   );
-  const speechSupport = getSpeechRecognitionSupport();
+  const speechSupport = runtime.speech.getRecognitionSupport();
   const speechSupportMessage = getSpeechRecognitionSupportMessage(speechSupport);
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const [isCheckingMicrophonePermission, setIsCheckingMicrophonePermission] = useState(false);
@@ -48,12 +42,12 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
     "Tik op de knop om microfoontoegang te vragen.",
   );
   const [resetMessage, setResetMessage] = useState("");
-  const microphoneEnvironmentMessage = getMicrophoneEnvironmentMessage();
+  const microphoneEnvironmentMessage = getMicrophoneEnvironmentMessage(speechSupport);
 
   useEffect(() => {
     let isMounted = true;
 
-    getMicrophonePermissionStatus().then((permissionStatus) => {
+    runtime.speech.getMicrophonePermission().then((permissionStatus) => {
       if (isMounted) {
         setMicrophonePermission(permissionStatus);
       }
@@ -62,11 +56,11 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [runtime.speech]);
 
   const updateSetting = (nextSettings: BezemEscapeSettings) => {
     setSettings(nextSettings);
-    saveBezemEscapeSettings(profileId, nextSettings);
+    saveBezemEscapeSettings(profileId, nextSettings, runtime.storage);
   };
 
   const handleRequestMicrophonePermission = async () => {
@@ -76,7 +70,7 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
     );
 
     try {
-      const permissionStatus = await requestMicrophonePermission();
+      const permissionStatus = await runtime.speech.requestMicrophonePermission();
       setMicrophonePermission(permissionStatus);
       setPermissionAttemptMessage(getMicrophonePermissionAttemptMessage(permissionStatus));
     } finally {
@@ -85,9 +79,9 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   };
 
   const handleResetProgress = () => {
-    resetBezemEscapeProgress(profileId);
-    saveUnlockedRewardIds(profileId, []);
-    updateProgress(BEZEM_ESCAPE_GAME_ID, {
+    void runtime.practice.reset();
+    saveUnlockedRewardIds(profileId, [], runtime.storage);
+    runtime.profile.updateProgress({
       completed: false,
       lastPlayed: new Date().toISOString(),
       score: 0,
@@ -95,7 +89,7 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
     });
 
     if (typeof window !== "undefined") {
-      window.sessionStorage.removeItem("strand-bezem-escape:reward-result");
+      runtime.storage.remove("strand-bezem-escape:reward-result", "session");
     }
 
     setIsResetDialogOpen(false);

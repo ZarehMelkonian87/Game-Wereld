@@ -7,6 +7,7 @@ import {
 import type { SceneZone } from "../../../types";
 import { useZoneDevToolsDocking } from "./useZoneDevToolsDocking";
 import { useZoneDevToolsPoints } from "./useZoneDevToolsPoints";
+import { useGameRuntime } from "../../../runtime/GameRuntimeContext";
 
 export const useZoneDevToolsState = ({
   initialZoneId,
@@ -19,6 +20,7 @@ export const useZoneDevToolsState = ({
   rootRef: RefObject<HTMLDivElement>;
   zones: SceneZone[];
 }) => {
+  const { storage } = useGameRuntime();
   const [activeZoneId, setActiveZoneId] = useState(initialZoneId ?? zones[0]?.id ?? "");
 
   const activeZone = zones.find((zone) => zone.id === activeZoneId) ?? zones[0];
@@ -62,7 +64,7 @@ export const useZoneDevToolsState = ({
       return;
     }
 
-    saveSceneZoneVisualHintOverride(activeZone.id, generatedPath);
+    saveSceneZoneVisualHintOverride(activeZone.id, generatedPath, storage);
     setCopyStatus(`Opgeslagen: ${activeZone.label}.`);
   };
 
@@ -71,7 +73,7 @@ export const useZoneDevToolsState = ({
       return;
     }
 
-    clearSceneZoneVisualHintOverride(activeZone.id);
+    clearSceneZoneVisualHintOverride(activeZone.id, storage);
     setCopyStatus(`Reset: ${activeZone.label}.`);
   };
 

@@ -20,22 +20,10 @@ module.exports = {
     },
     {
       name: "no-game-to-app-context",
-      comment:
-        "Nieuwe gamecode mag geen globale app-context introduceren; bestaande uitzonderingen staan apart gedocumenteerd.",
+      comment: "Games ontvangen appdiensten uitsluitend via GameRuntime.",
       severity: "error",
-      from: {
-        path: "^src/app/games/",
-        pathNot: [
-          "GameBackgroundMusic\\.tsx$",
-          "RewardScreen\\.tsx$",
-          "useWordChoiceState\\.ts$",
-          "GameSettingsScreen\\.tsx$",
-          "VoiceSideScrollerScreen\\.tsx$",
-          "useSceneBuilderState\\.ts$",
-          "useBezemEscapeGameController\\.ts$",
-        ],
-      },
-      to: { path: "^src/app/contexts/" },
+      from: { path: "^src/app/games/" },
+      to: { path: "^src/app/(contexts|routes|screens|game-host)/" },
     },
     {
       name: "no-game-to-infrastructure",
@@ -50,6 +38,16 @@ module.exports = {
       severity: "error",
       from: { path: "^src/app/game-platform/" },
       to: { path: "^src/app/games/" },
+    },
+    {
+      name: "no-app-to-game-internals",
+      comment: "Appmodules gebruiken uitsluitend de publieke games-entrypoint.",
+      severity: "error",
+      from: { path: "^src/app/(?!games/)" },
+      to: {
+        path: "^src/app/games/",
+        pathNot: "^src/app/games/index\\.ts$",
+      },
     },
     {
       name: "no-domain-to-react",

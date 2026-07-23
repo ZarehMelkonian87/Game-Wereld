@@ -4,16 +4,6 @@ Laatst gecontroleerd: 23 juli 2026
 
 Deze lijst volgt hoofdstuk 16 van `docs/code-quality-and-architecture.md`. Dependency Cruiser voorkomt dat de bestaande uitzonderingen zich uitbreiden.
 
-## ARCH-001 — Game importeert globale ProfileContext
-
-- Overtreden regel: een game mag geen globale app-context importeren.
-- Reden: de bestaande game leest en schrijft profiel- en voortgangsdata rechtstreeks. Dit in één baselinetaak vervangen zou het persistente contract en de gameflow tegelijk wijzigen.
-- Scope: uitsluitend de zeven in `dependency-cruiser.config.cjs` genoemde bronbestanden onder `strand-bezem-escape`.
-- Eigenaar/issue: architectuurmigratie IMP-B03, IMP-B04 en IMP-B06.
-- Verwijdercriterium: `GameRuntime` levert profielidentiteit en progressiepoorten; daarna verdwijnen alle zeven uitzonderingen.
-- Guard: `no-game-to-app-context` blokkeert iedere nieuwe contextimport vanuit andere gamebestanden.
-- Uiterste herbeoordeling: vóór afronding van Groep B.
-
 ## TOOL-001 — Gegenereerde UI-catalogus buiten Knip
 
 - Overtreden regel: Knip hoort ongebruikte bestanden, exports en dependencies te rapporteren.

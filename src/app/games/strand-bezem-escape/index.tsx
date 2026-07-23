@@ -1,3 +1,4 @@
+import type { GameRuntime } from "../../game-platform/contracts";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, BezemEscapeShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
@@ -11,8 +12,9 @@ import {
   WordChoiceScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
+import { GameRuntimeProvider } from "./runtime/GameRuntimeContext";
 
-export const StrandBezemEscapeGame = () => {
+const StrandBezemEscapeExperience = () => {
   const { actions, viewModel } = useBezemEscapeGameController();
   const {
     instructionText,
@@ -96,4 +98,12 @@ export const StrandBezemEscapeGame = () => {
   );
 };
 
-StrandBezemEscapeGame.displayName = "StrandBezemEscapeGame";
+StrandBezemEscapeExperience.displayName = "StrandBezemEscapeExperience";
+
+export const Game = ({ runtime }: { runtime: GameRuntime }) => (
+  <GameRuntimeProvider runtime={runtime}>
+    <StrandBezemEscapeExperience />
+  </GameRuntimeProvider>
+);
+
+Game.displayName = "StrandBezemEscapeGame";

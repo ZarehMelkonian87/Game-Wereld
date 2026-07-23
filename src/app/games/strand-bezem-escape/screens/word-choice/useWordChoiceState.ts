@@ -1,15 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { useProfile } from "../../../../contexts/ProfileContext";
 import { getBeachObjectStickerUrl, getInstructionVideoUrl } from "../../asset-urls";
-import { appendPracticeEvent } from "../../logic/progress";
 import {
   readUnlockedRewardIds,
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
 } from "../../logic/rewards";
 import { readBezemEscapeSettings } from "../../logic/settings";
-import { speakDutch } from "../../logic/speech";
 import type { SceneObject, VocabularyChoiceInstruction } from "../../types";
+import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 export interface FeedbackState {
   kind: "almost" | "correct" | "ready";
   repeatText?: string;
@@ -29,8 +27,8 @@ export const useWordChoiceState = ({
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
 }) => {
-  const { currentProfile } = useProfile();
-  const rewardProfileId = currentProfile?.id ?? "demo-profile";
+  const runtime = useGameRuntime();
+  const rewardProfileId = runtime.identity.profileId;
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
@@ -38,7 +36,7 @@ export const useWordChoiceState = ({
   const [speedBoosting, setSpeedBoosting] = useState(false);
   const [wordStarValue, setWordStarValue] = useState(0);
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
-    readUnlockedRewardIds(rewardProfileId),
+    readUnlockedRewardIds(rewardProfileId, runtime.storage),
   );
   const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<
     Record<string, number>
@@ -53,8 +51,8 @@ export const useWordChoiceState = ({
   const usedHint = Boolean(hintUsedByInstruction[instruction.id]);
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
   useEffect(() => {
-    setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
-  }, [rewardProfileId]);
+    setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId, runtime.storage));
+  }, [rewardProfileId, runtime.storage]);
   useEffect(() => {
     setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
@@ -95,14 +93,14 @@ export const useWordChoiceState = ({
     [instruction.answerOptions, objects],
   );
   const playQuestionAudio = (text = instruction.audioText) => {
-    if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled) {
       setFeedback({
         kind: "almost",
         text: "Audio staat uit bij instellingen. Lees de vraag samen hardop.",
       });
       return;
     }
-    if (!speakDutch(text)) {
+    if (!runtime.speech.speak(text).ok) {
       setFeedback({
         kind: "almost",
         text: "Audio is niet beschikbaar in deze browser. Lees de vraag samen hardop.",
@@ -115,7 +113,7 @@ export const useWordChoiceState = ({
     }));
   };
   const handleHint = () => {
-    if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
+    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).hintsEnabled) {
       setFeedback({
         kind: "ready",
         text: "Hints staan uit bij instellingen.",
@@ -155,24 +153,19 @@ export const useWordChoiceState = ({
       setWordStarValue(nextWordStarValue);
       setSpeedBoosting(true);
       window.setTimeout(() => setSpeedBoosting(false), 450);
-      appendPracticeEvent(rewardProfileId, {
+      void runtime.practice.append({
         assistance: usedHint ? "hint" : "none",
         attempts: 1,
-        audioRepeats: activeAudioRepeats,
         hintsUsed: usedHint ? 1 : 0,
-        instructionId: instruction.id,
         isCorrect: true,
-        languageDomains: instruction.languageDomains,
-        mode: "choose-word",
         result: usedHint ? "correct-with-help" : "correct-without-help",
-        spatialConcepts: instruction.spatialConcepts,
-        speedEarned: earnedSpeed,
+        taskId: instruction.id,
         targetWords: [word],
         wordStarsEarned: earnedWordStars,
       });
       if (newRewardUnlocks.length > 0) {
         setUnlockedRewardIds(nextUnlockedRewardIds);
-        saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
+        saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds, runtime.storage);
       }
       setFeedback({
         kind: "correct",
@@ -187,18 +180,13 @@ export const useWordChoiceState = ({
     setDifficultWords((currentWords) =>
       uniquePush(currentWords, targetObject?.label ?? instruction.targetWord),
     );
-    appendPracticeEvent(rewardProfileId, {
+    void runtime.practice.append({
       assistance: usedHint ? "hint" : activeAudioRepeats > 0 ? "audio-repeat" : "none",
       attempts: 1,
-      audioRepeats: activeAudioRepeats,
       hintsUsed: usedHint ? 1 : 0,
-      instructionId: `${instruction.id}:wrong-choice:${Date.now()}`,
       isCorrect: false,
-      languageDomains: instruction.languageDomains,
-      mode: "choose-word",
       result: "needs-more-practice",
-      spatialConcepts: instruction.spatialConcepts,
-      speedEarned: 0,
+      taskId: instruction.id,
       targetWords: [targetObject?.label ?? instruction.targetWord],
       wordStarsEarned: 0,
     });

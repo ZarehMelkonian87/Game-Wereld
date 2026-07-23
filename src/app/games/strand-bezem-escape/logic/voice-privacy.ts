@@ -14,26 +14,10 @@ export const voicePrivacyCopy = {
 const getVoicePrivacyStorageKey = (profileId: string) =>
   `strand-bezem-escape:${profileId}:voice-privacy:${VOICE_PRIVACY_NOTICE_VERSION}`;
 
-export const readVoicePrivacyAccepted = (profileId: string) => {
-  if (typeof window === "undefined") {
-    return false;
-  }
+export const readVoicePrivacyAccepted = (profileId: string, storage: RuntimeStorage) =>
+  storage.get(getVoicePrivacyStorageKey(profileId)) === "accepted";
 
-  try {
-    return window.localStorage.getItem(getVoicePrivacyStorageKey(profileId)) === "accepted";
-  } catch {
-    return false;
-  }
+export const saveVoicePrivacyAccepted = (profileId: string, storage: RuntimeStorage) => {
+  storage.set(getVoicePrivacyStorageKey(profileId), "accepted");
 };
-
-export const saveVoicePrivacyAccepted = (profileId: string) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    window.localStorage.setItem(getVoicePrivacyStorageKey(profileId), "accepted");
-  } catch {
-    // Privacy notice acceptance is a convenience flag. If storage is blocked, show it again.
-  }
-};
+import type { RuntimeStorage } from "../../../game-platform/contracts";

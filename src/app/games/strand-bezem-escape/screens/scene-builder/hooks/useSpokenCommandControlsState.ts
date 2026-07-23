@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useDutchSpeechRecognition } from "../../../hooks/useDutchSpeechRecognition";
 import {
-  getMicrophonePermissionStatus,
   initialMicrophonePermissionResult,
-  requestMicrophonePermission,
   type MicrophonePermissionResult,
 } from "../../../logic/microphone-permission";
 import type { VoiceRecognitionStatus } from "../../../logic/speech-recognition";
 import { readVoicePrivacyAccepted, saveVoicePrivacyAccepted } from "../../../logic/voice-privacy";
+import { useGameRuntime } from "../../../runtime/GameRuntimeContext";
 
 export const useSpokenCommandControlsState = ({
   exampleText,
@@ -20,9 +19,10 @@ export const useSpokenCommandControlsState = ({
   onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
   profileId: string;
 }) => {
+  const runtime = useGameRuntime();
   const handledTranscriptRef = useRef<string | undefined>();
   const [hasAcceptedPrivacy, setHasAcceptedPrivacy] = useState(() =>
-    readVoicePrivacyAccepted(profileId),
+    readVoicePrivacyAccepted(profileId, runtime.storage),
   );
   const [manualText, setManualText] = useState("");
   const [hasRequestedMicrophonePermission, setHasRequestedMicrophonePermission] = useState(false);
@@ -57,8 +57,8 @@ export const useSpokenCommandControlsState = ({
   const shouldShowPopover = showPrivacyNotice || shouldShowFallback || showStatusBubble;
 
   useEffect(() => {
-    setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId));
-  }, [profileId]);
+    setHasAcceptedPrivacy(readVoicePrivacyAccepted(profileId, runtime.storage));
+  }, [profileId, runtime.storage]);
 
   useEffect(() => {
     onVoiceStatusChange?.(status);
@@ -90,7 +90,7 @@ export const useSpokenCommandControlsState = ({
   useEffect(() => {
     let isMounted = true;
 
-    getMicrophonePermissionStatus().then((permissionStatus) => {
+    runtime.speech.getMicrophonePermission().then((permissionStatus) => {
       if (isMounted) {
         setMicrophonePermission(permissionStatus);
       }
@@ -99,7 +99,7 @@ export const useSpokenCommandControlsState = ({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [runtime.speech]);
 
   const startListeningAfterPermission = async () => {
     if (!support.isSupported) {
@@ -108,7 +108,7 @@ export const useSpokenCommandControlsState = ({
     }
 
     setHasRequestedMicrophonePermission(true);
-    const permissionStatus = await requestMicrophonePermission();
+    const permissionStatus = await runtime.speech.requestMicrophonePermission();
     setMicrophonePermission(permissionStatus);
 
     if (!permissionStatus.canUse) {
@@ -134,7 +134,7 @@ export const useSpokenCommandControlsState = ({
   };
 
   const handleAcceptPrivacy = () => {
-    saveVoicePrivacyAccepted(profileId);
+    saveVoicePrivacyAccepted(profileId, runtime.storage);
     setHasAcceptedPrivacy(true);
     setShowPrivacyNotice(false);
     void startListeningAfterPermission();

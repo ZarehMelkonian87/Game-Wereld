@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useProfile } from "../../../../../contexts/ProfileContext";
 import { getInstructionVideoUrl } from "../../../asset-urls";
 import {
   getDynamicRelationHintZone,
@@ -20,6 +19,7 @@ import type {
   SceneCompletionSummary,
 } from "../logic/scene-builder-types";
 import type { DragState } from "./useSceneBuilderDragAndDrop";
+import { useGameRuntime } from "../../../runtime/GameRuntimeContext";
 export type { FeedbackState, HintUsageEvent, PendingPlacement };
 export const useSceneBuilderState = ({
   instructions,
@@ -32,8 +32,8 @@ export const useSceneBuilderState = ({
   objects: readonly SceneObject[];
   zones: SceneZone[];
 }) => {
-  const { currentProfile } = useProfile();
-  const rewardProfileId = currentProfile?.id ?? "demo-profile";
+  const runtime = useGameRuntime();
+  const rewardProfileId = runtime.identity.profileId;
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
@@ -67,12 +67,12 @@ export const useSceneBuilderState = ({
   const [wordStarValue, setWordStarValue] = useState(0);
   const suppressNextClickRef = useRef(false);
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
-    readUnlockedRewardIds(rewardProfileId),
+    readUnlockedRewardIds(rewardProfileId, runtime.storage),
   );
   const effectiveZones = useMemo(() => {
     void zoneOverrideVersion;
-    return applySceneZoneVisualHintOverrides(zones);
-  }, [zones, zoneOverrideVersion]);
+    return applySceneZoneVisualHintOverrides(zones, runtime.storage);
+  }, [runtime.storage, zones, zoneOverrideVersion]);
   const placedObjectPoints = useMemo<SceneObjectPlacementPoint[]>(
     () =>
       placedObjects.map((placedObject) => ({
