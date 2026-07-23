@@ -4,12 +4,9 @@ export const beachBackgrounds = {
   voiceSideScroller: new URL("./assets/backgrounds/beach-voice-side-scroller.png", import.meta.url)
     .href,
 };
-
 export const startLogoUrl = new URL("./assets/logos/start-logo-beach.png", import.meta.url).href;
-
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
   .href;
-
 export const beachObjectStickerUrls = {
   dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
   boot: new URL("./assets/objects/transparent/sailboat-sticker.png", import.meta.url).href,
@@ -24,7 +21,6 @@ export const beachObjectStickerUrls = {
   handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.png", import.meta.url).href,
   zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
 };
-
 export const voiceSideScrollerObjectSpriteUrls = {
   bal: beachObjectStickerUrls.bal,
   boot: beachObjectStickerUrls.boot,
@@ -34,14 +30,12 @@ export const voiceSideScrollerObjectSpriteUrls = {
   schelp: beachObjectStickerUrls.schelp,
   zon: beachObjectStickerUrls.zon,
 };
-
 export const voiceSideScrollerObstacleSpriteUrls = {
   cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
   "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.png", import.meta.url).href,
   seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
   shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
-
 export const instructionVideoUrls = {
   "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
   "lp-002": new URL(
@@ -137,12 +131,9 @@ export const instructionVideoUrls = {
   "cw-012": new URL("./assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4", import.meta.url)
     .href,
 } as const;
-
 type InstructionVideoId = keyof typeof instructionVideoUrls;
-
 export const getInstructionVideoUrl = (instructionId: string) =>
   instructionVideoUrls[instructionId as InstructionVideoId];
-
 const seekObjectHintVideoUrls = {
   "lp-001": new URL("./assets/instructions/zoek-de-boot.mp4", import.meta.url).href,
   "lp-002": new URL("./assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4", import.meta.url)
@@ -168,12 +159,9 @@ const seekObjectHintVideoUrls = {
     .href,
   "lp-013": new URL("./assets/instructions/lp-013-hint-01-zoek-de-boot.mp4", import.meta.url).href,
 } as const;
-
 type SeekObjectHintVideoId = keyof typeof seekObjectHintVideoUrls;
-
 export const getSeekObjectHintVideoUrl = (instructionId: string) =>
   seekObjectHintVideoUrls[instructionId as SeekObjectHintVideoId];
-
 const highlightedObjectHintVideoUrls = {
   "lp-001": new URL(
     "./assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
@@ -204,17 +192,13 @@ const highlightedObjectHintVideoUrls = {
   "lp-013": new URL("./assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4", import.meta.url)
     .href,
 } as const;
-
 type HighlightedObjectHintVideoId = keyof typeof highlightedObjectHintVideoUrls;
-
 export const getHighlightedObjectHintVideoUrl = (instructionId: string) =>
   highlightedObjectHintVideoUrls[instructionId as HighlightedObjectHintVideoId];
-
 export const sharedPlaceHintVideoUrl = new URL(
   "./assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4",
   import.meta.url,
 ).href;
-
 const conceptHintVideoUrls = {
   boven: new URL("./assets/instructions/concept-boven.mp4", import.meta.url).href,
   dichtbij: new URL("./assets/instructions/concept-dichtbij.mp4", import.meta.url).href,
@@ -228,12 +212,9 @@ const conceptHintVideoUrls = {
   tussen: new URL("./assets/instructions/concept-tussen.mp4", import.meta.url).href,
   "ver weg": new URL("./assets/instructions/concept-ver-weg.mp4", import.meta.url).href,
 } as const;
-
 type ConceptHintVideoId = keyof typeof conceptHintVideoUrls;
-
 export const getConceptHintVideoUrl = (concept: string) =>
   conceptHintVideoUrls[concept as ConceptHintVideoId];
-
 const feedbackVideoUrls = {
   "lp-001": new URL(
     "./assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4",
@@ -294,50 +275,39 @@ const feedbackVideoUrls = {
     import.meta.url,
   ).href,
 } as const;
-
 type FeedbackVideoId = keyof typeof feedbackVideoUrls;
-
 export const getFeedbackVideoUrl = (instructionId: string) =>
   feedbackVideoUrls[instructionId as FeedbackVideoId];
-
 export const hintVideoUrls = {
   lp001SeekBoot: seekObjectHintVideoUrls["lp-001"],
   lp001LookAtHighlightedBoot: highlightedObjectHintVideoUrls["lp-001"],
 };
-
 type BeachObjectStickerId = keyof typeof beachObjectStickerUrls;
-
-export function getBeachObjectStickerUrl(assetId: string) {
+export const getBeachObjectStickerUrl = (assetId: string) => {
   return beachObjectStickerUrls[assetId as BeachObjectStickerId];
-}
-
+};
 export const avatarIconUrls = {
   avatar01: new URL("./assets/icons/avatars/avatar-01.png", import.meta.url).href,
 };
-
 export const broomIconUrls = {
   basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
   beach: new URL("./assets/icons/brooms/broom-02-beach.png", import.meta.url).href,
   speed: new URL("./assets/icons/brooms/broom-06-speed.png", import.meta.url).href,
 };
-
 export const mascotIconUrls = {
   hint: new URL("./assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
   celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
   neutral: new URL("./assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
 };
-
 export const voiceSideScrollerBroomStateUrls = {
   boosted: broomIconUrls.speed,
   flying: broomIconUrls.basic,
   slowed: broomIconUrls.beach,
 };
-
 export const voiceSideScrollerAvatarStateUrls = {
   flying: avatarIconUrls.avatar01,
   slowed: avatarIconUrls.avatar01,
 };
-
 export const voiceSideScrollerMascotStateUrls = {
   celebration: mascotIconUrls.celebration,
   hint: mascotIconUrls.hint,

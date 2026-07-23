@@ -8,27 +8,21 @@ import {
 import { readBezemEscapeSettings } from "../../../logic/settings";
 import { speakDutch } from "../../../logic/speech";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
-
 const getHintVideoUrlForLevel = (instructionId: string, hintLevel: number, relation: string) => {
   if (hintLevel === 1) {
     return getSeekObjectHintVideoUrl(instructionId);
   }
-
   if (hintLevel === 2) {
     return getHighlightedObjectHintVideoUrl(instructionId);
   }
-
   if (hintLevel === 3) {
     return sharedPlaceHintVideoUrl;
   }
-
   if (hintLevel === 4) {
     return getConceptHintVideoUrl(relation);
   }
-
   return undefined;
 };
-
 const conceptExplanation: Record<string, string> = {
   boven: "Boven betekent hoog, aan de bovenkant.",
   dichtbij: "Dichtbij betekent niet ver weg.",
@@ -42,14 +36,12 @@ const conceptExplanation: Record<string, string> = {
   tussen: "Tussen betekent in het midden van twee dingen.",
   "ver weg": "Ver weg betekent verder naar achteren in de scene.",
 };
-
 export const useSceneHintHandlers = ({
   state,
 }: {
   state: ReturnType<typeof useSceneBuilderState>;
 }) => {
   const hintVideoPressStartedRef = useRef(false);
-
   const {
     activeHintsUsed,
     instruction,
@@ -64,8 +56,7 @@ export const useSceneHintHandlers = ({
     spokenCommandResult,
     targetObject,
   } = state;
-
-  function playInstructionAudio(text = instruction.audioText) {
+  const playInstructionAudio = (text = instruction.audioText) => {
     if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
       setFeedback({
         kind: "almost",
@@ -74,7 +65,6 @@ export const useSceneHintHandlers = ({
       });
       return;
     }
-
     if (!speakDutch(text)) {
       setFeedback({
         kind: "almost",
@@ -83,13 +73,11 @@ export const useSceneHintHandlers = ({
       });
       return;
     }
-
     setAudioRepeatsByInstruction((currentRepeats) => ({
       ...currentRepeats,
       [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
     }));
-  }
-
+  };
   const handleInstructionVideoRequest = () => {
     if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
       setFeedback({
@@ -99,17 +87,14 @@ export const useSceneHintHandlers = ({
       });
       return false;
     }
-
     return true;
   };
-
   const handleInstructionVideoPlaybackStart = () => {
     setAudioRepeatsByInstruction((currentRepeats) => ({
       ...currentRepeats,
       [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
     }));
   };
-
   const handleInstructionVideoPlaybackError = () => {
     setFeedback({
       kind: "almost",
@@ -117,7 +102,6 @@ export const useSceneHintHandlers = ({
       text: "De video-opdracht kan niet worden afgespeeld. Probeer de audio opnieuw of lees de opdracht samen.",
     });
   };
-
   const applyHint = ({ playAudioForFirstHint }: { playAudioForFirstHint: boolean }) => {
     if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
       setFeedback({
@@ -127,15 +111,12 @@ export const useSceneHintHandlers = ({
       });
       return false;
     }
-
     const nextHintCount = activeHintsUsed + 1;
     const nextHintLevel = ((nextHintCount - 1) % 4) + 1;
-
     setHintsByInstruction((currentHints) => ({
       ...currentHints,
       [instruction.id]: nextHintCount,
     }));
-
     setHintEvents((currentEvents) => [
       ...currentEvents,
       {
@@ -144,7 +125,6 @@ export const useSceneHintHandlers = ({
         usedAt: new Date().toISOString(),
       },
     ]);
-
     if (spokenCommandResult && spokenCommandResult.status !== "ready") {
       setHighlightedObjectId(spokenCommandResult.visualHint.objectId ?? null);
       setSpokenHintZoneId(spokenCommandResult.visualHint.zoneId ?? null);
@@ -159,7 +139,6 @@ export const useSceneHintHandlers = ({
       setHighlightedObjectId(null);
       setShowTargetZoneHint(false);
     }
-
     const targetWord = `${targetObject?.article ?? "het"} ${targetObject?.label ?? "plaatje"}`;
     const voiceExampleHint = `Zeg bijvoorbeeld: ${instruction.prompt}`;
     const hintText =
@@ -172,7 +151,6 @@ export const useSceneHintHandlers = ({
             : nextHintLevel === 3
               ? `Kijk naar de plek die oplicht.`
               : (conceptExplanation[instruction.placement.relation] ?? instruction.hint);
-
     setFeedback({
       hintVideoUrl:
         spokenCommandResult && spokenCommandResult.status !== "ready"
@@ -182,31 +160,24 @@ export const useSceneHintHandlers = ({
       mascot: "hint",
       text: hintText,
     });
-
     if (nextHintLevel === 1 && playAudioForFirstHint) {
       playInstructionAudio(instruction.audioText);
     }
-
     return true;
   };
-
   const handleHint = () => {
     applyHint({ playAudioForFirstHint: true });
   };
-
   const playPreparedHintVideo = () => {
     if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
       return;
     }
-
     hintVideoPressStartedRef.current = true;
     applyHint({ playAudioForFirstHint: false });
   };
-
   const handleHintFeedbackVideoClick = () => {
     applyHint({ playAudioForFirstHint: false });
   };
-
   return {
     applyHint,
     handleHint,

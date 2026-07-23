@@ -10,22 +10,18 @@ import {
 import { readBezemEscapeSettings } from "../../logic/settings";
 import { speakDutch } from "../../logic/speech";
 import type { SceneObject, VocabularyChoiceInstruction } from "../../types";
-
 export interface FeedbackState {
   kind: "almost" | "correct" | "ready";
   repeatText?: string;
   rewardLabels?: string[];
   text: string;
 }
-
-function toDisplayLabel(label: string) {
+const toDisplayLabel = (label: string) => {
   return label.charAt(0).toUpperCase() + label.slice(1);
-}
-
-function uniquePush(values: string[], value: string) {
+};
+const uniquePush = (values: string[], value: string) => {
   return values.includes(value) ? values : [...values, value];
-}
-
+};
 export const useWordChoiceState = ({
   instructions,
   objects,
@@ -35,7 +31,6 @@ export const useWordChoiceState = ({
 }) => {
   const { currentProfile } = useProfile();
   const rewardProfileId = currentProfile?.id ?? "demo-profile";
-
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState | null>(null);
@@ -52,17 +47,14 @@ export const useWordChoiceState = ({
   const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
   const [recognizedWithHint, setRecognizedWithHint] = useState<string[]>([]);
   const [difficultWords, setDifficultWords] = useState<string[]>([]);
-
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const targetObject = objects.find((object) => object.id === instruction.targetObjectIds[0]);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const usedHint = Boolean(hintUsedByInstruction[instruction.id]);
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
-
   useEffect(() => {
     setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId));
   }, [rewardProfileId]);
-
   useEffect(() => {
     setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
@@ -76,31 +68,33 @@ export const useWordChoiceState = ({
     setRecognizedWithHint([]);
     setDifficultWords([]);
   }, [instructions]);
-
   const answerOptions = useMemo(
     () =>
       instruction.answerOptions
         .map((objectId) => {
           const object = objects.find((sceneObject) => sceneObject.id === objectId);
           const imageUrl = object ? getBeachObjectStickerUrl(object.assetId) : undefined;
-
           if (!object || !imageUrl) {
             return undefined;
           }
-
           return {
             id: object.id,
             imageUrl,
             label: toDisplayLabel(object.label),
           };
         })
-        .filter((option): option is { id: string; imageUrl: string; label: string } =>
-          Boolean(option),
+        .filter(
+          (
+            option,
+          ): option is {
+            id: string;
+            imageUrl: string;
+            label: string;
+          } => Boolean(option),
         ),
     [instruction.answerOptions, objects],
   );
-
-  function playQuestionAudio(text = instruction.audioText) {
+  const playQuestionAudio = (text = instruction.audioText) => {
     if (!readBezemEscapeSettings(rewardProfileId).audioEnabled) {
       setFeedback({
         kind: "almost",
@@ -108,7 +102,6 @@ export const useWordChoiceState = ({
       });
       return;
     }
-
     if (!speakDutch(text)) {
       setFeedback({
         kind: "almost",
@@ -116,14 +109,12 @@ export const useWordChoiceState = ({
       });
       return;
     }
-
     setAudioRepeatsByInstruction((currentRepeats) => ({
       ...currentRepeats,
       [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
     }));
-  }
-
-  function handleHint() {
+  };
+  const handleHint = () => {
     if (!readBezemEscapeSettings(rewardProfileId).hintsEnabled) {
       setFeedback({
         kind: "ready",
@@ -131,7 +122,6 @@ export const useWordChoiceState = ({
       });
       return;
     }
-
     setHintUsedByInstruction((currentHints) => ({
       ...currentHints,
       [instruction.id]: true,
@@ -140,11 +130,9 @@ export const useWordChoiceState = ({
       kind: "ready",
       text: instruction.hint,
     });
-  }
-
-  function handleAnswerSelect(answerId: string) {
+  };
+  const handleAnswerSelect = (answerId: string) => {
     setSelectedAnswerId(answerId);
-
     if (answerId === instruction.targetObjectIds[0]) {
       const word = targetObject?.label ?? instruction.targetWord;
       const recognitionSetter = usedHint ? setRecognizedWithHint : setRecognizedWithoutHelp;
@@ -162,7 +150,6 @@ export const useWordChoiceState = ({
         ...unlockedRewardIds,
         ...newRewardUnlocks.map((reward) => reward.id),
       ];
-
       recognitionSetter((currentWords) => uniquePush(currentWords, word));
       setSpeedValue(nextSpeedValue);
       setWordStarValue(nextWordStarValue);
@@ -183,12 +170,10 @@ export const useWordChoiceState = ({
         targetWords: [word],
         wordStarsEarned: earnedWordStars,
       });
-
       if (newRewardUnlocks.length > 0) {
         setUnlockedRewardIds(nextUnlockedRewardIds);
         saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
       }
-
       setFeedback({
         kind: "correct",
         repeatText: instruction.feedbackCopy.repeatAfterSuccess,
@@ -199,7 +184,6 @@ export const useWordChoiceState = ({
       });
       return;
     }
-
     setDifficultWords((currentWords) =>
       uniquePush(currentWords, targetObject?.label ?? instruction.targetWord),
     );
@@ -222,16 +206,14 @@ export const useWordChoiceState = ({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? instruction.hint,
     });
-  }
-
-  function advanceInstruction() {
+  };
+  const advanceInstruction = () => {
     setActiveInstructionIndex((currentIndex) =>
       Math.min(currentIndex + 1, instructions.length - 1),
     );
     setSelectedAnswerId(null);
     setFeedback(null);
-  }
-
+  };
   return {
     activeAudioRepeats,
     activeInstructionIndex,
@@ -246,7 +228,6 @@ export const useWordChoiceState = ({
     playQuestionAudio,
     recognizedWithHint,
     recognizedWithoutHelp,
-
     rewardProfileId,
     selectedAnswerId,
     speedBoosting,

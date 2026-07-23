@@ -12,14 +12,16 @@ import { readBezemEscapeSettings } from "../logic/settings";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useWordChoiceState } from "./word-choice/useWordChoiceState";
-
 interface WordChoiceScreenProps {
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
   onBackToMenu?: () => void;
 }
-
-export function WordChoiceScreen({ instructions, objects, onBackToMenu }: WordChoiceScreenProps) {
+export const WordChoiceScreen = ({
+  instructions,
+  objects,
+  onBackToMenu,
+}: WordChoiceScreenProps) => {
   const {
     activeAudioRepeats,
     advanceInstruction,
@@ -41,7 +43,6 @@ export function WordChoiceScreen({ instructions, objects, onBackToMenu }: WordCh
     usedHint,
     wordStarValue,
   } = useWordChoiceState({ instructions, objects });
-
   return (
     <div
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
@@ -159,6 +160,5 @@ export function WordChoiceScreen({ instructions, objects, onBackToMenu }: WordCh
       </div>
     </div>
   );
-}
-
+};
 WordChoiceScreen.displayName = "WordChoiceScreen";

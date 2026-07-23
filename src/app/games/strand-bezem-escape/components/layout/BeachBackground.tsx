@@ -3,12 +3,11 @@ interface BeachBackgroundProps {
   portraitUrl: string;
   forceLandscape?: boolean;
 }
-
-export function BeachBackground({
+export const BeachBackground = ({
   landscapeUrl,
   portraitUrl,
   forceLandscape = false,
-}: BeachBackgroundProps) {
+}: BeachBackgroundProps) => {
   return (
     <div data-testid="beach-scene-board" className="absolute inset-0 overflow-hidden bg-sky-100">
       {!forceLandscape && (
@@ -24,11 +23,9 @@ export function BeachBackground({
         src={landscapeUrl}
         alt=""
         data-testid="beach-background-landscape"
-        className={`absolute inset-0 h-full w-full object-fill object-center ${
-          forceLandscape ? "" : "hidden landscape:block"
-        }`}
+        className={`absolute inset-0 h-full w-full object-fill object-center ${forceLandscape ? "" : "hidden landscape:block"}`}
         draggable={false}
       />
     </div>
   );
-}
+};

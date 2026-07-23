@@ -33,8 +33,22 @@ Alle probes bestonden alleen tijdens de test en zijn daarna verwijderd.
 | ongebruikte lokale variabele            | ESLint             | exitcode 1, `@typescript-eslint/no-unused-vars` |
 | `expect(true).toBe(false)`              | Vitest             | exitcode 1, assertion failure                   |
 | nieuwe game-import van `ProfileContext` | Dependency Cruiser | exitcode 1, `no-game-to-app-context`            |
+| gewone `function`-declaratie            | ESLint             | exitcode 1, verplichte arrow-functionmelding    |
 
 Daarmee is lokaal aangetoond dat de afzonderlijke poorten fouten blokkeren. Dezelfde commando's worden met `npm ci` in CI gestart; build volgt pas na statische en unittests. Chromium draait op pull requests, WebKit wekelijks en handmatig.
+
+## Aanvullende arrow-functionmigratie
+
+Na aanscherping van de normatieve kwaliteitsregel zijn 308 bestaande functiedeclaraties in 73 bestanden naar arrow functions omgezet. Ook de object-method syntax in de Vite-plugin is vervangen door een arrow-function property.
+
+ESLint blokkeert nu:
+
+- function declarations;
+- function expressions;
+- class methods;
+- object-method syntax.
+
+Een tijdelijke overtredingsprobe is correct met exitcode 1 geweigerd en daarna verwijderd. Na de migratie slaagden formatting, lint, typecheck, 11 unit-/componenttests, de architectuurcontrole, Knip, de productiebuild en de Chromium-/WebKit-smoke-test.
 
 ## Architectuur- en dependencyrapport
 

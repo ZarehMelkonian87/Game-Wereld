@@ -15,7 +15,6 @@ import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
-
 interface SceneBuilderScreenProps {
   instructionText?: string;
   instructions: readonly SceneBuilderInstruction[];
@@ -26,15 +25,13 @@ interface SceneBuilderScreenProps {
   spokenCommandPreviewText?: string | null;
   zones: SceneZone[];
 }
-
 const getTrayObjects = (objects: readonly SceneObject[]) =>
   objects.map((object) => ({
     id: object.id,
     imageUrl: getBeachObjectStickerUrl(object.assetId),
     label: object.label,
   }));
-
-export function SceneBuilderScreen({
+export const SceneBuilderScreen = ({
   instructions,
   instructionText,
   objects,
@@ -43,12 +40,10 @@ export function SceneBuilderScreen({
   showZoneDevTools = false,
   spokenCommandPreviewText,
   zones,
-}: SceneBuilderScreenProps) {
+}: SceneBuilderScreenProps) => {
   const sceneAreaRef = useRef<HTMLElement>(null);
-
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
-
   const {
     activeAudioRepeats,
     activeHintsUsed,
@@ -81,7 +76,6 @@ export function SceneBuilderScreen({
     voiceRecognitionStatus,
     wordStarValue,
   } = state;
-
   const {
     applySpokenCommandTranscript,
     handleConfirm,
@@ -108,19 +102,16 @@ export function SceneBuilderScreen({
     state,
     trayObjects,
   });
-
   useSceneBuilderDragAndDrop({
     dragState,
     handleObjectDrop,
     setDragState,
     suppressNextClickRef: state.suppressNextClickRef,
   });
-
   useEffect(() => {
     if (!spokenCommandPreviewText || appliedSpokenCommandPreviewText === spokenCommandPreviewText) {
       return;
     }
-
     applySpokenCommandTranscript(spokenCommandPreviewText);
     setAppliedSpokenCommandPreviewText(spokenCommandPreviewText);
   }, [
@@ -129,14 +120,12 @@ export function SceneBuilderScreen({
     setAppliedSpokenCommandPreviewText,
     spokenCommandPreviewText,
   ]);
-
   const actionLabel =
     sceneComplete && feedback?.kind === "correct"
       ? "Opnieuw"
       : feedback?.kind === "correct"
         ? "Volgende"
         : "Klaar";
-
   return (
     <div
       className="absolute inset-0 z-10 overflow-hidden"
@@ -275,6 +264,5 @@ export function SceneBuilderScreen({
       ) : null}
     </div>
   );
-}
-
+};
 SceneBuilderScreen.displayName = "SceneBuilderScreen";

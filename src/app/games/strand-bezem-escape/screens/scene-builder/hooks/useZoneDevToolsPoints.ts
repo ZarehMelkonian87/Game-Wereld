@@ -14,7 +14,6 @@ import {
   type PointDragState,
   type ZonePoint,
 } from "../logic/zone-devtools-utils";
-
 export const useZoneDevToolsPoints = ({
   activeZone,
   rootRef,
@@ -26,63 +25,49 @@ export const useZoneDevToolsPoints = ({
   const [pointsByZone, setPointsByZone] = useState<Record<string, ZonePoint[]>>({});
   const [selectedPointIndex, setSelectedPointIndex] = useState<number | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
-
   const activePoints = useMemo(
     () => (activeZone ? (pointsByZone[activeZone.id] ?? []) : []),
     [activeZone, pointsByZone],
   );
   const generatedPath = useMemo(() => buildPathFromPoints(activePoints), [activePoints]);
-
   useEffect(() => {
     if (!activeZone) {
       return;
     }
-
     const existingPoints = getEditablePointsFromZone(activeZone);
-
     if (existingPoints.length === 0) {
       return;
     }
-
     setPointsByZone((currentPoints) => {
       if (currentPoints[activeZone.id] !== undefined) {
         return currentPoints;
       }
-
       return {
         ...currentPoints,
         [activeZone.id]: existingPoints,
       };
     });
   }, [activeZone]);
-
   const getPointFromClientPoint = useCallback(
     (clientX: number, clientY: number) => {
       const bounds = rootRef.current?.getBoundingClientRect();
-
       if (!bounds) {
         return undefined;
       }
-
       return getPointFromBounds(bounds, clientX, clientY);
     },
     [rootRef],
   );
-
   useEffect(() => {
-    function handlePointerMove(event: PointerEvent) {
+    const handlePointerMove = (event: PointerEvent) => {
       const pointDragState = pointDragStateRef.current;
-
       if (!pointDragState) {
         return;
       }
-
       const point = getPointFromClientPoint(event.clientX, event.clientY);
-
       if (!point) {
         return;
       }
-
       setPointsByZone((currentPoints) => ({
         ...currentPoints,
         [pointDragState.zoneId]: (currentPoints[pointDragState.zoneId] ?? []).map(
@@ -90,34 +75,27 @@ export const useZoneDevToolsPoints = ({
         ),
       }));
       setCopyStatus("");
-    }
-
-    function handlePointerUp() {
+    };
+    const handlePointerUp = () => {
       pointDragStateRef.current = null;
-    }
-
+    };
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("pointerup", handlePointerUp);
     window.addEventListener("pointercancel", handlePointerUp);
-
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
       window.removeEventListener("pointercancel", handlePointerUp);
     };
   }, [getPointFromClientPoint]);
-
   const handleAddPoint = (event: ReactMouseEvent<HTMLButtonElement>) => {
     if (!activeZone) {
       return;
     }
-
     const point = getPointFromClientPoint(event.clientX, event.clientY);
-
     if (!point) {
       return;
     }
-
     setPointsByZone((currentPoints) => ({
       ...currentPoints,
       [activeZone.id]: [...(currentPoints[activeZone.id] ?? []), point],
@@ -125,12 +103,10 @@ export const useZoneDevToolsPoints = ({
     setSelectedPointIndex(activePoints.length);
     setCopyStatus("");
   };
-
   const handleUndoPoint = () => {
     if (!activeZone) {
       return;
     }
-
     setPointsByZone((currentPoints) => ({
       ...currentPoints,
       [activeZone.id]: (currentPoints[activeZone.id] ?? []).slice(0, -1),
@@ -139,17 +115,14 @@ export const useZoneDevToolsPoints = ({
       if (currentIndex === null) {
         return null;
       }
-
       return Math.max(0, currentIndex - 1);
     });
     setCopyStatus("");
   };
-
   const handleClearPoints = () => {
     if (!activeZone) {
       return;
     }
-
     setPointsByZone((currentPoints) => ({
       ...currentPoints,
       [activeZone.id]: [],
@@ -157,22 +130,18 @@ export const useZoneDevToolsPoints = ({
     setSelectedPointIndex(null);
     setCopyStatus("");
   };
-
   const nudgePoint = (deltaX: number, deltaY: number) => {
     if (!activeZone || selectedPointIndex === null) {
       return;
     }
-
     setPointsByZone((currentPoints) => {
       const zonePoints = currentPoints[activeZone.id] ?? [];
-
       return {
         ...currentPoints,
         [activeZone.id]: zonePoints.map((point, index) => {
           if (index !== selectedPointIndex) {
             return point;
           }
-
           return {
             x: clamp(formatPointValue(point.x + deltaX), 0, 100),
             y: clamp(formatPointValue(point.y + deltaY), 0, 100),
@@ -182,15 +151,12 @@ export const useZoneDevToolsPoints = ({
     });
     setCopyStatus("");
   };
-
   const deleteSelectedPoint = () => {
     if (!activeZone || selectedPointIndex === null) {
       return;
     }
-
     setPointsByZone((currentPoints) => {
       const zonePoints = currentPoints[activeZone.id] ?? [];
-
       return {
         ...currentPoints,
         [activeZone.id]: zonePoints.filter((_, index) => index !== selectedPointIndex),
@@ -199,7 +165,6 @@ export const useZoneDevToolsPoints = ({
     setSelectedPointIndex(null);
     setCopyStatus("");
   };
-
   const movePointToClientPoint = (
     zoneId: string,
     pointIndex: number,
@@ -207,11 +172,9 @@ export const useZoneDevToolsPoints = ({
     clientY: number,
   ) => {
     const point = getPointFromClientPoint(clientX, clientY);
-
     if (!point) {
       return;
     }
-
     setPointsByZone((currentPoints) => ({
       ...currentPoints,
       [zoneId]: (currentPoints[zoneId] ?? []).map((currentPoint, index) =>
@@ -220,7 +183,6 @@ export const useZoneDevToolsPoints = ({
     }));
     setCopyStatus("");
   };
-
   const startPointDrag = (zoneId: string, pointIndex: number) => {
     pointDragStateRef.current = {
       index: pointIndex,
@@ -228,7 +190,6 @@ export const useZoneDevToolsPoints = ({
     };
     setSelectedPointIndex(pointIndex);
   };
-
   const handlePointDragStart = (
     event: ReactPointerEvent<HTMLButtonElement>,
     pointIndex: number,
@@ -236,13 +197,10 @@ export const useZoneDevToolsPoints = ({
     if (!activeZone || event.button !== 0) {
       return;
     }
-
     event.stopPropagation();
     event.preventDefault();
-
     startPointDrag(activeZone.id, pointIndex);
   };
-
   return {
     activePoints,
     copyStatus,

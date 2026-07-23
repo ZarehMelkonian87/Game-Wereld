@@ -103,7 +103,7 @@ Doel: de in de kwaliteitsstandaard genoemde lokale controles daadwerkelijk uitvo
 - [x] **Kwaliteitscontrole:** toets configuratie, dependencies en uitzonderingen aan `docs/code-quality-and-architecture.md`.
 - [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
-Bewijs: `package.json`, `eslint.config.mjs`, `.prettierrc.json`, `vitest.config.ts`, `test/setup.ts` en de README definiëren en verklaren de lokale kwaliteitsstraat. De negatieve probes in [het kwaliteitsstraatrapport](../architecture/quality-gate-report-2026-07.md) bewijzen non-zero exitcodes.
+Bewijs: `package.json`, `eslint.config.mjs`, `.prettierrc.json`, `vitest.config.ts`, `test/setup.ts` en de README definiëren en verklaren de lokale kwaliteitsstraat. De negatieve probes in [het kwaliteitsstraatrapport](../architecture/quality-gate-report-2026-07.md) bewijzen non-zero exitcodes. Op 23 juli 2026 zijn daarnaast 308 bestaande functiedeclaraties naar arrow functions gemigreerd; ESLint blokkeert voortaan function declarations, function expressions, class methods en object-method syntax.
 
 ### IMP-A03 — Alle bestaande TypeScript-fouten herstellen
 

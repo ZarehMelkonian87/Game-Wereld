@@ -44,6 +44,25 @@ export default tseslint.config(
       "jsx-a11y/aria-props": "error",
       "jsx-a11y/aria-role": "error",
       "jsx-a11y/role-has-required-aria-props": "error",
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "FunctionDeclaration",
+          message: "Gebruik een arrow function in plaats van een function declaration.",
+        },
+        {
+          selector: "FunctionExpression",
+          message: "Gebruik een arrow function in plaats van een function expression.",
+        },
+        {
+          selector: "MethodDefinition",
+          message: "Gebruik een arrow-function property in plaats van een class method.",
+        },
+        {
+          selector: "Property[method=true]",
+          message: "Gebruik een arrow-function property in plaats van object-method syntax.",
+        },
+      ],
       "react-hooks/exhaustive-deps": "error",
       "react-hooks/rules-of-hooks": "error",
     },

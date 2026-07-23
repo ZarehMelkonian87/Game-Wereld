@@ -9,9 +9,7 @@ import type {
   SpatialConcept,
   VoiceSideScrollerObservationDetails,
 } from "../types";
-
 export const BEZEM_ESCAPE_GAME_ID = "strand-bezem-escape";
-
 const spatialConcepts: SpatialConcept[] = [
   "in",
   "op",
@@ -25,7 +23,6 @@ const spatialConcepts: SpatialConcept[] = [
   "dichtbij",
   "ver weg",
 ];
-
 const languageDomains: LanguageDomain[] = [
   "receptive-vocabulary",
   "active-vocabulary",
@@ -37,7 +34,6 @@ const languageDomains: LanguageDomain[] = [
   "spatial-language",
   "following-directions",
 ];
-
 export interface PracticeEventInput {
   activeSpatialConcept?: SpatialConcept;
   activelyNamedWord?: string;
@@ -62,9 +58,7 @@ export interface PracticeEventInput {
   wordStarsEarned: number;
   worldId?: string;
 }
-
 export type AdultRating = "good" | "help" | "partial";
-
 export interface SpeakAndPlaceObservationInput {
   assistance: AssistanceLevel;
   audioRepeats: number;
@@ -83,7 +77,6 @@ export interface SpeakAndPlaceObservationInput {
   wordStarsEarned: number;
   worldId?: string;
 }
-
 export interface VoiceSideScrollerObservationInput {
   audioRepeats: number;
   hintsUsed: number;
@@ -95,21 +88,18 @@ export interface VoiceSideScrollerObservationInput {
   wordAttempts: number;
   wordStarsEarned: number;
 }
-
-function getProgressStorageKey(profileId: string) {
+const getProgressStorageKey = (profileId: string) => {
   return `strand-bezem-escape:${profileId}:progress`;
-}
-
-function createConceptProgress(): ConceptProgress {
+};
+const createConceptProgress = (): ConceptProgress => {
   return {
     correctWithHelp: 0,
     correctWithoutHelp: 0,
     needsPractice: 0,
     practiced: 0,
   };
-}
-
-function createEmptyProgress(profileId: string): BezemEscapeProgress {
+};
+const createEmptyProgress = (profileId: string): BezemEscapeProgress => {
   return {
     activeSpatialConcepts: Object.fromEntries(
       spatialConcepts.map((concept) => [concept, 0]),
@@ -134,11 +124,9 @@ function createEmptyProgress(profileId: string): BezemEscapeProgress {
     totalWordStars: 0,
     unlockedRewards: [],
   };
-}
-
-function normalizeProgress(profileId: string, progress: Partial<BezemEscapeProgress>) {
+};
+const normalizeProgress = (profileId: string, progress: Partial<BezemEscapeProgress>) => {
   const emptyProgress = createEmptyProgress(profileId);
-
   return {
     ...emptyProgress,
     ...progress,
@@ -156,88 +144,68 @@ function normalizeProgress(profileId: string, progress: Partial<BezemEscapeProgr
       ...(progress.spatialConcepts ?? {}),
     },
   };
-}
-
-function incrementCounter(record: Record<string, number>, key: string, amount = 1) {
+};
+const incrementCounter = (record: Record<string, number>, key: string, amount = 1) => {
   record[key] = (record[key] ?? 0) + amount;
-}
-
-function incrementConceptProgress(progress: ConceptProgress, result: PracticeResult) {
+};
+const incrementConceptProgress = (progress: ConceptProgress, result: PracticeResult) => {
   progress.practiced += 1;
-
   if (result === "correct-without-help") {
     progress.correctWithoutHelp += 1;
     return;
   }
-
   if (result === "correct-with-help") {
     progress.correctWithHelp += 1;
     return;
   }
-
   progress.needsPractice += 1;
-}
-
-function mapRatingToResult(rating: AdultRating): PracticeResult {
+};
+const mapRatingToResult = (rating: AdultRating): PracticeResult => {
   if (rating === "good") {
     return "correct-without-help";
   }
-
   if (rating === "help") {
     return "correct-with-help";
   }
-
   return "needs-more-practice";
-}
-
-function mapRatingToAssistance(rating: AdultRating): AssistanceLevel {
+};
+const mapRatingToAssistance = (rating: AdultRating): AssistanceLevel => {
   return rating === "good" ? "none" : "adult-help";
-}
-
-export function readBezemEscapeProgress(profileId: string) {
+};
+export const readBezemEscapeProgress = (profileId: string) => {
   if (typeof window === "undefined") {
     return createEmptyProgress(profileId);
   }
-
   const rawProgress = window.localStorage.getItem(getProgressStorageKey(profileId));
-
   if (!rawProgress) {
     return createEmptyProgress(profileId);
   }
-
   try {
     return normalizeProgress(profileId, JSON.parse(rawProgress) as Partial<BezemEscapeProgress>);
   } catch {
     return createEmptyProgress(profileId);
   }
-}
-
-export function saveBezemEscapeProgress(progress: BezemEscapeProgress) {
+};
+export const saveBezemEscapeProgress = (progress: BezemEscapeProgress) => {
   if (typeof window === "undefined") {
     return;
   }
-
   window.localStorage.setItem(getProgressStorageKey(progress.profileId), JSON.stringify(progress));
-}
-
-export function resetBezemEscapeProgress(profileId: string) {
+};
+export const resetBezemEscapeProgress = (profileId: string) => {
   if (typeof window === "undefined") {
     return;
   }
-
   window.localStorage.removeItem(getProgressStorageKey(profileId));
-}
-
-export function appendPracticeEvent(profileId: string, input: PracticeEventInput) {
+};
+export const appendPracticeEvent = (profileId: string, input: PracticeEventInput) => {
   const progress = readBezemEscapeProgress(profileId);
   const eventId =
     input.id ??
     `${input.mode}:${input.instructionId}:${Date.now()}:${Math.round(Math.random() * 10000)}`;
-
   if (progress.attempts.some((attempt) => attempt.id === eventId)) {
     return progress;
   }
-
   const event: BezemEscapePracticeEvent = {
     assistance: input.assistance,
     attempts: input.attempts,
@@ -265,79 +233,63 @@ export function appendPracticeEvent(profileId: string, input: PracticeEventInput
     activelyNamedWord: input.activelyNamedWord,
     autoExecuted: input.autoExecuted,
   };
-
   event.targetWords.forEach((word) => incrementCounter(progress.practicedWords, word));
-
   if ((event.mode === "choose-word" || event.mode === "zeg-en-vlieg") && event.isCorrect) {
     event.targetWords.forEach((word) => incrementCounter(progress.recognizedWords, word));
   }
-
   if (event.mode === "zeg-en-vlieg") {
     if (event.activelyNamedWord && event.isCorrect) {
       incrementCounter(progress.activelyNamedWords, event.activelyNamedWord);
     }
-
     if (!event.isCorrect) {
       progress.misunderstoodSpeechAttempts += 1;
     }
   }
-
   if (event.mode === "zeg-en-bouw") {
     if (event.activelyNamedWord) {
       incrementCounter(progress.activelyNamedWords, event.activelyNamedWord);
     }
-
     if (event.activeSpatialConcept) {
       incrementCounter(progress.activeSpatialConcepts, event.activeSpatialConcept);
     }
-
     if (event.selfMadeSentence) {
       progress.selfMadeSentences += 1;
-
       if (event.assistance === "none") {
         progress.selfMadeSentencesWithoutHelp += 1;
       } else {
         progress.selfMadeSentencesWithHelp += 1;
       }
     }
-
     if (event.autoExecuted && event.isCorrect) {
       progress.autoExecutedSpokenCommands += 1;
     }
-
     if (!event.isCorrect && !event.autoExecuted) {
       progress.misunderstoodSpeechAttempts += 1;
     }
   }
-
   event.spatialConcepts.forEach((concept) => {
     incrementConceptProgress(progress.spatialConcepts[concept], event.result);
   });
-
   event.languageDomains.forEach((domain) => {
     incrementConceptProgress(progress.languageDomains[domain], event.result);
   });
-
   progress.totalSpeed += event.speedEarned;
   progress.totalWordStars += event.wordStarsEarned;
   progress.attempts.push(event);
   saveBezemEscapeProgress(progress);
-
   return progress;
-}
-
-export function recordActiveVocabularyObservation(
+};
+export const recordActiveVocabularyObservation = (
   profileId: string,
   params: {
     instructionId: string;
     rating: AdultRating;
     word: string;
   },
-) {
+) => {
   const progress = readBezemEscapeProgress(profileId);
   incrementCounter(progress.activelyNamedWords, params.word);
   saveBezemEscapeProgress(progress);
-
   return appendPracticeEvent(profileId, {
     assistance: mapRatingToAssistance(params.rating),
     attempts: 1,
@@ -353,16 +305,15 @@ export function recordActiveVocabularyObservation(
     targetWords: [params.word],
     wordStarsEarned: 0,
   });
-}
-
-export function recordSentenceRepeatObservation(
+};
+export const recordSentenceRepeatObservation = (
   profileId: string,
   params: {
     instructionId: string;
     rating: AdultRating;
     sentence: string;
   },
-) {
+) => {
   return appendPracticeEvent(profileId, {
     assistance: mapRatingToAssistance(params.rating),
     attempts: 1,
@@ -378,12 +329,11 @@ export function recordSentenceRepeatObservation(
     targetWords: [params.sentence],
     wordStarsEarned: 0,
   });
-}
-
-export function recordSpeakAndPlaceObservation(
+};
+export const recordSpeakAndPlaceObservation = (
   profileId: string,
   input: SpeakAndPlaceObservationInput,
-) {
+) => {
   const languageDomainSet = new Set<LanguageDomain>([
     "active-vocabulary",
     "concepts-and-directions",
@@ -391,7 +341,6 @@ export function recordSpeakAndPlaceObservation(
     "spatial-language",
     ...(input.languageDomains ?? []),
   ]);
-
   return appendPracticeEvent(profileId, {
     activeSpatialConcept: input.spatialConcept,
     activelyNamedWord: input.targetWord,
@@ -414,8 +363,7 @@ export function recordSpeakAndPlaceObservation(
     wordStarsEarned: input.wordStarsEarned,
     worldId: input.worldId,
   });
-}
-
+};
 const getVoiceSideScrollerAssistance = ({
   audioRepeats,
   hintsUsed,
@@ -423,25 +371,21 @@ const getVoiceSideScrollerAssistance = ({
   if (hintsUsed > 0) {
     return "hint";
   }
-
   if (audioRepeats > 0) {
     return "audio-repeat";
   }
-
   return "none";
 };
-
-export function recordVoiceSideScrollerWordObservation(
+export const recordVoiceSideScrollerWordObservation = (
   profileId: string,
   input: VoiceSideScrollerObservationInput,
-) {
+) => {
   const assistance = getVoiceSideScrollerAssistance(input);
   const result: PracticeResult = input.isRecognized
     ? assistance === "none"
       ? "correct-without-help"
       : "correct-with-help"
     : "needs-more-practice";
-
   return appendPracticeEvent(profileId, {
     activelyNamedWord: input.isRecognized ? input.targetWord : undefined,
     assistance,
@@ -469,4 +413,4 @@ export function recordVoiceSideScrollerWordObservation(
     wordStarsEarned: input.wordStarsEarned,
     worldId: "beach-world-1",
   });
-}
+};

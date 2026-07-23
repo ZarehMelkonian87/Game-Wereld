@@ -1,6 +1,5 @@
 import { Star, Zap } from "lucide-react";
 import { classNames } from "./classNames";
-
 interface GameplayStatusBarProps {
   boosting?: boolean;
   className?: string;
@@ -10,16 +9,13 @@ interface GameplayStatusBarProps {
   starMax: number;
   starValue: number;
 }
-
-function clampPercent(value: number, max: number) {
+const clampPercent = (value: number, max: number) => {
   if (max <= 0) {
     return 0;
   }
-
   return Math.min(100, Math.max(0, (value / max) * 100));
-}
-
-export function GameplayStatusBar({
+};
+export const GameplayStatusBar = ({
   boosting = false,
   className,
   energyIconUrl,
@@ -27,9 +23,8 @@ export function GameplayStatusBar({
   speedValue,
   starMax,
   starValue,
-}: GameplayStatusBarProps) {
+}: GameplayStatusBarProps) => {
   const speedPercent = clampPercent(speedValue, speedMax);
-
   return (
     <div
       data-testid="gameplay-status-bar"
@@ -87,4 +82,4 @@ export function GameplayStatusBar({
       </div>
     </div>
   );
-}
+};

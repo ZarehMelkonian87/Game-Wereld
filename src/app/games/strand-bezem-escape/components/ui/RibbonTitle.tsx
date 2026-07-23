@@ -1,11 +1,9 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { classNames } from "./classNames";
-
 interface RibbonTitleProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
-
-export function RibbonTitle({ children, className, ...titleProps }: RibbonTitleProps) {
+export const RibbonTitle = ({ children, className, ...titleProps }: RibbonTitleProps) => {
   return (
     <div
       {...titleProps}
@@ -17,4 +15,4 @@ export function RibbonTitle({ children, className, ...titleProps }: RibbonTitleP
       <span className="truncate">{children}</span>
     </div>
   );
-}
+};

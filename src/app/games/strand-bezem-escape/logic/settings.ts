@@ -4,31 +4,24 @@ export interface BezemEscapeSettings {
   musicEnabled: boolean;
   reducedMotion: boolean;
 }
-
 export const BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT = "strand-bezem-escape:settings-changed";
-
 export const defaultBezemEscapeSettings: BezemEscapeSettings = {
   audioEnabled: true,
   hintsEnabled: true,
   musicEnabled: true,
   reducedMotion: false,
 };
-
-function getSettingsStorageKey(profileId: string) {
+const getSettingsStorageKey = (profileId: string) => {
   return `strand-bezem-escape:${profileId}:settings`;
-}
-
-export function readBezemEscapeSettings(profileId: string) {
+};
+export const readBezemEscapeSettings = (profileId: string) => {
   if (typeof window === "undefined") {
     return defaultBezemEscapeSettings;
   }
-
   const rawSettings = window.localStorage.getItem(getSettingsStorageKey(profileId));
-
   if (!rawSettings) {
     return defaultBezemEscapeSettings;
   }
-
   try {
     return {
       ...defaultBezemEscapeSettings,
@@ -37,13 +30,11 @@ export function readBezemEscapeSettings(profileId: string) {
   } catch {
     return defaultBezemEscapeSettings;
   }
-}
-
-export function saveBezemEscapeSettings(profileId: string, settings: BezemEscapeSettings) {
+};
+export const saveBezemEscapeSettings = (profileId: string, settings: BezemEscapeSettings) => {
   if (typeof window === "undefined") {
     return;
   }
-
   window.localStorage.setItem(getSettingsStorageKey(profileId), JSON.stringify(settings));
   window.dispatchEvent(
     new CustomEvent(BEZEM_ESCAPE_SETTINGS_CHANGED_EVENT, {
@@ -53,4 +44,4 @@ export function saveBezemEscapeSettings(profileId: string, settings: BezemEscape
       },
     }),
   );
-}
+};

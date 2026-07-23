@@ -10,9 +10,7 @@ import type {
   TaskDifficulty,
   VocabularyChoiceInstruction,
 } from "./types";
-
 const assetPath = (fileName: string) => `assets/objects/transparent/${fileName}`;
-
 export const beachSpatialConcepts: SpatialConcept[] = [
   "in",
   "op",
@@ -26,7 +24,6 @@ export const beachSpatialConcepts: SpatialConcept[] = [
   "dichtbij",
   "ver weg",
 ];
-
 export const beachObjects: SceneObject[] = [
   {
     id: "dolfijn",
@@ -185,7 +182,6 @@ export const beachObjects: SceneObject[] = [
     tags: ["lucht", "natuur", "warm"],
   },
 ];
-
 export const beachZones: SceneZone[] = [
   // Basisgebied: lucht
   {
@@ -201,7 +197,6 @@ export const beachZones: SceneZone[] = [
     height: 23.1,
     supportedConcepts: ["boven", "links", "rechts", "midden", "ver weg"],
   },
-
   // Zee en waterzones
   {
     id: "zee",
@@ -265,7 +260,6 @@ export const beachZones: SceneZone[] = [
     height: 12.7,
     supportedConcepts: ["op", "rechts", "ver weg"],
   },
-
   // Strand en zandzones
   {
     id: "strand",
@@ -316,33 +310,28 @@ export const beachZones: SceneZone[] = [
   // Relationele zones zoals op/naast/dichtbij/tussen bij een ankerobject
   // worden dynamisch berekend met de actuele positie van geplaatste objecten.
 ];
-
 const directionDomains: LanguageDomain[] = [
   "sentence-comprehension",
   "concepts-and-directions",
   "spatial-language",
   "following-directions",
 ];
-
-function getPracticeSentence(sentence: string) {
+const getPracticeSentence = (sentence: string) => {
   return sentence.replace(/^(Goed zo!|Mooi!|Ja!|Goed gedaan!)\s*/i, "");
-}
-
+};
 const placementFeedback = (sentence: string, concept: SpatialConcept) => ({
   correct: `${sentence} +1 Speed!`,
   almost: `Bijna! Luister nog eens naar het woord '${concept}'.`,
   tryAgain: "Goed geprobeerd. Kijk rustig naar de plek die oplicht.",
   repeatAfterSuccess: getPracticeSentence(sentence),
 });
-
 const choiceFeedback = (word: string) => ({
   correct: `Ja, dat is de ${word}. +1 Speed!`,
   almost: `Bijna. Zoek nog eens naar: ${word}.`,
   tryAgain: "Goed geprobeerd. Luister nog een keer en kies opnieuw.",
   repeatAfterSuccess: `Dit is de ${word}.`,
 });
-
-function sceneTask(params: {
+const sceneTask = (params: {
   id: string;
   level: TaskDifficulty;
   prompt: string;
@@ -353,7 +342,7 @@ function sceneTask(params: {
   hint: string;
   feedbackSentence: string;
   tags?: string[];
-}): SceneBuilderInstruction {
+}): SceneBuilderInstruction => {
   return {
     id: params.id,
     mode: "listen-and-place",
@@ -376,9 +365,8 @@ function sceneTask(params: {
     },
     reward: { speed: 1, wordStars: 1 },
   };
-}
-
-function choiceTask(params: {
+};
+const choiceTask = (params: {
   id: string;
   level: TaskDifficulty;
   prompt: string;
@@ -386,10 +374,9 @@ function choiceTask(params: {
   options: string[];
   hint: string;
   distractorStrategy: VocabularyChoiceInstruction["distractorStrategy"];
-}): VocabularyChoiceInstruction {
+}): VocabularyChoiceInstruction => {
   const target = beachObjects.find((object) => object.id === params.objectId);
   const targetWord = target?.label ?? params.objectId;
-
   return {
     id: params.id,
     mode: "choose-word",
@@ -410,8 +397,7 @@ function choiceTask(params: {
     distractorStrategy: params.distractorStrategy,
     reward: { speed: 1, wordStars: 1 },
   };
-}
-
+};
 export const sceneBuilderInstructions: SceneBuilderInstruction[] = [
   sceneTask({
     id: "lp-001",
@@ -578,7 +564,6 @@ export const sceneBuilderInstructions: SceneBuilderInstruction[] = [
     feedbackSentence: "Knap! De schelp ligt tussen de bal en het zandkasteel.",
   }),
 ];
-
 export const vocabularyChoiceInstructions: VocabularyChoiceInstruction[] = [
   choiceTask({
     id: "cw-001",
@@ -689,12 +674,10 @@ export const vocabularyChoiceInstructions: VocabularyChoiceInstruction[] = [
     distractorStrategy: "same-theme",
   }),
 ];
-
 export const beachInstructions: GameInstruction[] = [
   ...sceneBuilderInstructions,
   ...vocabularyChoiceInstructions,
 ];
-
 export const beachRewards: BroomReward[] = [
   {
     id: "blue-broom",
@@ -729,7 +712,6 @@ export const beachRewards: BroomReward[] = [
     unlockAfterWordStars: 20,
   },
 ];
-
 export const beachWorld: GameWorld = {
   id: "beach-world-1",
   name: "Strandwereld",
@@ -741,5 +723,4 @@ export const beachWorld: GameWorld = {
   instructions: beachInstructions,
   rewards: beachRewards,
 };
-
 export const firstDemoInstructionIds = beachInstructions.map((instruction) => instruction.id);

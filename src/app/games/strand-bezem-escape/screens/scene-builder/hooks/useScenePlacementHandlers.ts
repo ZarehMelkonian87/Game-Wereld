@@ -9,7 +9,6 @@ import type { SceneBuilderInstruction, SceneObject, SpatialConcept } from "../..
 import type { SceneCompletionSummary } from "../logic/scene-builder-types";
 import { getSpeakAndPlaceReward } from "../logic/scene-placement-utils";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
-
 export const useScenePlacementHandlers = ({
   instructions,
   objects,
@@ -51,12 +50,10 @@ export const useScenePlacementHandlers = ({
     unlockedRewardIds,
     wordStarValue,
   } = state;
-
-  function placeCorrectObject() {
+  const placeCorrectObject = () => {
     if (!pendingPlacement) {
       return;
     }
-
     const nextPlacedObjects = [
       ...placedObjects.filter((placedObject) => placedObject.instructionId !== instruction.id),
       {
@@ -67,7 +64,6 @@ export const useScenePlacementHandlers = ({
         zoneId: pendingPlacement.zoneId,
       },
     ];
-
     const nextSceneComplete = nextPlacedObjects.length >= sceneCompletionTarget;
     const nextCompletionSummary: SceneCompletionSummary = {
       placedObjects: nextPlacedObjects,
@@ -79,7 +75,6 @@ export const useScenePlacementHandlers = ({
         .filter((concept): concept is SpatialConcept => concept !== undefined),
       practicedWords: nextPlacedObjects.map((placedObject) => placedObject.objectId),
     };
-
     const isSpokenPlacement = pendingPlacement.source === "spoken";
     const speakAndPlaceReward = isSpokenPlacement
       ? getSpeakAndPlaceReward({
@@ -91,27 +86,22 @@ export const useScenePlacementHandlers = ({
           spokenHelpCount: activeSpokenHelpCount,
         })
       : null;
-
     const bonusEarned = !isSpokenPlacement && activeHintsUsed === 0;
     const earnedSpeed =
       speakAndPlaceReward?.earnedSpeed ?? instruction.reward.speed + (bonusEarned ? 1 : 0);
     const earnedWordStars =
       speakAndPlaceReward?.earnedWordStars ?? instruction.reward.wordStars + (bonusEarned ? 1 : 0);
-
     const nextSpeedValue = speedValue + earnedSpeed;
     const nextWordStarValue = wordStarValue + earnedWordStars;
-
     const newRewardUnlocks = resolveNewRewardUnlocks({
       totalSpeed: nextSpeedValue,
       totalWordStars: nextWordStarValue,
       unlockedRewardIds,
     });
-
     const nextUnlockedRewardIds = [
       ...unlockedRewardIds,
       ...newRewardUnlocks.map((reward) => reward.id),
     ];
-
     saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds);
     setPlacedObjects(nextPlacedObjects);
     setPendingPlacement(null);
@@ -120,14 +110,12 @@ export const useScenePlacementHandlers = ({
     setSpeedValue(nextSpeedValue);
     setWordStarValue(nextWordStarValue);
     setUnlockedRewardIds(nextUnlockedRewardIds);
-
     setFeedback({
       kind: "correct",
       mascot: "celebration",
       rewardLabels: newRewardUnlocks.map((r) => r.label),
       text: instruction.feedbackCopy.correct,
     });
-
     appendPracticeEvent(rewardProfileId, {
       activeSpatialConcept: instruction.placement.relation,
       assistance: activeHintsUsed > 0 ? "hint" : "none",
@@ -145,19 +133,16 @@ export const useScenePlacementHandlers = ({
       targetWords: [targetObject?.label ?? instruction.placement.objectId],
       wordStarsEarned: earnedWordStars,
     });
-  }
-
-  function handleConfirm() {
+  };
+  const handleConfirm = () => {
     if (sceneComplete) {
       resetSceneBuilderRound();
       return;
     }
-
     if (feedback?.kind === "correct") {
       advanceInstruction();
       return;
     }
-
     if (!pendingPlacement || !selectedObjectId) {
       setFeedback({
         kind: "almost",
@@ -165,7 +150,6 @@ export const useScenePlacementHandlers = ({
       });
       return;
     }
-
     const isCorrectObject = selectedObjectId === instruction.placement.objectId;
     const usesDynamicRelation = usesDynamicRelationZone(instruction.placement);
     const dynamicRelationEvaluation = evaluateDynamicRelationPlacement({
@@ -177,27 +161,22 @@ export const useScenePlacementHandlers = ({
       placements: placedObjectPoints,
       relation: instruction.placement.relation,
     });
-
     const isCorrectZone = usesDynamicRelation
       ? dynamicRelationEvaluation.matches
       : selectedZoneMatchesTarget(selectedZone, targetZone);
-
     const isCorrectRelation = usesDynamicRelation
       ? dynamicRelationEvaluation.matches
       : zoneSupportsConcept(selectedZone, instruction.placement.relation);
-
     if (isCorrectObject && isCorrectZone && isCorrectRelation) {
       placeCorrectObject();
       return;
     }
-
     setShowTargetZoneHint(true);
     setFeedback({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? `${instruction.hint} Kijk naar de plek die oplicht.`,
     });
-  }
-
+  };
   return {
     handleConfirm,
     placeCorrectObject,
