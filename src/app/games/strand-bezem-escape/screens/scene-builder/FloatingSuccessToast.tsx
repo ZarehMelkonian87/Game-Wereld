@@ -180,7 +180,7 @@ export const FloatingSuccessToast = ({
             onPause={stopHintAudioSession}
             onPlay={startHintAudioSession}
             playsInline
-            preload="auto"
+            preload="metadata"
             ref={videoRef}
             src={hintVideoUrl}
             style={{

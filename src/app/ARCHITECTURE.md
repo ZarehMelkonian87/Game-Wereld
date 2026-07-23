@@ -311,7 +311,7 @@ src/app/games/<game-id>/
     audio/
     instructions/
     logos/
-    asset-manifest.ts
+    offline-package.source.json
 
   content/
     worlds.data.ts
@@ -456,22 +456,22 @@ Per game geldt:
 
 - productie-assets staan in `assets/`;
 - concept en bronmateriaal staan in `concept-art/` of `doc/`;
-- assets worden via een manifest geimporteerd;
+- productiebuilds genereren URL-, hash-, MIME-, byte- en licentiemetadata uit werkelijk gebruikte assets;
 - components importeren niet overal willekeurige image paths;
-- ongebruikte assets worden verwijderd of duidelijk als concept gemarkeerd.
+- orphan assets worden gerapporteerd en pas na visuele/licentiecontrole verwijderd.
 
 Voorbeeld:
 
 ```txt
 assets/
-  asset-manifest.ts
+  offline-package.source.json
   backgrounds/
   objects/
   icons/
   instructions/
 ```
 
-Verdediging: assets groeien snel. Een manifest voorkomt zoekwerk, foutieve imports en onduidelijke bestandsnamen.
+`scripts/generate-asset-manifest.mjs` koppelt deze lichte bronmetadata na de Vite-build aan de gehashte output en schrijft het verifieerbare wereldpakket onder `dist/offline/`.
 
 ## UI Standaard
 
@@ -664,6 +664,8 @@ Status op 23 juli 2026:
 | Profile types naar platform          | Gedaan      | `Avatar`, `Profile`, `ProfileSettings` en `GameProgress` komen uit `game-platform`.                     |
 | Profile repositories                 | Gedaan      | Profielen, settings, sessies, events en projecties lopen via repositorycontracten boven IndexedDB.      |
 | Practice event basis                 | Gedaan      | Alle modi schrijven privacyveilige `PracticeEventV1`-events via `GameRuntime.practice`.                 |
+| PWA en offlinepakket                 | Gedaan      | Workbox reviseert de shell; wereldpakketten worden expliciet gedownload en op hash geverifieerd.        |
+| Asset- en performancebudgetten       | Gedaan      | Buildrapporten blokkeren ontbrekende assets, te grote bundles en niet-goedgekeurde pakketgroei.         |
 | App catalogus uit configs            | Nog te doen | `src/app/data/games.ts` bevat nog handmatige metadata voor veel games.                                  |
 | Alle placeholder games naar template | Nog te doen | Veel kleine games hebben nog alleen een eenvoudige `index.tsx` en `README.md`.                          |
 | Dashboard op practice events         | Gedaan      | Periodecijfers, activiteit, mijlpalen en uitleg komen uit events en projectorversie.                    |

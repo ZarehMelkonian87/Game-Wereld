@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import { ProfileProvider } from "./contexts/ProfileContext";
+import { PwaUpdateBanner } from "./pwa/PwaUpdateBanner";
 import { StorageProvider } from "./storage";
 export const Root = () => {
   return (
@@ -10,6 +11,7 @@ export const Root = () => {
           <div className="relative">
             <Outlet />
           </div>
+          <PwaUpdateBanner />
         </div>
       </ProfileProvider>
     </StorageProvider>

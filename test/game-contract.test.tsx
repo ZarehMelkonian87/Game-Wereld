@@ -161,5 +161,14 @@ describe("generiek gamecontract", () => {
     window.removeEventListener("error", preventExpectedWindowError);
   });
 
-  it.todo("controleert offlineassets na build zodra de assetpipeline uit Groep E bestaat");
+  it("koppelt ieder offlinepakket aan contentversie en gegenereerd manifestpad", () => {
+    getLoadableGameRegistryEntries().forEach(({ manifest }) => {
+      manifest.offlinePackages.forEach((offlinePackage) => {
+        expect(offlinePackage.contentVersion).toBe(manifest.contentVersion);
+        expect(offlinePackage.manifestUrl).toMatch(
+          new RegExp(`^/offline/${offlinePackage.id}-v${offlinePackage.version}\\.json$`),
+        );
+      });
+    });
+  });
 });

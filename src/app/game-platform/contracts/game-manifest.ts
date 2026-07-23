@@ -21,8 +21,9 @@ export const gameManifestSchema = z
     id: z.string().trim().min(1).transform(createGameId),
     offlinePackages: z.array(
       z.object({
+        contentVersion: z.string().trim().min(1),
         id: z.string().trim().min(1),
-        requiredAssetPaths: z.array(z.string().trim().min(1)),
+        manifestUrl: z.string().trim().startsWith("/offline/"),
         version: z.number().int().positive(),
       }),
     ),

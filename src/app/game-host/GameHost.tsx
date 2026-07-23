@@ -12,6 +12,7 @@ import {
   type GameRuntime,
 } from "../game-platform";
 import { getGameRegistryEntry, resolveCanonicalGameId } from "../games";
+import { acquireActiveGameSession } from "../pwa/pwaLifecycle";
 import { ComingSoonGameScreen } from "../screens/game-play/ComingSoonGameScreen";
 import {
   createRepositoryPracticeWriter,
@@ -95,6 +96,7 @@ export const GameHost = () => {
     if (!profileId || !registryEntry || !isLoadableGameEntry(registryEntry) || !canonicalGameId) {
       return;
     }
+    const releaseActiveGameSession = acquireActiveGameSession();
     sessionEffectMountedRef.current = true;
     if (!sessionStartedRef.current) {
       sessionStartedRef.current = true;
@@ -112,6 +114,7 @@ export const GameHost = () => {
       void sessionStartPromiseRef.current.catch(reportStorageWriteFailure);
     }
     return () => {
+      releaseActiveGameSession();
       sessionEffectMountedRef.current = false;
       queueMicrotask(() => {
         if (!sessionEffectMountedRef.current) closeSession("abandoned");

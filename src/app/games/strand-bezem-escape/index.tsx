@@ -42,7 +42,9 @@ const StrandBezemEscapeExperience = () => {
       {!isSceneBuilder && (
         <BeachBackground
           landscapeUrl={beachBackgrounds.landscape}
+          landscapeWebpUrl={beachBackgrounds.landscapeWebp}
           portraitUrl={beachBackgrounds.portrait}
+          portraitWebpUrl={beachBackgrounds.portraitWebp}
         />
       )}
       {showUiPreview ? (

@@ -15,7 +15,7 @@ export const VoiceSideScrollerBackground = ({ scrollX }: VoiceSideScrollerBackgr
       className="absolute inset-0"
       data-layer="base-beach"
       style={{
-        backgroundImage: `url(${beachBackgrounds.voiceSideScroller})`,
+        backgroundImage: `image-set(url("${beachBackgrounds.voiceSideScrollerWebp}") type("image/webp"), url("${beachBackgrounds.voiceSideScroller}") type("image/png"))`,
         backgroundPositionX: `${-Math.round(scrollX * 1200)}px`,
         backgroundRepeat: "repeat-x",
         backgroundSize: "auto 100%",

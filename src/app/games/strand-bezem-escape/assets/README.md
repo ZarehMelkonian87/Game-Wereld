@@ -15,7 +15,8 @@ Oude candidates, source sheets, lokale previews en gegenereerde conceptbeelden z
 - `icons/mascot/` - 7 losse mascotte-assets met echte alpha-transparantie.
 - `instructions/` - korte video-opdrachten met animatie en voice-over.
 - `logos/` - productie-logo voor het startscherm.
-- `asset-manifest.ts` - metadata voor productie-assets.
+- `offline-package.source.json` - lichte pakketidentiteit, contentversie en licentiebron.
+- `dist/offline/*.json` - tijdens de productiebuild gegenereerde URL-, hash-, MIME- en bytemetadata.
 
 ## Asset Readiness
 

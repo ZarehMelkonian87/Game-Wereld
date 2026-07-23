@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useProfile } from "../../contexts/ProfileContext";
 import { gameThemes, miniGames, type MiniGame } from "../../data/games";
 import { getGameRegistryEntry } from "../../games";
+import { OfflinePackageCard } from "../../pwa/OfflinePackageCard";
 import { EmptyGamesMessage } from "./EmptyGamesMessage";
 import { GamesGrid } from "./GamesGrid";
 import { GamesListHeader } from "./GamesListHeader";
@@ -16,6 +17,15 @@ export const GamesListScreen = () => {
 
   const theme = gameThemes.find((candidate) => candidate.id === themeId);
   const games = miniGames.filter((game) => game.themeId === themeId);
+  const offlinePackages = games.flatMap((game) => {
+    const entry = getGameRegistryEntry(game.id);
+    return (
+      entry?.manifest.offlinePackages.map((descriptor) => ({
+        descriptor,
+        title: entry.manifest.title,
+      })) ?? []
+    );
+  });
 
   useEffect(() => {
     if (!theme) {
@@ -58,6 +68,9 @@ export const GamesListScreen = () => {
             theme={theme}
           />
           {games.length === 0 ? <EmptyGamesMessage /> : null}
+          {offlinePackages.map(({ descriptor, title }) => (
+            <OfflinePackageCard descriptor={descriptor} key={descriptor.id} title={title} />
+          ))}
         </div>
       </div>
 

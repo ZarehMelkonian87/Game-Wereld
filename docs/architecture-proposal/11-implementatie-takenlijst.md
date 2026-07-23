@@ -691,117 +691,129 @@ Offlinebetrouwbaarheid wordt hier een aantoonbare producttoestand in plaats van 
 
 ### IMP-E01 — Build-gegenereerde Workbox-service worker invoeren
 
-- [ ] **IMP-E01 afgerond**
+- [x] **IMP-E01 afgerond**
 
 Afhankelijkheden: groep A en IMP-B05.
 
 Doel: handmatige cacheversies vervangen door buildgebonden revisies en expliciete strategieën.
 
-- [ ] Kies een onderhouden Vite/Workbox-integratie en leg de keuze vast in een ADR.
-- [ ] Precache alleen app-shell en essentiële gehashte assets.
-- [ ] Configureer navigatiefallback zonder API/externe requests verkeerd te onderscheppen.
-- [ ] Definieer runtimecaches afzonderlijk voor chunks, kleine beelden/fonts en media.
-- [ ] Beperk cache-origin, entries, leeftijd en foutgedrag.
-- [ ] Verwijder de oude handgeschreven worker pas nadat parity- en upgradetests slagen.
-- [ ] Acceptatie: een nieuwe build reviseert gewijzigde assets en ruimt oude precacheitems gecontroleerd op.
-- [ ] Verificatie: productiebuildtest online, offline en update van versie N naar N+1.
-- [ ] **Kwaliteitscontrole:** toets caching, dependencies, security en recovery aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Kies een onderhouden Vite/Workbox-integratie en leg de keuze vast in een ADR.
+- [x] Precache alleen app-shell en essentiële gehashte assets.
+- [x] Configureer navigatiefallback zonder API/externe requests verkeerd te onderscheppen.
+- [x] Definieer runtimecaches afzonderlijk voor chunks, kleine beelden/fonts en media.
+- [x] Beperk cache-origin, entries, leeftijd en foutgedrag.
+- [x] Verwijder de oude handgeschreven worker pas nadat parity- en upgradetests slagen.
+- [x] Acceptatie: een nieuwe build reviseert gewijzigde assets en ruimt oude precacheitems gecontroleerd op.
+- [x] Verificatie: productiebuildtest online, offline en update van versie N naar N+1.
+- [x] **Kwaliteitscontrole:** toets caching, dependencies, security en recovery aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E02 — Gegenereerd assetmanifest bouwen
 
-- [ ] **IMP-E02 afgerond**
+- [x] **IMP-E02 afgerond**
 
 Afhankelijkheden: IMP-E01.
 
 Doel: handgeschreven URL-lijsten vervangen door controleerbare assetmetadata.
 
-- [ ] Maak een buildscript dat per game/world URL, hash, MIME-type, bytes, optional/required en bron/licentie vastlegt.
-- [ ] Laat build falen op ontbrekende verplichte bestanden en duplicate ids.
-- [ ] Rapporteer orphan assets zonder ze direct automatisch te verwijderen.
-- [ ] Houd manifesten licht en voorkom dat catalogusimport alle media in de entrychunk trekt.
-- [ ] Koppel contentversion aan de gebruikte assetset.
-- [ ] Voeg fixture-/snapshottest toe voor de manifeststructuur, niet voor willekeurige gehashte output.
-- [ ] Acceptatie: iedere vereiste runtimeasset is vanuit een manifest herleidbaar en bestaat na build.
-- [ ] Verificatie: manifestcheck, broken-assetproef en bundlegraph zijn groen.
-- [ ] **Kwaliteitscontrole:** toets buildcode, assetlicenties, imports en budgets aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Maak een buildscript dat per game/world URL, hash, MIME-type, bytes, optional/required en bron/licentie vastlegt.
+- [x] Laat build falen op ontbrekende verplichte bestanden en duplicate ids.
+- [x] Rapporteer orphan assets zonder ze direct automatisch te verwijderen.
+- [x] Houd manifesten licht en voorkom dat catalogusimport alle media in de entrychunk trekt.
+- [x] Koppel contentversion aan de gebruikte assetset.
+- [x] Voeg fixture-/snapshottest toe voor de manifeststructuur, niet voor willekeurige gehashte output.
+- [x] Acceptatie: iedere vereiste runtimeasset is vanuit een manifest herleidbaar en bestaat na build.
+- [x] Verificatie: manifestcheck, broken-assetproef en bundlegraph zijn groen.
+- [x] **Kwaliteitscontrole:** toets buildcode, assetlicenties, imports en budgets aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E03 — Offlinepakketmanager per gamewereld implementeren
 
-- [ ] **IMP-E03 afgerond**
+- [x] **IMP-E03 afgerond**
 
 Afhankelijkheden: IMP-E01 en IMP-E02.
 
 Doel: alleen volledig geverifieerde werelden als offline beschikbaar tonen.
 
-- [ ] Definieer states `not-downloaded`, `estimating`, `downloading`, `verifying`, `ready`, `partial`, `failed` en `outdated`.
-- [ ] Toon totale bytes vóór download en vraag bevestiging boven de productgrens.
-- [ ] Gebruik `navigator.storage.estimate()` alleen als schatting en behandel unsupported.
-- [ ] Ondersteun voortgang, annuleren, partial cleanup, retry en expliciet pakket verwijderen.
-- [ ] Markeer `ready` pas na verificatie van alle required assets.
-- [ ] Implementeer begrensde LRU/versiecleanup zonder actief pakket midden in sessie te verwijderen.
-- [ ] Acceptatie: een onderbroken of quota-gefaalde download wordt nooit ready.
-- [ ] Verificatie: fake cache/quota-tests en offline Playwrightflow zijn groen.
-- [ ] **Kwaliteitscontrole:** toets state-machine, storage, fout-UX en accessibility aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer states `not-downloaded`, `estimating`, `downloading`, `verifying`, `ready`, `partial`, `failed` en `outdated`.
+- [x] Toon totale bytes vóór download en vraag bevestiging boven de productgrens.
+- [x] Gebruik `navigator.storage.estimate()` alleen als schatting en behandel unsupported.
+- [x] Ondersteun voortgang, annuleren, partial cleanup, retry en expliciet pakket verwijderen.
+- [x] Markeer `ready` pas na verificatie van alle required assets.
+- [x] Implementeer begrensde LRU/versiecleanup zonder actief pakket midden in sessie te verwijderen.
+- [x] Acceptatie: een onderbroken of quota-gefaalde download wordt nooit ready.
+- [x] Verificatie: fake cache/quota-tests en offline Playwrightflow zijn groen.
+- [x] **Kwaliteitscontrole:** toets state-machine, storage, fout-UX en accessibility aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E04 — Service-workerupdate veilig maken tijdens gamesessies
 
-- [ ] **IMP-E04 afgerond**
+- [x] **IMP-E04 afgerond**
 
 Afhankelijkheden: IMP-E01, IMP-E03 en IMP-D02.
 
 Doel: nieuwe releases activeren zonder actieve sessies of chunks te breken.
 
-- [ ] Detecteer waiting/updated worker en publiceer status via een kleine PWA-adapter.
-- [ ] Toon updateprompt buiten actieve sessies.
-- [ ] Stel activatie uit wanneer `GameHost` een actieve sessie heeft.
-- [ ] Bied na safe exit “nu bijwerken” en herstel bij mislukte chunkimport.
-- [ ] Zorg dat oude actieve releaseassets niet voortijdig worden verwijderd.
-- [ ] Test N-naar-N+1 met een gesimuleerde actieve game.
-- [ ] Acceptatie: update veroorzaakt geen blanco scherm of verloren sessie.
-- [ ] Verificatie: productie-E2E voor waiting, postpone, exit en activate.
-- [ ] **Kwaliteitscontrole:** toets lifecycle, recovery, logging en accessibility aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Detecteer waiting/updated worker en publiceer status via een kleine PWA-adapter.
+- [x] Toon updateprompt buiten actieve sessies.
+- [x] Stel activatie uit wanneer `GameHost` een actieve sessie heeft.
+- [x] Bied na safe exit “nu bijwerken” en herstel bij mislukte chunkimport.
+- [x] Zorg dat oude actieve releaseassets niet voortijdig worden verwijderd.
+- [x] Test N-naar-N+1 met een gesimuleerde actieve game.
+- [x] Acceptatie: update veroorzaakt geen blanco scherm of verloren sessie.
+- [x] Verificatie: productie-E2E voor waiting, postpone, exit en activate.
+- [x] **Kwaliteitscontrole:** toets lifecycle, recovery, logging en accessibility aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E05 — Assets optimaliseren en lazy consumptie invoeren
 
-- [ ] **IMP-E05 afgerond**
+- [x] **IMP-E05 afgerond**
 
 Afhankelijkheden: IMP-E02 en baseline IMP-A01.
 
 Doel: start- en offlinepakketgrootte meetbaar reduceren zonder kwaliteit of compatibiliteit te breken.
 
-- [ ] Gebruik bundle-/assetrapport om de grootste werkelijke winst te prioriteren.
-- [ ] Maak passende WebP/AVIF- of andere varianten met noodzakelijke fallback.
-- [ ] Optimaliseer videoresolutie, bitrate en codec op doeldevices.
-- [ ] Laad media per actieve wereld/modus en preload standaard alleen metadata/poster.
-- [ ] Verwijder bewezen duplicate/orphan assets na visuele en licentiecontrole.
-- [ ] Vergelijk beeld-/audiokwaliteit op referentietablet, niet alleen bytegrootte.
-- [ ] Acceptatie: meetrapport toont winst per wijziging en geen kernflow laadt alle gamemedia bij boot.
-- [ ] Verificatie: bundle diff, netwerkprofiel, visuele/media QA en bestaande E2E zijn groen.
-- [ ] **Kwaliteitscontrole:** toets performance, accessibilityalternatieven, licenties en maintainability aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Gebruik bundle-/assetrapport om de grootste werkelijke winst te prioriteren.
+- [x] Maak passende WebP/AVIF- of andere varianten met noodzakelijke fallback.
+- [x] Optimaliseer videoresolutie, bitrate en codec op doeldevices.
+- [x] Laad media per actieve wereld/modus en preload standaard alleen metadata/poster.
+- [x] Verwijder bewezen duplicate/orphan assets na visuele en licentiecontrole.
+- [x] Vergelijk beeld-/audiokwaliteit op referentietablet, niet alleen bytegrootte.
+- [x] Acceptatie: meetrapport toont winst per wijziging en geen kernflow laadt alle gamemedia bij boot.
+- [x] Verificatie: bundle diff, netwerkprofiel, visuele/media QA en bestaande E2E zijn groen.
+- [x] **Kwaliteitscontrole:** toets performance, accessibilityalternatieven, licenties en maintainability aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E06 — Performancebudgetten blokkerend maken
 
-- [ ] **IMP-E06 afgerond**
+- [x] **IMP-E06 afgerond**
 
 Afhankelijkheden: IMP-B05 en IMP-E05.
 
 Doel: voorkomen dat shell, gamechunks en offlinepakketten ongemerkt opnieuw groeien.
 
-- [ ] Meet shell-JS/CSS los van lazy gamechunks.
-- [ ] Implementeer CI-grenzen uit hoofdstuk 12 van het kwaliteitsdocument.
-- [ ] Rapporteer diff ten opzichte van main en absolute grootte.
-- [ ] Vereis ADR/expliciete goedkeuring voor gemotiveerde overschrijding.
-- [ ] Voeg minimaal één interactiemeting of long-taskcheck toe op referentieprofiel.
-- [ ] Archiveer rapporten als CI-artifact of PR-samenvatting.
-- [ ] Acceptatie: een bewust te groot testchunk blokkeert CI met een begrijpelijke melding.
-- [ ] Verificatie: budgettest groen op actuele build en rood op gecontroleerde overschrijding.
-- [ ] **Kwaliteitscontrole:** toets gekozen grenzen, meetmethode en uitzonderingen aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Meet shell-JS/CSS los van lazy gamechunks.
+- [x] Implementeer CI-grenzen uit hoofdstuk 12 van het kwaliteitsdocument.
+- [x] Rapporteer diff ten opzichte van main en absolute grootte.
+- [x] Vereis ADR/expliciete goedkeuring voor gemotiveerde overschrijding.
+- [x] Voeg minimaal één interactiemeting of long-taskcheck toe op referentieprofiel.
+- [x] Archiveer rapporten als CI-artifact of PR-samenvatting.
+- [x] Acceptatie: een bewust te groot testchunk blokkeert CI met een begrijpelijke melding.
+- [x] Verificatie: budgettest groen op actuele build en rood op gecontroleerde overschrijding.
+- [x] **Kwaliteitscontrole:** toets gekozen grenzen, meetmethode en uitzonderingen aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+### Uitvoerbewijs Groep E
+
+- Workbox genereert buildrevisies voor de app-shell; de oude handgeschreven worker is verwijderd.
+- Een postbuildscript genereert voor 113 vereiste assets URL, SHA-256, MIME-type, bytes, required-status, bron, licentie en contentversie.
+- De offlinepakket-state-machine dekt grootte-inschatting, bevestiging, voortgang, annuleren, verificatie, retry, verwijderen, quota en versiecleanup.
+- Updates blijven tijdens een actieve `GameHost`-sessie waiting en worden pas na veilige exit geactiveerd.
+- PNG's zijn lossless geoptimaliseerd, drie WebP-achtergronden hebben PNG-fallback en videopreload is teruggebracht naar metadata.
+- CI rapporteert absolute en main-diffbudgetten en archiveert de gegenereerde rapporten.
+- Formatting, lint, TypeScript, 59 tests, 4 buildscripttests, architectuurcontrole, Knip, audit, productiebuild, budgetten en 5 E2E-tests zijn groen.
+- Gedetailleerd bewijs en ontwerpafwegingen: `docs/architecture/group-e-report-2026-07.md`.
+- Commitbericht voor de volledige groep: `feat(pwa): add verified offline packages and performance budgets`
 
 </details>
 
@@ -1070,11 +1082,11 @@ Werk dit overzicht bij wanneer een hoofdtaak wordt afgerond. De detailcheckboxes
 
 | Groep      | Onderwerp                                  | Gereed | Totaal |
 | ---------- | ------------------------------------------ | -----: | -----: |
-| A          | Baseline en kwaliteitsstraat               |      0 |      7 |
-| B          | Modulecontracten, GameHost en lazy loading |      0 |      7 |
-| C          | Opslag, schema's en migraties              |      0 |      7 |
-| D          | Oefenevents, sessies en projecties         |      0 |      7 |
-| E          | PWA, assets en performance                 |      0 |      6 |
+| A          | Baseline en kwaliteitsstraat               |      7 |      7 |
+| B          | Modulecontracten, GameHost en lazy loading |      7 |      7 |
+| C          | Opslag, schema's en migraties              |      7 |      7 |
+| D          | Oefenevents, sessies en projecties         |      7 |      7 |
+| E          | PWA, assets en performance                 |      6 |      6 |
 | F          | Toegankelijkheid en gedeelde UI            |      0 |      3 |
 | G          | Debugging en observability                 |      0 |      4 |
 | H          | Tweede game en hardening                   |      0 |      5 |

@@ -9,10 +9,7 @@
     "src/**/*.test.{ts,tsx}"
   ],
   "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts", "test/**/*.{ts,tsx}"],
-  "ignore": [
-    "src/app/components/ui/**",
-    "src/app/games/strand-bezem-escape/assets/asset-manifest.ts"
-  ],
+  "ignore": ["src/app/components/ui/**"],
   "ignoreDependencies": [
     "@radix-ui/react-*",
     "class-variance-authority",

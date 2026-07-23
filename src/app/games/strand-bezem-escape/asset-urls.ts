@@ -1,8 +1,14 @@
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
+  portraitWebp: new URL("./assets/backgrounds/beach-board-portrait.webp", import.meta.url).href,
   landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
+  landscapeWebp: new URL("./assets/backgrounds/beach-board-landscape.webp", import.meta.url).href,
   voiceSideScroller: new URL("./assets/backgrounds/beach-voice-side-scroller.png", import.meta.url)
     .href,
+  voiceSideScrollerWebp: new URL(
+    "./assets/backgrounds/beach-voice-side-scroller.webp",
+    import.meta.url,
+  ).href,
 };
 export const startLogoUrl = new URL("./assets/logos/start-logo-beach.png", import.meta.url).href;
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)

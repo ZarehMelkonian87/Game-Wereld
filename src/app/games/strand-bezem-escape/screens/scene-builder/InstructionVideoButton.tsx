@@ -101,7 +101,7 @@ export const InstructionVideoButton = ({
         onError={stopForegroundAudioSession}
         onPause={stopForegroundAudioSession}
         playsInline
-        preload="auto"
+        preload="metadata"
         ref={videoRef}
         src={src}
         style={{

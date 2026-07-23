@@ -1,12 +1,10 @@
 /// <reference types="vite/client" />
+import { registerPwaWorker } from "./app/pwa/pwaLifecycle";
 
 const shouldRegisterServiceWorker = () =>
-  import.meta.env.PROD &&
-  "serviceWorker" in navigator &&
-  window.isSecureContext &&
-  !["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+  import.meta.env.PROD && "serviceWorker" in navigator && window.isSecureContext;
 
-export const registerServiceWorker = () => {
+export const registerServiceWorker = async () => {
   if (!shouldRegisterServiceWorker()) {
     if ("serviceWorker" in navigator && !import.meta.env.PROD) {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
@@ -15,12 +13,9 @@ export const registerServiceWorker = () => {
         }
       });
     }
-    return;
+    return undefined;
   }
 
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {
-      // Installatie blijft optioneel; de app moet ook zonder service worker werken.
-    });
-  });
+  const { registerSW } = await import("virtual:pwa-register");
+  return registerPwaWorker(registerSW);
 };
