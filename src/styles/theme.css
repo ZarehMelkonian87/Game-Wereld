@@ -307,6 +307,80 @@ a,
   will-change: transform;
 }
 
+/* Word-choice feedback (UX-303): levendige reactie bij goed en fout.
+ * Kleur, vinkje en kruisje communiceren de status ook zonder beweging,
+ * zodat de reduced-motion-variant volledig begrijpelijk blijft. */
+@keyframes bezem-choice-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.06);
+  }
+
+  55% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bezem-choice-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+
+  20% {
+    transform: translateX(-5px) rotate(-1.5deg);
+  }
+
+  40% {
+    transform: translateX(5px) rotate(1.5deg);
+  }
+
+  60% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translateX(4px) rotate(1deg);
+  }
+}
+
+@keyframes bezem-choice-sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(4px);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2) translateY(-14px);
+  }
+}
+
+.bezem-choice-correct {
+  animation: bezem-choice-pop 0.5s ease-out;
+}
+
+.bezem-choice-wrong {
+  animation: bezem-choice-shake 0.45s ease-in-out;
+}
+
+.bezem-choice-sparkle {
+  opacity: 0;
+  animation: bezem-choice-sparkle 0.9s ease-out forwards;
+  will-change: opacity, transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -325,7 +399,10 @@ a,
   .bezem-start-trail,
   .bezem-start-sparkle,
   .bezem-scroller-float,
-  .bezem-scroller-bump {
+  .bezem-scroller-bump,
+  .bezem-choice-correct,
+  .bezem-choice-wrong,
+  .bezem-choice-sparkle {
     animation: none;
   }
 }

@@ -1,4 +1,4 @@
-import { Sparkles, Volume2 } from "lucide-react";
+import { Check, Sparkles, Volume2, X } from "lucide-react";
 import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
@@ -8,6 +8,7 @@ import {
   PanelCard,
   PrimaryActionButton,
 } from "../components/ui";
+import { classNames } from "../components/ui/classNames";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { useGameRuntime } from "../runtime/GameRuntimeContext";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
@@ -131,20 +132,78 @@ export const WordChoiceScreen = ({
           className="grid min-h-0 grid-cols-2 items-stretch justify-center gap-3 !p-3 landscape:col-start-2 landscape:row-span-3 landscape:row-start-1 landscape:gap-4 landscape:!p-4"
           data-testid="word-choice-answer-area"
         >
-          {answerOptions.map((option) => (
-            <ObjectStickerButton
-              className="pointer-events-auto h-full w-full"
-              imageUrl={option.imageUrl}
-              key={option.id}
-              label={option.label}
-              onClick={() => handleAnswerSelect(option.id)}
-              selected={
-                selectedAnswerId === option.id ||
-                (usedHint && option.id === instruction.targetObjectIds[0])
-              }
-              showLabel={false}
-            />
-          ))}
+          {answerOptions.map((option) => {
+            const isTarget = option.id === instruction.targetObjectIds[0];
+            const isChosen = selectedAnswerId === option.id;
+            const status =
+              feedback?.kind === "correct" && (isChosen || (usedHint && isTarget))
+                ? "correct"
+                : feedback?.kind === "almost" && isChosen
+                  ? "wrong"
+                  : usedHint && isTarget
+                    ? "reveal"
+                    : "idle";
+
+            return (
+              <div className="relative flex" key={option.id}>
+                <ObjectStickerButton
+                  className={classNames(
+                    "pointer-events-auto h-full w-full",
+                    status === "correct" &&
+                      "border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.28),0_8px_18px_rgba(16,185,129,0.3)] bezem-choice-correct",
+                    status === "wrong" &&
+                      "border-[#e8663d] shadow-[0_0_0_3px_rgba(232,102,61,0.3)] bezem-choice-wrong",
+                    status === "reveal" && "border-emerald-400",
+                    status === "idle" && "border-slate-200",
+                  )}
+                  data-answer-status={status}
+                  imageUrl={option.imageUrl}
+                  label={option.label}
+                  onClick={() => handleAnswerSelect(option.id)}
+                  selected={isChosen || (usedHint && isTarget)}
+                  showLabel={false}
+                  size="choice"
+                />
+                {status === "correct" ? (
+                  <>
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-1.5 -top-1.5 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+                    >
+                      <Check className="h-4 w-4" strokeWidth={3.5} />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="bezem-choice-sparkle pointer-events-none absolute left-2 top-1 text-sm"
+                    >
+                      ✨
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="bezem-choice-sparkle pointer-events-none absolute right-3 top-2 text-sm"
+                      style={{ animationDelay: "0.12s" }}
+                    >
+                      ⭐
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="bezem-choice-sparkle pointer-events-none absolute bottom-2 left-4 text-sm"
+                      style={{ animationDelay: "0.24s" }}
+                    >
+                      ✨
+                    </span>
+                  </>
+                ) : status === "wrong" ? (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-1.5 -top-1.5 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-[#e8663d] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+                  >
+                    <X className="h-4 w-4" strokeWidth={3.5} />
+                  </span>
+                ) : null}
+              </div>
+            );
+          })}
         </PanelCard>
 
         <PanelCard

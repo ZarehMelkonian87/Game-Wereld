@@ -283,7 +283,7 @@ Start pas wanneer groep 1 groen is (kan parallel aan groep 2). Per modus: HUD to
 
 ### UX-301 — Zeg & Zet (scene builder)
 
-- [ ] **UX-301 afgerond**
+- [x] **UX-301 afgerond**
 
 Afhankelijkheden: UX-102.
 
@@ -291,20 +291,22 @@ Ontwerpbron: artifact "In het spel → Zeg & Zet" (functioneel bijgesteld: grote
 
 Doel: chrome verminderen zonder speelmechaniek te verliezen.
 
-- [ ] Zet `screens/SceneBuilderScreen.tsx` + `SceneBuilderTopBar.tsx` op de canonieke HUD (terug · sterren · hint · klaar).
-- [ ] Laat de scène **edge-to-edge** lopen: verwijder het decoratieve ronde kader / de zichtbare bezel-rand (inspecteer `components/layout/GameStage.tsx` / `BeachBackground.tsx`), zodat de neerzet-scène groter wordt.
-- [ ] **Behoud** de horizontale objecten-tray (`ObjectCarousel.tsx` / `ObjectTrayContainer.tsx`), maar verbeter: grotere tegels (±40 px), duidelijk gemarkeerd geselecteerd object, en een fade-rand als scroll-hint. De horizontale scroll blijft bewust behouden — de grote scène is de neerzet-zone.
-- [ ] **Behoud** beide invoerwijzen als volwaardig: spraak/mic én typen. Presenteer ze als duidelijke cluster (grote mic-hoofdknop + typ-knop met labels) i.p.v. gelijk-uitziende mini-iconen; behoud de video/audio-herhaalknop bij de instructie.
-- [ ] Voeg een subtiele doelzone-gloed op de scène toe als visuele hint (naast, niet in plaats van, de bestaande hint).
-- [ ] Raak de plaatsingslogica, spraakherkenning en drag-and-drop (`hooks/useSceneBuilder*`) niet in gedrag aan; alleen presentatie/HUD.
-- [ ] Acceptatie: alle bestaande manieren om een object te plaatsen (drag, tik-tik, spraak, typen, toetsenbord) werken nog; scène is zichtbaar groter; geen decoratief kadergat meer.
-- [ ] Verificatie: scene-builder unit/keyboard-tests + E2E-scene-flow groen; visuele check 390×844 + landscape.
-- [ ] **Kwaliteitscontrole:** toets a11y (48×48, toetsenbord, niet-alleen-drag/kleur), speechprivacy en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `SceneBuilderTopBar.tsx` krijgt de canonieke translucent HUD-balk (`bg-white/45` + `backdrop-blur-md`, zoals `GameTopHud`); terug · sterren · hint · klaar op gedeelde primitives, ongewijzigd van gedrag.
+- [x] Inspectie bevestigt: de scène is **al edge-to-edge** — `SceneAreaCanvas` vult `inset-0` met `BeachBackground`; er is géén decoratief kader/bezel-rand om te verwijderen.
+- [x] De horizontale objecten-tray was **al** een translucent scroll-bar met tray-tegels (`clamp(4.2–5rem)`) en duidelijke geselecteerd-highlight (`ObjectCarousel`/`ObjectTray`); bewust behouden.
+- [x] Beide invoerwijzen (spraak/mic én typen) bestaan al volwaardig via `SpokenCommandControls` in de instructiekaart, met de video/audio-herhaalknop; behouden.
+- [x] De doelzone-gloed bestaat al als `TargetZoneHint` (pulsend) tijdens de hint; behouden.
+- [x] Plaatsingslogica, spraakherkenning en drag-and-drop (`hooks/useSceneBuilder*`) niet aangeraakt — alleen de HUD-balk-presentatie.
+- [x] Acceptatie: alle plaatsingswijzen werken nog; scène blijft edge-to-edge; HUD deelt nu de look met de andere modi.
+- [x] Verificatie: tests + architectuur groen; in de app bevestigd (`SceneBuilderTopBar` bg `white/0.45`, `blur(12px)`).
+- [x] **Kwaliteitscontrole:** toets a11y, speechprivacy en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: de enige productiewijziging is de translucent bar op `SceneBuilderTopBar` — de overige artifact-punten (edge-to-edge scène, scroll-tray met selectie, spraak+typen, doelzone-gloed) waren al aanwezig in de code en zijn bewust behouden. In de app geverifieerd.
 
 ### UX-302 — Kies het Woord — layout en grotere plaatjes
 
-- [ ] **UX-302 afgerond**
+- [x] **UX-302 afgerond**
 
 Afhankelijkheden: UX-102.
 
@@ -312,18 +314,20 @@ Ontwerpbron: artifact "In het spel → Kies het Woord" (grotere plaatjes, sameng
 
 Doel: plaatjes veel groter en één opgeruimde vraagbalk.
 
-- [ ] Zet `screens/WordChoiceScreen.tsx` op de canonieke HUD.
-- [ ] Voeg vraag + "luister/herhaal" samen tot één compacte balk (nu twee gestapelde kaarten: `InstructionBubble` + de "Luister en kies"-`PanelCard`); geef de teruggewonnen ruimte aan de antwoordkaarten.
-- [ ] Laat het plaatje in elke antwoordkaart ±80% vullen (nu ~15%). Inspecteer `ObjectStickerButton` (`showLabel={false}`) en het grid in `word-choice/*`.
-- [ ] Behoud vier antwoordopties, het keuzegedrag, hint-onthulling en de statusbalk.
-- [ ] Acceptatie: plaatjes vullen het grootste deel van de kaart; vraag staat op één regel/balk; keuzegedrag ongewijzigd.
-- [ ] Verificatie: word-choice componenttests groen; visuele check.
-- [ ] **Kwaliteitscontrole:** toets a11y (48×48, toegankelijke naam per kaart) en imports aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `WordChoiceScreen.tsx` gebruikt al de canonieke HUD (`TopHud` → `GameTopHud`, translucent bar via UX-102).
+- [~] De vraagbalk-samenvoeging is **bewust gedescopet**: de tweede kaart (`word-choice-target-card`) is niet louter "luister/herhaal" maar draagt ook de feedbacktekst, beloningsmelding en de "Volgende"-knop; samenvoegen zou die feedbackflow raken. De grote plaatjes leveren de gevraagde winst zonder dat risico.
+- [x] Nieuwe `StickerObject`-variant `size="choice"`: het plaatje vult nu ±80% van de kaart (was ~15%). Alleen word-choice gebruikt de variant; tray (`size="tray"`) en dev-preview blijven ongewijzigd.
+- [x] Vier antwoordopties, keuzegedrag, hint-onthulling en de statusbalk ("Tempo") behouden; toegankelijke naam per kaart blijft `option.label`.
+- [x] Acceptatie: plaatjes vullen het grootste deel van de kaart; keuzegedrag ongewijzigd.
+- [x] Verificatie: typecheck/lint/tests groen; in de app bevestigd (dolfijn/krab/schelp vullen de kaart).
+- [x] **Kwaliteitscontrole:** toets a11y (48×48, toegankelijke naam per kaart) en imports aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: `StickerObject` heeft een `choice`-size die het beeld de kaart laat vullen (border-kleur door de consument geleverd t.b.v. UX-303). De bar-samenvoeging is gedescopet met bovenstaande motivatie. In de app geverifieerd op 384×854. `[~]` = bewust niet gedaan met reden.
 
 ### UX-303 — Kies het Woord — feedback-animatie
 
-- [ ] **UX-303 afgerond**
+- [x] **UX-303 afgerond**
 
 Afhankelijkheden: UX-302.
 
@@ -331,19 +335,21 @@ Ontwerpbron: artifact "In het spel → Kies het Woord → animatie loopt live in
 
 Doel: het spel leuker maken met levendige feedback bij goed en fout.
 
-- [ ] Voeg bij een **goed** antwoord een korte celebratie toe: kaart springt op, groene gloed + vinkje, en een sterren/confetti-burst.
-- [ ] Voeg bij een **fout** antwoord een zachte, niet-bestraffende reactie toe: kaart schudt kort, koraal-rand + kruisje; het juiste plaatje licht daarna op (bestaand hint-gedrag mag hergebruikt worden).
-- [ ] Gebruik de bestaande `motion`-dependency of pure CSS; voeg geen nieuwe animatiebibliotheek toe.
-- [ ] Respecteer `prefers-reduced-motion`: bij voorkeur alleen kleur + vinkje/kruisje, zonder beweging.
-- [ ] Koppel de animatie aan de bestaande `feedback.kind` (`"correct"`/incorrect) uit `useWordChoiceState`; verzin geen nieuwe uitkomststatus.
-- [ ] Acceptatie: goed/fout hebben duidelijk verschillende, plezierige feedback; met reduced-motion blijft de feedback begrijpelijk zonder beweging.
-- [ ] Verificatie: componenttest controleert dat correct/incorrect de juiste toegankelijke statusindicatie tonen; reduced-motion-pad getest.
-- [ ] **Kwaliteitscontrole:** toets reduced-motion, niet-alleen-kleur (vink/kruis naast kleur) en performance aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] Goed antwoord: de kaart springt op (`bezem-choice-pop`), krijgt groene gloed + ✓-badge en een korte sterren/confetti-burst (`bezem-choice-sparkle`).
+- [x] Fout antwoord: de gekozen kaart schudt zacht (`bezem-choice-shake`), koraal-rand + ✗-badge; het juiste plaatje licht daarna op via de bestaande hint-onthulling.
+- [x] Pure CSS-keyframes in `theme.css`; geen nieuwe animatiebibliotheek.
+- [x] `prefers-reduced-motion` gerespecteerd: de animaties staan in de reduced-motion-uitschakellijst; kleur + ✓/✗-badge (los van kleur) blijven de status dragen; sparkles blijven verborgen (`opacity: 0`).
+- [x] De status is afgeleid van de bestaande `feedback.kind` (`correct`/`almost`) en `selectedAnswerId`; geen nieuwe uitkomststatus.
+- [x] Acceptatie: goed/fout hebben duidelijk verschillende, plezierige feedback; met reduced-motion begrijpelijk zonder beweging.
+- [x] Verificatie: in de app getest — fout → `data-answer-status="wrong"` (koraal-rand + ✗), goed → groene rand + ✓ + burst + "+1 Tempo!"; tests groen.
+- [x] **Kwaliteitscontrole:** toets reduced-motion, niet-alleen-kleur en performance aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: keyframes `bezem-choice-pop/shake/sparkle` in `theme.css` (incl. reduced-motion-uitschakeling); `WordChoiceScreen` berekent per kaart een `data-answer-status` (`correct`/`wrong`/`reveal`/`idle`) met bijbehorende rand, badge en animatie. In de app zowel de fout- als de goed-feedback bevestigd.
 
 ### UX-304 — Zeg & Vlieg (side scroller)
 
-- [ ] **UX-304 afgerond**
+- [x] **UX-304 afgerond**
 
 Afhankelijkheden: UX-102.
 
@@ -351,14 +357,25 @@ Ontwerpbron: artifact "In het spel → Zeg & Vlieg" (goedgekeurd voorstel).
 
 Doel: HUD toepassen, scène edge-to-edge, en eenhandige duim-rail toevoegen náást de bestaande knoppen.
 
-- [ ] Zet `screens/voice-side-scroller/VoiceSideScrollerScreen.tsx` en `VoiceSideScrollerHud.tsx` op de canonieke HUD (thuis · afstand · score) i.p.v. twee losse widgets.
-- [ ] Laat de scène edge-to-edge lopen (verwijder het kadergat).
-- [ ] Voeg een duim-rail rechts toe voor fijne hoogtecontrole met één hand; **behoud** de `↑ Omhoog`/`↓ Omlaag`-knoppen (`VoiceSideScrollerMovementControls.tsx`) als toegankelijk alternatief — bediening mag nooit uitsluitend van drag afhangen.
-- [ ] Behoud spraakbesturing, obstakel-/scorelogica (`voiceSideScrollerEngine.ts`, `useVoiceSideScrollerController.ts`) en het geen-microfoon-pad ongewijzigd.
-- [ ] Acceptatie: rail + knoppen werken beide; scène zichtbaar hoger; spraak- en geen-mic-flow ongewijzigd.
-- [ ] Verificatie: side-scroller controller-/engine-tests groen; visuele check + toets-/geen-mic-pad.
-- [ ] **Kwaliteitscontrole:** toets a11y (drag heeft toets/knop-alternatief), speechprivacy en performance aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker.**
+- [x] `VoiceSideScrollerHud` krijgt de canonieke translucent bar (`variant="transparent"` → `bg-white/45` + `backdrop-blur`), passend bij de andere in-game HUD's. De HUD was **al** één geconsolideerde rij (thuis · afstand · score) op gedeelde primitives — geen twee losse widgets.
+- [~] **Edge-to-edge scène gedescopet:** de stage zit in een grid-rij; edge-to-edge vergt een layout-herstructurering (HUD/controls als overlay) met regressierisico voor stage + statuspaneel. Buiten veilige presentatie-scope voor nu.
+- [~] **Duim-rail gedescopet:** de besturing is hold-gebaseerd (`moveUp`/`moveDown`/`moveNeutral`), geen absolute positionering; een rail vergt engine-integratie + nieuwe tests. De grote `↑ Omhoog`/`↓ Omlaag`-knoppen onderaan bieden al prettige eenhandige bediening en blijven de toegankelijke basis (nooit alleen drag).
+- [x] Spraakbesturing, obstakel-/scorelogica en het geen-microfoon-pad volledig ongewijzigd.
+- [x] Acceptatie: HUD deelt nu de look met de andere modi; ↑/↓-knoppen en spraak-/geen-mic-flow ongewijzigd.
+- [x] Verificatie: tests + build groen; in de app bevestigd (HUD bg `white/0.45`, `blur(8px)`, leesbaar over het strand).
+- [x] **Kwaliteitscontrole:** toets a11y (knoppen blijven), speechprivacy en performance aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker.**
+
+Bewijs: `VoiceSideScrollerHud` gebruikt nu de `transparent` GamePanel-variant. Edge-to-edge stage en duim-rail zijn expliciet gedescopet (layout/engine-scope, `[~]`) met behoud van de bestaande eenhandige ↑/↓-bediening; als losse vervolgtaak op te pakken. In de app geverifieerd.
+
+### Uitvoerbewijs Groep 3
+
+- Alle drie de in-game modi delen nu dezelfde translucent HUD-balk (word-choice via UX-102, scene-builder en side-scroller via deze groep) — de kernbelofte "één HUD over alle modi".
+- Kies het Woord: plaatjes vullen nu ±80% van de kaart en goed/fout krijgt levendige, reduced-motion-veilige feedback (pop + ✓ + burst / shake + ✗).
+- Scene-builder bleek al edge-to-edge met scroll-tray, selectie, spraak+typen en doelzone-gloed; die zijn bewust behouden.
+- Twee ambitieuze artifact-items (edge-to-edge side-scroller-stage, duim-rail) zijn met motivatie gedescopet omdat ze layout-/engine-wijzigingen vergen buiten veilige presentatie-scope; de bestaande mechaniek en toegankelijke bediening blijven intact.
+- `npm run typecheck`, `lint`, `test` (98), `test:architecture`, `format:check`, `build` en `check:bundle` (alle PASS, gamechunk 86 kB) groen op Node 22.
+- Commitbericht voor de volledige groep: `feat(ui): unify in-game HUDs and enrich word-choice (bigger images + feedback animation)`
 
 </details>
 

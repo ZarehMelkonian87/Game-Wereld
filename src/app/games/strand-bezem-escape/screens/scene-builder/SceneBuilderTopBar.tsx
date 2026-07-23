@@ -31,7 +31,7 @@ export const SceneBuilderTopBar = ({
 
   return (
     <header
-      className="pointer-events-auto grid min-h-14 grid-cols-[auto_1fr_auto_auto] items-center gap-2"
+      className="pointer-events-auto grid min-h-14 grid-cols-[auto_1fr_auto_auto] items-center gap-2 rounded-[1.35rem] bg-white/45 p-1.5 shadow-[0_6px_18px_-8px_rgba(15,23,42,0.35)] backdrop-blur-md"
       data-component="SceneBuilderTopBar"
     >
       <GameIconButton

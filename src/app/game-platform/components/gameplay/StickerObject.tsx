@@ -10,7 +10,7 @@ export interface StickerObjectProps extends Omit<
   label: string;
   selected?: boolean;
   showLabel?: boolean;
-  size?: "default" | "tray";
+  size?: "choice" | "default" | "tray";
 }
 
 export const StickerObject = ({
@@ -24,6 +24,9 @@ export const StickerObject = ({
   ...buttonProps
 }: StickerObjectProps) => {
   const isTraySize = size === "tray";
+  // "choice" vult de kaart met een groot plaatje (word-choice); de randkleur
+  // wordt door de consument geleverd zodat correct/fout-status apart kan.
+  const isChoiceSize = size === "choice";
   const [isInteracting, setIsInteracting] = useState(false);
 
   return (
@@ -46,11 +49,16 @@ export const StickerObject = ({
       className={classNames(
         "flex max-h-full shrink-0 flex-col items-center justify-center gap-1 text-slate-900 transition duration-150 active:translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
         isInteracting ? "touch-none" : isTraySize ? "touch-pan-x" : "touch-manipulation",
-        isTraySize
-          ? "min-h-[clamp(4.2rem,10vw,5rem)] min-w-[clamp(4.2rem,10vw,5rem)] rounded-xl border-0 bg-transparent px-2.5 py-2.5 shadow-none"
-          : "min-h-[82px] min-w-[78px] rounded-2xl border-2 bg-white/95 px-2 py-2 shadow-[0_3px_0_rgba(15,23,42,0.18)] active:shadow-none",
+        isTraySize &&
+          "min-h-[clamp(4.2rem,10vw,5rem)] min-w-[clamp(4.2rem,10vw,5rem)] rounded-xl border-0 bg-transparent px-2.5 py-2.5 shadow-none",
+        isChoiceSize &&
+          "min-h-[5.5rem] rounded-2xl border-2 bg-white/95 p-3 shadow-[0_3px_0_rgba(15,23,42,0.18)] active:shadow-none",
+        !isTraySize &&
+          !isChoiceSize &&
+          "min-h-[82px] min-w-[78px] rounded-2xl border-2 bg-white/95 px-2 py-2 shadow-[0_3px_0_rgba(15,23,42,0.18)] active:shadow-none",
         isTraySize && selected && "scale-105 drop-shadow-[0_0_0.45rem_rgba(16,185,129,0.75)]",
         !isTraySize &&
+          !isChoiceSize &&
           (selected
             ? "border-emerald-500 ring-2 ring-emerald-200"
             : "border-slate-300 hover:border-sky-400 hover:bg-sky-50"),
@@ -65,7 +73,9 @@ export const StickerObject = ({
       <span
         className={classNames(
           "flex items-center justify-center",
-          isTraySize ? "h-12 w-12" : "h-12 w-12 rounded-xl bg-sky-50/80",
+          isChoiceSize && "h-full w-full min-h-0 flex-1",
+          isTraySize && "h-12 w-12",
+          !isTraySize && !isChoiceSize && "h-12 w-12 rounded-xl bg-sky-50/80",
         )}
         data-slot="image-frame"
       >
@@ -73,9 +83,9 @@ export const StickerObject = ({
           alt=""
           className={classNames(
             "object-contain",
-            isTraySize
-              ? "max-h-12 max-w-12 drop-shadow-[0_3px_0_rgba(15,23,42,0.14)]"
-              : "max-h-11 max-w-11",
+            isChoiceSize && "max-h-full max-w-full",
+            isTraySize && "max-h-12 max-w-12 drop-shadow-[0_3px_0_rgba(15,23,42,0.14)]",
+            !isTraySize && !isChoiceSize && "max-h-11 max-w-11",
           )}
           data-slot="image"
           draggable={false}

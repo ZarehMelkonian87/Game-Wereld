@@ -22,6 +22,7 @@ export const VoiceSideScrollerHud = ({ onBackToMenu, state }: VoiceSideScrollerH
       className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 !rounded-[1.35rem] !p-2"
       data-component="VoiceSideScrollerHud"
       data-testid="voice-side-scroller-hud"
+      variant="transparent"
     >
       <HudIconButton
         icon={<Home className="h-5 w-5" strokeWidth={3} />}
