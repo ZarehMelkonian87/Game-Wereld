@@ -60,6 +60,7 @@ export const settingsRecordSchema = z
 
 export const gameSessionRecordSchema = z
   .object({
+    contentVersion: z.string().min(1),
     contractVersion: versionSchema,
     endedAt: utcDateTimeSchema.optional(),
     gameId: z.string().min(1).transform(createGameId),
@@ -72,7 +73,9 @@ export const gameSessionRecordSchema = z
 
 export const practiceEventEnvelopeSchema = z
   .object({
-    assistance: z.array(z.enum(["instruction-replay", "visual-hint", "spoken-help"])),
+    assistance: z
+      .array(z.enum(["instruction-replay", "visual-hint", "spoken-help"]))
+      .refine((values) => new Set(values).size === values.length, "Hulptypen moeten uniek zijn."),
     attemptNumber: z.number().int().positive(),
     contentVersion: z.string().min(1),
     gameId: z.string().min(1).transform(createGameId),
@@ -88,20 +91,46 @@ export const practiceEventEnvelopeSchema = z
   })
   .strict();
 
+export const skillProgressSummarySchema = z
+  .object({
+    attempts: z.number().int().nonnegative(),
+    incorrect: z.number().int().nonnegative(),
+    independentCorrect: z.number().int().nonnegative(),
+    skillId: z.string().min(1),
+    skipped: z.number().int().nonnegative(),
+    supportedCorrect: z.number().int().nonnegative(),
+  })
+  .strict();
+
 export const progressProjectionSchema = z
   .object({
     attempts: z.number().int().nonnegative(),
     calculatedAt: utcDateTimeSchema,
     gameId: z.string().min(1).transform(createGameId),
     hintsUsed: z.number().int().nonnegative(),
+    incorrect: z.number().int().nonnegative().default(0),
     independentCorrect: z.number().int().nonnegative(),
+    instructionReplays: z.number().int().nonnegative().default(0),
     lastPracticedAt: utcDateTimeSchema.optional(),
+    measuredResponses: z.number().int().nonnegative().default(0),
     profileId: z.string().min(1).transform(createProfileId),
     projectorVersion: z.number().int().positive(),
     score: z.number().nonnegative(),
+    skillSummaries: z.array(skillProgressSummarySchema).default([]),
+    skipped: z.number().int().nonnegative().default(0),
+    sourceSelection: z
+      .object({
+        eventCount: z.number().int().nonnegative(),
+        fromOccurredAt: utcDateTimeSchema.optional(),
+        throughOccurredAt: utcDateTimeSchema.optional(),
+      })
+      .strict()
+      .default({ eventCount: 0 }),
+    spokenHelp: z.number().int().nonnegative().default(0),
     stars: z.number().int().nonnegative(),
     status: z.enum(["not-started", "practicing", "confident"]),
     supportedCorrect: z.number().int().nonnegative(),
+    totalResponseTimeMs: z.number().int().nonnegative().default(0),
   })
   .passthrough();
 
@@ -167,3 +196,4 @@ export type ProfileRecord = z.infer<typeof profileRecordSchema>;
 export type ProfileSettingsRecord = z.infer<typeof profileSettingsRecordSchema>;
 export type ProgressProjection = z.infer<typeof progressProjectionSchema>;
 export type SettingsRecord = z.infer<typeof settingsRecordSchema>;
+export type SkillProgressSummary = z.infer<typeof skillProgressSummarySchema>;

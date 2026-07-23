@@ -10,7 +10,7 @@ import type {
 } from "./schemas";
 
 export const DATABASE_NAME = "game-wereld";
-export const DATABASE_VERSION = 1;
+export const DATABASE_VERSION = 2;
 
 export interface GameWorldTables {
   databaseMeta: Table<DatabaseMetaRecord, string>;
@@ -29,7 +29,7 @@ export interface GameWorldDatabase {
 
 export const createGameWorldDatabase = (name = DATABASE_NAME): GameWorldDatabase => {
   const db = new Dexie(name);
-  db.version(DATABASE_VERSION).stores({
+  db.version(1).stores({
     databaseMeta: "&key, updatedAt",
     gameSessions: "&id, profileId, gameId, startedAt, [profileId+startedAt]",
     practiceEvents:
@@ -39,6 +39,27 @@ export const createGameWorldDatabase = (name = DATABASE_NAME): GameWorldDatabase
     progressProjections: "&[profileId+gameId], profileId, gameId, status",
     settings: "&[profileId+scope], profileId, scope, updatedAt",
   });
+  db.version(DATABASE_VERSION)
+    .stores({
+      databaseMeta: "&key, updatedAt",
+      gameSessions: "&id, profileId, gameId, status, startedAt, [profileId+startedAt]",
+      practiceEvents:
+        "&id, profileId, gameId, sessionId, occurredAt, [profileId+gameId], [profileId+occurredAt]",
+      profileSettings: "&profileId, updatedAt",
+      profiles: "&id, createdAt, updatedAt",
+      progressProjections: "&[profileId+gameId], profileId, gameId, status",
+      settings: "&[profileId+scope], profileId, scope, updatedAt",
+    })
+    .upgrade(async (transaction) => {
+      await transaction
+        .table("gameSessions")
+        .toCollection()
+        .modify((session: Record<string, unknown>) => {
+          if (typeof session.contentVersion !== "string") {
+            session.contentVersion = "legacy-unknown";
+          }
+        });
+    });
 
   return {
     db,

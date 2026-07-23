@@ -413,20 +413,20 @@ Staat niet hardcoded in content files. Games rapporteren oefenmomenten aan het p
 Aanbevolen eventvorm:
 
 ```ts
-export type PracticeEvent = {
-  profileId: string;
-  gameId: string;
-  sessionId: string;
-  taskId: string;
-  skill: string;
-  difficulty: number;
-  result: "correct" | "with-help" | "incorrect" | "skipped";
-  attempts: number;
-  hintsUsed: number;
-  audioRepeats: number;
+export type PracticeEventV1 = {
+  schemaVersion: 1;
+  id: EventId;
+  occurredAt: string;
+  profileId: ProfileId;
+  gameId: GameId;
+  sessionId: SessionId;
+  contentVersion: string;
+  taskId: TaskId;
+  skillIds: string[];
+  outcome: "correct" | "incorrect" | "skipped";
+  attemptNumber: number;
   responseTimeMs?: number;
-  practicedItemIds: string[];
-  createdAt: string;
+  assistance: Array<"instruction-replay" | "visual-hint" | "spoken-help">;
 };
 ```
 
@@ -437,11 +437,10 @@ Dashboard data wordt daarna afgeleid uit events. Dat is beter dan losse percenta
 Voor nu is lokale opslag goed, omdat de app prive en lokaal bedoeld is. De architectuur moet wel duidelijk maken waar opslag hoort:
 
 ```txt
-game-platform/storage/
-  browserGameStorage.ts
-
-game-platform/profile/
-  profile.types.ts
+storage/
+  contracts.ts
+  progressProjector.ts
+  runtimeAdapters.ts
 
 game-platform/progress/
   progress.types.ts
@@ -654,20 +653,20 @@ Niet alles hoeft tegelijk. Elke keer dat een game wordt aangeraakt, wordt hij di
 
 ## Implementatiestatus
 
-Status op 2 juni 2026:
+Status op 23 juli 2026:
 
-| Onderdeel                            | Status      | Opmerking                                                                                                                  |
-| ------------------------------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Globale screen feature-mappen        | Gedaan      | `src/app/screens` is opgesplitst per scherm met gedeelde helpers in `shared/`.                                             |
-| Game platform basis                  | Gedaan      | `src/app/game-platform` bevat primitives, layout, gameplay components, storage, speech, profile, progress, theme en types. |
-| Game registry                        | Gedaan      | `src/app/games/registry.ts` koppelt game id's aan config en component.                                                     |
-| Game launcher                        | Gedaan      | `GamePlayScreen` gebruikt de registry in plaats van een handmatige game-id check.                                          |
-| Profile types naar platform          | Gedaan      | `Avatar`, `Profile`, `ProfileSettings` en `GameProgress` komen uit `game-platform`.                                        |
-| Profile storage helper               | Gedaan      | Profieldata en current profile id worden gelezen en opgeslagen via `game-platform/profile/profileStorage.ts`.              |
-| Practice event basis                 | Gedaan      | `PracticeEvent` en `PracticeResult` zijn vastgelegd in `game-platform/progress`.                                           |
-| App catalogus uit configs            | Nog te doen | `src/app/data/games.ts` bevat nog handmatige metadata voor veel games.                                                     |
-| Alle placeholder games naar template | Nog te doen | Veel kleine games hebben nog alleen een eenvoudige `index.tsx` en `README.md`.                                             |
-| Dashboard op practice events         | Nog te doen | Het algemene dashboard gebruikt nog demo/afgeleide data, niet alle echte `PracticeEvent` data.                             |
+| Onderdeel                            | Status      | Opmerking                                                                                               |
+| ------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------- |
+| Globale screen feature-mappen        | Gedaan      | `src/app/screens` is opgesplitst per scherm met gedeelde helpers in `shared/`.                          |
+| Game platform basis                  | Gedaan      | `src/app/game-platform` bevat contracten, primitives, layout, media/speech-poorten en runtime-adapters. |
+| Game registry                        | Gedaan      | De lazy registry valideert manifesten en canonical game-id's.                                           |
+| Game launcher                        | Gedaan      | `GameHost` bezit loading, capabilities, sessies en foutgrenzen.                                         |
+| Profile types naar platform          | Gedaan      | `Avatar`, `Profile`, `ProfileSettings` en `GameProgress` komen uit `game-platform`.                     |
+| Profile repositories                 | Gedaan      | Profielen, settings, sessies, events en projecties lopen via repositorycontracten boven IndexedDB.      |
+| Practice event basis                 | Gedaan      | Alle modi schrijven privacyveilige `PracticeEventV1`-events via `GameRuntime.practice`.                 |
+| App catalogus uit configs            | Nog te doen | `src/app/data/games.ts` bevat nog handmatige metadata voor veel games.                                  |
+| Alle placeholder games naar template | Nog te doen | Veel kleine games hebben nog alleen een eenvoudige `index.tsx` en `README.md`.                          |
+| Dashboard op practice events         | Gedaan      | Periodecijfers, activiteit, mijlpalen en uitleg komen uit events en projectorversie.                    |
 
 ## Verdediging Van Deze Architectuur
 

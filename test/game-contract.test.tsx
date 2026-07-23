@@ -79,15 +79,12 @@ describe("generiek gamecontract", () => {
   it("schrijft hetzelfde oefenevent-id maximaal één keer", async () => {
     const runtime = createFakeGameRuntime();
     const observation = {
-      assistance: "none" as const,
-      attempts: 1,
+      assistance: [],
+      attemptNumber: 1,
       eventId: createEventId("event-1"),
-      hintsUsed: 0,
-      isCorrect: true,
-      result: "correct-without-help" as const,
-      targetWords: ["boot"],
+      outcome: "correct" as const,
+      skillIds: ["receptive-vocabulary"],
       taskId: "plaats-boot",
-      wordStarsEarned: 1,
     };
 
     await runtime.practice.append(observation);
@@ -100,6 +97,7 @@ describe("generiek gamecontract", () => {
     const manifest = defineGameManifest({
       ageRange: { max: 8, min: 4 },
       capabilities: ["audio", "microphone"],
+      contentVersion: "capability-test-v1",
       contractVersion: 1,
       description: "Capabilitytest",
       icon: "🎮",

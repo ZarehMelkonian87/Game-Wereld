@@ -54,6 +54,8 @@ export interface SessionRepository {
     endedAt: string,
   ) => Promise<void>;
   get: (sessionId: SessionId) => Promise<GameSessionRecord | null>;
+  listForProfile: (profileId: ProfileId) => Promise<GameSessionRecord[]>;
+  recoverOpen: (endedAt: string) => Promise<number>;
   start: (record: GameSessionRecord) => Promise<void>;
 }
 
@@ -72,6 +74,11 @@ export interface ProgressRepository {
   get: (profileId: ProfileId, gameId: GameId) => Promise<ProgressProjection | null>;
   listForProfile: (profileId: ProfileId) => Promise<ProgressProjection[]>;
   put: (projection: ProgressProjection) => Promise<void>;
+  rebuild: (
+    profileId: ProfileId,
+    gameId: GameId,
+    calculatedAt: string,
+  ) => Promise<ProgressProjection>;
 }
 
 export interface RepositoryBundle {

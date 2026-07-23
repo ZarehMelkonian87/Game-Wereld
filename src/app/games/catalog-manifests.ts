@@ -4,6 +4,7 @@ export const comingSoonGameManifests = [
   defineGameManifest({
     ageRange: { max: 8, min: 4 },
     capabilities: ["audio"],
+    contentVersion: "taal-strand-2026.07",
     contractVersion: 1,
     description: "Oefen woordjes, spelling en klanken op het magische strand!",
     icon: "📖",
@@ -18,6 +19,7 @@ export const comingSoonGameManifests = [
   defineGameManifest({
     ageRange: { max: 8, min: 4 },
     capabilities: ["audio"],
+    contentVersion: "rekenen-strand-2026.07",
     contractVersion: 1,
     description: "Los getallenraadsels en splitsingen op rondom de zee!",
     icon: "🧮",
@@ -32,6 +34,7 @@ export const comingSoonGameManifests = [
   defineGameManifest({
     ageRange: { max: 8, min: 4 },
     capabilities: ["audio"],
+    contentVersion: "wereld-strand-2026.07",
     contractVersion: 1,
     description: "Ontdek de natuur, zee, dieren en het weer op het strand!",
     icon: "🌍",

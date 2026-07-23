@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getBeachObjectStickerUrl, getInstructionVideoUrl } from "../../asset-urls";
 import {
   readUnlockedRewardIds,
@@ -6,6 +6,7 @@ import {
   saveUnlockedRewardIds,
 } from "../../logic/rewards";
 import { readBezemEscapeSettings } from "../../logic/settings";
+import { createInstructionPracticeObservation } from "../../logic/practice-observations";
 import type { SceneObject, VocabularyChoiceInstruction } from "../../types";
 import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 export interface FeedbackState {
@@ -28,6 +29,8 @@ export const useWordChoiceState = ({
   objects: SceneObject[];
 }) => {
   const runtime = useGameRuntime();
+  const attemptNumbersRef = useRef<Record<string, number>>({});
+  const instructionStartedAtRef = useRef(runtime.clock.now().getTime());
   const rewardProfileId = runtime.identity.profileId;
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
@@ -65,7 +68,11 @@ export const useWordChoiceState = ({
     setRecognizedWithoutHelp([]);
     setRecognizedWithHint([]);
     setDifficultWords([]);
+    attemptNumbersRef.current = {};
   }, [instructions]);
+  useEffect(() => {
+    instructionStartedAtRef.current = runtime.clock.now().getTime();
+  }, [instruction.id, runtime.clock]);
   const answerOptions = useMemo(
     () =>
       instruction.answerOptions
@@ -130,6 +137,12 @@ export const useWordChoiceState = ({
     });
   };
   const handleAnswerSelect = (answerId: string) => {
+    const attemptNumber = (attemptNumbersRef.current[instruction.id] ?? 0) + 1;
+    attemptNumbersRef.current[instruction.id] = attemptNumber;
+    const responseTimeMs = Math.max(
+      0,
+      runtime.clock.now().getTime() - instructionStartedAtRef.current,
+    );
     setSelectedAnswerId(answerId);
     if (answerId === instruction.targetObjectIds[0]) {
       const word = targetObject?.label ?? instruction.targetWord;
@@ -153,16 +166,20 @@ export const useWordChoiceState = ({
       setWordStarValue(nextWordStarValue);
       setSpeedBoosting(true);
       window.setTimeout(() => setSpeedBoosting(false), 450);
-      void runtime.practice.append({
-        assistance: usedHint ? "hint" : "none",
-        attempts: 1,
-        hintsUsed: usedHint ? 1 : 0,
-        isCorrect: true,
-        result: usedHint ? "correct-with-help" : "correct-without-help",
-        taskId: instruction.id,
-        targetWords: [word],
-        wordStarsEarned: earnedWordStars,
-      });
+      void runtime.practice.append(
+        createInstructionPracticeObservation({
+          instructionReplays: activeAudioRepeats,
+          languageDomains: instruction.languageDomains,
+          spatialConcepts: instruction.spatialConcepts,
+          spokenHelp: 0,
+          visualHints: usedHint ? 1 : 0,
+          vocabularyId: instruction.targetObjectIds[0],
+          taskId: instruction.id,
+          outcome: "correct",
+          responseTimeMs,
+          attemptNumber,
+        }),
+      );
       if (newRewardUnlocks.length > 0) {
         setUnlockedRewardIds(nextUnlockedRewardIds);
         saveUnlockedRewardIds(rewardProfileId, nextUnlockedRewardIds, runtime.storage);
@@ -180,16 +197,20 @@ export const useWordChoiceState = ({
     setDifficultWords((currentWords) =>
       uniquePush(currentWords, targetObject?.label ?? instruction.targetWord),
     );
-    void runtime.practice.append({
-      assistance: usedHint ? "hint" : activeAudioRepeats > 0 ? "audio-repeat" : "none",
-      attempts: 1,
-      hintsUsed: usedHint ? 1 : 0,
-      isCorrect: false,
-      result: "needs-more-practice",
-      taskId: instruction.id,
-      targetWords: [targetObject?.label ?? instruction.targetWord],
-      wordStarsEarned: 0,
-    });
+    void runtime.practice.append(
+      createInstructionPracticeObservation({
+        instructionReplays: activeAudioRepeats,
+        languageDomains: instruction.languageDomains,
+        spatialConcepts: instruction.spatialConcepts,
+        spokenHelp: 0,
+        visualHints: usedHint ? 1 : 0,
+        vocabularyId: instruction.targetObjectIds[0],
+        taskId: instruction.id,
+        outcome: "incorrect",
+        responseTimeMs,
+        attemptNumber,
+      }),
+    );
     setFeedback({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? instruction.hint,

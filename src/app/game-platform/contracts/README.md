@@ -6,11 +6,11 @@ Deze map is de stabiele grens tussen `GameHost`, games en runtime-adapters. Game
 
 - `GameManifest`, `GameRegistryEntry` en `GameModule`;
 - gebrande ids en hun grensparsers;
-- `GameRuntime` met `identity`, `clock`, `ids`, `practice`, `media`, `speech`, `diagnostics`, `lifecycle`, `profile` en `storage`;
+- `GameRuntime` met `identity`, `clock`, `ids`, `practice`, `media`, `speech`, `diagnostics`, `lifecycle` en `storage`;
 - benoemde `Result`- en `RuntimeFailure`-typen.
 
 Wijzigingen aan deze onderdelen zijn contractwijzigingen. Ze vereisen typecheck, runtime-validatie, de generieke gamecontracttest en een beoordeling van achterwaartse compatibiliteit.
 
 ## Interne implementatie
 
-Concrete browser- en testadapters in `../runtime`, de tijdelijke sessierepository en host-UI zijn intern. Een game mag deze implementaties niet importeren. Leveranciers-SDK's, routerobjecten, app-contexten en databaseobjecten worden nooit onderdeel van `GameRuntime`.
+Concrete browser- en testadapters in `../runtime`, repositoryadapters en host-UI zijn intern. Een game mag deze implementaties niet importeren. Leveranciers-SDK's, routerobjecten, app-contexten en databaseobjecten worden nooit onderdeel van `GameRuntime`.

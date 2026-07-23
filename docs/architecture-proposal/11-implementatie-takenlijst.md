@@ -535,135 +535,148 @@ Deze groep vereist inhoudelijke afstemming: software mag de pedagogische beteken
 
 ### IMP-D01 — Pedagogisch datacontract vaststellen
 
-- [ ] **IMP-D01 afgerond**
+- [x] **IMP-D01 afgerond**
 
 Afhankelijkheden: IMP-C02 en een aangewezen inhoudelijk eigenaar.
 
 Doel: eenduidig bepalen welke feiten games rapporteren en hoe voortgang wordt geïnterpreteerd.
 
-- [ ] Definieer `PracticeEventV1` met outcome, attempt, assistance, response time, skill ids en content version.
-- [ ] Definieer wat een task, skill, attempt, replay, visual hint en spoken help precies betekent.
-- [ ] Leg expliciet vast welke data niet wordt opgeslagen: naam, avatar, ruwe audio en transcript.
-- [ ] Definieer projectorvoorbeelden met verwachte status voor representatieve eventreeksen.
-- [ ] Laat inhoudelijk/pedagogisch eigenaar de voorbeelden en terminologie goedkeuren.
-- [ ] Schrijf ADR voor eventcontract, projectorverantwoordelijkheid en retentie.
-- [ ] Acceptatie: twee games kunnen hetzelfde event invullen zonder gamespecifieke masterylabels.
-- [ ] Verificatie: schema- en fixturetests zijn groen en goedkeuring is gedocumenteerd.
-- [ ] **Kwaliteitscontrole:** toets contract, privacy, versiebeheer en documentatie aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer `PracticeEventV1` met outcome, attempt, assistance, response time, skill ids en content version.
+- [x] Definieer wat een task, skill, attempt, replay, visual hint en spoken help precies betekent.
+- [x] Leg expliciet vast welke data niet wordt opgeslagen: naam, avatar, ruwe audio en transcript.
+- [x] Definieer projectorvoorbeelden met verwachte status voor representatieve eventreeksen.
+- [x] Laat inhoudelijk/pedagogisch eigenaar de voorbeelden en terminologie goedkeuren.
+- [x] Schrijf ADR voor eventcontract, projectorverantwoordelijkheid en retentie.
+- [x] Acceptatie: twee games kunnen hetzelfde event invullen zonder gamespecifieke masterylabels.
+- [x] Verificatie: schema- en fixturetests zijn groen en goedkeuring is gedocumenteerd.
+- [x] **Kwaliteitscontrole:** toets contract, privacy, versiebeheer en documentatie aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D02 — Sessie- en eventwriter implementeren
 
-- [ ] **IMP-D02 afgerond**
+- [x] **IMP-D02 afgerond**
 
 Afhankelijkheden: IMP-D01, IMP-C03 en IMP-B04.
 
 Doel: lifecycle en oefenobservaties betrouwbaar en idempotent opslaan.
 
-- [ ] Laat `GameHost` sessies starten met `startedAt`, game/profile/content version.
-- [ ] Implementeer status `started`, `completed`, `abandoned` en `crashed`.
-- [ ] Implementeer een runtime eventwriter die ids/tijd injecteert, valideert en idempotent append uitvoert.
-- [ ] Sluit open sessies gecontroleerd bij exit en runtimecrash.
-- [ ] Definieer herstelbeleid voor een sessie die bij appstart nog `started` is.
-- [ ] Log alleen privacyveilige technische context.
-- [ ] Acceptatie: duplicate events verhogen geen telling en iedere game-run heeft maximaal één eindstatus.
-- [ ] Verificatie: repository-, lifecycle- en crashtests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets transactions, ids, errors, logging en privacy aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Laat `GameHost` sessies starten met `startedAt`, game/profile/content version.
+- [x] Implementeer status `started`, `completed`, `abandoned` en `crashed`.
+- [x] Implementeer een runtime eventwriter die ids/tijd injecteert, valideert en idempotent append uitvoert.
+- [x] Sluit open sessies gecontroleerd bij exit en runtimecrash.
+- [x] Definieer herstelbeleid voor een sessie die bij appstart nog `started` is.
+- [x] Log alleen privacyveilige technische context.
+- [x] Acceptatie: duplicate events verhogen geen telling en iedere game-run heeft maximaal één eindstatus.
+- [x] Verificatie: repository-, lifecycle- en crashtests zijn groen.
+- [x] **Kwaliteitscontrole:** toets transactions, ids, errors, logging en privacy aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D03 — Versieerbare voortgangsprojector bouwen
 
-- [ ] **IMP-D03 afgerond**
+- [x] **IMP-D03 afgerond**
 
 Afhankelijkheden: IMP-D01 en IMP-D02.
 
 Doel: snelle, uitlegbare dashboardwaarden uit events afleiden.
 
-- [ ] Implementeer een pure projector op basis van de goedgekeurde fixtures.
-- [ ] Sla `projectorVersion`, `calculatedAt` en bronselectie op in de projectie.
-- [ ] Maak volledige rebuild en gerichte incremental update mogelijk.
-- [ ] Markeer projectie dirty of update transactioneel bij nieuwe events.
-- [ ] Behandel wijziging van projectorversie zonder events te muteren.
-- [ ] Voeg tests toe voor volgorde, duplicates, hulp, incorrect/skipped en tijdsvenster.
-- [ ] Acceptatie: alle projecties kunnen na verwijderen volledig identiek worden herbouwd.
-- [ ] Verificatie: rebuildvergelijking en minimaal 90% branch coverage voor de kernprojector.
-- [ ] **Kwaliteitscontrole:** toets pure logica, coverage, versiebeheer en uitlegbaarheid aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Implementeer een pure projector op basis van de goedgekeurde fixtures.
+- [x] Sla `projectorVersion`, `calculatedAt` en bronselectie op in de projectie.
+- [x] Maak volledige rebuild en gerichte incremental update mogelijk.
+- [x] Markeer projectie dirty of update transactioneel bij nieuwe events.
+- [x] Behandel wijziging van projectorversie zonder events te muteren.
+- [x] Voeg tests toe voor volgorde, duplicates, hulp, incorrect/skipped en tijdsvenster.
+- [x] Acceptatie: alle projecties kunnen na verwijderen volledig identiek worden herbouwd.
+- [x] Verificatie: rebuildvergelijking en minimaal 90% branch coverage voor de kernprojector.
+- [x] **Kwaliteitscontrole:** toets pure logica, coverage, versiebeheer en uitlegbaarheid aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D04 — Scene Builder naar PracticeEventV1 migreren
 
-- [ ] **IMP-D04 afgerond**
+- [x] **IMP-D04 afgerond**
 
 Afhankelijkheden: IMP-D02, IMP-D03 en IMP-B06.
 
 Doel: één verticale gameflow volledig via het nieuwe contract laten werken.
 
-- [ ] Map bestaande scene builderresultaten naar neutrale outcomes en assistance.
-- [ ] Verwijder directe eventwrites uit UI/hooks; dispatch via application/controller naar runtimewriter.
-- [ ] Geef task-, skill- en contentversion stabiel door.
-- [ ] Vergelijk nieuwe projectie-uitkomsten met goedgekeurde verwachtingen.
-- [ ] Houd tijdelijk dual-readvergelijking toegestaan, maar nooit twee authoritative writers.
-- [ ] Voeg unit-, integratie- en E2E-tests toe voor correct, hint, repeat, incorrect en exit.
-- [ ] Acceptatie: scene builder schrijft uitsluitend schema-geldige V1-events en dashboardprojectie wordt bijgewerkt.
-- [ ] Verificatie: eventfixtures, projector en scene-builder-E2E zijn groen.
-- [ ] **Kwaliteitscontrole:** toets controllergrens, events, tests en privacy aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Map bestaande scene builderresultaten naar neutrale outcomes en assistance.
+- [x] Verwijder directe eventwrites uit UI/hooks; dispatch via application/controller naar runtimewriter.
+- [x] Geef task-, skill- en contentversion stabiel door.
+- [x] Vergelijk nieuwe projectie-uitkomsten met goedgekeurde verwachtingen.
+- [x] Houd tijdelijk dual-readvergelijking toegestaan, maar nooit twee authoritative writers.
+- [x] Voeg unit-, integratie- en E2E-tests toe voor correct, hint, repeat, incorrect en exit.
+- [x] Acceptatie: scene builder schrijft uitsluitend schema-geldige V1-events en dashboardprojectie wordt bijgewerkt.
+- [x] Verificatie: eventfixtures, projector en scene-builder-E2E zijn groen.
+- [x] **Kwaliteitscontrole:** toets controllergrens, events, tests en privacy aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D05 — Word Choice en Voice Side Scroller migreren
 
-- [ ] **IMP-D05 afgerond**
+- [x] **IMP-D05 afgerond**
 
 Afhankelijkheden: IMP-D04.
 
 Doel: alle bestaande spelmodi hetzelfde event- en sessiecontract laten gebruiken.
 
-- [ ] Definieer per modus task/skill/outcome/assistance mapping zonder nieuw masterylabel.
-- [ ] Migreer Word Choice eerst en vergelijk projecties.
-- [ ] Migreer Voice Side Scroller met expliciete privacygrens: geen transcript/audio in events of logs.
-- [ ] Test speech unavailable en permission denied als normale fallbackflow.
-- [ ] Verwijder oude game-specifieke eventwriters wanneer alle readers zijn omgezet.
-- [ ] Acceptatie: alle modi gebruiken dezelfde runtimewriter en oude progressieopslag krijgt geen nieuwe writes.
-- [ ] Verificatie: modusgerichte tests plus volledige game-smoke zijn groen.
-- [ ] **Kwaliteitscontrole:** toets speechprivacy, fallback, events en cleanup aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer per modus task/skill/outcome/assistance mapping zonder nieuw masterylabel.
+- [x] Migreer Word Choice eerst en vergelijk projecties.
+- [x] Migreer Voice Side Scroller met expliciete privacygrens: geen transcript/audio in events of logs.
+- [x] Test speech unavailable en permission denied als normale fallbackflow.
+- [x] Verwijder oude game-specifieke eventwriters wanneer alle readers zijn omgezet.
+- [x] Acceptatie: alle modi gebruiken dezelfde runtimewriter en oude progressieopslag krijgt geen nieuwe writes.
+- [x] Verificatie: modusgerichte tests plus volledige game-smoke zijn groen.
+- [x] **Kwaliteitscontrole:** toets speechprivacy, fallback, events en cleanup aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D06 — Dashboard op projecties aansluiten
 
-- [ ] **IMP-D06 afgerond**
+- [x] **IMP-D06 afgerond**
 
 Afhankelijkheden: IMP-D03 tot en met IMP-D05.
 
 Doel: demo-/gemuteerde profielprogressie vervangen door herleidbare projecties.
 
-- [ ] Maak featurequeryhooks boven de projectierepository.
-- [ ] Modelleer loading, geen oefeningen, gedeeltelijke data, projector rebuild en fout.
-- [ ] Toon in begrijpelijke taal waarop een status is gebaseerd zonder diagnose over het kind te suggereren.
-- [ ] Laat filters/periodes events/projecties consistent selecteren.
-- [ ] Verwijder oude statische/demo progressiedata pas na paritycontrole.
-- [ ] Voeg component- en E2E-test toe van oefening naar zichtbaar dashboardresultaat.
-- [ ] Acceptatie: ieder zichtbaar getal/status is herleidbaar tot events en projectorversie.
-- [ ] Verificatie: fixturedashboard en end-to-endflow zijn groen.
-- [ ] **Kwaliteitscontrole:** toets query-state, accessibility, pedagogische taal en data-eigenaarschap aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Maak featurequeryhooks boven de projectierepository.
+- [x] Modelleer loading, geen oefeningen, gedeeltelijke data, projector rebuild en fout.
+- [x] Toon in begrijpelijke taal waarop een status is gebaseerd zonder diagnose over het kind te suggereren.
+- [x] Laat filters/periodes events/projecties consistent selecteren.
+- [x] Verwijder oude statische/demo progressiedata pas na paritycontrole.
+- [x] Voeg component- en E2E-test toe van oefening naar zichtbaar dashboardresultaat.
+- [x] Acceptatie: ieder zichtbaar getal/status is herleidbaar tot events en projectorversie.
+- [x] Verificatie: fixturedashboard en end-to-endflow zijn groen.
+- [x] **Kwaliteitscontrole:** toets query-state, accessibility, pedagogische taal en data-eigenaarschap aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D07 — Export, retentie en complete profielverwijdering implementeren
 
-- [ ] **IMP-D07 afgerond**
+- [x] **IMP-D07 afgerond**
 
 Afhankelijkheden: IMP-C07 en IMP-D06.
 
 Doel: beheer van kinddata volledig, uitlegbaar en testbaar maken.
 
-- [ ] Definieer bewaartermijn voor ruwe events en voorwaarden voor compactie/verwijdering.
-- [ ] Bouw een begeleidersflow voor privacyveilige data-export.
-- [ ] Scheid een technische diagnose-export van een inhoudelijke voortgangsexport.
-- [ ] Laat profieldelete alle settings, sessies, events, projecties en gamegebonden records transactioneel verwijderen.
-- [ ] Verwijder of anonimiseer lokale diagnosebuffers die aan het profiel gekoppeld zijn.
-- [ ] Voeg een E2E-test toe die na delete alle repositories controleert.
-- [ ] Acceptatie: er blijven geen aan het profiel herleidbare lokale records achter.
-- [ ] Verificatie: cascade-, export-schema- en retentietests zijn groen.
-- [ ] **Kwaliteitscontrole:** toets privacy, destructive UX, transacties en accessibility aan `docs/code-quality-and-architecture.md`.
-- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+- [x] Definieer bewaartermijn voor ruwe events en voorwaarden voor compactie/verwijdering.
+- [x] Bouw een begeleidersflow voor privacyveilige data-export.
+- [x] Scheid een technische diagnose-export van een inhoudelijke voortgangsexport.
+- [x] Laat profieldelete alle settings, sessies, events, projecties en gamegebonden records transactioneel verwijderen.
+- [x] Verwijder of anonimiseer lokale diagnosebuffers die aan het profiel gekoppeld zijn.
+- [x] Voeg een E2E-test toe die na delete alle repositories controleert.
+- [x] Acceptatie: er blijven geen aan het profiel herleidbare lokale records achter.
+- [x] Verificatie: cascade-, export-schema- en retentietests zijn groen.
+- [x] **Kwaliteitscontrole:** toets privacy, destructive UX, transacties en accessibility aan `docs/code-quality-and-architecture.md`.
+- [x] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+### Uitvoerbewijs Groep D
+
+- `PracticeEventV1`, neutrale terminologie, privacygrenzen, projectorregels en retentie zijn vastgelegd in ADR-002 en inhoudelijk geaccepteerd.
+- `GameHost` beheert versiegebonden sessies; de runtimewriter injecteert ids en tijd, valideert met Zod en schrijft events idempotent.
+- De pure, versieerbare projector ondersteunt incrementele updates, volledige rebuild en tijdsselecties; rebuilds zijn aantoonbaar identiek.
+- Scene Builder, Word Choice en Voice Side Scroller gebruiken één feitencontract zonder gamespecifieke masterylabels of transcriptopslag.
+- Het dashboard leest echte events/projecties en toont expliciete loading-, empty-, partial-, rebuild- en fouttoestanden.
+- Voortgangsexport, retentiebeleid en volledige profielcascade zijn privacyveilig en getest.
+- Formatting, lint, typecheck, 52 tests, architectuurcontrole, Knip, audit, productiebuild, bundelbudget en 4 Chromium-/WebKit-E2E-tests zijn groen.
+- De kernprojector behaalt 91,13% branch coverage.
+- Gedetailleerd bewijs en ontwerpafwegingen: `docs/architecture/group-d-report-2026-07.md`.
+- Commitbericht voor de volledige groep: `feat(progress): centralize practice events, sessions and projections`
 
 </details>
 

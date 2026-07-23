@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import {
   evaluateDynamicRelationPlacement,
   usesDynamicRelationZone,
 } from "../../../logic/dynamic-scene-relations";
 import { resolveNewRewardUnlocks, saveUnlockedRewardIds } from "../../../logic/rewards";
+import { createInstructionPracticeObservation } from "../../../logic/practice-observations";
 import { selectedZoneMatchesTarget, zoneSupportsConcept } from "../../../logic/scene-zones";
 import type { SceneBuilderInstruction, SceneObject, SpatialConcept } from "../../../types";
 import type { SceneCompletionSummary } from "../logic/scene-builder-types";
@@ -19,6 +21,7 @@ export const useScenePlacementHandlers = ({
   state: ReturnType<typeof useSceneBuilderState>;
 }) => {
   const runtime = useGameRuntime();
+  const attemptNumbersRef = useRef<Record<string, number>>({});
   const {
     activeAudioRepeats,
     activeHintsUsed,
@@ -46,11 +49,25 @@ export const useScenePlacementHandlers = ({
     setWordStarValue,
     speedValue,
     spokenCommandResult,
-    targetObject,
     targetZone,
     unlockedRewardIds,
     wordStarValue,
   } = state;
+  const createObservationContext = () => {
+    const attemptNumber = (attemptNumbersRef.current[instruction.id] ?? 0) + 1;
+    attemptNumbersRef.current[instruction.id] = attemptNumber;
+    return createInstructionPracticeObservation({
+      instructionReplays: activeAudioRepeats,
+      languageDomains: instruction.languageDomains,
+      outcome: "incorrect",
+      spatialConcepts: instruction.spatialConcepts,
+      spokenHelp: activeSpokenHelpCount,
+      taskId: instruction.id,
+      visualHints: activeHintsUsed,
+      vocabularyId: instruction.placement.objectId,
+      attemptNumber,
+    });
+  };
   const placeCorrectObject = () => {
     if (!pendingPlacement) {
       return;
@@ -118,14 +135,8 @@ export const useScenePlacementHandlers = ({
       text: instruction.feedbackCopy.correct,
     });
     void runtime.practice.append({
-      assistance: activeHintsUsed > 0 ? "hint" : "none",
-      attempts: 1,
-      hintsUsed: activeHintsUsed,
-      isCorrect: true,
-      result: activeHintsUsed === 0 ? "correct-without-help" : "correct-with-help",
-      taskId: instruction.id,
-      targetWords: [targetObject?.label ?? instruction.placement.objectId],
-      wordStarsEarned: earnedWordStars,
+      ...createObservationContext(),
+      outcome: "correct",
     });
   };
   const handleConfirm = () => {
@@ -165,6 +176,10 @@ export const useScenePlacementHandlers = ({
       placeCorrectObject();
       return;
     }
+    void runtime.practice.append({
+      ...createObservationContext(),
+      outcome: "incorrect",
+    });
     setShowTargetZoneHint(true);
     setFeedback({
       kind: "almost",

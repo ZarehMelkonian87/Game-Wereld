@@ -48,13 +48,14 @@ const availableCapabilities = (): Set<GameCapability> => {
 export const GameHost = () => {
   const navigate = useNavigate();
   const { repositories } = useStorageRepositories();
-  const { currentProfile, updateProgress } = useProfile();
+  const { currentProfile } = useProfile();
   const { gameId: routeGameId, theme } = useParams();
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const closedRef = useRef(false);
   const sessionStartedRef = useRef(false);
   const sessionStartPromiseRef = useRef<Promise<void>>(Promise.resolve());
+  const sessionEffectMountedRef = useRef(false);
   const correlationIdRef = useRef(crypto.randomUUID());
   const sessionIdRef = useRef(createSessionId(crypto.randomUUID()));
   const runtimeClockRef = useRef({ now: () => new Date() });
@@ -65,6 +66,10 @@ export const GameHost = () => {
   const profileId = currentProfile ? createProfileId(currentProfile.id) : undefined;
   const canonicalGameId = routeGameId ? resolveCanonicalGameId(routeGameId) : undefined;
   const registryEntry = routeGameId ? getGameRegistryEntry(routeGameId) : undefined;
+  const contentVersion =
+    registryEntry && isLoadableGameEntry(registryEntry)
+      ? registryEntry.manifest.contentVersion
+      : undefined;
   const backPath = theme ? `/games/${theme}` : "/home";
 
   const closeSession = useCallback(
@@ -87,28 +92,31 @@ export const GameHost = () => {
   }, [canonicalGameId, navigate, routeGameId, theme]);
 
   useEffect(() => {
-    if (
-      !profileId ||
-      !registryEntry ||
-      !isLoadableGameEntry(registryEntry) ||
-      !canonicalGameId ||
-      sessionStartedRef.current
-    ) {
+    if (!profileId || !registryEntry || !isLoadableGameEntry(registryEntry) || !canonicalGameId) {
       return;
     }
-    sessionStartedRef.current = true;
-    sessionStartPromiseRef.current = repositories.sessions.start(
-      gameSessionRecordSchema.parse({
-        contractVersion: 1,
-        gameId: canonicalGameId,
-        id: sessionIdRef.current,
-        profileId,
-        startedAt: new Date().toISOString(),
-        status: "started",
-      }),
-    );
-    void sessionStartPromiseRef.current.catch(reportStorageWriteFailure);
-    return () => closeSession("abandoned");
+    sessionEffectMountedRef.current = true;
+    if (!sessionStartedRef.current) {
+      sessionStartedRef.current = true;
+      sessionStartPromiseRef.current = repositories.sessions.start(
+        gameSessionRecordSchema.parse({
+          contentVersion: registryEntry.manifest.contentVersion,
+          contractVersion: 1,
+          gameId: canonicalGameId,
+          id: sessionIdRef.current,
+          profileId,
+          startedAt: new Date().toISOString(),
+          status: "started",
+        }),
+      );
+      void sessionStartPromiseRef.current.catch(reportStorageWriteFailure);
+    }
+    return () => {
+      sessionEffectMountedRef.current = false;
+      queueMicrotask(() => {
+        if (!sessionEffectMountedRef.current) closeSession("abandoned");
+      });
+    };
   }, [canonicalGameId, closeSession, profileId, registryEntry, repositories.sessions]);
 
   useEffect(() => {
@@ -145,7 +153,8 @@ export const GameHost = () => {
   }, []);
 
   const runtime = useMemo<GameRuntime | null>(() => {
-    if (!profileId || !canonicalGameId || loadState.status !== "ready") return null;
+    if (!profileId || !canonicalGameId || !contentVersion || loadState.status !== "ready")
+      return null;
     const identity = {
       gameId: canonicalGameId,
       profileId,
@@ -158,6 +167,7 @@ export const GameHost = () => {
     });
     const practice = createRepositoryPracticeWriter({
       clock: runtimeClockRef.current,
+      contentVersion,
       identity,
       ids: runtimeIdsRef.current,
       practice: repositories.practice,
@@ -166,14 +176,8 @@ export const GameHost = () => {
       clock: runtimeClockRef.current,
       gameId: canonicalGameId,
       ids: runtimeIdsRef.current,
-      onComplete: (summary) => {
+      onComplete: () => {
         closeSession("completed");
-        void updateProgress(canonicalGameId, {
-          completed: true,
-          lastPlayed: new Date().toISOString(),
-          score: summary.score,
-          stars: summary.stars,
-        }).catch(reportStorageWriteFailure);
         void navigate(backPath);
       },
       onExit: () => {
@@ -189,12 +193,12 @@ export const GameHost = () => {
     backPath,
     canonicalGameId,
     closeSession,
+    contentVersion,
     loadState,
     navigate,
     profileId,
     repositories.practice,
     repositories.settings,
-    updateProgress,
   ]);
 
   if (!currentProfile) {

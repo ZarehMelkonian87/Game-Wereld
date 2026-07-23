@@ -14,6 +14,7 @@ export const gameManifestSchema = z
       })
       .refine(({ max, min }) => min <= max, "Minimumleeftijd mag niet boven maximum liggen."),
     capabilities: z.array(gameCapabilitySchema).default([]),
+    contentVersion: z.string().trim().min(1),
     contractVersion: z.literal(1),
     description: z.string().trim().min(1),
     icon: z.string().trim().min(1),

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createEmptyBezemEscapeProgress } from "../../logic/progress";
+import { createVoicePracticeObservation } from "../../logic/practice-observations";
 import type { GameRuntime } from "../../../../game-platform/contracts";
 import {
   collectVoiceSideScrollerTarget,
@@ -87,16 +88,18 @@ export const useVoiceSideScrollerController = ({
         return;
       }
 
-      void runtime.practice.append({
-        assistance: observation.hintsUsed > 0 ? "hint" : "none",
-        attempts: observation.attempts,
-        hintsUsed: observation.hintsUsed,
-        isCorrect: isRecognized,
-        result: isRecognized ? "correct-without-help" : "needs-more-practice",
-        taskId: getVoiceSideScrollerInstructionId(target.id),
-        targetWords: [target.word],
-        wordStarsEarned: isRecognized ? 1 : 0,
-      });
+      void runtime.practice.append(
+        createVoicePracticeObservation({
+          instructionReplays: observation.audioRepeats,
+          spokenHelp: 0,
+          targetId: target.id,
+          visualHints: observation.hintsUsed,
+          taskId: getVoiceSideScrollerInstructionId(target.id),
+          outcome: isRecognized ? "correct" : "incorrect",
+          responseTimeMs: Math.max(0, nextState.elapsedMs),
+          attemptNumber: Math.max(1, observation.attempts),
+        }),
+      );
     },
     [runtime.practice],
   );

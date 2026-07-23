@@ -1,95 +1,78 @@
 import { motion } from "motion/react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import type { PracticeEventEnvelope } from "../../storage";
+import { filterEventsForPeriod } from "./progressData";
 import type { TimePeriod } from "./progressTypes";
 
 interface ActivityChartCardProps {
-  selectedPeriod: TimePeriod;
   delay: number;
+  events: PracticeEventEnvelope[];
+  selectedPeriod: TimePeriod;
 }
 
-export const ActivityChartCard = ({ selectedPeriod, delay }: ActivityChartCardProps) => {
-  const getData = () => {
-    switch (selectedPeriod) {
-      case "week":
-        return [
-          { name: "Ma", minuten: 15 },
-          { name: "Di", minuten: 25 },
-          { name: "Wo", minuten: 20 },
-          { name: "Do", minuten: 45 },
-          { name: "Vr", minuten: 10 },
-          { name: "Za", minuten: 35 },
-          { name: "Zo", minuten: 30 },
-        ];
-      case "month":
-        return [
-          { name: "Week 1", minuten: 120 },
-          { name: "Week 2", minuten: 160 },
-          { name: "Week 3", minuten: 95 },
-          { name: "Week 4", minuten: 140 },
-        ];
-      case "3months":
-        return [
-          { name: "Mei", minuten: 480 },
-          { name: "Jun", minuten: 620 },
-          { name: "Jul", minuten: 540 },
-        ];
-      case "alltime":
-      default:
-        return [
-          { name: "Kwart 1", minuten: 1200 },
-          { name: "Kwart 2", minuten: 1800 },
-          { name: "Kwart 3", minuten: 1500 },
-          { name: "Kwart 4", minuten: 2200 },
-        ];
-    }
-  };
+const groupEventsByDay = (events: PracticeEventEnvelope[]) => {
+  const counts = new Map<string, number>();
+  events.forEach((event) => {
+    const day = event.occurredAt.slice(0, 10);
+    counts.set(day, (counts.get(day) ?? 0) + 1);
+  });
+  return [...counts.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .slice(-8)
+    .map(([day, pogingen]) => ({ name: day.slice(5), pogingen }));
+};
 
-  const data = getData();
-  const totalMinuten = data.reduce((sum, item) => sum + item.minuten, 0);
+export const ActivityChartCard = ({ delay, events, selectedPeriod }: ActivityChartCardProps) => {
+  const selectedEvents = filterEventsForPeriod(selectedPeriod, events);
+  const data = groupEventsByDay(selectedEvents);
 
   return (
     <motion.div
       animate={{ opacity: 1, y: 0 }}
-      className="game-card-3d bg-gradient-to-br from-slate-800 to-slate-900 border-3 sm:border-4 border-slate-700 p-5 rounded-2xl text-white relative overflow-hidden"
+      className="game-card-3d relative overflow-hidden rounded-2xl border-3 border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 p-5 text-white sm:border-4"
       data-component="ActivityChartCard"
       initial={{ opacity: 0, y: 20 }}
       transition={{ delay }}
     >
-      <h3 className="text-xl sm:text-2xl font-black mb-1">⚡ SPEELTIJD ACTIVITEIT</h3>
-      <p className="text-sm text-cyan-300 font-semibold mb-4">
-        Totaal gespeeld: <span className="text-white font-black">{totalMinuten} minuten</span>
+      <h3 className="mb-1 text-xl font-black sm:text-2xl">⚡ OEFENACTIVITEIT</h3>
+      <p className="mb-4 text-sm font-semibold text-cyan-300">
+        Geregistreerd:{" "}
+        <span className="font-black text-white">{selectedEvents.length} oefenpogingen</span>
       </p>
 
-      <div className="h-48 sm:h-56 w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-            <XAxis
-              dataKey="name"
-              stroke="#9ca3af"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip
-              contentStyle={{
-                background: "#1f2937",
-                border: "2px solid #06b6d4",
-                borderRadius: "10px",
-              }}
-              labelStyle={{ color: "#22d3ee", fontWeight: "bold" }}
-            />
-            <Bar dataKey="minuten" fill="url(#colorMinuten)" radius={[6, 6, 0, 0]}>
-              <defs>
-                <linearGradient id="colorMinuten" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#7b68ee" stopOpacity={0.8} />
-                </linearGradient>
-              </defs>
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      {data.length === 0 ? (
+        <p className="text-slate-300">Nog geen activiteit in deze periode.</p>
+      ) : (
+        <div className="h-48 w-full sm:h-56">
+          <ResponsiveContainer height="100%" width="100%">
+            <BarChart data={data} margin={{ bottom: 0, left: -25, right: 10, top: 10 }}>
+              <XAxis
+                axisLine={false}
+                dataKey="name"
+                fontSize={12}
+                stroke="#9ca3af"
+                tickLine={false}
+              />
+              <YAxis
+                allowDecimals={false}
+                axisLine={false}
+                fontSize={12}
+                stroke="#9ca3af"
+                tickLine={false}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: "#1f2937",
+                  border: "2px solid #06b6d4",
+                  borderRadius: "10px",
+                }}
+                labelStyle={{ color: "#22d3ee", fontWeight: "bold" }}
+              />
+              <Bar dataKey="pogingen" fill="#06b6d4" radius={[6, 6, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </motion.div>
   );
 };

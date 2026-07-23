@@ -37,9 +37,11 @@ export const bootstrapDurableStorage = async (): Promise<DurableStorageResult> =
   try {
     await openDatabase(database);
     const migration = await migrateLegacyStorage(database, window.localStorage);
+    const repositories = createDexieRepositoryBundle(database);
+    await repositories.sessions.recoverOpen(new Date().toISOString());
     return {
       migration,
-      repositories: createDexieRepositoryBundle(database),
+      repositories,
     };
   } catch (error) {
     database.db.close();

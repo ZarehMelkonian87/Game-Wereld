@@ -21,6 +21,8 @@ Databaseversie 1 bevat:
 - `progressProjections`: `&[profileId+gameId], profileId, gameId, status`;
 - `databaseMeta`: `&key, updatedAt`.
 
+Databaseversie 2 voegt een statusindex aan `gameSessions` toe en migreert bestaande sessies zonder `contentVersion` naar de expliciete waarde `legacy-unknown`. De oefenevents zelf blijven ongewijzigd; uitgebreidere projectievelden zijn herbouwbaar uit events.
+
 Alle persistente records worden met Zod gevalideerd. Tijden zijn UTC ISO-8601, ids worden via `crypto.randomUUID()` en branded grensconstructors gemaakt en ieder versioneerbaar contract start op versie 1. Actuele schemas mogen compatibele onbekende velden bewaren; onbekende contractversies worden geweigerd.
 
 ## Migratiebeleid

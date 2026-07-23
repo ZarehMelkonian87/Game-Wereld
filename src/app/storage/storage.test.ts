@@ -12,6 +12,8 @@ import { createDexieRepositoryBundle } from "./dexieRepositories";
 import { createGameWorldDatabase } from "./database";
 import { migrateLegacyStorage } from "./legacyMigration";
 import { createMemoryRepositoryBundle } from "./memoryRepositories";
+import { createProfileProgressExport } from "./profileDataExport";
+import { evaluatePracticeEventRetention } from "./retentionPolicy";
 import { createRepositoryRuntimeStorage } from "./runtimeAdapters";
 import {
   readActiveProfileId,
@@ -125,6 +127,31 @@ describe("persistente schemas", () => {
 });
 
 describe("Dexie repositories", () => {
+  it("upgrade een v1-sessie naar database v2 met een expliciete legacy-contentversie", async () => {
+    const name = `game-wereld-v1-${crypto.randomUUID()}`;
+    databaseNames.push(name);
+    const legacyDatabase = new Dexie(name);
+    legacyDatabase
+      .version(1)
+      .stores({ gameSessions: "&id, profileId, gameId, startedAt, [profileId+startedAt]" });
+    await legacyDatabase.table("gameSessions").put({
+      contractVersion: 1,
+      gameId,
+      id: sessionId,
+      profileId,
+      startedAt: now,
+      status: "started",
+    });
+    legacyDatabase.close();
+
+    const upgraded = createGameWorldDatabase(name);
+    await upgraded.db.open();
+    expect(await upgraded.tables.gameSessions.get(sessionId)).toMatchObject({
+      contentVersion: "legacy-unknown",
+    });
+    upgraded.db.close();
+  });
+
   it("voert CRUD, idempotente events, projectie en cascade delete uit", async () => {
     const database = createTestDatabase();
     await database.db.open();
@@ -132,6 +159,7 @@ describe("Dexie repositories", () => {
     await repositories.profiles.create(createProfileFixture(), createSettingsFixture());
     await repositories.sessions.start(
       gameSessionRecordSchema.parse({
+        contentVersion: "test-v1",
         contractVersion: 1,
         gameId,
         id: sessionId,
@@ -152,6 +180,11 @@ describe("Dexie repositories", () => {
       attempts: 1,
       independentCorrect: 1,
     });
+    const incrementalProjection = await repositories.progress.get(profileId, gameId);
+    await database.tables.progressProjections.delete([profileId, gameId]);
+    expect(await repositories.progress.rebuild(profileId, gameId, now)).toEqual(
+      incrementalProjection,
+    );
 
     await repositories.profiles.deleteCascade(profileId);
     expect(await repositories.profiles.get(profileId)).toBeNull();
@@ -173,6 +206,69 @@ describe("Dexie repositories", () => {
       }),
     ).rejects.toMatchObject({ code: "invalid-persisted-data" });
     expect(await repositories.profiles.list()).toEqual([]);
+  });
+
+  it("bewaart atomair alleen de eerste duurzame sessie-eindstatus", async () => {
+    const database = createTestDatabase();
+    await database.db.open();
+    const repositories = createDexieRepositoryBundle(database);
+    const durableSessionId = createSessionId("concurrent-session");
+    await repositories.sessions.start(
+      gameSessionRecordSchema.parse({
+        contentVersion: "test-v1",
+        contractVersion: 1,
+        gameId,
+        id: durableSessionId,
+        profileId,
+        startedAt: now,
+        status: "started",
+      }),
+    );
+
+    await Promise.all([
+      repositories.sessions.finish(durableSessionId, "completed", "2026-07-23T10:10:00.000Z"),
+      repositories.sessions.finish(durableSessionId, "crashed", "2026-07-23T10:11:00.000Z"),
+    ]);
+
+    expect(await repositories.sessions.get(durableSessionId)).toMatchObject({
+      endedAt: "2026-07-23T10:10:00.000Z",
+      status: "completed",
+    });
+  });
+
+  it("geeft een sessie maximaal één eindstatus en herstelt open sessies", async () => {
+    const repositories = createMemoryRepositoryBundle();
+    const createSession = (id: string) =>
+      gameSessionRecordSchema.parse({
+        contentVersion: "test-v1",
+        contractVersion: 1,
+        gameId,
+        id: createSessionId(id),
+        profileId,
+        startedAt: now,
+        status: "started",
+      });
+    await repositories.sessions.start(createSession("completed-session"));
+    await repositories.sessions.finish(
+      createSessionId("completed-session"),
+      "completed",
+      "2026-07-23T10:10:00.000Z",
+    );
+    await repositories.sessions.finish(
+      createSessionId("completed-session"),
+      "crashed",
+      "2026-07-23T10:11:00.000Z",
+    );
+    expect(await repositories.sessions.get(createSessionId("completed-session"))).toMatchObject({
+      status: "completed",
+    });
+
+    await repositories.sessions.start(createSession("open-session"));
+    await expect(repositories.sessions.recoverOpen("2026-07-23T10:20:00.000Z")).resolves.toBe(1);
+    expect(await repositories.sessions.get(createSessionId("open-session"))).toMatchObject({
+      endedAt: "2026-07-23T10:20:00.000Z",
+      status: "abandoned",
+    });
   });
 });
 
@@ -413,5 +509,47 @@ describe("repository-backed gameopslag", () => {
     expect(reloadedRuntime.get(worldKey)).toBe("beach-world-1");
     expect(reloadedRuntime.get(rewardResultKey, "session")).toBeNull();
     expect(reloadedRuntime.get(zoneDevKey)).toBeNull();
+  });
+});
+
+describe("privacy-export en retentie", () => {
+  it("exporteert voortgang zonder naam, avatar of lokale profiel-id", async () => {
+    const repositories = createMemoryRepositoryBundle();
+    await repositories.profiles.create(createProfileFixture(), createSettingsFixture());
+    await repositories.practice.append(createEventFixture());
+    await repositories.sessions.start(
+      gameSessionRecordSchema.parse({
+        contentVersion: "test-v1",
+        contractVersion: 1,
+        gameId,
+        id: sessionId,
+        profileId,
+        startedAt: now,
+        status: "started",
+      }),
+    );
+    const exported = await createProfileProgressExport(repositories, profileId, now);
+    const serialized = JSON.stringify(exported);
+
+    expect(exported).toMatchObject({
+      exportVersion: 1,
+      profileAlias: "local-profile",
+    });
+    expect(exported.practiceEvents).toHaveLength(1);
+    expect(serialized).not.toContain("Testspeler");
+    expect(serialized).not.toContain(profileId);
+    expect(serialized).not.toContain("avatar-1");
+  });
+
+  it("markeert events pas na 24 maanden voor handmatige compactiereview", () => {
+    expect(
+      evaluatePracticeEventRetention(
+        { ...createEventFixture(), occurredAt: "2024-06-01T00:00:00.000Z" },
+        new Date("2026-07-23T00:00:00.000Z"),
+      ),
+    ).toBe("review-for-compaction");
+    expect(
+      evaluatePracticeEventRetention(createEventFixture(), new Date("2026-07-23T00:00:00.000Z")),
+    ).toBe("retain");
   });
 });

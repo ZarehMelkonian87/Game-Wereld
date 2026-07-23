@@ -42,6 +42,10 @@ export const ThemeProgressCard = ({
         <SkillProgressRow animationDelay={index * 0.1} key={skill.name} skill={skill} />
       ))}
     </div>
+    <p className="mb-4 text-sm text-slate-300">
+      Gebaseerd op {themeData.evidence.eventCount} oefenpogingen met rekenregel versie{" "}
+      {themeData.evidence.projectorVersion}.
+    </p>
 
     <PeriodInsightPanel periods={periods} selectedPeriod={selectedPeriod} themeData={themeData} />
   </motion.div>

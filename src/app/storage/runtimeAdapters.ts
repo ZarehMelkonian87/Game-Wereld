@@ -110,36 +110,33 @@ export const createRepositoryRuntimeStorage = ({
 
 export const createRepositoryPracticeWriter = ({
   clock,
+  contentVersion,
   ids,
   identity,
   practice,
 }: {
   clock: GameRuntime["clock"];
+  contentVersion: string;
   ids: GameRuntime["ids"];
   identity: GameRuntime["identity"];
   practice: PracticeRepository;
 }): PracticeEventWriter => ({
   append: async (observation) => {
     try {
-      const assistance = [
-        ...(observation.assistance === "audio-repeat" ? (["instruction-replay"] as const) : []),
-        ...(observation.assistance === "hint" ? (["visual-hint"] as const) : []),
-        ...(observation.assistance === "spoken-help" ? (["spoken-help"] as const) : []),
-      ];
       await practice.append(
         practiceEventEnvelopeSchema.parse({
-          assistance,
-          attemptNumber: Math.max(1, observation.attempts),
-          contentVersion: "strand-bezem-escape-v1",
+          assistance: observation.assistance,
+          attemptNumber: observation.attemptNumber,
+          contentVersion,
           gameId: identity.gameId,
           id: observation.eventId ?? ids.eventId(),
           occurredAt: clock.now().toISOString(),
-          outcome: observation.isCorrect ? "correct" : "incorrect",
+          outcome: observation.outcome,
           profileId: identity.profileId,
           schemaVersion: 1,
           sessionId: identity.sessionId,
-          skillIds:
-            observation.targetWords.length > 0 ? observation.targetWords : ["general-practice"],
+          responseTimeMs: observation.responseTimeMs,
+          skillIds: observation.skillIds,
           taskId: createTaskId(observation.taskId),
         }),
       );

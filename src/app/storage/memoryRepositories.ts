@@ -8,6 +8,11 @@ import type {
   ProgressProjection,
   SettingsRecord,
 } from "./schemas";
+import {
+  applyPracticeEvent,
+  createEmptyProgressProjection,
+  projectPracticeEvents,
+} from "./progressProjector";
 
 interface MemoryRepositoryOptions {
   eventLimit?: number;
@@ -46,28 +51,10 @@ export const createMemoryRepositoryBundle = ({
         }
         events.set(event.id, structuredClone(event));
         const key = compositeKey(event.profileId, event.gameId);
-        const current = projections.get(key);
-        const independentlyCorrect = event.outcome === "correct" && event.assistance.length === 0;
-        const supportedCorrect = event.outcome === "correct" && event.assistance.length > 0;
-        projections.set(key, {
-          attempts: (current?.attempts ?? 0) + 1,
-          calculatedAt: event.occurredAt,
-          gameId: event.gameId,
-          hintsUsed:
-            (current?.hintsUsed ?? 0) +
-            event.assistance.filter((item) => item === "visual-hint").length,
-          independentCorrect: (current?.independentCorrect ?? 0) + (independentlyCorrect ? 1 : 0),
-          lastPracticedAt: event.occurredAt,
-          profileId: event.profileId,
-          projectorVersion: 1,
-          score: (current?.score ?? 0) + (event.outcome === "correct" ? 100 : 0),
-          stars: (current?.stars ?? 0) + (event.outcome === "correct" ? 1 : 0),
-          status:
-            (current?.independentCorrect ?? 0) + (independentlyCorrect ? 1 : 0) >= 3
-              ? "confident"
-              : "practicing",
-          supportedCorrect: (current?.supportedCorrect ?? 0) + (supportedCorrect ? 1 : 0),
-        });
+        const current =
+          projections.get(key) ??
+          createEmptyProgressProjection(event.profileId, event.gameId, event.occurredAt);
+        projections.set(key, applyPracticeEvent(current, event));
         return { status: "accepted" };
       },
       listForProfile: async (profileId, gameId) =>
@@ -142,6 +129,17 @@ export const createMemoryRepositoryBundle = ({
           structuredClone(projection),
         );
       },
+      rebuild: async (profileId, gameId, calculatedAt) => {
+        failWrite();
+        const rebuilt = projectPracticeEvents({
+          calculatedAt,
+          events: [...events.values()],
+          gameId,
+          profileId,
+        });
+        projections.set(compositeKey(profileId, gameId), rebuilt);
+        return structuredClone(rebuilt);
+      },
     },
     sessions: {
       finish: async (sessionId, status, endedAt) => {
@@ -154,6 +152,20 @@ export const createMemoryRepositoryBundle = ({
       get: async (sessionId) => {
         const record = sessions.get(sessionId);
         return record ? structuredClone(record) : null;
+      },
+      listForProfile: async (profileId) =>
+        [...sessions.values()]
+          .filter((session) => session.profileId === profileId)
+          .map((session) => structuredClone(session)),
+      recoverOpen: async (endedAt) => {
+        failWrite();
+        let recovered = 0;
+        sessions.forEach((session, id) => {
+          if (session.status !== "started") return;
+          sessions.set(id, { ...session, endedAt, status: "abandoned" });
+          recovered += 1;
+        });
+        return recovered;
       },
       start: async (record) => {
         failWrite();

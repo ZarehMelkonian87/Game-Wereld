@@ -6,6 +6,11 @@ import {
 } from "./contracts";
 import type { GameWorldDatabase } from "./database";
 import {
+  applyPracticeEvent,
+  createEmptyProgressProjection,
+  projectPracticeEvents,
+} from "./progressProjector";
+import {
   gameSessionRecordSchema,
   practiceEventEnvelopeSchema,
   profileRecordSchema,
@@ -76,36 +81,14 @@ export const createDexieRepositoryBundle = ({
           const existing = await tables.practiceEvents.get(validEvent.id);
           if (existing) return { status: "duplicate" as const };
           await tables.practiceEvents.add(validEvent);
-          const current = await tables.progressProjections.get([
-            validEvent.profileId,
-            validEvent.gameId,
-          ]);
-          const independentlyCorrect =
-            validEvent.outcome === "correct" && validEvent.assistance.length === 0;
-          const supportedCorrect =
-            validEvent.outcome === "correct" && validEvent.assistance.length > 0;
-          await tables.progressProjections.put(
-            progressProjectionSchema.parse({
-              attempts: (current?.attempts ?? 0) + 1,
-              calculatedAt: validEvent.occurredAt,
-              gameId: validEvent.gameId,
-              hintsUsed:
-                (current?.hintsUsed ?? 0) +
-                validEvent.assistance.filter((item) => item === "visual-hint").length,
-              independentCorrect:
-                (current?.independentCorrect ?? 0) + (independentlyCorrect ? 1 : 0),
-              lastPracticedAt: validEvent.occurredAt,
-              profileId: validEvent.profileId,
-              projectorVersion: 1,
-              score: (current?.score ?? 0) + (validEvent.outcome === "correct" ? 100 : 0),
-              stars: (current?.stars ?? 0) + (validEvent.outcome === "correct" ? 1 : 0),
-              status:
-                (current?.independentCorrect ?? 0) + (independentlyCorrect ? 1 : 0) >= 3
-                  ? "confident"
-                  : "practicing",
-              supportedCorrect: (current?.supportedCorrect ?? 0) + (supportedCorrect ? 1 : 0),
-            }),
-          );
+          const current =
+            (await tables.progressProjections.get([validEvent.profileId, validEvent.gameId])) ??
+            createEmptyProgressProjection(
+              validEvent.profileId,
+              validEvent.gameId,
+              validEvent.occurredAt,
+            );
+          await tables.progressProjections.put(applyPracticeEvent(current, validEvent));
           return { status: "accepted" as const };
         });
       }),
@@ -233,21 +216,70 @@ export const createDexieRepositoryBundle = ({
           parsePersisted(progressProjectionSchema, projection, "Voortgangsprojectie"),
         );
       }),
+    rebuild: (profileId, gameId, calculatedAt) =>
+      withStorageError(async () =>
+        db.transaction("rw", tables.practiceEvents, tables.progressProjections, async () => {
+          const events = await tables.practiceEvents
+            .where("[profileId+gameId]")
+            .equals([profileId, gameId])
+            .toArray();
+          const rebuilt = projectPracticeEvents({
+            calculatedAt,
+            events: events.map((event) =>
+              parsePersisted(practiceEventEnvelopeSchema, event, "Oefenevent"),
+            ),
+            gameId,
+            profileId,
+          });
+          await tables.progressProjections.put(rebuilt);
+          return rebuilt;
+        }),
+      ),
   },
   sessions: {
     finish: (sessionId, status, endedAt) =>
-      withStorageError(async () => {
-        const existing = await tables.gameSessions.get(sessionId);
-        if (!existing || existing.status !== "started") return;
-        await tables.gameSessions.put(
-          parsePersisted(gameSessionRecordSchema, { ...existing, endedAt, status }, "Gamesessie"),
-        );
-      }),
+      withStorageError(async () =>
+        db.transaction("rw", tables.gameSessions, async () => {
+          const existing = await tables.gameSessions.get(sessionId);
+          if (!existing || existing.status !== "started") return;
+          await tables.gameSessions.put(
+            parsePersisted(gameSessionRecordSchema, { ...existing, endedAt, status }, "Gamesessie"),
+          );
+        }),
+      ),
     get: (sessionId) =>
       withStorageError(async () => {
         const record = await tables.gameSessions.get(sessionId);
         return record ? parsePersisted(gameSessionRecordSchema, record, "Gamesessie") : null;
       }),
+    listForProfile: (profileId) =>
+      withStorageError(async () => {
+        const records = await tables.gameSessions.where("profileId").equals(profileId).toArray();
+        return records.map((record) =>
+          parsePersisted(gameSessionRecordSchema, record, "Gamesessie"),
+        );
+      }),
+    recoverOpen: (endedAt) =>
+      withStorageError(async () =>
+        db.transaction("rw", tables.gameSessions, async () => {
+          const openSessions = await tables.gameSessions
+            .where("status")
+            .equals("started")
+            .toArray();
+          await Promise.all(
+            openSessions.map((session) =>
+              tables.gameSessions.put(
+                parsePersisted(
+                  gameSessionRecordSchema,
+                  { ...session, endedAt, status: "abandoned" },
+                  "Gamesessie",
+                ),
+              ),
+            ),
+          );
+          return openSessions.length;
+        }),
+      ),
     start: (record) =>
       withStorageError(async () => {
         const validRecord = parsePersisted(gameSessionRecordSchema, record, "Gamesessie");

@@ -39,16 +39,13 @@ export interface DiagnosticLogger {
 }
 
 export interface PracticeObservation {
-  assistance: "audio-repeat" | "hint" | "none" | "spoken-help";
-  attempts: number;
+  assistance: Array<"instruction-replay" | "visual-hint" | "spoken-help">;
+  attemptNumber: number;
   eventId?: EventId;
-  gameId?: GameId;
-  hintsUsed: number;
-  isCorrect: boolean;
-  result: "correct-with-help" | "correct-without-help" | "needs-more-practice";
+  outcome: "correct" | "incorrect" | "skipped";
+  responseTimeMs?: number;
+  skillIds: string[];
   taskId: string;
-  targetWords: string[];
-  wordStarsEarned: number;
 }
 
 export interface PracticeEventWriter {

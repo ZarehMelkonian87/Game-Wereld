@@ -1,15 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
-import {
-  createGameId,
-  createProfileId,
-  type Avatar,
-  type GameProgress,
-  type Profile,
-} from "../game-platform";
+import { createProfileId, type Avatar, type Profile } from "../game-platform";
 import {
   profileRecordSchema,
   profileSettingsRecordSchema,
-  progressProjectionSchema,
   readActiveProfileId,
   saveActiveProfileId,
   useStorageRepositories,
@@ -23,7 +16,6 @@ interface ProfileContextType {
   deleteProfile: (id: string) => Promise<void>;
   profiles: Profile[];
   setCurrentProfile: (profile: Profile | null) => void;
-  updateProgress: (gameId: string, progress: Partial<GameProgress>) => Promise<void>;
   updateSettings: (settings: Partial<Profile["settings"]>) => Promise<void>;
 }
 
@@ -124,58 +116,6 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     [buildProfileView, repositories.profiles, setCurrentProfile],
   );
 
-  const updateProgress = useCallback(
-    async (gameIdValue: string, patch: Partial<GameProgress>) => {
-      if (!currentProfile) return;
-      const now = new Date().toISOString();
-      const profileId = createProfileId(currentProfile.id);
-      const gameId = createGameId(gameIdValue);
-      const existing = await repositories.progress.get(profileId, gameId);
-      const projection = progressProjectionSchema.parse({
-        attempts: existing?.attempts ?? 0,
-        calculatedAt: now,
-        gameId,
-        hintsUsed: existing?.hintsUsed ?? 0,
-        independentCorrect: existing?.independentCorrect ?? 0,
-        lastPracticedAt: patch.lastPlayed ?? existing?.lastPracticedAt ?? now,
-        profileId,
-        projectorVersion: 1,
-        score: patch.score ?? existing?.score ?? 0,
-        stars: patch.stars ?? existing?.stars ?? 0,
-        status: patch.completed
-          ? "confident"
-          : existing?.status === "confident"
-            ? "confident"
-            : "practicing",
-        supportedCorrect: existing?.supportedCorrect ?? 0,
-      });
-      await repositories.progress.put(projection);
-      const nextProgress: GameProgress = {
-        completed: projection.status === "confident",
-        gameId,
-        lastPlayed: projection.lastPracticedAt ?? projection.calculatedAt,
-        score: projection.score,
-        stars: projection.stars,
-      };
-      const updateProfileView = (profile: Profile) => {
-        const exists = profile.progress.some((item) => item.gameId === gameId);
-        return {
-          ...profile,
-          progress: exists
-            ? profile.progress.map((item) => (item.gameId === gameId ? nextProgress : item))
-            : [...profile.progress, nextProgress],
-        };
-      };
-      setProfiles((current) =>
-        current.map((profile) =>
-          profile.id === currentProfile.id ? updateProfileView(profile) : profile,
-        ),
-      );
-      setCurrentProfileState((profile) => (profile ? updateProfileView(profile) : null));
-    },
-    [currentProfile, repositories.progress],
-  );
-
   const updateSettings = useCallback(
     async (patch: Partial<Profile["settings"]>) => {
       if (!currentProfile) return;
@@ -263,7 +203,6 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         deleteProfile,
         profiles,
         setCurrentProfile,
-        updateProgress,
         updateSettings,
       }}
     >
