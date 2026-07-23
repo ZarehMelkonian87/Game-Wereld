@@ -217,7 +217,7 @@ export const collectVoiceSideScrollerTarget = (
     gameplayFeedback: {
       id: `feedback-${target.id}-${Math.round(state.elapsedMs)}`,
       kind: "boost",
-      message: `Goed gevangen: ${target.collectibleLabel}. +1 Speed!`,
+      message: `Goed gevangen: ${target.collectibleLabel}. +1 Tempo!`,
       visibleUntilMs: state.elapsedMs + FEEDBACK_VISIBLE_MS,
     },
     score: getScore(state.distance, state.stars + 1),

@@ -199,7 +199,7 @@ export const useVoiceSideScrollerWordRecognition = ({
     if (matchedItem) {
       setWordRecognition({
         confidence,
-        feedbackText: `Goed gehoord: ${matchedItem.target.word}. +1 Speed!`,
+        feedbackText: `Goed gehoord: ${matchedItem.target.word}. +1 Tempo!`,
         isListening: true,
         lastHeard: matchedItem.transcript,
         matchedAlias: matchedItem.matchResult.matchedAlias,

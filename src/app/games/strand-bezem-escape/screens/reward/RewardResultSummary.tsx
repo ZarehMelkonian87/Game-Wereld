@@ -27,14 +27,14 @@ export const RewardResultSummary = ({
     data-testid="reward-result-summary"
   >
     <div className="grid grid-cols-3 gap-1.5">
-      <SummaryPill label="Goed" tone="emerald" value={rewardResult.correctActions} />
-      <SummaryPill label="Speed" tone="sky" value={`+${rewardResult.speedEarned}`} />
-      <SummaryPill label="Hints" tone="amber" value={rewardResult.hintsUsed} />
+      <SummaryPill label="Goed" tone="good" value={rewardResult.correctActions} />
+      <SummaryPill label="Tempo" tone="tempo" value={`+${rewardResult.speedEarned}`} />
+      <SummaryPill label="Hints" tone="hint" value={rewardResult.hintsUsed} />
     </div>
 
     <div className="mt-1.5 grid grid-cols-2 gap-1.5">
-      <SummaryPill label="Audio" value={rewardResult.audioRepeats} />
-      <SummaryPill label="Sterren" tone="amber" value={`+${rewardResult.starsEarned}`} />
+      <SummaryPill label="Audio" tone="neutral" value={rewardResult.audioRepeats} />
+      <SummaryPill label="Sterren" tone="star" value={`+${rewardResult.starsEarned}`} />
     </div>
 
     <section className="mt-3.5">

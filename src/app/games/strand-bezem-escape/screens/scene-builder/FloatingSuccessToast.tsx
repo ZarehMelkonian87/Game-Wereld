@@ -36,10 +36,10 @@ const compactFeedbackText = (feedback: FeedbackToastState) => {
     return feedback.text;
   }
 
-  const speedFeedback = feedback.text.match(/^.*?\+\d+\s*Speed!/i);
+  const tempoFeedback = feedback.text.match(/^.*?\+\d+\s*Tempo!/i);
 
-  if (speedFeedback) {
-    return speedFeedback[0].replace(/\s+/g, " ");
+  if (tempoFeedback) {
+    return tempoFeedback[0].replace(/\s+/g, " ");
   }
 
   return feedback.text

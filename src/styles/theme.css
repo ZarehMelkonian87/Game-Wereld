@@ -1,5 +1,43 @@
 @custom-variant dark (&:is(.dark *));
 
+/* ── Interface-designtokens (UX-101) ────────────────────────────────
+ * Eén bron van waarheid voor het gedeelde strand-interfacesysteem van
+ * Magisch Strand Avontuur (menu's, instellingen, beloning en de drie
+ * in-game modi). Schermen kiezen niet langer losse hex- of Tailwind-
+ * kleuren maar verwijzen naar deze tokens (utilities zoals `bg-go`,
+ * `text-target`, `border-stat-good`, `bg-stat-tempo-surface`).
+ *
+ * De game rendert altijd in de lichte strandwereld, dus deze tokens
+ * zijn bewust thema-onafhankelijk en staan los van het donkere
+ * app-shellthema hieronder. Zie docs/ux/interface-redesign-takenlijst.md
+ * (UX-101). Contrast (WCAG 2.2 AA) wordt end-to-end in Playwright
+ * geverifieerd (UX-401).
+ */
+@theme {
+  /* Wereldpalet */
+  --color-beach-sky: #bfe3f2;
+  --color-beach-sea: #2c8c86;
+  --color-beach-sand: #f0dcae;
+
+  /* Primaire "go"-actie en accenten */
+  --color-go: #1f7a4c;
+  --color-go-strong: #14603a; /* rand en 3D-schaduw onder de go-knop */
+  --color-target: #e8663d; /* koraal: uitsluitend "hier moet je zijn" */
+  --color-star: #f0b73d; /* ster-goud */
+
+  /* Semantische statuskleuren — betekenisdragend, los van het accent.
+   * Elke status heeft een tekst-, oppervlak- en randtoon. */
+  --color-stat-good: #1a6b42;
+  --color-stat-good-surface: #e7f7ee;
+  --color-stat-good-border: #bfe8ce;
+  --color-stat-tempo: #1f6b74;
+  --color-stat-tempo-surface: #e2f0f2;
+  --color-stat-tempo-border: #c2dfe2;
+  --color-stat-hint: #8a6111;
+  --color-stat-hint-surface: #fdf1d8;
+  --color-stat-hint-border: #f2dfae;
+}
+
 :root {
   --font-size: 16px;
   --background: #1a1d2e;

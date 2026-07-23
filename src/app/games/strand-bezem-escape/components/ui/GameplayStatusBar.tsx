@@ -35,7 +35,7 @@ export const GameplayStatusBar = ({
       )}
     >
       <div
-        aria-label={`Bezem speed: ${speedValue} van ${speedMax}`}
+        aria-label={`Bezem tempo: ${speedValue} van ${speedMax}`}
         data-testid="speed-status-bar"
         data-energy-kind="broom"
         role="meter"
@@ -53,7 +53,7 @@ export const GameplayStatusBar = ({
           ) : (
             <Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
           )}
-          Speed
+          Tempo
         </span>
         <span className="min-w-0 flex-1 overflow-hidden rounded-full border-2 border-emerald-200 bg-white/85">
           <span

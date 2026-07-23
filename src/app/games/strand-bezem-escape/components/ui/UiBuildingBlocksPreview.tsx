@@ -74,7 +74,7 @@ export const UiBuildingBlocksPreview = () => (
 
         <PanelCard className="landscape:p-2">
           <div className="flex flex-col gap-3">
-            <ProgressBar label="Speed" max={10} value={6} />
+            <ProgressBar label="Tempo" max={10} value={6} />
             <ProgressBar label="Woorden" max={12} tone="purple" value={4} />
           </div>
         </PanelCard>

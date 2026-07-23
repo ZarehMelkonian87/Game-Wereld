@@ -320,13 +320,13 @@ const getPracticeSentence = (sentence: string) => {
   return sentence.replace(/^(Goed zo!|Mooi!|Ja!|Goed gedaan!)\s*/i, "");
 };
 const placementFeedback = (sentence: string, concept: SpatialConcept) => ({
-  correct: `${sentence} +1 Speed!`,
+  correct: `${sentence} +1 Tempo!`,
   almost: `Bijna! Luister nog eens naar het woord '${concept}'.`,
   tryAgain: "Goed geprobeerd. Kijk rustig naar de plek die oplicht.",
   repeatAfterSuccess: getPracticeSentence(sentence),
 });
 const choiceFeedback = (word: string) => ({
-  correct: `Ja, dat is de ${word}. +1 Speed!`,
+  correct: `Ja, dat is de ${word}. +1 Tempo!`,
   almost: `Bijna. Zoek nog eens naar: ${word}.`,
   tryAgain: "Goed geprobeerd. Luister nog een keer en kies opnieuw.",
   repeatAfterSuccess: `Dit is de ${word}.`,
@@ -355,7 +355,7 @@ const sceneTask = (params: {
     languageDomains: directionDomains,
     tags: ["mvp", "scene-builder", params.relation, params.objectId, ...(params.tags ?? [])],
     hint: params.hint,
-    feedback: `${params.feedbackSentence} +1 Speed!`,
+    feedback: `${params.feedbackSentence} +1 Tempo!`,
     feedbackCopy: placementFeedback(params.feedbackSentence, params.relation),
     placement: {
       objectId: params.objectId,
@@ -389,7 +389,7 @@ const choiceTask = (params: {
     languageDomains: ["receptive-vocabulary"],
     tags: ["mvp", "choose-word", "receptive-vocabulary", params.objectId],
     hint: params.hint,
-    feedback: `Ja, dat is de ${targetWord}. +1 Speed!`,
+    feedback: `Ja, dat is de ${targetWord}. +1 Tempo!`,
     feedbackCopy: choiceFeedback(targetWord),
     targetWord,
     answerOptions: params.options,
