@@ -17,7 +17,9 @@ De normatieve kwaliteitsstandaard is [Code Quality & Architecture Requirements](
 5. Voer de genoemde verificatie uit en daarna alle beschikbare checks uit `npm run check`.
 6. Vergelijk de implementatie expliciet met `docs/code-quality-and-architecture.md`.
 7. Noteer bewijs onder de taak: gewijzigde bestanden, uitgevoerde commando's, testresultaten, metingen en eventuele ADR.
-8. Vink de hoofdtaak pas af wanneer geen verplichte subtaak openstaat.
+8. Geef na afronding een Conventional Commit-bericht aan de gebruiker dat de werkelijke wijzigingen correct samenvat.
+9. Voer zelf geen `git add`, `git commit` of `git push` uit; de gebruiker doet dit altijd zelf.
+10. Vink de hoofdtaak pas af wanneer geen verplichte subtaak openstaat en het commitbericht is aangeleverd.
 
 ## Betekenis van checkboxes
 
@@ -40,6 +42,17 @@ De checkbox **Kwaliteitscontrole** onder iedere taak betekent minimaal:
 - alle op dat moment beschikbare kwaliteitscommando's zijn groen.
 
 Een afwijking mag alleen blijven bestaan volgens hoofdstuk 16, “Uitzonderingen en technische schuld”, van het kwaliteitsdocument.
+
+De checkbox **Commitbericht voor gebruiker** betekent dat de uitvoerende AI na verificatie een bericht oplevert in deze vorm:
+
+```text
+type(scope): korte beschrijving in gebiedende wijs
+
+- belangrijkste inhoudelijke wijziging
+- relevante test, migratie of kwaliteitsverbetering
+```
+
+Het type is bijvoorbeeld `feat`, `fix`, `refactor`, `test`, `docs`, `build`, `ci`, `perf` of `chore`. Het bericht wordt gebaseerd op de daadwerkelijke diff, niet alleen op de oorspronkelijke taakomschrijving. De AI toont het bericht aan de gebruiker maar voert de commit niet uit.
 
 ---
 
@@ -64,6 +77,7 @@ Doel: een reproduceerbaar vertrekpunt vastleggen voor typefouten, bundles, asset
 - [ ] Acceptatie: de baseline bevat exacte commando's, datum, omgeving en meetwaarden waarmee latere taken kunnen vergelijken.
 - [ ] Verificatie: een tweede uitvoerder kan de commando's volgen en dezelfde categorieën resultaten produceren.
 - [ ] **Kwaliteitscontrole:** toets de taak aan `docs/code-quality-and-architecture.md` en noteer bewijs of gemotiveerde tijdelijke afwijkingen.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A02 — Kwaliteitsscripts en ontwikkeldependencies invoeren
 
@@ -82,6 +96,7 @@ Doel: de in de kwaliteitsstandaard genoemde lokale controles daadwerkelijk uitvo
 - [ ] Acceptatie: ieder script bestaat, eindigt deterministisch en heeft een korte toelichting in README of ontwikkeldocumentatie.
 - [ ] Verificatie: voer ieder script afzonderlijk uit en noteer bestaande failures als input voor IMP-A03, niet als permanente ignore.
 - [ ] **Kwaliteitscontrole:** toets configuratie, dependencies en uitzonderingen aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A03 — Alle bestaande TypeScript-fouten herstellen
 
@@ -100,6 +115,7 @@ Doel: `tsc --noEmit` groen krijgen zonder asserts of ignores die echte contractf
 - [ ] Acceptatie: `npm run typecheck` slaagt zonder nieuwe `any`, `@ts-ignore` of brede uitschakeling van strict-regels.
 - [ ] Verificatie: `npm run typecheck`, `npm run build` en de relevante tests zijn groen.
 - [ ] **Kwaliteitscontrole:** controleer iedere reparatie tegen `docs/code-quality-and-architecture.md`, vooral type assertions, foutafhandeling en module-eigenaarschap.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A04 — Eerste unit- en componenttestbasis toevoegen
 
@@ -118,6 +134,7 @@ Doel: de belangrijkste bestaande pure regels en één Reactflow onder een snel t
 - [ ] Acceptatie: tests falen aantoonbaar wanneer de bijbehorende kernregel bewust wordt gebroken.
 - [ ] Verificatie: `npm run test` is groen en draait zonder afhankelijkheid van netwerk of bestaande browseropslag.
 - [ ] **Kwaliteitscontrole:** toets testgedrag, testisolatie en fake boundaries aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A05 — Playwright-smoke en fouttraces invoeren
 
@@ -136,6 +153,7 @@ Doel: een echte browserflow en reproduceerbare foutinformatie beschikbaar maken.
 - [ ] Acceptatie: een geforceerde fout produceert een bruikbare trace met DOM-, console- en netwerkcontext.
 - [ ] Verificatie: de smoke slaagt lokaal in Chromium en WebKit.
 - [ ] **Kwaliteitscontrole:** controleer privacy van traces, accessibility van selectors en teststabiliteit tegen `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A06 — CI-pipeline activeren
 
@@ -155,6 +173,7 @@ Doel: dezelfde kwaliteitscontroles op iedere wijziging laten draaien.
 - [ ] Acceptatie: een bewuste typefout, lintfout en falende test blokkeren ieder afzonderlijk de pipeline.
 - [ ] Verificatie: documenteer links of screenshots van één succesvolle en één bewust falende proefrun.
 - [ ] **Kwaliteitscontrole:** toets CI, secrets, artifacts en privacy aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-A07 — Architectuurregels en dode-codecontrole invoeren
 
@@ -174,6 +193,9 @@ Doel: modulegrenzen automatisch bewaken en de brede ongebruikte dependencyset be
 - [ ] Acceptatie: een testimport van game naar `ProfileContext` of andere game laat de architectuurcheck bewust falen.
 - [ ] Verificatie: archiveer een kort dependencyrapport en de actuele uitzonderingenlijst.
 - [ ] **Kwaliteitscontrole:** toets regels, uitzonderingen en dependencywijzigingen aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -198,6 +220,7 @@ Doel: verwisselbare strings en impliciete globale afhankelijkheden vervangen doo
 - [ ] Acceptatie: twee verschillende idtypen kunnen niet zonder expliciete conversie worden verwisseld.
 - [ ] Verificatie: typecheck plus gerichte type-/unittests zijn groen.
 - [ ] **Kwaliteitscontrole:** controleer types, assertions en modulegrenzen tegen `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B02 — GameManifest en catalogus als één bron van waarheid invoeren
 
@@ -216,6 +239,7 @@ Doel: duplicatie tussen `data/games.ts`, `games/registry.ts` en `game.config.ts`
 - [ ] Acceptatie: titel, beschrijving, categorie en capability bestaan op één plek en registry-key is gelijk aan manifest-id.
 - [ ] Verificatie: manifestcontracttest en bestaande catalogusflow zijn groen.
 - [ ] **Kwaliteitscontrole:** toets runtimevalidatie, contentdata en imports aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B03 — GameRuntime-poorten definiëren
 
@@ -233,6 +257,7 @@ Doel: alle diensten die een game nodig heeft expliciet via de host leveren.
 - [ ] Acceptatie: een game kan in een test mounten met uitsluitend een fake runtime en zonder globale providers.
 - [ ] Verificatie: contract- en typechecks tonen geen app-/infrastructureimport vanuit het contract.
 - [ ] **Kwaliteitscontrole:** toets de contractgrootte, privacyvelden en foutmodellen aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B04 — GameHost met laad-, capability- en foutgrenzen bouwen
 
@@ -252,6 +277,7 @@ Doel: één eigenaar maken voor resolve, sessiestart, runtimeconstructie, laden,
 - [ ] Acceptatie: een renderfout in de game haalt de app-shell niet neer.
 - [ ] Verificatie: component-/integratietests dekken success, onbekende id, loader rejection, ontbrekende capability en runtimecrash.
 - [ ] **Kwaliteitscontrole:** toets boundaries, accessibility, logging en lifecycle aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B05 — Registry en routes daadwerkelijk lazy maken
 
@@ -270,6 +296,7 @@ Doel: gamecode uit de initiële appchunk halen.
 - [ ] Acceptatie: het initiële entrypoint importeert de game-implementatie niet en er bestaat een aparte gamechunk.
 - [ ] Verificatie: vergelijk bundlegraph en netwerkrequests bij home versus game-open.
 - [ ] **Kwaliteitscontrole:** toets loading/error UX, budgets en imports aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B06 — Strand Bezem Escape losmaken van globale appcontext
 
@@ -288,6 +315,7 @@ Doel: de eerste game uitsluitend via props/runtime met de app laten communiceren
 - [ ] Acceptatie: zoeken in de gamemap vindt geen import uit `app/contexts`, `app/routes` of concrete storage-infrastructure.
 - [ ] Verificatie: gamecontracttest, smokeflow en architectuurcheck zijn groen.
 - [ ] **Kwaliteitscontrole:** toets state-eigenaarschap, hooks, imports en tests aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-B07 — Generieke gamecontracttest afdwingen
 
@@ -306,6 +334,9 @@ Doel: iedere huidige en toekomstige game automatisch aan hetzelfde hostcontract 
 - [ ] Acceptatie: een ongeldige tijdelijke registryentry faalt met een duidelijke contractmelding.
 - [ ] Verificatie: alle echte registryentries slagen.
 - [ ] **Kwaliteitscontrole:** toets contracttests en testfakes aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -329,6 +360,7 @@ Doel: vóór migratie exact weten welke data bestaat en wie eigenaar is.
 - [ ] Acceptatie: geen directe opslagcall in `src` ontbreekt in de inventaris.
 - [ ] Verificatie: vergelijk inventaris met `rg "localStorage|sessionStorage|indexedDB" src`.
 - [ ] **Kwaliteitscontrole:** toets dataminimalisatie, privacy en eigenaarschap aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C02 — Runtime-schema's en databaseversie ontwerpen
 
@@ -347,6 +379,7 @@ Doel: valideerbare records en een expliciet evolutiepad definiëren.
 - [ ] Acceptatie: alle persistente types komen uit schemas of zijn aantoonbaar daarvan afgeleid.
 - [ ] Verificatie: schematests accepteren geldige fixtures en weigeren corrupte data met benoemde fouten.
 - [ ] **Kwaliteitscontrole:** toets schemas, dependencykeuze en migratiebeleid aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C03 — Dexie-adapter en repositories implementeren
 
@@ -365,6 +398,7 @@ Doel: één testbare toegangspoort voor duurzame gestructureerde data bouwen.
 - [ ] Acceptatie: repositories werken in integratietests zonder dat consumers Dexie kennen.
 - [ ] Verificatie: CRUD-, duplicate-, transaction rollback-, quota-/unavailable- en cascade-tests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets transacties, fouten, exports en testisolatie aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C04 — Eenmalige idempotente importmigratie bouwen
 
@@ -383,6 +417,7 @@ Doel: bestaande browserdata veilig naar repositories overzetten.
 - [ ] Acceptatie: geldige oude data blijft semantisch gelijk en een tweede migratie verandert niets.
 - [ ] Verificatie: fixturevergelijking vóór/na plus transaction rollbacktest.
 - [ ] **Kwaliteitscontrole:** toets dataveiligheid, fout-UX, privacy en rollback aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C05 — Profielen en settings omschakelen naar repositories
 
@@ -401,6 +436,7 @@ Doel: de monolithische context reduceren tot kleine feature-API's boven reposito
 - [ ] Acceptatie: `ProfileContext` schrijft geen volledige arrays meer naar `localStorage` en gameprogressie zit niet in de profielwriter.
 - [ ] Verificatie: profiel-E2E plus repositorytests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets statelevensduur, effects, foutstates en accessibility aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C06 — Game-instellingen, rewards en wereldselectie migreren
 
@@ -419,6 +455,7 @@ Doel: directe gameopslag vervangen zonder game-platformgrenzen te doorbreken.
 - [ ] Acceptatie: de gamemap benadert geen browseropslag rechtstreeks.
 - [ ] Verificatie: search, architectuurcheck en reloadtests voor settings/rewards/world zijn groen.
 - [ ] **Kwaliteitscontrole:** toets data-eigenaarschap, privacy, storage en imports aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-C07 — Opslagfouten en tijdelijke modus productwaardig maken
 
@@ -436,6 +473,9 @@ Doel: quota, private browsing, corruptie en migratiefouten herstelbaar maken.
 - [ ] Acceptatie: geen opslagfout resulteert in een blanco scherm of stil dataverlies.
 - [ ] Verificatie: geautomatiseerde quota-, denial- en corruptiescenario's zijn groen.
 - [ ] **Kwaliteitscontrole:** toets foutmeldingen, toegankelijkheid, privacy en recovery aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -460,6 +500,7 @@ Doel: eenduidig bepalen welke feiten games rapporteren en hoe voortgang wordt ge
 - [ ] Acceptatie: twee games kunnen hetzelfde event invullen zonder gamespecifieke masterylabels.
 - [ ] Verificatie: schema- en fixturetests zijn groen en goedkeuring is gedocumenteerd.
 - [ ] **Kwaliteitscontrole:** toets contract, privacy, versiebeheer en documentatie aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D02 — Sessie- en eventwriter implementeren
 
@@ -478,6 +519,7 @@ Doel: lifecycle en oefenobservaties betrouwbaar en idempotent opslaan.
 - [ ] Acceptatie: duplicate events verhogen geen telling en iedere game-run heeft maximaal één eindstatus.
 - [ ] Verificatie: repository-, lifecycle- en crashtests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets transactions, ids, errors, logging en privacy aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D03 — Versieerbare voortgangsprojector bouwen
 
@@ -496,6 +538,7 @@ Doel: snelle, uitlegbare dashboardwaarden uit events afleiden.
 - [ ] Acceptatie: alle projecties kunnen na verwijderen volledig identiek worden herbouwd.
 - [ ] Verificatie: rebuildvergelijking en minimaal 90% branch coverage voor de kernprojector.
 - [ ] **Kwaliteitscontrole:** toets pure logica, coverage, versiebeheer en uitlegbaarheid aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D04 — Scene Builder naar PracticeEventV1 migreren
 
@@ -514,6 +557,7 @@ Doel: één verticale gameflow volledig via het nieuwe contract laten werken.
 - [ ] Acceptatie: scene builder schrijft uitsluitend schema-geldige V1-events en dashboardprojectie wordt bijgewerkt.
 - [ ] Verificatie: eventfixtures, projector en scene-builder-E2E zijn groen.
 - [ ] **Kwaliteitscontrole:** toets controllergrens, events, tests en privacy aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D05 — Word Choice en Voice Side Scroller migreren
 
@@ -531,6 +575,7 @@ Doel: alle bestaande spelmodi hetzelfde event- en sessiecontract laten gebruiken
 - [ ] Acceptatie: alle modi gebruiken dezelfde runtimewriter en oude progressieopslag krijgt geen nieuwe writes.
 - [ ] Verificatie: modusgerichte tests plus volledige game-smoke zijn groen.
 - [ ] **Kwaliteitscontrole:** toets speechprivacy, fallback, events en cleanup aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D06 — Dashboard op projecties aansluiten
 
@@ -549,6 +594,7 @@ Doel: demo-/gemuteerde profielprogressie vervangen door herleidbare projecties.
 - [ ] Acceptatie: ieder zichtbaar getal/status is herleidbaar tot events en projectorversie.
 - [ ] Verificatie: fixturedashboard en end-to-endflow zijn groen.
 - [ ] **Kwaliteitscontrole:** toets query-state, accessibility, pedagogische taal en data-eigenaarschap aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-D07 — Export, retentie en complete profielverwijdering implementeren
 
@@ -567,6 +613,9 @@ Doel: beheer van kinddata volledig, uitlegbaar en testbaar maken.
 - [ ] Acceptatie: er blijven geen aan het profiel herleidbare lokale records achter.
 - [ ] Verificatie: cascade-, export-schema- en retentietests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets privacy, destructive UX, transacties en accessibility aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -591,6 +640,7 @@ Doel: handmatige cacheversies vervangen door buildgebonden revisies en expliciet
 - [ ] Acceptatie: een nieuwe build reviseert gewijzigde assets en ruimt oude precacheitems gecontroleerd op.
 - [ ] Verificatie: productiebuildtest online, offline en update van versie N naar N+1.
 - [ ] **Kwaliteitscontrole:** toets caching, dependencies, security en recovery aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E02 — Gegenereerd assetmanifest bouwen
 
@@ -609,6 +659,7 @@ Doel: handgeschreven URL-lijsten vervangen door controleerbare assetmetadata.
 - [ ] Acceptatie: iedere vereiste runtimeasset is vanuit een manifest herleidbaar en bestaat na build.
 - [ ] Verificatie: manifestcheck, broken-assetproef en bundlegraph zijn groen.
 - [ ] **Kwaliteitscontrole:** toets buildcode, assetlicenties, imports en budgets aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E03 — Offlinepakketmanager per gamewereld implementeren
 
@@ -627,6 +678,7 @@ Doel: alleen volledig geverifieerde werelden als offline beschikbaar tonen.
 - [ ] Acceptatie: een onderbroken of quota-gefaalde download wordt nooit ready.
 - [ ] Verificatie: fake cache/quota-tests en offline Playwrightflow zijn groen.
 - [ ] **Kwaliteitscontrole:** toets state-machine, storage, fout-UX en accessibility aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E04 — Service-workerupdate veilig maken tijdens gamesessies
 
@@ -645,6 +697,7 @@ Doel: nieuwe releases activeren zonder actieve sessies of chunks te breken.
 - [ ] Acceptatie: update veroorzaakt geen blanco scherm of verloren sessie.
 - [ ] Verificatie: productie-E2E voor waiting, postpone, exit en activate.
 - [ ] **Kwaliteitscontrole:** toets lifecycle, recovery, logging en accessibility aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E05 — Assets optimaliseren en lazy consumptie invoeren
 
@@ -663,6 +716,7 @@ Doel: start- en offlinepakketgrootte meetbaar reduceren zonder kwaliteit of comp
 - [ ] Acceptatie: meetrapport toont winst per wijziging en geen kernflow laadt alle gamemedia bij boot.
 - [ ] Verificatie: bundle diff, netwerkprofiel, visuele/media QA en bestaande E2E zijn groen.
 - [ ] **Kwaliteitscontrole:** toets performance, accessibilityalternatieven, licenties en maintainability aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-E06 — Performancebudgetten blokkerend maken
 
@@ -681,6 +735,9 @@ Doel: voorkomen dat shell, gamechunks en offlinepakketten ongemerkt opnieuw groe
 - [ ] Acceptatie: een bewust te groot testchunk blokkeert CI met een begrijpelijke melding.
 - [ ] Verificatie: budgettest groen op actuele build en rood op gecontroleerde overschrijding.
 - [ ] **Kwaliteitscontrole:** toets gekozen grenzen, meetmethode en uitzonderingen aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -703,6 +760,7 @@ Doel: semantiek en interactiegedrag consistent maken zonder een extra designsyst
 - [ ] Acceptatie: kernprimitives hebben gedocumenteerd interactiecontract en tests.
 - [ ] Verificatie: Testing Library, axe en handmatige toetsenbordcontrole zijn groen.
 - [ ] **Kwaliteitscontrole:** toets UI-librarykeuze, semantics, tests en touchvereisten aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-F02 — Niet-spraak- en niet-dragalternatieven voltooien
 
@@ -721,6 +779,7 @@ Doel: kernflows bruikbaar houden zonder microfoon, audio, hover of precieze drag
 - [ ] Acceptatie: een kind kan de kernopdracht zonder microfoon en zonder precieze drag voltooien.
 - [ ] Verificatie: Chromium/WebKit tests en handmatige touch-/toetsenbordtest zijn groen.
 - [ ] **Kwaliteitscontrole:** toets gelijkwaardigheid, privacy, focus en feedback aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-F03 — Volledige accessibility-releasecontrole opzetten
 
@@ -739,6 +798,9 @@ Doel: geautomatiseerde signalering combineren met menselijke controles.
 - [ ] Acceptatie: zowel automatische als handmatige controle hebben eigenaar en herhaalbare stappen.
 - [ ] Verificatie: voer één volledige audit uit en registreer/herstel bevindingen.
 - [ ] **Kwaliteitscontrole:** toets dekking, uitzonderingen en documentatie aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -761,6 +823,7 @@ Doel: lege catches en losse consolelogs vervangen door gestructureerde, testbare
 - [ ] Acceptatie: een onverwachte gamefout is via correlation-id in boundary en ringbuffer terug te vinden zonder kinddata.
 - [ ] Verificatie: logcontract-, scrubbing- en boundarytests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets logs, privacy, foutafhandeling en dependencyrichting aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-G02 — Development DiagnosticsPanel implementeren
 
@@ -779,6 +842,7 @@ Doel: problemen met game, storage, speech, media en PWA lokaal inspecteerbaar ma
 - [ ] Acceptatie: een storage- en speechfout kan zonder DevTools worden geïdentificeerd.
 - [ ] Verificatie: componenttests, privacytest en handmatige diagnoseproef zijn groen.
 - [ ] **Kwaliteitscontrole:** toets toegang, privacy, accessibility en production stripping aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-G03 — Reproduceerbare capability- en failurefakes voltooien
 
@@ -796,6 +860,7 @@ Doel: tabletproblemen deterministisch lokaal en in CI reproduceren.
 - [ ] Acceptatie: kernfouten zijn reproduceerbaar zonder netwerk, microfoon of echte quota-uitputting.
 - [ ] Verificatie: scenario-suite draait deterministisch meerdere keren in CI.
 - [ ] **Kwaliteitscontrole:** toets testisolatie, privacy en modulegrenzen aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-G04 — Besluit over externe foutmonitoring nemen
 
@@ -815,6 +880,9 @@ Doel: bewust besluiten of Sentry/equivalent nodig en toegestaan is; installatie 
 - [ ] Acceptatie: er bestaat een expliciet goedgekeurd besluit; geen SDK wordt “alvast” toegevoegd.
 - [ ] Verificatie: ADR en eventuele privacy-/integratietests zijn gereviewd.
 - [ ] **Kwaliteitscontrole:** toets besluit en eventuele implementatie aan security- en privacyhoofdstukken van `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -838,6 +906,7 @@ Doel: aantonen dat de architectuur werkelijk uitbreidbaar is en geen één-gamea
 - [ ] Acceptatie: routes, profielrepository en projectorimplementatie hoeven buiten registry/config niet gamespecifiek te worden aangepast.
 - [ ] Verificatie: volledige quality gate, gamecontract, offline- en accessibilityflow zijn groen.
 - [ ] **Kwaliteitscontrole:** voer de volledige checklist uit `docs/code-quality-and-architecture.md` uit en voeg bewijs toe.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-H02 — Architectuur evalueren na de tweede game
 
@@ -856,6 +925,7 @@ Doel: contracten aanpassen op bewijs in plaats van aannames.
 - [ ] Acceptatie: de doelarchitectuur weerspiegelt twee echte games en open uitzonderingen zijn expliciet.
 - [ ] Verificatie: bijgewerkte ADR's/docs en alle contracttests zijn groen.
 - [ ] **Kwaliteitscontrole:** toets iedere behouden/nieuwe abstractie aan de toelatingsregels in `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-H03 — Release- en incidentrunbooks schrijven
 
@@ -873,6 +943,7 @@ Doel: releases en productieproblemen zonder impliciete kennis kunnen uitvoeren.
 - [ ] Acceptatie: een andere uitvoerder kan een gesimuleerd incident oplossen zonder mondelinge uitleg.
 - [ ] Verificatie: noteer oefenresultaten en verbeterpunten.
 - [ ] **Kwaliteitscontrole:** toets runbooks op privacy, security, rollback en actuele commando's aan `docs/code-quality-and-architecture.md`.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-H04 — Legacycode en tegenstrijdige documentatie opruimen
 
@@ -891,6 +962,7 @@ Doel: tijdelijke readers, adapters, uitzonderingen en oude regels gecontroleerd 
 - [ ] Acceptatie: searches vinden geen bekende legacykeys, verboden imports of ingetrokken kwaliteitsregels meer.
 - [ ] Verificatie: volledige CI, Knip, dependencygraph, migratiefixtures en documentlinkcheck zijn groen.
 - [ ] **Kwaliteitscontrole:** voer de volledige `docs/code-quality-and-architecture.md`-reviewchecklist uit en leg resterende schuld expliciet vast.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
 
 ### IMP-H05 — Eindacceptatie van de architectuur uitvoeren
 
@@ -911,6 +983,9 @@ Doel: aantoonbaar beslissen of de architectuurdoelen zijn bereikt.
 - [ ] Acceptatie: er is onderbouwd bewijs per succescriterium, niet alleen een algemene verklaring.
 - [ ] Verificatie: volledige releasepipeline en handmatige releasecheck zijn groen.
 - [ ] **Kwaliteitscontrole:** voer de volledige standaard uit `docs/code-quality-and-architecture.md` uit; open afwijkingen verhinderen eindacceptatie tenzij formeel geaccepteerd.
+- [ ] **Commitbericht voor gebruiker:** geef na alle verificaties een Conventional Commit-bericht op basis van de werkelijke diff; voer zelf geen commit uit.
+
+</details>
 
 ---
 
@@ -942,4 +1017,5 @@ Bewijs:
 - Handmatige controle: ...
 - ADR/documentatie: ...
 - Kwaliteitscontrole: geslaagd / afwijking met issue en vervaldatum
+- Voorgesteld commitbericht: ...
 ```
