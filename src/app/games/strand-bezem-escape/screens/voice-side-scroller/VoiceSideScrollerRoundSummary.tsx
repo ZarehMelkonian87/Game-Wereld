@@ -105,7 +105,7 @@ export const VoiceSideScrollerRoundSummary = ({
           <span className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-2">
             +{Math.max(0, state.speed - 1)}
             <br />
-            speed
+            tempo
           </span>
         </div>
         <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-2 text-xs font-black leading-tight text-amber-950">

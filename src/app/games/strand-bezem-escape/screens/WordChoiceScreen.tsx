@@ -3,7 +3,6 @@ import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
   GameplayStatusBar,
-  InstructionBubble,
   ObjectStickerButton,
   PanelCard,
   PrimaryActionButton,
@@ -66,13 +65,17 @@ export const WordChoiceScreen = ({
         starCount={wordStarValue}
       />
 
-      <div className="grid h-full min-h-0 grid-rows-[4rem_5.5rem_minmax(0,1fr)_3.75rem] gap-2 landscape:grid-cols-[minmax(13rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[4rem_minmax(0,1fr)_3.75rem]">
-        <InstructionBubble
+      <div className="grid h-full min-h-0 grid-rows-[auto_minmax(0,1fr)_3.75rem] gap-2 landscape:grid-cols-[minmax(13rem,18rem)_minmax(0,1fr)] landscape:grid-rows-[auto_minmax(0,1fr)_3.75rem]">
+        {/* Eén samengevoegde vraagbalk (UX-302): vraag + video/audio-herhaal;
+            feedback en "Volgende" verschijnen inline alleen bij een antwoord,
+            zodat de antwoordkaarten in de keuzefase de volle ruimte krijgen. */}
+        <PanelCard
           aria-label="Vraagpaneel"
-          className="landscape:col-start-1 landscape:row-start-1"
+          className="grid gap-1.5 !p-2 landscape:col-start-1 landscape:row-start-1"
           data-testid="word-choice-question-panel"
-          leadingControl={
-            currentInstructionVideoUrl ? (
+        >
+          <div className="flex min-w-0 items-center gap-2.5">
+            {currentInstructionVideoUrl ? (
               <InstructionVideoButton
                 autoPlayOnMount={
                   readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled
@@ -80,50 +83,51 @@ export const WordChoiceScreen = ({
                 label="Speel video-opdracht"
                 src={currentInstructionVideoUrl}
               />
-            ) : undefined
-          }
-          onAudioClick={() => playQuestionAudio()}
-          text={instruction.prompt}
-        />
-
-        <PanelCard
-          aria-label="Luisterkaart"
-          className="flex min-h-0 items-center gap-3 !p-2 landscape:col-start-1 landscape:row-start-2 landscape:flex-col landscape:items-stretch landscape:justify-center"
-          data-testid="word-choice-target-card"
-        >
-          <span
-            aria-hidden="true"
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.25rem] border-2 border-sky-300 bg-sky-100 text-sky-700 shadow-[0_4px_0_rgba(14,116,144,0.18)] landscape:mx-auto landscape:h-16 landscape:w-16"
-          >
-            <Volume2 className="h-8 w-8" strokeWidth={3} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-black leading-tight text-slate-900">
-              {feedback?.text ?? "Luister en kies het plaatje."}
+            ) : null}
+            <p className="min-w-0 flex-1 text-sm font-black leading-tight text-slate-900">
+              {instruction.prompt}
             </p>
-            {feedback?.repeatText ? (
-              <p className="mt-1 text-[0.7rem] font-black leading-tight text-sky-900">
-                Zeg na: {feedback.repeatText}
-              </p>
-            ) : null}
-            {feedback?.rewardLabels && feedback.rewardLabels.length > 0 ? (
-              <p
-                className="mt-1 text-[0.7rem] font-black leading-tight text-amber-900"
-                data-testid="word-choice-reward-unlock-message"
-              >
-                Nieuwe beloning: {feedback.rewardLabels.join(", ")}
-              </p>
-            ) : null}
-          </div>
-          {feedback?.kind === "correct" ? (
-            <PrimaryActionButton
-              className="pointer-events-auto min-h-12 px-3 py-2 text-sm"
-              data-testid="word-choice-next-button"
-              iconLeft={<Sparkles className="h-5 w-5" strokeWidth={3} />}
-              onClick={advanceInstruction}
+            <button
+              aria-label="Luister opnieuw"
+              className="pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-sky-300 bg-sky-100 text-sky-700 shadow-[0_3px_0_rgba(14,116,144,0.2)] outline-none transition active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transition-none"
+              onClick={() => playQuestionAudio()}
+              type="button"
             >
-              Volgende
-            </PrimaryActionButton>
+              <Volume2 className="h-6 w-6" strokeWidth={3} />
+            </button>
+          </div>
+          {feedback ? (
+            <div
+              className="flex items-center gap-2 border-t-2 border-sky-100 pt-1.5"
+              data-testid="word-choice-target-card"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-black leading-tight text-slate-900">{feedback.text}</p>
+                {feedback.repeatText ? (
+                  <p className="mt-0.5 text-[0.7rem] font-black leading-tight text-sky-900">
+                    Zeg na: {feedback.repeatText}
+                  </p>
+                ) : null}
+                {feedback.rewardLabels && feedback.rewardLabels.length > 0 ? (
+                  <p
+                    className="mt-0.5 text-[0.7rem] font-black leading-tight text-amber-900"
+                    data-testid="word-choice-reward-unlock-message"
+                  >
+                    Nieuwe beloning: {feedback.rewardLabels.join(", ")}
+                  </p>
+                ) : null}
+              </div>
+              {feedback.kind === "correct" ? (
+                <PrimaryActionButton
+                  className="pointer-events-auto min-h-11 shrink-0 px-3 py-2 text-sm"
+                  data-testid="word-choice-next-button"
+                  iconLeft={<Sparkles className="h-5 w-5" strokeWidth={3} />}
+                  onClick={advanceInstruction}
+                >
+                  Volgende
+                </PrimaryActionButton>
+              ) : null}
+            </div>
           ) : null}
         </PanelCard>
 

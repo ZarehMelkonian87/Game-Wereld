@@ -33,10 +33,13 @@ export interface VoiceSideScrollerController {
   moveDown: () => void;
   moveNeutral: () => void;
   moveUp: () => void;
+  setVerticalInput: (value: number) => void;
   startRound: () => void;
   state: VoiceSideScrollerGameState;
   wordRecognition: VoiceSideScrollerWordRecognitionState;
 }
+
+const clampVerticalInput = (value: number) => Math.min(1, Math.max(-1, value));
 
 interface UseVoiceSideScrollerControllerOptions {
   profileId: string;
@@ -204,10 +207,17 @@ export const useVoiceSideScrollerController = ({
     verticalInputRef.current = 0;
   }, []);
 
+  // Fijne, continue hoogtecontrole voor de duim-rail. De engine clampt zelf
+  // ook op [-1, 1]; negatief is omhoog, positief is omlaag.
+  const setVerticalInput = useCallback((value: number) => {
+    verticalInputRef.current = clampVerticalInput(value);
+  }, []);
+
   return {
     moveDown,
     moveNeutral,
     moveUp,
+    setVerticalInput,
     startRound,
     state,
     wordRecognition,

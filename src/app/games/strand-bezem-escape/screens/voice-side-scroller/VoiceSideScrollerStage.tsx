@@ -7,6 +7,7 @@ import { VoiceSideScrollerStartOverlay } from "./VoiceSideScrollerStartOverlay";
 import { VoiceSideScrollerTargetLayer } from "./VoiceSideScrollerTargetLayer";
 
 interface VoiceSideScrollerStageProps {
+  fullBleed?: boolean;
   onBackToMenu: () => void;
   onRestart: () => void;
   onStart: () => void;
@@ -14,13 +15,18 @@ interface VoiceSideScrollerStageProps {
 }
 
 export const VoiceSideScrollerStage = ({
+  fullBleed = false,
   onBackToMenu,
   onRestart,
   onStart,
   state,
 }: VoiceSideScrollerStageProps) => (
   <div
-    className="relative min-h-0 overflow-hidden rounded-[1.4rem] border-[4px] border-white bg-sky-200 shadow-[0_6px_0_rgba(21,48,74,0.16)]"
+    className={
+      fullBleed
+        ? "absolute inset-0 overflow-hidden bg-sky-200"
+        : "relative min-h-0 overflow-hidden rounded-[1.4rem] border-[4px] border-white bg-sky-200 shadow-[0_6px_0_rgba(21,48,74,0.16)]"
+    }
     data-component="VoiceSideScrollerStage"
     data-obstacle-hits={state.obstacleHits}
     data-player-y={state.playerY.toFixed(3)}
