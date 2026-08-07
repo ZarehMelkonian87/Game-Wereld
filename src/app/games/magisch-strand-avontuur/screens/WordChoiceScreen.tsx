@@ -1,11 +1,11 @@
-import { Check, Sparkles, Volume2, X } from "lucide-react";
+import { Check, Volume2, X } from "lucide-react";
 import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
+  BtnActionKlaar,
   GameplayStatusBar,
   ObjectStickerButton,
   PanelCard,
-  PrimaryActionButton,
 } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
 import { readBezemEscapeSettings } from "../logic/settings";
@@ -123,14 +123,11 @@ export const WordChoiceScreen = ({
                 ) : null}
               </div>
               {feedback.kind === "correct" ? (
-                <PrimaryActionButton
-                  className="pointer-events-auto min-h-11 shrink-0 px-3 py-2 text-sm"
+                <BtnActionKlaar
+                  className="pointer-events-auto shrink-0"
                   data-testid="word-choice-next-button"
-                  iconLeft={<Sparkles className="h-5 w-5" strokeWidth={3} />}
                   onClick={advanceInstruction}
-                >
-                  Volgende
-                </PrimaryActionButton>
+                />
               ) : null}
             </div>
           ) : null}

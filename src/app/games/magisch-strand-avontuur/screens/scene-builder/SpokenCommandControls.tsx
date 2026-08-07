@@ -1,5 +1,4 @@
-import { Keyboard } from "lucide-react";
-import { VoiceCommandButton } from "../../components/ui";
+import { BtnTaskKeyboardToggle, VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
 import { voicePrivacyCopy } from "../../logic/voice-privacy";
@@ -66,16 +65,10 @@ export const SpokenCommandControls = ({
         status={status}
       />
       <div className="flex items-center gap-1" data-slot="voice-actions">
-        <button
-          aria-label="Typ een opdrachtzin"
-          className="inline-flex min-h-14 w-14 touch-manipulation items-center justify-center rounded-3xl border-4 border-white bg-sky-500 text-white shadow-[0_5px_0_rgba(14,116,144,0.35)] transition duration-150 active:translate-y-0.5 active:scale-[0.98] active:shadow-none"
+        <BtnTaskKeyboardToggle
           data-testid="typed-command-open-button"
           onClick={() => setShowManualFallback(true)}
-          title="Typ een opdrachtzin"
-          type="button"
-        >
-          <Keyboard aria-hidden="true" className="h-8 w-8" strokeWidth={3} />
-        </button>
+        />
       </div>
 
       {shouldShowPopover ? (

@@ -1,6 +1,6 @@
-import { ChevronDown, Mic, ShieldCheck, Smartphone } from "lucide-react";
+import { ChevronDown, ShieldCheck, Smartphone } from "lucide-react";
 import { useState } from "react";
-import { PanelCard, PrimaryActionButton } from "../../components/ui";
+import { BtnPrimaryStart, PanelCard } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import type { MicrophonePermissionResult } from "../../logic/microphone-permission";
 import { voicePrivacyCopy } from "../../logic/voice-privacy";
@@ -115,15 +115,14 @@ export const VoicePrivacySettingsCard = ({
           {microphoneEnvironmentMessage}
         </p>
 
-        <PrimaryActionButton
-          className="min-h-14 w-full border-emerald-600 bg-emerald-500 text-sm shadow-[0_4px_0_rgba(4,120,87,0.7)]"
+        <BtnPrimaryStart
+          aria-label={microphonePermissionButtonLabel}
+          className="min-h-14 w-full text-sm"
           data-testid="settings-request-microphone-button"
           disabled={isCheckingMicrophonePermission}
-          iconLeft={<Mic className="h-5 w-5" strokeWidth={3} />}
+          label={microphonePermissionButtonLabel}
           onClick={onRequestMicrophonePermission}
-        >
-          {microphonePermissionButtonLabel}
-        </PrimaryActionButton>
+        />
 
         <p
           aria-live="polite"

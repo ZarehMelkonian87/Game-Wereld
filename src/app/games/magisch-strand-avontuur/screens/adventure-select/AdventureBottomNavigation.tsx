@@ -1,6 +1,4 @@
-import { Gift, Settings } from "lucide-react";
-import { PanelCard } from "../../components/ui";
-import { SecondaryActionButton } from "./SecondaryActionButton";
+import { BtnSecondaryOptions, BtnSecondaryReward, PanelCard } from "../../components/ui";
 import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureBottomNavigationProps {
@@ -18,22 +16,14 @@ export const AdventureBottomNavigation: DevtoolsComponent<AdventureBottomNavigat
     data-component="AdventureBottomNavigation"
     data-testid="adventure-bottom-navigation"
   >
-    <SecondaryActionButton
-      icon={<Gift className="h-5 w-5" strokeWidth={3} />}
+    <BtnSecondaryReward
+      data-testid="adventure-rewards-button"
       onClick={onOpenRewards}
-      testId="adventure-rewards-button"
-      tone="amber"
-    >
-      Beloning
-    </SecondaryActionButton>
-    <SecondaryActionButton
-      icon={<Settings className="h-5 w-5" strokeWidth={3} />}
+    />
+    <BtnSecondaryOptions
+      data-testid="adventure-settings-button"
       onClick={onOpenSettings}
-      testId="adventure-settings-button"
-      tone="white"
-    >
-      Opties
-    </SecondaryActionButton>
+    />
   </PanelCard>
 );
 

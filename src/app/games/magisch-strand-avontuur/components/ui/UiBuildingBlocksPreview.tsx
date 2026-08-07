@@ -1,10 +1,11 @@
-import { ArrowLeft, Check, ChevronRight, Settings, Volume2 } from "lucide-react";
+import { ArrowLeft, Settings, Volume2 } from "lucide-react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import { HintButton } from "./HintButton";
 import { HudIconButton } from "./HudIconButton";
 import { ObjectStickerButton } from "./ObjectStickerButton";
 import { PanelCard } from "./PanelCard";
-import { PrimaryActionButton } from "./PrimaryActionButton";
+import { BtnActionKlaar } from "./buttons/BtnActionKlaar";
+import { BtnPrimaryStartFly } from "./buttons/BtnPrimaryStartFly";
 import { ProgressBar } from "./ProgressBar";
 import { RibbonTitle } from "./RibbonTitle";
 import { StarCounter } from "./StarCounter";
@@ -88,13 +89,8 @@ export const UiBuildingBlocksPreview = () => (
 
         <PanelCard className="landscape:p-2">
           <div className="flex flex-col gap-3">
-            <PrimaryActionButton
-              iconLeft={<Check className="h-5 w-5" strokeWidth={3} />}
-              iconRight={<ChevronRight className="h-5 w-5" strokeWidth={3} />}
-            >
-              Volgende
-            </PrimaryActionButton>
-            <PrimaryActionButton className="w-full">Speel race</PrimaryActionButton>
+            <BtnActionKlaar onClick={() => undefined} />
+            <BtnPrimaryStartFly onClick={() => undefined} />
           </div>
         </PanelCard>
 

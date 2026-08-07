@@ -1,5 +1,6 @@
 import { Keyboard } from "lucide-react";
 import type { FormEvent } from "react";
+import { BtnKeyboardClose, BtnKeyboardSubmit } from "../../components/ui";
 
 interface TypedCommandFallbackProps {
   exampleText: string;
@@ -61,22 +62,15 @@ export const TypedCommandFallback = ({
         />
       </label>
       <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-        <button
-          className="min-h-12 rounded-2xl border-2 border-sky-500 bg-sky-500 px-3 text-xs font-black text-white shadow-[0_3px_0_rgba(2,132,199,0.35)] outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transform-none"
+        <BtnKeyboardSubmit
           data-testid="typed-command-submit-button"
           type="submit"
-        >
-          Gebruik zin
-        </button>
+        />
         {onClose ? (
-          <button
-            className="min-h-12 rounded-2xl border-2 border-slate-300 bg-white px-3 text-xs font-black text-slate-700 shadow-[0_3px_0_rgba(71,85,105,0.16)] outline-none active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transform-none"
+          <BtnKeyboardClose
             data-testid="typed-command-close-button"
             onClick={onClose}
-            type="button"
-          >
-            Sluit
-          </button>
+          />
         ) : null}
       </div>
     </form>

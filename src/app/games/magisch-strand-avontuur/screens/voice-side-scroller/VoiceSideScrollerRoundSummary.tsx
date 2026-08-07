@@ -1,6 +1,5 @@
-import { Home, RotateCcw } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
-import { PanelCard, PrimaryActionButton } from "../../components/ui";
+import { BtnActionMenu, BtnActionReplay, PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerRoundSummaryProps {
@@ -112,24 +111,12 @@ export const VoiceSideScrollerRoundSummary = ({
           Extra oefenen: {needsPracticeText}. Herhaald: {audioRepeats}x.
         </p>
         <div className="grid grid-cols-2 gap-2">
-          <PrimaryActionButton
-            aria-label="Speel opnieuw"
-            className="min-w-0"
-            iconLeft={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
+          <BtnActionReplay
             onClick={onRestart}
-            size="compact"
-          >
-            Opnieuw
-          </PrimaryActionButton>
-          <PrimaryActionButton
-            aria-label="Terug naar menu"
-            className="min-w-0 !bg-sky-500"
-            iconLeft={<Home className="h-5 w-5" strokeWidth={3} />}
+          />
+          <BtnActionMenu
             onClick={onBackToMenu}
-            size="compact"
-          >
-            Menu
-          </PrimaryActionButton>
+          />
         </div>
       </PanelCard>
     </div>

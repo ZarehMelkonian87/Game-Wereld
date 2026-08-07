@@ -11,7 +11,6 @@ export { InstructionBubble } from "./InstructionBubble";
 export { ObjectTrayContainer } from "./ObjectTrayContainer";
 export { ObjectStickerButton } from "./ObjectStickerButton";
 export { PanelCard } from "./PanelCard";
-export { PrimaryActionButton } from "./PrimaryActionButton";
 export { ProgressBar } from "./ProgressBar";
 export { RibbonTitle } from "./RibbonTitle";
 export { StarCounter } from "./StarCounter";

@@ -1,5 +1,4 @@
-import { Globe2, Home, RotateCcw } from "lucide-react";
-import { PanelCard, PrimaryActionButton } from "../../components/ui";
+import { BtnActionMenu, BtnActionReplay, BtnActionWorld, PanelCard } from "../../components/ui";
 
 interface RewardActionsPanelProps {
   onBackToMenu?: () => void;
@@ -18,36 +17,18 @@ export const RewardActionsPanel = ({
       className="mx-auto grid min-h-[5.5rem] w-full max-w-[42rem] grid-cols-3 items-center gap-2 !rounded-[1.5rem] !p-2"
       data-testid="reward-action-area"
     >
-      <PrimaryActionButton
-        aria-label="Opnieuw spelen"
-        className="pointer-events-auto h-14 min-w-0 px-1.5 text-[0.78rem]"
+      <BtnActionReplay
         data-testid="reward-play-again-button"
-        iconLeft={<RotateCcw className="h-5 w-5" strokeWidth={3} />}
-        onClick={onPlayAgain}
-        size="compact"
-      >
-        Opnieuw
-      </PrimaryActionButton>
-      <PrimaryActionButton
-        aria-label="Terug naar wereldkeuze"
-        className="pointer-events-auto h-14 min-w-0 px-1.5 text-[0.78rem]"
+        onClick={onPlayAgain ?? (() => undefined)}
+      />
+      <BtnActionWorld
         data-testid="reward-world-button"
-        iconLeft={<Globe2 className="h-5 w-5" strokeWidth={3} />}
-        onClick={onChooseWorld}
-        size="compact"
-      >
-        Wereld
-      </PrimaryActionButton>
-      <PrimaryActionButton
-        aria-label="Terug naar menu"
-        className="pointer-events-auto h-14 min-w-0 px-1.5 text-[0.78rem]"
+        onClick={onChooseWorld ?? (() => undefined)}
+      />
+      <BtnActionMenu
         data-testid="reward-menu-button"
-        iconLeft={<Home className="h-5 w-5" strokeWidth={3} />}
-        onClick={onBackToMenu}
-        size="compact"
-      >
-        Menu
-      </PrimaryActionButton>
+        onClick={onBackToMenu ?? (() => undefined)}
+      />
     </PanelCard>
   </div>
 );

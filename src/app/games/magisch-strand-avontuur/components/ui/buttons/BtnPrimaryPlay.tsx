@@ -9,11 +9,12 @@ import React from "react";
  * @description Primaire actieknop voor het starten van een game, sessie of het indienen van een actie.
  */
 export interface BtnPrimaryPlayProps {
-  onClick: () => void;
+  onClick?: () => void;
   label?: string;
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
   "aria-label"?: string;
   "data-testid"?: string;
 }
@@ -24,12 +25,13 @@ export const BtnPrimaryPlay: React.FC<BtnPrimaryPlayProps> = ({
   children,
   className = "",
   disabled = false,
+  type = "button",
   "aria-label": ariaLabel,
   "data-testid": testId,
 }) => {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}

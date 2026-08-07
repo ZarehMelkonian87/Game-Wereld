@@ -1,6 +1,5 @@
-import { ArrowDown, ArrowUp } from "lucide-react";
 import type { KeyboardEvent } from "react";
-import { PrimaryActionButton } from "../../components/ui";
+import { BtnManualFlyDown, BtnManualFlyUp } from "../../components/ui";
 
 interface VoiceSideScrollerMovementControlsProps {
   disabled: boolean;
@@ -15,7 +14,7 @@ export const VoiceSideScrollerMovementControls = ({
   onMoveUp,
   onRelease,
 }: VoiceSideScrollerMovementControlsProps) => {
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, direction: "down" | "up") => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, direction: "down" | "up") => {
     if (event.repeat || (event.key !== "Enter" && event.key !== " ")) {
       return;
     }
@@ -27,7 +26,7 @@ export const VoiceSideScrollerMovementControls = ({
     }
   };
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Enter" && event.key !== " ") {
       return;
     }
@@ -42,36 +41,26 @@ export const VoiceSideScrollerMovementControls = ({
       data-component="VoiceSideScrollerMovementControls"
       data-testid="voice-side-scroller-movement-controls"
     >
-      <PrimaryActionButton
-        aria-label="Omhoog vliegen"
-        className="h-14 min-w-0 touch-none select-none text-sm"
-        disabled={disabled}
-        iconLeft={<ArrowUp className="h-5 w-5" strokeWidth={3.5} />}
-        onKeyDown={(event) => handleKeyDown(event, "up")}
+      <div
+        onKeyDown={(e) => handleKeyDown(e, "up")}
         onKeyUp={handleKeyUp}
         onPointerCancel={onRelease}
-        onPointerDown={onMoveUp}
+        onPointerDown={disabled ? undefined : onMoveUp}
         onPointerLeave={onRelease}
         onPointerUp={onRelease}
-        size="compact"
       >
-        Omhoog
-      </PrimaryActionButton>
-      <PrimaryActionButton
-        aria-label="Omlaag vliegen"
-        className="h-14 min-w-0 touch-none select-none text-sm"
-        disabled={disabled}
-        iconLeft={<ArrowDown className="h-5 w-5" strokeWidth={3.5} />}
-        onKeyDown={(event) => handleKeyDown(event, "down")}
+        <BtnManualFlyUp className="w-full h-14 justify-center" />
+      </div>
+      <div
+        onKeyDown={(e) => handleKeyDown(e, "down")}
         onKeyUp={handleKeyUp}
         onPointerCancel={onRelease}
-        onPointerDown={onMoveDown}
+        onPointerDown={disabled ? undefined : onMoveDown}
         onPointerLeave={onRelease}
         onPointerUp={onRelease}
-        size="compact"
       >
-        Omlaag
-      </PrimaryActionButton>
+        <BtnManualFlyDown className="w-full h-14 justify-center" />
+      </div>
     </div>
   );
 };
