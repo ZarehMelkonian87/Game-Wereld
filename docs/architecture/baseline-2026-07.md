@@ -82,7 +82,7 @@ Firefox en aanvullende portrait-/landscapeprojecten worden toegevoegd wanneer de
 
 1. Open `/` en kies de startactie.
 2. Maak een profiel met naam en avatar.
-3. Open het woordenschatthema en start `strand-bezem-escape`.
+3. Open het woordenschatthema en start `magisch-strand-avontuur`.
 4. Open een beschikbare wereld en start een spelmodus.
 5. Voltooi minimaal één opdracht met de visuele bediening.
 6. Ga veilig terug naar menu/home.

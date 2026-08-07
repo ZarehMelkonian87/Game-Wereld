@@ -21,7 +21,7 @@ Het `GameRuntime`- en manifestcontract is oorspronkelijk uit één grote woorden
 
 De tweede implementatie vereiste geen wijziging aan routes, profielrepositories, databaseschema, projectorsemantiek of `GameRuntime`. Wel kwamen twee onterechte eerste-gameaannames boven:
 
-1. de voortgangsfeature filterde hardcoded op `strand-bezem-escape`;
+1. de voortgangsfeature filterde hardcoded op `magisch-strand-avontuur`;
 2. de assetmanifestgenerator kende maar één game-entry.
 
 Beide zijn naar game-onafhankelijke iteratie over events/manifests/pakketbronnen omgezet. De projector zelf bleef ongewijzigd.

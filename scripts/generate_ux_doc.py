@@ -174,7 +174,7 @@ def build_docx():
     
     p_main = doc.add_paragraph()
     p_main.paragraph_format.space_after = Pt(6)
-    r_m = p_main.add_run("Strand-bezem-escape\n\"Magisch Strand Avontuur\"")
+    r_m = p_main.add_run("Magisch Strand Avontuur")
     r_m.font.name = "Calibri"
     r_m.font.size = Pt(24)
     r_m.font.bold = True
@@ -196,7 +196,7 @@ def build_docx():
     meta_table.columns[1].width = Inches(4.5)
     
     meta_data = [
-        ("Projectnaam:", "Strand-bezem-escape (Magisch Strand Avontuur)"),
+        ("Projectnaam:", "Magisch Strand Avontuur"),
         ("Document Versie:", "v2.0 (Volledige Schermspecificatie - 9 Schermen)"),
         ("Rol / Auteur:", "Senior Game UX/UI Designer & Technical Product Owner"),
         ("Aantal Schermen:", "9 Unieke Schermen & Modals (Menu's, Modals, Gameplay, Overlays)"),
@@ -243,7 +243,7 @@ def build_docx():
     p.paragraph_format.line_spacing = 1.15
     p.add_run(
         "Dit document bevat het volledige en geharmoniseerde User Experience (UX) en User Interface (UI) "
-        "ontwerpdocument voor alle 9 schermen en overlays van Strand-bezem-escape (Magisch Strand Avontuur). "
+        "ontwerpdocument voor alle 9 schermen en overlays van Magisch Strand Avontuur. "
         "Met alle menu's, gameplay-omgevingen, instructiemodals, invoeroverlays en beloningsschermen vastgelegd "
         "in gestandaardiseerde tabellen, vormt dit de definitieve blauwdruk voor ontwikkeling en test-acceptatie."
     )
@@ -256,7 +256,7 @@ def build_docx():
             "• Multimodale Invoer: Ondersteuning voor gesproken antwoorden (microfoon), slepen & neerzetten (drag & drop) en tekstinvoer.",
             "• Inclusiviteit & Privacy: Geen bewaarde spraakopnames, opties voor rustige beweging (reduced motion) en directe toegankelijkheid."
         ],
-        title="KERNPRINCIPES VAN STRAND-BEZEM-ESCAPE UX"
+        title="KERNPRINCIPES VAN MAGISCH STRAND AVONTUUR UX"
     )
 
     # ---------------------------------------------------------
@@ -651,7 +651,7 @@ def build_docx():
     add_callout_box(
         doc,
         [
-            "✓ Alle 9 schermen en modals van Strand-bezem-escape zijn volledig gespecificeerd.",
+            "✓ Alle 9 schermen en modals van Magisch Strand Avontuur zijn volledig gespecificeerd.",
             "✓ Frontend ontwikkelaars dienen de exacte Code Names (bijv. BTN_MANUAL_FLY_UP) te gebruiken in data-attributes en componentnamen.",
             "✓ QA-teams kunnen aan de hand van dit document alle schermen, knoppen, modals en gameplay-elementen testen."
         ],

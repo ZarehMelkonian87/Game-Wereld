@@ -114,7 +114,7 @@ Afhankelijkheden: IMP-A02.
 Doel: `tsc --noEmit` groen krijgen zonder asserts of ignores die echte contractfouten verbergen.
 
 - [x] Groepeer de baselinefouten per oorzaak: ontbrekende types/exports, incompatibele refs, onjuiste events, ongebruikte code en verouderde controllercontracten.
-- [x] Herstel eerst de brontypes in `strand-bezem-escape/types.ts` en progressiecontracten; vermijd lokale casts in consumers.
+- [x] Herstel eerst de brontypes in `magisch-strand-avontuur/types.ts` en progressiecontracten; vermijd lokale casts in consumers.
 - [x] Breng `PracticeResult`-waarden en aangeroepen payloads tijdelijk consistent zonder vooruit te lopen op de nieuwe eventarchitectuur.
 - [x] Herstel component-/hookcontracten rond scene builder en zone devtools.
 - [x] Verwijder werkelijk ongebruikte imports en parameters; prefix alleen bewust vereiste ongebruikte callbackparameters volgens lintconfig.
@@ -251,7 +251,7 @@ Afhankelijkheden: IMP-B01.
 Doel: duplicatie tussen `data/games.ts`, `games/registry.ts` en `game.config.ts` verwijderen.
 
 - [x] Definieer het runtime-gevalideerde `GameManifest` volgens hoofdstuk 5.
-- [x] Maak `strand-bezem-escape/manifest.ts` licht: geen zware component-, content- of assetimports.
+- [x] Maak `magisch-strand-avontuur/manifest.ts` licht: geen zware component-, content- of assetimports.
 - [x] Laat catalogus en routes dezelfde canonical `gameId` gebruiken.
 - [x] Maak oude alias-id's expliciete redirects/migraties in plaats van meerdere registryentries met dezelfde component.
 - [x] Modelleer `coming-soon` in het manifest zonder een niet-bestaande loader.
@@ -307,7 +307,7 @@ Afhankelijkheden: IMP-B02 en IMP-B04.
 
 Doel: gamecode uit de initiële appchunk halen.
 
-- [x] Vervang de statische gamecomponentimport door een statisch analyseerbare `import("./strand-bezem-escape")` loader.
+- [x] Vervang de statische gamecomponentimport door een statisch analyseerbare `import("./magisch-strand-avontuur")` loader.
 - [x] Gebruik `Suspense` of route-lazy mechanismen met kindvriendelijke loading-UI.
 - [x] Maak globale routes waar zinvol lazy zonder essentiële shellfeedback te verbergen.
 - [x] Handel `vite:preloadError` of equivalente chunk-loadfout af via de load boundary.

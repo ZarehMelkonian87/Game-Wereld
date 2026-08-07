@@ -4,7 +4,7 @@ Status: **voltooid** (Groep 1–4 geïmplementeerd én geverifieerd)
 
 Laatste herziening: **23 juli 2026**
 
-Deze pagina vertaalt het UX-herontwerp van _Magisch Strand Avontuur_ (`strand-bezem-escape`) naar uitvoerbare implementatietaken. De taken staan in afhankelijkheidsvolgorde en zijn zo beschreven dat een ontwikkelaar of AI-agent één taak zelfstandig kan oppakken.
+Deze pagina vertaalt het UX-herontwerp van _Magisch Strand Avontuur_ (`magisch-strand-avontuur`) naar uitvoerbare implementatietaken. De taken staan in afhankelijkheidsvolgorde en zijn zo beschreven dat een ontwikkelaar of AI-agent één taak zelfstandig kan oppakken.
 
 **Ontwerpbron:** het voor/na-herontwerp met alle mockups en onderbouwing staat in de artifact — <https://claude.ai/code/artifact/ec79e421-9f44-4e58-9fc0-75cb654ad75e>. Iedere taak verwijst naar de betreffende sectie ("Ontwerpbron: …").
 
@@ -106,7 +106,7 @@ Ontwerpbron: artifact-sectie "Fundament → HUD-balk"; alle in-game mockups.
 
 Doel: de drie afwijkende in-game koppen en de losse widgets vervangen door één doorschijnende HUD-balk (terug · sterren · context­actie), veilig binnen safe-area.
 
-- [x] Inspecteer de huidige HUD's: platform `GameTopHud` (`game-platform/components/layout/GameTopHud.tsx`) versus de game-eigen `TopHud` (`games/strand-bezem-escape/components/layout/TopHud.tsx`) en de losse widgets in de side scroller.
+- [x] Inspecteer de huidige HUD's: platform `GameTopHud` (`game-platform/components/layout/GameTopHud.tsx`) versus de game-eigen `TopHud` (`games/magisch-strand-avontuur/components/layout/TopHud.tsx`) en de losse widgets in de side scroller.
 - [x] Kies één canonieke HUD (`GameTopHud` uitgebreid) met slots voor links (terug), midden (context: sterren) en rechts (hint/actie); doorschijnende `backdrop-blur`-achtergrond toegevoegd.
 - [x] Laat de game-`TopHud` deze canonieke HUD gebruiken (wrapt al `GameTopHud`); geen callbacks verwijderd (`onBackToMenu`, `onAudioClick`, `onHintClick`, `starCount`).
 - [x] Behoud `pointer-events`-gedrag (bar `pointer-events-none`, controls `-auto`) en de bestaande `data-testid`/`data-slot`-contracten.

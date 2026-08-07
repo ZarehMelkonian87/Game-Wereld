@@ -53,7 +53,7 @@ route → GameHost → registry/manifest → lazy GameModule
 ### B05 — lazy loading en budget
 
 - Routes gebruiken React Router `lazy`.
-- De registry gebruikt een statisch analyseerbare `import("./strand-bezem-escape")`.
+- De registry gebruikt een statisch analyseerbare `import("./magisch-strand-avontuur")`.
 - `vite:preloadError` komt in de load-errorinterface terecht.
 - `rollup-plugin-visualizer` genereert alleen met `ANALYZE=true` een lokaal, genegeerd rapport.
 - CI voert na de build de bundelbudgetcontrole uit.

@@ -27,7 +27,7 @@ Actuele build:
 
 - 113 verplichte runtimeassets;
 - 172,03 MB;
-- contentversie `strand-bezem-escape-2026.07`;
+- contentversie `magisch-strand-avontuur-2026.07`;
 - 21 orphan-signalen.
 
 Ontbrekende buildoutput, duplicate ids en onvolledige metadata blokkeren de build. De 21 orphan-signalen zijn alternatieve avatars, bezems, mascottes, wereldiconen en een alternatief logo. Ze worden niet automatisch verwijderd: zij zijn ongebruikt in de huidige build, maar niet bewezen productmatig overbodig. De visuele controle vond geen veilige één-op-één-duplicaten.

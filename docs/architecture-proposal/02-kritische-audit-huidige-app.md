@@ -2,7 +2,7 @@
 
 ## 2.1 Onderzochte basis
 
-Deze audit is gebaseerd op de repositorytoestand van 22 juli 2026. Bekeken zijn onder andere `package.json`, TypeScript- en Vite-configuratie, routes, profielcontext, gameregistry, de volledige `strand-bezem-escape`-module, browseropslag, service worker en productiebuild.
+Deze audit is gebaseerd op de repositorytoestand van 22 juli 2026. Bekeken zijn onder andere `package.json`, TypeScript- en Vite-configuratie, routes, profielcontext, gameregistry, de volledige `magisch-strand-avontuur`-module, browseropslag, service worker en productiebuild.
 
 Uitgevoerde controles:
 

@@ -16,7 +16,7 @@ src/
     game-host/               # resolve, laden, boundary, runtime samenstellen
   games/
     registry.ts              # lichte manifesten + dynamische loaders
-    strand-bezem-escape/
+    magisch-strand-avontuur/
       manifest.ts            # geen zware assets/imports
       index.ts               # publieke exports
       domain/                # pure spelregels en types

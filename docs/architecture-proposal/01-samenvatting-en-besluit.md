@@ -2,7 +2,7 @@
 
 ## 1.1 Aanleiding
 
-Game Wereld is nu een client-side React-app voor jonge kinderen, met profielkeuze, instellingen, voortgang, PWA-functionaliteit en één inhoudelijk uitgewerkte game: `strand-bezem-escape`. De repository bevat al goede bouwstenen voor een platformlaag en featuremappen, maar de technische kwaliteitsbasis en de datastromen zijn nog niet consistent genoeg om veilig meerdere games toe te voegen.
+Game Wereld is nu een client-side React-app voor jonge kinderen, met profielkeuze, instellingen, voortgang, PWA-functionaliteit en één inhoudelijk uitgewerkte game: `magisch-strand-avontuur` (Magisch Strand Avontuur). De repository bevat al goede bouwstenen voor een platformlaag en featuremappen, maar de technische kwaliteitsbasis en de datastromen zijn nog niet consistent genoeg om veilig meerdere games toe te voegen.
 
 Het eerdere voorstel koos direct voor “Clean Architecture”, drie globale stores, een plugin-engine en event-driven analytics. Die richting bevat bruikbare ideeën, maar maakt drie fouten:
 
