@@ -2,10 +2,8 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { classNames } from "./classNames";
 
 /**
- * @uxId TTL_HEADER_PILL
- * @uxId LBL_SECTION_TITLE
- * @screens SCR_ADVENTURE_SELECT | SCR_SETTINGS_PRIVACY | SCR_REWARD_SUMMARY
- * @description Canonieke titel-sticker / header pill voor het interface-systeem.
+ * Legacy/Bestaande RibbonTitle component voor interface titels.
+ * Zie TtlHeaderPill in ./titles-badges/TtlHeaderPill voor het modulaire UX-component (@uxId TTL_HEADER_PILL).
  */
 interface RibbonTitleProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
