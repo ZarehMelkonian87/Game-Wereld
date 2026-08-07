@@ -2,9 +2,8 @@ import React from "react";
 
 /**
  * @uxId TTL_HEADER_PILL
- * @uxId LBL_SECTION_TITLE
  * @screens SCR_ADVENTURE_SELECT | SCR_SETTINGS_PRIVACY | SCR_REWARD_SUMMARY
- * @description Witte afgeronde pill-header voor schermtitels en secties.
+ * @description Witte afgeronde pill-header voor hoofdschermtitels.
  */
 export interface TtlHeaderPillProps {
   title?: string;

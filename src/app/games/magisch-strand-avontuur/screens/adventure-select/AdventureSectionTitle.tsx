@@ -1,3 +1,4 @@
+import { LblSectionTitle } from "../../components/ui";
 import type { DevtoolsComponent } from "./devtools";
 
 interface AdventureSectionTitleProps {
@@ -7,12 +8,12 @@ interface AdventureSectionTitleProps {
 export const AdventureSectionTitle: DevtoolsComponent<AdventureSectionTitleProps> = ({
   children,
 }: AdventureSectionTitleProps) => (
-  <h2
+  <LblSectionTitle
     className="px-1 text-[0.9rem] font-black leading-none text-slate-900 drop-shadow-[0_1px_0_rgba(255,255,255,0.8)]"
     data-component="AdventureSectionTitle"
   >
     {children}
-  </h2>
+  </LblSectionTitle>
 );
 
 AdventureSectionTitle.displayName = "AdventureSectionTitle";
