@@ -1,4 +1,4 @@
-import { BtnNavHome, DspDistanceCounter, DspFlightScore, PanelCard } from "../../components/ui";
+import { BtnNavHome, DspDistanceCounter, DspFlightScoreBadge, PanelCard } from "../../components/ui";
 import { VOICE_SCROLLER_LEVEL_DISTANCE } from "./voiceSideScrollerModel";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 import {
@@ -29,7 +29,7 @@ export const VoiceSideScrollerHud = ({ onBackToMenu, state }: VoiceSideScrollerH
         maxDistance={VOICE_SCROLLER_LEVEL_DISTANCE}
         progress={difficultyProgress}
       />
-      <DspFlightScore
+      <DspFlightScoreBadge
         level={state.difficultyLevel}
         score={state.score}
         stars={state.stars}

@@ -2,18 +2,17 @@ import React from "react";
 
 /**
  * @uxId DSP_FLIGHT_SCORE_BADGE
- * @uxId DSP_LEVEL_TROPHY_BADGE
- * @screens SCR_ZEG_VLIEG_START | SCR_ZEG_VLIEG_ACTIVE
- * @description Score, trofee en level weergave badge voor de vlieg minigame.
+ * @screens SCR_ZEG_VLIEG_ACTIVE
+ * @description Statustellermodule met score, trofee, sterren en level in de actieve vlieg-gameplay.
  */
-export interface DspFlightScoreProps {
+export interface DspFlightScoreBadgeProps {
   score: number;
   level?: number;
   stars?: number;
   className?: string;
 }
 
-export const DspFlightScoreBadge: React.FC<DspFlightScoreProps> = ({
+export const DspFlightScoreBadge: React.FC<DspFlightScoreBadgeProps> = ({
   score,
   level = 1,
   stars = 0,
@@ -29,5 +28,3 @@ export const DspFlightScoreBadge: React.FC<DspFlightScoreProps> = ({
     </div>
   );
 };
-
-export const DspFlightScore = DspFlightScoreBadge;

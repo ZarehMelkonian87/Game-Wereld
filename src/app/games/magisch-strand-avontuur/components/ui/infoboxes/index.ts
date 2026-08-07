@@ -1,4 +1,5 @@
 export * from "./InfoboxSpeechStatus";
-export * from "./InfoboxPermission";
+export * from "./InfoboxPermissionNotice";
+export * from "./InfoboxMicBlockedAlert";
 export * from "./InfoboxPrivacyNote";
-export * from "./InfoboxVideoError";
+export * from "./InfoboxVideoErrorBanner";
