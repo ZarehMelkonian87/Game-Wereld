@@ -73,15 +73,17 @@ export const CompactGameModeCard: DevtoolsComponent<CompactGameModeCardProps> = 
 
       <span
         className={classNames(
-          "grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-white/85 text-slate-700 shadow-sm",
-          selected && "bg-emerald-400 text-white",
+          "grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 shadow-sm transition-colors",
+          selected
+            ? "border-emerald-400 bg-emerald-500 text-white"
+            : "border-white bg-white/85 text-slate-700",
         )}
         data-slot="selection"
       >
         {selected ? (
-          <Check className="h-5 w-5" strokeWidth={4} />
+          <Check className="h-5 w-5 shrink-0 text-white" strokeWidth={3} />
         ) : (
-          <ChevronRight className="h-5 w-5" strokeWidth={3} />
+          <ChevronRight className="h-5 w-5 shrink-0 text-slate-700" strokeWidth={3} />
         )}
       </span>
     </button>
