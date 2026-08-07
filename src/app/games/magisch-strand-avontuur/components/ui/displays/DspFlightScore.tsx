@@ -29,3 +29,5 @@ export const DspFlightScoreBadge: React.FC<DspFlightScoreProps> = ({
     </div>
   );
 };
+
+export const DspFlightScore = DspFlightScoreBadge;

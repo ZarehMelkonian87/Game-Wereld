@@ -1,5 +1,4 @@
-import { Gauge, Home, Star, Trophy } from "lucide-react";
-import { HudIconButton, PanelCard, ProgressBar } from "../../components/ui";
+import { BtnNavHome, DspDistanceCounter, DspFlightScore, PanelCard } from "../../components/ui";
 import { VOICE_SCROLLER_LEVEL_DISTANCE } from "./voiceSideScrollerModel";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 import {
@@ -24,36 +23,17 @@ export const VoiceSideScrollerHud = ({ onBackToMenu, state }: VoiceSideScrollerH
       data-testid="voice-side-scroller-hud"
       variant="transparent"
     >
-      <HudIconButton
-        icon={<Home className="h-5 w-5" strokeWidth={3} />}
-        label="Terug naar menu"
-        onClick={onBackToMenu}
-        tone="white"
+      <BtnNavHome onClick={onBackToMenu} />
+      <DspDistanceCounter
+        distanceMeters={distanceMeters}
+        maxDistance={VOICE_SCROLLER_LEVEL_DISTANCE}
+        progress={difficultyProgress}
       />
-      <ProgressBar
-        icon={<Gauge className="h-4 w-4 text-sky-600" strokeWidth={2.5} />}
-        label={`Afstand ${distanceMeters}m`}
-        max={VOICE_SCROLLER_LEVEL_DISTANCE}
-        tone="yellow"
-        value={difficultyProgress}
+      <DspFlightScore
+        level={state.difficultyLevel}
+        score={state.score}
+        stars={state.stars}
       />
-      <div
-        aria-label={`Punten: ${state.score}. Woordsterren: ${state.stars}. Level ${state.difficultyLevel}`}
-        className="grid min-h-11 shrink-0 grid-cols-2 gap-x-2 rounded-2xl border-2 border-sky-300 bg-sky-100 px-2 py-1 text-[0.7rem] font-black leading-none text-sky-950 shadow-[0_3px_0_rgba(3,105,161,0.22)]"
-        data-component="VoiceSideScrollerScoreCounter"
-      >
-        <span className="inline-flex items-center gap-1 tabular-nums">
-          <Trophy className="h-4 w-4 text-sky-600" fill="currentColor" strokeWidth={2.5} />
-          {state.score}
-        </span>
-        <span className="inline-flex items-center gap-1 tabular-nums">
-          <Star className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
-          {state.stars}
-        </span>
-        <span className="col-span-2 mt-0.5 text-center text-[0.62rem] text-emerald-900">
-          Level {state.difficultyLevel}
-        </span>
-      </div>
     </PanelCard>
   );
 };

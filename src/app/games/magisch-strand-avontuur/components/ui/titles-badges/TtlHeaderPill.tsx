@@ -7,19 +7,24 @@ import React from "react";
  * @description Witte afgeronde pill-header voor schermtitels en secties.
  */
 export interface TtlHeaderPillProps {
-  title: string;
+  title?: string;
+  children?: React.ReactNode;
   className?: string;
+  "data-testid"?: string;
 }
 
 export const TtlHeaderPill: React.FC<TtlHeaderPillProps> = ({
   title,
+  children,
   className = "",
+  "data-testid": testId,
 }) => {
   return (
     <div
-      className={`px-6 py-2 bg-white text-slate-800 font-extrabold text-xl rounded-full shadow-md border border-slate-200 text-center ${className}`}
+      className={`inline-flex items-center justify-center px-6 py-2 bg-white text-slate-800 font-extrabold text-xl rounded-full shadow-md border border-slate-200 text-center ${className}`}
+      data-testid={testId}
     >
-      {title}
+      {children ?? title}
     </div>
   );
 };

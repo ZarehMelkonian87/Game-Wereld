@@ -45,3 +45,7 @@ export const BtnAudioToggle: React.FC<BtnAudioToggleProps> = ({
     </button>
   );
 };
+
+export const BtnAudioToggleQuick: React.FC<Partial<BtnAudioToggleProps>> = (props) => (
+  <BtnAudioToggle onToggle={props.onToggle ?? (() => undefined)} variant="quick" {...props} />
+);

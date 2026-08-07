@@ -8,17 +8,25 @@ import React from "react";
 export interface BtnSettingsGearProps {
   onClick: () => void;
   className?: string;
+  ariaLabel?: string;
+  "aria-label"?: string;
+  "data-testid"?: string;
 }
 
 export const BtnSettingsGear: React.FC<BtnSettingsGearProps> = ({
   onClick,
   className = "",
+  ariaLabel,
+  "aria-label": ariaLabelAttr,
+  "data-testid": testId,
 }) => {
+  const label = ariaLabelAttr ?? ariaLabel ?? "Open instellingen";
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label="Open instellingen"
+      aria-label={label}
+      data-testid={testId}
       className={`w-12 h-12 rounded-2xl bg-amber-400 text-slate-800 shadow-md flex items-center justify-center border-2 border-amber-500 hover:scale-105 active:scale-95 transition-transform ${className}`}
     >
       <svg className="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">

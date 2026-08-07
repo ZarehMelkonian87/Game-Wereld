@@ -8,12 +8,14 @@ import React from "react";
  */
 export interface BadgeModalHeaderProps {
   icon?: React.ReactNode;
+  imgSrc?: string;
   variant?: "star" | "keyboard";
   className?: string;
 }
 
 export const BadgeModalHeader: React.FC<BadgeModalHeaderProps> = ({
   icon,
+  imgSrc,
   variant = "star",
   className = "",
 }) => {
@@ -26,7 +28,9 @@ export const BadgeModalHeader: React.FC<BadgeModalHeaderProps> = ({
     <div
       className={`w-14 h-14 rounded-2xl border-2 shadow-md flex items-center justify-center -mt-10 mx-auto ${bgStyle} ${className}`}
     >
-      {icon ? (
+      {imgSrc ? (
+        <img alt="" className="h-12 w-12 object-contain" draggable={false} src={imgSrc} />
+      ) : icon ? (
         icon
       ) : variant === "star" ? (
         <span className="text-2xl">⭐</span>

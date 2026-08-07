@@ -2,11 +2,10 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { classNames } from "./classNames";
 
 /**
- * Canonieke titel-sticker voor het interface-systeem (UX-103). Vervangt de
- * vier eerdere koptekststijlen (logo, witte pill, blauwe 3D-app-pill en de
- * losse belonings-kop) door één neutrale, hoog-contrast sticker die op de
- * lichte strandachtergrond leesbaar blijft. Menuschermen adopteren deze
- * component in Groep 2. Zie docs/ux/interface-redesign-takenlijst.md.
+ * @uxId TTL_HEADER_PILL
+ * @uxId LBL_SECTION_TITLE
+ * @screens SCR_ADVENTURE_SELECT | SCR_SETTINGS_PRIVACY | SCR_REWARD_SUMMARY
+ * @description Canonieke titel-sticker / header pill voor het interface-systeem.
  */
 interface RibbonTitleProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;

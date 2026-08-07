@@ -7,7 +7,7 @@ import {
   saveUnlockedRewardIds,
   type RewardUnlock,
 } from "../../logic/rewards";
-import { RibbonTitle } from "../../components/ui";
+import { TtlHeaderPill } from "../../components/ui";
 import { formatList } from "./rewardDisplay";
 import { RewardActionsPanel } from "./RewardActionsPanel";
 import { RewardCard } from "./RewardCard";
@@ -83,7 +83,7 @@ export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: Rewar
       data-testid="reward-screen"
     >
       <div className="pointer-events-none absolute inset-x-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-20 flex justify-center px-3">
-        <RibbonTitle data-testid="reward-title">Beloning</RibbonTitle>
+        <TtlHeaderPill data-testid="reward-title">Beloning</TtlHeaderPill>
       </div>
       <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_auto] gap-2">
         <RewardCard

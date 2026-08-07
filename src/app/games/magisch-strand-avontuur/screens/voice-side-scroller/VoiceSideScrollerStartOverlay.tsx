@@ -1,6 +1,12 @@
-import { Play, ShieldCheck, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
-import { PanelCard, PrimaryActionButton } from "../../components/ui";
+import {
+  BadgeModalHeader,
+  BtnPrimaryPlay,
+  InfoboxPrivacyNote,
+  PanelCard,
+  TtlModalTitle,
+} from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerStartOverlayProps {
@@ -27,16 +33,9 @@ export const VoiceSideScrollerStartOverlay = ({
       aria-label="Zeg en Vlieg starten"
       className="grid w-full max-w-[22rem] gap-3 !rounded-[1.5rem] !p-4 text-center"
     >
-      <div className="mx-auto grid h-16 w-16 place-items-center rounded-[1.35rem] border-[3px] border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">
-        <img
-          alt=""
-          className="h-14 w-14 object-contain"
-          draggable={false}
-          src={voiceSideScrollerMascotStateUrls.ready}
-        />
-      </div>
+      <BadgeModalHeader imgSrc={voiceSideScrollerMascotStateUrls.ready} />
       <div>
-        <h2 className="text-2xl font-black leading-none text-slate-900">Zeg & Vlieg</h2>
+        <TtlModalTitle title="Zeg & Vlieg" />
         <p className="mt-2 text-sm font-black leading-tight text-sky-900">
           Vlieg zo ver mogelijk. Noem plaatjes die je ziet. Raak geen obstakel.
         </p>
@@ -56,18 +55,14 @@ export const VoiceSideScrollerStartOverlay = ({
           </span>
         ))}
       </div>
-      <p className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-2 text-xs font-black leading-tight text-emerald-950">
-        <ShieldCheck className="mr-1 inline h-4 w-4" strokeWidth={3} />
-        We slaan geen opname op.
-      </p>
-      <PrimaryActionButton
+      <InfoboxPrivacyNote />
+      <BtnPrimaryPlay
         aria-label="Start Zeg en Vlieg"
         className="h-16 text-xl"
-        iconLeft={<Play className="h-7 w-7" fill="currentColor" strokeWidth={3} />}
         onClick={onStart}
       >
         Start
-      </PrimaryActionButton>
+      </BtnPrimaryPlay>
     </PanelCard>
   </div>
 );
