@@ -32,7 +32,7 @@ import {
 const databaseNames: string[] = [];
 const now = "2026-07-23T10:00:00.000Z";
 const profileId = createProfileId("profile-1");
-const gameId = createGameId("strand-bezem-escape");
+const gameId = createGameId("magisch-strand-avontuur");
 const sessionId = createSessionId("session-1");
 
 const createProfileFixture = () =>
@@ -441,7 +441,7 @@ describe("legacy importmigratie", () => {
       migratedProfiles: 1,
     });
     expect(
-      await database.tables.settings.get([profileId, "strand-bezem-escape.voice-privacy"]),
+      await database.tables.settings.get([profileId, "magisch-strand-avontuur.voice-privacy"]),
     ).toMatchObject({ values: { raw: "accepted" } });
     expect(await database.tables.practiceEvents.where("profileId").equals(profileId).count()).toBe(
       2,
@@ -485,11 +485,11 @@ describe("repository-backed gameopslag", () => {
       profileId,
       settings: repositories.settings,
     });
-    const preferencesKey = `strand-bezem-escape:${profileId}:settings`;
-    const rewardsKey = `strand-bezem-escape:${profileId}:unlocked-rewards`;
-    const worldKey = `strand-bezem-escape:${profileId}:selected-world`;
-    const rewardResultKey = `strand-bezem-escape:${profileId}:reward-result`;
-    const zoneDevKey = "strand-bezem-escape:zone-visual-hint-overrides";
+    const preferencesKey = `magisch-strand-avontuur:${profileId}:settings`;
+    const rewardsKey = `magisch-strand-avontuur:${profileId}:unlocked-rewards`;
+    const worldKey = `magisch-strand-avontuur:${profileId}:selected-world`;
+    const rewardResultKey = `magisch-strand-avontuur:${profileId}:reward-result`;
+    const zoneDevKey = "magisch-strand-avontuur:zone-visual-hint-overrides";
 
     firstRuntime.set(preferencesKey, '{"musicEnabled":false}');
     firstRuntime.set(rewardsKey, '["sticker-1"]');

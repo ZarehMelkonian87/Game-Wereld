@@ -26,15 +26,23 @@ const toRuntimeFailure = (error: unknown): RuntimeFailure => {
 
 const normalizeScope = (key: string, profileId: string) =>
   key
-    .replace(`strand-bezem-escape:${profileId}:settings`, "strand-bezem-escape.preferences")
-    .replace(`strand-bezem-escape:${profileId}:unlocked-rewards`, "strand-bezem-escape.rewards")
-    .replace(`strand-bezem-escape:${profileId}:selected-world`, "strand-bezem-escape.world")
+    .replace(`magisch-strand-avontuur:${profileId}:settings`, "magisch-strand-avontuur.preferences")
+    .replace(`magisch-strand-avontuur:${profileId}:unlocked-rewards`, "magisch-strand-avontuur.rewards")
+    .replace(`magisch-strand-avontuur:${profileId}:selected-world`, "magisch-strand-avontuur.world")
+    .replace(
+      `magisch-strand-avontuur:${profileId}:voice-privacy:2026-06-01`,
+      "magisch-strand-avontuur.voice-privacy",
+    )
+    .replace(`strand-bezem-escape:${profileId}:settings`, "magisch-strand-avontuur.preferences")
+    .replace(`strand-bezem-escape:${profileId}:unlocked-rewards`, "magisch-strand-avontuur.rewards")
+    .replace(`strand-bezem-escape:${profileId}:selected-world`, "magisch-strand-avontuur.world")
     .replace(
       `strand-bezem-escape:${profileId}:voice-privacy:2026-06-01`,
-      "strand-bezem-escape.voice-privacy",
+      "magisch-strand-avontuur.voice-privacy",
     );
 
 const isDevelopmentOnlyKey = (key: string) =>
+  key === "magisch-strand-avontuur:zone-visual-hint-overrides" ||
   key === "strand-bezem-escape:zone-visual-hint-overrides";
 
 export const reportStorageWriteFailure = (error: unknown) => {

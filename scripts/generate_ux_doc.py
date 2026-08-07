@@ -81,7 +81,7 @@ def add_screenshot_figure(doc, img_path, caption_text):
         p_img.paragraph_format.space_before = Pt(8)
         p_img.paragraph_format.space_after = Pt(4)
         run_img = p_img.add_run()
-        run_img.add_picture(img_path, width=Inches(2.8))
+        run_img.add_picture(img_path, width=Inches(2.6))
         
         p_cap = doc.add_paragraph()
         p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -92,37 +92,81 @@ def add_screenshot_figure(doc, img_path, caption_text):
         run_cap.font.italic = True
         run_cap.font.color.rgb = RGBColor(90, 106, 117)
 
+def create_table(doc, headers, data):
+    t = doc.add_table(rows=len(data)+1, cols=len(headers))
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.autofit = False
+    
+    col_widths = [Inches(1.6), Inches(1.3), Inches(1.7), Inches(1.0), Inches(0.9)]
+    for i, w in enumerate(col_widths):
+        if i < len(headers):
+            t.columns[i].width = w
+            
+    for i, h_text in enumerate(headers):
+        c = t.rows[0].cells[i]
+        set_cell_background(c, "0B8457")
+        set_cell_margins(c, top=80, bottom=80, left=80, right=80)
+        p = c.paragraphs[0]
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(h_text)
+        r.font.bold = True
+        r.font.color.rgb = RGBColor(255, 255, 255)
+        r.font.size = Pt(9)
+
+    TEAL = RGBColor(11, 132, 87)
+    for r_idx, row in enumerate(data, start=1):
+        cells = t.rows[r_idx].cells
+        bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
+        for c_idx, val in enumerate(row):
+            set_cell_background(cells[c_idx], bg)
+            set_cell_margins(cells[c_idx], top=60, bottom=60, left=80, right=80)
+            p = cells[c_idx].paragraphs[0]
+            p.paragraph_format.space_after = Pt(0)
+            r = p.add_run(val)
+            r.font.size = Pt(8.5)
+            if c_idx == 0:
+                r.font.bold = True
+                r.font.color.rgb = TEAL
+
+    set_table_borders(t)
+    doc.add_paragraph().paragraph_format.space_after = Pt(14)
+
 def build_docx():
     doc = Document()
     
     brain_dir = '/Users/melkonian/.gemini/antigravity-ide/brain/c6315284-cea7-4995-a87b-752c0862c7bd'
+    
     img_main = os.path.join(brain_dir, 'media__1784836812683.png')
     img_select = os.path.join(brain_dir, 'media__1784836812605.png')
     img_settings = os.path.join(brain_dir, 'media__1784836812579.png')
     img_reward = os.path.join(brain_dir, 'media__1784836812572.png')
+    img_fly_start = os.path.join(brain_dir, 'media__1784879932153.png')
+    img_kies_woord = os.path.join(brain_dir, 'media__1784879932176.png')
+    img_zeg_zet_kbd = os.path.join(brain_dir, 'media__1784879932198.png')
+    img_zeg_zet_game = os.path.join(brain_dir, 'media__1784879932221.png')
+    img_fly_active = os.path.join(brain_dir, 'media__1784879932236.png')
 
-    # Page Margins
+    # Margins
     for section in doc.sections:
         section.top_margin = Inches(1)
         section.bottom_margin = Inches(1)
         section.left_margin = Inches(1)
         section.right_margin = Inches(1)
         
-    # Styles
     normal_style = doc.styles['Normal']
     normal_style.font.name = 'Calibri'
     normal_style.font.size = Pt(10.5)
     normal_style.font.color.rgb = RGBColor(26, 37, 44)
     
-    TEAL = RGBColor(11, 132, 87)       # #0B8457
-    GOLD = RGBColor(217, 131, 16)      # #D98310
-    GRAY = RGBColor(90, 106, 117)      # #5A6A75
+    TEAL = RGBColor(11, 132, 87)
+    GOLD = RGBColor(217, 131, 16)
+    GRAY = RGBColor(90, 106, 117)
     
     # Title Banner
     p_title = doc.add_paragraph()
     p_title.paragraph_format.space_before = Pt(0)
     p_title.paragraph_format.space_after = Pt(2)
-    r_sub = p_title.add_run("GAME UX/UI SPECIFICATION DOCUMENT")
+    r_sub = p_title.add_run("COMPLETE GAME UX/UI SPECIFICATION DOCUMENT (ALL 9 SCREENS)")
     r_sub.font.name = "Calibri"
     r_sub.font.size = Pt(11)
     r_sub.font.bold = True
@@ -138,14 +182,14 @@ def build_docx():
     
     p_desc = doc.add_paragraph()
     p_desc.paragraph_format.space_after = Pt(14)
-    r_d = p_desc.add_run("Gestandaardiseerde Interface Componenten, Naming Conventions, Functionaliteiten & UX Flow Specificatie")
+    r_d = p_desc.add_run("Volledige Interface Componenten, Naming Conventions, Gameplay Flows & Modal Specificatie (9 Schermen)")
     r_d.font.name = "Calibri"
     r_d.font.size = Pt(12)
     r_d.font.italic = True
     r_d.font.color.rgb = GRAY
 
     # Metadata Table
-    meta_table = doc.add_table(rows=4, cols=2)
+    meta_table = doc.add_table(rows=5, cols=2)
     meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     meta_table.autofit = False
     meta_table.columns[0].width = Inches(2.0)
@@ -153,8 +197,9 @@ def build_docx():
     
     meta_data = [
         ("Projectnaam:", "Strand-bezem-escape (Magisch Strand Avontuur)"),
-        ("Document Versie:", "v1.0 (Definitieve UI/UX Standaardisatie)"),
+        ("Document Versie:", "v2.0 (Volledige Schermspecificatie - 9 Schermen)"),
         ("Rol / Auteur:", "Senior Game UX/UI Designer & Technical Product Owner"),
+        ("Aantal Schermen:", "9 Unieke Schermen & Modals (Menu's, Modals, Gameplay, Overlays)"),
         ("Doelgroep:", "Game Developers, UI/UX Designers, Edu-Tech Content Creators, QA Testers")
     ]
     
@@ -197,12 +242,10 @@ def build_docx():
     p.paragraph_format.space_after = Pt(8)
     p.paragraph_format.line_spacing = 1.15
     p.add_run(
-        "Dit document bevat het officiële User Experience (UX) en User Interface (UI) ontwerpdocument voor "
-        "de educatieve game Strand-bezem-escape (commerciële titel: Magisch Strand Avontuur). "
-        "Het doel van dit document is het standaardiseren van alle menu's, knoppen, statustellers, "
-        "interactiekaarten en feedbackelementen. Door eenduidige naamgeving (naming conventions) en "
-        "heldere functionaliteitsomschrijvingen te hanteren, wordt de overdracht naar software-engineers "
-        "en gamedesigners gestroomlijnd."
+        "Dit document bevat het volledige en geharmoniseerde User Experience (UX) en User Interface (UI) "
+        "ontwerpdocument voor alle 9 schermen en overlays van Strand-bezem-escape (Magisch Strand Avontuur). "
+        "Met alle menu's, gameplay-omgevingen, instructiemodals, invoeroverlays en beloningsschermen vastgelegd "
+        "in gestandaardiseerde tabellen, vormt dit de definitieve blauwdruk voor ontwikkeling en test-acceptatie."
     )
     
     add_callout_box(
@@ -210,8 +253,8 @@ def build_docx():
         [
             "• Kindvriendelijke Ergonomie: Knoppen hebben een minimale touch-target van 48x48dp met duidelijke iconografie.",
             "• Directe Multimodale Feedback: Elk interactief element reageert visueel (schaalverandering/pulse) en auditief (klank/click).",
-            "• Hoge Contrasten & Helderheid: Gebruik van speelse, warme strandkleuren met hoge leesbaarheid en duidelijke contours.",
-            "• Inclusiviteit & Privacy: Toegankelijkheidsopties zoals rustige beweging en transparante microfoon-permissies."
+            "• Multimodale Invoer: Ondersteuning voor gesproken antwoorden (microfoon), slepen & neerzetten (drag & drop) en tekstinvoer.",
+            "• Inclusiviteit & Privacy: Geen bewaarde spraakopnames, opties voor rustige beweging (reduced motion) en directe toegankelijkheid."
         ],
         title="KERNPRINCIPES VAN STRAND-BEZEM-ESCAPE UX"
     )
@@ -229,15 +272,7 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "Om verwarring in de codebase en het design-systeem te voorkomen, hanteren we een gestandaardiseerde "
-        "prefix-structuur voor alle UI-onderdelen in de applicatie:"
-    )
-
-    prefix_table = doc.add_table(rows=9, cols=3)
+    prefix_table = doc.add_table(rows=11, cols=3)
     prefix_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     prefix_table.autofit = False
     prefix_table.columns[0].width = Inches(1.5)
@@ -257,14 +292,16 @@ def build_docx():
         r.font.size = Pt(9.5)
         
     prefix_data = [
-        ("SCR_", "Scherm / View", "SCR_MAIN_TITLE, SCR_ADVENTURE_SELECT"),
-        ("BTN_", "Interactieve Knop", "BTN_PRIMARY_PLAY, BTN_NAV_BACK"),
-        ("CARD_", "Selectie- of Informatiekaart", "CARD_GAME_ZEG_ZET, CARD_REWARD_SHOWCASE"),
+        ("SCR_", "Scherm / View", "SCR_MAIN_TITLE, SCR_ZEG_ZET_GAME"),
+        ("BTN_", "Interactieve Knop", "BTN_PRIMARY_PLAY, BTN_ACTION_KLAAR"),
+        ("CARD_", "Selectie-, Modal- of Informatiekaart", "CARD_GAME_ZEG_ZET, CARD_MODAL_KEYBOARD"),
         ("TOGGLE_", "Aan/Uit Schakelaar", "TOGGLE_AUDIO, TOGGLE_REDUCED_MOTION"),
-        ("DSP_", "Weergave / Statusteller", "DSP_STAR_COUNTER, DSP_STICKER_PROGRESS"),
-        ("TTL_", "Titel / Header Capsule", "TTL_HEADER_PILL, TTL_SECTION_TITLE"),
-        ("INFOBOX_", "Melding / Waarschuwingsvak", "INFOBOX_SPEECH_STATUS, INFOBOX_MIC_BLOCKED"),
-        ("DOCK_", "Onderste Actie- / Navigatiebalk", "DOCK_SELECTION_FOOTER, DOCK_REWARD_ACTIONS")
+        ("DSP_", "Weergave / Statusteller", "DSP_STAR_COUNTER, DSP_DISTANCE_COUNTER"),
+        ("TTL_", "Titel / Header Capsule", "TTL_HEADER_PILL, TTL_MODAL_TITLE"),
+        ("INFOBOX_", "Melding / Waarschuwingsvak", "INFOBOX_SPEECH_STATUS, INFOBOX_VIDEO_ERROR"),
+        ("CANVAS_", "Interactief Spelveld / Substraat", "CANVAS_BEACH_OCEAN, CANVAS_FLIGHT_ARENA"),
+        ("TRAY_", "Asset Palet / Keuzebalk", "TRAY_STICKER_PALETTE"),
+        ("DOCK_", "Onderste Actie- / Navigatiebalk", "DOCK_SELECTION_FOOTER, DOCK_FLIGHT_CONTROLS")
     ]
     
     for row_idx, data in enumerate(prefix_data, start=1):
@@ -284,6 +321,8 @@ def build_docx():
     set_table_borders(prefix_table)
     doc.add_paragraph().paragraph_format.space_after = Pt(14)
 
+    std_headers = ["Element Code Name", "Visuele Naam", "Functionaliteit & Omschrijving", "Visuele Stijl", "Doel / Actie"]
+
     # ---------------------------------------------------------
     # SECTION 3: SCHERM 1 - HOOFDSCHERM (SCR_MAIN_TITLE)
     # ---------------------------------------------------------
@@ -297,38 +336,7 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "Het Hoofdscherm dient als de primaire landingspagina van Magisch Strand Avontuur. "
-        "Het zet direct een vrolijke, uitnodigende sfeer neer met het merklogo, het hoofdpersonage "
-        "op de vliegende strandbezem, en snelle toegang tot de spelstart en instellingen."
-    )
-
     add_screenshot_figure(doc, img_main, "SCR_MAIN_TITLE - Hoofdscherm / Titelmenu Interface")
-
-    t1 = doc.add_table(rows=8, cols=5)
-    t1.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t1.autofit = False
-    t1.columns[0].width = Inches(1.5)
-    t1.columns[1].width = Inches(1.3)
-    t1.columns[2].width = Inches(1.6)
-    t1.columns[3].width = Inches(1.1)
-    t1.columns[4].width = Inches(1.0)
-    
-    t1_headers = ["Element Code Name", "Visuele Naam", "Functionaliteit & Omschrijving", "Visuele Stijl", "Doel / Actie"]
-    for i, h_text in enumerate(t1_headers):
-        c = t1.rows[0].cells[i]
-        set_cell_background(c, "0B8457")
-        set_cell_margins(c, top=80, bottom=80, left=80, right=80)
-        p = c.paragraphs[0]
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(h_text)
-        r.font.bold = True
-        r.font.color.rgb = RGBColor(255, 255, 255)
-        r.font.size = Pt(9)
-
     s1_data = [
         ("BTN_NAV_BACK", "Terug Knop", "Sluit de game en keert terug naar de overkoepelende app-omgeving.", "Witte cirkel knop met donkere pijl-links", "Navigate Back"),
         ("BTN_AUDIO_TOGGLE_QUICK", "Snelle Audio Knop", "Schakelt audio/geluid direct in of uit vanuit het hoofdscherm.", "Witte cirkel knop met luidspreker-icoon", "Toggle Audio"),
@@ -338,23 +346,7 @@ def build_docx():
         ("IMG_HERO_CHARACTER", "Mascotte Illustratie", "Hero-illustratie van de jongen op de vliegende strandbezem met de regenboogster.", "Kleurrijke karakter-art op strandachtergrond", "Visual Engagement"),
         ("BTN_PRIMARY_PLAY", "Spelen Knop", "Hoofdactieknop om het spel te starten en het avontuur te kiezen.", "Grote groen-gebolde pilknop met Play-icoon", "Open SCR_ADVENTURE_SELECT")
     ]
-
-    for r_idx, row in enumerate(s1_data, start=1):
-        cells = t1.rows[r_idx].cells
-        bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
-        for c_idx, val in enumerate(row):
-            set_cell_background(cells[c_idx], bg)
-            set_cell_margins(cells[c_idx], top=60, bottom=60, left=80, right=80)
-            p = cells[c_idx].paragraphs[0]
-            p.paragraph_format.space_after = Pt(0)
-            r = p.add_run(val)
-            r.font.size = Pt(8.5)
-            if c_idx == 0:
-                r.font.bold = True
-                r.font.color.rgb = TEAL
-
-    set_table_borders(t1)
-    doc.add_paragraph().paragraph_format.space_after = Pt(14)
+    create_table(doc, std_headers, s1_data)
 
     # ---------------------------------------------------------
     # SECTION 4: SCHERM 2 - SPEL SELECTIESCHERM (SCR_ADVENTURE_SELECT)
@@ -369,67 +361,20 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "In het Spel Selectiescherm kiest de speler uit drie beschikbare minigames / leermodi. "
-        "Elke spelkaart is voorzien van een eigen icoon, titel, korte instructietoelichting en "
-        "interactie-indicator."
-    )
-
     add_screenshot_figure(doc, img_select, "SCR_ADVENTURE_SELECT - Spel Selectiescherm Interface")
-
-    t2 = doc.add_table(rows=11, cols=5)
-    t2.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t2.autofit = False
-    t2.columns[0].width = Inches(1.6)
-    t2.columns[1].width = Inches(1.3)
-    t2.columns[2].width = Inches(1.7)
-    t2.columns[3].width = Inches(1.0)
-    t2.columns[4].width = Inches(0.9)
-    
-    t2_headers = ["Element Code Name", "Visuele Naam", "Functionaliteit & Omschrijving", "Visuele Stijl", "Doel / Actie"]
-    for i, h_text in enumerate(t2_headers):
-        c = t2.rows[0].cells[i]
-        set_cell_background(c, "0B8457")
-        set_cell_margins(c, top=80, bottom=80, left=80, right=80)
-        p = c.paragraphs[0]
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(h_text)
-        r.font.bold = True
-        r.font.color.rgb = RGBColor(255, 255, 255)
-        r.font.size = Pt(9)
-
     s2_data = [
         ("BTN_NAV_BACK", "Terug Knop", "Navigeert terug naar het Hoofdscherm.", "Witte cirkel knop met pijl-links", "Open SCR_MAIN_TITLE"),
         ("TTL_HEADER_PILL", "Header Titel", "Schermtitel capsule met de tekst 'Kies avontuur'.", "Witte afgeronde pill-header", "Static Title"),
         ("DSP_STAR_COUNTER", "Sterrenteller", "Toont actueel aantal verdiende sterren (120).", "Witte capsule pil met ster", "Read Only Display"),
         ("LBL_SECTION_TITLE", "Sectielabel", "Subtitel boven de spellijst: 'Kies spel'.", "Donkergrijze vetgedrukte tekst", "Section Divider"),
-        ("CARD_GAME_ZEG_ZET", "Spelkaart: Zeg & Zet", "Selecteert de luister-, spreek- of typ-opdracht minigame. Subtitel: 'Luister, spreek of typ en zet het plaatje op de goede plek.'", "Witte afgeronde kaart met groene rand, spreekwolk-icoon & radio-selectie", "Select Minigame 1"),
-        ("CARD_GAME_KIES_WOORD", "Spelkaart: Kies het Woord", "Selecteert de meervoudige keuze minigame. Subtitel: 'Hoor een woord en kies het juiste plaatje.'", "Witte kaart met lichtblauwe rand, boek-icoon & pijl-rechts", "Select Minigame 2"),
-        ("CARD_GAME_ZEG_VLIEG", "Spelkaart: Zeg & Vlieg", "Selecteert de spraakgestuurde bezem-vlieggame. Subtitel: 'Vlieg met je stem en zeg het strandwoord.'", "Zachtgele kaart met gouden rand, microfoon/bezem-icoon & pijl-rechts", "Select Minigame 3"),
+        ("CARD_GAME_ZEG_ZET", "Spelkaart: Zeg & Zet", "Selecteert de luister-, spreek- of typ-opdracht minigame.", "Witte afgeronde kaart met groene rand & spreekwolk-icoon", "Select Minigame 1"),
+        ("CARD_GAME_KIES_WOORD", "Spelkaart: Kies het Woord", "Selecteert de meervoudige keuze minigame.", "Witte kaart met lichtblauwe rand & boek-icoon", "Select Minigame 2"),
+        ("CARD_GAME_ZEG_VLIEG", "Spelkaart: Zeg & Vlieg", "Selecteert de spraakgestuurde bezem-vlieggame.", "Zachtgele kaart met gouden rand & microfoon-icoon", "Select Minigame 3"),
         ("BTN_PRIMARY_START", "Start Spel Knop", "Start direct de op dat moment geselecteerde minigame.", "Brede groene knop onderaan met Play-icoon", "Launch Active Game"),
         ("BTN_SECONDARY_REWARD", "Beloning Knop", "Navigeert naar het resultatenoverzicht en het stickerboek.", "Creme knop met gele rand en cadeau-icoon", "Open SCR_REWARD_SUMMARY"),
         ("BTN_SECONDARY_OPTIONS", "Opties Knop", "Opent het instellingenmenu voor geluid, hints en devtools.", "Witte knop met blauwe/grijze rand en tandwiel", "Open SCR_SETTINGS_PRIVACY")
     ]
-
-    for r_idx, row in enumerate(s2_data, start=1):
-        cells = t2.rows[r_idx].cells
-        bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
-        for c_idx, val in enumerate(row):
-            set_cell_background(cells[c_idx], bg)
-            set_cell_margins(cells[c_idx], top=60, bottom=60, left=80, right=80)
-            p = cells[c_idx].paragraphs[0]
-            p.paragraph_format.space_after = Pt(0)
-            r = p.add_run(val)
-            r.font.size = Pt(8.5)
-            if c_idx == 0:
-                r.font.bold = True
-                r.font.color.rgb = TEAL
-
-    set_table_borders(t2)
-    doc.add_paragraph().paragraph_format.space_after = Pt(14)
+    create_table(doc, std_headers, s2_data)
 
     # ---------------------------------------------------------
     # SECTION 5: SCHERM 3 - INSTELLINGEN & PRIVACY (SCR_SETTINGS_PRIVACY)
@@ -444,71 +389,25 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "Het Instellingenscherm biedt volledige controle over de audio, spraakbegeleiding, animatie-intensiteit, "
-        "ontwikkelopties (DevTools) en transparante microfoon-toestemmingen voor spraakherkenning."
-    )
-
     add_screenshot_figure(doc, img_settings, "SCR_SETTINGS_PRIVACY - Instellingen & Privacy Interface")
-
-    t3 = doc.add_table(rows=16, cols=5)
-    t3.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t3.autofit = False
-    t3.columns[0].width = Inches(1.7)
-    t3.columns[1].width = Inches(1.3)
-    t3.columns[2].width = Inches(1.7)
-    t3.columns[3].width = Inches(0.9)
-    t3.columns[4].width = Inches(0.9)
-    
-    t3_headers = ["Element Code Name", "Visuele Naam", "Functionaliteit & Omschrijving", "Visuele Stijl", "Doel / Actie"]
-    for i, h_text in enumerate(t3_headers):
-        c = t3.rows[0].cells[i]
-        set_cell_background(c, "0B8457")
-        set_cell_margins(c, top=80, bottom=80, left=80, right=80)
-        p = c.paragraphs[0]
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(h_text)
-        r.font.bold = True
-        r.font.color.rgb = RGBColor(255, 255, 255)
-        r.font.size = Pt(9)
-
     s3_data = [
         ("BTN_NAV_MENU", "Menu Knop", "Sluit het instellingenscherm en keert terug naar de vorige pagina.", "Witte pilknop met pijl-links en tekst 'Menu'", "Return to Sender"),
         ("TTL_HEADER_PILL", "Header Titel", "Schermtitel capsule met de tekst 'Instellingen'.", "Witte afgeronde capsule header", "Static Title"),
-        ("TOGGLE_AUDIO", "Audio Schakelaar", "Schakelt gesproken opdrachten en video-audio in/uit. Subtitel: 'Laat opdrachtspraak en video's horen.'", "Witte kaart met luidspreker-icoon en groene Toggle Switch (Aan)", "Toggle Audio State"),
-        ("TOGGLE_MUSIC", "Muziek Schakelaar", "Schakelt de achtergrondmuziek in/uit. Subtitel: 'Zachte muziek op de achtergrond.'", "Witte kaart met muzieknoot-icoon en grijze Toggle Switch (Uit)", "Toggle BGM State"),
-        ("TOGGLE_HINTS", "Hints Schakelaar", "Schakelt mascottesubsidie en automatische hints in/uit. Subtitel: 'Laat de mascotte helpen wanneer nodig.'", "Witte kaart met lamp-icoon en groene Toggle Switch (Aan)", "Toggle Hint System"),
-        ("TOGGLE_REDUCED_MOTION", "Rustige Beweging Toggle", "Vermindert animaties en pulse-effecten voor rustige ervaring. Subtitel: 'Minder beweging en minder pulse-effecten.'", "Witte kaart met oog-kruis icoon en grijze Toggle Switch (Uit)", "Toggle Accessibility"),
-        ("TOGGLE_DEVTOOLS", "Zone Editor Toggle", "Opent interactieve zone-locatie editor voor ontwikkelaars. Subtitel: 'Open de interactieve zone-locatie editor.'", "Witte kaart met sleutel-icoon en grijze Toggle Switch (Uit)", "Developer Mode"),
-        ("CARD_PRIVACY_SECTION", "Privacy Container", "Gele achtergrondkaart met schild-icoon die alle microfooninformatie bundelt.", "Gele afgeronde container met schild-icoon 'Microfoon en privacy'", "Grouping Container"),
+        ("TOGGLE_AUDIO", "Audio Schakelaar", "Schakelt gesproken opdrachten en video-audio in/uit.", "Witte kaart met luidspreker-icoon en groene Toggle Switch", "Toggle Audio State"),
+        ("TOGGLE_MUSIC", "Muziek Schakelaar", "Schakelt de achtergrondmuziek in/uit.", "Witte kaart met muzieknoot-icoon en grijze Toggle Switch", "Toggle BGM State"),
+        ("TOGGLE_HINTS", "Hints Schakelaar", "Schakelt mascottesubsidie en automatische hints in/uit.", "Witte kaart met lamp-icoon en groene Toggle Switch", "Toggle Hint System"),
+        ("TOGGLE_REDUCED_MOTION", "Rustige Beweging Toggle", "Vermindert animaties en pulse-effecten voor rustige ervaring.", "Witte kaart met oog-kruis icoon en grijze Toggle Switch", "Toggle Accessibility"),
+        ("TOGGLE_DEVTOOLS", "Zone Editor Toggle", "Opent interactieve zone-locatie editor voor ontwikkelaars.", "Witte kaart met sleutel-icoon en grijze Toggle Switch", "Developer Mode"),
+        ("CARD_PRIVACY_SECTION", "Privacy Container", "Gele achtergrondkaart die alle microfooninformatie bundelt.", "Gele afgeronde container met schild-icoon", "Grouping Container"),
         ("LBL_PRIVACY_DESC", "Privacy Uitleg", "Omschrijving: 'De microfoon wordt alleen gebruikt om korte zinnen naar tekst om te zetten.'", "Donkergrijze tekst onder privacy-titel", "Informational Text"),
-        ("DROPDOWN_PRIVACY_FAQ", "FAQ Dropdown", "Uitklapbare knop: 'Waarom gebruiken we de microfoon?' met pijl-omlaag.", "Lichtblauwe pilknop met dropdown pijl", "Toggle FAQ Details"),
-        ("INFOBOX_SPEECH_STATUS", "Status Infoblok", "Blauw vak: 'Spraakherkenning is beschikbaar. Als spraak niet werkt op telefoon, typ dezelfde zin.'", "Lichtblauw afgerond vak met telefoon-icoon", "Status Notification"),
-        ("INFOBOX_PERMISSION_NOTICE", "Toestemming Infoblok", "Geel vak: 'Deze pagina mag een browser-popup voor microfoontoestemming tonen.'", "Lichtgeel vak met oranje rand", "Permission Alert"),
-        ("BTN_MIC_RECHECK", "Controleer Opnieuw Knop", "Herstart de spraakherkenningstest en vraagt opnieuw browser-toestemming.", "Groene brede knop met microfoon-icoon", "Trigger Mic Permission"),
+        ("DROPDOWN_PRIVACY_FAQ", "FAQ Dropdown", "Uitklapbare knop: 'Waarom gebruiken we de microfoon?'", "Lichtblauwe pilknop met dropdown pijl", "Toggle FAQ Details"),
+        ("INFOBOX_SPEECH_STATUS", "Status Infoblok", "Blauw vak met status en alternatief (typen bij storing).", "Lichtblauw afgerond vak met telefoon-icoon", "Status Notification"),
+        ("INFOBOX_PERMISSION_NOTICE", "Toestemming Infoblok", "Geel vak over browser-popup toestemming.", "Lichtgeel vak met oranje rand", "Permission Alert"),
+        ("BTN_MIC_RECHECK", "Controleer Opnieuw Knop", "Herstart de spraakherkenningstest en vraagt opnieuw toestemming.", "Groene brede knop met microfoon-icoon", "Trigger Mic Permission"),
         ("LBL_MIC_INSTRUCTION", "Instructietekst", "Ondersteunende tekst: 'Tik op de knop om microfoontoegang te vragen.'", "Kleine grijze instructietekst", "Instructional Label"),
-        ("INFOBOX_MIC_BLOCKED_ALERT", "Geblokkeerd Waarschuwing", "Waarschuwingsvak onderaan: 'Microfoon is geblokkeerd. Zet microfoontoegang aan in de browserinstellingen...'", "Oranje/Rood omrand waarschuwingsvak", "Error State Alert")
+        ("INFOBOX_MIC_BLOCKED_ALERT", "Geblokkeerd Waarschuwing", "Waarschuwingsvak bij geblokkeerde microfoon.", "Oranje/Rood omrand waarschuwingsvak", "Error State Alert")
     ]
-
-    for r_idx, row in enumerate(s3_data, start=1):
-        cells = t3.rows[r_idx].cells
-        bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
-        for c_idx, val in enumerate(row):
-            set_cell_background(cells[c_idx], bg)
-            set_cell_margins(cells[c_idx], top=60, bottom=60, left=80, right=80)
-            p = cells[c_idx].paragraphs[0]
-            p.paragraph_format.space_after = Pt(0)
-            r = p.add_run(val)
-            r.font.size = Pt(8.5)
-            if c_idx == 0:
-                r.font.bold = True
-                r.font.color.rgb = TEAL
-
-    set_table_borders(t3)
-    doc.add_paragraph().paragraph_format.space_after = Pt(14)
+    create_table(doc, std_headers, s3_data)
 
     # ---------------------------------------------------------
     # SECTION 6: SCHERM 4 - BELONING & RESULTATEN (SCR_REWARD_SUMMARY)
@@ -523,79 +422,32 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "Het Beloningsscherm wordt getoond na het voltooien van een sessie of bij het openen van het stickeroverzicht. "
-        "Het geeft gedetailleerde feedback op de geleverde prestatie, verzamelde stickers, geoefende woorden en "
-        "verdiende beloningssterren."
-    )
-
     add_screenshot_figure(doc, img_reward, "SCR_REWARD_SUMMARY - Beloning & Resultaten Interface")
-
-    t4 = doc.add_table(rows=16, cols=5)
-    t4.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t4.autofit = False
-    t4.columns[0].width = Inches(1.7)
-    t4.columns[1].width = Inches(1.3)
-    t4.columns[2].width = Inches(1.7)
-    t4.columns[3].width = Inches(0.9)
-    t4.columns[4].width = Inches(0.9)
-    
-    t4_headers = ["Element Code Name", "Visuele Naam", "Functionaliteit & Omschrijving", "Visuele Stijl", "Doel / Actie"]
-    for i, h_text in enumerate(t4_headers):
-        c = t4.rows[0].cells[i]
-        set_cell_background(c, "0B8457")
-        set_cell_margins(c, top=80, bottom=80, left=80, right=80)
-        p = c.paragraphs[0]
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(h_text)
-        r.font.bold = True
-        r.font.color.rgb = RGBColor(255, 255, 255)
-        r.font.size = Pt(9)
-
     s4_data = [
         ("TTL_HEADER_PILL", "Header Titel", "Schermtitel capsule met de tekst 'Beloning'.", "Witte afgeronde capsule header", "Static Title"),
-        ("CARD_REWARD_SHOWCASE", "Sticker Showcase Kaart", "Centraal kader dat de verdiende sticker (bijv. Schelp Sticker) en regenboog-ster badge toont.", "Creme achtergrond met gele rand en sticker-illustratie", "Reward Showcase"),
-        ("DSP_STICKER_PROGRESS_PILL", "Sticker Voortgangsbadge", "Toont de voortgang van de stickerverzameling (bijv. '0/30' met ster-icoon).", "Gele afgeronde pil met ster-icoon", "Progress Indicator"),
+        ("CARD_REWARD_SHOWCASE", "Sticker Showcase Kaart", "Centraal kader dat de verdiende sticker (Schelp Sticker) en regenboog-ster badge toont.", "Creme achtergrond met gele rand en sticker-art", "Reward Showcase"),
+        ("DSP_STICKER_PROGRESS_PILL", "Sticker Voortgangsbadge", "Toont de voortgang van de stickerverzameling ('0/30' met ster).", "Gele afgeronde pil met ster-icoon", "Progress Indicator"),
         ("LBL_STICKER_NAME", "Sticker Naam Label", "Tekstlabel onder de stickerweergave: 'Schelp Sticker'.", "Vetgedrukte donkere tekst", "Item Identification"),
-        ("STAT_BOX_GOED", "Statistiek: GOED", "Toont het aantal foutloos beantwoorde vragen (bijv. 'GOED: 0').", "Lichtgroene capsule pil met groene rand", "Score Counter"),
-        ("STAT_BOX_TEMPO", "Statistiek: TEMPO", "Toont de behaalde snelheidsbonuspuntenscore (bijv. 'TEMPO: +0').", "Lichtblauwe capsule pil met blauwe rand", "Speed Bonus Counter"),
-        ("STAT_BOX_HINTS", "Statistiek: HINTS", "Toont het aantal geraadpleegde hints tijdens de sessie (bijv. 'HINTS: 0').", "Lichtoranje capsule pil met oranje rand", "Assist Counter"),
-        ("STAT_BOX_AUDIO", "Statistiek: AUDIO", "Toont het aantal keren dat geluid/opdracht is herhaald (bijv. 'AUDIO: 0').", "Witte capsule pil met grijze rand", "Audio Replay Counter"),
-        ("STAT_BOX_STERREN", "Statistiek: STERREN", "Toont het totale aantal netto gewonnen beloningssterren (bijv. 'STERREN: +0').", "Zachtgouden capsule pil met gouden rand", "Total Currency Awarded"),
-        ("SEC_WORDS_PRACTICED", "Woorden Sectie", "Overzicht van geoefende woorden. Status: 'nog geen woorden' (wanneer leeg).", "Titel met pill-tag 'nog geen woorden'", "Vocabulary Summary"),
-        ("SEC_SPATIAL_WORDS", "Plaatswoorden Sectie", "Overzicht van geoefende ruimtelijke plaatswoorden (bijv. 'in', 'op', 'onder'). Status: 'nog geen plaatswoorden'.", "Titel met pill-tag 'nog geen plaatswoorden'", "Grammar/Spatial Summary"),
+        ("STAT_BOX_GOED", "Statistiek: GOED", "Toont het aantal foutloos beantwoorde vragen ('GOED: 0').", "Lichtgroene capsule pil met groene rand", "Score Counter"),
+        ("STAT_BOX_TEMPO", "Statistiek: TEMPO", "Toont de behaalde snelheidsbonuspuntenscore ('TEMPO: +0').", "Lichtblauwe capsule pil met blauwe rand", "Speed Bonus Counter"),
+        ("STAT_BOX_HINTS", "Statistiek: HINTS", "Toont het aantal geraadpleegde hints tijdens de sessie ('HINTS: 0').", "Lichtoranje capsule pil met oranje rand", "Assist Counter"),
+        ("STAT_BOX_AUDIO", "Statistiek: AUDIO", "Toont het aantal keren dat geluid/opdracht is herhaald ('AUDIO: 0').", "Witte capsule pil met grijze rand", "Audio Replay Counter"),
+        ("STAT_BOX_STERREN", "Statistiek: STERREN", "Toont het totale aantal netto gewonnen beloningssterren ('STERREN: +0').", "Zachtgouden capsule pil met gouden rand", "Total Currency Awarded"),
+        ("SEC_WORDS_PRACTICED", "Woorden Sectie", "Overzicht van geoefende woorden. Status: 'nog geen woorden'.", "Titel met pill-tag 'nog geen woorden'", "Vocabulary Summary"),
+        ("SEC_SPATIAL_WORDS", "Plaatswoorden Sectie", "Overzicht van geoefende ruimtelijke plaatswoorden. Status: 'nog geen plaatswoorden'.", "Titel met pill-tag 'nog geen plaatswoorden'", "Grammar/Spatial Summary"),
         ("BANNER_REWARD_SUMMARY", "Beloning Samenvatting", "Onderste trofee-banner: 'Beloning: Schelp Sticker' met trofee-icoon.", "Gele afgeronde banner met trofee-icoon", "Reward Highlight"),
-        ("BTN_ACTION_REPLAY", "Opnieuw Knop", "Herstart direct de zojuist gespeelde minigame of sessie.", "Groene capsule knop met herlaad/refresh-icoon en tekst 'Opnieuw'", "Replay Session"),
-        ("BTN_ACTION_WORLD", "Wereld Knop", "Navigeert naar de overkoepelende Wereldkaart van Game-Wereld.", "Groene capsule knop met wereldbol-icoon en tekst 'Wereld'", "Open World Map"),
-        ("BTN_ACTION_MENU", "Menu Knop", "Navigeert terug naar het Hoofdscherm (SCR_MAIN_TITLE).", "Groene capsule knop met home-icoon en tekst 'Menu'", "Open Main Menu")
+        ("BTN_ACTION_REPLAY", "Opnieuw Knop", "Herstart direct de zojuist gespeelde minigame of sessie.", "Groene capsule knop met refresh-icoon", "Replay Session"),
+        ("BTN_ACTION_WORLD", "Wereld Knop", "Navigeert naar de overkoepelende Wereldkaart van Game-Wereld.", "Groene capsule knop met wereldbol-icoon", "Open World Map"),
+        ("BTN_ACTION_MENU", "Menu Knop", "Navigeert terug naar het Hoofdscherm (SCR_MAIN_TITLE).", "Groene capsule knop met home-icoon", "Open Main Menu")
     ]
-
-    for r_idx, row in enumerate(s4_data, start=1):
-        cells = t4.rows[r_idx].cells
-        bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
-        for c_idx, val in enumerate(row):
-            set_cell_background(cells[c_idx], bg)
-            set_cell_margins(cells[c_idx], top=60, bottom=60, left=80, right=80)
-            p = cells[c_idx].paragraphs[0]
-            p.paragraph_format.space_after = Pt(0)
-            r = p.add_run(val)
-            r.font.size = Pt(8.5)
-            if c_idx == 0:
-                r.font.bold = True
-                r.font.color.rgb = TEAL
-
-    set_table_borders(t4)
-    doc.add_paragraph().paragraph_format.space_after = Pt(14)
+    create_table(doc, std_headers, s4_data)
 
     # ---------------------------------------------------------
-    # SECTION 7: INTERACTIE STATE MATRICES & AUDIO FEEDBACK
+    # SECTION 7: SCHERM 5 - ZEG & VLIEG START MODAL (SCR_ZEG_VLIEG_START)
     # ---------------------------------------------------------
     h1 = doc.add_heading(level=1)
     p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
-    r = p_h1.add_run("7. Component States & Geluidseffecten Matrix")
+    r = p_h1.add_run("7. Scherm 5: Zeg & Vlieg Start & Instructie Modal (SCR_ZEG_VLIEG_START)")
     r.font.name = "Calibri"
     r.font.size = Pt(16)
     r.font.bold = True
@@ -603,25 +455,166 @@ def build_docx():
     p_h1.paragraph_format.space_before = Pt(14)
     p_h1.paragraph_format.space_after = Pt(6)
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_after = Pt(8)
-    p.paragraph_format.line_spacing = 1.15
-    p.add_run(
-        "Voor een consistent speelgevoel moeten alle knoppen en interactieve elementen "
-        "voldoen aan dezelfde visuele toestandsveranderingen en geluidsfeedback:"
-    )
+    add_screenshot_figure(doc, img_fly_start, "SCR_ZEG_VLIEG_START - Zeg & Vlieg Instructie & Start Modal")
+    s5_data = [
+        ("BTN_NAV_HOME", "Home Knop", "Verlaat de minigame en keert terug naar het avontuur-selectiescherm.", "Afgeronde vierkante knop met home-icoon", "Exit to Menu"),
+        ("DSP_DISTANCE_COUNTER", "Afstandsbar", "Toont de afgelegde afstand en het doel (bijv. 'Afstand 0m', progress bar 0/100).", "Blauwe capsule met voortgangsbalk", "Distance Tracker"),
+        ("DSP_LEVEL_TROPHY_BADGE", "Level & Score Badge", "Toont trofeebadge '0', sterren '0' en actueel level 'Level 1'.", "Blauwe pil met trofee en sterren-icoon", "Score & Level Display"),
+        ("CARD_MODAL_ZEG_VLIEG_START", "Instructie Card Modal", "Centraal wit venster met de instructies en instellingen van Zeg & Vlieg.", "Witte kaart met afgeronde hoeken en schaduw", "Instruction Container"),
+        ("BADGE_MODAL_STAR_HEADER", "Ster Mascotte Header", "Badge met vrolijke regenboogster-mascotte boven de titel.", "Gele afgeronde vierkante badge", "Visual Mascot Header"),
+        ("TTL_MODAL_TITLE", "Modal Titel", "Titel van de minigame: 'Zeg & Vlieg'.", "Donkerblauwe vetgedrukte titel", "Minigame Title"),
+        ("LBL_MODAL_INSTRUCTION", "Instructietekst", "Spelregels: 'Vlieg zo ver mogelijk. Noem plaatjes die je ziet. Raak geen obstakel.'", "Donkergrijze instructietekst", "Game Objective"),
+        ("CONTAINER_TARGET_WORDS", "Doelwoorden Container", "Verzameling van te noemen strandwoorden met ster-iconen.", "Raster van gele pil-tags met sterren", "Target Vocabulary List"),
+        ("CHIP_WORD_TAGS", "Doelwoord Chips", "Individuele chips: 'parasol', 'zon', 'schelp', 'dolfijn', 'krab', 'boot', 'bal'.", "Gele capsules met ster-icoon en tekst", "Vocabulary Tag Item"),
+        ("INFOBOX_PRIVACY_NOTE", "Privacy Garantiestempel", "Groene pil met schild-icoon: 'We slaan geen opname op.'", "Groen afgerond vak met schild-icoon", "Privacy Assurance"),
+        ("BTN_PRIMARY_START_FLY", "Start Knop", "Start direct de actieve vlieg-gameplay (SCR_ZEG_VLIEG_ACTIVE).", "Grote brede groene knop met Play-icoon", "Launch Flight Gameplay"),
+        ("PANEL_FLY_CONTROLS_OVERLAY", "Onderste Besturingsbalk", "Informatiekaart 'Zeg & Vlieg' met actieknoppen voor handmatige besturing.", "Witte en gele containers onderaan", "Flight Controls Footer"),
+        ("BTN_MANUAL_FLY_UP", "Omhoog Knop", "Beweegt de strandbezem handmatig omhoog als spraak niet wordt gebruikt.", "Groene knop met pijl-omhoog", "Manual Flight UP"),
+        ("BTN_MANUAL_FLY_DOWN", "Omlaag Knop", "Beweegt de strandbezem handmatig omlaag.", "Groene knop met pijl-omlaag", "Manual Flight DOWN")
+    ]
+    create_table(doc, std_headers, s5_data)
 
-    t5 = doc.add_table(rows=5, cols=4)
-    t5.alignment = WD_TABLE_ALIGNMENT.CENTER
-    t5.autofit = False
-    t5.columns[0].width = Inches(1.5)
-    t5.columns[1].width = Inches(1.8)
-    t5.columns[2].width = Inches(1.7)
-    t5.columns[3].width = Inches(1.5)
+    # ---------------------------------------------------------
+    # SECTION 8: SCHERM 6 - KIES HET WOORD GAMEPLAY (SCR_KIES_WOORD_GAME)
+    # ---------------------------------------------------------
+    h1 = doc.add_heading(level=1)
+    p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
+    r = p_h1.add_run("8. Scherm 6: Kies het Woord Quiz Gameplay (SCR_KIES_WOORD_GAME)")
+    r.font.name = "Calibri"
+    r.font.size = Pt(16)
+    r.font.bold = True
+    r.font.color.rgb = TEAL
+    p_h1.paragraph_format.space_before = Pt(14)
+    p_h1.paragraph_format.space_after = Pt(6)
+
+    add_screenshot_figure(doc, img_kies_woord, "SCR_KIES_WOORD_GAME - Kies het Woord Quiz Interface")
+    s6_data = [
+        ("BTN_NAV_BACK", "Terug Knop", "Verlaat de quiz en keert terug naar het spel-selectiescherm.", "Witte cirkel knop met pijl-links", "Navigate Back"),
+        ("BTN_AUDIO_TOGGLE", "Audio Knop", "Schakelt gesproken vraag en geluidseffecten in of uit.", "Blauwe cirkel knop met luidspreker-icoon", "Toggle Audio"),
+        ("DSP_STAR_COUNTER", "Sterrenteller", "Toont actueel verdiende beloningssterren ('0').", "Gele capsule pil met ster", "Score Display"),
+        ("BTN_HINT_ASSIST", "Hint Knop", "Vraagt een visuele/gesproken hint aan bij de mascotte.", "Gele afgeronde knop met gloeilamp-icoon", "Trigger Hint"),
+        ("CARD_QUESTION_PROMPT", "Vraagstelling Card", "Bovenvak met mascottesticker, de vraagtekst en herhaalknop.", "Witte afgeronde container met schaduw", "Question Banner"),
+        ("IMG_MASCOT_SPEAKER", "Mascotte Badge", "Illustratie van de sterrenfeemascotte die de vraag uitspreekt.", "Ronde badge met regenboogster", "Visual Speaker Badge"),
+        ("LBL_QUESTION_TEXT", "Vraagtekst", "Gesproken/geschreven vraag: 'Waar is de krab?'", "Donkerblauwe vetgedrukte vraagtekst", "Question Prompt"),
+        ("BTN_AUDIO_REPLAY_PROMPT", "Herhaal Audio Knop", "Herhaalt het afspelen van de gesproken vraagzin.", "Blauwe cirkel knop met luidspreker-icoon", "Replay Question SFX"),
+        ("GRID_CHOICE_CARDS", "Keuzekaarten Raster", "Raster van 3 of 4 grote afbeeldingenkaarten waar de speler uit kiest.", "2x2 of 1x3 kaartenraster", "Answer Options Grid"),
+        ("CARD_CHOICE_DOLPHIN", "Keuzekaart: Dolfijn", "Afbeelding van een dolfijn (foutief antwoord bij 'krab').", "Witte kaart met grijze rand en illustratie", "Option 1 Selection"),
+        ("CARD_CHOICE_CRAB", "Keuzekaart: Krab", "Afbeelding van een krab (correct antwoord op 'Waar is de krab?').", "Witte kaart met grijze rand en illustratie", "Option 2 (Correct)"),
+        ("CARD_CHOICE_SHELLS", "Keuzekaart: Schelpen", "Afbeelding van schelpen en zeester (foutief antwoord).", "Witte kaart met grijze rand en illustratie", "Option 3 Selection"),
+        ("FOOTER_QUIZ_PROGRESS", "Onderste Voortgangsbalk", "Voortgangsbalk voor 'Tempo' (0/10) en beloningsvoortgang (0/30 sterren).", "Gele afgeronde balk met groene progressbar", "Quiz Progress Footer")
+    ]
+    create_table(doc, std_headers, s6_data)
+
+    # ---------------------------------------------------------
+    # SECTION 9: SCHERM 7 - ZEG & ZET GAMEPLAY (SCR_ZEG_ZET_GAME)
+    # ---------------------------------------------------------
+    h1 = doc.add_heading(level=1)
+    p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
+    r = p_h1.add_run("9. Scherm 7: Zeg & Zet Drag & Drop Gameplay (SCR_ZEG_ZET_GAME)")
+    r.font.name = "Calibri"
+    r.font.size = Pt(16)
+    r.font.bold = True
+    r.font.color.rgb = TEAL
+    p_h1.paragraph_format.space_before = Pt(14)
+    p_h1.paragraph_format.space_after = Pt(6)
+
+    add_screenshot_figure(doc, img_zeg_zet_game, "SCR_ZEG_ZET_GAME - Drag & Drop Opdracht Gameplay")
+    s7_data = [
+        ("BTN_NAV_BACK", "Terug Knop", "Verlaat de opdracht en keert terug naar het avontuurscherm.", "Witte cirkel knop met pijl-links", "Navigate Back"),
+        ("DSP_STAR_COUNTER", "Sterrenteller", "Toont actuele sterrenstand ('0').", "Gele capsule pil met ster", "Score Display"),
+        ("BTN_HINT_ASSIST", "Hint Knop", "Toont waar het object geplaatst moet worden.", "Gele knop met lamp-icoon", "Trigger Placement Hint"),
+        ("BTN_ACTION_KLAAR", "Klaar Knop", "Valideert of de objecten op de juiste positie op het strand geplaatst zijn.", "Groene knop met vinkje-icoon en tekst 'Klaar'", "Validate Placement"),
+        ("CARD_TASK_HEADER", "Opdracht Header Card", "Container met de te voltooien instructie en microfoon/toetsenbord knoppen.", "Witte afgeronde header met schaduw", "Task Instruction Header"),
+        ("LBL_TASK_SENTENCE", "Opdrachtzin", "Instructie: 'Zet de boot in de zee.'", "Vetgedrukte instructietekst", "Placement Directive"),
+        ("BTN_TASK_AUDIO", "Microfoon Knop", "Spreekt de opdracht in of luistert naar het antwoord.", "Groene cirkel knop met microfoon-icoon", "Voice Record Action"),
+        ("BTN_TASK_KEYBOARD_TOGGLE", "Toetsenbord Knop", "Opent het typ-modal voor handmatige tekstinvoer (SCR_ZEG_ZET_KEYBOARD_OVERLAY).", "Blauwe cirkel knop met toetsenbord-icoon", "Open Keyboard Modal"),
+        ("CANVAS_BEACH_OCEAN_SCENE", "Interactieve Strandscene", "Achtergrond met interactieve dropposities (zee, strand, palmeiland).", "Kleurrijke strand- en zee-art met dropzones", "Drag & Drop Canvas"),
+        ("INFOBOX_VIDEO_ERROR_BANNER", "Fallback Melding", "Staat toe dat bij videostoringen de audio of tekst gelezen kan worden.", "Witte en gele afgeronde meldingskaart", "Fallback Notification"),
+        ("TRAY_STICKER_PALETTE", "Sticker Keuzebalk", "Onderste carrousel met sleepbare objectstickers.", "Zachtgele afgeronde palletbalk", "Sticker Item Carousel"),
+        ("STICKER_ITEMS", "Sleepbare Stickers", "Stickers: Dolfijn, Boot, Vuurtoren, Vliegtuig, Vlieger.", "Kleurrijke omrande afbeeldingen", "Draggable Sticker Objects"),
+        ("BTN_TRAY_NEXT", "Volgende Stickers Knop", "Bladert naar de volgende set stickers in het palet.", "Witte cirkel met pijl-rechts", "Scroll Carousel")
+    ]
+    create_table(doc, std_headers, s7_data)
+
+    # ---------------------------------------------------------
+    # SECTION 10: SCHERM 8 - ZEG & ZET TYP DE ZIN OVERLAY (SCR_ZEG_ZET_KEYBOARD_OVERLAY)
+    # ---------------------------------------------------------
+    h1 = doc.add_heading(level=1)
+    p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
+    r = p_h1.add_run("10. Scherm 8: Zeg & Zet Typ de Zin Modal Overlay (SCR_ZEG_ZET_KEYBOARD_OVERLAY)")
+    r.font.name = "Calibri"
+    r.font.size = Pt(16)
+    r.font.bold = True
+    r.font.color.rgb = TEAL
+    p_h1.paragraph_format.space_before = Pt(14)
+    p_h1.paragraph_format.space_after = Pt(6)
+
+    add_screenshot_figure(doc, img_zeg_zet_kbd, "SCR_ZEG_ZET_KEYBOARD_OVERLAY - Typ de Zin Modal Overlay")
+    s8_data = [
+        ("CARD_MODAL_KEYBOARD_INPUT", "Typ Modal Container", "Pop-up venster dat opent wanneer op de toetsenbordknop wordt getikt.", "Witte afgeronde kaart met blauwe rand en schaduw", "Modal Container"),
+        ("BADGE_KEYBOARD_HEADER", "Toetsenbord Badge", "Blauwe cirkel met toetsenbord-icoon bovenaan de modal.", "Blauwe badge met toetsenbord-icoon", "Modal Header Icon"),
+        ("TTL_KEYBOARD_MODAL", "Modal Titel", "Titel: 'TYP DE ZIN'.", "Donkerblauwe vetgedrukte titel", "Modal Header Text"),
+        ("LBL_KEYBOARD_EXAMPLE", "Voorbeeldtekst", "Instructie: 'Bijvoorbeeld: Zet de boot in de zee.'", "Grijze instructietekst", "Input Guidance"),
+        ("INPUT_SENTENCE_FIELD", "Tekstinvoerveld", "Invoerveld waarin de speler de zin kan typen ('Zet de boot in de zee.').", "Witte afgeronde rechthoek met blauwe rand", "Text Input Field"),
+        ("BTN_KEYBOARD_SUBMIT", "Gebruik Zin Knop", "Bevestigt de getypte zin en verwerkt deze als antwoord.", "Brede blauwe knop met witte tekst 'Gebruik zin'", "Submit Input"),
+        ("BTN_KEYBOARD_CLOSE", "Sluit Knop", "Sluit de typ-overlay zonder de voerwijziging op te slaan.", "Witte afgeronde knop met tekst 'Sluit'", "Dismiss Modal")
+    ]
+    create_table(doc, std_headers, s8_data)
+
+    # ---------------------------------------------------------
+    # SECTION 11: SCHERM 9 - ZEG & VLIEG ACTIEVE GAMEPLAY (SCR_ZEG_VLIEG_ACTIVE)
+    # ---------------------------------------------------------
+    h1 = doc.add_heading(level=1)
+    p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
+    r = p_h1.add_run("11. Scherm 9: Zeg & Vlieg Actieve Vlieg Gameplay (SCR_ZEG_VLIEG_ACTIVE)")
+    r.font.name = "Calibri"
+    r.font.size = Pt(16)
+    r.font.bold = True
+    r.font.color.rgb = TEAL
+    p_h1.paragraph_format.space_before = Pt(14)
+    p_h1.paragraph_format.space_after = Pt(6)
+
+    add_screenshot_figure(doc, img_fly_active, "SCR_ZEG_VLIEG_ACTIVE - Actieve Bezem-Vlieg Gameplay Interface")
+    s9_data = [
+        ("BTN_NAV_HOME", "Home Knop", "Onderbreekt het vliegen en keert terug naar het menu.", "Witte vierkante knop met home-icoon", "Pause / Exit Game"),
+        ("BAR_DISTANCE_PROGRESS", "Afstandsmeter", "Toont gevlogen meters ('Afstand 44m', geel gevulde balk 44/100).", "Blauwe capsule met gele progressbar", "Realtime Progress"),
+        ("DSP_FLIGHT_SCORE_BADGE", "Score & Level Badge", "Toont trofee '44', sterren '0' en actueel level ('Level 1').", "Blauwe badge met trofee en ster-icoon", "Flight Stats Display"),
+        ("CANVAS_FLIGHT_ARENA", "Vlieg Arena Canvas", "Scrollende 2D-wereld waarin het personage vliegt en obstakels ontwijkt.", "Dynamische strand- en luchtomgeving", "2D Physics World"),
+        ("SPRITE_FLYING_HERO", "Speler Personage", "Jongen op de vliegende strandbezem (beweegt verticaal op spraak/knoppen).", "Geanimeerde spraakgestuurde avatar", "Player Avatar Sprite"),
+        ("SPRITE_OBSTACLE_SEAGULL", "Obstakel: Meeuw", "Vliegende meeuw in de lucht die ontweken moet worden.", "Vogel sprite", "Air Obstacle Hazard"),
+        ("SPRITE_OBSTACLE_SHARK", "Obstakel: Haai", "Springende haai uit het water.", "Haai sprite met ster-item", "Water Hazard"),
+        ("SPRITE_COLLECTIBLE_ITEMS", "Verzamelbare Items", "Sterren en strandballen die extra punten opleveren.", "Glimmende sterren en strandbal sprites", "Bonus Collectible"),
+        ("SLIDER_HEIGHT_CONTROL", "Hoogte-indicator Slider", "Verticale slider aan de rechterzijde die de actuele vlieghoogte toont.", "Transparante balk met rode positie-indicator", "Height Position Meter"),
+        ("CARD_MIC_SPEECH_PROMPT", "Spraak Statusbalk", "Kaart onderaan: 'Noem wat je ziet' met microfoonstatus.", "Witte afgeronde container met mascotte", "Speech Recognition Dock"),
+        ("BTN_FLY_UP", "Omhoog Knop", "Handmatige besturingsknop om te stijgen.", "Groene knop met pijl-omhoog 'Omhoog'", "Manual Altitude UP"),
+        ("BTN_FLY_DOWN", "Omlaag Knop", "Handmatige besturingsknop om te dalen.", "Groene knop met pijl-omlaag 'Omlaag'", "Manual Altitude DOWN")
+    ]
+    create_table(doc, std_headers, s9_data)
+
+    # ---------------------------------------------------------
+    # SECTION 12: COMPONENT STATES & SFX MATRIX
+    # ---------------------------------------------------------
+    h1 = doc.add_heading(level=1)
+    p_h1 = h1.paragraphs[0] if hasattr(h1, 'paragraphs') else h1
+    r = p_h1.add_run("12. Component States & Geluidseffecten Matrix")
+    r.font.name = "Calibri"
+    r.font.size = Pt(16)
+    r.font.bold = True
+    r.font.color.rgb = TEAL
+    p_h1.paragraph_format.space_before = Pt(14)
+    p_h1.paragraph_format.space_after = Pt(6)
+
+    t12 = doc.add_table(rows=5, cols=4)
+    t12.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t12.autofit = False
+    t12.columns[0].width = Inches(1.5)
+    t12.columns[1].width = Inches(1.8)
+    t12.columns[2].width = Inches(1.7)
+    t12.columns[3].width = Inches(1.5)
     
-    t5_headers = ["State Name", "Visuele Transformatie", "Audio Effect (SFX)", "Haptische Feedback"]
-    for i, h_text in enumerate(t5_headers):
-        c = t5.rows[0].cells[i]
+    t12_headers = ["State Name", "Visuele Transformatie", "Audio Effect (SFX)", "Haptische Feedback"]
+    for i, h_text in enumerate(t12_headers):
+        c = t12.rows[0].cells[i]
         set_cell_background(c, "0B8457")
         set_cell_margins(c, top=80, bottom=80, left=80, right=80)
         p = c.paragraphs[0]
@@ -639,7 +632,7 @@ def build_docx():
     ]
 
     for r_idx, row in enumerate(state_data, start=1):
-        cells = t5.rows[r_idx].cells
+        cells = t12.rows[r_idx].cells
         bg = "F4F7F6" if r_idx % 2 == 1 else "FFFFFF"
         for c_idx, val in enumerate(row):
             set_cell_background(cells[c_idx], bg)
@@ -652,25 +645,24 @@ def build_docx():
                 r.font.bold = True
                 r.font.color.rgb = TEAL
 
-    set_table_borders(t5)
+    set_table_borders(t12)
     doc.add_paragraph().paragraph_format.space_after = Pt(14)
 
-    # Final summary callout
     add_callout_box(
         doc,
         [
-            "✓ Dit document is vastgesteld als de officiële UI/UX specificatie voor Strand-bezem-escape.",
-            "✓ Alle front-end componenten in de TypeScript/Vite/React codebase moeten worden getagd met de vermelde Code Names.",
-            "✓ QA-testen dienen alle schermen en knoppen te valideren aan de hand van de specificatietabellen in hoofdstuk 3 t/m 6."
+            "✓ Alle 9 schermen en modals van Strand-bezem-escape zijn volledig gespecificeerd.",
+            "✓ Frontend ontwikkelaars dienen de exacte Code Names (bijv. BTN_MANUAL_FLY_UP) te gebruiken in data-attributes en componentnamen.",
+            "✓ QA-teams kunnen aan de hand van dit document alle schermen, knoppen, modals en gameplay-elementen testen."
         ],
-        title="ACCEPTATIECRITERIA & QA CHECKLIST",
+        title="VOLLEDIGE ACCEPTATIECRITERIA & QA CHECKLIST",
         border_color="D98310",
         bg_color="FFF8E7"
     )
 
-    output_path = "/Users/melkonian/git/Game-Wereld/docs/UX_Design_Specification_Strand_Bezem_Escape.docx"
+    output_path = "/Users/melkonian/git/Game-Wereld/docs/UX_Design_Specification_Magisch_Strand_Avontuur.docx"
     doc.save(output_path)
-    print(f"Successfully generated Word document with embedded screenshots at {output_path}")
+    print(f"Successfully generated full Word document with all 9 screens at {output_path}")
 
 if __name__ == "__main__":
     build_docx()

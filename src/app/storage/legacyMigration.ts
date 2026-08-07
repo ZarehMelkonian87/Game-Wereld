@@ -211,7 +211,9 @@ export const migrateLegacyStorage = async (
           }),
         );
 
-        const gameSettings = source.getItem(`strand-bezem-escape:${profileId}:settings`);
+        const gameSettings =
+          source.getItem(`magisch-strand-avontuur:${profileId}:settings`) ??
+          source.getItem(`strand-bezem-escape:${profileId}:settings`);
         if (gameSettings) {
           if (!legacyGameSettingsSchema.safeParse(parseJson(gameSettings)).success) {
             throw createStorageError(
@@ -222,13 +224,15 @@ export const migrateLegacyStorage = async (
           await database.tables.settings.put(
             createSettingsRecord(
               profileId,
-              "strand-bezem-escape.preferences",
+              "magisch-strand-avontuur.preferences",
               { raw: gameSettings },
               now,
             ),
           );
         }
-        const rewards = source.getItem(`strand-bezem-escape:${profileId}:unlocked-rewards`);
+        const rewards =
+          source.getItem(`magisch-strand-avontuur:${profileId}:unlocked-rewards`) ??
+          source.getItem(`strand-bezem-escape:${profileId}:unlocked-rewards`);
         if (rewards) {
           if (!legacyRewardsSchema.safeParse(parseJson(rewards)).success) {
             throw createStorageError(
@@ -237,28 +241,32 @@ export const migrateLegacyStorage = async (
             );
           }
           await database.tables.settings.put(
-            createSettingsRecord(profileId, "strand-bezem-escape.rewards", { raw: rewards }, now),
+            createSettingsRecord(profileId, "magisch-strand-avontuur.rewards", { raw: rewards }, now),
           );
         }
-        const selectedWorld = source.getItem(`strand-bezem-escape:${profileId}:selected-world`);
+        const selectedWorld =
+          source.getItem(`magisch-strand-avontuur:${profileId}:selected-world`) ??
+          source.getItem(`strand-bezem-escape:${profileId}:selected-world`);
         if (selectedWorld) {
           await database.tables.settings.put(
             createSettingsRecord(
               profileId,
-              "strand-bezem-escape.world",
+              "magisch-strand-avontuur.world",
               { raw: selectedWorld },
               now,
             ),
           );
         }
         const privacyAccepted =
+          source.getItem(`magisch-strand-avontuur:${profileId}:voice-privacy:2026-06-01`) ===
+            "accepted" ||
           source.getItem(`strand-bezem-escape:${profileId}:voice-privacy:2026-06-01`) ===
-          "accepted";
+            "accepted";
         if (privacyAccepted) {
           await database.tables.settings.put(
             createSettingsRecord(
               profileId,
-              "strand-bezem-escape.voice-privacy",
+              "magisch-strand-avontuur.voice-privacy",
               { raw: "accepted" },
               now,
             ),
@@ -283,7 +291,9 @@ export const migrateLegacyStorage = async (
             }),
           );
         }
-        const rawLegacyGameProgress = source.getItem(`strand-bezem-escape:${profileId}:progress`);
+        const rawLegacyGameProgress =
+          source.getItem(`magisch-strand-avontuur:${profileId}:progress`) ??
+          source.getItem(`strand-bezem-escape:${profileId}:progress`);
         const parsedLegacyGameProgress = rawLegacyGameProgress
           ? legacyPracticeProgressSchema.safeParse(parseJson(rawLegacyGameProgress))
           : null;
@@ -307,7 +317,7 @@ export const migrateLegacyStorage = async (
             progressProjectionSchema.parse({
               attempts: legacyAttempts.length,
               calculatedAt: now,
-              gameId: "strand-bezem-escape",
+              gameId: "magisch-strand-avontuur",
               hintsUsed: legacyAttempts.reduce(
                 (total, attempt) =>
                   total +
@@ -342,15 +352,16 @@ export const migrateLegacyStorage = async (
             ...mapLegacyPracticeEvents(
               JSON.stringify(legacyAttempts),
               profileId,
-              "strand-bezem-escape",
+              "magisch-strand-avontuur",
             ),
           );
         }
         events.push(
           ...mapLegacyPracticeEvents(
+            source.getItem(`game-runtime:practice:${profileId}:magisch-strand-avontuur`) ??
             source.getItem(`game-runtime:practice:${profileId}:strand-bezem-escape`),
             profileId,
-            "strand-bezem-escape",
+            "magisch-strand-avontuur",
           ),
         );
       }

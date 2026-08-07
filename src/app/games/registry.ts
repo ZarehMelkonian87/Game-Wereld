@@ -1,12 +1,12 @@
 import { isLoadableGameEntry, type GameRegistryEntry } from "../game-platform/contracts";
 import { comingSoonGameManifests } from "./catalog-manifests";
 import { rekenenStrandManifest } from "./rekenen-strand/manifest";
-import { strandBezemEscapeManifest } from "./strand-bezem-escape/manifest";
+import { magischStrandAvontuurManifest } from "./magisch-strand-avontuur/manifest";
 
 export const gameRegistry: Record<string, GameRegistryEntry> = {
-  [strandBezemEscapeManifest.id]: {
-    load: () => import("./strand-bezem-escape"),
-    manifest: strandBezemEscapeManifest,
+  [magischStrandAvontuurManifest.id]: {
+    load: () => import("./magisch-strand-avontuur"),
+    manifest: magischStrandAvontuurManifest,
   },
   [rekenenStrandManifest.id]: {
     load: () => import("./rekenen-strand"),

@@ -2,7 +2,7 @@
 
 Actuele gamemodules:
 
-- `strand-bezem-escape`: uitgebreide woordenschatgame;
+- `magisch-strand-avontuur`: uitgebreide woordenschatgame;
 - `rekenen-strand`: compacte hoeveelhedengame “Schelpen Tellen”.
 
 Catalogusmetadata komt uit schema-gevalideerde manifests. De app-shell kent alleen de registry in `registry.ts`; implementaties worden dynamisch geladen.

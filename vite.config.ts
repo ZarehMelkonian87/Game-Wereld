@@ -22,8 +22,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) =>
-          id.includes("/src/app/games/strand-bezem-escape/") && !id.endsWith("/manifest.ts")
-            ? "game-strand-bezem-escape"
+          id.includes("/src/app/games/magisch-strand-avontuur/") && !id.endsWith("/manifest.ts")
+            ? "game-magisch-strand-avontuur"
             : id.includes("/src/app/games/rekenen-strand/") && !id.endsWith("/manifest.ts")
               ? "game-rekenen-strand"
               : undefined,

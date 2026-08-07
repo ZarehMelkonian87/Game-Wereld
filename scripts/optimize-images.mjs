@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
-const root = path.resolve("src/app/games/strand-bezem-escape/assets");
+const root = path.resolve("src/app/games/magisch-strand-avontuur/assets");
 const webpSources = [
   "backgrounds/beach-board-landscape.png",
   "backgrounds/beach-board-portrait.png",

@@ -7,7 +7,7 @@ export const rekenenStrandManifest = defineGameManifest({
   contractVersion: 1,
   description: "Tel de schelpen en kies het cijfer dat bij de hoeveelheid hoort.",
   icon: "🐚",
-  id: "rekenen-strand-bezem-escape",
+  id: "rekenen-strand-avontuur",
   offlinePackages: [
     {
       contentVersion: "rekenen-strand-2026.07",

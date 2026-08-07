@@ -72,7 +72,7 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await auditCurrentScreen(page, "GameHost");
 
-  await page.goto("/games/math/rekenen-strand-bezem-escape");
+  await page.goto("/games/math/rekenen-strand-avontuur");
   await expect(page.getByRole("heading", { name: "Schelpen Tellen" })).toBeVisible();
   await auditCurrentScreen(page, "Schelpen Tellen start");
   await page.getByRole("button", { name: "Start met tellen" }).click();

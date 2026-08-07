@@ -33,7 +33,7 @@ export const createFakeGameRuntime = (): FakeGameRuntime => {
     clock: { now: () => new Date("2026-07-23T10:00:00.000Z") },
     diagnostics: { log: (event) => captured.diagnostics.push(event) },
     identity: {
-      gameId: createGameId("strand-bezem-escape"),
+      gameId: createGameId("magisch-strand-avontuur"),
       profileId: createProfileId("test-profile"),
       sessionId: createSessionId("test-session"),
     },

@@ -12,10 +12,10 @@ module.exports = {
       name: "no-game-to-game",
       comment: "Games communiceren uitsluitend via platformcontracten.",
       severity: "error",
-      from: { path: "^src/app/games/strand-bezem-escape/" },
+      from: { path: "^src/app/games/magisch-strand-avontuur/" },
       to: {
         path: "^src/app/games/",
-        pathNot: "^src/app/games/strand-bezem-escape/",
+        pathNot: "^src/app/games/magisch-strand-avontuur/",
       },
     },
     {

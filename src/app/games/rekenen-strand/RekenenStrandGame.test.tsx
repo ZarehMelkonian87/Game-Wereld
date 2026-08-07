@@ -7,7 +7,7 @@ import { Game } from "./index";
 describe("Schelpen Tellen", () => {
   it("schrijft een neutrale oefenobservatie en biedt tekst naast de visuele hoeveelheid", async () => {
     const runtime = createFakeGameRuntime();
-    runtime.identity.gameId = createGameId("rekenen-strand-bezem-escape");
+    runtime.identity.gameId = createGameId("rekenen-strand-avontuur");
     render(<Game runtime={runtime} />);
 
     await userEvent.click(screen.getByRole("button", { name: "Start met tellen" }));
@@ -30,7 +30,7 @@ describe("Schelpen Tellen", () => {
 
   it("rondt vijf opdrachten af via hetzelfde lifecyclecontract", async () => {
     const runtime = createFakeGameRuntime();
-    runtime.identity.gameId = createGameId("rekenen-strand-bezem-escape");
+    runtime.identity.gameId = createGameId("rekenen-strand-avontuur");
     render(<Game runtime={runtime} />);
     await userEvent.click(screen.getByRole("button", { name: "Start met tellen" }));
 

@@ -1,0 +1,37 @@
+import React from "react";
+
+/**
+ * @uxId BTN_PRIMARY_PLAY
+ * @uxId BTN_PRIMARY_START
+ * @uxId BTN_PRIMARY_START_FLY
+ * @uxId BTN_KEYBOARD_SUBMIT
+ * @screens SCR_MAIN_TITLE | SCR_ADVENTURE_SELECT | SCR_ZEG_VLIEG_START | SCR_ZEG_ZET_KEYBOARD_OVERLAY
+ * @description Primaire actieknop voor het starten van een game, sessie of het indienen van een actie.
+ */
+export interface BtnPrimaryPlayProps {
+  onClick: () => void;
+  label?: string;
+  className?: string;
+  disabled?: boolean;
+}
+
+export const BtnPrimaryPlay: React.FC<BtnPrimaryPlayProps> = ({
+  onClick,
+  label = "Spelen",
+  className = "",
+  disabled = false,
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-8 py-4 bg-emerald-500 text-white font-extrabold text-xl rounded-full shadow-lg border-b-4 border-emerald-700 flex items-center justify-center gap-3 hover:bg-emerald-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none transition-all ${className}`}
+    >
+      <svg className="w-7 h-7 fill-current" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <span>{label}</span>
+    </button>
+  );
+};

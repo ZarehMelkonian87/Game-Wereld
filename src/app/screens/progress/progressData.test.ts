@@ -15,7 +15,7 @@ const createEvent = (gameId: string, id: string) =>
     responseTimeMs: 500,
     schemaVersion: 1,
     sessionId: "session-1",
-    skillIds: [gameId === "rekenen-strand-bezem-escape" ? "number-quantity-1-5" : "vocabulary"],
+    skillIds: [gameId === "rekenen-strand-avontuur" ? "number-quantity-1-5" : "vocabulary"],
     taskId: `${gameId}-task`,
   });
 
@@ -24,8 +24,8 @@ describe("voortgang over meerdere games", () => {
     const result = getProgressData(
       "alltime",
       [
-        createEvent("strand-bezem-escape", "event-vocabulary"),
-        createEvent("rekenen-strand-bezem-escape", "event-math"),
+        createEvent("magisch-strand-avontuur", "event-vocabulary"),
+        createEvent("rekenen-strand-avontuur", "event-math"),
       ],
       new Date("2026-07-23T12:00:00.000Z"),
     );

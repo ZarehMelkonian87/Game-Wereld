@@ -82,7 +82,7 @@ test("genereert ook een code-only pakket voor een tweede game-entry", () => {
       ...packageSource,
       assetSourcePrefix: "src/app/games/rekenen-strand/assets/",
       entry: secondEntry,
-      gameId: "rekenen-strand-bezem-escape",
+      gameId: "rekenen-strand-avontuur",
       id: "rekenen-strand-basis",
     },
     viteManifest: {
@@ -95,5 +95,5 @@ test("genereert ook een code-only pakket voor een tweede game-entry", () => {
   fs.rmSync(distDirectory, { force: true, recursive: true });
 });
 
-const GAME_ENTRY = "src/app/games/strand-bezem-escape/index.tsx";
-const ASSET_SOURCE_PREFIX = "src/app/games/strand-bezem-escape/assets/";
+const GAME_ENTRY = "src/app/games/magisch-strand-avontuur/index.tsx";
+const ASSET_SOURCE_PREFIX = "src/app/games/magisch-strand-avontuur/assets/";

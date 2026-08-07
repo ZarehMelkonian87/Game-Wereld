@@ -14,7 +14,7 @@ import {
 import { practiceEventEnvelopeSchema, type PracticeEventEnvelope } from "./schemas";
 
 const profileId = createProfileId("profile-projector");
-const gameId = createGameId("strand-bezem-escape");
+const gameId = createGameId("magisch-strand-avontuur");
 const sessionId = createSessionId("session-projector");
 const calculatedAt = "2026-07-23T12:00:00.000Z";
 

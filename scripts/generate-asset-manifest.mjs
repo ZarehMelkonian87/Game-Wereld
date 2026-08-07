@@ -3,8 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DEFAULT_ASSET_SOURCE_PREFIX = "src/app/games/strand-bezem-escape/assets/";
-const DEFAULT_GAME_ENTRY = "src/app/games/strand-bezem-escape/index.tsx";
+const DEFAULT_ASSET_SOURCE_PREFIX = "src/app/games/magisch-strand-avontuur/assets/";
+const DEFAULT_GAME_ENTRY = "src/app/games/magisch-strand-avontuur/index.tsx";
 const MIME_TYPES = {
   ".avif": "image/avif",
   ".css": "text/css",
@@ -94,7 +94,7 @@ export const createGeneratedAssetManifest = ({ distDirectory, packageSource, vit
 export const generateAssetManifest = ({
   distDirectory = path.resolve("dist"),
   packageSourcePath = path.resolve(
-    "src/app/games/strand-bezem-escape/assets/offline-package.source.json",
+    "src/app/games/magisch-strand-avontuur/assets/offline-package.source.json",
   ),
   reportDirectory = path.resolve("reports"),
 } = {}) => {
@@ -147,7 +147,7 @@ export const generateAssetManifest = ({
 
 export const generateAssetManifests = () => {
   const packageSourcePaths = [
-    "src/app/games/strand-bezem-escape/assets/offline-package.source.json",
+    "src/app/games/magisch-strand-avontuur/assets/offline-package.source.json",
     "src/app/games/rekenen-strand/assets/offline-package.source.json",
   ];
   const results = packageSourcePaths.map((packageSourcePath) =>

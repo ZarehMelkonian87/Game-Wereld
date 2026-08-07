@@ -21,10 +21,10 @@ describe("branded ids", () => {
   });
 
   it("trims valid ids and keeps id categories type-distinct", () => {
-    const gameId = createGameId(" strand-bezem-escape ");
+    const gameId = createGameId(" magisch-strand-avontuur ");
     const themeId = createThemeId("vocabulary");
 
-    expect(gameId).toBe("strand-bezem-escape");
+    expect(gameId).toBe("magisch-strand-avontuur");
     expectTypeOf(gameId).toEqualTypeOf<GameId>();
     expectTypeOf(themeId).toEqualTypeOf<ThemeId>();
     expectTypeOf(gameId).not.toEqualTypeOf(themeId);

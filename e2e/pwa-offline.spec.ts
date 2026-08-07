@@ -10,14 +10,14 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
       body: "game",
       id: "fixture-game",
       mimeType: "text/javascript",
-      packageId: "strand-bezem-escape-beach",
+      packageId: "magisch-strand-avontuur-beach",
       url: "/fixture/game.js",
     },
     {
       body: "media",
       id: "fixture-media",
       mimeType: "text/plain",
-      packageId: "strand-bezem-escape-beach",
+      packageId: "magisch-strand-avontuur-beach",
       url: "/fixture/media.txt",
     },
     {
@@ -63,14 +63,14 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   };
   const manifests = [
     createManifest({
-      contentVersion: "strand-bezem-escape-2026.07",
-      gameId: "strand-bezem-escape",
-      id: "strand-bezem-escape-beach",
+      contentVersion: "magisch-strand-avontuur-2026.07",
+      gameId: "magisch-strand-avontuur",
+      id: "magisch-strand-avontuur-beach",
       worldId: "beach",
     }),
     createManifest({
       contentVersion: "rekenen-strand-2026.07",
-      gameId: "rekenen-strand-bezem-escape",
+      gameId: "rekenen-strand-avontuur",
       id: "rekenen-strand-basis",
       worldId: "counting",
     }),

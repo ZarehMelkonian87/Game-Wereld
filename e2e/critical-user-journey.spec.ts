@@ -120,7 +120,7 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   };
   expect(exportedProgress.profileAlias).toBe("local-profile");
   expect(exportedProgress.practiceEvents.map((event) => event.gameId)).toEqual(
-    expect.arrayContaining(["strand-bezem-escape", "rekenen-strand-bezem-escape"]),
+    expect.arrayContaining(["magisch-strand-avontuur", "rekenen-strand-avontuur"]),
   );
   expect(JSON.stringify(exportedProgress)).not.toContain("Codex Tester");
 

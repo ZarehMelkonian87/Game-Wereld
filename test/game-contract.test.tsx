@@ -32,7 +32,7 @@ describe("generiek gamecontract", () => {
   });
 
   it("gebruikt world-beach alleen als kaartafbeelding van de strandgame", () => {
-    const manifest = getGameRegistryEntry("strand-bezem-escape")?.manifest;
+    const manifest = getGameRegistryEntry("magisch-strand-avontuur")?.manifest;
 
     expect(manifest?.cardImageUrl).toContain("world-beach.png");
     expect(manifest?.icon).toBe("🏖️");
@@ -72,7 +72,7 @@ describe("generiek gamecontract", () => {
   );
 
   it("start de strandgame zonder recursieve statusupdates", async () => {
-    const entry = getGameRegistryEntry("strand-bezem-escape");
+    const entry = getGameRegistryEntry("magisch-strand-avontuur");
     expect(entry && "load" in entry).toBe(true);
     if (!entry || !("load" in entry)) return;
 
@@ -94,7 +94,7 @@ describe("generiek gamecontract", () => {
   });
 
   it("sluit de strandgame vanaf het startscherm via de lifecycle af", async () => {
-    const entry = getGameRegistryEntry("strand-bezem-escape");
+    const entry = getGameRegistryEntry("magisch-strand-avontuur");
     expect(entry && "load" in entry).toBe(true);
     if (!entry || !("load" in entry)) return;
 
