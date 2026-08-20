@@ -18,7 +18,9 @@ export const PanelFlyControlsOverlay: React.FC<PanelFlyControlsOverlayProps> = (
   className = "",
 }) => {
   return (
-    <div className={`p-3 bg-white/90 rounded-2xl shadow flex items-center justify-between border border-slate-200 ${className}`}>
+    <div
+      className={`p-3 bg-white/90 rounded-2xl shadow flex items-center justify-between border border-slate-200 ${className}`}
+    >
       <span className="text-xs font-bold text-slate-700">Handmatig sturen:</span>
       <div className="flex gap-2">
         <BtnManualFlyUp onClick={onFlyUp} />

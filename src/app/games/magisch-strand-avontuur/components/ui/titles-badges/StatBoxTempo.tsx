@@ -11,9 +11,6 @@ export interface StatBoxTempoProps {
   label?: string;
 }
 
-export const StatBoxTempo: React.FC<StatBoxTempoProps> = ({
-  value = "+0",
-  label = "Tempo",
-}) => {
+export const StatBoxTempo: React.FC<StatBoxTempoProps> = ({ value = "+0", label = "Tempo" }) => {
   return <SummaryPill label={label} tone="tempo" value={value} />;
 };

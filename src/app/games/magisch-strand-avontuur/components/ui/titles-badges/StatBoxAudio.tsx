@@ -10,12 +10,11 @@ export interface StatBoxAudioProps {
   className?: string;
 }
 
-export const StatBoxAudio: React.FC<StatBoxAudioProps> = ({
-  value = 0,
-  className = "",
-}) => {
+export const StatBoxAudio: React.FC<StatBoxAudioProps> = ({ value = 0, className = "" }) => {
   return (
-    <div className={`px-3 py-1 bg-white text-slate-700 border border-slate-300 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}>
+    <div
+      className={`px-3 py-1 bg-white text-slate-700 border border-slate-300 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}
+    >
       <span>AUDIO:</span>
       <span className="font-extrabold">{value}</span>
     </div>

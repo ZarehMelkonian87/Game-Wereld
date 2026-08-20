@@ -15,7 +15,9 @@ export const CardMicSpeechPrompt: React.FC<CardMicSpeechPromptProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`p-3 bg-white/90 rounded-2xl shadow border border-sky-200 flex items-center gap-3 ${className}`}>
+    <div
+      className={`p-3 bg-white/90 rounded-2xl shadow border border-sky-200 flex items-center gap-3 ${className}`}
+    >
       <span className="text-xl animate-pulse">🎙️</span>
       <span className="font-extrabold text-sky-900 text-sm">{promptText}</span>
     </div>

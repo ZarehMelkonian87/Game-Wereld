@@ -17,6 +17,7 @@ interface UseDutchSpeechRecognitionOptions {
   interimResults?: boolean;
   maxAlternatives?: number;
   restartOnEnd?: boolean;
+  silenceStopMs?: number;
 }
 
 interface UseDutchSpeechRecognitionState {
@@ -27,6 +28,7 @@ interface UseDutchSpeechRecognitionState {
   isListening: boolean;
   resetTranscript: () => void;
   resultId: number;
+  silenceStopMs?: number;
   startListening: () => boolean;
   status: VoiceRecognitionStatus;
   stopListening: () => void;
@@ -39,11 +41,12 @@ const getInitialSpeechStatus = (support: SpeechRecognitionSupport): VoiceRecogni
   support.isSupported ? "idle" : "unsupported";
 
 export const useDutchSpeechRecognition = ({
-  autoStopMs = 7000,
+  autoStopMs = 15000,
   continuous = false,
   interimResults = false,
   maxAlternatives = 3,
   restartOnEnd = false,
+  silenceStopMs,
 }: UseDutchSpeechRecognitionOptions = {}): UseDutchSpeechRecognitionState => {
   const { diagnostics, identity, speech } = useGameRuntime();
   const [support, setSupport] = useState<SpeechRecognitionSupport>(() =>
@@ -62,6 +65,7 @@ export const useDutchSpeechRecognition = ({
   const lastErrorCodeRef = useRef<VoiceRecognitionErrorCode>();
   const restartTimerRef = useRef<number>();
   const shouldRestartRef = useRef(false);
+  const lastTranscriptRef = useRef<string | undefined>();
 
   const clearRestartTimer = useCallback(() => {
     if (restartTimerRef.current !== undefined) {
@@ -88,6 +92,7 @@ export const useDutchSpeechRecognition = ({
   }, [clearRestartTimer, speech]);
 
   const resetTranscript = useCallback(() => {
+    lastTranscriptRef.current = undefined;
     setTranscript(undefined);
     setConfidence(undefined);
     setIsFinal(undefined);
@@ -99,15 +104,22 @@ export const useDutchSpeechRecognition = ({
   const handleResult = useCallback(
     (result: VoiceRecognitionResult) => {
       lastErrorCodeRef.current = undefined;
+      lastTranscriptRef.current = result.transcript;
       setTranscript(result.transcript);
       setConfidence(result.confidence);
       setIsFinal(result.isFinal);
       setResultId((currentResultId) => currentResultId + 1);
       setAlternatives(result.alternatives);
       setErrorMessage(undefined);
-      setStatus(continuous ? "listening" : "heard");
+      if (restartOnEnd) {
+        setStatus("listening");
+      } else if (result.isFinal && !continuous) {
+        setStatus("heard");
+      } else {
+        setStatus("listening");
+      }
     },
-    [continuous],
+    [continuous, restartOnEnd],
   );
 
   const handleError = useCallback(
@@ -141,7 +153,11 @@ export const useDutchSpeechRecognition = ({
     shouldRestartRef.current = false;
     clearRestartTimer();
     sessionRef.current?.stop();
-    setStatus((currentStatus) => (currentStatus === "listening" ? "processing" : currentStatus));
+    if (lastTranscriptRef.current && lastTranscriptRef.current.trim().length > 0) {
+      setStatus("heard");
+    } else {
+      setStatus((currentStatus) => (currentStatus === "listening" ? "processing" : currentStatus));
+    }
   }, [clearRestartTimer]);
 
   const startListening = useCallback(() => {
@@ -157,6 +173,7 @@ export const useDutchSpeechRecognition = ({
     shouldRestartRef.current = false;
     clearRestartTimer();
     sessionRef.current?.destroy();
+    lastTranscriptRef.current = undefined;
     setTranscript(undefined);
     setConfidence(undefined);
     setIsFinal(undefined);
@@ -178,11 +195,15 @@ export const useDutchSpeechRecognition = ({
           lastErrorCodeRef.current === "service-not-allowed";
 
         if (!shouldRestartRef.current || shouldBlockRestart) {
-          setStatus((currentStatus) =>
-            currentStatus === "listening" || currentStatus === "processing"
-              ? "idle"
-              : currentStatus,
-          );
+          if (lastTranscriptRef.current && lastTranscriptRef.current.trim().length > 0) {
+            setStatus("heard");
+          } else {
+            setStatus((currentStatus) =>
+              currentStatus === "listening" || currentStatus === "processing"
+                ? "idle"
+                : currentStatus,
+            );
+          }
           return;
         }
 
@@ -194,6 +215,7 @@ export const useDutchSpeechRecognition = ({
       onNoMatch: handleNoMatch,
       onResult: handleResult,
       onStatusChange: setStatus,
+      silenceStopMs,
     });
 
     sessionRef.current = session;
@@ -216,6 +238,7 @@ export const useDutchSpeechRecognition = ({
     interimResults,
     maxAlternatives,
     restartOnEnd,
+    silenceStopMs,
     speech,
   ]);
 
@@ -227,6 +250,7 @@ export const useDutchSpeechRecognition = ({
     isListening: status === "listening",
     resetTranscript,
     resultId,
+    silenceStopMs,
     startListening,
     status,
     stopListening,

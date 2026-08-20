@@ -14,9 +14,5 @@ export const LblStickerName: React.FC<LblStickerNameProps> = ({
   name = "Schelp Sticker",
   className = "",
 }) => {
-  return (
-    <h3 className={`font-black text-slate-900 text-lg ${className}`}>
-      {name}
-    </h3>
-  );
+  return <h3 className={`font-black text-slate-900 text-lg ${className}`}>{name}</h3>;
 };

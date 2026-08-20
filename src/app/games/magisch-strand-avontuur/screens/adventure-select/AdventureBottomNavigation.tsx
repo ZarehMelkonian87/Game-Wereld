@@ -16,14 +16,8 @@ export const AdventureBottomNavigation: DevtoolsComponent<AdventureBottomNavigat
     data-component="AdventureBottomNavigation"
     data-testid="adventure-bottom-navigation"
   >
-    <BtnSecondaryReward
-      data-testid="adventure-rewards-button"
-      onClick={onOpenRewards}
-    />
-    <BtnSecondaryOptions
-      data-testid="adventure-settings-button"
-      onClick={onOpenSettings}
-    />
+    <BtnSecondaryReward data-testid="adventure-rewards-button" onClick={onOpenRewards} />
+    <BtnSecondaryOptions data-testid="adventure-settings-button" onClick={onOpenSettings} />
   </PanelCard>
 );
 

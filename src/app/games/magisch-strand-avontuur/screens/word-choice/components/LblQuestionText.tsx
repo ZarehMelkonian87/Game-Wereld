@@ -15,8 +15,6 @@ export const LblQuestionText: React.FC<LblQuestionTextProps> = ({
   className = "",
 }) => {
   return (
-    <h2 className={`font-extrabold text-sky-950 text-xl flex-1 ${className}`}>
-      {questionText}
-    </h2>
+    <h2 className={`font-extrabold text-sky-950 text-xl flex-1 ${className}`}>{questionText}</h2>
   );
 };

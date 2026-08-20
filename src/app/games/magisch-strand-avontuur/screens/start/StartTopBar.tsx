@@ -27,7 +27,11 @@ export const StartTopBar = ({ onExit, onOpenSettings, starCount }: StartTopBarPr
       <DspStarCounter count={starCount} data-testid="start-star-counter" />
     </div>
 
-    <BtnSettingsGear aria-label="Instellingen openen" data-testid="start-settings-button" onClick={onOpenSettings} />
+    <BtnSettingsGear
+      aria-label="Instellingen openen"
+      data-testid="start-settings-button"
+      onClick={onOpenSettings}
+    />
   </div>
 );
 

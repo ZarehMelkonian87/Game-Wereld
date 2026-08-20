@@ -9,9 +9,7 @@ export interface LblMicInstructionProps {
   className?: string;
 }
 
-export const LblMicInstruction: React.FC<LblMicInstructionProps> = ({
-  className = "",
-}) => {
+export const LblMicInstruction: React.FC<LblMicInstructionProps> = ({ className = "" }) => {
   return (
     <p className={`text-xs text-slate-500 text-center italic ${className}`}>
       Tik op de knop om microfoontoegang opnieuw te vragen in de browser.

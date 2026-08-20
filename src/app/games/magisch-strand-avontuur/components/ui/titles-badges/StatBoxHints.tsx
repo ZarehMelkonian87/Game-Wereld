@@ -11,9 +11,6 @@ export interface StatBoxHintsProps {
   label?: string;
 }
 
-export const StatBoxHints: React.FC<StatBoxHintsProps> = ({
-  value = 0,
-  label = "Hints",
-}) => {
+export const StatBoxHints: React.FC<StatBoxHintsProps> = ({ value = 0, label = "Hints" }) => {
   return <SummaryPill label={label} tone="hint" value={value} />;
 };

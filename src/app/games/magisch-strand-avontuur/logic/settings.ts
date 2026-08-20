@@ -9,7 +9,8 @@ export const bezemEscapeSettingsSchema = z.object({
 });
 export type BezemEscapeSettings = z.infer<typeof bezemEscapeSettingsSchema>;
 
-export const MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT = "magisch-strand-avontuur:settings-changed";
+export const MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT =
+  "magisch-strand-avontuur:settings-changed";
 export const defaultBezemEscapeSettings: BezemEscapeSettings = {
   audioEnabled: true,
   hintsEnabled: true,
@@ -17,7 +18,8 @@ export const defaultBezemEscapeSettings: BezemEscapeSettings = {
   reducedMotion: false,
 };
 
-const getSettingsStorageKey = (profileId: string) => `magisch-strand-avontuur:${profileId}:settings`;
+const getSettingsStorageKey = (profileId: string) =>
+  `magisch-strand-avontuur:${profileId}:settings`;
 
 export const readBezemEscapeSettings = (profileId: string, storage: RuntimeStorage) => {
   const rawSettings = storage.get(getSettingsStorageKey(profileId));

@@ -10,10 +10,7 @@ export interface CardChoiceShellsProps {
   className?: string;
 }
 
-export const CardChoiceShells: React.FC<CardChoiceShellsProps> = ({
-  onClick,
-  className = "",
-}) => {
+export const CardChoiceShells: React.FC<CardChoiceShellsProps> = ({ onClick, className = "" }) => {
   return (
     <button
       type="button"

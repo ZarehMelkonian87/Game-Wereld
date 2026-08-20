@@ -9,11 +9,11 @@ export interface ImgMascotSpeakerProps {
   className?: string;
 }
 
-export const ImgMascotSpeaker: React.FC<ImgMascotSpeakerProps> = ({
-  className = "",
-}) => {
+export const ImgMascotSpeaker: React.FC<ImgMascotSpeakerProps> = ({ className = "" }) => {
   return (
-    <div className={`w-12 h-12 rounded-2xl bg-amber-300 border-2 border-amber-400 flex items-center justify-center text-2xl shadow-sm ${className}`}>
+    <div
+      className={`w-12 h-12 rounded-2xl bg-amber-300 border-2 border-amber-400 flex items-center justify-center text-2xl shadow-sm ${className}`}
+    >
       ⭐
     </div>
   );

@@ -241,7 +241,12 @@ export const migrateLegacyStorage = async (
             );
           }
           await database.tables.settings.put(
-            createSettingsRecord(profileId, "magisch-strand-avontuur.rewards", { raw: rewards }, now),
+            createSettingsRecord(
+              profileId,
+              "magisch-strand-avontuur.rewards",
+              { raw: rewards },
+              now,
+            ),
           );
         }
         const selectedWorld =
@@ -359,7 +364,7 @@ export const migrateLegacyStorage = async (
         events.push(
           ...mapLegacyPracticeEvents(
             source.getItem(`game-runtime:practice:${profileId}:magisch-strand-avontuur`) ??
-            source.getItem(`game-runtime:practice:${profileId}:strand-bezem-escape`),
+              source.getItem(`game-runtime:practice:${profileId}:strand-bezem-escape`),
             profileId,
             "magisch-strand-avontuur",
           ),

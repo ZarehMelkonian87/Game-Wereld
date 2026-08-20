@@ -9,9 +9,7 @@ export interface LblModalInstructionProps {
   className?: string;
 }
 
-export const LblModalInstruction: React.FC<LblModalInstructionProps> = ({
-  className = "",
-}) => {
+export const LblModalInstruction: React.FC<LblModalInstructionProps> = ({ className = "" }) => {
   return (
     <p className={`text-sm font-black leading-tight text-sky-900 ${className}`}>
       Vlieg zo ver mogelijk. Noem plaatjes die je ziet. Raak geen obstakel.

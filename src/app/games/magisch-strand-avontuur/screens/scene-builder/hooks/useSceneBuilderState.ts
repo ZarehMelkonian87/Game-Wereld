@@ -52,6 +52,8 @@ export const useSceneBuilderState = ({
   const [showTargetZoneHint, setShowTargetZoneHint] = useState(false);
   const [isHintVideoPlaying, setIsHintVideoPlaying] = useState(false);
   const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
+  const [voiceRecognitionTranscript, setVoiceRecognitionTranscript] = useState<string>("");
+  const stopVoiceRecognitionRef = useRef<() => void>(() => undefined);
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
@@ -215,18 +217,21 @@ export const useSceneBuilderState = ({
     setSpokenHintZoneId,
     setUnlockedRewardIds,
     setVoiceRecognitionStatus,
+    setVoiceRecognitionTranscript,
     setWordStarValue,
     showTargetZoneHint,
     speedValue,
     spokenCommandResult,
     spokenHelpByInstruction,
     spokenHintZoneId,
+    stopVoiceRecognitionRef,
     suppressNextClickRef,
     targetObject,
     targetZone,
     unlockedRewardIds,
     visualHintZone,
     voiceRecognitionStatus,
+    voiceRecognitionTranscript,
     wordStarValue,
   };
 };

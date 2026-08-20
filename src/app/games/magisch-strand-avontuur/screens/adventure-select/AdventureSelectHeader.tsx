@@ -17,9 +17,7 @@ export const AdventureSelectHeader: DevtoolsComponent<AdventureSelectHeaderProps
     <BtnNavBack onClick={onBackToStart} />
 
     <div className="flex-1 flex justify-center min-w-0">
-      <TtlHeaderPill data-slot="title">
-        Kies avontuur
-      </TtlHeaderPill>
+      <TtlHeaderPill data-slot="title">Kies avontuur</TtlHeaderPill>
     </div>
 
     <DspStarCounter count={starCount} data-testid="adventure-select-star-counter" />

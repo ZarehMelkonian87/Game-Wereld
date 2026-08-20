@@ -14,9 +14,5 @@ export const LblKeyboardExample: React.FC<LblKeyboardExampleProps> = ({
   exampleText = "Bijvoorbeeld: Zet de boot in de zee.",
   className = "",
 }) => {
-  return (
-    <p className={`text-xs text-slate-500 text-center italic ${className}`}>
-      {exampleText}
-    </p>
-  );
+  return <p className={`text-xs text-slate-500 text-center italic ${className}`}>{exampleText}</p>;
 };

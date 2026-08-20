@@ -10,13 +10,8 @@ export interface GridChoiceCardsProps {
   className?: string;
 }
 
-export const GridChoiceCards: React.FC<GridChoiceCardsProps> = ({
-  children,
-  className = "",
-}) => {
+export const GridChoiceCards: React.FC<GridChoiceCardsProps> = ({ children, className = "" }) => {
   return (
-    <div className={`grid grid-cols-3 gap-4 max-w-2xl w-full mx-auto ${className}`}>
-      {children}
-    </div>
+    <div className={`grid grid-cols-3 gap-4 max-w-2xl w-full mx-auto ${className}`}>{children}</div>
   );
 };

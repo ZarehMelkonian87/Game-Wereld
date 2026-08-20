@@ -28,7 +28,9 @@ export const DspDistanceCounter: React.FC<DspDistanceCounterProps> = ({
   const percentage = progress ?? Math.min(100, Math.max(0, (meters / target) * 100));
 
   return (
-    <div className={`px-4 py-2 bg-sky-600 text-white rounded-full shadow flex items-center gap-3 border border-sky-400 ${className}`}>
+    <div
+      className={`px-4 py-2 bg-sky-600 text-white rounded-full shadow flex items-center gap-3 border border-sky-400 ${className}`}
+    >
       <span className="font-bold text-sm whitespace-nowrap">Afstand {meters}m</span>
       <div className="w-24 h-3 bg-sky-800 rounded-full overflow-hidden border border-sky-500">
         <div

@@ -62,15 +62,9 @@ export const TypedCommandFallback = ({
         />
       </label>
       <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-        <BtnKeyboardSubmit
-          data-testid="typed-command-submit-button"
-          type="submit"
-        />
+        <BtnKeyboardSubmit data-testid="typed-command-submit-button" type="submit" />
         {onClose ? (
-          <BtnKeyboardClose
-            data-testid="typed-command-close-button"
-            onClick={onClose}
-          />
+          <BtnKeyboardClose data-testid="typed-command-close-button" onClick={onClose} />
         ) : null}
       </div>
     </form>

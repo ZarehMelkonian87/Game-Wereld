@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BtnTaskKeyboardToggle, VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
@@ -7,18 +8,22 @@ import { TypedCommandFallback } from "./TypedCommandFallback";
 import { VoicePrivacyNotice } from "./VoicePrivacyNotice";
 
 interface SpokenCommandControlsProps {
+  bindStopListening?: (stopFn: () => void) => void;
   className?: string;
   exampleText: string;
   onTranscript: (transcript: string) => void;
   onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
+  onVoiceTranscriptChange?: (transcript: string) => void;
   profileId?: string;
 }
 
 export const SpokenCommandControls = ({
+  bindStopListening,
   className,
   exampleText,
   onTranscript,
   onVoiceStatusChange,
+  onVoiceTranscriptChange,
   profileId = "demo-profile",
 }: SpokenCommandControlsProps) => {
   const {
@@ -39,7 +44,16 @@ export const SpokenCommandControls = ({
     status,
     stopListening,
     support,
+    transcript,
   } = useSpokenCommandControlsState({ exampleText, onTranscript, onVoiceStatusChange, profileId });
+
+  useEffect(() => {
+    bindStopListening?.(stopListening);
+  }, [bindStopListening, stopListening]);
+
+  useEffect(() => {
+    onVoiceTranscriptChange?.(transcript ?? "");
+  }, [onVoiceTranscriptChange, transcript]);
 
   return (
     <div

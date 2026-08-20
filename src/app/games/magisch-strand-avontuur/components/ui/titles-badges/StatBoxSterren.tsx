@@ -11,9 +11,6 @@ export interface StatBoxSterrenProps {
   label?: string;
 }
 
-export const StatBoxSterren: React.FC<StatBoxSterrenProps> = ({
-  value = 0,
-  label = "Sterren",
-}) => {
+export const StatBoxSterren: React.FC<StatBoxSterrenProps> = ({ value = 0, label = "Sterren" }) => {
   return <SummaryPill label={label} tone="star" value={value} />;
 };

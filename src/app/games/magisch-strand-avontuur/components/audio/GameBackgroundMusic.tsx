@@ -6,7 +6,10 @@ import {
   GAME_BACKGROUND_MUSIC_DUCKED_VOLUME,
   GAME_BACKGROUND_MUSIC_VOLUME,
 } from "../../logic/game-audio-events";
-import { MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT, readBezemEscapeSettings } from "../../logic/settings";
+import {
+  MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT,
+  readBezemEscapeSettings,
+} from "../../logic/settings";
 import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 
 export const GameBackgroundMusic = () => {
@@ -35,7 +38,10 @@ export const GameBackgroundMusic = () => {
     };
     window.addEventListener(MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT, updateFromSettings);
     return () =>
-      window.removeEventListener(MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT, updateFromSettings);
+      window.removeEventListener(
+        MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT,
+        updateFromSettings,
+      );
   }, [profileId, storage]);
 
   useEffect(() => {
@@ -78,14 +84,23 @@ export const GameBackgroundMusic = () => {
       foregroundAudioCountRef.current = Math.max(0, foregroundAudioCountRef.current - 1);
       setTargetVolume();
     };
-    window.addEventListener(MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_START_EVENT, handleForegroundAudioStart);
-    window.addEventListener(MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
+    window.addEventListener(
+      MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_START_EVENT,
+      handleForegroundAudioStart,
+    );
+    window.addEventListener(
+      MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT,
+      handleForegroundAudioEnd,
+    );
     return () => {
       window.removeEventListener(
         MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_START_EVENT,
         handleForegroundAudioStart,
       );
-      window.removeEventListener(MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT, handleForegroundAudioEnd);
+      window.removeEventListener(
+        MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT,
+        handleForegroundAudioEnd,
+      );
     };
   }, [playback]);
 

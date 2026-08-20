@@ -9,12 +9,11 @@ export interface LblPrivacyDescProps {
   className?: string;
 }
 
-export const LblPrivacyDesc: React.FC<LblPrivacyDescProps> = ({
-  className = "",
-}) => {
+export const LblPrivacyDesc: React.FC<LblPrivacyDescProps> = ({ className = "" }) => {
   return (
     <p className={`text-xs font-semibold text-slate-700 leading-relaxed ${className}`}>
-      De microfoon wordt alleen gebruikt om korte zinnen naar tekst om te zetten. We slaan geen opnames op.
+      De microfoon wordt alleen gebruikt om korte zinnen naar tekst om te zetten. We slaan geen
+      opnames op.
     </p>
   );
 };

@@ -12,9 +12,6 @@ export interface StatBoxGoedProps {
   className?: string;
 }
 
-export const StatBoxGoed: React.FC<StatBoxGoedProps> = ({
-  value = 0,
-  label = "Goed",
-}) => {
+export const StatBoxGoed: React.FC<StatBoxGoedProps> = ({ value = 0, label = "Goed" }) => {
   return <SummaryPill label={label} tone="good" value={value} />;
 };

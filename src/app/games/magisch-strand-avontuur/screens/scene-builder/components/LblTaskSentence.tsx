@@ -14,9 +14,5 @@ export const LblTaskSentence: React.FC<LblTaskSentenceProps> = ({
   sentence = "Zet de boot in de zee.",
   className = "",
 }) => {
-  return (
-    <h2 className={`font-black text-slate-900 text-lg flex-1 ${className}`}>
-      {sentence}
-    </h2>
-  );
+  return <h2 className={`font-black text-slate-900 text-lg flex-1 ${className}`}>{sentence}</h2>;
 };

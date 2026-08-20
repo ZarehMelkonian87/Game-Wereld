@@ -18,10 +18,10 @@ export const TrayStickerPalette: React.FC<TrayStickerPaletteProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`p-3 bg-amber-100/90 rounded-3xl border border-amber-300 shadow flex items-center justify-between gap-3 ${className}`}>
-      <div className="flex items-center gap-3 overflow-x-auto">
-        {children}
-      </div>
+    <div
+      className={`p-3 bg-amber-100/90 rounded-3xl border border-amber-300 shadow flex items-center justify-between gap-3 ${className}`}
+    >
+      <div className="flex items-center gap-3 overflow-x-auto">{children}</div>
       <BtnTrayNext onClick={onNext} />
     </div>
   );

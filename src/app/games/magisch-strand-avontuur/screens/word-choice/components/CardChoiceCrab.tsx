@@ -10,10 +10,7 @@ export interface CardChoiceCrabProps {
   className?: string;
 }
 
-export const CardChoiceCrab: React.FC<CardChoiceCrabProps> = ({
-  onClick,
-  className = "",
-}) => {
+export const CardChoiceCrab: React.FC<CardChoiceCrabProps> = ({ onClick, className = "" }) => {
   return (
     <button
       type="button"

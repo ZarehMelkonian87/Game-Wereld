@@ -15,7 +15,9 @@ export const CardQuestionPrompt: React.FC<CardQuestionPromptProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`p-4 bg-white rounded-3xl border-2 border-sky-200 shadow-md flex items-center gap-3 max-w-md w-full mx-auto ${className}`}>
+    <div
+      className={`p-4 bg-white rounded-3xl border-2 border-sky-200 shadow-md flex items-center gap-3 max-w-md w-full mx-auto ${className}`}
+    >
       {children}
     </div>
   );

@@ -10,12 +10,11 @@ export interface CardTaskHeaderProps {
   className?: string;
 }
 
-export const CardTaskHeader: React.FC<CardTaskHeaderProps> = ({
-  children,
-  className = "",
-}) => {
+export const CardTaskHeader: React.FC<CardTaskHeaderProps> = ({ children, className = "" }) => {
   return (
-    <div className={`p-4 bg-white/95 rounded-3xl border-2 border-sky-200 shadow-md flex items-center justify-between gap-3 ${className}`}>
+    <div
+      className={`p-4 bg-white/95 rounded-3xl border-2 border-sky-200 shadow-md flex items-center justify-between gap-3 ${className}`}
+    >
       {children}
     </div>
   );

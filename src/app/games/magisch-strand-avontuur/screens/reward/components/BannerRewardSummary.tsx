@@ -15,7 +15,9 @@ export const BannerRewardSummary: React.FC<BannerRewardSummaryProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`p-4 bg-amber-300 text-amber-950 font-black text-base rounded-2xl shadow flex items-center justify-center gap-2 border border-amber-400 ${className}`}>
+    <div
+      className={`p-4 bg-amber-300 text-amber-950 font-black text-base rounded-2xl shadow flex items-center justify-center gap-2 border border-amber-400 ${className}`}
+    >
       <span>🏆</span>
       <span>{rewardText}</span>
     </div>

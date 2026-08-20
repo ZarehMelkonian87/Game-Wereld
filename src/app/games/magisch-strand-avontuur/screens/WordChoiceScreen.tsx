@@ -93,9 +93,7 @@ export const WordChoiceScreen = ({
             <p className="min-w-0 flex-1 text-sm font-black leading-tight text-slate-900">
               {instruction.prompt}
             </p>
-            <BtnAudioReplayPrompt
-              onClick={() => playQuestionAudio()}
-            />
+            <BtnAudioReplayPrompt onClick={() => playQuestionAudio()} />
           </div>
           {feedback ? (
             <div

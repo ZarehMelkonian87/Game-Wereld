@@ -118,22 +118,57 @@ const readRecognitionAlternatives = (
 const readBestRecognitionResult = (
   event: BrowserSpeechRecognitionEvent,
 ): VoiceRecognitionResult | null => {
-  const speechResult = event.results[event.resultIndex];
-  if (!speechResult) return null;
-  const alternatives = readRecognitionAlternatives(speechResult);
-  const bestAlternative = alternatives[0];
-  if (!bestAlternative) return null;
+  if (event.results.length === 0) return null;
+
+  if (event.results.length === 1) {
+    const speechResult = event.results[0];
+    if (!speechResult) return null;
+    const alternatives = readRecognitionAlternatives(speechResult);
+    const bestAlternative = alternatives[0];
+    if (!bestAlternative) return null;
+    return {
+      alternatives,
+      confidence: bestAlternative.confidence,
+      confidenceLabel: getConfidenceLabel(bestAlternative.confidence),
+      isFinal: speechResult.isFinal,
+      transcript: bestAlternative.transcript,
+    };
+  }
+
+  const transcriptSegments: string[] = [];
+  let isAllFinal = true;
+  let totalConfidence = 0;
+  let count = 0;
+
+  for (let i = 0; i < event.results.length; i++) {
+    const resultItem = event.results[i];
+    if (!resultItem || resultItem.length === 0) continue;
+    const bestAlt = resultItem[0];
+    if (bestAlt && bestAlt.transcript.trim()) {
+      transcriptSegments.push(bestAlt.transcript.trim());
+      totalConfidence += bestAlt.confidence || 0.8;
+      count++;
+    }
+    if (!resultItem.isFinal) {
+      isAllFinal = false;
+    }
+  }
+
+  const combinedTranscript = transcriptSegments.join(" ").trim();
+  if (!combinedTranscript) return null;
+
+  const averageConfidence = count > 0 ? totalConfidence / count : 0.8;
   return {
-    alternatives,
-    confidence: bestAlternative.confidence,
-    confidenceLabel: getConfidenceLabel(bestAlternative.confidence),
-    isFinal: speechResult.isFinal,
-    transcript: bestAlternative.transcript,
+    alternatives: [{ confidence: averageConfidence, transcript: combinedTranscript }],
+    confidence: averageConfidence,
+    confidenceLabel: getConfidenceLabel(averageConfidence),
+    isFinal: isAllFinal,
+    transcript: combinedTranscript,
   };
 };
 
 export const createBrowserSpeechRecognition = ({
-  autoStopMs = 7000,
+  autoStopMs = 15000,
   continuous = false,
   interimResults = false,
   language = "nl-NL",
@@ -143,6 +178,7 @@ export const createBrowserSpeechRecognition = ({
   onNoMatch,
   onResult,
   onStatusChange,
+  silenceStopMs,
 }: SpeechRecognitionOptions = {}): SpeechRecognitionSession | null => {
   const RecognitionConstructor = getRecognitionConstructor();
   if (!RecognitionConstructor) {
@@ -152,14 +188,40 @@ export const createBrowserSpeechRecognition = ({
 
   const recognition = new RecognitionConstructor();
   let autoStopTimer: number | undefined;
+  let silenceStopTimer: number | undefined;
   let destroyed = false;
+
   const clearAutoStopTimer = () => {
     if (autoStopTimer !== undefined) {
       window.clearTimeout(autoStopTimer);
       autoStopTimer = undefined;
     }
   };
+
+  const clearSilenceStopTimer = () => {
+    if (silenceStopTimer !== undefined) {
+      window.clearTimeout(silenceStopTimer);
+      silenceStopTimer = undefined;
+    }
+  };
+
+  const clearAllTimers = () => {
+    clearAutoStopTimer();
+    clearSilenceStopTimer();
+  };
+
+  const resetSilenceTimer = () => {
+    clearSilenceStopTimer();
+    if (silenceStopMs !== undefined && silenceStopMs > 0) {
+      silenceStopTimer = window.setTimeout(() => {
+        onStatusChange?.("processing");
+        safeStop();
+      }, silenceStopMs);
+    }
+  };
+
   const safeStop = () => {
+    clearAllTimers();
     try {
       recognition.stop();
     } catch {
@@ -173,7 +235,7 @@ export const createBrowserSpeechRecognition = ({
   recognition.maxAlternatives = maxAlternatives;
   recognition.onstart = () => {
     onStatusChange?.("listening");
-    clearAutoStopTimer();
+    clearAllTimers();
     if (autoStopMs > 0) {
       autoStopTimer = window.setTimeout(() => {
         onStatusChange?.("processing");
@@ -182,12 +244,12 @@ export const createBrowserSpeechRecognition = ({
     }
   };
   recognition.onspeechend = () => {
-    if (continuous) {
-      onStatusChange?.("listening");
+    if (continuous || (silenceStopMs !== undefined && silenceStopMs > 0)) {
+      // Allow the silence timer or continuous stream to finish naturally
       return;
     }
     onStatusChange?.("processing");
-    clearAutoStopTimer();
+    clearAllTimers();
     safeStop();
   };
   recognition.onresult = (event) => {
@@ -196,6 +258,7 @@ export const createBrowserSpeechRecognition = ({
       onNoMatch?.();
       return;
     }
+    resetSilenceTimer();
     onResult?.(result);
     onStatusChange?.(continuous ? "listening" : "heard");
   };
@@ -204,23 +267,23 @@ export const createBrowserSpeechRecognition = ({
     onStatusChange?.("error");
   };
   recognition.onerror = (event) => {
-    clearAutoStopTimer();
+    clearAllTimers();
     onError?.(event.error ?? "unknown", event.message ?? "");
     onStatusChange?.("error");
   };
   recognition.onend = () => {
-    clearAutoStopTimer();
+    clearAllTimers();
     if (!destroyed) onEnd?.();
   };
 
   return {
     abort: () => {
-      clearAutoStopTimer();
+      clearAllTimers();
       recognition.abort();
     },
     destroy: () => {
       destroyed = true;
-      clearAutoStopTimer();
+      clearAllTimers();
       recognition.abort();
     },
     start: () => {

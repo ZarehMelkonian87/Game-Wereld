@@ -45,6 +45,7 @@ export interface SpeechRecognitionOptions {
   onNoMatch?: () => void;
   onResult?: (result: VoiceRecognitionResult) => void;
   onStatusChange?: (status: VoiceRecognitionStatus) => void;
+  silenceStopMs?: number;
 }
 
 export interface SpeechRecognitionSession {

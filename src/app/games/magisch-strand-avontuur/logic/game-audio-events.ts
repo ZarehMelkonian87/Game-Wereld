@@ -1,6 +1,7 @@
 export const MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_START_EVENT =
   "magisch-strand-avontuur:foreground-audio-start";
-export const MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT = "magisch-strand-avontuur:foreground-audio-end";
+export const MAGISCH_STRAND_AVONTUUR_FOREGROUND_AUDIO_END_EVENT =
+  "magisch-strand-avontuur:foreground-audio-end";
 
 export const GAME_FOREGROUND_AUDIO_VOLUME = 1;
 export const GAME_BACKGROUND_MUSIC_VOLUME = 0.26;

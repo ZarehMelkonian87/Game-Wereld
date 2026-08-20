@@ -9,9 +9,7 @@ export interface BadgeKeyboardHeaderProps {
   className?: string;
 }
 
-export const BadgeKeyboardHeader: React.FC<BadgeKeyboardHeaderProps> = ({
-  className = "",
-}) => {
+export const BadgeKeyboardHeader: React.FC<BadgeKeyboardHeaderProps> = ({ className = "" }) => {
   return (
     <div
       className={`w-14 h-14 rounded-2xl border-2 border-sky-600 bg-sky-500 text-white shadow-md flex items-center justify-center -mt-10 mx-auto ${className}`}

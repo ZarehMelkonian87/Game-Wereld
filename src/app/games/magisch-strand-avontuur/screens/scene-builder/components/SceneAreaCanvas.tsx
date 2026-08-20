@@ -39,10 +39,12 @@ interface SceneAreaCanvasProps {
   placedObjects: PlacedObject[];
   sceneAreaRef: RefObject<HTMLElement>;
   selectedObjectId: string | null;
+  onStopVoiceRecognition?: () => void;
   showTargetZoneHint: boolean;
   showZoneDevTools: boolean;
   visualHintZone?: SceneZone;
   voiceRecognitionStatus: string;
+  voiceRecognitionTranscript?: string;
 }
 
 export const SceneAreaCanvas = ({
@@ -55,6 +57,7 @@ export const SceneAreaCanvas = ({
   handleSceneTap,
   isHintVideoPlaying,
   objects,
+  onStopVoiceRecognition,
   pendingPlacement,
   placedObjects,
   sceneAreaRef,
@@ -63,6 +66,7 @@ export const SceneAreaCanvas = ({
   showZoneDevTools,
   visualHintZone,
   voiceRecognitionStatus,
+  voiceRecognitionTranscript,
 }: SceneAreaCanvasProps) => {
   const [keyboardPoint, setKeyboardPoint] = useState<ScenePoint>({ x: 50, y: 50 });
   const [isKeyboardPlacementActive, setIsKeyboardPlacementActive] = useState(false);
@@ -209,7 +213,12 @@ export const SceneAreaCanvas = ({
           })()
         : null}
 
-      {voiceRecognitionStatus === "listening" && <SpeechWaveAnimation />}
+      {voiceRecognitionStatus === "listening" && (
+        <SpeechWaveAnimation
+          onStop={onStopVoiceRecognition}
+          transcript={voiceRecognitionTranscript}
+        />
+      )}
     </section>
   );
 };

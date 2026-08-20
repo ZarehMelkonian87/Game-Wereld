@@ -8,7 +8,10 @@ interface MagischStrandAvontuurShellProps {
   world: GameWorld;
 }
 
-export const MagischStrandAvontuurShell = ({ children, world }: MagischStrandAvontuurShellProps) => (
+export const MagischStrandAvontuurShell = ({
+  children,
+  world,
+}: MagischStrandAvontuurShellProps) => (
   <GameShell
     gameId="magisch-strand-avontuur"
     instructionCount={world.instructions.length}

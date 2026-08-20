@@ -76,14 +76,17 @@ export const SceneBuilderScreen = ({
     setDragState,
     setIsHintVideoPlaying,
     setVoiceRecognitionStatus,
+    setVoiceRecognitionTranscript,
     showTargetZoneHint,
     spokenCommandResult,
     spokenHintZoneId,
+    stopVoiceRecognitionRef,
     targetZone,
     targetObject,
     unlockedRewardIds,
     visualHintZone,
     voiceRecognitionStatus,
+    voiceRecognitionTranscript,
     wordStarValue,
   } = state;
   const {
@@ -177,12 +180,14 @@ export const SceneBuilderScreen = ({
         objects={objects}
         pendingPlacement={pendingPlacement}
         placedObjects={placedObjects}
+        onStopVoiceRecognition={() => stopVoiceRecognitionRef.current()}
         sceneAreaRef={sceneAreaRef}
         showTargetZoneHint={showTargetZoneHint}
         showZoneDevTools={showZoneDevTools}
         selectedObjectId={selectedObjectId}
         visualHintZone={visualHintZone}
         voiceRecognitionStatus={voiceRecognitionStatus}
+        voiceRecognitionTranscript={voiceRecognitionTranscript}
       />
 
       <div
@@ -204,9 +209,13 @@ export const SceneBuilderScreen = ({
         <CompactInstructionCard
           actionControls={
             <SpokenCommandControls
+              bindStopListening={(stopFn) => {
+                stopVoiceRecognitionRef.current = stopFn;
+              }}
               exampleText={instruction.prompt}
               onTranscript={applySpokenCommandTranscript}
               onVoiceStatusChange={setVoiceRecognitionStatus}
+              onVoiceTranscriptChange={setVoiceRecognitionTranscript}
               profileId={rewardProfileId}
             />
           }

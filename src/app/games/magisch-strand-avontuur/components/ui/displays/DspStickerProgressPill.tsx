@@ -24,7 +24,9 @@ export const DspStickerProgressPill: React.FC<DspStickerProgressPillProps> = ({
       className={`px-3 py-1 bg-amber-400 text-slate-900 font-extrabold text-sm rounded-full shadow flex items-center gap-1 border border-amber-500 ${className}`}
     >
       <span>⭐</span>
-      <span>{collected}/{total}</span>
+      <span>
+        {collected}/{total}
+      </span>
     </div>
   );
 };

@@ -11,14 +11,9 @@ export interface TtlModalTitleProps {
   className?: string;
 }
 
-export const TtlModalTitle: React.FC<TtlModalTitleProps> = ({
-  title,
-  className = "",
-}) => {
+export const TtlModalTitle: React.FC<TtlModalTitleProps> = ({ title, className = "" }) => {
   return (
-    <h2
-      className={`text-2xl font-black text-slate-800 text-center tracking-wide ${className}`}
-    >
+    <h2 className={`text-2xl font-black text-slate-800 text-center tracking-wide ${className}`}>
       {title}
     </h2>
   );

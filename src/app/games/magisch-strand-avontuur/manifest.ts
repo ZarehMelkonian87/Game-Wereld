@@ -27,4 +27,3 @@ export const magischStrandAvontuurManifest = defineGameManifest({
   themeId: "vocabulary",
   title: "Magisch Strand-Avontuur",
 });
-
