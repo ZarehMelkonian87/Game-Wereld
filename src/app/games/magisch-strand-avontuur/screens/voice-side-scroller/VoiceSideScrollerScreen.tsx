@@ -1,7 +1,6 @@
 import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 import { useVoiceSideScrollerController } from "./useVoiceSideScrollerController";
 import { VoiceSideScrollerHud } from "./VoiceSideScrollerHud";
-import { VoiceSideScrollerMovementControls } from "./VoiceSideScrollerMovementControls";
 import { VoiceSideScrollerStage } from "./VoiceSideScrollerStage";
 import { VoiceSideScrollerStatusPanel } from "./VoiceSideScrollerStatusPanel";
 import { VoiceSideScrollerThumbRail } from "./VoiceSideScrollerThumbRail";
@@ -57,12 +56,6 @@ export const VoiceSideScrollerScreen = ({ onBackToMenu }: VoiceSideScrollerScree
           gameplayFeedback={state.gameplayFeedback}
           recognition={controller.wordRecognition}
           status={state.status}
-        />
-        <VoiceSideScrollerMovementControls
-          disabled={controlsDisabled}
-          onMoveDown={controller.moveDown}
-          onMoveUp={controller.moveUp}
-          onRelease={controller.moveNeutral}
         />
       </div>
     </section>
