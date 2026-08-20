@@ -1,8 +1,9 @@
-import { Check, Volume2, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
   BtnActionKlaar,
+  BtnAudioReplayPrompt,
   GameplayStatusBar,
   ObjectStickerButton,
   PanelCard,
@@ -92,14 +93,9 @@ export const WordChoiceScreen = ({
             <p className="min-w-0 flex-1 text-sm font-black leading-tight text-slate-900">
               {instruction.prompt}
             </p>
-            <button
-              aria-label="Luister opnieuw"
-              className="pointer-events-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-sky-300 bg-sky-100 text-sky-700 shadow-[0_3px_0_rgba(14,116,144,0.2)] outline-none transition active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-sky-200 motion-reduce:transition-none"
+            <BtnAudioReplayPrompt
               onClick={() => playQuestionAudio()}
-              type="button"
-            >
-              <Volume2 className="h-6 w-6" strokeWidth={3} />
-            </button>
+            />
           </div>
           {feedback ? (
             <div
@@ -126,6 +122,7 @@ export const WordChoiceScreen = ({
                 <BtnActionKlaar
                   className="pointer-events-auto shrink-0"
                   data-testid="word-choice-next-button"
+                  label="Volgende"
                   onClick={advanceInstruction}
                 />
               ) : null}

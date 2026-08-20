@@ -53,7 +53,6 @@ const MagischStrandAvontuurExperience = () => {
         <>
           {screenPreview === "reward" ? (
             <RewardScreen
-              onBackToMenu={actions.openModeSelect}
               onChooseWorld={() => actions.setScreen("world-select")}
               onPlayAgain={actions.resetRound}
             />

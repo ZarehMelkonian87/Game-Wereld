@@ -14,7 +14,6 @@ import { RewardCard } from "./RewardCard";
 import { readStoredRewardResult } from "./rewardResultStorage";
 
 interface RewardScreenProps {
-  onBackToMenu?: () => void;
   onChooseWorld?: () => void;
   onPlayAgain?: () => void;
 }
@@ -24,7 +23,7 @@ interface RewardScreenProps {
  * @screens SCR_REWARD_SUMMARY
  * @description Beloning & Resultaten Scherm (Scherm 4)
  */
-export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: RewardScreenProps) => {
+export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) => {
   const runtime = useGameRuntime();
   const rewardProfileId = runtime.identity.profileId;
   const [rewardResult] = useState(() => readStoredRewardResult(runtime.storage));
@@ -95,11 +94,7 @@ export const RewardScreen = ({ onBackToMenu, onChooseWorld, onPlayAgain }: Rewar
           rewardSectionText={rewardSectionText}
           rewardSectionTitle={rewardSectionTitle}
         />
-        <RewardActionsPanel
-          onBackToMenu={onBackToMenu}
-          onChooseWorld={onChooseWorld}
-          onPlayAgain={onPlayAgain}
-        />
+        <RewardActionsPanel onChooseWorld={onChooseWorld} onPlayAgain={onPlayAgain} />
       </div>
     </div>
   );

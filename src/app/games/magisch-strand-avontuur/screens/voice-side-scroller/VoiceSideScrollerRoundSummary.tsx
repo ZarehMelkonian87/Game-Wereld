@@ -1,5 +1,5 @@
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
-import { BtnActionMenu, BtnActionReplay, PanelCard } from "../../components/ui";
+import { BtnActionWorld, BtnActionReplay, PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
 
 interface VoiceSideScrollerRoundSummaryProps {
@@ -111,12 +111,8 @@ export const VoiceSideScrollerRoundSummary = ({
           Extra oefenen: {needsPracticeText}. Herhaald: {audioRepeats}x.
         </p>
         <div className="grid grid-cols-2 gap-2">
-          <BtnActionReplay
-            onClick={onRestart}
-          />
-          <BtnActionMenu
-            onClick={onBackToMenu}
-          />
+          <BtnActionReplay onClick={onRestart} />
+          <BtnActionWorld data-testid="game_over_resultaat-world-button" onClick={onBackToMenu} />
         </div>
       </PanelCard>
     </div>

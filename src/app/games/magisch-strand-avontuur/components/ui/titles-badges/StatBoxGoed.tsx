@@ -1,4 +1,5 @@
 import React from "react";
+import { SummaryPill } from "../../../screens/reward/SummaryPill";
 
 /**
  * @uxId STAT_BOX_GOED
@@ -7,17 +8,13 @@ import React from "react";
  */
 export interface StatBoxGoedProps {
   value?: number | string;
+  label?: string;
   className?: string;
 }
 
 export const StatBoxGoed: React.FC<StatBoxGoedProps> = ({
   value = 0,
-  className = "",
+  label = "Goed",
 }) => {
-  return (
-    <div className={`px-3 py-1 bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}>
-      <span>GOED:</span>
-      <span className="font-extrabold">{value}</span>
-    </div>
-  );
+  return <SummaryPill label={label} tone="good" value={value} />;
 };

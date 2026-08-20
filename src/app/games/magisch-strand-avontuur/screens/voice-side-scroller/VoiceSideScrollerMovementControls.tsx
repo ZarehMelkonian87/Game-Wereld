@@ -14,7 +14,7 @@ export const VoiceSideScrollerMovementControls = ({
   onMoveUp,
   onRelease,
 }: VoiceSideScrollerMovementControlsProps) => {
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, direction: "down" | "up") => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, direction: "down" | "up") => {
     if (event.repeat || (event.key !== "Enter" && event.key !== " ")) {
       return;
     }
@@ -26,7 +26,7 @@ export const VoiceSideScrollerMovementControls = ({
     }
   };
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== "Enter" && event.key !== " ") {
       return;
     }
@@ -41,26 +41,24 @@ export const VoiceSideScrollerMovementControls = ({
       data-component="VoiceSideScrollerMovementControls"
       data-testid="voice-side-scroller-movement-controls"
     >
-      <div
+      <BtnManualFlyUp
+        disabled={disabled}
         onKeyDown={(e) => handleKeyDown(e, "up")}
         onKeyUp={handleKeyUp}
         onPointerCancel={onRelease}
         onPointerDown={disabled ? undefined : onMoveUp}
         onPointerLeave={onRelease}
         onPointerUp={onRelease}
-      >
-        <BtnManualFlyUp className="w-full h-14 justify-center" />
-      </div>
-      <div
+      />
+      <BtnManualFlyDown
+        disabled={disabled}
         onKeyDown={(e) => handleKeyDown(e, "down")}
         onKeyUp={handleKeyUp}
         onPointerCancel={onRelease}
         onPointerDown={disabled ? undefined : onMoveDown}
         onPointerLeave={onRelease}
         onPointerUp={onRelease}
-      >
-        <BtnManualFlyDown className="w-full h-14 justify-center" />
-      </div>
+      />
     </div>
   );
 };

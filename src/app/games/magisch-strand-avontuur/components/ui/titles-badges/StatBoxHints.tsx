@@ -1,23 +1,19 @@
 import React from "react";
+import { SummaryPill } from "../../../screens/reward/SummaryPill";
 
 /**
  * @uxId STAT_BOX_HINTS
  * @screens SCR_REWARD_SUMMARY
- * @description Oranje pil-statistiek voor aantal gebruikte hints ('HINTS: 0').
+ * @description Blauwe pil-statistiek voor het aantal gebruikte hints ('HINTS: 0').
  */
 export interface StatBoxHintsProps {
   value?: number | string;
-  className?: string;
+  label?: string;
 }
 
 export const StatBoxHints: React.FC<StatBoxHintsProps> = ({
   value = 0,
-  className = "",
+  label = "Hints",
 }) => {
-  return (
-    <div className={`px-3 py-1 bg-amber-100 text-amber-900 border border-amber-300 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}>
-      <span>HINTS:</span>
-      <span className="font-extrabold">{value}</span>
-    </div>
-  );
+  return <SummaryPill label={label} tone="hint" value={value} />;
 };

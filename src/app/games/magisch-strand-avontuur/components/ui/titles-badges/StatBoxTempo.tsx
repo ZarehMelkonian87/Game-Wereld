@@ -1,23 +1,19 @@
 import React from "react";
+import { SummaryPill } from "../../../screens/reward/SummaryPill";
 
 /**
  * @uxId STAT_BOX_TEMPO
  * @screens SCR_REWARD_SUMMARY
- * @description Lichtblauwe pil-statistiek voor tempobonus ('TEMPO: +0').
+ * @description Paarse pil-statistiek voor antwoordsnelheid ('TEMPO: +3').
  */
 export interface StatBoxTempoProps {
   value?: number | string;
-  className?: string;
+  label?: string;
 }
 
 export const StatBoxTempo: React.FC<StatBoxTempoProps> = ({
   value = "+0",
-  className = "",
+  label = "Tempo",
 }) => {
-  return (
-    <div className={`px-3 py-1 bg-sky-100 text-sky-900 border border-sky-300 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}>
-      <span>TEMPO:</span>
-      <span className="font-extrabold">{value}</span>
-    </div>
-  );
+  return <SummaryPill label={label} tone="tempo" value={value} />;
 };

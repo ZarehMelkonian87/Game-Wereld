@@ -1,34 +1,40 @@
 import React from "react";
+import { Settings } from "lucide-react";
 
 /**
  * @uxId BTN_SECONDARY_OPTIONS
  * @screens SCR_ADVENTURE_SELECT
  * @description Secundaire optiesknop met tandwiel-icoon in het avontuur-selectiescherm.
  */
-export interface BtnSecondaryOptionsProps {
-  onClick: () => void;
-  className?: string;
+export interface BtnSecondaryOptionsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   "data-testid"?: string;
 }
 
 export const BtnSecondaryOptions: React.FC<BtnSecondaryOptionsProps> = ({
   onClick,
   className = "",
-  "data-testid": testId,
+  disabled = false,
+  "data-testid": testId = "adventure-settings-button",
+  "aria-label": ariaLabel = "Opties openen",
+  children,
+  ...props
 }) => {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       data-testid={testId}
-      aria-label="Open opties en instellingen"
-      className={`px-5 py-3 bg-white text-slate-700 font-bold rounded-2xl shadow border-2 border-slate-200 flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform ${className}`}
+      aria-label={ariaLabel}
+      className={`grid min-h-[3rem] w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-2 rounded-2xl border-[3px] border-slate-200 bg-white/90 p-2 text-left shadow-[0_3px_0_rgba(21,48,74,0.1)] transition active:translate-y-0.5 active:shadow-none ${className}`}
+      {...props}
     >
-      <svg className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-      <span>Opties</span>
+      <span className="grid h-8 w-8 place-items-center rounded-xl border-2 border-white bg-slate-100 text-slate-800 shadow-sm">
+        <Settings className="h-5 w-5" strokeWidth={3} />
+      </span>
+      <span className="truncate text-xs font-black leading-none text-slate-900">
+        {children ?? "Opties"}
+      </span>
     </button>
   );
 };

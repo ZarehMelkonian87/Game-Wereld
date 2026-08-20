@@ -1,6 +1,7 @@
-import { ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { KeyboardEvent } from "react";
-import { GameButton, GameIconButton, GameStarCounter, HintButton } from "../../../../game-platform";
+import { GameIconButton, GameStarCounter } from "../../../../game-platform";
+import { BtnActionKlaar, BtnHintAssist } from "../../components/ui";
 
 interface SceneBuilderTopBarProps {
   actionLabel: string;
@@ -14,7 +15,7 @@ interface SceneBuilderTopBarProps {
 
 export const SceneBuilderTopBar = ({
   actionLabel,
-  isCorrectFeedback,
+  isCorrectFeedback: _isCorrectFeedback,
   onAction,
   onBackToMenu,
   onHint,
@@ -44,31 +45,21 @@ export const SceneBuilderTopBar = ({
       <div className="flex min-w-0 justify-start">
         <GameStarCounter value={starCount} />
       </div>
-      <HintButton
+      <BtnHintAssist
         onClick={onHint}
         onMouseDown={onHintPointerDown}
         onPointerDown={onHintPointerDown}
         onTouchStart={onHintPointerDown}
         showLabel={false}
       />
-      <GameButton
+      <BtnActionKlaar
         aria-label={actionLabel}
         className="min-h-12 rounded-2xl px-3 text-sm shadow-[0_3px_0_rgba(4,120,87,0.75)]"
         data-testid="scene-builder-confirm-button"
-        iconLeft={
-          isCorrectFeedback ? (
-            <Sparkles className="h-5 w-5" strokeWidth={3} />
-          ) : (
-            <CheckCircle2 className="h-5 w-5" strokeWidth={3} />
-          )
-        }
+        label={actionLabel}
         onClick={onAction}
         onKeyDown={handleActionKeyDown}
-        size="compact"
-        tone="green"
-      >
-        {actionLabel}
-      </GameButton>
+      />
     </header>
   );
 };

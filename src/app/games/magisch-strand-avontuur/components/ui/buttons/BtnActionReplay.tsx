@@ -1,33 +1,36 @@
 import React from "react";
+import { RotateCcw } from "lucide-react";
 
 /**
  * @uxId BTN_ACTION_REPLAY
  * @screens SCR_REWARD_SUMMARY
  * @description Actieknop 'Opnieuw' op het beloningsscherm om de sessie te herstarten.
  */
-export interface BtnActionReplayProps {
-  onClick: () => void;
-  className?: string;
+export interface BtnActionReplayProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   "data-testid"?: string;
 }
 
 export const BtnActionReplay: React.FC<BtnActionReplayProps> = ({
   onClick,
   className = "",
-  "data-testid": testId,
+  disabled = false,
+  "data-testid": testId = "reward-play-again-button",
+  "aria-label": ariaLabel = "Opnieuw spelen",
+  children,
+  ...props
 }) => {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       data-testid={testId}
-      aria-label="Speel opnieuw"
-      className={`px-5 py-3 bg-emerald-600 text-white font-bold rounded-full shadow border-b-4 border-emerald-800 flex items-center gap-2 hover:bg-emerald-500 active:scale-95 transition-all ${className}`}
+      aria-label={ariaLabel}
+      className={`pointer-events-auto min-h-14 min-w-0 px-2 py-2 bg-emerald-500 text-white font-extrabold text-[0.82rem] rounded-2xl border-2 border-emerald-600 shadow-[0_4px_0_rgba(4,120,87,0.7)] flex items-center justify-center gap-1.5 hover:bg-emerald-400 active:translate-y-0.5 active:shadow-none disabled:opacity-50 transition-all ${className}`}
+      {...props}
     >
-      <svg className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-      </svg>
-      <span>Opnieuw</span>
+      <RotateCcw className="h-5 w-5 shrink-0" strokeWidth={3} />
+      <span>{children ?? "Opnieuw"}</span>
     </button>
   );
 };

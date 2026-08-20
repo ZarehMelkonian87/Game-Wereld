@@ -8,12 +8,6 @@ interface SummaryPillProps {
   tone?: SummaryPillTone;
 }
 
-/**
- * Gedeelde stat-tegel voor het interface-systeem (UX-104). Iedere toon draagt
- * betekenis via de semantische statustokens uit UX-101 in plaats van een
- * willekeurige kleurkeuze: `good` (goede acties), `tempo` (tempo), `hint`
- * (gebruikte hulp), `star` (verdiende sterren) en `neutral` (overig).
- */
 const toneClasses: Record<SummaryPillTone, string> = {
   good: "border-stat-good-border bg-stat-good-surface text-stat-good",
   hint: "border-stat-hint-border bg-stat-hint-surface text-stat-hint",

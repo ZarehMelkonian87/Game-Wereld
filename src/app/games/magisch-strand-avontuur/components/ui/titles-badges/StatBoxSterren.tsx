@@ -1,23 +1,19 @@
 import React from "react";
+import { SummaryPill } from "../../../screens/reward/SummaryPill";
 
 /**
  * @uxId STAT_BOX_STERREN
  * @screens SCR_REWARD_SUMMARY
- * @description Zachtgouden pil-statistiek voor gewonnen netto sterren ('STERREN: +0').
+ * @description Gele pil-statistiek voor het aantal verdiende sterren ('STERREN: 0/30').
  */
 export interface StatBoxSterrenProps {
   value?: number | string;
-  className?: string;
+  label?: string;
 }
 
 export const StatBoxSterren: React.FC<StatBoxSterrenProps> = ({
-  value = "+0",
-  className = "",
+  value = 0,
+  label = "Sterren",
 }) => {
-  return (
-    <div className={`px-3 py-1 bg-amber-200 text-amber-950 border border-amber-400 font-bold text-xs rounded-full shadow-sm flex items-center gap-1 ${className}`}>
-      <span>STERREN:</span>
-      <span className="font-extrabold">{value}</span>
-    </div>
-  );
+  return <SummaryPill label={label} tone="star" value={value} />;
 };

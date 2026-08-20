@@ -1,31 +1,36 @@
 import React from "react";
+import { Globe2 } from "lucide-react";
 
 /**
  * @uxId BTN_ACTION_WORLD
  * @screens SCR_REWARD_SUMMARY
  * @description Actieknop 'Wereld' om terug te navigeren naar de Game-Wereld overzichtskaart.
  */
-export interface BtnActionWorldProps {
-  onClick: () => void;
-  className?: string;
+export interface BtnActionWorldProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   "data-testid"?: string;
 }
 
 export const BtnActionWorld: React.FC<BtnActionWorldProps> = ({
   onClick,
   className = "",
-  "data-testid": testId,
+  disabled = false,
+  "data-testid": testId = "reward-world-button",
+  "aria-label": ariaLabel = "Terug naar wereldkeuze",
+  children,
+  ...props
 }) => {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       data-testid={testId}
-      aria-label="Terug naar wereldkaart"
-      className={`px-5 py-3 bg-sky-600 text-white font-bold rounded-full shadow border-b-4 border-sky-800 flex items-center gap-2 hover:bg-sky-500 active:scale-95 transition-all ${className}`}
+      aria-label={ariaLabel}
+      className={`pointer-events-auto min-h-14 min-w-0 px-2 py-2 bg-emerald-500 text-white font-extrabold text-[0.82rem] rounded-2xl border-2 border-emerald-600 shadow-[0_4px_0_rgba(4,120,87,0.7)] flex items-center justify-center gap-1.5 hover:bg-emerald-400 active:translate-y-0.5 active:shadow-none disabled:opacity-50 transition-all ${className}`}
+      {...props}
     >
-      <span className="text-lg">🌍</span>
-      <span>Wereld</span>
+      <Globe2 className="h-5 w-5 shrink-0" strokeWidth={3} />
+      <span>{children ?? "Wereld"}</span>
     </button>
   );
 };
