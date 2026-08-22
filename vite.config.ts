@@ -80,8 +80,8 @@ export default defineConfig({
           {
             handler: "NetworkFirst",
             options: {
-              cacheName: "game-wereld-media-runtime-v1",
-              cacheableResponse: { statuses: [200, 206] },
+              cacheName: "game-wereld-media-runtime-v2",
+              cacheableResponse: { statuses: [200] },
               expiration: { maxAgeSeconds: 86_400, maxEntries: 12 },
               networkTimeoutSeconds: 4,
             },
