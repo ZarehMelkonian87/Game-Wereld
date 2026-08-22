@@ -5,9 +5,10 @@
 Geïnspireerd op logopedische observatiedomeinen (receptieve & actieve woordenschat, zinsbegrip en ruimtelijke oriëntatie) biedt het spel een veilige, speelse omgeving zonder diagnostische druk of prestatielabels.
 
 > [!TIP]
-> **Uitgebreid Game Design & Pedagogisch Dossier beschikbaar:**
+> **Uitgebreid Game Design Document (GDD) & Pedagogisch Dossier beschikbaar:**
 > Bekijk de modulaire documentatie in de map [`docs/`](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/README.md):
 >
+> - 🎮 **[Game Design Document (GDD.md)](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/GDD.md)** _(Industriestandaard specificatie volgens het GitBook GDD framework)_
 > - [01. Pedagogisch & Logopedisch Fundament](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/01-pedagogisch-en-logopedisch-fundament.md)
 > - [02. Leerdoelen, Woorden & Ruimtelijke Oriëntatie](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/02-leerdoelen-en-curriculum.md)
 > - [03. Gameplay & Exacte Interactie-specificaties](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/03-gameplay-en-interactie-specificaties.md)

@@ -4,11 +4,20 @@ Welkom bij de uitgebreide ontwerp-, interactie- en pedagogische documentatie van
 
 Dit dossier is opgesteld voor **game developers**, **educatieve ontwerpers**, **logopedisten/orthopedagogen** en **QA-specialisten**. Het beschrijft tot in detail de wetenschappelijke achtergrond, de leeringrepen, de exacte gameplaymechanieken en de gebruikersinteracties, zodat het spel volledig en nauwkeurig begrepen of gereproduceerd kan worden.
 
+> [!IMPORTANT]
+> **Definitief Game Design Document (GDD)**:  
+> Voor het complete, overkoepelende industriestandaard ontwerpdossier (gebaseerd op het GitBook GDD Framework), zie:  
+> 🎮 **[Game Design Document (GDD.md)](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/GDD.md)**
+
 ---
 
 ## 📚 Dossier Overzicht & Inhoudsopgave
 
 Het dossier is modulair opgebouwd in de volgende hoofdstukken:
+
+### 🌟 [00. Volledig Game Design Document (GDD.md)](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/GDD.md)
+
+- Het complete overkoepelende GDD met executive summary, loops, USPs, mechanieken en tech-stack.
 
 ### 1. [01. Pedagogisch & Logopedisch Fundament](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/01-pedagogisch-en-logopedisch-fundament.md)
 
