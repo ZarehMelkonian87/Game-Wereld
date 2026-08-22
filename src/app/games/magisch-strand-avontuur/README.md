@@ -4,6 +4,16 @@
 
 Geïnspireerd op logopedische observatiedomeinen (receptieve & actieve woordenschat, zinsbegrip en ruimtelijke oriëntatie) biedt het spel een veilige, speelse omgeving zonder diagnostische druk of prestatielabels.
 
+> [!TIP]
+> **Uitgebreid Game Design & Pedagogisch Dossier beschikbaar:**
+> Bekijk de modulaire documentatie in de map [`docs/`](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/README.md):
+>
+> - [01. Pedagogisch & Logopedisch Fundament](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/01-pedagogisch-en-logopedisch-fundament.md)
+> - [02. Leerdoelen, Woorden & Ruimtelijke Oriëntatie](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/02-leerdoelen-en-curriculum.md)
+> - [03. Gameplay & Exacte Interactie-specificaties](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/03-gameplay-en-interactie-specificaties.md)
+> - [04. Schermarchitectuur & User Flows](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/04-schermen-ux-en-user-flows.md)
+> - [05. Beloningen, Progressie & Opslag](file:///Users/melkonian/git/Game-Wereld/src/app/games/magisch-strand-avontuur/docs/05-beloningen-progressie-en-opslag.md)
+
 ---
 
 ## 🎮 Speelbare Game Modi
