@@ -1,46 +1,26 @@
-import type { GameRegistry } from "../game-platform";
-import { strandBezemEscapeConfig } from "./strand-bezem-escape/game.config";
-import { StrandBezemEscapeGame } from "./strand-bezem-escape";
+import { isLoadableGameEntry, type GameRegistryEntry } from "../game-platform/contracts";
+import { comingSoonGameManifests } from "./catalog-manifests";
+import { rekenenStrandManifest } from "./rekenen-strand/manifest";
+import { magischStrandAvontuurManifest } from "./magisch-strand-avontuur/manifest";
 
-export const gameRegistry: GameRegistry = {
-  "woordenschat-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "woordenschat-bezem-escape", title: "Magisch Strand-Avontuur" },
+export const gameRegistry: Record<string, GameRegistryEntry> = {
+  [magischStrandAvontuurManifest.id]: {
+    load: () => import("./magisch-strand-avontuur"),
+    manifest: magischStrandAvontuurManifest,
   },
-  [strandBezemEscapeConfig.id]: {
-    Component: StrandBezemEscapeGame,
-    config: strandBezemEscapeConfig,
+  [rekenenStrandManifest.id]: {
+    load: () => import("./rekenen-strand"),
+    manifest: rekenenStrandManifest,
   },
-  "taal-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "taal-bezem-escape", title: "Taal Strand-Avontuur" },
-  },
-  "taal-strand-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "taal-strand-bezem-escape", title: "Taal Strand-Avontuur" },
-  },
-  "rekenen-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "rekenen-bezem-escape", title: "Rekenen Strand-Avontuur" },
-  },
-  "rekenen-strand-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "rekenen-strand-bezem-escape", title: "Rekenen Strand-Avontuur" },
-  },
-  "wereld-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "wereld-bezem-escape", title: "Wereld Strand-Avontuur" },
-  },
-  "wereld-strand-bezem-escape": {
-    Component: StrandBezemEscapeGame,
-    config: { ...strandBezemEscapeConfig, id: "wereld-strand-bezem-escape", title: "Wereld Strand-Avontuur" },
-  },
+  ...Object.fromEntries(comingSoonGameManifests.map((manifest) => [manifest.id, { manifest }])),
 };
 
 export const getGameRegistryEntry = (gameId?: string) => {
   if (!gameId) {
     return undefined;
   }
-
   return gameRegistry[gameId];
 };
+
+export const getLoadableGameRegistryEntries = () =>
+  Object.values(gameRegistry).filter(isLoadableGameEntry);

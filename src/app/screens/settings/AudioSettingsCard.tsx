@@ -3,9 +3,14 @@ import { Music, Volume2, VolumeX } from "lucide-react";
 import type { Profile } from "../../game-platform";
 import { AudioSettingRow } from "./AudioSettingRow";
 import { useProfile } from "../../contexts/ProfileContext";
+import { reportStorageWriteFailure } from "../../storage";
 
 interface AudioSettingsCardProps {
   profile: Profile;
+}
+
+interface WebkitAudioWindow extends Window {
+  webkitAudioContext?: typeof AudioContext;
 }
 
 export const AudioSettingsCard = ({ profile }: AudioSettingsCardProps) => {
@@ -13,7 +18,14 @@ export const AudioSettingsCard = ({ profile }: AudioSettingsCardProps) => {
 
   const playToggleSound = (enabled: boolean) => {
     try {
-      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioContextConstructor =
+        window.AudioContext ?? (window as WebkitAudioWindow).webkitAudioContext;
+
+      if (!AudioContextConstructor) {
+        return;
+      }
+
+      const ctx = new AudioContextConstructor();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
@@ -21,7 +33,7 @@ export const AudioSettingsCard = ({ profile }: AudioSettingsCardProps) => {
       gain.connect(ctx.destination);
 
       // Play C5 (523.25Hz) for enable, G4 (392Hz) for disable
-      osc.frequency.setValueAtTime(enabled ? 523.25 : 392.00, ctx.currentTime);
+      osc.frequency.setValueAtTime(enabled ? 523.25 : 392.0, ctx.currentTime);
       osc.type = "sine";
 
       gain.gain.setValueAtTime(0.12, ctx.currentTime);
@@ -36,13 +48,13 @@ export const AudioSettingsCard = ({ profile }: AudioSettingsCardProps) => {
 
   const handleToggleSound = () => {
     const nextState = !profile.settings.soundEnabled;
-    updateSettings({ soundEnabled: nextState });
+    void updateSettings({ soundEnabled: nextState }).catch(reportStorageWriteFailure);
     playToggleSound(nextState);
   };
 
   const handleToggleMusic = () => {
     const nextState = !profile.settings.musicEnabled;
-    updateSettings({ musicEnabled: nextState });
+    void updateSettings({ musicEnabled: nextState }).catch(reportStorageWriteFailure);
     playToggleSound(nextState);
   };
 

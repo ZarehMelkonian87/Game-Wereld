@@ -1,186 +1,68 @@
-# 🎮 Game Wereld - Kindvriendelijke Gaming Platform
+# Game Wereld
 
-Een mobile-first game platform gebouwd met React, TypeScript, Vite en Tailwind CSS. Geïnspireerd door Roblox, ontworpen voor kinderen met een focus op veiligheid, gebruiksgemak en plezier!
+Game Wereld is een offline-first React/Vite-PWA met lokale kinderprofielen en zelfstandige educatieve games. De app gebruikt een modulaire monoliet: één app-shell, lazy gamemodules, een klein `GameRuntime`-contract en repositoryadapters boven IndexedDB.
 
-## ✨ Features
+## Beschikbare games
 
-- 🎨 **Roblox-achtige Gaming Aesthetics** - Donker thema met neon kleuren en 3D effecten
-- 📱 **Mobile-First Design** - Volledig responsive, werkt perfect op telefoons en tablets
-- 🔄 **Portrait & Landscape Support** - Automatische aanpassing aan schermoriëntatie
-- 👤 **Meerdere Profielen** - Elk kind kan een eigen profiel met avatar aanmaken
-- 🎭 **16 Epic Avatars** - Van Shadow Cat tot Dragon Master
-- 🎯 **8 Game Zones** - Verschillende thema's zoals Number Zone, Beast Arena, Brain Power
-- 🏆 **Progress Tracking** - Scores, sterren en voortgang per profiel
-- 📊 **Voortgangsbeeld** - Gedetailleerd overzicht van vaardigheden per thema met percentages
-- 📈 **Maandelijkse Groei** - Zie sterktes en uitdagingen van deze maand
-- 💾 **Local Storage** - Alle data wordt veilig lokaal opgeslagen
-- ⚡ **Smooth Animations** - Motion animaties voor een premium feel
+- **Magisch Strand-Avontuur** — woordenschat, ruimtelijke relaties en meerdere spelmodi.
+- **Schelpen Tellen** — hoeveelheden 1–5 koppelen aan cijfers.
 
-## 🚀 Installatie & Gebruik
+Beide games registreren privacyveilige `PracticeEventV1`-observaties. Voortgang wordt centraal en herbouwbaar geprojecteerd; een game slaat geen kindnaam, transcript of pedagogisch eindlabel op.
 
-### Vereisten
+## Ontwikkelen
 
-- Node.js versie 16 of hoger
-- npm
+Vereisten:
 
-### Stap 1: Installeer dependencies
+- Node.js 22.21.x;
+- npm 10.9.x.
 
-```bash
-npm install
-```
-
-### Stap 2: Start development server
-
-```bash
+```sh
+npm ci
 npm run dev
 ```
 
-Open de app op deze computer via `http://localhost:3000`.
+De developmentserver toont lokaal een diagnosepaneel. Dit paneel wordt niet in de productie-output gemount.
 
-Voor telefoon, tablet of een andere laptop op hetzelfde wifi-netwerk gebruik je het `Network` adres uit de terminal, bijvoorbeeld:
+## Productie en kwaliteit
+
+```sh
+npm run check
+npm run build
+npm run check:bundle
+npm run check:dead-code
+npm run test:e2e -- --workers=1
+```
+
+`npm run check` omvat formatting, lint, TypeScript, unit-/componenttests, asset-/securitytests en Dependency Cruiser. De normatieve standaard staat in [Code Quality & Architecture Requirements](docs/code-quality-and-architecture.md).
+
+## Hoofdstructuur
 
 ```text
-http://192.168.1.79:3000
+src/
+  main.tsx                    bootstrap
+  app/
+    game-host/                lazy loading, lifecycle en error boundary
+    game-platform/            publieke contracten, UI en browser-/testadapters
+    games/                    zelfstandige gamemodules en lichte registry
+    storage/                  repositories, Dexie, schemas en migraties
+    pwa/                      service worker en offlinepakketten
+    diagnostics/              lokale privacyveilige diagnostiek
+    screens/                  app-features
 ```
 
-### Production Build
+Een nieuwe game levert `manifest.ts`, `index.tsx`, pure domeinregels, tests en eventueel een offlinepakketbron. Alleen `src/app/games/registry.ts` krijgt een nieuwe lazy entry. Zie [Games](src/app/games/README.md).
 
-```bash
-npm run build
-```
+## Data en privacy
 
-De gebouwde bestanden komen in de `dist` folder.
+- Duurzame data staat lokaal in IndexedDB.
+- Alleen actieve-profiel-id en globale mute zijn kleine `localStorage`-bootvoorkeuren.
+- Profielverwijdering wist instellingen, sessies, events en projecties transactioneel.
+- Externe foutmonitoring en session replay zijn niet actief.
+- Offlinepakketten worden vóór status `ready` volledig gehasht en gecontroleerd.
 
-### Preview Production Build
+## Architectuurdocumentatie
 
-```bash
-npm run preview
-```
-
-## 📁 Project Structuur
-
-```
-game-wereld-app/
-├── src/
-│   ├── app/
-│   │   ├── components/      # Herbruikbare componenten (toekomstig)
-│   │   ├── contexts/        # React Context (ProfileContext)
-│   │   ├── data/            # Game data en avatars
-│   │   ├── games/           # Eigen map per mini-game + documentatie
-│   │   ├── screens/         # Alle schermen
-│   │   │   ├── WelcomeScreen.tsx
-│   │   │   ├── ProfileSelectScreen.tsx
-│   │   │   ├── AvatarSelectScreen.tsx
-│   │   │   ├── HomeScreen.tsx
-│   │   │   ├── GamesListScreen.tsx
-│   │   │   └── SettingsScreen.tsx
-│   │   ├── App.tsx          # Main app component
-│   │   ├── Root.tsx         # Root layout met ProfileProvider
-│   │   └── routes.tsx       # React Router configuratie
-│   ├── styles/
-│   │   ├── theme.css        # Tailwind theme en custom CSS
-│   │   └── fonts.css        # Font imports
-│   └── main.tsx             # App entry point
-├── index.html               # HTML template
-├── vite.config.ts           # Vite configuratie
-├── package.json
-└── README.md
-```
-
-## 🎮 Game Zones
-
-Momenteel beschikbaar:
-
-1. **Number Zone** 🔢 - Rekenen challenges
-2. **Word Quest** 📚 - Taal avonturen
-3. **Beast Arena** 🦁 - Dieren wereld
-4. **Color Blast** 🎨 - Kleur explosies
-5. **Shape Shift** 🔷 - Vormen puzzels
-6. **Brain Power** 🧠 - Geheugen games
-7. **Puzzle Master** 🧩 - Puzzel challenges
-8. **Beat Zone** 🎵 - Muziek en ritme
-
-## 🎭 Beschikbare Avatars
-
-16 epic avatars inclusief:
-- Shadow Cat 🐱
-- Thunder Dog 🐶
-- Dragon Master 🐉
-- Robo Player 🤖
-- Space Alien 👽
-- Epic Wizard 🧙
-- En meer!
-
-## 🛠 Tech Stack
-
-- **React 18.3** - UI Framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool & dev server
-- **React Router 7** - Routing
-- **Tailwind CSS 4** - Styling
-- **Motion (Framer Motion)** - Animaties
-- **Lucide React** - Icons
-- **Local Storage** - Data persistence
-
-## 📱 Mobile Support
-
-- ✅ Touch-friendly interface
-- ✅ Grote knoppen (min. 80px)
-- ✅ Portrait & Landscape modes
-- ✅ Safe area insets voor modern devices
-- ✅ Responsive layout voor alle schermgroottes
-
-## 🔮 Toekomstige Uitbreidingen
-
-De app is volledig voorbereid op:
-- ✨ Toevoegen van echte mini-games
-- 🎯 Multiplayer functionaliteit
-- 🏅 Achievements en badges
-- 📊 Statistieken en leaderboards
-- 🎨 Meer avatars en themes
-- 🔊 Geluid en muziek
-
-## 📝 Nieuwe Games Toevoegen
-
-Elke mini-game krijgt een eigen map in `/src/app/games/`.
-
-Per game bewaren we minimaal:
-
-- `README.md` - ontwerp, leerdoel, gameplay en meetdata.
-- `index.tsx` - React component/entrypoint van de game.
-
-Om nieuwe games toe te voegen:
-
-1. Kopieer `/src/app/games/_template/`.
-2. Geef de nieuwe map dezelfde id als de game.
-3. Vul de `README.md` in.
-4. Bouw de game in `index.tsx`.
-5. Voeg de metadata toe in `/src/app/data/games.ts`.
-
-```typescript
-// Voeg een nieuwe game toe aan miniGames array
-{
-  id: "nieuwe-game",
-  themeId: "math", // Kies een bestaand thema
-  name: "Epic Game",
-  description: "Beschrijving van de game",
-  difficulty: "easy", // easy | medium | hard
-  icon: "🎯",
-}
-```
-
-## 🎨 Kleuren Aanpassen
-
-Bewerk `/src/styles/theme.css` om het color scheme aan te passen.
-
-## 📄 Licentie
-
-Dit is een privé project voor educatief gebruik.
-
-## 🤝 Support
-
-Voor vragen of problemen, open een issue in de repository.
-
----
-
-**Veel plezier met spelen! 🎮✨**
+- [Actuele apparchitectuur](src/app/ARCHITECTURE.md)
+- [Gamecontract en toevoegproces](src/app/games/ARCHITECTURE.md)
+- [Architectuurvoorstel en implementatiestatus](docs/architecture-proposal/README.md)
+- [Release- en incidentrunbooks](docs/runbooks/release.md)

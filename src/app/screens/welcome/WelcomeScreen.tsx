@@ -3,20 +3,19 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useProfile } from "../../contexts/ProfileContext";
+import { readGlobalMute, saveGlobalMute } from "../../storage";
 import { WelcomeBackground } from "./WelcomeBackground";
 import { WelcomeHero } from "./WelcomeHero";
 
 export const WelcomeScreen = () => {
   const navigate = useNavigate();
   const { currentProfile } = useProfile();
-  const [isMuted, setIsMuted] = useState(() => {
-    return localStorage.getItem("game-wereld-global-mute") === "true";
-  });
+  const [isMuted, setIsMuted] = useState(readGlobalMute);
 
   const toggleMute = () => {
     const newState = !isMuted;
     setIsMuted(newState);
-    localStorage.setItem("game-wereld-global-mute", String(newState));
+    saveGlobalMute(newState);
   };
 
   useEffect(() => {
@@ -33,17 +32,14 @@ export const WelcomeScreen = () => {
       {/* Floating Audio Button */}
       <div className="absolute top-4 right-4 z-20">
         <motion.button
-          className="p-3 bg-slate-800/80 backdrop-blur border-2 border-cyan-500/50 rounded-full text-cyan-400 hover:text-cyan-300 active:scale-95 shadow-lg transition-colors cursor-pointer"
+          aria-label={isMuted ? "Geluid aanzetten" : "Geluid dempen"}
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border-2 border-cyan-500/50 bg-slate-800/80 p-3 text-cyan-400 shadow-lg outline-none backdrop-blur transition-colors active:scale-95 focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none"
           onClick={toggleMute}
           type="button"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          {isMuted ? (
-            <VolumeX className="w-6 h-6" />
-          ) : (
-            <Volume2 className="w-6 h-6" />
-          )}
+          {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
         </motion.button>
       </div>
 

@@ -14,14 +14,14 @@ De UI mag alleen “offline beschikbaar” tonen wanneer niveau 3 voor het gekoz
 
 Vervang de handgeschreven buildlijst door Workbox met een door de build gegenereerd precachemanifest.
 
-| Resource | Strategie | Reden |
-| --- | --- | --- |
-| HTML/navigatie | network-first met app-shellfallback | Update wanneer online, bruikbaar offline |
-| Gehashte JS/CSS shell | precache/cache-first | Immutable buildassets |
-| Gamechunks | cache-first na eerste load of expliciete download | Niet in initiële shell |
-| Kleine afbeeldingen/fonts | stale-while-revalidate of packagebeleid | Snelle herhaling |
-| Grote audio/video | expliciet offlinepakket, cache-first; anders network-first | Quota en voorspelbaarheid |
-| Externe origins | standaard niet cachen | Privacy, CORS en onbegrensde cache voorkomen |
+| Resource                  | Strategie                                                  | Reden                                        |
+| ------------------------- | ---------------------------------------------------------- | -------------------------------------------- |
+| HTML/navigatie            | network-first met app-shellfallback                        | Update wanneer online, bruikbaar offline     |
+| Gehashte JS/CSS shell     | precache/cache-first                                       | Immutable buildassets                        |
+| Gamechunks                | cache-first na eerste load of expliciete download          | Niet in initiële shell                       |
+| Kleine afbeeldingen/fonts | stale-while-revalidate of packagebeleid                    | Snelle herhaling                             |
+| Grote audio/video         | expliciet offlinepakket, cache-first; anders network-first | Quota en voorspelbaarheid                    |
+| Externe origins           | standaard niet cachen                                      | Privacy, CORS en onbegrensde cache voorkomen |
 
 Workbox beheert revisies en oude precache-items. De app toont een updateprompt en activeert een nieuwe versie niet midden in een gamesessie. Een mislukte dynamische import biedt retry en “app vernieuwen”.
 
@@ -59,14 +59,14 @@ De app ondersteunt `navigator.storage.estimate()` waar beschikbaar, maar behande
 
 Startwaarden die na een echte devicebaseline als ADR worden bevestigd:
 
-| Budget | Voorgestelde grens |
-| --- | --- |
-| Initiële shell-JavaScript | maximaal 200 kB gzip, zonder gamecode |
-| Initiële shell-CSS | maximaal 40 kB gzip |
-| Eén lazy gamechunk | maximaal 250 kB gzip, tenzij gemotiveerd |
-| Nieuwe offlinewereld | grootte zichtbaar in PR en product-UI; >50 MB vereist expliciete goedkeuring |
-| Long task tijdens kerninteractie | geen taak >100 ms op referentietablet |
-| Route/game-loadfout | altijd herstelbare UI, nooit blanco scherm |
+| Budget                           | Voorgestelde grens                                                           |
+| -------------------------------- | ---------------------------------------------------------------------------- |
+| Initiële shell-JavaScript        | maximaal 200 kB gzip, zonder gamecode                                        |
+| Initiële shell-CSS               | maximaal 40 kB gzip                                                          |
+| Eén lazy gamechunk               | maximaal 250 kB gzip, tenzij gemotiveerd                                     |
+| Nieuwe offlinewereld             | grootte zichtbaar in PR en product-UI; >50 MB vereist expliciete goedkeuring |
+| Long task tijdens kerninteractie | geen taak >100 ms op referentietablet                                        |
+| Route/game-loadfout              | altijd herstelbare UI, nooit blanco scherm                                   |
 
 De huidige eerste JavaScript-entry van circa 299 kB gzip is de baseline, niet de norm. Bundlevisualisatie en een CI-script vergelijken iedere PR met budget en vorige release.
 

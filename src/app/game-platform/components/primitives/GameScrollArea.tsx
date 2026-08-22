@@ -31,4 +31,3 @@ export const GameScrollArea = ({
 );
 
 GameScrollArea.displayName = "GameScrollArea";
-

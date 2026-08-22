@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useProfile } from "../../contexts/ProfileContext";
+import { reportStorageWriteFailure } from "../../storage";
 import { useRequireProfile } from "../shared";
 import { AudioSettingsCard } from "./AudioSettingsCard";
 import { DeleteProfileCard } from "./DeleteProfileCard";
 import { ProgressLinkCard } from "./ProgressLinkCard";
+import { ProfileDataExportCard } from "./ProfileDataExportCard";
 import { SettingsHeader } from "./SettingsHeader";
 import { SettingsProfileCard } from "./SettingsProfileCard";
 
@@ -20,14 +22,15 @@ export const SettingsScreen = () => {
   }
 
   const completedGames = currentProfile.progress.filter((progress) => progress.completed).length;
-  const totalStars = currentProfile.progress.reduce(
-    (sum, progress) => sum + progress.stars,
-    0,
-  );
+  const totalStars = currentProfile.progress.reduce((sum, progress) => sum + progress.stars, 0);
 
-  const handleDeleteProfile = () => {
-    deleteProfile(currentProfile.id);
-    navigate("/");
+  const handleDeleteProfile = async () => {
+    try {
+      await deleteProfile(currentProfile.id);
+      navigate("/");
+    } catch (error) {
+      reportStorageWriteFailure(error);
+    }
   };
 
   return (
@@ -46,6 +49,7 @@ export const SettingsScreen = () => {
               onOpenProgress={() => navigate("/progress")}
             />
             <AudioSettingsCard profile={currentProfile} />
+            <ProfileDataExportCard profileId={currentProfile.id} />
             <DeleteProfileCard
               onCancel={() => setShowDeleteConfirm(false)}
               onConfirmDelete={handleDeleteProfile}

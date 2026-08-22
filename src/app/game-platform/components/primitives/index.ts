@@ -12,4 +12,3 @@ export { GameScrollArea } from "./GameScrollArea";
 export type { GameScrollAreaProps } from "./GameScrollArea";
 export { GameStarCounter } from "./GameStarCounter";
 export type { GameStarCounterProps } from "./GameStarCounter";
-

@@ -1,10 +1,12 @@
 # Architectuurvoorstel Game Wereld
 
-Status: **voorgesteld**
+Status: **gedeeltelijk geïmplementeerd**
 
-Laatste herziening: **22 juli 2026**
+Laatste herziening: **23 juli 2026**
 
 Scope: de huidige React/Vite-PWA en de groei naar meerdere educatieve spellen
+
+De implementatiegroepen A tot en met G en de tweede-gameproef uit H zijn uitgevoerd. De formele eindstatus blijft gedeeltelijk totdat minimaal één werkelijk stabiele release de legacy-rollbackperiode heeft doorlopen en de fysieke iPad-/screenreaderreleaseproef is geregistreerd. Zie [Groep H — acceptatie](../architecture/group-h-acceptatie-2026-07.md).
 
 Dit voorstel vervangt het eerdere Engelstalige voorstel in deze map. Het is gebaseerd op inspectie van de huidige broncode, configuratie, build-output en documentatie. Het doel is geen theoretisch “enterprise”-model, maar een architectuur die de eerstvolgende problemen oplost en gecontroleerd kan meegroeien.
 

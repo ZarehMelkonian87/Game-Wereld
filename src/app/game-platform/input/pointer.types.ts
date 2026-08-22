@@ -8,4 +8,3 @@ export interface GameDragState {
   id: string;
   origin: GamePoint;
 }
-

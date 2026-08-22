@@ -2,21 +2,21 @@
 
 ## 9.1 Aanbevolen toolset
 
-| Doel | Keuze | Waarom hier passend |
-| --- | --- | --- |
-| Typeveiligheid | `tsc --noEmit` | Vangt fouten die Vite-build nu laat passeren |
-| Lint | ESLint flat config + typescript-eslint + React Hooks + jsx-a11y | Correctheid, effects, imports en toegankelijkheid in editor/CI |
-| Format | Prettier | Elimineert stijldiscussies; geen architectuurtool |
-| Unit/component | Vitest + Testing Library | Sluit aan op Vite/React en ondersteunt snelle pure tests |
-| Browser/E2E | Playwright | Chromium, WebKit, Firefox, device-emulatie en rijke traces |
-| Accessibility | `@axe-core/playwright` | Automatiseert veel detecteerbare WCAG-overtredingen |
-| Opslag | Dexie | Dunne IndexedDB-laag met transacties en migraties |
-| Grensvalidatie | Zod | Runtime-schema's die TypeScripttypes aanvullen |
-| Architectuur | Dependency Cruiser | Blokkeert verboden imports en cycles |
-| Dode code | Knip | Vindt ongebruikte files, exports en dependencies |
-| PWA | Workbox, bij voorkeur via een onderhouden Vite-integratie | Build-revisies, precache, runtimecache en update-events |
-| Bundles | Rollup visualizer + klein budgetscript | Zichtbaar welke import de entry vergroot |
-| Regressieperformance | Lighthouse CI plus echte devicechecks | Snelle PR-signalering, aangevuld met relevante interactietests |
+| Doel                 | Keuze                                                           | Waarom hier passend                                            |
+| -------------------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| Typeveiligheid       | `tsc --noEmit`                                                  | Vangt fouten die Vite-build nu laat passeren                   |
+| Lint                 | ESLint flat config + typescript-eslint + React Hooks + jsx-a11y | Correctheid, effects, imports en toegankelijkheid in editor/CI |
+| Format               | Prettier                                                        | Elimineert stijldiscussies; geen architectuurtool              |
+| Unit/component       | Vitest + Testing Library                                        | Sluit aan op Vite/React en ondersteunt snelle pure tests       |
+| Browser/E2E          | Playwright                                                      | Chromium, WebKit, Firefox, device-emulatie en rijke traces     |
+| Accessibility        | `@axe-core/playwright`                                          | Automatiseert veel detecteerbare WCAG-overtredingen            |
+| Opslag               | Dexie                                                           | Dunne IndexedDB-laag met transacties en migraties              |
+| Grensvalidatie       | Zod                                                             | Runtime-schema's die TypeScripttypes aanvullen                 |
+| Architectuur         | Dependency Cruiser                                              | Blokkeert verboden imports en cycles                           |
+| Dode code            | Knip                                                            | Vindt ongebruikte files, exports en dependencies               |
+| PWA                  | Workbox, bij voorkeur via een onderhouden Vite-integratie       | Build-revisies, precache, runtimecache en update-events        |
+| Bundles              | Rollup visualizer + klein budgetscript                          | Zichtbaar welke import de entry vergroot                       |
+| Regressieperformance | Lighthouse CI plus echte devicechecks                           | Snelle PR-signalering, aangevuld met relevante interactietests |
 
 Bronnen en actuele documentatie:
 

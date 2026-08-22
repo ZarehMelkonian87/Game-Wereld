@@ -24,12 +24,7 @@ export const AvatarGridStep = ({ onBack, onSelectAvatar }: AvatarGridStepProps) 
     <div className="flex-1 overflow-y-auto px-2">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 max-w-3xl mx-auto pb-6">
         {availableAvatars.map((avatar, index) => (
-          <AvatarCard
-            avatar={avatar}
-            index={index}
-            key={avatar.id}
-            onSelect={onSelectAvatar}
-          />
+          <AvatarCard avatar={avatar} index={index} key={avatar.id} onSelect={onSelectAvatar} />
         ))}
       </div>
     </div>

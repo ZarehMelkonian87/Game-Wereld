@@ -3,13 +3,16 @@
 ## Voor Windows Gebruikers
 
 ### Stap 1: Installeer Node.js
+
 1. Download Node.js van https://nodejs.org/
 2. Kies de LTS versie (Long Term Support)
 3. Voer de installer uit en volg de instructies
 4. Herstart je computer na installatie
 
 ### Stap 2: Controleer of Node.js is geïnstalleerd
+
 Open Command Prompt (cmd) en type:
+
 ```bash
 node --version
 npm --version
@@ -18,16 +21,20 @@ npm --version
 Je zou versie nummers moeten zien (bijv. v20.x.x)
 
 ### Stap 3: Download het project
+
 1. Download het hele project als ZIP
 2. Pak het uit naar een map (bijv. `C:\game-wereld-app`)
 
 ### Stap 4: Open Command Prompt in project folder
+
 1. Ga naar de uitgepakte map
 2. Rechtsklik in de folder en kies "Open in Terminal" of "Command Prompt here"
    (Of type `cmd` in de adresbalk van de Windows Verkenner)
 
 ### Stap 5: Installeer dependencies
+
 In Command Prompt:
+
 ```bash
 npm install
 ```
@@ -35,6 +42,7 @@ npm install
 Dit kan een paar minuten duren.
 
 ### Stap 6: Start de app!
+
 ```bash
 npm run dev
 ```
@@ -47,37 +55,45 @@ Voor telefoon/tablet/laptop op hetzelfde wifi-netwerk gebruik je het `Network` a
 ## Voor Mac Gebruikers
 
 ### Stap 1: Installeer Node.js
+
 1. Download Node.js van https://nodejs.org/
 2. Kies de LTS versie
 3. Voer de installer uit en volg de instructies
 
 OF gebruik Homebrew (als je dat hebt):
+
 ```bash
 brew install node
 ```
 
 ### Stap 2: Controleer installatie
+
 Open Terminal en type:
+
 ```bash
 node --version
 npm --version
 ```
 
 ### Stap 3: Download en pak uit
+
 1. Download het project als ZIP
 2. Pak uit naar een map (bijv. `~/game-wereld-app`)
 
 ### Stap 4: Navigeer naar project folder
+
 ```bash
 cd ~/game-wereld-app
 ```
 
 ### Stap 5: Installeer dependencies
+
 ```bash
 npm install
 ```
 
 ### Stap 6: Start de app
+
 ```bash
 npm run dev
 ```
@@ -90,23 +106,28 @@ Voor telefoon/tablet/laptop op hetzelfde wifi-netwerk gebruik je het `Network` a
 ## Voor Linux Gebruikers
 
 ### Stap 1: Installeer Node.js
+
 Ubuntu/Debian:
+
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
 Fedora:
+
 ```bash
 sudo dnf install nodejs
 ```
 
 Arch:
+
 ```bash
 sudo pacman -S nodejs npm
 ```
 
 ### Stap 2: Download en pak uit
+
 ```bash
 cd ~
 # Pak je gedownloade ZIP uit
@@ -115,11 +136,13 @@ cd game-wereld-app
 ```
 
 ### Stap 3: Installeer dependencies
+
 ```bash
 npm install
 ```
 
 ### Stap 4: Start de app
+
 ```bash
 npm run dev
 ```
@@ -136,24 +159,30 @@ Voor het testen van de gesproken opdrachten (**"Zeg & Zet"**) op mobiele apparat
 Je kunt een gratis, veilige publieke tunnel opzetten met Cloudflare:
 
 ### Stap 1: Zorg dat de app draait
+
 Start eerst de app in je terminal:
+
 ```bash
 npm run dev
 ```
 
 ### Stap 2: Start de Cloudflare Tunnel
+
 Open een **nieuw** terminal-venster of tabblad en start de tunnel:
+
 ```bash
 cloudflared tunnel --url http://localhost:3000
 ```
 
-*Heb je `cloudflared` nog niet geïnstalleerd? Installeer het via Homebrew (Mac):*
+_Heb je `cloudflared` nog niet geïnstalleerd? Installeer het via Homebrew (Mac):_
+
 ```bash
 brew install cloudflare/cloudflare/cloudflared
 ```
 
 ### Stap 3: Open de HTTPS link op je mobiel
-De terminal toont een willekeurig HTTPS-adres dat eindigt op `.trycloudflare.com` (bijvoorbeeld `https://taught-blowing-gathering-causes.trycloudflare.com`). 
+
+De terminal toont een willekeurig HTTPS-adres dat eindigt op `.trycloudflare.com` (bijvoorbeeld `https://taught-blowing-gathering-causes.trycloudflare.com`).
 
 Open deze link op je mobiel of tablet om te spelen met werkende microfoon-ondersteuning!
 
@@ -162,12 +191,15 @@ Open deze link op je mobiel of tablet om te spelen met werkende microfoon-onders
 ## Veelvoorkomende Problemen
 
 ### "Cannot find module"
+
 ```bash
 npm install
 ```
 
 ### Port 3000 is al in gebruik
+
 Bewerk `vite.config.ts` en verander de port:
+
 ```typescript
 server: {
   host: "0.0.0.0",
@@ -176,9 +208,11 @@ server: {
 ```
 
 ### Installatie duurt heel lang
+
 Dat is normaal! De eerste keer worden alle dependencies gedownload.
 
 ### Browser opent niet automatisch
+
 Open handmatig: `http://localhost:3000`
 
 ---

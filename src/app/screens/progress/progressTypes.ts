@@ -6,6 +6,10 @@ export interface SkillProgress {
 }
 
 export interface ThemeProgress {
+  evidence: {
+    eventCount: number;
+    projectorVersion: number;
+  };
   periodProgress: {
     challenges: string[];
     strengths: string[];

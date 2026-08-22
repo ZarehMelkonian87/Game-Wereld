@@ -32,9 +32,9 @@ export type GameRegistryEntry = {
 
 ```ts
 export const gameRegistry = {
-  "strand-bezem-escape": {
-    manifest: strandBezemEscapeManifest,
-    load: () => import("./strand-bezem-escape"),
+  "magisch-strand-avontuur": {
+    manifest: magischStrandAvontuurManifest,
+    load: () => import("./magisch-strand-avontuur"),
   },
 } satisfies Record<GameId, GameRegistryEntry>;
 ```

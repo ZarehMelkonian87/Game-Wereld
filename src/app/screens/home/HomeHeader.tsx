@@ -41,7 +41,8 @@ export const HomeHeader = ({
 
       <div className="flex gap-1 sm:gap-2 flex-shrink-0">
         <motion.button
-          className="p-2 sm:p-2.5 md:p-3 bg-purple-600 rounded-lg sm:rounded-xl active:bg-purple-700 border-2 border-purple-500 hover:border-purple-400 hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300 cursor-pointer"
+          aria-label="Voortgang en resultaten"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg border-2 border-purple-500 bg-purple-600 p-2 outline-none transition-all duration-300 active:bg-purple-700 focus-visible:ring-4 focus-visible:ring-purple-200 motion-reduce:transform-none motion-reduce:transition-none sm:rounded-xl sm:p-2.5 md:p-3"
           onClick={onOpenProgress}
           title="Voortgang & Resultaten"
           type="button"
@@ -50,7 +51,8 @@ export const HomeHeader = ({
           <BarChart3 className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
         </motion.button>
         <motion.button
-          className="p-2 sm:p-2.5 md:p-3 bg-slate-700 rounded-lg sm:rounded-xl active:bg-slate-600 border-2 border-slate-600 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all duration-300 cursor-pointer"
+          aria-label="Profielinstellingen"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg border-2 border-slate-600 bg-slate-700 p-2 outline-none transition-all duration-300 active:bg-slate-600 focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none sm:rounded-xl sm:p-2.5 md:p-3"
           onClick={onOpenSettings}
           title="Profiel Instellingen"
           type="button"
@@ -59,7 +61,8 @@ export const HomeHeader = ({
           <Settings className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-cyan-300" />
         </motion.button>
         <motion.button
-          className="p-2 sm:p-2.5 md:p-3 bg-slate-700 rounded-lg sm:rounded-xl active:bg-slate-600 border-2 border-slate-600 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all duration-300 cursor-pointer"
+          aria-label="Speler wisselen"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg border-2 border-slate-600 bg-slate-700 p-2 outline-none transition-all duration-300 active:bg-slate-600 focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none sm:rounded-xl sm:p-2.5 md:p-3"
           onClick={onLogout}
           title="Speler Wisselen / Uitloggen"
           type="button"

@@ -9,8 +9,7 @@ export interface GamePanelProps extends HTMLAttributes<HTMLDivElement> {
 const variantClasses: Record<NonNullable<GamePanelProps["variant"]>, string> = {
   glass:
     "border-white/90 bg-white/90 text-slate-900 shadow-[0_6px_0_rgba(15,23,42,0.12)] backdrop-blur-sm",
-  solid:
-    "border-white bg-white text-slate-900 shadow-[0_6px_0_rgba(15,23,42,0.14)]",
+  solid: "border-white bg-white text-slate-900 shadow-[0_6px_0_rgba(15,23,42,0.14)]",
   transparent:
     "border-white/55 bg-white/45 text-slate-900 shadow-[0_4px_0_rgba(15,23,42,0.08)] backdrop-blur-sm",
 };
@@ -31,4 +30,3 @@ export const GamePanel = ({
 );
 
 GamePanel.displayName = "GamePanel";
-

@@ -1,0 +1,107 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test:architecture
+      - run: npm run check:dead-code
+
+  unit:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: unit-coverage
+          path: coverage/
+          retention-days: 7
+
+  build:
+    name: Production build
+    needs: [static, unit]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run check:bundle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-performance-reports
+          path: reports/
+          retention-days: 14
+
+  browser-smoke:
+    name: ${{ matrix.project }} smoke
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: chromium-tablet
+            browser: chromium
+            run: ${{ github.event_name != 'schedule' }}
+          - project: webkit-tablet
+            browser: webkit
+            run: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: matrix.run
+      - uses: actions/setup-node@v4
+        if: matrix.run
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+        if: matrix.run
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+        if: matrix.run
+      - run: npm run test:e2e -- --project=${{ matrix.project }}
+        if: matrix.run
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.run
+        with:
+          name: playwright-qa-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

@@ -1,0 +1,23 @@
+{
+  "shellJavaScriptGzip": {
+    "limitBytes": 204800,
+    "mainBaselineBytes": 145961
+  },
+  "shellCssGzip": {
+    "limitBytes": 40960,
+    "mainBaselineBytes": 28375
+  },
+  "gameJavaScriptGzip": {
+    "limitBytes": 256000,
+    "mainBaselineBytes": 54958
+  },
+  "offlinePackage": {
+    "limitBytes": 209715200,
+    "approvalThresholdBytes": 52428800,
+    "approvedAboveThreshold": true,
+    "approvalReference": "ADR-003"
+  },
+  "longTask": {
+    "limitMilliseconds": 100
+  }
+}

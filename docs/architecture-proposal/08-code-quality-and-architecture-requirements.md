@@ -1,6 +1,6 @@
 # 8. Code Quality & Architecture Requirements
 
-Dit hoofdstuk is normatief. Het vervangt de huidige projectregels voor onder andere universele bestandslengte, verplichte arrow functions en `displayName`. Kwaliteit wordt beoordeeld op correctheid, begrijpelijkheid, testbaarheid en afgedwongen grenzen — niet op één vormregel.
+Dit hoofdstuk is normatief. Het vervangt de huidige projectregels voor onder andere universele bestandslengte en `displayName`. Kwaliteit wordt beoordeeld op correctheid, begrijpelijkheid, testbaarheid en afgedwongen grenzen. Arrow functions zijn daarbij de verplichte uniforme functievorm.
 
 ## 8.1 Definitie van klaar
 
@@ -51,7 +51,9 @@ Dependency Cruiser maakt deze regels blokkerend in CI. ESLint vangt lokale impor
 - Hooks verbergen geen duurzame writes of globale side effects achter een onduidelijke naam.
 - Effects zijn voor synchronisatie met een extern systeem, niet voor afleidbare state.
 - Props en hookreturns zijn taakgericht; geen grote “god objects” zonder grens.
-- Function declarations en arrow functions zijn beide toegestaan; kies de vorm die hoisting, naamgeving en leesbaarheid ondersteunt.
+- Alle functies worden als arrow function geschreven, inclusief components, hooks, helpers, callbacks, factories en tests.
+- Function declarations met het `function`-keyword zijn verboden.
+- Een technisch noodzakelijke afwijking, zoals een generator of een extern contract met dynamische `this`, vereist een tijdelijke uitzondering volgens de uitzonderingsprocedure.
 - `displayName` is alleen verplicht voor wrappers waarbij DevTools anders een onbruikbare naam toont.
 - `data-component`/`data-slot` zijn test- of diagnosecontracten, geen decoratieve verplichting.
 

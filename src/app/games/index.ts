@@ -1,2 +1,1 @@
-export { gameRegistry, getGameRegistryEntry } from "./registry";
-export { StrandBezemEscapeGame } from "./strand-bezem-escape";
+export { gameRegistry, getGameRegistryEntry, getLoadableGameRegistryEntries } from "./registry";

@@ -41,7 +41,7 @@ export const GameTopHud = ({
         paddingTop: "calc(env(safe-area-inset-top) + 0.75rem)",
       }}
     >
-      <div className="grid grid-cols-[minmax(44px,1fr)_auto_minmax(44px,1fr)] items-start gap-2">
+      <div className="grid grid-cols-[minmax(44px,1fr)_auto_minmax(44px,1fr)] items-center gap-2 rounded-[1.35rem] bg-white/45 p-1.5 shadow-[0_6px_18px_-8px_rgba(15,23,42,0.35)] backdrop-blur-md">
         <div className="flex justify-start gap-2" data-slot="left">
           {leftSlot}
           {showParentBack || handleBack ? (

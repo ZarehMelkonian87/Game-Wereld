@@ -18,10 +18,7 @@ export const WelcomeHero = ({ onStart }: WelcomeHeroProps) => (
       className="mb-4 sm:mb-6"
       transition={{ duration: 2, repeat: Infinity }}
     >
-      <motion.div
-        className="relative inline-block cursor-pointer"
-        whileHover={{ scale: 1.08 }}
-      >
+      <motion.div className="relative inline-block cursor-pointer" whileHover={{ scale: 1.08 }}>
         <motion.div
           animate={{ opacity: [0.4, 0.6, 0.4] }}
           className="absolute inset-0 bg-cyan-400 blur-2xl rounded-full"

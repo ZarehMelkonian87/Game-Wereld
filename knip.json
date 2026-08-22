@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["e2e/**/*.spec.ts", "src/**/*.test.{ts,tsx}"],
+  "project": ["src/**/*.{ts,tsx,css}", "e2e/**/*.ts", "test/**/*.{ts,tsx}"],
+  "ignore": [
+    "src/app/games/magisch-strand-avontuur/screens/**/components/**",
+    "src/app/games/magisch-strand-avontuur/screens/settings/SettingsToggleRow.tsx",
+    "src/app/games/magisch-strand-avontuur/screens/start/StartCircleIcon.tsx"
+  ]
+}

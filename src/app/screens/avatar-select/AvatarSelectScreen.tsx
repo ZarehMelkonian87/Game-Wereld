@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import type { Avatar } from "../../game-platform";
 import { useProfile } from "../../contexts/ProfileContext";
 import { availableAvatars } from "../../data/avatars";
+import { reportStorageWriteFailure } from "../../storage";
 import { AvatarGridStep } from "./AvatarGridStep";
 import { AvatarNameStep } from "./AvatarNameStep";
 
@@ -20,13 +21,17 @@ export const AvatarSelectScreen = () => {
     setStep("name");
   };
 
-  const handleCreateProfile = () => {
+  const handleCreateProfile = async () => {
     if (!name.trim()) {
       return;
     }
 
-    createProfile(name.trim(), selectedAvatar);
-    navigate("/home");
+    try {
+      await createProfile(name.trim(), selectedAvatar);
+      navigate("/home");
+    } catch (error) {
+      reportStorageWriteFailure(error);
+    }
   };
 
   if (step === "name") {
@@ -41,7 +46,9 @@ export const AvatarSelectScreen = () => {
     );
   }
 
-  return <AvatarGridStep onBack={() => navigate("/profiles")} onSelectAvatar={handleAvatarSelect} />;
+  return (
+    <AvatarGridStep onBack={() => navigate("/profiles")} onSelectAvatar={handleAvatarSelect} />
+  );
 };
 
 AvatarSelectScreen.displayName = "AvatarSelectScreen";

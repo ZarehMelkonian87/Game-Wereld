@@ -1,5 +1,43 @@
 @custom-variant dark (&:is(.dark *));
 
+/* ── Interface-designtokens (UX-101) ────────────────────────────────
+ * Eén bron van waarheid voor het gedeelde strand-interfacesysteem van
+ * Magisch Strand Avontuur (menu's, instellingen, beloning en de drie
+ * in-game modi). Schermen kiezen niet langer losse hex- of Tailwind-
+ * kleuren maar verwijzen naar deze tokens (utilities zoals `bg-go`,
+ * `text-target`, `border-stat-good`, `bg-stat-tempo-surface`).
+ *
+ * De game rendert altijd in de lichte strandwereld, dus deze tokens
+ * zijn bewust thema-onafhankelijk en staan los van het donkere
+ * app-shellthema hieronder. Zie docs/ux/interface-redesign-takenlijst.md
+ * (UX-101). Contrast (WCAG 2.2 AA) wordt end-to-end in Playwright
+ * geverifieerd (UX-401).
+ */
+@theme {
+  /* Wereldpalet */
+  --color-beach-sky: #bfe3f2;
+  --color-beach-sea: #2c8c86;
+  --color-beach-sand: #f0dcae;
+
+  /* Primaire "go"-actie en accenten */
+  --color-go: #1f7a4c;
+  --color-go-strong: #14603a; /* rand en 3D-schaduw onder de go-knop */
+  --color-target: #e8663d; /* koraal: uitsluitend "hier moet je zijn" */
+  --color-star: #f0b73d; /* ster-goud */
+
+  /* Semantische statuskleuren — betekenisdragend, los van het accent.
+   * Elke status heeft een tekst-, oppervlak- en randtoon. */
+  --color-stat-good: #1a6b42;
+  --color-stat-good-surface: #e7f7ee;
+  --color-stat-good-border: #bfe8ce;
+  --color-stat-tempo: #1f6b74;
+  --color-stat-tempo-surface: #e2f0f2;
+  --color-stat-tempo-border: #c2dfe2;
+  --color-stat-hint: #8a6111;
+  --color-stat-hint-surface: #fdf1d8;
+  --color-stat-hint-border: #f2dfae;
+}
+
 :root {
   --font-size: 16px;
   --background: #1a1d2e;
@@ -269,7 +307,91 @@ a,
   will-change: transform;
 }
 
+/* Word-choice feedback (UX-303): levendige reactie bij goed en fout.
+ * Kleur, vinkje en kruisje communiceren de status ook zonder beweging,
+ * zodat de reduced-motion-variant volledig begrijpelijk blijft. */
+@keyframes bezem-choice-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.06);
+  }
+
+  55% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bezem-choice-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+
+  20% {
+    transform: translateX(-5px) rotate(-1.5deg);
+  }
+
+  40% {
+    transform: translateX(5px) rotate(1.5deg);
+  }
+
+  60% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translateX(4px) rotate(1deg);
+  }
+}
+
+@keyframes bezem-choice-sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(4px);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2) translateY(-14px);
+  }
+}
+
+.bezem-choice-correct {
+  animation: bezem-choice-pop 0.5s ease-out;
+}
+
+.bezem-choice-wrong {
+  animation: bezem-choice-shake 0.45s ease-in-out;
+}
+
+.bezem-choice-sparkle {
+  opacity: 0;
+  animation: bezem-choice-sparkle 0.9s ease-out forwards;
+  will-change: opacity, transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
   .bezem-feedback-toast,
   .bezem-feedback-toast-after-ended,
   .bezem-start-flyer,
@@ -277,7 +399,10 @@ a,
   .bezem-start-trail,
   .bezem-start-sparkle,
   .bezem-scroller-float,
-  .bezem-scroller-bump {
+  .bezem-scroller-bump,
+  .bezem-choice-correct,
+  .bezem-choice-wrong,
+  .bezem-choice-sparkle {
     animation: none;
   }
 }
@@ -320,7 +445,7 @@ a,
 }
 
 @theme inline {
-  --font-sans: 'Fredoka', 'Outfit', sans-serif;
+  --font-sans: "Fredoka", "Outfit", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -3,6 +3,7 @@
 ## Snelste manier om te starten:
 
 ### 1. Zorg dat je Node.js hebt
+
 Download van: https://nodejs.org/ (versie 16 of hoger)
 
 ### 2. Open terminal/command prompt in deze folder
@@ -18,6 +19,7 @@ npm run dev
 ```
 
 ### 4. Open je browser
+
 Open op deze computer:
 
 ```text

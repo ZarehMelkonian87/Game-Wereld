@@ -26,7 +26,7 @@ export const PeriodSelector = ({
     <div className="grid grid-cols-4 gap-2 sm:gap-3 bg-slate-800/50 p-2 sm:p-3 rounded-xl border-2 border-slate-600">
       {periods.map((period) => (
         <motion.button
-          className={`p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl font-black text-xs sm:text-sm md:text-base transition-all ${
+          className={`min-h-12 rounded-lg p-2.5 text-xs font-black outline-none transition-all focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none sm:rounded-xl sm:p-3 sm:text-sm md:p-4 md:text-base ${
             selectedPeriod === period.id
               ? "bg-gradient-to-br from-cyan-500 to-blue-600 text-white border-2 border-cyan-300/50 shadow-lg"
               : "bg-slate-700/50 text-slate-300 border-2 border-slate-600 hover:bg-slate-700"

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+reports/
+public/
+src/app/games/strand-bezem-escape/assets/
+package-lock.json
+*.png
+*.mp3
+*.mp4
+*.webmanifest

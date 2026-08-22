@@ -10,4 +10,3 @@ export { RewardSummary } from "./RewardSummary";
 export type { RewardSummaryProps } from "./RewardSummary";
 export { StickerObject } from "./StickerObject";
 export type { StickerObjectProps } from "./StickerObject";
-

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useProfile } from "../../contexts/ProfileContext";
 import { gameThemes, miniGames, type MiniGame } from "../../data/games";
 import { getGameRegistryEntry } from "../../games";
+import { OfflinePackageCard } from "../../pwa/OfflinePackageCard";
 import { EmptyGamesMessage } from "./EmptyGamesMessage";
 import { GamesGrid } from "./GamesGrid";
 import { GamesListHeader } from "./GamesListHeader";
@@ -13,9 +14,18 @@ export const GamesListScreen = () => {
   const { theme: themeId } = useParams();
   const { currentProfile } = useProfile();
   const [comingSoonGame, setComingSoonGame] = useState<MiniGame | null>(null);
-  
+
   const theme = gameThemes.find((candidate) => candidate.id === themeId);
   const games = miniGames.filter((game) => game.themeId === themeId);
+  const offlinePackages = games.flatMap((game) => {
+    const entry = getGameRegistryEntry(game.id);
+    return (
+      entry?.manifest.offlinePackages.map((descriptor) => ({
+        descriptor,
+        title: entry.manifest.title,
+      })) ?? []
+    );
+  });
 
   useEffect(() => {
     if (!theme) {
@@ -25,7 +35,10 @@ export const GamesListScreen = () => {
 
   if (!theme) {
     return (
-      <div className="min-h-screen flex items-center justify-center" data-component="GamesListScreen">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        data-component="GamesListScreen"
+      >
         <p className="text-2xl text-cyan-300">Zone niet gevonden</p>
       </div>
     );
@@ -55,6 +68,9 @@ export const GamesListScreen = () => {
             theme={theme}
           />
           {games.length === 0 ? <EmptyGamesMessage /> : null}
+          {offlinePackages.map(({ descriptor, title }) => (
+            <OfflinePackageCard descriptor={descriptor} key={descriptor.id} title={title} />
+          ))}
         </div>
       </div>
 
@@ -66,9 +82,7 @@ export const GamesListScreen = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", duration: 0.5 }}
           >
-            <div className="text-6xl sm:text-7xl mb-4 drop-shadow-lg">
-              {comingSoonGame.icon}
-            </div>
+            <div className="text-6xl sm:text-7xl mb-4 drop-shadow-lg">{comingSoonGame.icon}</div>
             <h3 className="text-2xl sm:text-3xl text-white font-black mb-2">
               {comingSoonGame.name}
             </h3>

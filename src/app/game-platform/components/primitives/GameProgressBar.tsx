@@ -49,20 +49,13 @@ export const GameProgressBar = ({
       role="meter"
     >
       <div className="relative z-10 flex min-h-5 items-center justify-between gap-2 overflow-visible text-xs font-black leading-none text-slate-800">
-        <span
-          className="inline-flex min-w-0 items-center gap-1 overflow-visible"
-          data-slot="label"
-        >
+        <span className="inline-flex min-w-0 items-center gap-1 overflow-visible" data-slot="label">
           <span
             className="grid h-5 w-5 shrink-0 place-items-center overflow-visible"
             data-slot="icon"
           >
             {icon ?? (
-              <Zap
-                className="h-4 w-4 text-amber-500"
-                fill="currentColor"
-                strokeWidth={2.5}
-              />
+              <Zap className="h-4 w-4 text-amber-500" fill="currentColor" strokeWidth={2.5} />
             )}
           </span>
           <span className="truncate">{label}</span>
@@ -77,7 +70,7 @@ export const GameProgressBar = ({
       >
         <div
           className={classNames(
-            "h-full rounded-full bg-gradient-to-r transition-[width] duration-300",
+            "h-full rounded-full bg-gradient-to-r transition-[width] duration-300 motion-reduce:transition-none",
             fillClasses[tone],
           )}
           data-slot="fill"

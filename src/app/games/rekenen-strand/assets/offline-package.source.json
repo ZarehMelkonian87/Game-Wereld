@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "rekenen-strand-basis",
+  "gameId": "rekenen-strand-avontuur",
+  "worldId": "counting",
+  "contentVersion": "rekenen-strand-2026.07",
+  "version": 1,
+  "entry": "src/app/games/rekenen-strand/index.tsx",
+  "chunkName": "game-rekenen-strand",
+  "assetSourcePrefix": "src/app/games/rekenen-strand/assets/",
+  "source": "Game Wereld broncode",
+  "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld"
+}
