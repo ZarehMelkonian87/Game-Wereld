@@ -117,6 +117,12 @@ export const generateAssetManifest = ({
   );
   fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
+  const distIndexHtml = path.join(distDirectory, "index.html");
+  const dist404Html = path.join(distDirectory, "404.html");
+  if (fs.existsSync(distIndexHtml)) {
+    fs.copyFileSync(distIndexHtml, dist404Html);
+  }
+
   const sourceRoot = path.resolve(path.dirname(packageSourcePath));
   const referencedSources = new Set(manifest.assets.map((asset) => path.resolve(asset.sourcePath)));
   const orphans = listFiles(sourceRoot)
