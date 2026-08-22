@@ -99,7 +99,7 @@ export const useVoiceSideScrollerController = ({
           visualHints: observation.hintsUsed,
           taskId: getVoiceSideScrollerInstructionId(target.id),
           outcome: isRecognized ? "correct" : "incorrect",
-          responseTimeMs: Math.max(0, nextState.elapsedMs),
+          responseTimeMs: Math.round(Math.max(0, nextState.elapsedMs)),
           attemptNumber: Math.max(1, observation.attempts),
         }),
       );

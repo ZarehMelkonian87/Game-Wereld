@@ -83,7 +83,11 @@ export const practiceEventEnvelopeSchema = z
     occurredAt: utcDateTimeSchema,
     outcome: z.enum(["correct", "incorrect", "skipped"]),
     profileId: z.string().min(1).transform(createProfileId),
-    responseTimeMs: z.number().int().nonnegative().optional(),
+    responseTimeMs: z
+      .number()
+      .nonnegative()
+      .optional()
+      .transform((val) => (val !== undefined ? Math.round(val) : undefined)),
     schemaVersion: versionSchema,
     sessionId: z.string().min(1).transform(createSessionId),
     skillIds: z.array(z.string().min(1)).min(1),

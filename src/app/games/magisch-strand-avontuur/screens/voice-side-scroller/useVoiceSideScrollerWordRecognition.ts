@@ -56,10 +56,15 @@ const getSpeechStatusFeedback = (speechStatus: VoiceRecognitionStatus) => {
 const getTranscriptCandidates = (
   transcript: string | undefined,
   alternatives: { transcript: string }[],
-) =>
-  [transcript, ...alternatives.map((alternative) => alternative.transcript)]
+) => {
+  const rawList = [transcript, ...alternatives.map((alternative) => alternative.transcript)]
     .filter((candidate): candidate is string => Boolean(candidate?.trim()))
     .map((candidate) => candidate.trim());
+
+  const tokens = rawList.flatMap((cand) => cand.split(/\s+/).filter(Boolean));
+
+  return [...new Set([...rawList, ...tokens])];
+};
 
 const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
   Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));

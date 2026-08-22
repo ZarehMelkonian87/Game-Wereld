@@ -1,13 +1,13 @@
 import { normalizeSpokenCommand } from "../../logic/spoken-command-parser";
 
 export const VOICE_SIDE_SCROLLER_WORD_ALIASES = {
-  bal: ["bal", "strandbal", "beachbal"],
-  boot: ["boot", "bootje", "zeilboot", "schip"],
-  dolfijn: ["dolfijn", "dolfin", "dolfijnen"],
-  krab: ["krab", "krabben"],
-  parasol: ["parasol", "strandparasol"],
+  bal: ["bal", "strandbal", "beachbal", "ballen", "balletje", "balletjes", "voetbal"],
+  boot: ["boot", "bootje", "zeilboot", "schip", "boten", "bootjes", "zeilbootje", "zeilschip"],
+  dolfijn: ["dolfijn", "dolfin", "dolfijnen", "dolfein", "dolfijntje", "dolfijntjes", "dolfijnvis"],
+  krab: ["krab", "krabben", "krap", "krabbetje", "krabbetjes", "kreeft"],
+  parasol: ["parasol", "strandparasol", "parasollen", "parasolletje", "parasols", "paraplu"],
   schelp: ["schelp", "schelpje", "schelpen", "schelpjes"],
-  zon: ["zon", "zonnetje"],
+  zon: ["zon", "zonnetje", "zonnig", "zonne", "zonnetjes", "zonsopgang"],
 } as const;
 
 export type VoiceSideScrollerWordId = keyof typeof VOICE_SIDE_SCROLLER_WORD_ALIASES;

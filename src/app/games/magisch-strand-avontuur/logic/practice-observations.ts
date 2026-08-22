@@ -50,7 +50,8 @@ export const createInstructionPracticeObservation = ({
   assistance: createAssistance({ instructionReplays, spokenHelp, visualHints }),
   attemptNumber,
   outcome,
-  responseTimeMs,
+  responseTimeMs:
+    responseTimeMs !== undefined ? Math.round(Math.max(0, responseTimeMs)) : undefined,
   skillIds: [
     ...new Set([
       ...languageDomains,
@@ -74,7 +75,8 @@ export const createVoicePracticeObservation = ({
   assistance: createAssistance({ instructionReplays, spokenHelp, visualHints }),
   attemptNumber,
   outcome,
-  responseTimeMs,
+  responseTimeMs:
+    responseTimeMs !== undefined ? Math.round(Math.max(0, responseTimeMs)) : undefined,
   skillIds: ["active-vocabulary", `vocabulary:${targetId}`],
   taskId,
 });

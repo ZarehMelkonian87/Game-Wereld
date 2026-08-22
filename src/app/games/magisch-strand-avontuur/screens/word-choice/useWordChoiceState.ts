@@ -48,6 +48,7 @@ export const useWordChoiceState = ({
   const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
   const [recognizedWithHint, setRecognizedWithHint] = useState<string[]>([]);
   const [difficultWords, setDifficultWords] = useState<string[]>([]);
+  const [isCompleted, setIsCompleted] = useState(false);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const targetObject = objects.find((object) => object.id === instruction.targetObjectIds[0]);
   const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
@@ -68,6 +69,7 @@ export const useWordChoiceState = ({
     setRecognizedWithoutHelp([]);
     setRecognizedWithHint([]);
     setDifficultWords([]);
+    setIsCompleted(false);
     attemptNumbersRef.current = {};
   }, [instructions]);
   useEffect(() => {
@@ -217,11 +219,37 @@ export const useWordChoiceState = ({
     });
   };
   const advanceInstruction = () => {
-    setActiveInstructionIndex((currentIndex) =>
-      Math.min(currentIndex + 1, instructions.length - 1),
-    );
+    if (activeInstructionIndex < instructions.length - 1) {
+      setActiveInstructionIndex((currentIndex) => currentIndex + 1);
+      setSelectedAnswerId(null);
+      setFeedback(null);
+    } else {
+      setIsCompleted(true);
+      setSelectedAnswerId(null);
+      setFeedback(null);
+      const correctActions = recognizedWithoutHelp.length + recognizedWithHint.length;
+      runtime.lifecycle.complete({
+        correctActions,
+        score: speedValue * 10 + wordStarValue * 5,
+        stars: wordStarValue,
+      });
+    }
+  };
+  const restartRound = () => {
+    setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
     setFeedback(null);
+    setSpeedValue(0);
+    setSpeedBoosting(false);
+    setWordStarValue(0);
+    setAudioRepeatsByInstruction({});
+    setHintUsedByInstruction({});
+    setRecognizedWithoutHelp([]);
+    setRecognizedWithHint([]);
+    setDifficultWords([]);
+    setIsCompleted(false);
+    attemptNumbersRef.current = {};
+    instructionStartedAtRef.current = runtime.clock.now().getTime();
   };
   return {
     activeAudioRepeats,
@@ -234,9 +262,11 @@ export const useWordChoiceState = ({
     handleAnswerSelect,
     handleHint,
     instruction,
+    isCompleted,
     playQuestionAudio,
     recognizedWithHint,
     recognizedWithoutHelp,
+    restartRound,
     rewardProfileId,
     selectedAnswerId,
     speedBoosting,

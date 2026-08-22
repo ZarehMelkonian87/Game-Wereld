@@ -53,4 +53,18 @@ describe("modusmappings naar PracticeEventV1", () => {
     expect(observation).not.toHaveProperty("transcript");
     expect(observation).not.toHaveProperty("audio");
   });
+
+  it("rondt fractionele responseTimeMs af naar gehele milliseconden", () => {
+    const observation = createVoicePracticeObservation({
+      attemptNumber: 1,
+      instructionReplays: 0,
+      outcome: "correct",
+      responseTimeMs: 1042.345892,
+      spokenHelp: 0,
+      targetId: "target-boot",
+      taskId: "zeg-en-vlieg:target-boot",
+      visualHints: 0,
+    });
+    expect(observation.responseTimeMs).toBe(1042);
+  });
 });

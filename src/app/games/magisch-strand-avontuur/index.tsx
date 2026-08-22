@@ -81,6 +81,7 @@ const MagischStrandAvontuurExperience = () => {
               instructions={instructions.wordChoice}
               objects={beachWorld.objects}
               onBackToMenu={actions.openModeSelect}
+              onPlayAgain={() => actions.startSelectedMode("choose-word")}
             />
           ) : (
             <SceneBuilderScreen

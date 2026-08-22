@@ -14,10 +14,13 @@ import { useGameRuntime } from "../runtime/GameRuntimeContext";
 import type { SceneObject, VocabularyChoiceInstruction } from "../types";
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { useWordChoiceState } from "./word-choice/useWordChoiceState";
+import { WordChoiceRoundSummary } from "./word-choice/components/WordChoiceRoundSummary";
+
 interface WordChoiceScreenProps {
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
   onBackToMenu?: () => void;
+  onPlayAgain?: () => void;
 }
 /**
  * @uxId SCR_KIES_WOORD_GAME
@@ -28,6 +31,7 @@ export const WordChoiceScreen = ({
   instructions,
   objects,
   onBackToMenu,
+  onPlayAgain,
 }: WordChoiceScreenProps) => {
   const runtime = useGameRuntime();
   const {
@@ -40,9 +44,11 @@ export const WordChoiceScreen = ({
     handleAnswerSelect,
     handleHint,
     instruction,
+    isCompleted,
     playQuestionAudio,
     recognizedWithHint,
     recognizedWithoutHelp,
+    restartRound,
     rewardProfileId,
     selectedAnswerId,
     speedBoosting,
@@ -51,6 +57,12 @@ export const WordChoiceScreen = ({
     usedHint,
     wordStarValue,
   } = useWordChoiceState({ instructions, objects });
+
+  const handleRestart = () => {
+    restartRound();
+    onPlayAgain?.();
+  };
+
   return (
     <div
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
@@ -58,6 +70,7 @@ export const WordChoiceScreen = ({
       data-active-instruction-id={instruction.id}
       data-choice-count={instruction.choiceCount}
       data-difficult-words={difficultWords.join(",")}
+      data-is-completed={isCompleted ? "true" : "false"}
       data-recognized-with-help={recognizedWithHint.join(",")}
       data-recognized-without-help={recognizedWithoutHelp.join(",")}
       data-testid="word-choice-screen"
@@ -222,6 +235,19 @@ export const WordChoiceScreen = ({
           />
         </PanelCard>
       </div>
+
+      {isCompleted ? (
+        <WordChoiceRoundSummary
+          difficultWords={difficultWords}
+          onBackToMenu={onBackToMenu}
+          onRestart={handleRestart}
+          recognizedWithHint={recognizedWithHint}
+          recognizedWithoutHelp={recognizedWithoutHelp}
+          speedValue={speedValue}
+          unlockedRewardLabels={feedback?.rewardLabels}
+          wordStarValue={wordStarValue}
+        />
+      ) : null}
     </div>
   );
 };

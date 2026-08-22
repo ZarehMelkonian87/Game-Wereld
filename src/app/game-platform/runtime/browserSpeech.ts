@@ -139,10 +139,15 @@ const readBestRecognitionResult = (
   let isAllFinal = true;
   let totalConfidence = 0;
   let count = 0;
+  const allAlternatives: VoiceRecognitionAlternative[] = [];
 
   for (let i = 0; i < event.results.length; i++) {
     const resultItem = event.results[i];
     if (!resultItem || resultItem.length === 0) continue;
+    const segmentAlternatives = readRecognitionAlternatives(resultItem);
+    if (segmentAlternatives.length > 0) {
+      allAlternatives.push(...segmentAlternatives);
+    }
     const bestAlt = resultItem[0];
     if (bestAlt && bestAlt.transcript.trim()) {
       transcriptSegments.push(bestAlt.transcript.trim());
@@ -158,8 +163,21 @@ const readBestRecognitionResult = (
   if (!combinedTranscript) return null;
 
   const averageConfidence = count > 0 ? totalConfidence / count : 0.8;
+  const seenTranscripts = new Set<string>();
+  const dedupedAlternatives: VoiceRecognitionAlternative[] = [];
+
+  const addAlternative = (alt: VoiceRecognitionAlternative) => {
+    const normalized = alt.transcript.trim();
+    if (!normalized || seenTranscripts.has(normalized)) return;
+    seenTranscripts.add(normalized);
+    dedupedAlternatives.push({ confidence: alt.confidence, transcript: normalized });
+  };
+
+  addAlternative({ confidence: averageConfidence, transcript: combinedTranscript });
+  allAlternatives.forEach(addAlternative);
+
   return {
-    alternatives: [{ confidence: averageConfidence, transcript: combinedTranscript }],
+    alternatives: dedupedAlternatives,
     confidence: averageConfidence,
     confidenceLabel: getConfidenceLabel(averageConfidence),
     isFinal: isAllFinal,
