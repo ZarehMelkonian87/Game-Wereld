@@ -17,7 +17,7 @@ export const magischStrandAvontuurManifest = defineGameManifest({
     {
       contentVersion: "magisch-strand-avontuur-2026.07",
       id: "magisch-strand-avontuur-beach",
-      manifestUrl: "/offline/magisch-strand-avontuur-beach-v1.json",
+      manifestUrl: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/offline/magisch-strand-avontuur-beach-v1.json`,
       version: 1,
     },
   ],

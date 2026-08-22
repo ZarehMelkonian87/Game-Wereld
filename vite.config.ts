@@ -17,6 +17,11 @@ const figmaAssetResolver = () => {
   };
 };
 export default defineConfig({
+  base:
+    process.env.VITE_BASE_PATH ??
+    (process.env.GITHUB_PAGES === "true" || process.env.CI_PAGES === "true"
+      ? "/Game-Wereld/"
+      : "/"),
   build: {
     manifest: true,
     rollupOptions: {
