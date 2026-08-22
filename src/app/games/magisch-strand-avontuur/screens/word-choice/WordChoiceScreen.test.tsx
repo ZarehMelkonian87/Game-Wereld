@@ -12,6 +12,8 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
     answerOptions: ["dolfijn", "boot"],
     audioText: "Waar is de dolfijn?",
     choiceCount: 2,
+    distractorStrategy: "same-theme",
+    feedback: "Super! Dat is de dolfijn.",
     feedbackCopy: {
       almost: "Kijk goed naar het water.",
       correct: "Super! Dat is de dolfijn.",
@@ -20,16 +22,22 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
     hint: "Zoek het dier dat zwemt.",
     id: "cw-test-1",
     languageDomains: ["receptive-vocabulary"],
+    level: 1,
+    mode: "choose-word",
     prompt: "Waar is de dolfijn?",
     reward: { speed: 1, wordStars: 2 },
     spatialConcepts: ["in"],
+    tags: ["test"],
     targetObjectIds: ["dolfijn"],
     targetWord: "dolfijn",
+    targetZoneIds: [],
   },
   {
     answerOptions: ["boot", "krab"],
     audioText: "Waar is de boot?",
     choiceCount: 2,
+    distractorStrategy: "same-theme",
+    feedback: "Geweldig! Dat is de boot.",
     feedbackCopy: {
       almost: "Kijk goed op het water.",
       correct: "Geweldig! Dat is de boot.",
@@ -38,20 +46,22 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
     hint: "Zoek het voertuig met een zeil.",
     id: "cw-test-2",
     languageDomains: ["receptive-vocabulary"],
+    level: 1,
+    mode: "choose-word",
     prompt: "Waar is de boot?",
     reward: { speed: 1, wordStars: 2 },
     spatialConcepts: ["op"],
+    tags: ["test"],
     targetObjectIds: ["boot"],
     targetWord: "boot",
+    targetZoneIds: [],
   },
 ];
 
 describe("WordChoiceScreen afronding en resultaten", () => {
   it("toont het resultatenoverzicht zodra alle opdrachten zijn voltooid en blijft in de game", async () => {
     const user = userEvent.setup();
-    const runtime = createFakeGameRuntime({
-      gameId: "magisch-strand-avontuur",
-    });
+    const runtime = createFakeGameRuntime();
 
     render(
       <GameRuntimeProvider runtime={runtime}>
@@ -89,9 +99,7 @@ describe("WordChoiceScreen afronding en resultaten", () => {
 
   it("herstart de ronde bij klikken op 'Opnieuw'", async () => {
     const user = userEvent.setup();
-    const runtime = createFakeGameRuntime({
-      gameId: "magisch-strand-avontuur",
-    });
+    const runtime = createFakeGameRuntime();
 
     render(
       <GameRuntimeProvider runtime={runtime}>

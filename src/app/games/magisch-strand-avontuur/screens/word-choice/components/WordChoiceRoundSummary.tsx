@@ -104,17 +104,13 @@ export const WordChoiceRoundSummary = ({
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
-          <BtnActionReplay
-            data-testid="word-choice-summary-replay-button"
-            label="Opnieuw"
-            onClick={onRestart}
-          />
+          <BtnActionReplay data-testid="word-choice-summary-replay-button" onClick={onRestart}>
+            Opnieuw
+          </BtnActionReplay>
           {onBackToMenu ? (
-            <BtnActionWorld
-              data-testid="word-choice-summary-menu-button"
-              label="Menu"
-              onClick={onBackToMenu}
-            />
+            <BtnActionWorld data-testid="word-choice-summary-menu-button" onClick={onBackToMenu}>
+              Menu
+            </BtnActionWorld>
           ) : null}
         </div>
       </PanelCard>
