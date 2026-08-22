@@ -20,7 +20,7 @@ export const BtnMicRecheck: React.FC<BtnMicRecheckProps> = ({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full py-3 bg-emerald-500 text-white font-bold text-lg rounded-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center gap-3 hover:bg-emerald-400 hover:scale-102 active:scale-98 transition-all ${className}`}
+      className={`w-full py-3 bg-emerald-700 text-white font-bold text-lg rounded-2xl shadow-md border-b-4 border-emerald-900 flex items-center justify-center gap-3 hover:bg-emerald-600 hover:scale-102 active:scale-98 transition-all ${className}`}
     >
       <svg className="w-6 h-6 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
         <path

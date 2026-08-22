@@ -36,7 +36,7 @@ export const BtnPrimaryPlay: React.FC<BtnPrimaryPlayProps> = ({
       disabled={disabled}
       aria-label={ariaLabel}
       data-testid={testId}
-      className={`px-8 py-4 bg-emerald-500 text-white font-extrabold text-xl rounded-full shadow-lg border-b-4 border-emerald-700 flex items-center justify-center gap-3 hover:bg-emerald-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none transition-all ${className}`}
+      className={`px-8 py-4 bg-emerald-700 text-white font-extrabold text-xl rounded-full shadow-lg border-b-4 border-emerald-900 flex items-center justify-center gap-3 hover:bg-emerald-600 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none transition-all ${className}`}
     >
       <svg className="w-7 h-7 fill-current" viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z" />
