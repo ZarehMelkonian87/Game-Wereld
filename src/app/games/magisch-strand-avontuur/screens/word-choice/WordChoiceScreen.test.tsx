@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { createFakeGameRuntime } from "../../../../game-platform";
 import { GameRuntimeProvider } from "../../runtime/GameRuntimeContext";
 import { beachWorld } from "../../content";
@@ -47,18 +47,20 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
 ];
 
 describe("WordChoiceScreen afronding en resultaten", () => {
-  it("toont het resultatenoverzicht zodra alle opdrachten zijn voltooid", async () => {
+  it("toont het resultatenoverzicht zodra alle opdrachten zijn voltooid en blijft in de game", async () => {
     const user = userEvent.setup();
     const runtime = createFakeGameRuntime({
       gameId: "magisch-strand-avontuur",
     });
-    const completeSpy = vi.spyOn(runtime.lifecycle, "complete");
 
     render(
       <GameRuntimeProvider runtime={runtime}>
         <WordChoiceScreen instructions={mockInstructions} objects={beachWorld.objects} />
       </GameRuntimeProvider>,
     );
+
+    // Vraag 1 voortgang
+    expect(screen.getByText("1/2")).toBeInTheDocument();
 
     // Opdracht 1: Kies het juiste antwoord (dolfijn)
     const dolfijnButton = screen.getByRole("button", { name: /dolfijn/i });
@@ -67,6 +69,9 @@ describe("WordChoiceScreen afronding en resultaten", () => {
     // Klik volgende
     const nextButton1 = screen.getByTestId("word-choice-next-button");
     await user.click(nextButton1);
+
+    // Vraag 2 voortgang
+    expect(screen.getByText("2/2")).toBeInTheDocument();
 
     // Opdracht 2: Kies het juiste antwoord (boot)
     const bootButton = screen.getByRole("button", { name: /boot/i });
@@ -80,11 +85,6 @@ describe("WordChoiceScreen afronding en resultaten", () => {
     expect(screen.getByTestId("word-choice-round-summary")).toBeInTheDocument();
     expect(screen.getByText(/Goed gedaan!/i)).toBeInTheDocument();
     expect(screen.getByText(/Je hebt alle opdrachten voltooid!/i)).toBeInTheDocument();
-    expect(completeSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        correctActions: 2,
-      }),
-    );
   });
 
   it("herstart de ronde bij klikken op 'Opnieuw'", async () => {

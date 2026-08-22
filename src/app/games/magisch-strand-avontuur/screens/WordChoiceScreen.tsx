@@ -36,6 +36,7 @@ export const WordChoiceScreen = ({
   const runtime = useGameRuntime();
   const {
     activeAudioRepeats,
+    activeInstructionIndex,
     advanceInstruction,
     answerOptions,
     currentInstructionVideoUrl,
@@ -228,9 +229,10 @@ export const WordChoiceScreen = ({
           <GameplayStatusBar
             boosting={speedBoosting}
             energyIconUrl={broomIconUrls.basic}
-            speedMax={10}
-            speedValue={speedValue}
-            starMax={30}
+            label="Voortgang"
+            speedMax={instructions.length}
+            speedValue={activeInstructionIndex + 1}
+            starMax={instructions.length * 3}
             starValue={wordStarValue}
           />
         </PanelCard>

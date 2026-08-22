@@ -227,12 +227,6 @@ export const useWordChoiceState = ({
       setIsCompleted(true);
       setSelectedAnswerId(null);
       setFeedback(null);
-      const correctActions = recognizedWithoutHelp.length + recognizedWithHint.length;
-      runtime.lifecycle.complete({
-        correctActions,
-        score: speedValue * 10 + wordStarValue * 5,
-        stars: wordStarValue,
-      });
     }
   };
   const restartRound = () => {
