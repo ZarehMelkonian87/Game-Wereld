@@ -1,14 +1,7 @@
 import { defineGameManifest } from "../../game-platform/contracts";
 
-// Placeholder-kaartafbeelding: circustent-emoji als inline SVG (nog geen echte afbeelding).
-const circusGameCardImageUrl =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">' +
-      '<rect width="256" height="256" rx="32" fill="#fde68a"/>' +
-      '<text x="50%" y="50%" font-size="150" text-anchor="middle" dominant-baseline="central">🎪</text>' +
-      "</svg>",
-  );
+const circusGameCardImageUrl = new URL("./assets/icons/worlds/world-circus.png", import.meta.url)
+  .href;
 
 export const grootCircusAvontuurManifest = defineGameManifest({
   ageRange: { max: 8, min: 4 },
