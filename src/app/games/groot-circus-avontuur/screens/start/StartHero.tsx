@@ -7,7 +7,7 @@ export const StartHero = () => (
 
     <div
       aria-hidden="true"
-      className="absolute left-1/2 top-[305px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[82px] landscape:w-[min(39vw,330px)]"
+      className="absolute left-1/2 top-[370px] z-10 w-[min(82vw,340px)] -translate-x-1/2 landscape:left-[72%] landscape:top-[82px] landscape:w-[min(39vw,330px)]"
       data-component="StartHero"
     >
       <div className="bezem-start-flyer relative">
