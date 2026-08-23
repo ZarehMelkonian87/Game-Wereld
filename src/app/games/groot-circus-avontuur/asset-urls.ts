@@ -19,34 +19,19 @@ const emojiStickerUrl = (emoji: string) =>
       "</text></svg>",
   );
 
-const circusBoardUrl = svgDataUrl(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">' +
-    '<rect width="100" height="100" fill="#fde7c9"/>' +
-    // Tentdak / nok: rode en crème strepen bovenin
-    "<g>" +
-    '<rect x="0" y="0" width="100" height="38" fill="#f6d8b0"/>' +
-    '<path d="M0 0 H14 L7 38 H0 Z" fill="#d1495b"/>' +
-    '<path d="M28 0 H42 L35 38 H21 Z" fill="#d1495b"/>' +
-    '<path d="M56 0 H70 L63 38 H49 Z" fill="#d1495b"/>' +
-    '<path d="M84 0 H98 L91 38 H77 Z" fill="#d1495b"/>' +
-    "</g>" +
-    // Piste: gouden middenband
-    '<rect x="0" y="38" width="100" height="17" fill="#f2b705"/>' +
-    '<ellipse cx="50" cy="55" rx="52" ry="10" fill="#e8a600"/>' +
-    // Tribune rechts
-    '<rect x="60" y="31" width="40" height="12" fill="#b5651d" opacity="0.85"/>' +
-    // Vloer / voorgrond
-    '<rect x="0" y="55" width="100" height="45" fill="#deb887"/>' +
-    "</svg>",
-);
-
 export const beachBackgrounds = {
-  portrait: circusBoardUrl,
-  portraitWebp: undefined as string | undefined,
-  landscape: circusBoardUrl,
-  landscapeWebp: undefined as string | undefined,
-  voiceSideScroller: circusBoardUrl,
-  voiceSideScrollerWebp: undefined as string | undefined,
+  portrait: new URL("./assets/backgrounds/circus-board-portrait.png", import.meta.url).href,
+  portraitWebp: new URL("./assets/backgrounds/circus-board-portrait.webp", import.meta.url).href,
+  landscape: new URL("./assets/backgrounds/circus-board-landscape.png", import.meta.url).href,
+  landscapeWebp: new URL("./assets/backgrounds/circus-board-landscape.webp", import.meta.url).href,
+  voiceSideScroller: new URL(
+    "./assets/backgrounds/circus-voice-side-scroller.png",
+    import.meta.url,
+  ).href,
+  voiceSideScrollerWebp: new URL(
+    "./assets/backgrounds/circus-voice-side-scroller.webp",
+    import.meta.url,
+  ).href,
 };
 export const startLogoUrl = new URL("./assets/logos/start-logo-circus.png", import.meta.url).href;
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
