@@ -1,0 +1,38 @@
+import { StartActions } from "./StartActions";
+import { StartBackground } from "./StartBackground";
+import { StartHero } from "./StartHero";
+import { StartSparkles } from "./StartSparkles";
+import { StartTopBar } from "./StartTopBar";
+
+interface StartScreenProps {
+  onExit: () => void;
+  onOpenSettings: () => void;
+  onPlay: () => void;
+  starCount?: number;
+}
+
+/**
+ * @uxId SCR_MAIN_TITLE
+ * @screens SCR_MAIN_TITLE
+ * @description Hoofdscherm / Titelmenu (Scherm 1)
+ */
+export const StartScreen = ({
+  onExit,
+  onOpenSettings,
+  onPlay,
+  starCount = 120,
+}: StartScreenProps) => (
+  <section
+    aria-label="Startscherm"
+    className="pointer-events-auto absolute inset-0 z-10 overflow-hidden"
+    data-testid="start-screen"
+  >
+    <StartBackground />
+    <StartTopBar onExit={onExit} onOpenSettings={onOpenSettings} starCount={starCount} />
+    <StartHero />
+    <StartSparkles />
+    <StartActions onPlay={onPlay} />
+  </section>
+);
+
+StartScreen.displayName = "StartScreen";

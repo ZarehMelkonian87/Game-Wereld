@@ -2,11 +2,16 @@ import { isLoadableGameEntry, type GameRegistryEntry } from "../game-platform/co
 import { comingSoonGameManifests } from "./catalog-manifests";
 import { rekenenStrandManifest } from "./rekenen-strand/manifest";
 import { magischStrandAvontuurManifest } from "./magisch-strand-avontuur/manifest";
+import { grootCircusAvontuurManifest } from "./groot-circus-avontuur/manifest";
 
 export const gameRegistry: Record<string, GameRegistryEntry> = {
   [magischStrandAvontuurManifest.id]: {
     load: () => import("./magisch-strand-avontuur"),
     manifest: magischStrandAvontuurManifest,
+  },
+  [grootCircusAvontuurManifest.id]: {
+    load: () => import("./groot-circus-avontuur"),
+    manifest: grootCircusAvontuurManifest,
   },
   [rekenenStrandManifest.id]: {
     load: () => import("./rekenen-strand"),

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "magisch-strand-avontuur-beach",
+  "gameId": "magisch-strand-avontuur",
+  "worldId": "beach",
+  "contentVersion": "magisch-strand-avontuur-2026.07",
+  "version": 1,
+  "entry": "src/app/games/magisch-strand-avontuur/index.tsx",
+  "chunkName": "game-magisch-strand-avontuur",
+  "assetSourcePrefix": "src/app/games/magisch-strand-avontuur/assets/",
+  "source": "Game Wereld projectassetset",
+  "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld"
+}

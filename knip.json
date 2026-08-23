@@ -5,6 +5,9 @@
   "ignore": [
     "src/app/games/magisch-strand-avontuur/screens/**/components/**",
     "src/app/games/magisch-strand-avontuur/screens/settings/SettingsToggleRow.tsx",
-    "src/app/games/magisch-strand-avontuur/screens/start/StartCircleIcon.tsx"
+    "src/app/games/magisch-strand-avontuur/screens/start/StartCircleIcon.tsx",
+    "src/app/games/groot-circus-avontuur/screens/**/components/**",
+    "src/app/games/groot-circus-avontuur/screens/settings/SettingsToggleRow.tsx",
+    "src/app/games/groot-circus-avontuur/screens/start/StartCircleIcon.tsx"
   ]
 }
