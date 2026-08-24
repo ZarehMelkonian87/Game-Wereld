@@ -11,7 +11,6 @@ export const StartHero = () => (
       data-component="StartHero"
     >
       <div className="bezem-start-flyer relative">
-        <div className="bezem-start-trail absolute left-[16%] top-[44%] h-[26%] w-[70%] rounded-full bg-gradient-to-r from-amber-200 via-pink-200 to-sky-200 opacity-75 blur-[3px]" />
         <ImgHeroCharacter className="relative z-20 w-[78%] -rotate-[7deg]" />
       </div>
     </div>

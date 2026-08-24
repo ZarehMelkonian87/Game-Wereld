@@ -1,23 +1,3 @@
-import { beachObjects } from "./content";
-
-// -----------------------------------------------------------------------------
-// PLACEHOLDER-ASSETS (v1)
-// Afbeeldingen zijn tijdelijke emoji-/SVG-iconen als inline data-URL's, zodat de
-// game direct speelbaar is zonder losse afbeeldingsbestanden. Video's zijn nog
-// niet aanwezig: de video-getters geven `undefined` terug, waardoor de game
-// automatisch terugvalt op de spraaksynthese-stem (TTS). Vervang deze data-URL's
-// later door echte circusafbeeldingen en koppel MP4-video's in de getters.
-// -----------------------------------------------------------------------------
-
-const svgDataUrl = (svg: string) => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-
-const emojiStickerUrl = (emoji: string) =>
-  svgDataUrl(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">' +
-      '<text x="50%" y="52%" font-size="86" text-anchor="middle" dominant-baseline="central">' +
-      emoji +
-      "</text></svg>",
-  );
 
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/circus-board-portrait.png", import.meta.url).href,
@@ -37,17 +17,37 @@ export const startLogoUrl = new URL("./assets/logos/start-logo-circus.png", impo
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
   .href;
 
-export const beachObjectStickerUrls: Record<string, string> = Object.fromEntries(
-  beachObjects.map((object) => [object.assetId, emojiStickerUrl(object.emoji)]),
-);
+export const beachObjectStickerUrls = {
+  clown: new URL("./assets/objects/transparent/clown-sticker.png", import.meta.url).href,
+  acrobaat: new URL("./assets/objects/transparent/acrobat-sticker.png", import.meta.url).href,
+  leeuw: new URL("./assets/objects/transparent/lion-sticker.png", import.meta.url).href,
+  olifant: new URL("./assets/objects/transparent/elephant-sticker.png", import.meta.url).href,
+  aap: new URL("./assets/objects/transparent/monkey-sticker.png", import.meta.url).href,
+  kip: new URL("./assets/objects/transparent/chicken-sticker.png", import.meta.url).href,
+  poes: new URL("./assets/objects/transparent/cat-sticker.png", import.meta.url).href,
+  big: new URL("./assets/objects/transparent/piglet-sticker.png", import.meta.url).href,
+  muis: new URL("./assets/objects/transparent/mouse-sticker.png", import.meta.url).href,
+  beer: new URL("./assets/objects/transparent/bear-sticker.png", import.meta.url).href,
+  zeehond: new URL("./assets/objects/transparent/seal-sticker.png", import.meta.url).href,
+  hond: new URL("./assets/objects/transparent/dog-sticker.png", import.meta.url).href,
+  eenwieler: new URL("./assets/objects/transparent/unicycle-sticker.png", import.meta.url).href,
+  kanon: new URL("./assets/objects/transparent/cannon-sticker.png", import.meta.url).href,
+  bal: new URL("./assets/objects/transparent/ball-sticker.png", import.meta.url).href,
+  hoepel: new URL("./assets/objects/transparent/hoop-sticker.png", import.meta.url).href,
+  ballon: new URL("./assets/objects/transparent/balloon-sticker.png", import.meta.url).href,
+  trommel: new URL("./assets/objects/transparent/drum-sticker.png", import.meta.url).href,
+  vlag: new URL("./assets/objects/transparent/flag-sticker.png", import.meta.url).href,
+} as const;
 
-export const voiceSideScrollerObjectSpriteUrls: Record<string, string> = beachObjectStickerUrls;
+export type BeachObjectStickerId = keyof typeof beachObjectStickerUrls;
+
+export const voiceSideScrollerObjectSpriteUrls = beachObjectStickerUrls;
 
 export const voiceSideScrollerObstacleSpriteUrls = {
-  cloud: emojiStickerUrl("☁️"),
-  "sea-lion": emojiStickerUrl("🤹"),
-  seagull: emojiStickerUrl("🕊️"),
-  shark: emojiStickerUrl("🐯"),
+  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
+  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.png", import.meta.url).href,
+  seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
+  shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
 };
 
 // Video-placeholders: nog geen MP4's. Alle getters geven undefined → TTS-fallback.
@@ -60,7 +60,7 @@ export const getFeedbackVideoUrl = (_instructionId: string): string | undefined 
 export const sharedPlaceHintVideoUrl: string | undefined = undefined;
 
 export const getBeachObjectStickerUrl = (assetId: string): string =>
-  beachObjectStickerUrls[assetId];
+  beachObjectStickerUrls[assetId as BeachObjectStickerId] ?? "";
 
 export const avatarIconUrls = {
   avatar05: new URL("./assets/icons/avatars/avatar-05.png", import.meta.url).href,
