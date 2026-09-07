@@ -13,7 +13,6 @@ import { SceneZoneDevTools } from "../SceneZoneDevTools";
 import type { PlacedObject } from "../logic/scene-builder-types";
 import { isSceneDirectionKey, moveKeyboardScenePoint } from "../logic/keyboard-scene-placement";
 import type { ScenePoint } from "../../../logic/scene-zones";
-import { SpeechWaveAnimation } from "./SpeechWaveAnimation";
 
 interface SceneAreaCanvasProps {
   effectiveZones: SceneZone[];
@@ -57,7 +56,7 @@ export const SceneAreaCanvas = ({
   handleSceneTap,
   isHintVideoPlaying,
   objects,
-  onStopVoiceRecognition,
+  onStopVoiceRecognition: _onStopVoiceRecognition,
   pendingPlacement,
   placedObjects,
   sceneAreaRef,
@@ -65,8 +64,8 @@ export const SceneAreaCanvas = ({
   showTargetZoneHint,
   showZoneDevTools,
   visualHintZone,
-  voiceRecognitionStatus,
-  voiceRecognitionTranscript,
+  voiceRecognitionStatus: _voiceRecognitionStatus,
+  voiceRecognitionTranscript: _voiceRecognitionTranscript,
 }: SceneAreaCanvasProps) => {
   const [keyboardPoint, setKeyboardPoint] = useState<ScenePoint>({ x: 50, y: 50 });
   const [isKeyboardPlacementActive, setIsKeyboardPlacementActive] = useState(false);
@@ -212,15 +211,6 @@ export const SceneAreaCanvas = ({
             );
           })()
         : null}
-
-      {(voiceRecognitionStatus === "listening" ||
-        voiceRecognitionStatus === "processing" ||
-        voiceRecognitionStatus === "heard") && (
-        <SpeechWaveAnimation
-          onStop={onStopVoiceRecognition}
-          transcript={voiceRecognitionTranscript}
-        />
-      )}
     </section>
   );
 };
