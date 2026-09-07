@@ -104,12 +104,12 @@ export const matchAcousticFeaturesToWord = (
 };
 
 export const createLocalSpeechRecognition = ({
-  autoStopMs = 15000,
+  autoStopMs = 25000,
   onEnd,
   onError,
   onResult,
   onStatusChange,
-  silenceStopMs = 1200,
+  silenceStopMs = 3500,
 }: SpeechRecognitionOptions = {}): SpeechRecognitionSession => {
   let isRunning = false;
   let audioContext: AudioContext | null = null;
@@ -118,6 +118,7 @@ export const createLocalSpeechRecognition = ({
   let animationFrameId: number | null = null;
   let autoStopTimer: ReturnType<typeof setTimeout> | null = null;
   let silenceTimer: ReturnType<typeof setTimeout> | null = null;
+  const effectiveSilenceStopMs = Math.max(silenceStopMs, 3500);
 
   let speechStartTime = 0;
   let isSpeaking = false;
@@ -126,6 +127,7 @@ export const createLocalSpeechRecognition = ({
   let midFreqAccum = 0;
   let highFreqAccum = 0;
   let frameCount = 0;
+  const accumulatedWords: string[] = [];
 
   const cleanup = () => {
     isRunning = false;
@@ -181,7 +183,7 @@ export const createLocalSpeechRecognition = ({
     }
 
     const avgEnergy = sum / bufferLength;
-    const speechThreshold = 25; // Drempelwaarde voor spraakactiviteit
+    const speechThreshold = 18; // Gevoeligere drempelwaarde voor kinderstemmen
 
     if (avgEnergy > speechThreshold) {
       if (!isSpeaking) {
@@ -192,7 +194,7 @@ export const createLocalSpeechRecognition = ({
         midFreqAccum = 0;
         highFreqAccum = 0;
         frameCount = 0;
-        onStatusChange?.("processing");
+        onStatusChange?.("listening");
       }
 
       totalEnergy += avgEnergy;
@@ -206,7 +208,7 @@ export const createLocalSpeechRecognition = ({
         silenceTimer = null;
       }
     } else if (isSpeaking && !silenceTimer) {
-      // Stilte gedetecteerd na gesproken woord
+      // Stilte gedetecteerd na gesproken woord (wacht minstens 3.5s voordat het wordt afgesloten)
       silenceTimer = setTimeout(() => {
         if (!isSpeaking) return;
 
@@ -223,6 +225,8 @@ export const createLocalSpeechRecognition = ({
         };
 
         const match = matchAcousticFeaturesToWord(features);
+        accumulatedWords.push(match.word);
+        const fullTranscript = accumulatedWords.join(" ");
 
         const result: VoiceRecognitionResult = {
           alternatives: match.alternatives,
@@ -230,16 +234,20 @@ export const createLocalSpeechRecognition = ({
           confidenceLabel:
             match.confidence >= 0.8 ? "high" : match.confidence >= 0.65 ? "medium" : "low",
           isFinal: true,
-          transcript: match.word,
+          transcript: fullTranscript,
         };
 
         onStatusChange?.("heard");
         onResult?.(result);
 
-        cleanup();
-        onStatusChange?.("idle");
-        onEnd?.();
-      }, silenceStopMs);
+        // Blijf "heard" tonen gedurende 2.5 seconden zodat het kind kan zien wat er gezegd is
+        setTimeout(() => {
+          if (!isRunning) return;
+          cleanup();
+          onStatusChange?.("idle");
+          onEnd?.();
+        }, 2500);
+      }, effectiveSilenceStopMs);
     }
 
     animationFrameId = requestAnimationFrame(processAudio);
@@ -296,6 +304,37 @@ export const createLocalSpeechRecognition = ({
 
   const stop = () => {
     if (!isRunning) return;
+    if (isSpeaking && frameCount > 0) {
+      const durationMs = Math.max(150, Date.now() - speechStartTime);
+      const totalFreqSum = lowFreqAccum + midFreqAccum + highFreqAccum || 1;
+      const features: AudioSampleFeatures = {
+        durationMs,
+        energy: totalEnergy / frameCount,
+        highFreqRatio: highFreqAccum / totalFreqSum,
+        lowFreqRatio: lowFreqAccum / totalFreqSum,
+        midFreqRatio: midFreqAccum / totalFreqSum,
+        zeroCrossings: 0,
+      };
+      const match = matchAcousticFeaturesToWord(features);
+      accumulatedWords.push(match.word);
+    }
+    if (accumulatedWords.length > 0) {
+      const fullTranscript = accumulatedWords.join(" ");
+      onResult?.({
+        alternatives: [],
+        confidence: 0.85,
+        confidenceLabel: "high",
+        isFinal: true,
+        transcript: fullTranscript,
+      });
+      onStatusChange?.("heard");
+      setTimeout(() => {
+        cleanup();
+        onStatusChange?.("idle");
+        onEnd?.();
+      }, 1500);
+      return;
+    }
     cleanup();
     onStatusChange?.("idle");
     onEnd?.();

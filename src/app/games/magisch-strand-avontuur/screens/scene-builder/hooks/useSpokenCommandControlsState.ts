@@ -41,10 +41,10 @@ export const useSpokenCommandControlsState = ({
     support,
     transcript,
   } = useDutchSpeechRecognition({
-    autoStopMs: 15000,
+    autoStopMs: 25000,
     continuous: true,
     interimResults: true,
-    silenceStopMs: 2500,
+    silenceStopMs: 4000,
   });
 
   const hasMicrophonePermissionMessage =

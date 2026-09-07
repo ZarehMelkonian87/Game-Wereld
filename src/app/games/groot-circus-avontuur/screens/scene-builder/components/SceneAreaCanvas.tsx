@@ -213,7 +213,9 @@ export const SceneAreaCanvas = ({
           })()
         : null}
 
-      {voiceRecognitionStatus === "listening" && (
+      {(voiceRecognitionStatus === "listening" ||
+        voiceRecognitionStatus === "processing" ||
+        voiceRecognitionStatus === "heard") && (
         <SpeechWaveAnimation
           onStop={onStopVoiceRecognition}
           transcript={voiceRecognitionTranscript}
