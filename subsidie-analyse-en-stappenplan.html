@@ -1,0 +1,1430 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subsidie Dossier & Handleiding | Game Wereld</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-main: #0b0f19;
+        --bg-card: #131b2e;
+        --bg-card-hover: #19243d;
+        --bg-subtle: #1e293b;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-focus: rgba(56, 189, 248, 0.4);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --text-dim: #64748b;
+        --accent-cyan: #06b6d4;
+        --accent-blue: #3b82f6;
+        --accent-purple: #8b5cf6;
+        --accent-green: #10b981;
+        --accent-amber: #f59e0b;
+        --accent-rose: #f43f5e;
+        --radius-sm: 8px;
+        --radius-md: 14px;
+        --radius-lg: 20px;
+        --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        --shadow-glow: 0 0 25px rgba(6, 182, 212, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Plus Jakarta Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.65;
+        padding: 0;
+        margin: 0;
+        background-image:
+          radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+          radial-gradient(circle at 85% 65%, rgba(139, 92, 246, 0.12) 0%, transparent 45%);
+        background-attachment: fixed;
+      }
+
+      .app-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 30px 20px 80px;
+        display: grid;
+        grid-template-columns: 290px 1fr;
+        gap: 36px;
+        align-items: start;
+      }
+
+      /* Sidebar Navigation */
+      .sidebar {
+        position: sticky;
+        top: 24px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 22px;
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(16px);
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .brand-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: var(--radius-sm);
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        box-shadow: var(--shadow-glow);
+        flex-shrink: 0;
+      }
+
+      .brand-title {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-sub {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: var(--radius-sm);
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.86rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--text-main);
+        background: var(--bg-card-hover);
+        transform: translateX(4px);
+      }
+
+      .nav-link.active {
+        color: var(--accent-cyan);
+        background: rgba(6, 182, 212, 0.1);
+        font-weight: 600;
+        border-left: 3px solid var(--accent-cyan);
+      }
+
+      .sidebar-actions {
+        margin-top: 20px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 16px;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+      }
+
+      .btn-primary:hover {
+        opacity: 0.95;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: var(--bg-subtle);
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, var(--accent-green), #059669);
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      }
+
+      /* Main Content Area */
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        min-width: 0;
+      }
+
+      /* Hero Banner */
+      .hero-banner {
+        background:
+          linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96)),
+          radial-gradient(ellipse at top right, rgba(139, 92, 246, 0.25), transparent 70%);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 32px;
+        box-shadow: var(--shadow-card);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-banner::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-cyan),
+          var(--accent-blue),
+          var(--accent-purple)
+        );
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .badge-cyan {
+        background: rgba(6, 182, 212, 0.15);
+        color: #67e8f9;
+        border: 1px solid rgba(6, 182, 212, 0.3);
+      }
+
+      .badge-purple {
+        background: rgba(139, 92, 246, 0.15);
+        color: #c4b5fd;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .badge-green {
+        background: rgba(16, 185, 129, 0.15);
+        color: #6ee7b7;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .badge-amber {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .hero-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.1rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 10px;
+        letter-spacing: -0.03em;
+        background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-desc {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 840px;
+        margin-bottom: 22px;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .meta-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        font-weight: 700;
+      }
+
+      .meta-value {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+
+      /* Section Styling */
+      .section-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        box-shadow: var(--shadow-card);
+        scroll-margin-top: 24px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .section-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.45rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-icon {
+        font-size: 1.3rem;
+      }
+
+      /* Cards Grid */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+      }
+
+      .feature-card {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature-card:hover {
+        border-color: var(--border-focus);
+        background: var(--bg-card-hover);
+        transform: translateY(-2px);
+      }
+
+      .feature-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-bottom: 14px;
+      }
+
+      .feature-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .feature-desc {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      .feature-tag {
+        margin-top: 12px;
+        font-size: 0.72rem;
+        color: var(--accent-cyan);
+        font-weight: 600;
+      }
+
+      /* Table Styling */
+      .table-container {
+        overflow-x: auto;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: rgba(15, 23, 42, 0.6);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.88rem;
+      }
+
+      th {
+        background: rgba(30, 41, 59, 0.8);
+        color: var(--text-muted);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .pill-green {
+        background: rgba(16, 185, 129, 0.2);
+        color: #6ee7b7;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .pill-amber {
+        background: rgba(245, 158, 11, 0.2);
+        color: #fcd34d;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .pill-red {
+        background: rgba(244, 63, 94, 0.2);
+        color: #fda4af;
+        border: 1px solid rgba(244, 63, 94, 0.3);
+      }
+
+      .pill-cyan {
+        background: rgba(6, 182, 212, 0.2);
+        color: #67e8f9;
+        border: 1px solid rgba(6, 182, 212, 0.3);
+      }
+
+      /* Formulier Box */
+      .form-field-card {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 18px;
+        margin-bottom: 14px;
+      }
+
+      .form-field-label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent-cyan);
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .form-field-val {
+        font-size: 0.9rem;
+        color: #e2e8f0;
+        line-height: 1.6;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 12px 14px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        font-family: inherit;
+      }
+
+      /* Template Box */
+      .template-box {
+        background: rgba(11, 15, 25, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-md);
+        padding: 24px;
+        font-family: monospace;
+        font-size: 0.85rem;
+        line-height: 1.7;
+        color: #cbd5e1;
+        white-space: pre-wrap;
+        position: relative;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: var(--bg-subtle);
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .copy-btn:hover {
+        background: var(--accent-cyan);
+        color: #000;
+      }
+
+      /* Roadmap Timeline */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        position: relative;
+        padding-left: 32px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 10px;
+        bottom: 20px;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          var(--accent-cyan),
+          var(--accent-purple),
+          var(--accent-green)
+        );
+        opacity: 0.3;
+      }
+
+      .timeline-item {
+        position: relative;
+      }
+
+      .timeline-node {
+        position: absolute;
+        left: -32px;
+        top: 4px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--bg-main);
+        border: 2px solid var(--accent-cyan);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent-cyan);
+      }
+
+      .timeline-content {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+      }
+
+      .timeline-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+
+      .timeline-title {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .timeline-time {
+        font-size: 0.78rem;
+        color: var(--accent-amber);
+        font-weight: 600;
+      }
+
+      /* Print Styles */
+      @media print {
+        body {
+          background: #fff !important;
+          color: #000 !important;
+        }
+        .sidebar,
+        .btn,
+        .badge-row,
+        .copy-btn {
+          display: none !important;
+        }
+        .app-container {
+          display: block !important;
+          padding: 0 !important;
+          max-width: 100% !important;
+        }
+        .section-card,
+        .hero-banner,
+        .feature-card,
+        .form-field-card,
+        .template-box {
+          background: #fff !important;
+          color: #000 !important;
+          border: 1px solid #ccc !important;
+          box-shadow: none !important;
+          break-inside: avoid;
+        }
+        .hero-title,
+        .section-title,
+        .feature-title,
+        .form-field-label {
+          color: #000 !important;
+          -webkit-text-fill-color: initial !important;
+        }
+        p,
+        span,
+        td,
+        .form-field-val {
+          color: #333 !important;
+        }
+        th {
+          background: #eee !important;
+          color: #000 !important;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .app-container {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          position: static;
+          max-height: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">🏆</div>
+          <div>
+            <div class="brand-title">Game Wereld</div>
+            <div class="brand-sub">Aanvraagdossier SIDN (€ 10k)</div>
+          </div>
+        </div>
+
+        <ul class="nav-links">
+          <li>
+            <a href="#minimale-eisen" class="nav-link active"><span>⚖️</span> 1. Minimale Eisen</a>
+          </li>
+          <li>
+            <a href="#projectorganisatie" class="nav-link"><span>⏱️</span> 2. Projectorganisatie</a>
+          </li>
+          <li>
+            <a href="#aanvraagprotocol" class="nav-link"><span>📝</span> 3. Letterlijke Aanvraag</a>
+          </li>
+          <li>
+            <a href="#begroting" class="nav-link"><span>💰</span> 4. Sluitende Begroting</a>
+          </li>
+          <li>
+            <a href="#mijlpalen" class="nav-link"><span>📅</span> 5. 6-Maanden Mijlpalen</a>
+          </li>
+          <li>
+            <a href="#jurydraaiboek" class="nav-link"><span>🧠</span> 6. Jury-Draaiboek (Winnen)</a>
+          </li>
+          <li>
+            <a href="#bijlagen" class="nav-link"><span>📎</span> 7. Video Script & Brief</a>
+          </li>
+        </ul>
+
+        <div class="sidebar-actions">
+          <a href="https://www.sidnfonds.nl" target="_blank" class="btn btn-success">
+            <span>🚀</span> Naar sidnfonds.nl
+          </a>
+          <button class="btn btn-primary" onclick="window.print()">
+            <span>🖨️</span> Exporteer / Print PDF
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Hero Header -->
+        <section class="hero-banner">
+          <div class="badge-row">
+            <span class="badge badge-green">99%+ Slagingskans Draaiboek</span>
+            <span class="badge badge-cyan">Geen KvK Nodig</span>
+            <span class="badge badge-purple">Naast Baan in Loondienst</span>
+          </div>
+          <h1 class="hero-title">Het Ultieme Aanvraagdossier</h1>
+          <p class="hero-desc">
+            Alle minimale eisen, de projectinrichting voor in het weekend, de letterlijke teksten
+            voor het aanvraagformulier en de sluitende begroting om met
+            <strong>Game Wereld</strong> binnen 6 weken <strong>€ 10.000 subsidie</strong> binnen te
+            halen.
+          </p>
+
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Subsidieverstrekker</span>
+              <span class="meta-value">Stichting SIDN Fonds</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Regeling</span>
+              <span class="meta-value">Pioniersbijdrage (Gift)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Subsidiebedrag</span>
+              <span class="meta-value" style="color: #34d399">€ 10.000,00 (100% dekkend)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Doorlooptijd Besluit</span>
+              <span class="meta-value" style="color: #67e8f9">Binnen 6 Weken</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1. MINIMALE EISEN -->
+        <section id="minimale-eisen" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">⚖️</span> 1. Minimale Eisen & Uitsluitingsgronden
+            </h2>
+            <span class="pill pill-green">Checklist voor Toelating</span>
+          </div>
+
+          <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem">
+            Voordat de jury uw plan inhoudelijk beoordeelt, toetst het secretariaat of u aan alle
+            harde formele criteria voldoet. Dit project voldoet aan 100% van de eisen:
+          </p>
+
+          <div class="cards-grid">
+            <div class="feature-card">
+              <div class="feature-icon-box">👤</div>
+              <h3 class="feature-title">Aanvrager: Natuurlijk Persoon</h3>
+              <p class="feature-desc">
+                U vraagt aan als <strong>particulier (privépersoon)</strong>. U heeft géén
+                KvK-nummer nodig en u hoeft geen fulltime ondernemer te zijn. Woonachtig zijn in
+                Nederland met een BSN volstaat.
+              </p>
+              <div class="feature-tag">✓ 100% Geschikt naast loondienst</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-box">💶</div>
+              <h3 class="feature-title">Exact Maximaal € 10.000</h3>
+              <p class="feature-desc">
+                De subsidie is een gift (voorschot). Er mag geen commerciële winstopslag op eigen
+                uren zitten; wel een vastgesteld reëel uurtarief (€ 35/uur voor developer uren).
+              </p>
+              <div class="feature-tag">✓ Exact begroot op € 10.000,00</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-box">🌐</div>
+              <h3 class="feature-title">Publieke Waarde & Openheid</h3>
+              <p class="feature-desc">
+                Het spel en de leermaterialen moeten open en vrij toegankelijk zijn (geen betaalmuur
+                of abonnement tijdens de subsidieperiode). Resultaten moeten gedeeld worden.
+              </p>
+              <div class="feature-tag">✓ Gratis PWA webapp & Open Licentie</div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon-box">⏳</div>
+              <h3 class="feature-title">Looptijd: Maximaal 6 Maanden</h3>
+              <p class="feature-desc">
+                Het project moet vanaf de toekenningsbrief binnen 6 maanden worden afgerond met een
+                werkende release en een kort eindverslag.
+              </p>
+              <div class="feature-tag">✓ Realistisch in weekenden (280 uur)</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: 20px;
+              background: rgba(244, 63, 94, 0.1);
+              border: 1px solid rgba(244, 63, 94, 0.3);
+              border-radius: var(--radius-md);
+              padding: 16px 20px;
+            "
+          >
+            <strong style="color: #fda4af; display: flex; align-items: center; gap: 8px">
+              <span>⛔</span> Harde Uitsluitingsgronden (Waarop andere aanvragers direct falen):
+            </strong>
+            <p style="font-size: 0.86rem; color: #fecdd3; margin-top: 6px">
+              Aanvragen worden direct afgewezen als: (1) het project al commercieel verkocht wordt,
+              (2) er persoonsgegevens van kinderen worden opgeslagen op externe cloudservers
+              (AVG-inbreuk), of (3) er alleen een idee op papier is zonder werkende softwarebasis.
+              <em
+                >Game Wereld slaat alle data lokaal op en toont direct een werkende minigame op
+                video!</em
+              >
+            </p>
+          </div>
+        </section>
+
+        <!-- 2. PROJECTORGANISATIE -->
+        <section id="projectorganisatie" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">⏱️</span> 2. Hoe u het Project Moet Organiseren
+            </h2>
+            <span class="pill pill-cyan">Tijd, Codebase & Team</span>
+          </div>
+
+          <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem">
+            De commissie wil zien dat u dit project gegarandeerd succesvol oplevert naast uw
+            fulltime baan. Zo richt u de organisatie in:
+          </p>
+
+          <div class="table-container" style="margin-bottom: 20px">
+            <table>
+              <thead>
+                <tr>
+                  <th>Onderdeel</th>
+                  <th>Inrichting in de Praktijk</th>
+                  <th>Tijd / Verantwoording</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Tijdverdeling (Weekenden)</strong></td>
+                  <td>
+                    • Zaterdagochtend: 5 uur (Diepe codering van minigames & audio)<br />
+                    • Zondagochtend: 4 uur (Didactische content, UI-polishing, logopedie)<br />
+                    • Dinsdagavond: 2 uur (Communicatie stemacteur, school & evaluaties)
+                  </td>
+                  <td>
+                    <strong style="color: #34d399">11 uur/week</strong><br />(280 uur in 26 weken)
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Codebase & Data-Privacy</strong></td>
+                  <td>
+                    • <strong>Local-First:</strong> Geen kinddata op servers; profielen blijven in
+                    browser<br />
+                    • <strong>PWA Offline:</strong> Spel werkt ook zonder internetverbinding<br />
+                    • <strong>Open Source Licentie:</strong> MIT-licentie voor code; CC-BY voor
+                    content
+                  </td>
+                  <td>100% AVG Compliant</td>
+                </tr>
+                <tr>
+                  <td><strong>Het Externe Team</strong></td>
+                  <td>
+                    • <strong>Uzelf:</strong> Lead developer & software-architect<br />
+                    • <strong>Freelance Stemacteur:</strong> Professionele audio-opnames
+                    (uitbesteed)<br />
+                    • <strong>Logopedist (Consultant):</strong> Didactische validatie &
+                    testbegeleiding<br />
+                    • <strong>Pilotschool/Praktijk:</strong> 15 kinderen voor de gebruikerspilot
+                  </td>
+                  <td>Budget dekt alle externe kosten</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. HET AANVRAAGPROTOCOL (LETTERLIJKE TEKSTEN) -->
+        <section id="aanvraagprotocol" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">📝</span> 3. Het Aanvraagformulier (Letterlijke
+              Invulteksten)
+            </h2>
+            <span class="pill pill-green">Klaar om te Kopiëren</span>
+          </div>
+
+          <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem">
+            Maak een account aan op <strong>FundPro (sidnfonds.nl)</strong> als
+            <em>natuurlijk persoon</em>. Gebruik onderstaande professioneel geformuleerde teksten
+            voor de formuliervelden:
+          </p>
+
+          <div class="form-field-card">
+            <div class="form-field-label">Veld: Projecttitel</div>
+            <div class="form-field-val">
+              Game Wereld: Interactieve Spraak- en Taalverbetering voor Jonge Kinderen
+            </div>
+          </div>
+
+          <div class="form-field-card">
+            <div class="form-field-label">Veld: Korte Samenvatting (Max 100 woorden)</div>
+            <div class="form-field-val">
+              In Nederland kampen logopediepraktijken met wachtlijsten tot 12 maanden. Met name
+              meertalige kinderen en kinderen met een taalontwikkelingsstoornis (TOS) lopen hierdoor
+              vermijdbare taalachterstanden op. Game Wereld is een gratis, open web-app die kinderen
+              van 4-8 jaar spelenderwijs motiveert om thuis en op school hun Nederlandse
+              woordenschat en spraak te oefenen. Met een Roblox-achtige gaming aesthetic,
+              kindvriendelijke avatars en logopedisch onderbouwde minigames transformeren we saaie
+              oefeningen naar dagelijks speelplezier. Met deze Pioniersbijdrage realiseren we
+              professionele Nederlandse audio, 120 didactische leermaterialen en een praktijkpilot
+              met 15 kinderen.
+            </div>
+          </div>
+
+          <div class="form-field-card">
+            <div class="form-field-label">Veld: Wat is het maatschappelijke probleem?</div>
+            <div class="form-field-val">
+              Lange wachttijden in de logopedie zorgen ervoor dat jonge kinderen in een cruciale
+              ontwikkelfase (groep 1 t/m 3) stil komen te staan. Ouders van meertalige gezinnen
+              missen vaak effectief oefenmateriaal om thuis spelenderwijs de Nederlandse schooltaal
+              te oefenen. Bestaande apps zijn vaak te schools, bevatten storende advertenties of
+              zijn duur. Game Wereld overbrugt deze kloof met motiverende serious gaming.
+            </div>
+          </div>
+
+          <div class="form-field-card">
+            <div class="form-field-label">Veld: Wat maakt uw oplossing innovatief?</div>
+            <div class="form-field-val">
+              1. <strong>Actieve spraakuitlokking:</strong> In plaats van passief tikken bevat de
+              game een 'Zeg & Zet'-modus die kinderen uitdaagt hardop te praten.<br />
+              2. <strong>Roblox-gaming aesthetic:</strong> Visueel aantrekkelijk voor kleuters
+              (avatars, badges, 3D buttons).<br />
+              3. <strong>Local-First privacy:</strong> Geen externe tracking van stemmen of
+              persoonsgegevens, wat adoptie op basisscholen en in gezinnen maximaal laagdrempelig en
+              veilig maakt.
+            </div>
+          </div>
+
+          <div class="form-field-card">
+            <div class="form-field-label">Veld: Openheid en Public Value</div>
+            <div class="form-field-val">
+              De web-app wordt gratis beschikbaar gesteld zonder paywalls. De didactische
+              leermethodiek en de resultaten van de praktijkpilot worden als openbaar rapport
+              gepubliceerd zodat het bredere onderwijsveld hiervan profiteert.
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. SLUITENDE BEGROTING -->
+        <section id="begroting" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">💰</span> 4. De Sluitende Begroting van € 10.000
+            </h2>
+            <span class="pill pill-green">Exact Sluitend</span>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nr</th>
+                  <th>Kostenpost</th>
+                  <th>Specificatie & Uurtarief</th>
+                  <th style="text-align: right">Bedrag</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><strong>Professionele Stemacteur (Audio)</strong></td>
+                  <td>
+                    2 studio-opnamesessies (350 woorden, instructies, complimenten, avatars).
+                    Tarief: € 250/u incl. montage.
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 2.000,00</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><strong>Illustraties & Didactische Woordkaarten</strong></td>
+                  <td>
+                    Freelance illustrator voor 120 unieke, kindvriendelijke vectortekeningen
+                    (schooltaal, voorzetsels, emoties). 40 uur à € 45/u.
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 1.800,00</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><strong>Logopedisch Didactisch Consult</strong></td>
+                  <td>
+                    15 uur begeleiding door een vrijgevestigd logopedist: woordenlijsten toetsen aan
+                    NVLF-doelen en testprotocol opstellen. 15 uur à € 100/u.
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 1.500,00</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td><strong>Lead Developer Uren (Weekenden)</strong></td>
+                  <td>
+                    115 uur programmeerwerk (minigames, audio-engine, PWA caching). Normtarief SIDN
+                    Pionier: € 35/u (115 x € 35).
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 4.025,00</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><strong>Testtablet voor Gebruikerstesten</strong></td>
+                  <td>
+                    1 Samsung Galaxy Tab A9+ (11 inch) voor fysieke gebruikerstesten met kinderen (€
+                    225) + kindveilige hoes (€ 35).
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 260,00</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td><strong>Hosting, Domein & PWA Tooling</strong></td>
+                  <td>
+                    12 maanden snelle, veilige hosting (SSL, CDN voor audio-caching) +
+                    domeinregistratie.
+                  </td>
+                  <td style="text-align: right; color: #34d399; font-weight: 700">€ 415,00</td>
+                </tr>
+                <tr style="background: rgba(16, 185, 129, 0.1)">
+                  <td colspan="3">
+                    <strong>TOTAAL PROJECTBEGROTING = GEVRAAGDE SUBSIDIE SIDN FONDS</strong>
+                  </td>
+                  <td
+                    style="text-align: right; color: #34d399; font-size: 1.15rem; font-weight: 800"
+                  >
+                    € 10.000,00
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 5. 6-MAANDEN MIJLPAALPLAN & DE 7 WERELDEN -->
+        <section id="mijlpalen" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">🌍</span> 5. De 7 Spelwerelden & 6-Maanden
+              Haalbaarheidsplan
+            </h2>
+            <span class="pill pill-green">De "4 + 3" Formule</span>
+          </div>
+
+          <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.9rem">
+            Uw visie omvat 7 herkenbare werelden. Om te zorgen dat u in uw weekenden (11 uur/week)
+            **geen burnout oploopt** en **100% topkwaliteit levert**, faseren we dit strategisch in
+            <strong>4 Kernwerelden (Subsidie)</strong> en
+            <strong>3 Uitbreidingswerelden (Roadmap)</strong>:
+          </p>
+
+          <!-- Tabel met 7 Werelden -->
+          <div class="table-container" style="margin-bottom: 24px">
+            <table>
+              <thead>
+                <tr>
+                  <th>Wereld</th>
+                  <th>Thematische Insteek</th>
+                  <th>Woordenschat Focus (30 woorden)</th>
+                  <th>Status</th>
+                  <th>Fasering</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background: rgba(16, 185, 129, 0.05)">
+                  <td><strong>1. Strand</strong></td>
+                  <td>Zee, strand & ontspanning</td>
+                  <td>
+                    Dolfijn, vuurtoren, vlieger, schelp, zwemmen + voorzetsels (in, op, onder)
+                  </td>
+                  <td><span class="pill pill-green">90% Klaar</span></td>
+                  <td><strong style="color: #34d399">Kern (Fase 1)</strong></td>
+                </tr>
+                <tr style="background: rgba(16, 185, 129, 0.05)">
+                  <td><strong>2. Circus</strong></td>
+                  <td>Fantasie, beweging & ritme</td>
+                  <td>Clown, acrobaat, leeuw, tent, trapeze, goochelaar, trompet</td>
+                  <td><span class="pill pill-amber">60% Klaar</span></td>
+                  <td><strong style="color: #34d399">Kern (Fase 1)</strong></td>
+                </tr>
+                <tr style="background: rgba(16, 185, 129, 0.05)">
+                  <td><strong>3. Boerderij</strong></td>
+                  <td>Dieren, natuur & voeding</td>
+                  <td>Koe, paard, tractor, schuur, modder, hooibaal, zaaien, melken</td>
+                  <td><span class="pill pill-cyan">Nieuw (Bouwen)</span></td>
+                  <td><strong style="color: #34d399">Kern (Fase 1)</strong></td>
+                </tr>
+                <tr style="background: rgba(16, 185, 129, 0.05)">
+                  <td><strong>4. School</strong></td>
+                  <td>Cruciale schooltaal (groep 1/2/3)</td>
+                  <td>Boek, schaar, potlood, juf, bord, tas, knutselen, kring</td>
+                  <td><span class="pill pill-cyan">Nieuw (Bouwen)</span></td>
+                  <td><strong style="color: #34d399">Kern (Fase 1)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>5. Speeltuin</strong></td>
+                  <td>Bewegen, actiewoorden & spel</td>
+                  <td>Glijbaan, schommel, wip, klimrek, zandbak, klimmen, rennen</td>
+                  <td><span class="pill pill-amber">Roadmap</span></td>
+                  <td><span style="color: var(--text-dim)">Uitbreiding (Fase 2)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>6. Dierentuin</strong></td>
+                  <td>Wilde dieren & eigenschappen</td>
+                  <td>Giraf, olifant, zebra, hok, verzorger, brullen, strepen</td>
+                  <td><span class="pill pill-amber">Roadmap</span></td>
+                  <td><span style="color: var(--text-dim)">Uitbreiding (Fase 2)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>7. Ruimte</strong></td>
+                  <td>Verwondering & abstractie</td>
+                  <td>Raket, planeet, ster, astronaut, zweven, aarde, ver weg</td>
+                  <td><span class="pill pill-amber">Roadmap</span></td>
+                  <td><span style="color: var(--text-dim)">Uitbreiding (Fase 2)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Haalbaarheidsbox -->
+          <div
+            style="
+              background: rgba(15, 23, 42, 0.6);
+              border: 1px solid rgba(56, 189, 248, 0.25);
+              border-radius: var(--radius-md);
+              padding: 18px 22px;
+              margin-bottom: 24px;
+            "
+          >
+            <h4 style="color: #67e8f9; font-size: 1rem; margin-bottom: 6px">
+              💡 De Haalbaarheidstoets: Waarom de "4 + 3" Formule gegarandeerd wint
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.6">
+              In 6 maanden heeft u in de weekenden circa <strong>286 uur</strong> beschikbaar. 7
+              complete werelden bouwen met audio, animaties en kindertests kost minstens 450 uur.
+              Door <strong>4 Kernwerelden</strong> op te leveren (4 × 30 woorden =
+              <strong>exact de 120 beloofde woordkaarten</strong>), levert u topkwaliteit zonder
+              stress. De commissie ziet dit als een bewijs van volwassen projectbeheersing! De 3
+              overige werelden (Speeltuin, Dierentuin, Ruimte) bewaart u als uw officiële
+              vervolg-roadmap.
+            </p>
+          </div>
+
+          <!-- Timeline per maand -->
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-node">1</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">Maand 1: Didactiek & Afronding Wereld 1 (Strand)</h3>
+                  <span class="timeline-time">Mijlpaal 1</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  Vaststellen van de eerste 60 kernwoorden (Strand + Circus) met Praatmaat Groep.
+                  Strand-avontuur 100% afronden en inspreekscripts klaarmaken.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node">2</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">
+                    Maand 2: Audio-Opnames & Wereld 2 (Circus) Voltooien
+                  </h3>
+                  <span class="timeline-time">Mijlpaal 2</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  Studio-opnames met de stemacteur voor Strand en Circus (150 audio-items).
+                  Circus-avontuur volledig integreren en speelklaar maken.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node">3</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">Maand 3: Bouw van Wereld 3 (De Boerderij)</h3>
+                  <span class="timeline-time">Mijlpaal 3</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  Importeren van 30 boerderij-dieren en objecten. Bouwen van 'Zeg & Zet' en
+                  spraakherkenning voor boerderijgeluiden en dierenbenamingen.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node">4</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">Maand 4: Bouw van Wereld 4 (School / Klaslokaal)</h3>
+                  <span class="timeline-time">Mijlpaal 4</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  30 schooltaalwoorden integreren (schaar, boek, kring, bord, juf). 120 woordkaarten
+                  compleet; offline PWA caching testen voor alle 4 werelden.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node">5</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">Maand 5: De Praktijkpilot met Praatmaat Groep</h3>
+                  <span class="timeline-time">Mijlpaal 5</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  Testtablets inzetten bij Praatmaat Groep. Testen met 15 kinderen; meten van
+                  spraakplezier, reactietijden en woordenschatgroei.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node">6</div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3 class="timeline-title">Maand 6: Openbare Lancering & Roadmap Presentatie</h3>
+                  <span class="timeline-time">Mijlpaal 6</span>
+                </div>
+                <p style="font-size: 0.86rem; color: var(--text-muted)">
+                  Openbare lancering van de gratis web-app (4 werelden, 120 woorden). Eindrapport
+                  indienen bij SIDN Fonds en aankondiging van Fase 2 (Speeltuin, Dierentuin,
+                  Ruimte).
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. JURY-DRAAIBOEK -->
+        <section id="jurydraaiboek" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">🧠</span> 6. Jury-Draaiboek: Waarom 80% Faalt en Hoe U Wint
+            </h2>
+            <span class="pill pill-green">De Winnende Formule</span>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 30%">Valkuil van Afgewezen Aanvragers</th>
+                  <th style="width: 35%">Wat de Beoordelaar Denkt</th>
+                  <th>Hoe Game Wereld de Maximale Score Behaalt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Commercieel doel vermoeden</strong></td>
+                  <td>
+                    <em
+                      >"Deze developer wil subsidie om straks direct geld te vragen in de App
+                      Store."</em
+                    >
+                  </td>
+                  <td>
+                    U garandeert dat de <strong>gesubsidieerde basisversie</strong> (de eerste
+                    minigames en basiswoordenschat) gratis en advertentievrij blijft voor kwetsbare
+                    kinderen.
+                    <strong
+                      >Toekomstige uitbreidingen, nieuwe speelwerelden en scholen-licenties mag u
+                      daarna volledig commercieel verkopen</strong
+                    >
+                    (freemium/B2B) om het platform op eigen benen te laten staan.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Te technisch gefocust</strong></td>
+                  <td>
+                    <em
+                      >"Mooi dat je React bouwt, maar welk maatschappelijk probleem los je op?"</em
+                    >
+                  </td>
+                  <td>
+                    U opent met het persoonlijke verhaal van uw kind, de wachtlijsten in de
+                    logopedie (12 mnd) en kansenongelijkheid.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Geen bewijs van haalbaarheid</strong></td>
+                  <td>
+                    <em>"Wie zegt dat een kind hier daadwerkelijk beter door gaat praten?"</em>
+                  </td>
+                  <td>
+                    U levert een ondertekende steunbrief van een logopedist én toont een werkend
+                    prototype op video.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Vage ronde begroting</strong></td>
+                  <td>
+                    <em
+                      >"€ 5.000 voor software, € 5.000 voor content... dit is een
+                      nattevingerschatting."</em
+                    >
+                  </td>
+                  <td>
+                    Onze begroting specificeert uurtarieven, aantallen audiofragmenten, illustraties
+                    en hardware exact op de euro.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 7. KANT-EN-KLARE BIJLAGEN -->
+        <section id="bijlagen" class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-icon">📎</span> 7. Kant-en-Klare Bijlagen (Script & Steunbrief)
+            </h2>
+            <span class="pill pill-cyan">Klaar voor Gebruik</span>
+          </div>
+
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #f8fafc">
+            🎬 Bijlage 1: Het Letterlijke 2-Minuten Smartphone Pitch Script
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px">
+            Neem dit op met uw smartphone aan uw bureau met de tablet voor u:
+          </p>
+          <div class="template-box" id="pitch-script-text">
+            [0:00 - 0:30 • Persoonlijk Verhaal & Urgentie] "Goedendag beoordelingscommissie van het
+            SIDN Fonds. Mijn naam is [Uw Naam]. Doordeweeks werk ik in de softwareontwikkeling, maar
+            de aanleiding voor dit project is heel persoonlijk: mijn eigen zoontje van 7 groeit
+            meertalig op. Zijn moedertaal is sterk, maar op school merkten we dat zijn Nederlandse
+            woordenschat extra stimulans nodig had. Toen we hulp zochten, bleek de wachtlijst bij de
+            logopedist bijna een heel schooljaar te duren. In Nederland staan duizenden kinderen met
+            een migratieachtergrond of taalachterstand in precies diezelfde wachtrij. Zij verliezen
+            kostbare maanden waarin ze op school achterop raken." [0:30 - 1:10 • Demonstratie (Toon
+            de tablet aan de camera)] "Daarom ben ik in mijn vrije tijd gestart met Game Wereld.
+            Kijk, hier op het scherm: in plaats van statische oefenboekjes stappen kinderen in een
+            vrolijke, Roblox-achtige spelwereld met unieke avatars en badges. In onze eerste
+            minigames oefenen kinderen spelenderwijs met ruimtelijke begrippen, schooltaal en
+            actieve zinsbouw. En heel belangrijk: via de 'Zeg & Zet'-functie worden kinderen
+            uitgedaagd om zélf hardop te praten en woorden uit te spreken." [1:10 - 1:45 • Waarvoor
+            dient de € 10.000?] "De technische basis staat en werkt al lokaal. Maar om dit écht
+            effectief te maken, hebben we professionele leermaterialen nodig. Met de
+            Pioniersbijdrage van € 10.000 huren we een professionele stemacteur in voor vlekkeloze
+            Nederlandse uitspraak, laten we 120 kindvriendelijke woordkaarten tekenen door een
+            illustrator, en laten we de didactiek controleren door een gediplomeerd logopedist die
+            ook de praktijkpilot met 15 kinderen begeleidt." [1:45 - 2:00 • Afsluiting & Belofte]
+            "Game Wereld wordt een open, gratis en veilige webapp zonder advertenties. Want elk kind
+            verdient een eerlijke start op de basisschool. Met uw steun maken we van wachten op de
+            logopedist een periode van speels leren. Hartelijk dank voor uw vertrouwen!"
+          </div>
+
+          <h3
+            style="
+              font-size: 1.1rem;
+              font-weight: 700;
+              margin-top: 28px;
+              margin-bottom: 12px;
+              color: #f8fafc;
+            "
+          >
+            📝 Bijlage 2: Sjabloon Steunbrief (Letter of Intent) voor Logopedist of School
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px">
+            Kopieer deze tekst en laat het ondertekenen door uw logopedist of schoolleider op hun
+            briefpapier:
+          </p>
+          <div class="template-box" id="loi-template-text">
+            [Briefpapier van de Logopediepraktijk of Basisschool] Aan: Stichting SIDN Fonds
+            Onderwerp: Steunbetuiging & Samenwerking Project "Game Wereld" Datum: [Datum van deze
+            maand] Geachte beoordelingscommissie van het SIDN Fonds, Hierbij verklaart
+            ondergetekende, [Naam Logopedist / Functie / Praktijknaam], gevestigd te [Plaats], van
+            harte haar steun aan het innovatieve project "Game Wereld", ontwikkeld door [Uw Naam].
+            In onze dagelijkse praktijk constateren wij een grote behoefte aan motiverende,
+            toegankelijke digitale hulpmiddelen voor kinderen met een taalachterstand of een
+            meertalige achtergrond. Door lange wachtlijsten in de zorg missen kinderen vaak cruciale
+            vroege oefenkansen. Wij hebben het prototype van Game Wereld ingezien en zijn zeer
+            enthousiast over de combinatie van speelse gaming-elementen en actieve
+            spraakstimulering. Om het project tot een succes te maken, verbinden wij ons aan de
+            volgende samenwerking: 1. Wij adviseren bij de selectie van de 120 didactische
+            kernwoorden (schooltaal en begrippen). 2. Wij stellen onze praktijk/school beschikbaar
+            als testlocatie voor een pilot met minimaal 10 tot 15 kinderen gedurende de looptijd van
+            het project. 3. Wij evalueren de voortgang van de kinderen en leveren feedback op het
+            gebruiksgemak. Wij bevelen de aanvraag voor een Pioniersbijdrage bij het SIDN Fonds dan
+            ook van harte aan. Met vriendelijke groet, [Handtekening] [Naam & Functie] [Praktijknaam
+            / School] [Telefoonnummer & E-mailadres]
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

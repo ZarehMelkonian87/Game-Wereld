@@ -26,6 +26,9 @@ import {
 import { GameHostStatusScreen } from "./GameHostStatusScreen";
 import { GameRuntimeBoundary } from "./GameRuntimeBoundary";
 import { getMissingRequiredCapabilities, loadGameModule } from "./gameHostContracts";
+import { createGameAssetSyncManager, type SyncProgress } from "../pwa/GameAssetSyncManager";
+import { GameAssetSyncModal } from "../pwa/GameAssetSyncModal";
+import type { OfflinePackageDescriptor } from "../pwa/offlinePackages";
 
 type LoadState =
   | { status: "loading" }
@@ -37,7 +40,9 @@ const availableCapabilities = (): Set<GameCapability> => {
   if (typeof Audio !== "undefined") capabilities.add("audio");
   if (
     typeof window !== "undefined" &&
-    ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
+    ("SpeechRecognition" in window ||
+      "webkitSpeechRecognition" in window ||
+      Boolean(navigator?.mediaDevices?.getUserMedia))
   ) {
     capabilities.add("microphone");
   }
@@ -54,6 +59,12 @@ export const GameHost = () => {
   const { gameId: routeGameId, theme } = useParams();
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
+  const [syncProgress, setSyncProgress] = useState<SyncProgress | undefined>();
+  const [showSyncModal, setShowSyncModal] = useState(false);
+  const [isCellularWarning, setIsCellularWarning] = useState(false);
+  const [missingBytes, setMissingBytes] = useState(0);
+  const [missingFiles, setMissingFiles] = useState(0);
+  const [pendingPackage, setPendingPackage] = useState<OfflinePackageDescriptor | null>(null);
   const closedRef = useRef(false);
   const sessionStartedRef = useRef(false);
   const sessionStartPromiseRef = useRef<Promise<void>>(Promise.resolve());
@@ -150,6 +161,72 @@ export const GameHost = () => {
       active = false;
     };
   }, [canonicalGameId, loadAttempt, profileId, registryEntry, repositories.settings]);
+
+  const handleConfirmCellular = async () => {
+    sessionStorage.setItem("game-wereld:allow-cellular", "true");
+    setIsCellularWarning(false);
+    if (pendingPackage) {
+      const syncManager = createGameAssetSyncManager();
+      await syncManager.syncPackage(pendingPackage, (progress) => {
+        setSyncProgress(progress);
+      });
+      setShowSyncModal(false);
+      setPendingPackage(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!registryEntry || !isLoadableGameEntry(registryEntry)) return;
+    const packages = registryEntry.manifest.offlinePackages;
+    if (!packages || packages.length === 0) return;
+
+    let active = true;
+    const syncManager = createGameAssetSyncManager();
+
+    void (async () => {
+      for (const pkg of packages) {
+        if (!active) break;
+        try {
+          const check = await syncManager.checkPackageSync(pkg);
+          if (check.isUpToDate) continue;
+
+          // Mobiele databundel (4G/5G) check: vraag eerst een bewuste bevestiging
+          const allowCellular = sessionStorage.getItem("game-wereld:allow-cellular") === "true";
+          if (check.isCellular && !allowCellular) {
+            if (active) {
+              setPendingPackage(pkg);
+              setMissingBytes(check.missingTotalBytes);
+              setMissingFiles(check.missingCount);
+              setIsCellularWarning(true);
+              setShowSyncModal(true);
+            }
+            return;
+          }
+
+          // Automatisch via wifi (of wanneer 4G/5G bewust is bevestigd)
+          if (active) {
+            setIsCellularWarning(false);
+            setShowSyncModal(true);
+          }
+
+          await syncManager.syncPackage(pkg, (progress) => {
+            if (active) {
+              setSyncProgress(progress);
+            }
+          });
+        } catch {
+          // Bij netwerkproblemen niet blokkeren, val terug op streaming
+        }
+      }
+      if (active) {
+        setShowSyncModal(false);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [registryEntry]);
 
   useEffect(() => {
     const handlePreloadError = (event: Event) => {
@@ -303,32 +380,48 @@ export const GameHost = () => {
   const { Game } = loadState.module;
 
   return (
-    <GameRuntimeBoundary
-      correlationId={correlationIdRef.current}
-      onBack={() => {
-        closeSession("crashed");
-        navigate(backPath);
-      }}
-      onCrash={() => {
-        appDiagnostics.record({
-          context: {
-            contentVersion,
-            gameId: canonicalGameId,
-            operation: "render-game",
-            recovery: "retry-or-back",
-            route: window.location.pathname,
-          },
-          correlationId: correlationIdRef.current,
-          event: "game-runtime-crash",
-          severity: "error",
-          subsystem: "game-host",
-        });
-        closeSession("crashed");
-      }}
-      onRetry={() => window.location.reload()}
-    >
-      <Game runtime={runtime} />
-    </GameRuntimeBoundary>
+    <>
+      {showSyncModal && registryEntry ? (
+        <GameAssetSyncModal
+          isCellularWarning={isCellularWarning}
+          missingBytes={missingBytes}
+          missingFiles={missingFiles}
+          onConfirmCellular={() => void handleConfirmCellular()}
+          onDismiss={() => {
+            setShowSyncModal(false);
+            setPendingPackage(null);
+          }}
+          progress={syncProgress}
+          title={registryEntry.manifest.title}
+        />
+      ) : null}
+      <GameRuntimeBoundary
+        correlationId={correlationIdRef.current}
+        onBack={() => {
+          closeSession("crashed");
+          navigate(backPath);
+        }}
+        onCrash={() => {
+          appDiagnostics.record({
+            context: {
+              contentVersion,
+              gameId: canonicalGameId,
+              operation: "render-game",
+              recovery: "retry-or-back",
+              route: window.location.pathname,
+            },
+            correlationId: correlationIdRef.current,
+            event: "game-runtime-crash",
+            severity: "error",
+            subsystem: "game-host",
+          });
+          closeSession("crashed");
+        }}
+        onRetry={() => window.location.reload()}
+      >
+        <Game runtime={runtime} />
+      </GameRuntimeBoundary>
+    </>
   );
 };
 

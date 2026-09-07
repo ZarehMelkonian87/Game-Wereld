@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
+import { resolveCachedMediaUrl } from "../../../../pwa/mediaCacheResolver";
 import { mascotIconUrls } from "../../asset-urls";
 import { PanelCard } from "../../components/ui";
 import type {
@@ -72,6 +73,24 @@ export const FloatingSuccessToast = ({
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [hasVideoEnded, setHasVideoEnded] = useState(false);
   const activeHintVideoUrl = feedback?.hintVideoUrl ?? hintVideoUrl;
+  const [resolvedHintVideoUrl, setResolvedHintVideoUrl] = useState(activeHintVideoUrl);
+
+  useEffect(() => {
+    let active = true;
+    if (activeHintVideoUrl) {
+      void resolveCachedMediaUrl(activeHintVideoUrl).then((localUrl) => {
+        if (active) {
+          setResolvedHintVideoUrl(localUrl);
+        }
+      });
+    } else {
+      setResolvedHintVideoUrl(undefined);
+    }
+    return () => {
+      active = false;
+    };
+  }, [activeHintVideoUrl]);
+
   const shouldRender = Boolean(feedback && (feedback.text || activeHintVideoUrl));
   const isCorrectFeedback = feedback?.kind === "correct";
   const videoLabel = isCorrectFeedback ? "Speel feedbackvideo" : "Speel hintvideo";
@@ -182,7 +201,7 @@ export const FloatingSuccessToast = ({
             playsInline
             preload="metadata"
             ref={videoRef}
-            src={hintVideoUrl}
+            src={resolvedHintVideoUrl ?? activeHintVideoUrl}
             style={{
               clipPath: "circle(50% at 50% 50%)",
             }}

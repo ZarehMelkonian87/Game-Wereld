@@ -1,13 +1,10 @@
-
 export const beachBackgrounds = {
   portrait: new URL("./assets/backgrounds/circus-board-portrait.png", import.meta.url).href,
   portraitWebp: new URL("./assets/backgrounds/circus-board-portrait.webp", import.meta.url).href,
   landscape: new URL("./assets/backgrounds/circus-board-landscape.png", import.meta.url).href,
   landscapeWebp: new URL("./assets/backgrounds/circus-board-landscape.webp", import.meta.url).href,
-  voiceSideScroller: new URL(
-    "./assets/backgrounds/circus-voice-side-scroller.png",
-    import.meta.url,
-  ).href,
+  voiceSideScroller: new URL("./assets/backgrounds/circus-voice-side-scroller.png", import.meta.url)
+    .href,
   voiceSideScrollerWebp: new URL(
     "./assets/backgrounds/circus-voice-side-scroller.webp",
     import.meta.url,

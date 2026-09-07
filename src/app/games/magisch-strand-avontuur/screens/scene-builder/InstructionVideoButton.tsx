@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { resolveCachedMediaUrl } from "../../../../pwa/mediaCacheResolver";
 import {
   createForegroundAudioSession,
   GAME_FOREGROUND_AUDIO_VOLUME,
@@ -23,6 +24,19 @@ export const InstructionVideoButton = ({
   src,
   variant = "control",
 }: InstructionVideoButtonProps) => {
+  const [resolvedSrc, setResolvedSrc] = useState(src);
+
+  useEffect(() => {
+    let active = true;
+    void resolveCachedMediaUrl(src).then((localUrl) => {
+      if (active) {
+        setResolvedSrc(localUrl);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [src]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const onPlaybackErrorRef = useRef(onPlaybackError);
   const onPlaybackStartRef = useRef(onPlaybackStart);
@@ -109,7 +123,7 @@ export const InstructionVideoButton = ({
         playsInline
         preload="metadata"
         ref={videoRef}
-        src={src}
+        src={resolvedSrc}
         style={{
           clipPath: "circle(50% at 50% 50%)",
         }}

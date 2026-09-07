@@ -78,12 +78,11 @@ export default defineConfig({
               url.origin === self.location.origin && request.destination === "image",
           },
           {
-            handler: "NetworkFirst",
+            handler: "CacheFirst",
             options: {
-              cacheName: "game-wereld-media-runtime-v2",
-              cacheableResponse: { statuses: [200] },
-              expiration: { maxAgeSeconds: 86_400, maxEntries: 12 },
-              networkTimeoutSeconds: 4,
+              cacheName: "game-wereld-media-runtime-v3",
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: { maxAgeSeconds: 2_592_000, maxEntries: 250 },
             },
             urlPattern: ({ request, url }) =>
               url.origin === self.location.origin &&

@@ -15,6 +15,7 @@ import {
   getBrowserSpeechRecognitionSupport,
   requestBrowserMicrophonePermission,
 } from "./browserSpeech";
+import { createLocalSpeechRecognition } from "./localSpeechEngine";
 
 interface CreateBrowserGameRuntimeOptions {
   clock?: GameRuntime["clock"];
@@ -115,7 +116,17 @@ export const createBrowserGameRuntime = ({
     },
     practice,
     speech: {
-      createRecognition: createBrowserSpeechRecognition,
+      createRecognition: (options = {}) => {
+        if (
+          typeof navigator !== "undefined" &&
+          "mediaDevices" in navigator &&
+          typeof navigator.mediaDevices?.getUserMedia === "function" &&
+          (typeof AudioContext !== "undefined" || "webkitAudioContext" in window)
+        ) {
+          return createLocalSpeechRecognition(options);
+        }
+        return createBrowserSpeechRecognition(options);
+      },
       getMicrophonePermission: getBrowserMicrophonePermission,
       getRecognitionSupport: getBrowserSpeechRecognitionSupport,
       isRecognitionAvailable: () => getBrowserSpeechRecognitionSupport().isSupported,
