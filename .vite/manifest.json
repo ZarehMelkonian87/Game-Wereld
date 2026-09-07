@@ -1,33 +1,33 @@
 {
   "../../../../../@vite-plugin-pwa/virtual:pwa-register": {
-    "file": "assets/virtual_pwa-register-DJUpEv0J.js",
+    "file": "assets/virtual_pwa-register-MmHoiqFN.js",
     "name": "virtual_pwa-register",
     "src": "../../../../../@vite-plugin-pwa/virtual:pwa-register",
     "isDynamicEntry": true,
     "imports": [
       "index.html",
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js"
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
     ],
     "dynamicImports": [
       "node_modules/workbox-window/build/workbox-window.prod.es5.mjs"
     ]
   },
-  "_GradientTitle-CXtp-uAk.js": {
-    "file": "assets/GradientTitle-CXtp-uAk.js",
+  "_GradientTitle-BL_Q8xGo.js": {
+    "file": "assets/GradientTitle-BL_Q8xGo.js",
     "name": "GradientTitle",
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js"
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
     ]
   },
-  "_ScreenGuard-CCP4DE08.js": {
-    "file": "assets/ScreenGuard-CCP4DE08.js",
+  "_ScreenGuard-Ct96ieqf.js": {
+    "file": "assets/ScreenGuard-Ct96ieqf.js",
     "name": "ScreenGuard",
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js"
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
     ]
   },
-  "_game-magisch-strand-avontuur-DsHJ8yTM.js": {
-    "file": "assets/game-magisch-strand-avontuur-DsHJ8yTM.js",
+  "_game-magisch-strand-avontuur-DKCob1OR.js": {
+    "file": "assets/game-magisch-strand-avontuur-DKCob1OR.js",
     "name": "game-magisch-strand-avontuur",
     "isDynamicEntry": true,
     "assets": [
@@ -145,39 +145,47 @@
       "assets/mascot-01-neutral-C4m9lZWu.png"
     ]
   },
-  "_games-XQTQ60cn.js": {
-    "file": "assets/games-XQTQ60cn.js",
+  "_games-Dkce21Hn.js": {
+    "file": "assets/games-Dkce21Hn.js",
     "name": "games",
     "imports": [
       "index.html"
     ]
   },
-  "_proxy-jJi__kvk.js": {
-    "file": "assets/proxy-jJi__kvk.js",
+  "_offlinePackages-Bq1Jd6xR.js": {
+    "file": "assets/offlinePackages-Bq1Jd6xR.js",
+    "name": "offlinePackages",
+    "imports": [
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
+    ]
+  },
+  "_proxy-affEWcbj.js": {
+    "file": "assets/proxy-affEWcbj.js",
     "name": "proxy",
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html"
     ]
   },
-  "_runtimeAdapters-v4rxfUkp.js": {
-    "file": "assets/runtimeAdapters-v4rxfUkp.js",
+  "_runtimeAdapters-C66-HMN1.js": {
+    "file": "assets/runtimeAdapters-C66-HMN1.js",
     "name": "runtimeAdapters",
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html"
     ]
   },
   "index.html": {
-    "file": "assets/index-UjCIldaK.js",
+    "file": "assets/index-BgqrNcV4.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js"
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
     ],
     "dynamicImports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
+      "src/app/games/groot-circus-avontuur/index.tsx",
       "src/app/games/rekenen-strand/index.tsx",
       "src/app/screens/welcome/index.ts",
       "src/app/screens/profile-select/index.ts",
@@ -190,10 +198,11 @@
       "../../../../../@vite-plugin-pwa/virtual:pwa-register"
     ],
     "css": [
-      "assets/index-CZtL2Po2.css"
+      "assets/index-Bs1c4xyH.css"
     ],
     "assets": [
-      "assets/world-beach-CQwbLi6A.png"
+      "assets/world-beach-CQwbLi6A.png",
+      "assets/world-circus-DhVa_7Ny.png"
     ]
   },
   "node_modules/workbox-window/build/workbox-window.prod.es5.mjs": {
@@ -202,9 +211,214 @@
     "src": "node_modules/workbox-window/build/workbox-window.prod.es5.mjs",
     "isDynamicEntry": true
   },
+  "src/app/games/groot-circus-avontuur/assets/audio/background-music.mp3": {
+    "file": "assets/background-music-DdUSu1S4.mp3",
+    "src": "src/app/games/groot-circus-avontuur/assets/audio/background-music.mp3"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.png": {
+    "file": "assets/circus-board-landscape-DRrior6e.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.webp": {
+    "file": "assets/circus-board-landscape-ohh1WMvD.webp",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.webp"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.png": {
+    "file": "assets/circus-board-portrait-Czb-_bBB.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.webp": {
+    "file": "assets/circus-board-portrait-Wi34FuLt.webp",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.webp"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.png": {
+    "file": "assets/circus-voice-side-scroller-POoSgyhh.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.webp": {
+    "file": "assets/circus-voice-side-scroller-xXUssN0i.webp",
+    "src": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.webp"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/avatars/avatar-05.png": {
+    "file": "assets/avatar-05-DxR6KWmC.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/avatars/avatar-05.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-01-basic.png": {
+    "file": "assets/broom-01-basic-DCl0hNIR.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-01-basic.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-02-beach.png": {
+    "file": "assets/broom-02-beach-Dm5SUzbY.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-02-beach.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-06-speed.png": {
+    "file": "assets/broom-06-speed-BYA4ve7K.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-06-speed.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-01-neutral.png": {
+    "file": "assets/mascot-01-neutral-C4m9lZWu.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-01-neutral.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-05-celebration.png": {
+    "file": "assets/mascot-05-celebration-PUcpWzM0.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-05-celebration.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-06-hint.png": {
+    "file": "assets/mascot-06-hint-D_DbfUeb.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-06-hint.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/icons/worlds/world-circus.png": {
+    "file": "assets/world-circus-DhVa_7Ny.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/worlds/world-circus.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/logos/start-logo-circus.png": {
+    "file": "assets/start-logo-circus-dKCYkVbN.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/logos/start-logo-circus.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/cloud-obstacle.png": {
+    "file": "assets/cloud-obstacle-BRdkNmdW.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/cloud-obstacle.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/sea-lion-obstacle.png": {
+    "file": "assets/sea-lion-obstacle-DbWExnRR.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/sea-lion-obstacle.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/seagull-obstacle.png": {
+    "file": "assets/seagull-obstacle-CKLI00oQ.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/seagull-obstacle.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/shark-obstacle.png": {
+    "file": "assets/shark-obstacle-GaVHh8cO.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/shark-obstacle.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/acrobat-sticker.png": {
+    "file": "assets/acrobat-sticker-MVGMN7_D.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/acrobat-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/ball-sticker.png": {
+    "file": "assets/ball-sticker-CgZry1Ab.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/ball-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/balloon-sticker.png": {
+    "file": "assets/balloon-sticker-C7QsIy9g.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/balloon-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/bear-sticker.png": {
+    "file": "assets/bear-sticker-M9ocUWzY.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/bear-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/cannon-sticker.png": {
+    "file": "assets/cannon-sticker-Bl1Wkim7.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/cannon-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/cat-sticker.png": {
+    "file": "assets/cat-sticker-WNuK8RQ0.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/cat-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/chicken-sticker.png": {
+    "file": "assets/chicken-sticker-DdC08v4G.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/chicken-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/clown-sticker.png": {
+    "file": "assets/clown-sticker-WRPjxApQ.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/clown-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/dog-sticker.png": {
+    "file": "assets/dog-sticker-D6lnG1bF.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/dog-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/drum-sticker.png": {
+    "file": "assets/drum-sticker-CaXhaqnA.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/drum-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/elephant-sticker.png": {
+    "file": "assets/elephant-sticker-DommvBgD.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/elephant-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/flag-sticker.png": {
+    "file": "assets/flag-sticker-rmF7Wu6p.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/flag-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/hoop-sticker.png": {
+    "file": "assets/hoop-sticker-C0EGp0S6.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/hoop-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/lion-sticker.png": {
+    "file": "assets/lion-sticker-DObgYAcV.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/lion-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/monkey-sticker.png": {
+    "file": "assets/monkey-sticker-BgTZvrBr.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/monkey-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/mouse-sticker.png": {
+    "file": "assets/mouse-sticker-BBIhiRkq.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/mouse-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/piglet-sticker.png": {
+    "file": "assets/piglet-sticker-DEeGkx0h.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/piglet-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/seal-sticker.png": {
+    "file": "assets/seal-sticker-DD9fRows.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/seal-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/assets/objects/transparent/unicycle-sticker.png": {
+    "file": "assets/unicycle-sticker-3mNiPFPU.png",
+    "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/unicycle-sticker.png"
+  },
+  "src/app/games/groot-circus-avontuur/index.tsx": {
+    "file": "assets/index-DsA54_2M.js",
+    "name": "index",
+    "src": "src/app/games/groot-circus-avontuur/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
+    ],
+    "assets": [
+      "assets/circus-board-portrait-Czb-_bBB.png",
+      "assets/circus-board-portrait-Wi34FuLt.webp",
+      "assets/circus-board-landscape-DRrior6e.png",
+      "assets/circus-board-landscape-ohh1WMvD.webp",
+      "assets/circus-voice-side-scroller-POoSgyhh.png",
+      "assets/circus-voice-side-scroller-xXUssN0i.webp",
+      "assets/start-logo-circus-dKCYkVbN.png",
+      "assets/background-music-DdUSu1S4.mp3",
+      "assets/clown-sticker-WRPjxApQ.png",
+      "assets/acrobat-sticker-MVGMN7_D.png",
+      "assets/lion-sticker-DObgYAcV.png",
+      "assets/elephant-sticker-DommvBgD.png",
+      "assets/monkey-sticker-BgTZvrBr.png",
+      "assets/chicken-sticker-DdC08v4G.png",
+      "assets/cat-sticker-WNuK8RQ0.png",
+      "assets/piglet-sticker-DEeGkx0h.png",
+      "assets/mouse-sticker-BBIhiRkq.png",
+      "assets/bear-sticker-M9ocUWzY.png",
+      "assets/seal-sticker-DD9fRows.png",
+      "assets/dog-sticker-D6lnG1bF.png",
+      "assets/unicycle-sticker-3mNiPFPU.png",
+      "assets/cannon-sticker-Bl1Wkim7.png",
+      "assets/ball-sticker-CgZry1Ab.png",
+      "assets/hoop-sticker-C0EGp0S6.png",
+      "assets/balloon-sticker-C7QsIy9g.png",
+      "assets/drum-sticker-CaXhaqnA.png",
+      "assets/flag-sticker-rmF7Wu6p.png",
+      "assets/cloud-obstacle-BRdkNmdW.png",
+      "assets/sea-lion-obstacle-DbWExnRR.png",
+      "assets/seagull-obstacle-CKLI00oQ.png",
+      "assets/shark-obstacle-GaVHh8cO.png",
+      "assets/avatar-05-DxR6KWmC.png",
+      "assets/broom-01-basic-DCl0hNIR.png",
+      "assets/broom-02-beach-Dm5SUzbY.png",
+      "assets/broom-06-speed-BYA4ve7K.png",
+      "assets/mascot-06-hint-D_DbfUeb.png",
+      "assets/mascot-05-celebration-PUcpWzM0.png",
+      "assets/mascot-01-neutral-C4m9lZWu.png"
+    ]
+  },
   "src/app/games/magisch-strand-avontuur/assets/audio/background-music.mp3": {
     "file": "assets/background-music-DdUSu1S4.mp3",
-    "src": "src/app/games/magisch-strand-avontuur/assets/audio/background-music.mp3"
+    "src": "src/app/games/groot-circus-avontuur/assets/audio/background-music.mp3"
   },
   "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.png": {
     "file": "assets/beach-board-landscape-DRpTQ2VE.png",
@@ -236,27 +450,27 @@
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.png": {
     "file": "assets/broom-01-basic-DCl0hNIR.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-01-basic.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.png": {
     "file": "assets/broom-02-beach-Dm5SUzbY.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-02-beach.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.png": {
     "file": "assets/broom-06-speed-BYA4ve7K.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-06-speed.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.png": {
     "file": "assets/mascot-01-neutral-C4m9lZWu.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-01-neutral.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.png": {
     "file": "assets/mascot-05-celebration-PUcpWzM0.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-05-celebration.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.png": {
     "file": "assets/mascot-06-hint-D_DbfUeb.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.png"
+    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-06-hint.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.png": {
     "file": "assets/world-beach-CQwbLi6A.png",
@@ -655,114 +869,117 @@
     "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.png"
   },
   "src/app/games/rekenen-strand/index.tsx": {
-    "file": "assets/game-rekenen-strand-CV9GrBzz.js",
+    "file": "assets/game-rekenen-strand-YEX_M6g6.js",
     "name": "game-rekenen-strand",
     "src": "src/app/games/rekenen-strand/index.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js"
+      "_game-magisch-strand-avontuur-DKCob1OR.js"
     ]
   },
   "src/app/screens/avatar-select/index.ts": {
-    "file": "assets/index-C_k7xk89.js",
+    "file": "assets/index-COL0q5rw.js",
     "name": "index",
     "src": "src/app/screens/avatar-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_runtimeAdapters-v4rxfUkp.js",
-      "_GradientTitle-CXtp-uAk.js",
-      "_proxy-jJi__kvk.js"
+      "_runtimeAdapters-C66-HMN1.js",
+      "_GradientTitle-BL_Q8xGo.js",
+      "_proxy-affEWcbj.js"
     ]
   },
   "src/app/screens/game-play/index.ts": {
-    "file": "assets/index-4lWlxZ9S.js",
+    "file": "assets/index-BeB7Qzmg.js",
     "name": "index",
     "src": "src/app/screens/game-play/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_runtimeAdapters-v4rxfUkp.js"
+      "_runtimeAdapters-C66-HMN1.js",
+      "_offlinePackages-Bq1Jd6xR.js",
+      "_proxy-affEWcbj.js"
     ]
   },
   "src/app/screens/games-list/index.ts": {
-    "file": "assets/index-Bp0vC5JH.js",
+    "file": "assets/index-DO4v-tf0.js",
     "name": "index",
     "src": "src/app/screens/games-list/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_games-XQTQ60cn.js",
-      "_proxy-jJi__kvk.js",
-      "_GradientTitle-CXtp-uAk.js"
+      "_games-Dkce21Hn.js",
+      "_offlinePackages-Bq1Jd6xR.js",
+      "_proxy-affEWcbj.js",
+      "_GradientTitle-BL_Q8xGo.js"
     ]
   },
   "src/app/screens/home/index.ts": {
-    "file": "assets/index-BNwBEIZY.js",
+    "file": "assets/index-CDRPK852.js",
     "name": "index",
     "src": "src/app/screens/home/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_GradientTitle-CXtp-uAk.js",
-      "_ScreenGuard-CCP4DE08.js",
-      "_proxy-jJi__kvk.js",
-      "_games-XQTQ60cn.js"
+      "_GradientTitle-BL_Q8xGo.js",
+      "_ScreenGuard-Ct96ieqf.js",
+      "_proxy-affEWcbj.js",
+      "_games-Dkce21Hn.js"
     ]
   },
   "src/app/screens/profile-select/index.ts": {
-    "file": "assets/index-BNDwzvwE.js",
+    "file": "assets/index-B7YvX0HW.js",
     "name": "index",
     "src": "src/app/screens/profile-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_proxy-jJi__kvk.js",
-      "_GradientTitle-CXtp-uAk.js"
+      "_proxy-affEWcbj.js",
+      "_GradientTitle-BL_Q8xGo.js"
     ]
   },
   "src/app/screens/progress/index.ts": {
-    "file": "assets/index-CXRvgMr2.js",
+    "file": "assets/index-BF8jGtfd.js",
     "name": "index",
     "src": "src/app/screens/progress/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_games-XQTQ60cn.js",
-      "_GradientTitle-CXtp-uAk.js",
-      "_ScreenGuard-CCP4DE08.js",
-      "_proxy-jJi__kvk.js"
+      "_games-Dkce21Hn.js",
+      "_GradientTitle-BL_Q8xGo.js",
+      "_ScreenGuard-Ct96ieqf.js",
+      "_proxy-affEWcbj.js"
     ]
   },
   "src/app/screens/settings/index.ts": {
-    "file": "assets/index-CQbdCuYK.js",
+    "file": "assets/index-CzgQnj3d.js",
     "name": "index",
     "src": "src/app/screens/settings/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_runtimeAdapters-v4rxfUkp.js",
-      "_GradientTitle-CXtp-uAk.js",
-      "_ScreenGuard-CCP4DE08.js",
-      "_proxy-jJi__kvk.js"
+      "_runtimeAdapters-C66-HMN1.js",
+      "_GradientTitle-BL_Q8xGo.js",
+      "_ScreenGuard-Ct96ieqf.js",
+      "_proxy-affEWcbj.js"
     ]
   },
   "src/app/screens/welcome/index.ts": {
-    "file": "assets/index-gPpTSW46.js",
+    "file": "assets/index-C58LOJQA.js",
     "name": "index",
     "src": "src/app/screens/welcome/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DsHJ8yTM.js",
+      "_game-magisch-strand-avontuur-DKCob1OR.js",
       "index.html",
-      "_proxy-jJi__kvk.js"
+      "_proxy-affEWcbj.js"
     ]
   }
 }

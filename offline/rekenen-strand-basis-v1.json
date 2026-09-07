@@ -1,22 +1,22 @@
 {
   "assets": [
     {
-      "bytes": 4633,
-      "hash": "sha256-cb28329cb33e1d110e391ceec73436acfc1440e5f57d6c93839108f875e9fc96",
+      "bytes": 4635,
+      "hash": "sha256-4303639c6e22b87451eb82275077e9739c13c13bc3891356aa33bbe7cbfe9d3c",
       "id": "src/app/games/rekenen-strand/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld broncode",
       "sourcePath": "src/app/games/rekenen-strand/index.tsx",
-      "url": "/assets/game-rekenen-strand-CV9GrBzz.js"
+      "url": "/assets/game-rekenen-strand-YEX_M6g6.js"
     }
   ],
   "contentVersion": "rekenen-strand-2026.07",
   "gameId": "rekenen-strand-avontuur",
   "id": "rekenen-strand-basis",
   "schemaVersion": 1,
-  "totalBytes": 4633,
+  "totalBytes": 4635,
   "version": 1,
   "worldId": "counting"
 }
