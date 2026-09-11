@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visueel E2E Testrapport: Magisch Strand-Avontuur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .screenshot-frame {
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.8) inset;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-6 py-4 shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-400 text-slate-950 font-black text-2xl shadow-lg">
+          🏖️
+        </span>
+        <div>
+          <h1 class="text-xl font-black tracking-tight text-white">
+            Magisch Strand-Avontuur
+          </h1>
+          <p class="text-xs font-bold text-amber-400">
+            Uitgebreid Visueel E2E Testrapport • 28 Actiestappen met Markeringen
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 text-xs font-black">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          100% Geslaagd (28/28)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-bold">
+          Playwright Chromium Tablet
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="hidden lg:block sticky top-24 self-start bg-slate-800/80 border border-slate-700/60 rounded-3xl p-5 shadow-2xl backdrop-blur-sm max-h-[calc(100vh-8rem)] overflow-y-auto">
+      <h2 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-3">
+        Inhoudsopgave & Thema's
+      </h2>
+      <nav class="space-y-1 text-sm font-bold">
+        
+          <a href="#cat-0" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            1. Portaal & Profiel
+          </a>
+        
+          <a href="#cat-1" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            2. Hoofdmenu (StartScreen)
+          </a>
+        
+          <a href="#cat-2" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            3. Instellingen & Privacy
+          </a>
+        
+          <a href="#cat-3" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            4. Modusselectie
+          </a>
+        
+          <a href="#cat-4" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            5. Zeg & Zet: Speelveld & Opdracht
+          </a>
+        
+          <a href="#cat-5" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            6. Typfunctionaliteit (Toegankelijkheid)
+          </a>
+        
+          <a href="#cat-6" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            7. Spraakopname & SpeechWaveAnimation
+          </a>
+        
+          <a href="#cat-7" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            8. Handmatige Stickerplaatsing
+          </a>
+        
+          <a href="#cat-8" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            9. Fout Antwoord & Hinting
+          </a>
+        
+          <a href="#cat-9" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition">
+            10. Goed Antwoord & Succes
+          </a>
+        
+      </nav>
+      <div class="mt-6 pt-5 border-t border-slate-700/60 text-xs text-slate-400 space-y-2">
+        <p><strong class="text-slate-200">🔴 Rode markering:</strong> Geeft exact aan waar de actie wordt uitgevoerd.</p>
+        <p><strong class="text-slate-200">🔒 Privacy:</strong> 100% lokaal op het apparaat, geen cloud audio.</p>
+      </div>
+    </aside>
+
+    <!-- CONTENT SECTION -->
+    <main class="space-y-12">
+
+      <!-- INTRO CARD -->
+      <section class="bg-gradient-to-br from-sky-900/60 via-slate-800/80 to-indigo-900/60 border border-sky-500/30 rounded-3xl p-6 shadow-2xl">
+        <h2 class="text-lg font-black text-white mb-2 flex items-center gap-2">
+          <span>📋</span> Doel van dit Testrapport
+        </h2>
+        <p class="text-sm leading-relaxed text-slate-300 font-medium">
+          Dit rapport documenteert alle interactiemogelijkheden en kwaliteitscontroles van <strong>Magisch Strand-Avontuur</strong>.
+          Voor iedere actiestap is een real-time screenshot gemaakt met een duidelijke <strong>rode pulserende markering</strong>
+          op het element waar de gebruiker moet klikken of tikken.
+        </p>
+      </section>
+
+      <!-- SECTIONS PER CATEGORY -->
+      
+        <section id="cat-0" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              1. Portaal & Profiel
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              6 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      01
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Welkomstscherm Game-Wereld
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Verifiëren dat het welkomstscherm geladen wordt en de startknop interactief is.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Kinderen moeten een intuïtieve, uitnodigende start ervaren zonder drempels of ingewikkelde logins.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De landingspagina initialiseert de lokale PWA en toont de visuele titelbalk en startknop.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de grote 'START' knop om door te gaan naar het profieloverzicht.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-01-welkom-startknop.png" 
+                        alt="Welkomstscherm Game-Wereld" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-01-welkom-startknop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      02
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Spelersprofiel Aanmaken
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Controleren dat een nieuw spelersprofiel aangemaakt kan worden.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Elk kind bewaart zijn eigen voortgang, verdiende sterren en privacy-instellingen lokaal op het apparaat.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De profielmanager opent een wizard met kindvriendelijke avatars en naamselectie.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de knop 'NIEUW SPELER'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-02-profiel-nieuw-speler.png" 
+                        alt="Spelersprofiel Aanmaken" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-02-profiel-nieuw-speler.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      03
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Avatar Selectie
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Kiezen van een herkenbare mascotte-avatar voor het profiel.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Verhoogt de betrokkenheid en herkenbaarheid voor jonge kinderen die nog niet kunnen lezen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De geselecteerde avatar wordt gehighlight en gekoppeld aan de lokale IndexedDB opslag.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de gewenste mascotte-avatar.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-03-avatar-kiezen.png" 
+                        alt="Avatar Selectie" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-03-avatar-kiezen.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      04
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Naam Invoeren & Bevestigen
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het invoeren van een spelersnaam en afronden van de profielcreatie.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Persoonlijke begroeting in het spel en koppeling van beloningen aan het kind.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Na validatie slaat het systeem het profiel op en navigeert automatisch naar de spelcatalogus.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Typ de spelersnaam en klik op 'LET'S GO!'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-04-naam-bevestigen.png" 
+                        alt="Naam Invoeren & Bevestigen" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-04-naam-bevestigen.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      05
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Themakeuze: Speciale Woordenschat
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Openen van het leerthema voor ruimtelijke en logopedische woordenschat.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Biedt een helder gestructureerd curriculum waarin verschillende spelvormen samenkomen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De themakaart toont de beschikbare spellen die horen bij de logopedische methodiek.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de themakaart 'Speciale Woordenschat'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-05-themakeuze.png" 
+                        alt="Themakeuze: Speciale Woordenschat" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-05-themakeuze.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      06
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Game Launch: Magisch Strand-Avontuur
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het opstarten van de game runtime binnen de veilige PWA-container.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Het kind start direct in de vertrouwde grafische omgeving met strandthema.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De gamehost initialiseert de assets, audio context en lokale spraakengine.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op 'Magisch Strand-Avontuur' in de lijst met spellen.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-06-game-starten.png" 
+                        alt="Game Launch: Magisch Strand-Avontuur" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-06-game-starten.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-1" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              2. Hoofdmenu (StartScreen)
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              2 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      07
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Startscherm Overzicht
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Controleren van alle hoofdelementen: titel, zandkasteel-decor, sterrenteller en actieknoppen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Directe en vrolijke visuele uitnodiging; het kind ziet zijn huidige sterrenstatus en kan direct spelen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        StartScreen toont de geanimeerde mascotte, sterrenteller en een opvallende speelknop.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Bekijk het startscherm; de focus ligt op de grote 'Spelen' knop.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-07-startscherm-speelknop.png" 
+                        alt="Startscherm Overzicht" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-07-startscherm-speelknop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      08
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Instellingenknop (Tandwiel)
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Toegankelijkheid tot audio-, microfoon- en voortgangsinstellingen vanaf het startscherm.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Ouders en logopedisten kunnen direct vóór de sessie geluid of privacy controleren.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Opent GameSettingsScreen met behoud van de schermgeschiedenis.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik rechtsboven op het tandwiel-icoon.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-08-instellingen-knop.png" 
+                        alt="Instellingenknop (Tandwiel)" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-08-instellingen-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-2" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              3. Instellingen & Privacy
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              6 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      09
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Audio- & Spraakbegeleiding Toggle
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        In- en uitschakelen van audiofeedback en gesproken aanwijzingen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Nuttig in rustige klaslokalen of logopediepraktijken waar geluid gedempt moet worden.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Schakelt de audioEnabled voorkeur in IndexedDB/localStorage en past de interface direct aan.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de 'Audio' toggle switch om de status te wijzigen.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-09-audio-toggle.png" 
+                        alt="Audio- & Spraakbegeleiding Toggle" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-09-audio-toggle.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      10
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Achtergrondmuziek Beheer
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Regelen van de achtergrondmuziek zonder invloed op de spraakherkenning.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Muziek kan voor sommige prikkelgevoelige kinderen afleidend zijn.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        GameBackgroundMusic stopt of start naadloos via de platform audio-adapter.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de 'Muziek' toggle switch.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-10-muziek-toggle.png" 
+                        alt="Achtergrondmuziek Beheer" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-10-muziek-toggle.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      11
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Spraakprivacy & Lokale Verwerking
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Duidelijke weergave van de privacygarantie: geen geluidsopnames naar de cloud.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Veiligheid en AVG/GDPR compliance voor jonge kinderen in logopedie en onderwijs.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        VoicePrivacySettingsCard toont de microfoonstatus en legt helder uit dat spraak lokaal blijft.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Bekijk de privacykaart met het groene schild-icoon.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-11-privacy-kaart.png" 
+                        alt="Spraakprivacy & Lokale Verwerking" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-11-privacy-kaart.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      12
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Voortgang Reset Initiatie
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Mogelijkheid om sterren en oefenobservaties te resetten voor een nieuw leertraject.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Handig wanneer een nieuw kind met hetzelfde apparaat start of voor schone hermetingen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Opent een veilige bevestigingsdialoog om per ongeluk wissen te voorkomen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik onderaan op de knop 'Reset voortgang'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-12-reset-progress-knop.png" 
+                        alt="Voortgang Reset Initiatie" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-12-reset-progress-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      13
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Bevestigingsdialoog Reset (Veiligheid)
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Modal dialoog met duidelijke 'Annuleren' en 'Resetten' keuzes.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Voorkomt dataverlies als een kind per ongeluk op de knop tikt.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        ConfirmResetDialog vangt focus en toetsenbord (Escape/Tab) netjes op conform WCAG.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op 'Annuleren' om zonder wijzigingen terug te keren.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-13-annuleer-reset.png" 
+                        alt="Bevestigingsdialoog Reset (Veiligheid)" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-13-annuleer-reset.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      14
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Terugkeren vanuit Instellingen
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Veilige terugkeer naar het scherm waar de gebruiker vandaan kwam (StartScreen).
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Duidelijke breadcrumb-navigatie zonder dat de gebruiker verdwaalt.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De controller gebruikt `backFromSettings` om naar het voorgaande scherm terug te keren.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik linksboven op de terugknop met pijl.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-14-instellingen-terug.png" 
+                        alt="Terugkeren vanuit Instellingen" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-14-instellingen-terug.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-3" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              4. Modusselectie
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              2 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      16
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Modusselectie: Zeg & Zet
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Kiezen van de hoofdgame 'Zeg & Zet' (luisteren, spreken en stickers plaatsen).
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Kernonderdeel van de subsidiedoelstelling: actieve taalproductie en ruimtelijke begrippen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        AdventureSelectScreen toont kaarten voor 'Zeg & Zet', 'Kies het Woord' en 'Zeg & Vlieg'.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de spelkaart van 'Zeg & Zet'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-16-kies-zeg-en-zet.png" 
+                        alt="Modusselectie: Zeg & Zet" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-16-kies-zeg-en-zet.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      17
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Avontuur Starten
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het definitief inladen van de actieve opdrachtensessie voor het kind.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Geeft het kind een duidelijk startmoment met visuele feedback.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Initialiseert de opdrachtenset, willekeurige woordkoppelingen en dropzones.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de groene knop 'Start Avontuur'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-17-start-avontuur-knop.png" 
+                        alt="Avontuur Starten" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-17-start-avontuur-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-4" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              5. Zeg & Zet: Speelveld & Opdracht
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              1 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      18
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Opdrachtkaart & Mascotte
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Weergave van de actieve logopedische opdracht (bijv. 'Zet de bal op het strand').
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Het kind krijgt zowel visuele, tekstuele als optioneel gesproken aanwijzingen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        CompactInstructionCard toont de doelzin, video-knop en microfoon/toetsenbord knoppen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Lees of beluister de opdracht op de witte kaart bovenaan.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-18-instructiekaart-weergave.png" 
+                        alt="Opdrachtkaart & Mascotte" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-18-instructiekaart-weergave.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-5" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              6. Typfunctionaliteit (Toegankelijkheid)
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              2 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      19
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Toetsenbord Invoer Openen
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Openen van de getypte commandomodus als alternatief voor spraak.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Garandeert 100% toegankelijkheid in rumoerige omgevingen of voor non-verbale kinderen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        SpokenCommandControls opent de `TypedCommandFallback` pop-up over het scherm.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op het toetsenbord-icoontje naast de microfoon.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-19-toetsenbord-knop.png" 
+                        alt="Toetsenbord Invoer Openen" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-19-toetsenbord-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      20
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Commando Typen & Uitvoeren
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het invoeren en valideren van de geschreven opdrachtzin.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Ondersteunt spelling, zinsbouw en taalbegrip bij het kind.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De parser analyseert het object en de doellocatie en plaatst het object automatisch in de zone.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Typ de zin in het tekstveld en klik op de verzendknop.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-20-typ-commando-verzenden.png" 
+                        alt="Commando Typen & Uitvoeren" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-20-typ-commando-verzenden.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-6" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              7. Spraakopname & SpeechWaveAnimation
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              4 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      21
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Microfoon Activeren
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het kind activeert spraakherkenning om de opdracht hardop uit te spreken.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Stimuleert actieve mondelinge taalvaardigheid en uitspraak van ruimtelijke voorzetsels.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Activeert de lokale audio-analyser en stelt de luisterstatus in.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Tik op de ronde groene microfoonknop.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-21-microfoon-knop.png" 
+                        alt="Microfoon Activeren" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-21-microfoon-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      22
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Spraakprivacy Toestemming
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Eenmalige expliciete goedkeuring voor lokale microfoontoegang.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Waarborgt transparantie naar het kind en de ouders toe.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Slaat de privacyvoorkeur op in het profiel en start direct de audio-opname.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op 'Begrepen, start microfoon'.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-22-privacy-toestemming.png" 
+                        alt="Spraakprivacy Toestemming" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-22-privacy-toestemming.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      23
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Live Golfanimatie (Hoge Positie)
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        De nieuwe, verhoogde weergave van `SpeechWaveAnimation` met `fixed z-50`.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Lost het eerdere probleem op: overlapt nooit de objectenbalk en blijft 100% zichtbaar op ooghoogte.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De geanimeerde balk toont 'Ik luister...' met pulserende staven en luistert met een ruime 4s stiltetimer.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Spreek de zin rustig uit; de balk pulseert mee met het stemgeluid.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-23-speechwave-hoge-positie.png" 
+                        alt="Live Golfanimatie (Hoge Positie)" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-23-speechwave-hoge-positie.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      24
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Direct Afronden ('Klaar' Knop)
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        De handmatige afrondknop in de SpeechWaveAnimation balk.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Kinderen die klaar zijn hoeven niet te wachten tot de stiltetimer afloopt; directe controle.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Rondt de geaccumuleerde woorden direct af en stuurt het resultaat naar de scene placement handler.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op de groene 'Klaar' knop in de SpeechWaveAnimation balk.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-24-klaar-knop.png" 
+                        alt="Direct Afronden ('Klaar' Knop)" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-24-klaar-knop.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-7" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              8. Handmatige Stickerplaatsing
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              2 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      25
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Sticker Selectie uit Carrousel
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het kind kiest handmatig een speelobject (bijv. bal, schep, boot) uit de onderste balk.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Biedt een tastbare, directe manier van spelen voor jonge kinderen met fijne motoriek.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        ObjectCarousel markeert het geselecteerde object met een gouden selectierand en schaduw.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Tik op de gewenste sticker in de carrousel.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-25-sticker-kiezen.png" 
+                        alt="Sticker Selectie uit Carrousel" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-25-sticker-kiezen.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      26
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Plaatsen op het Strand (Tap-to-Place)
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het object verschijnt direct op de getikte coördinaten als een zwevend `pending-object`.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Intuïtief: het kind wijst aan waar het object moet komen te liggen.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        SceneAreaCanvas berekent de percentages relatief aan het canvas en toont het object.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Tik op de gewenste plek op het strand.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-26-strand-plaatsen.png" 
+                        alt="Plaatsen op het Strand (Tap-to-Place)" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-26-strand-plaatsen.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-8" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              9. Fout Antwoord & Hinting
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              2 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      27
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Antwoord Controleren
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Het valideren van de plaatsing tegen de regels van de huidige opdracht.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Het kind leert door feedback of het begrip (bijv. 'op', 'onder', 'naast') klopt.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De placement evaluator controleert de overlap met de semantische target zone.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik rechtsboven op de groene 'Klaar' knop.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-27-fout-bevestigen.png" 
+                        alt="Antwoord Controleren" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-27-fout-bevestigen.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      28
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Herstelbare Feedback ('Bijna goed!')
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        Vriendelijke en opbouwende feedback zonder puntenaftrek of straf.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Behoudt het zelfvertrouwen en de spelvreugde van het kind; 'fout' is een leermoment.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        FloatingSuccessToast toont `data-kind='almost'` met de tekst: 'Kijk goed waar het moet staan'.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Lees de tip in de witte balk onderaan.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-28-herstelbare-feedback.png" 
+                        alt="Herstelbare Feedback ('Bijna goed!')" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-28-herstelbare-feedback.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+        <section id="cat-9" class="space-y-6 pt-4">
+          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-black text-amber-300 tracking-tight">
+              10. Goed Antwoord & Succes
+            </h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-black text-slate-300">
+              1 stappen
+            </span>
+          </div>
+
+          <div class="space-y-8">
+            
+              <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
+                
+                <!-- CARD HEADER -->
+                <div class="px-6 py-4 bg-slate-800/60 border-b border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white font-black text-xs shadow-md">
+                      31
+                    </span>
+                    <h3 class="text-base font-black text-white">
+                      Goed Antwoord & Positieve Bekrachtiging
+                    </h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
+                    ✅ Getest & Functioneel
+                  </span>
+                </div>
+
+                <!-- CARD BODY -->
+                <div class="p-6 grid grid-cols-1 xl:grid-cols-[1fr_1.35fr] gap-6 items-start">
+                  
+                  <!-- SPECS & DESCRIPTION -->
+                  <div class="space-y-4 text-xs">
+                    
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-sky-400 block">
+                        🎯 Wat we testen
+                      </span>
+                      <p class="text-slate-200 leading-relaxed font-semibold">
+                        De successtatus bij een correct geplaatst object volgens de opdracht.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-amber-400 block">
+                        💡 Waarom we dit testen
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        Belonen van correcte taalverwerking; activeert intrinsieke motivatie bij het kind.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-indigo-400 block">
+                        ⚙️ Hoe de functionaliteit werkt
+                      </span>
+                      <p class="text-slate-300 leading-relaxed">
+                        De knop toont 'Volgende', de mascotte viert feest en er worden sterren toegekend.
+                      </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                      <span class="font-black uppercase tracking-wider text-emerald-400 block">
+                        👉 Concrete Actiestap
+                      </span>
+                      <p class="text-emerald-100 font-bold leading-relaxed">
+                        Klik op 'Volgende' om direct door te gaan naar de volgende uitdaging.
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <!-- SCREENSHOT CONTAINER -->
+                  <div class="space-y-2">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
+                      <img 
+                        src="test-rapport-assets/stap-31-goed-antwoord-volgende.png" 
+                        alt="Goed Antwoord & Positieve Bekrachtiging" 
+                        loading="lazy"
+                        class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
+                      />
+                      <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-sm text-[11px] font-mono text-slate-300 pointer-events-none">
+                        Rode cirkel = Waar te klikken
+                      </div>
+                    </div>
+                    <p class="text-center text-[11px] text-slate-400 font-medium">
+                      Screenshot: <code>stap-31-goed-antwoord-volgende.png</code>
+                    </p>
+                  </div>
+
+                </div>
+              </article>
+            
+          </div>
+        </section>
+      
+
+      <!-- FOOTER -->
+      <footer class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 pb-12 space-y-2">
+        <p>Game-Wereld • Magisch Strand-Avontuur Testrapport • Automatisch gegenereerd met Playwright</p>
+        <p class="text-slate-600">Alle screenshots zijn direct vastgelegd vanuit de Chromium tablet runtime zonder handmatige bewerking.</p>
+      </footer>
+
+    </main>
+  </div>
+
+</body>
+</html>
