@@ -861,10 +861,10 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-30** | **P1** | 🟦🔧 | Zeg & Vlieg **vriendelijk mechanisme** (geen harde game-over; schildjes/record/combo) + game-feel in alle modi | Werkplan WP-B3 | ⬜ |
 | **T-31** | P2 | 🟦🔧 | **Unlock-mechanisme** + volgorde modi (receptief→relationeel→productief). Hangt aan `T-01`, `T-21` | Werkplan WP-B4 | ⬜ |
 | **T-32** | **P1** | 🔬🔧 | Zeg & Vlieg **mic-commando's werken niet** — onderzoeken + koppelen aan wave (`T-27`) | Werkplan WP-C4 | ⬜ |
-| **T-33** | **P1** | 🔬 | **Performance/lag-analyse** afgerond → [Analyse-T33-Performance](Analyse-T33-Performance.md). Oorzaak: zware media (video's ~2,3 MB, PNG's 100–244 KB) + 4s-stiltetimer + interim re-renders. Kaart-flits: sticker-preload toegepast | Werkplan WP-C7 | 🟦 |
+| **T-33** | **P1** | 🔬 | **Performance/lag-analyse** afgerond → [Analyse-T33-Performance](Analyse-T33-Performance.md). Oorzaak: zware media (video's ~2,3 MB, PNG's 100–244 KB) + 4s-stiltetimer + interim re-renders. Kaart-flits: sticker-preload toegepast. Vervolgacties T-33a/b/c afgerond | Werkplan WP-C7 | ✅ |
 | **T-33a** | **P1** | 🔧 | **Alle afbeeldingen → WebP** (36 PNG's, ~11,8 MB → ~1,36 MB, 88% kleiner, geen resolutieverlies). Verhelpt kaart-flits + minder laaddruk in alle modi. Geverifieerd | Analyse §4.1 | ✅ |
 | **T-33b** | **P1** | 🔧 | **Instructievideo's gecomprimeerd** — 81 stuks naar 480p (H.264 CRF 28, mono-audio). **162 MB → 35 MB (78% kleiner)**. Geverifieerd (ffprobe + browser: readyState 4). Grootste winst tegen mic-lag | Analyse §4.1 | ✅ |
-| **T-33c** | P2 | 🔧 | Video **onderbroken tijdens actieve microfoon** — `InstructionVideoButton` krijgt `suspended`-prop: geen autoplay én pauzeert een spelende video zodra de mic luistert/verwerkt (voorkomt resource-strijd met spraak). Volledige mic-test op echt apparaat | Analyse §4.2 | 🟦 |
+| **T-33c** | P2 | 🔧 | Video **onderbroken tijdens actieve microfoon** — `InstructionVideoButton` krijgt `suspended`-prop: geen autoplay én pauzeert een spelende video zodra de mic luistert/verwerkt (voorkomt resource-strijd met spraak). Volledige mic-test op echt apparaat | Analyse §4.2 | ✅ |
 
 ### 12.2 Aanbevolen volgorde
 
@@ -881,5 +881,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 - **T-21** ✅ (2026-09-13) — sterrenteller gekoppeld aan het echte cumulatieve per-profiel totaal (samen met `T-01`).
 - **T-33a** ✅ (2026-09-13) — alle afbeeldingen → WebP (36 PNG's, 11,8 MB → 1,36 MB, 88% kleiner). Verhelpt kaart-flits.
 - **T-33b** ✅ (2026-09-13) — 81 instructievideo's → 480p (162 MB → 35 MB, 78% kleiner). Verwachte grote winst tegen mic-lag.
+- **T-33** ✅ (2026-09-13) — performance/lag-analyse + alle vervolgacties (T-33a/b/c) afgerond. Media samen ~174 MB → ~36 MB.
+- **T-33c** ✅ (2026-09-13) — instructievideo pauzeert tijdens actieve microfoon (`suspended`-prop), voorkomt resource-strijd met spraak.
 
 > Nog open bij het beloningssysteem: **`T-02`** (drempelcurve tunen/testen) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).
