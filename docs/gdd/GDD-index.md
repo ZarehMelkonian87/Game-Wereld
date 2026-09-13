@@ -93,6 +93,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.6 | 2026-09-13 | Zareh Melkonian | Tweede reviewronde verwerkt in [Werkplan-en-Voorstellen](Werkplan-en-Voorstellen.md). Oorzaken gevonden voor video-foutmelding (`T-19`) en 120-sterren (`T-21`). Nieuwe taken `T-25`–`T-33` (audio verwijderen, mic-herontwerp, wave+transcriptie, woordfilter, randomisatie alle modi, vriendelijk Zeg & Vlieg, unlock, mic Zeg & Vlieg, performance-analyse). |
 | 1.7 | 2026-09-13 | Zareh Melkonian | `T-19`, `T-20`, `T-01` en `T-21` afgerond en geverifieerd. `GAP-01`/`GAP-02` opgelost (één beloningssysteem "Strandschat" met cumulatieve per-profiel totalen). Besluiten (dev-tools, vriendelijk Zeg & Vlieg, unlock-volgorde, Zeg & Bouw-concept) vastgelegd. |
 | 1.8 | 2026-09-13 | Zareh Melkonian | Sectie 7 opgeschoond: verouderde A/B/C-vergelijking verwijderd, alleen het geïmplementeerde "Strandschat"-systeem beschreven. Verouderde bezemdrempels (0/10/25/50) ook verwijderd uit de oude `docs/GDD.md` en `docs/05-...md`. |
+| 1.9 | 2026-09-13 | Zareh Melkonian | [Concept Zeg & Bouw](Concept-Zeg-en-Bouw.md) vastgesteld (v1.0): beide varianten (Bouwopdracht + Vrij Bouwen), compound-zinnen, 5 thema's, volgorde Kies→Zet→Bouw→Vlieg, soepele doelen. Bouw gepland als **laatste**, ná de 3 bestaande modi. |
 
 ### 0.7 Verwante bestaande documentatie
 
@@ -831,7 +832,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-01** | **P1** | 🔧 | **Eén beloningssysteem** ("Strandschat"): één `strandRewards`-tabel met oplopende drempels + cumulatieve per-profiel totalen + één resolver. Systeem B verwijderd, gameplay-hooks + beloningsscherm + sterrenteller aangesloten. Reset wist nu ook de totalen. Geverifieerd (7 unit-tests + browser) | GAP-01, GAP-02 | ✅ |
 | **T-02** | **P1** | 🎨 | Beloningscurve (drempels/items van "Strandschat") ontwerpen, tunen en testen met echte spelsessies | GAP-01 / 7.2.b | ⬜ |
 | **T-03** | **P1** | 🔧 | **Zeg & Zet** een eigen in-game ronde-eindscherm geven (`SCR_MSA_OV_SCENE_SUMMARY`), gelijk aan de andere modi | GAP-15 / 4.5 | ⬜ |
-| **T-04** | P2 | 🎨🔧 | Modus **`zeg-en-bouw`** ontwerpen én een eigen scherm bouwen (`SCR_MSA_ZEG_BOUW`) | GAP-04 / 4.6 | ⬜ |
+| **T-04** | P3 | 🎨🔧 | Modus **`zeg-en-bouw`** — concept **vastgesteld** → [Concept-Zeg-en-Bouw](Concept-Zeg-en-Bouw.md) (v1.0: varianten A+B, compound-zinnen, 5 thema's, soepele doelen). ⏳ **Bouw als laatste**, ná de 3 bestaande modi. Subtaken `T-04a`–`T-04e` in het concept §13 | GAP-04 / 4.6 | 🟦 |
 | **T-05** | P2 | 🔧 | `world-select` en `mode-select` samenvoegen tot **één** scherm `SCR_MSA_MODE_SELECT`; redundante staat/route opruimen (o.a. `StartScreen.onPlay`) | GAP-14 / 3.6 | ⬜ |
 | **T-06** | P2 | 🔧 | Dode staat `dashboard` uit `GameScreenPreview` verwijderen | GAP-03 / 3.3 | ⬜ |
 | **T-07** | P3 | 📄 | Oude `docs/GDD.md`: rondelengte = data-gestuurd (niet "10 vragen") | GAP-07 / 6.4 | ⬜ |
