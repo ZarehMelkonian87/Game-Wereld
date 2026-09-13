@@ -175,17 +175,11 @@ const speechConfig = {
 
 ## 6. Game Systems, Beloningen & Economie
 
-### 6.1 Beloningsvaluta
-
-- ⭐ **Woordsterren**: `+2` per succesvolle actie, `+1` bonus bij zelfstandig antwoord zonder hint.
-- ⚡ **Tempo**: Snelheidsmeter die visuele energie geeft en boosters activeert.
-
-### 6.2 Ontgrendelbare Bezemskins
-
-1. 🧹 **Basis Bezem** (0 sterren) – Hout met strik.
-2. 🏖️ **Strand Bezem** (10 sterren) – Geel zonnig met zeester.
-3. ⚡ **Snelheids Bezem** (25 sterren) – Aerodynamisch met bliksem.
-4. 👑 **Gouden Bezem** (50 sterren) – Magisch goud met glinsteraura.
+> ℹ️ **Verplaatst.** Het beloningssysteem ("Strandschat" — één oplopende
+> verzamelcurve, gestuurd door het cumulatieve aantal woordsterren per profiel)
+> wordt nu beheerd in het actuele dossier. Zie **[GDD-index sectie 7](../../../../../docs/gdd/GDD-index.md)**
+> en de implementatie in [`logic/rewards.ts`](../logic/rewards.ts). De eerdere,
+> nooit-geïmplementeerde bezemdrempels (0/10/25/50 sterren) zijn vervallen.
 
 ---
 

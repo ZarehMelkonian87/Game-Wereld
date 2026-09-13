@@ -92,6 +92,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.5 | 2026-09-11 | Zareh Melkonian | [Test-matrix](Test-matrix.md) opgesteld (41 testcases, `TC_*`). Dekkingsgaten benoemd (Kies het Woord, Zeg & Vlieg, Beloning zonder e2e). Taak `T-24` toegevoegd. **Alle 4 dossierdocumenten compleet.** |
 | 1.6 | 2026-09-13 | Zareh Melkonian | Tweede reviewronde verwerkt in [Werkplan-en-Voorstellen](Werkplan-en-Voorstellen.md). Oorzaken gevonden voor video-foutmelding (`T-19`) en 120-sterren (`T-21`). Nieuwe taken `T-25`–`T-33` (audio verwijderen, mic-herontwerp, wave+transcriptie, woordfilter, randomisatie alle modi, vriendelijk Zeg & Vlieg, unlock, mic Zeg & Vlieg, performance-analyse). |
 | 1.7 | 2026-09-13 | Zareh Melkonian | `T-19`, `T-20`, `T-01` en `T-21` afgerond en geverifieerd. `GAP-01`/`GAP-02` opgelost (één beloningssysteem "Strandschat" met cumulatieve per-profiel totalen). Besluiten (dev-tools, vriendelijk Zeg & Vlieg, unlock-volgorde, Zeg & Bouw-concept) vastgelegd. |
+| 1.8 | 2026-09-13 | Zareh Melkonian | Sectie 7 opgeschoond: verouderde A/B/C-vergelijking verwijderd, alleen het geïmplementeerde "Strandschat"-systeem beschreven. Verouderde bezemdrempels (0/10/25/50) ook verwijderd uit de oude `docs/GDD.md` en `docs/05-...md`. |
 
 ### 0.7 Verwante bestaande documentatie
 
@@ -547,55 +548,43 @@ Elke opdracht draagt een `feedbackCopy`-object met kindvriendelijke varianten (`
 
 ## 7. Beloningen, Progressie & Economie
 
-> **Beslissing (review):** er komt **één** beloningssysteem. De drie bestaande definities (7.2) worden teruggebracht tot één bron van waarheid. De gekozen methode staat in 7.2.b.
+> **Status:** ✅ geïmplementeerd (`T-01`). Er is **één** beloningssysteem — "Strandschat". Dit vervangt de drie eerdere, conflicterende definities volledig; die zijn uit code en documentatie verwijderd.
 
 ### 7.1 Valuta
 
-| Valuta | Symbool | Verdiend bij | Basis | Bonus |
-| :--- | :--: | :--- | :--- | :--- |
-| **Woordsterren** | ⭐ | Elk goed antwoord | `reward.wordStars` (= 1) | `+1` als **geen hint** gebruikt |
-| **Tempo** | ⚡ | Elk goed antwoord | `reward.speed` (= 1) | `+1` als **geen hint** gebruikt |
+| Valuta | Symbool | Verdiend bij | Basis | Bonus | Rol |
+| :--- | :--: | :--- | :--- | :--- | :--- |
+| **Woordsterren** | ⭐ | Elk goed antwoord | `reward.wordStars` (= 1) | `+1` als **geen hint** gebruikt | **Stuurt de progressie** (unlocks + teller) |
+| **Tempo** | ⚡ | Elk goed antwoord | `reward.speed` (= 1) | `+1` als **geen hint** gebruikt | In-ronde gevoel/boost; **geen** unlock-poort |
 
-Per goede actie zonder hint verdient het kind dus ⭐×2 en ⚡×2; mét hint ⭐×1 en ⚡×1 (bron: [useWordChoiceState.ts](../../src/app/games/magisch-strand-avontuur/screens/word-choice/useWordChoiceState.ts), `handleAnswerSelect`).
+Per goede actie zonder hint verdient het kind ⭐×2; mét hint ⭐×1. De ⭐ worden **cumulatief per profiel** bijgehouden (`totals`-sleutel), over alle sessies en modi heen.
 
-### 7.2.a De drie bestaande definities (worden geconsolideerd)
+### 7.2 Het beloningssysteem: "Strandschat"
 
-Vandaag bestaan er drie definities naast elkaar. Deze worden vervangen door één (7.2.b):
+**Eén bron van waarheid, één valuta (⭐), één resolver.** Ontworpen voor het concept: educatief, foutloos leren, en jonge kinderen die verzamelen leuk vinden.
 
-| # | Waar gedefinieerd | Inhoud | Drempels | Nu gebruikt? | Lot |
-| :-- | :--- | :--- | :--- | :--- | :--- |
-| **A** | [logic/rewards.ts](../../src/app/games/magisch-strand-avontuur/logic/rewards.ts) `firstRewardUnlocks` | 2 items | sticker: ≥1 ⭐; kleur: ≥1 ⚡ | ✅ enige actieve | *Mechanisme behouden, inhoud vervangen* |
-| **B** | [content.ts](../../src/app/games/magisch-strand-avontuur/content.ts) `beachRewards` | 4 items | 5 / 10 / 15 / 20 ⭐ | ❌ dode data | *Verwijderen* |
-| **C** | oude GDD.md | 4 bezems | 0 / 10 / 25 / 50 ⭐ | ❌ alleen doc | *Verwijderen* |
+**Werking (zoals geïmplementeerd, bron: [logic/rewards.ts](../../src/app/games/magisch-strand-avontuur/logic/rewards.ts)):**
 
-**Waarom het nu niet werkt:** het actieve systeem (A) geeft al zijn unlocks weg bij de **allereerste** goede actie (drempel ≥1) en stopt daarna. Er is geen opbouw, geen doel om naartoe te werken — dat verklaart waarom het "niet af voelt".
+1. **Eén reward-tabel** `strandRewards`: een geordende lijst verzamelbare items met **oplopende** drempels. Types: `sticker`, `broom-color`, `broom-trail`, `broom-skin` (allemaal cosmetisch).
+2. **Cumulatieve per-profiel totalen** (`readProfileTotals` / `addProfileTotals`): elke verdiende ⭐ telt op bij het profieltotaal en wordt bewaard. "Voortgang resetten" wist dit totaal (`resetProfileTotals`).
+3. **Eén resolver** `resolveNewRewardUnlocks({ totalWordStars, unlockedRewardIds })`: speelt een beloning vrij zodra het **cumulatieve** ⭐-totaal de drempel haalt. Alle schermen (Zeg & Zet, Kies het Woord, beloningsscherm) gebruiken deze.
+4. **De curve** (voorlopige waarden, tunen = [T-02](#12-takenlijst)):
 
-### 7.2.b ✅ Het gekozen systeem: "Strandschat" — één oplopende verzamelcurve
-
-**Eén bron van waarheid, één valuta, één resolver.** Dit is de aanbevolen methode omdat die past bij het concept (educatief, foutloos leren, jonge kinderen die verzamelen leuk vinden) en meteen het progressie-probleem oplost.
-
-**Ontwerpprincipes:**
-
-1. **Eén valuta stuurt de progressie: ⭐ woordsterren** (`totalWordStars`, cumulatief over alle sessies). ⚡ Tempo blijft een *in-ronde* gevoel/boost, maar bepaalt géén unlocks — zo hoeven we maar één meter te bewaken.
-2. **Eén reward-tabel** (`strandRewards`) als enige bron: een geordende lijst verzamelbare items, elk met een **oplopende** drempel. Types: `sticker`, `broom-skin`, `broom-color`, `broom-trail` (allemaal cosmetisch — nooit iets dat leren blokkeert).
-3. **Eén resolver** (`resolveNewRewardUnlocks({ totalWordStars, unlockedRewardIds })`) die alle schermen aanroepen. Verwijdert het onderscheid A/B/C.
-4. **Oplopende curve** zodat er altijd een volgend doel is. Voorbeeldwaarden (nog te **tunen en testen** → [T-02](#12-takenlijst)):
-
-   | Volgorde | Item (voorbeeld) | Type | Drempel ⭐ |
+   | # | Item | Type | Drempel ⭐ |
    | :--: | :--- | :--- | :--: |
-   | 1 | Schelp-sticker | sticker | 3 |
-   | 2 | Zeeblauwe bezemkleur | broom-color | 6 |
-   | 3 | Dolfijn-sticker | sticker | 10 |
-   | 4 | Strand-sprankel (trail) | broom-trail | 15 |
-   | 5 | Strandbezem (skin) | broom-skin | 22 |
-   | 6 | Ster-helper sticker | sticker | 30 |
-   | 7 | Gouden bezem (skin) | broom-skin | 45 |
+   | 1 | Schelp Sticker | sticker | 3 |
+   | 2 | Zeeblauwe Bezemkleur | broom-color | 6 |
+   | 3 | Dolfijn Sticker | sticker | 10 |
+   | 4 | Strand Sprankel | broom-trail | 15 |
+   | 5 | Strandbezem | broom-skin | 22 |
+   | 6 | Ster Helper Sticker | sticker | 30 |
+   | 7 | Gouden Bezem | broom-skin | 45 |
 
-5. **Uitbreidbaar:** meer items of werelden = regels toevoegen aan één tabel; de resolver en UI blijven gelijk.
+5. **Uitbreidbaar:** meer items of werelden = regels toevoegen aan één tabel; resolver en UI blijven gelijk.
 
-**Wat dit vervangt/oplost:** systeem A wordt qua *mechanisme* behouden maar gevoed door de nieuwe tabel; B (`beachWorld.rewards`) en C (oude GDD) worden verwijderd. Zie [T-01](#12-takenlijst) (implementatie) en [T-02](#12-takenlijst) (curve tunen).
+**Effect:** beloningen worden **geleidelijk** vrijgespeeld (niet meer alles bij de eerste actie), en elke speler houdt zijn eigen cumulatieve score bij.
 
-> **Nog te beslissen bij implementatie:** definitieve itemlijst, assets en exacte drempels. De structuur hierboven ligt vast; de getallen zijn voorbeelden.
+> **Nog open binnen dit thema:** de exacte drempelgetallen tunen/testen (`T-02`) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente ⭐; oppakken met `T-30`/`T-32`).
 
 ### 7.3 Waar beloningen verschijnen
 
