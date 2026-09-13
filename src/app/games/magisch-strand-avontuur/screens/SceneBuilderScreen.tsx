@@ -231,6 +231,10 @@ export const SceneBuilderScreen = ({
                 onPlaybackStart={handleInstructionVideoPlaybackStart}
                 onPlayRequest={handleInstructionVideoRequest}
                 src={currentInstructionVideoUrl}
+                suspended={
+                  voiceRecognitionStatus === "listening" ||
+                  voiceRecognitionStatus === "processing"
+                }
               />
             ) : undefined
           }

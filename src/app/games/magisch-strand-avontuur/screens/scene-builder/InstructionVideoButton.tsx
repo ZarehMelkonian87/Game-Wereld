@@ -12,6 +12,12 @@ interface InstructionVideoButtonProps {
   onPlaybackStart?: () => void;
   onPlayRequest?: () => boolean;
   src: string;
+  /**
+   * Onderbreekt de video: geen autoplay en pauzeert een spelende video.
+   * Gebruikt om de video stil te leggen terwijl de microfoon actief is, zodat
+   * video-decodering niet met de spraakherkenning concurreert (T-33c).
+   */
+  suspended?: boolean;
   variant?: "control" | "feedbackIcon";
 }
 
@@ -22,6 +28,7 @@ export const InstructionVideoButton = ({
   onPlaybackStart,
   onPlayRequest,
   src,
+  suspended = false,
   variant = "control",
 }: InstructionVideoButtonProps) => {
   const [resolvedSrc, setResolvedSrc] = useState(src);
@@ -91,7 +98,7 @@ export const InstructionVideoButton = ({
   }, []);
 
   useEffect(() => {
-    if (!autoPlayOnMount) {
+    if (!autoPlayOnMount || suspended) {
       return;
     }
 
@@ -102,7 +109,16 @@ export const InstructionVideoButton = ({
     void playVideo();
 
     return stopForegroundAudioSession;
-  }, [autoPlayOnMount, playVideo, src, stopForegroundAudioSession]);
+  }, [autoPlayOnMount, playVideo, src, stopForegroundAudioSession, suspended]);
+
+  useEffect(() => {
+    // Zodra de microfoon actief is (suspended), leggen we een spelende video
+    // stil zodat video-decodering niet met de spraakherkenning concurreert.
+    if (suspended) {
+      videoRef.current?.pause();
+      stopForegroundAudioSession();
+    }
+  }, [stopForegroundAudioSession, suspended]);
 
   const handleClick = async () => {
     if (onPlayRequestRef.current && !onPlayRequestRef.current()) {
