@@ -3,7 +3,7 @@ import {
   initialMicrophonePermissionResult,
   type MicrophonePermissionResult,
 } from "../../logic/microphone-permission";
-import { saveUnlockedRewardIds } from "../../logic/rewards";
+import { resetProfileTotals, saveUnlockedRewardIds } from "../../logic/rewards";
 import {
   readBezemEscapeSettings,
   saveBezemEscapeSettings,
@@ -86,6 +86,7 @@ export const GameSettingsScreen = ({ onBackToMenu }: GameSettingsScreenProps) =>
   const handleResetProgress = () => {
     void runtime.practice.reset();
     saveUnlockedRewardIds(profileId, [], runtime.storage);
+    resetProfileTotals(profileId, runtime.storage);
     if (typeof window !== "undefined") {
       runtime.storage.remove("magisch-strand-avontuur:reward-result", "session");
     }

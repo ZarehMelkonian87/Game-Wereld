@@ -98,7 +98,7 @@ De +1 Woordenschat-schil rondom de game. Features op hoofdlijn (testhaken nog to
 | FEAT-ID | Feature | Verwacht gedrag | Testhaak | Status | Notitie |
 | :--- | :--- | :--- | :--- | :--: | :--- |
 | `FEAT_START_RENDER` | Scherm rendert | Titel, mascotte, achtergrond verschijnen | `start-screen` | 🟢 | |
-| `FEAT_START_STARS` | Sterrenteller | Toont actueel aantal ⭐ | `start-star-counter` | 🟡 | Toonde 120 bij nieuw profiel, `T-21` |
+| `FEAT_START_STARS` | Sterrenteller | Toont actueel aantal ⭐ | `start-star-counter` | 🟢 | Cumulatief per profiel (`T-21` afgerond) |
 | `FEAT_START_PLAY` | Speelknop | Gaat naar avontuur kiezen (`SCR_MSA_MODE_SELECT`) | `start-play-button` | 🟢 | Navigatie werkt; opruimen `world-select` via `T-05` |
 | `FEAT_START_SETTINGS` | Instellingenknop | Opent `SCR_MSA_SETTINGS` | `start-settings-button` | ⚪ | Knop aanwezig, niet vanaf hier geopend |
 | `FEAT_START_EXIT` | Terug naar platform | Verlaat de game naar de schil | *(n.t.b.)* | ⚪ | Knop aanwezig |
@@ -112,7 +112,7 @@ De +1 Woordenschat-schil rondom de game. Features op hoofdlijn (testhaken nog to
 | FEAT-ID | Feature | Verwacht gedrag | Testhaak | Status | Notitie |
 | :--- | :--- | :--- | :--- | :--: | :--- |
 | `FEAT_MODE_RENDER` | Scherm rendert | Kaarten + navigatie zichtbaar | `adventure-select-screen` | 🟢 | |
-| `FEAT_MODE_STARS` | Sterrenteller | Toont actueel aantal ⭐ | `adventure-select-star-counter` | 🟡 | Zie `T-21` (120 ⭐) |
+| `FEAT_MODE_STARS` | Sterrenteller | Toont actueel aantal ⭐ | `adventure-select-star-counter` | 🟢 | Cumulatief per profiel (`T-21` afgerond) |
 | `FEAT_MODE_WORLD_MSG` | Wereldstatusbericht | Toont status (open/komt later/gesloten) | `world-select-message` | ⚪ | Niet expliciet waargenomen |
 | `FEAT_MODE_CARD_ZEGZET` | Kaart Zeg & Zet | Selecteert modus `listen-and-place` | *(CardGameZegZet)* | 🟢 | Vooraf geselecteerd ✓ |
 | `FEAT_MODE_CARD_KIESWOORD` | Kaart Kies het Woord | Selecteert modus `choose-word` | *(CardGameKiesWoord)* | 🟢 | |
@@ -276,7 +276,7 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | `FEAT_X_SPEECH` | Spraakherkenning | Hook + parser + foutmeldingen, per scherm geconfigureerd | 🟡 | Parser 🟢 (typ); herkenning vereist mic |
 | `FEAT_X_TTS` | Spraaksynthese | Opdrachten/nazegzinnen voorlezen | ⚪ | Audio-output niet hoorbaar getest |
 | `FEAT_X_MUSIC` | Achtergrondmuziek | Speelt/pauzeert volgens `musicEnabled` | ⚪ | `GameBackgroundMusic` |
-| `FEAT_X_REWARDS` | Beloningssysteem | Één "Strandschat"-curve (na `T-01`) | 🟡 | Uitgeput na 1e actie (bevestigd) |
+| `FEAT_X_REWARDS` | Beloningssysteem | Één "Strandschat"-curve, cumulatief per profiel | 🟢 | `T-01` afgerond; drempels tunen = `T-02` |
 | `FEAT_X_PROGRESS` | Observatie-registratie | Elke actie → `PracticeEvent` | ⚪ | `T-17` |
 | `FEAT_X_SETTINGS_RESPECT` | Instellingen-respect | `audio`/`hints`/`motion` beïnvloeden gedrag | ⚪ | |
 | `FEAT_X_A11Y` | Toegankelijkheid | 48×48, focus-visible, aria, tekst-altijd | ⚪ | `T-13`, `T-14` |

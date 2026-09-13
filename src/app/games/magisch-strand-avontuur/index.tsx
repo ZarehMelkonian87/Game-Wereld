@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import type { GameRuntime } from "../../game-platform/contracts";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, MagischStrandAvontuurShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
+import { readProfileTotals } from "./logic/rewards";
 import {
   AdventureSelectScreen,
   GameSettingsScreen,
@@ -12,10 +14,11 @@ import {
   WordChoiceScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
-import { GameRuntimeProvider } from "./runtime/GameRuntimeContext";
+import { GameRuntimeProvider, useGameRuntime } from "./runtime/GameRuntimeContext";
 
 const MagischStrandAvontuurExperience = () => {
   const { actions, viewModel } = useBezemEscapeGameController();
+  const runtime = useGameRuntime();
   const {
     instructionText,
     instructions,
@@ -27,6 +30,13 @@ const MagischStrandAvontuurExperience = () => {
     spokenCommandPreviewText,
     worldDefinitions,
   } = viewModel;
+
+  // Cumulatief sterrentotaal van het actieve profiel; ververst bij elke
+  // schermwissel zodat de teller na een ronde meteen klopt (T-01/T-21).
+  const [starCount, setStarCount] = useState(0);
+  useEffect(() => {
+    setStarCount(readProfileTotals(runtime.identity.profileId, runtime.storage).wordStars);
+  }, [screenPreview, runtime.identity.profileId, runtime.storage]);
 
   const isSceneBuilder =
     screenPreview !== "reward" &&
@@ -63,6 +73,7 @@ const MagischStrandAvontuurExperience = () => {
               onExit={actions.exitGame}
               onOpenSettings={() => actions.setScreen("settings")}
               onPlay={() => actions.setScreen("world-select")}
+              starCount={starCount}
             />
           ) : screenPreview === "world-select" || screenPreview === "mode-select" ? (
             <AdventureSelectScreen
@@ -72,6 +83,7 @@ const MagischStrandAvontuurExperience = () => {
               onSelectWorld={actions.selectWorld}
               onStartMode={actions.startSelectedMode}
               selectedWorldId={selectedWorld.id}
+              starCount={starCount}
               worlds={worldDefinitions}
             />
           ) : screenPreview === "voice-side-scroller" ? (

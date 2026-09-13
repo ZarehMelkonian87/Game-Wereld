@@ -91,6 +91,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.4 | 2026-09-11 | Zareh Melkonian | [User Journey Map](User-Journey-Map.md) opgesteld (9 reizen, `JRN_*`). Geen nieuwe taken. |
 | 1.5 | 2026-09-11 | Zareh Melkonian | [Test-matrix](Test-matrix.md) opgesteld (41 testcases, `TC_*`). Dekkingsgaten benoemd (Kies het Woord, Zeg & Vlieg, Beloning zonder e2e). Taak `T-24` toegevoegd. **Alle 4 dossierdocumenten compleet.** |
 | 1.6 | 2026-09-13 | Zareh Melkonian | Tweede reviewronde verwerkt in [Werkplan-en-Voorstellen](Werkplan-en-Voorstellen.md). Oorzaken gevonden voor video-foutmelding (`T-19`) en 120-sterren (`T-21`). Nieuwe taken `T-25`–`T-33` (audio verwijderen, mic-herontwerp, wave+transcriptie, woordfilter, randomisatie alle modi, vriendelijk Zeg & Vlieg, unlock, mic Zeg & Vlieg, performance-analyse). |
+| 1.7 | 2026-09-13 | Zareh Melkonian | `T-19`, `T-20`, `T-01` en `T-21` afgerond en geverifieerd. `GAP-01`/`GAP-02` opgelost (één beloningssysteem "Strandschat" met cumulatieve per-profiel totalen). Besluiten (dev-tools, vriendelijk Zeg & Vlieg, unlock-volgorde, Zeg & Bouw-concept) vastgelegd. |
 
 ### 0.7 Verwante bestaande documentatie
 
@@ -800,8 +801,8 @@ FEAT_SCENE_MIC_PLACE
 
 | ID | Prio | Gebied | Bevinding | Beslissing | Taak |
 | :--- | :--: | :--- | :--- | :--- | :--- |
-| `GAP-01` | **P1** | Beloningen | Drie conflicterende definities; het actieve systeem geeft alles weg bij de 1e actie → geen progressie | Eén systeem: "Strandschat" (7.2.b) | [T-01](#12-takenlijst), [T-02](#12-takenlijst) |
-| `GAP-02` | **P1** | Beloningen | `beachWorld.rewards` (systeem B) is dode data | Verwijderen | [T-01](#12-takenlijst) |
+| `GAP-01` | **P1** | Beloningen | ✅ **Opgelost** — één systeem "Strandschat" met cumulatieve per-profiel totalen en oplopende curve | Eén systeem: "Strandschat" (7.2.b) | [T-01](#12-takenlijst) ✅, [T-02](#12-takenlijst) |
+| `GAP-02` | **P1** | Beloningen | ✅ **Opgelost** — `beachWorld.rewards` verwijderd | Verwijderen | [T-01](#12-takenlijst) ✅ |
 | `GAP-15` | **P1** | Modi | Zeg & Zet heeft **geen** in-game ronde-eindscherm; loopt door naar reward | Alle 3 (straks 4) modi krijgen een eigen ronde-einde | [T-03](#12-takenlijst) |
 | `GAP-04` | P2 | Modi | `zeg-en-bouw` bestaat als type, zonder eigen scherm | Eigen scherm + volwaardige modus | [T-04](#12-takenlijst) |
 | `GAP-14` | P2 | Schermen | `world-select` en `mode-select` doen hetzelfde (dubbel) | Eén scherm: `SCR_MSA_MODE_SELECT` | [T-05](#12-takenlijst) |
@@ -838,7 +839,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 
 | Taak | Prio | Type | Omschrijving | Bron | Status |
 | :--- | :--: | :--: | :--- | :--- | :--: |
-| **T-01** | **P1** | 🔧 | **Eén beloningssysteem** bouwen: één `strandRewards`-tabel + één resolver; systeem B (`beachWorld.rewards`) en de oude 2-item lijst vervangen/verwijderen | GAP-01, GAP-02 | ⬜ |
+| **T-01** | **P1** | 🔧 | **Eén beloningssysteem** ("Strandschat"): één `strandRewards`-tabel met oplopende drempels + cumulatieve per-profiel totalen + één resolver. Systeem B verwijderd, gameplay-hooks + beloningsscherm + sterrenteller aangesloten. Reset wist nu ook de totalen. Geverifieerd (7 unit-tests + browser) | GAP-01, GAP-02 | ✅ |
 | **T-02** | **P1** | 🎨 | Beloningscurve (drempels/items van "Strandschat") ontwerpen, tunen en testen met echte spelsessies | GAP-01 / 7.2.b | ⬜ |
 | **T-03** | **P1** | 🔧 | **Zeg & Zet** een eigen in-game ronde-eindscherm geven (`SCR_MSA_OV_SCENE_SUMMARY`), gelijk aan de andere modi | GAP-15 / 4.5 | ⬜ |
 | **T-04** | P2 | 🎨🔧 | Modus **`zeg-en-bouw`** ontwerpen én een eigen scherm bouwen (`SCR_MSA_ZEG_BOUW`) | GAP-04 / 4.6 | ⬜ |
@@ -858,7 +859,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-18** | P2 | 🔍 | Resterende ⚪-features verifiëren (o.a. op een echt apparaat met microfoon voor spraak/audio) | Feature-catalogus §0.5 | ⬜ |
 | **T-19** | **P1** | 🔧 | **Video-foutmelding is vals** — autoplay-met-geluid wordt geblokkeerd → `NotAllowedError` → onterechte foutbanner. Fix: autoplay gedempt + beleidsfout niet als fout tonen | Werkplan WP-A1 | ✅ |
 | **T-20** | P2 | 🔧 | "Zone Editor (DevTools)"-toggle verbergen — nu gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie | Werkplan WP-B1 | ✅ |
-| **T-21** | P2 | 🔧 | Sterrenteller toont **120 ⭐** — placeholder-default verwijderd (nu 0) op start + moduskeuze. ⚠️ **Rest:** koppelen aan het echte cumulatieve per-profiel totaal hoort bij `T-01` (er is nu geen persistente totaalteller) | Werkplan WP-A2/B2 | 🟦 |
+| **T-21** | P2 | 🔧 | Sterrenteller: placeholder `120` weg én gekoppeld aan het echte cumulatieve per-profiel totaal (via `T-01`). Startscherm toont nu de echte som. Geverifieerd in browser (0 → 2 na één goed antwoord) | Werkplan WP-A2/B2 | ✅ |
 | **T-22** | P3 | 📄 | GDD-index 4.4 herschrijven naar het nieuwe vriendelijke Zeg & Vlieg-mechanisme (→ opgenomen in `T-30`) | Werkplan WP-B3 | ⬜ |
 | **T-23** | P3 | 🔧 | Kies het Woord: kaarten flitsen leeg bij doorschakelen — afbeeldingen preloaden (→ onderdeel van `T-33`) | Werkplan WP-C7 | ⬜ |
 | **T-24** | P2 | 🔍 | Nieuwe e2e-suites voor de ongedekte modi: `word-choice.spec.ts`, `voice-side-scroller.spec.ts`, `reward.spec.ts` | [Test-matrix](Test-matrix.md) §9 | ⬜ |
@@ -883,4 +884,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 
 - **T-19** ✅ (2026-09-13) — valse videofoutmelding opgelost (autoplay gedempt; beleidsfout niet gemeld). Geverifieerd in de browser.
 - **T-20** ✅ (2026-09-13) — DevTools-toggle gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie.
-- **T-21** 🟦 gedeeltelijk (2026-09-13) — misleidende `120`-placeholder verwijderd (nu 0); echte cumulatieve teller volgt met `T-01`.
+- **T-01** ✅ (2026-09-13) — één beloningssysteem "Strandschat" (oplopende curve, cumulatieve per-profiel totalen, dode `beachRewards` verwijderd, reset wist totalen). 7 unit-tests + browserverificatie. Lost `GAP-01` en `GAP-02` op.
+- **T-21** ✅ (2026-09-13) — sterrenteller gekoppeld aan het echte cumulatieve per-profiel totaal (samen met `T-01`).
+
+> Nog open bij het beloningssysteem: **`T-02`** (drempelcurve tunen/testen) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getBeachObjectStickerUrl, getInstructionVideoUrl } from "../../asset-urls";
 import {
+  addProfileTotals,
   readUnlockedRewardIds,
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
@@ -154,9 +155,14 @@ export const useWordChoiceState = ({
       const earnedWordStars = instruction.reward.wordStars + (bonusEarned ? 1 : 0);
       const nextSpeedValue = speedValue + earnedSpeed;
       const nextWordStarValue = wordStarValue + earnedWordStars;
+      // Tel de verdiende sterren/tempo op bij het CUMULATIEVE profieltotaal en
+      // bepaal daarop de unlocks (niet op de ronde-lokale teller).
+      const profileTotals = addProfileTotals(rewardProfileId, runtime.storage, {
+        speed: earnedSpeed,
+        wordStars: earnedWordStars,
+      });
       const newRewardUnlocks = resolveNewRewardUnlocks({
-        totalSpeed: nextSpeedValue,
-        totalWordStars: nextWordStarValue,
+        totalWordStars: profileTotals.wordStars,
         unlockedRewardIds,
       });
       const nextUnlockedRewardIds = [

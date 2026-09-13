@@ -1,5 +1,4 @@
 import type {
-  BroomReward,
   GameInstruction,
   GameWorld,
   LanguageDomain,
@@ -678,40 +677,9 @@ export const beachInstructions: GameInstruction[] = [
   ...sceneBuilderInstructions,
   ...vocabularyChoiceInstructions,
 ];
-export const beachRewards: BroomReward[] = [
-  {
-    id: "blue-broom",
-    type: "broom",
-    name: "Blauwe Bezem",
-    description: "Een rustige blauwe beginnersbezem.",
-    assetId: "broom-03-dolphin",
-    unlockAfterWordStars: 5,
-  },
-  {
-    id: "dolphin-sticker",
-    type: "sticker",
-    name: "Dolfijn Sticker",
-    description: "Een vrolijke dolfijnsticker voor het stickerboek.",
-    assetId: "dolfijn",
-    unlockAfterWordStars: 10,
-  },
-  {
-    id: "beach-trail",
-    type: "broom-trail",
-    name: "Strand Sprankel",
-    description: "Een zachte strandtrail achter de bezem.",
-    assetId: "broom-02-beach",
-    unlockAfterWordStars: 15,
-  },
-  {
-    id: "star-mascot-badge",
-    type: "sticker",
-    name: "Ster Helper",
-    description: "Een mascottesticker voor goede oefenrondes.",
-    assetId: "mascot-07-ui-icon",
-    unlockAfterWordStars: 20,
-  },
-];
+// Beloningen worden centraal beheerd in logic/rewards.ts ("Strandschat", het
+// enige beloningssysteem). De oude, ongebruikte beachRewards-lijst is verwijderd
+// (zie GDD-index GAP-02 / taak T-01).
 export const beachWorld: GameWorld = {
   id: "beach-world-1",
   name: "Strandwereld",
@@ -721,6 +689,6 @@ export const beachWorld: GameWorld = {
   objects: beachObjects,
   zones: beachZones,
   instructions: beachInstructions,
-  rewards: beachRewards,
+  rewards: [],
 };
 export const firstDemoInstructionIds = beachInstructions.map((instruction) => instruction.id);
