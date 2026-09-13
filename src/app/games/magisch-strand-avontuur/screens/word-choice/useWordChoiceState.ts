@@ -59,6 +59,21 @@ export const useWordChoiceState = ({
     setUnlockedRewardIds(readUnlockedRewardIds(rewardProfileId, runtime.storage));
   }, [rewardProfileId, runtime.storage]);
   useEffect(() => {
+    // Voorlaad alle objectstickers zodat de keuzekaarten niet leeg flitsen bij
+    // het doorschakelen naar de volgende vraag (T-33). De browser cachet ze
+    // zodat een volgende vraag ze meteen kan tonen.
+    if (typeof window === "undefined") {
+      return;
+    }
+    objects.forEach((object) => {
+      const stickerUrl = getBeachObjectStickerUrl(object.assetId);
+      if (stickerUrl) {
+        const image = new window.Image();
+        image.src = stickerUrl;
+      }
+    });
+  }, [objects]);
+  useEffect(() => {
     setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
     setFeedback(null);
