@@ -88,7 +88,7 @@ De +1 Woordenschat-schil rondom de game. Features op hoofdlijn (testhaken nog to
 | `FEAT_PLAT_THEME_PICK` | Thema kiezen | Thema/wereld kiezen op home | *(n.t.b.)* | 🟢 | |
 | `FEAT_PLAT_GAME_PICK` | Game kiezen | Game kiezen in gamelijst | *(n.t.b.)* | 🟢 | |
 | `FEAT_PLAT_GAME_HOST` | Game laden | `GamePlayScreen` host laadt Magisch Strand-Avontuur | *(n.t.b.)* | 🟢 | |
-| `FEAT_PLAT_SETTINGS` | Platforminstellingen | Instellingen op app-niveau | *(n.t.b.)* | ⚪ | Niet apart geopend |
+| `FEAT_PLAT_SETTINGS` | Platform­instellingen | Instellingen van de **hele app-schil** (route `/settings`), los van de instellingen ín de game (`SCR_MSA_SETTINGS`). Bereikbaar via het tandwiel op het home-scherm; geldt voor álle games/profielen samen — bv. app-breed geluid, profielbeheer of app-info. Bevestigen wat er precies in staat. | *(n.t.b.)* | ⚪ | Verschilt van de game-eigen instellingen; niet apart geopend in de verificatie |
 | `FEAT_PLAT_PROGRESS` | Voortgangsoverzicht | Toont observatiemodel per profiel | *(n.t.b.)* | ⚪ | `T-17` verifiëren |
 
 ---
@@ -137,7 +137,7 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | `FEAT_SCENE_RENDER` | Scherm rendert | Strandcanvas, carrousel, instructiekaart | `scene-builder-screen`, `scene-builder-scene-area` | 🟢 | |
 | `FEAT_SCENE_INSTRUCTION` | Opdrachttekst | Toont de opdracht als tekst | `scene-builder-instruction-text` | 🟢 | |
 | `FEAT_SCENE_AUDIO` | Opdracht voorlezen | Spreekt de opdracht uit (spraaksynthese) | *(BtnTaskAudio)* | ⚪ | Audio-output niet hoorbaar getest |
-| `FEAT_SCENE_VIDEO` | Instructievideo | Toont animatievideo van de handeling | *(InstructionVideoButton)* | 🔴 | **"Video-opdracht kan niet worden afgespeeld"**, `T-19` |
+| `FEAT_SCENE_VIDEO` | Instructievideo | Toont animatievideo van de handeling | *(InstructionVideoButton)* | 🟡 | Video speelt bij klik; foutbanner is **vals-positief** (autoplay-beleid), `T-19` |
 
 ### 4.2 Invoer: tap & sleep
 
@@ -194,7 +194,7 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | :--- | :--- | :--- | :--- | :--: | :--- |
 | `FEAT_WORD_RENDER` | Scherm rendert | Vraagpaneel + keuze-area | `word-choice-screen` | 🟢 | |
 | `FEAT_WORD_QUESTION` | Vraagweergave | Toont vraag + doelkaart | `word-choice-question-panel`, `word-choice-target-card` | 🟢 | "Waar is de parasol?" |
-| `FEAT_WORD_AUDIO` | Vraag voorlezen | Spreekt de vraag uit; onbeperkt herhaalbaar | *(playQuestionAudio)* | ⚪ | Audio-output niet hoorbaar getest |
+| `FEAT_WORD_AUDIO` | Vraag voorlezen | ~~Spreekt de vraag uit~~ | *(playQuestionAudio)* | ⚫ | **Te verwijderen** — video vervangt dit, `T-25` (na `T-19`) |
 | `FEAT_WORD_OPTIONS` | Keuzekaarten | 2–4 kaarten aanklikbaar | `word-choice-answer-area` | 🟢 | 2 en 3 kaarten gezien |
 | `FEAT_WORD_CORRECT` | Goed antwoord | Groene rand + succes + bonus zonder hint | *(feedback kind="correct")* | 🟢 | "+1 Tempo! Bonus zonder hint!" + nazegzin |
 | `FEAT_WORD_WRONG` | Fout antwoord | Vriendelijke tip, geen straf | *(feedback kind="almost")* | 🟢 | Rode ✗, "Bijna. Zoek nog eens…" |

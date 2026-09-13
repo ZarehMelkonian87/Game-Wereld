@@ -30,7 +30,9 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
   onSelectWorld,
   onStartMode,
   selectedWorldId,
-  starCount = 120,
+  // TODO(T-01/T-21): koppel aan het echte cumulatieve sterrentotaal van het
+  // actieve profiel. Tot dan tonen we 0 i.p.v. de misleidende placeholder 120.
+  starCount = 0,
   worlds,
 }: AdventureSelectScreenProps) => {
   const [message, setMessage] = useState<string | null>(null);

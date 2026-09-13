@@ -50,12 +50,16 @@ export const InstructionVideoButton = ({
       ? "pointer-events-auto h-12 min-h-12 w-12 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
       : "pointer-events-auto h-14 min-h-14 w-14 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
 
-  const playVideo = useCallback(async () => {
+  const playVideo = useCallback(async (options?: { userInitiated?: boolean }) => {
     const video = videoRef.current;
 
     if (!video) {
       return;
     }
+
+    // Autoplay-met-geluid wordt door browsers geblokkeerd zonder gebruikersgebaar.
+    // Daarom starten we op mount gedempt (dat mag wel) en pas mét geluid na een tik.
+    const userInitiated = options?.userInitiated ?? false;
 
     try {
       video.pause();
@@ -63,14 +67,21 @@ export const InstructionVideoButton = ({
         video.load();
       }
       video.currentTime = 0;
-      video.muted = false;
+      video.muted = !userInitiated;
       video.volume = GAME_FOREGROUND_AUDIO_VOLUME;
       await video.play();
-      stopForegroundAudioSessionRef.current?.();
-      stopForegroundAudioSessionRef.current = createForegroundAudioSession();
+      if (!video.muted) {
+        stopForegroundAudioSessionRef.current?.();
+        stopForegroundAudioSessionRef.current = createForegroundAudioSession();
+      }
       onPlaybackStartRef.current?.();
-    } catch {
-      onPlaybackErrorRef.current?.();
+    } catch (error) {
+      // Een geblokkeerde autoplay (NotAllowedError) is geen echte fout: de video
+      // speelt gewoon zodra het kind tikt. Alleen echte fouten melden we.
+      const isAutoplayBlocked = error instanceof DOMException && error.name === "NotAllowedError";
+      if (userInitiated || !isAutoplayBlocked) {
+        onPlaybackErrorRef.current?.();
+      }
     }
   }, []);
 
@@ -98,7 +109,7 @@ export const InstructionVideoButton = ({
       return;
     }
 
-    await playVideo();
+    await playVideo({ userInitiated: true });
   };
 
   return (

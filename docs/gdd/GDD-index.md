@@ -90,6 +90,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.3 | 2026-09-11 | Zareh Melkonian | Live verificatieronde in de browser uitgevoerd (46 features geverifieerd 🟢). Nieuwe taken `T-19`–`T-23` toegevoegd (o.a. defecte instructievideo, zichtbare dev-toggle, sterren-per-profiel). |
 | 1.4 | 2026-09-11 | Zareh Melkonian | [User Journey Map](User-Journey-Map.md) opgesteld (9 reizen, `JRN_*`). Geen nieuwe taken. |
 | 1.5 | 2026-09-11 | Zareh Melkonian | [Test-matrix](Test-matrix.md) opgesteld (41 testcases, `TC_*`). Dekkingsgaten benoemd (Kies het Woord, Zeg & Vlieg, Beloning zonder e2e). Taak `T-24` toegevoegd. **Alle 4 dossierdocumenten compleet.** |
+| 1.6 | 2026-09-13 | Zareh Melkonian | Tweede reviewronde verwerkt in [Werkplan-en-Voorstellen](Werkplan-en-Voorstellen.md). Oorzaken gevonden voor video-foutmelding (`T-19`) en 120-sterren (`T-21`). Nieuwe taken `T-25`–`T-33` (audio verwijderen, mic-herontwerp, wave+transcriptie, woordfilter, randomisatie alle modi, vriendelijk Zeg & Vlieg, unlock, mic Zeg & Vlieg, performance-analyse). |
 
 ### 0.7 Verwante bestaande documentatie
 
@@ -855,12 +856,21 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-16** | P3 | 📄 | Effect van `instruction-randomization.ts` op volgorde/selectie documenteren | GAP-13 / 6.6 | ⬜ |
 | **T-17** | P2 | 🔍 | Verifiëren dat `SCR_PLAT_PROGRESS` het volledige observatiemodel correct toont | GAP-16 / 7.7 | ⬜ |
 | **T-18** | P2 | 🔍 | Resterende ⚪-features verifiëren (o.a. op een echt apparaat met microfoon voor spraak/audio) | Feature-catalogus §0.5 | ⬜ |
-| **T-19** | **P1** | 🔧 | **Instructievideo speelt niet af** ("De video-opdracht kan niet worden afgespeeld") in Zeg & Zet en Kies het Woord — video-assets of afspeellogica repareren | Feature-catalogus §0.5 | ⬜ |
-| **T-20** | P2 | 🔧 | "Zone Editor (DevTools)"-toggle verbergen voor eindgebruikers in productie (staat nu in het instellingenscherm) | Feature-catalogus §0.5 | ⬜ |
-| **T-21** | P2 | 🔍🔧 | Sterrenteller toont **120 ⭐** bij een net aangemaakt profiel — onderzoeken of sterren per-profiel resetten (raakt `GAP-10`) | Feature-catalogus §0.5 | ⬜ |
-| **T-22** | P3 | 📄 | GDD-index 4.4 nuanceren: obstakel-botsing in Zeg & Vlieg kan **game-over** veroorzaken (waargenomen) | Feature-catalogus §0.5 | ⬜ |
-| **T-23** | P3 | 🔧 | Kies het Woord: kaarten flitsen kort leeg bij doorschakelen — afbeeldingen preloaden | Feature-catalogus §0.5 | ⬜ |
+| **T-19** | **P1** | 🔧 | **Video-foutmelding is vals** — autoplay-met-geluid wordt geblokkeerd → `NotAllowedError` → onterechte foutbanner. Fix: autoplay gedempt + beleidsfout niet als fout tonen | Werkplan WP-A1 | ✅ |
+| **T-20** | P2 | 🔧 | "Zone Editor (DevTools)"-toggle verbergen — nu gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie | Werkplan WP-B1 | ✅ |
+| **T-21** | P2 | 🔧 | Sterrenteller toont **120 ⭐** — placeholder-default verwijderd (nu 0) op start + moduskeuze. ⚠️ **Rest:** koppelen aan het echte cumulatieve per-profiel totaal hoort bij `T-01` (er is nu geen persistente totaalteller) | Werkplan WP-A2/B2 | 🟦 |
+| **T-22** | P3 | 📄 | GDD-index 4.4 herschrijven naar het nieuwe vriendelijke Zeg & Vlieg-mechanisme (→ opgenomen in `T-30`) | Werkplan WP-B3 | ⬜ |
+| **T-23** | P3 | 🔧 | Kies het Woord: kaarten flitsen leeg bij doorschakelen — afbeeldingen preloaden (→ onderdeel van `T-33`) | Werkplan WP-C7 | ⬜ |
 | **T-24** | P2 | 🔍 | Nieuwe e2e-suites voor de ongedekte modi: `word-choice.spec.ts`, `voice-side-scroller.spec.ts`, `reward.spec.ts` | [Test-matrix](Test-matrix.md) §9 | ⬜ |
+| **T-25** | P2 | 🔧 | Kies het Woord: audio-voorleesfunctie (`FEAT_WORD_AUDIO`) + UI-knoppen **verwijderen** (video vervangt het). ⚠️ **na `T-19`** | Werkplan WP-C6 | ⬜ |
+| **T-26** | **P1** | 🟦🔧 | Mic-mechanisme Zeg & Zet herontwerpen tot helder verloop (hergebruik parser van de typ-fallback). Hangt aan `T-27` | Werkplan WP-C1 | ⬜ |
+| **T-27** | **P1** | 🟦🔧 | Runtime **wave + live woord-voor-woord transcriptie** onder de wave (Zeg & Zet én Zeg & Vlieg) | Werkplan WP-C2 | ⬜ |
+| **T-28** | P2 | 🟦🔧 | Vriendelijke **bescherming tegen scheld-/ongewenste woorden** in de transcriptie (blocklist + nudge) | Werkplan WP-C3 | ⬜ |
+| **T-29** | P2 | 🔧 | **Randomisatie van objecten/opdrachten in alle 3 modi** (nu alleen Kies het Woord); GDD bijwerken als norm | Werkplan WP-C5 | ⬜ |
+| **T-30** | **P1** | 🟦🔧 | Zeg & Vlieg **vriendelijk mechanisme** (geen harde game-over; schildjes/record/combo) + game-feel in alle modi | Werkplan WP-B3 | ⬜ |
+| **T-31** | P2 | 🟦🔧 | **Unlock-mechanisme** + volgorde modi (receptief→relationeel→productief). Hangt aan `T-01`, `T-21` | Werkplan WP-B4 | ⬜ |
+| **T-32** | **P1** | 🔬🔧 | Zeg & Vlieg **mic-commando's werken niet** — onderzoeken + koppelen aan wave (`T-27`) | Werkplan WP-C4 | ⬜ |
+| **T-33** | **P1** | 🔬 | **Performance/lag-analyse**: kaart-flits + mic-vertraging die gameplay onmogelijk maakt (meten → optimaliseren) | Werkplan WP-C7 | ⬜ |
 
 ### 12.2 Aanbevolen volgorde
 
@@ -871,4 +881,6 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 
 ### 12.3 Afgeronde taken
 
-*(nog geen — hier verhuizen taken naartoe zodra ze op ✅ staan)*
+- **T-19** ✅ (2026-09-13) — valse videofoutmelding opgelost (autoplay gedempt; beleidsfout niet gemeld). Geverifieerd in de browser.
+- **T-20** ✅ (2026-09-13) — DevTools-toggle gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie.
+- **T-21** 🟦 gedeeltelijk (2026-09-13) — misleidende `120`-placeholder verwijderd (nu 0); echte cumulatieve teller volgt met `T-01`.

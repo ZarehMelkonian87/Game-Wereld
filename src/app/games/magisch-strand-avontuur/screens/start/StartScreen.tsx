@@ -20,7 +20,9 @@ export const StartScreen = ({
   onExit,
   onOpenSettings,
   onPlay,
-  starCount = 120,
+  // TODO(T-01/T-21): koppel aan het echte cumulatieve sterrentotaal van het
+  // actieve profiel. Tot dan tonen we 0 i.p.v. de misleidende placeholder 120.
+  starCount = 0,
 }: StartScreenProps) => (
   <section
     aria-label="Startscherm"
