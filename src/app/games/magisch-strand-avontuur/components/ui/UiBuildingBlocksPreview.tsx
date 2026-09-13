@@ -12,7 +12,7 @@ import { StarCounter } from "./StarCounter";
 import { VoiceCommandButton } from "./VoiceCommandButton";
 
 const previewStickerUrl = new URL(
-  "../../assets/objects/transparent/sailboat-sticker.png",
+  "../../assets/objects/transparent/sailboat-sticker.webp",
   import.meta.url,
 ).href;
 
