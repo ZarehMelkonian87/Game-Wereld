@@ -34,6 +34,7 @@ export const useSpokenCommandControlsState = ({
 
   const {
     errorMessage,
+    isFinal,
     resetTranscript,
     startListening,
     status,
@@ -70,13 +71,20 @@ export const useSpokenCommandControlsState = ({
   }, [status, onVoiceStatusChange]);
 
   useEffect(() => {
-    if (!transcript || status !== "heard" || handledTranscriptRef.current === transcript) {
+    if (!transcript || handledTranscriptRef.current === transcript) {
+      return;
+    }
+
+    // Verwerk het commando zodra er een afgeronde zin is (isFinal), of als
+    // terugval na de stiltetimer (status "heard"). Zo hoeft het kind niet elke
+    // keer op de volledige stiltetimer te wachten voordat er iets gebeurt (T-26).
+    if (!isFinal && status !== "heard") {
       return;
     }
 
     handledTranscriptRef.current = transcript;
     onTranscript(transcript);
-  }, [onTranscript, status, transcript]);
+  }, [isFinal, onTranscript, status, transcript]);
 
   useEffect(() => {
     if (!support.isSupported) {

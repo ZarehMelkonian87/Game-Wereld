@@ -15,7 +15,6 @@ import {
   getBrowserSpeechRecognitionSupport,
   requestBrowserMicrophonePermission,
 } from "./browserSpeech";
-import { createLocalSpeechRecognition } from "./localSpeechEngine";
 
 interface CreateBrowserGameRuntimeOptions {
   clock?: GameRuntime["clock"];
@@ -116,17 +115,12 @@ export const createBrowserGameRuntime = ({
     },
     practice,
     speech: {
-      createRecognition: (options = {}) => {
-        if (
-          typeof navigator !== "undefined" &&
-          "mediaDevices" in navigator &&
-          typeof navigator.mediaDevices?.getUserMedia === "function" &&
-          (typeof AudioContext !== "undefined" || "webkitAudioContext" in window)
-        ) {
-          return createLocalSpeechRecognition(options);
-        }
-        return createBrowserSpeechRecognition(options);
-      },
+      // Gebruik de ECHTE browser-spraakherkenning (Web Speech API): die herkent
+      // woorden daadwerkelijk. De lokale "on-device" engine deed geen echte
+      // herkenning (heuristiek die vrijwel altijd het eerste woord "bal" gaf) en
+      // wordt daarom niet meer gebruikt. Bij browsers zonder Web Speech API geeft
+      // dit null terug -> de UI valt netjes terug op het toetsenbord.
+      createRecognition: (options = {}) => createBrowserSpeechRecognition(options),
       getMicrophonePermission: getBrowserMicrophonePermission,
       getRecognitionSupport: getBrowserSpeechRecognitionSupport,
       isRecognitionAvailable: () => getBrowserSpeechRecognitionSupport().isSupported,

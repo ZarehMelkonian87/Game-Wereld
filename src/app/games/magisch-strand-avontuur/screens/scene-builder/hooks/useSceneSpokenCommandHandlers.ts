@@ -28,6 +28,7 @@ export const useSceneSpokenCommandHandlers = ({
     setSpokenHelpByInstruction,
     setSpokenHintZoneId,
     spokenCommandResult,
+    stopVoiceRecognitionRef,
   } = state;
 
   const applySpokenCommandTranscript = useCallback(
@@ -89,6 +90,10 @@ export const useSceneSpokenCommandHandlers = ({
         text: `${executionResult.message} Wil je dit zo plaatsen? Druk daarna op Klaar.`,
       });
 
+      // Plaatsing is duidelijk: stop het luisteren meteen, zodat het kind niet
+      // op de stiltetimer wacht en de transcript niet verder "opstapelt" (T-26).
+      stopVoiceRecognitionRef.current?.();
+
       return executionResult;
     },
     [
@@ -105,6 +110,7 @@ export const useSceneSpokenCommandHandlers = ({
       setSpokenCommandResult,
       setSpokenHelpByInstruction,
       setSpokenHintZoneId,
+      stopVoiceRecognitionRef,
     ],
   );
 
