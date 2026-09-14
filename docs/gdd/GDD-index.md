@@ -94,6 +94,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.7 | 2026-09-13 | Zareh Melkonian | `T-19`, `T-20`, `T-01` en `T-21` afgerond en geverifieerd. `GAP-01`/`GAP-02` opgelost (één beloningssysteem "Strandschat" met cumulatieve per-profiel totalen). Besluiten (dev-tools, vriendelijk Zeg & Vlieg, unlock-volgorde, Zeg & Bouw-concept) vastgelegd. |
 | 1.8 | 2026-09-13 | Zareh Melkonian | Sectie 7 opgeschoond: verouderde A/B/C-vergelijking verwijderd, alleen het geïmplementeerde "Strandschat"-systeem beschreven. Verouderde bezemdrempels (0/10/25/50) ook verwijderd uit de oude `docs/GDD.md` en `docs/05-...md`. |
 | 1.9 | 2026-09-13 | Zareh Melkonian | [Concept Zeg & Bouw](Concept-Zeg-en-Bouw.md) vastgesteld (v1.0): beide varianten (Bouwopdracht + Vrij Bouwen), compound-zinnen, 5 thema's, volgorde Kies→Zet→Bouw→Vlieg, soepele doelen. Bouw gepland als **laatste**, ná de 3 bestaande modi. |
+| 1.10 | 2026-09-14 | Zareh Melkonian | Videogedrag verfijnd (na test): instructievideo speelt weer mét geluid (sound-first + gedempte fallback), pauzeert betrouwbaar tijdens actieve mic (dekt `listening`/`processing`/`heard`, geen auto-hervat), en onderbroken `play()` (AbortError) geeft geen valse foutbanner meer. Verfijning op `T-19`/`T-33c`. |
 
 ### 0.7 Verwante bestaande documentatie
 
