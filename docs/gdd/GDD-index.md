@@ -95,6 +95,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.8 | 2026-09-13 | Zareh Melkonian | Sectie 7 opgeschoond: verouderde A/B/C-vergelijking verwijderd, alleen het geïmplementeerde "Strandschat"-systeem beschreven. Verouderde bezemdrempels (0/10/25/50) ook verwijderd uit de oude `docs/GDD.md` en `docs/05-...md`. |
 | 1.9 | 2026-09-13 | Zareh Melkonian | [Concept Zeg & Bouw](Concept-Zeg-en-Bouw.md) vastgesteld (v1.0): beide varianten (Bouwopdracht + Vrij Bouwen), compound-zinnen, 5 thema's, volgorde Kies→Zet→Bouw→Vlieg, soepele doelen. Bouw gepland als **laatste**, ná de 3 bestaande modi. |
 | 1.10 | 2026-09-14 | Zareh Melkonian | Videogedrag verfijnd (na test): instructievideo speelt weer mét geluid (sound-first + gedempte fallback), pauzeert betrouwbaar tijdens actieve mic (dekt `listening`/`processing`/`heard`, geen auto-hervat), en onderbroken `play()` (AbortError) geeft geen valse foutbanner meer. Verfijning op `T-19`/`T-33c`. |
+| 1.11 | 2026-09-14 | Zareh Melkonian | `T-27` (audio-reactieve wave + live transcriptie, Zeg & Zet) afgerond. **Kernfix spraak:** de niet-werkende on-device `localSpeechEngine` (gaf altijd "bal") vervangen door de echte Web Speech API; `T-26` mic-verloop responsiever. Nieuwe taken `T-34` (mic-robuustheid/feedback bij onverstaanbare invoer), `T-35` ("Klaar" → automatische bevestiging), `T-36` (dode localSpeechEngine verwijderen). |
 
 ### 0.7 Verwante bestaande documentatie
 
@@ -855,7 +856,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-23** | P3 | 🔧 | Kies het Woord: kaarten flitsen leeg bij doorschakelen — afbeeldingen preloaden (→ onderdeel van `T-33`) | Werkplan WP-C7 | ⬜ |
 | **T-24** | P2 | 🔍 | Nieuwe e2e-suites voor de ongedekte modi: `word-choice.spec.ts`, `voice-side-scroller.spec.ts`, `reward.spec.ts` | [Test-matrix](Test-matrix.md) §9 | ⬜ |
 | **T-25** | P2 | 🔧 | Kies het Woord: audio-voorleesfunctie (`FEAT_WORD_AUDIO`) + UI-knoppen **verwijderen** (video vervangt het). ⚠️ **na `T-19`** | Werkplan WP-C6 | ⬜ |
-| **T-26** | **P1** | 🟦🔧 | Mic-mechanisme Zeg & Zet herontwerpen tot helder verloop (hergebruik parser van de typ-fallback). Hangt aan `T-27` | Werkplan WP-C1 | ⬜ |
+| **T-26** | **P1** | 🔧 | Mic-mechanisme Zeg & Zet: **echte browser-spraakherkenning** aangesloten (localSpeechEngine gaf altijd "bal") + verwerking op `isFinal` (sneller) + stop bij duidelijke plaatsing. Herkenning werkt nu echt. Restpunten → `T-34`/`T-35` | Werkplan WP-C1 | 🟦 |
 | **T-27** | **P1** | 🟦🔧 | Runtime **wave + live woord-voor-woord transcriptie**. **Zeg & Zet klaar** (audio-reactieve `MicWaveBars` via Web Audio + live transcript, geverifieerd). Zeg & Vlieg-wave volgt met `T-32` | Werkplan WP-C2 | 🟦 |
 | **T-28** | P2 | 🟦🔧 | Vriendelijke **bescherming tegen scheld-/ongewenste woorden** in de transcriptie (blocklist + nudge) | Werkplan WP-C3 | ⬜ |
 | **T-29** | P2 | 🔧 | **Randomisatie van objecten/opdrachten in alle 3 modi** (nu alleen Kies het Woord); GDD bijwerken als norm | Werkplan WP-C5 | ⬜ |
@@ -866,6 +867,9 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-33a** | **P1** | 🔧 | **Alle afbeeldingen → WebP** (36 PNG's, ~11,8 MB → ~1,36 MB, 88% kleiner, geen resolutieverlies). Verhelpt kaart-flits + minder laaddruk in alle modi. Geverifieerd | Analyse §4.1 | ✅ |
 | **T-33b** | **P1** | 🔧 | **Instructievideo's gecomprimeerd** — 81 stuks naar 480p (H.264 CRF 28, mono-audio). **162 MB → 35 MB (78% kleiner)**. Geverifieerd (ffprobe + browser: readyState 4). Grootste winst tegen mic-lag | Analyse §4.1 | ✅ |
 | **T-33c** | P2 | 🔧 | Video **onderbroken tijdens actieve microfoon** — `InstructionVideoButton` krijgt `suspended`-prop: geen autoplay én pauzeert een spelende video zodra de mic luistert/verwerkt (voorkomt resource-strijd met spraak). Volledige mic-test op echt apparaat | Analyse §4.2 | ✅ |
+| **T-34** | **P1** | 🔧 | **Mic-robuustheid bij onverstaanbare/andere-taal invoer** — nu verdwijnt de mic-balk en kun je niet herstarten. Toon vriendelijke feedback ("Ik verstond je niet goed, probeer nog eens") en houd de mic **altijd herstartbaar** | Testfeedback 2026-09-14 | ⬜ |
+| **T-35** | **P1** | 🎨🔧 | **"Klaar"-knop vervangen door automatische bevestiging** — bij een correcte (high-confidence) gesproken/plaatsings-actie de plaatsing automatisch bevestigen (geen omslachtige Klaar-knop). Ook fixen dat "Klaar" nu niets doet na een gesproken plaatsing | Testfeedback 2026-09-14 | ⬜ |
+| **T-36** | P3 | 🔧 | Dode, niet-werkende `localSpeechEngine` (+ test) verwijderen uit de codebase | Testfeedback 2026-09-14 | ⬜ |
 
 ### 12.2 Aanbevolen volgorde
 
@@ -884,5 +888,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 - **T-33b** ✅ (2026-09-13) — 81 instructievideo's → 480p (162 MB → 35 MB, 78% kleiner). Verwachte grote winst tegen mic-lag.
 - **T-33** ✅ (2026-09-13) — performance/lag-analyse + alle vervolgacties (T-33a/b/c) afgerond. Media samen ~174 MB → ~36 MB.
 - **T-33c** ✅ (2026-09-13) — instructievideo pauzeert tijdens actieve microfoon (`suspended`-prop), voorkomt resource-strijd met spraak.
+- **T-27** ✅ (2026-09-13/14) — audio-reactieve mic-wave (`MicWaveBars`, Web Audio) + live woord-voor-woord transcriptie in Zeg & Zet. Zeg & Vlieg-wave volgt met `T-32`.
+- **Kernfix spraak** ✅ (2026-09-14) — echte browser-spraakherkenning i.p.v. de niet-werkende on-device engine die altijd "bal" teruggaf. Deel van `T-26`.
 
 > Nog open bij het beloningssysteem: **`T-02`** (drempelcurve tunen/testen) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).
