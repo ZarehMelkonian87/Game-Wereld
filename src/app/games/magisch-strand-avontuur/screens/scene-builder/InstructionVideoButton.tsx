@@ -48,10 +48,12 @@ export const InstructionVideoButton = ({
   const onPlaybackErrorRef = useRef(onPlaybackError);
   const onPlaybackStartRef = useRef(onPlaybackStart);
   const onPlayRequestRef = useRef(onPlayRequest);
+  const suspendedRef = useRef(suspended);
   const stopForegroundAudioSessionRef = useRef<(() => void) | undefined>();
   onPlaybackErrorRef.current = onPlaybackError;
   onPlaybackStartRef.current = onPlaybackStart;
   onPlayRequestRef.current = onPlayRequest;
+  suspendedRef.current = suspended;
   const buttonClassName =
     variant === "feedbackIcon"
       ? "pointer-events-auto h-12 min-h-12 w-12 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
@@ -64,31 +66,50 @@ export const InstructionVideoButton = ({
       return;
     }
 
-    // Autoplay-met-geluid wordt door browsers geblokkeerd zonder gebruikersgebaar.
-    // Daarom starten we op mount gedempt (dat mag wel) en pas mét geluid na een tik.
     const userInitiated = options?.userInitiated ?? false;
 
-    try {
+    const startPlayback = async (muted: boolean) => {
       video.pause();
       if (video.readyState === 0) {
         video.load();
       }
       video.currentTime = 0;
-      video.muted = !userInitiated;
+      video.muted = muted;
       video.volume = GAME_FOREGROUND_AUDIO_VOLUME;
       await video.play();
-      if (!video.muted) {
-        stopForegroundAudioSessionRef.current?.();
-        stopForegroundAudioSessionRef.current = createForegroundAudioSession();
-      }
+    };
+
+    try {
+      // Probeer mét geluid. Na de vele tikken in het spel (onboarding, "Start
+      // Spel") staat de browser autoplay-met-geluid meestal toe.
+      await startPlayback(false);
+      stopForegroundAudioSessionRef.current?.();
+      stopForegroundAudioSessionRef.current = createForegroundAudioSession();
       onPlaybackStartRef.current?.();
     } catch (error) {
-      // Een geblokkeerde autoplay (NotAllowedError) is geen echte fout: de video
-      // speelt gewoon zodra het kind tikt. Alleen echte fouten melden we.
-      const isAutoplayBlocked = error instanceof DOMException && error.name === "NotAllowedError";
-      if (userInitiated || !isAutoplayBlocked) {
-        onPlaybackErrorRef.current?.();
+      const errorName = error instanceof DOMException ? error.name : "";
+      const isAutoplayBlocked = errorName === "NotAllowedError";
+      // Een onderbroken play() (AbortError) is geen echte fout: dat gebeurt bij
+      // een snelle her-render/pauze of de dubbele effect-run in dev-modus.
+      const isInterrupted = errorName === "AbortError";
+
+      // Autoplay-met-geluid geblokkeerd (geen echte fout): speel gedempt door,
+      // zodat de video tóch loopt. Het kind kan tikken om het geluid te horen.
+      if (!userInitiated && isAutoplayBlocked) {
+        try {
+          await startPlayback(true);
+          onPlaybackStartRef.current?.();
+        } catch {
+          // Ook gedempt geblokkeerd: stil laten, geen foutmelding tonen.
+        }
+        return;
       }
+
+      if (isInterrupted) {
+        return;
+      }
+
+      onPlaybackErrorRef.current?.();
     }
   }, []);
 
@@ -98,7 +119,10 @@ export const InstructionVideoButton = ({
   }, []);
 
   useEffect(() => {
-    if (!autoPlayOnMount || suspended) {
+    // Alleen autoplayen bij mount/nieuwe video, en niet als de mic op dat moment
+    // actief is. We gebruiken een ref zodat het loslaten van `suspended` (mic
+    // stopt) de video NIET automatisch opnieuw start.
+    if (!autoPlayOnMount || suspendedRef.current) {
       return;
     }
 
@@ -109,7 +133,7 @@ export const InstructionVideoButton = ({
     void playVideo();
 
     return stopForegroundAudioSession;
-  }, [autoPlayOnMount, playVideo, src, stopForegroundAudioSession, suspended]);
+  }, [autoPlayOnMount, playVideo, src, stopForegroundAudioSession]);
 
   useEffect(() => {
     // Zodra de microfoon actief is (suspended), leggen we een spelende video
@@ -133,6 +157,7 @@ export const InstructionVideoButton = ({
       aria-label={label}
       className={buttonClassName}
       data-component="InstructionVideoButton"
+      data-suspended={suspended ? "true" : "false"}
       onClick={handleClick}
       title={label}
       type="button"

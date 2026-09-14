@@ -233,7 +233,8 @@ export const SceneBuilderScreen = ({
                 src={currentInstructionVideoUrl}
                 suspended={
                   voiceRecognitionStatus === "listening" ||
-                  voiceRecognitionStatus === "processing"
+                  voiceRecognitionStatus === "processing" ||
+                  voiceRecognitionStatus === "heard"
                 }
               />
             ) : undefined
