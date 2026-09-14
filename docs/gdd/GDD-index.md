@@ -856,7 +856,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-24** | P2 | 🔍 | Nieuwe e2e-suites voor de ongedekte modi: `word-choice.spec.ts`, `voice-side-scroller.spec.ts`, `reward.spec.ts` | [Test-matrix](Test-matrix.md) §9 | ⬜ |
 | **T-25** | P2 | 🔧 | Kies het Woord: audio-voorleesfunctie (`FEAT_WORD_AUDIO`) + UI-knoppen **verwijderen** (video vervangt het). ⚠️ **na `T-19`** | Werkplan WP-C6 | ⬜ |
 | **T-26** | **P1** | 🟦🔧 | Mic-mechanisme Zeg & Zet herontwerpen tot helder verloop (hergebruik parser van de typ-fallback). Hangt aan `T-27` | Werkplan WP-C1 | ⬜ |
-| **T-27** | **P1** | 🟦🔧 | Runtime **wave + live woord-voor-woord transcriptie** onder de wave (Zeg & Zet én Zeg & Vlieg) | Werkplan WP-C2 | ⬜ |
+| **T-27** | **P1** | 🟦🔧 | Runtime **wave + live woord-voor-woord transcriptie**. **Zeg & Zet klaar** (audio-reactieve `MicWaveBars` via Web Audio + live transcript, geverifieerd). Zeg & Vlieg-wave volgt met `T-32` | Werkplan WP-C2 | 🟦 |
 | **T-28** | P2 | 🟦🔧 | Vriendelijke **bescherming tegen scheld-/ongewenste woorden** in de transcriptie (blocklist + nudge) | Werkplan WP-C3 | ⬜ |
 | **T-29** | P2 | 🔧 | **Randomisatie van objecten/opdrachten in alle 3 modi** (nu alleen Kies het Woord); GDD bijwerken als norm | Werkplan WP-C5 | ⬜ |
 | **T-30** | **P1** | 🟦🔧 | Zeg & Vlieg **vriendelijk mechanisme** (geen harde game-over; schildjes/record/combo) + game-feel in alle modi | Werkplan WP-B3 | ⬜ |
