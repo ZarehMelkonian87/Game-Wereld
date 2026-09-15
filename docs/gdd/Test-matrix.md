@@ -48,7 +48,7 @@ Conform GDD-index sectie 9: **geautomatiseerde tests gaten elke build**, **handm
 | `e2e/pwa-offline.spec.ts` | Offline download/open, herstel ontbrekende opslag | 🟢 |
 | `e2e/generate-visual-report.spec.ts` | Visueel screenshotrapport | 🟢 |
 
-**Grootste dekkingsgaten:** **Kies het Woord** en **Zeg & Vlieg** hebben **géén** e2e-tests, en het **beloningsscherm** evenmin. Dit zijn prioritaire toevoegingen (zie sectie 9).
+**Grootste dekkingsgaten:** ✅ opgelost via `T-24` — **Kies het Woord** (`word-choice.spec.ts`), **Zeg & Vlieg** (`voice-side-scroller.spec.ts`) en het **beloningsscherm** (`reward.spec.ts`) hebben nu eigen e2e-suites (9 tests, groen op chromium-tablet én webkit-tablet).
 
 ---
 

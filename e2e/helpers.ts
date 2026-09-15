@@ -1,6 +1,36 @@
 import { expect, type Page } from "@playwright/test";
 
 /**
+ * Maakt een vers profiel aan en opent Magisch Strand-Avontuur tot het
+ * startscherm. Gedeelde setup voor de modus-specifieke e2e-suites (T-24).
+ */
+export const createPlayerAndOpenStrandGame = async (
+  page: Page,
+  name = "Suite Tester",
+): Promise<void> => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    window.localStorage.clear();
+  });
+  await page.reload();
+
+  await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
+  await page.getByRole("button", { name: "START" }).click();
+
+  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await expect(page.getByRole("heading", { name: "KIES JE AVATAR" })).toBeVisible();
+  await page.locator('[data-component="AvatarCard"]').first().click();
+
+  await page.getByPlaceholder("Type je gamer naam...").fill(name);
+  await page.getByRole("button", { name: "LET'S GO!" }).click();
+  await expect(page.getByText(name, { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
+  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
+  await expect(page.getByTestId("start-screen")).toBeVisible();
+};
+
+/**
  * Speelt één volledige ronde "Kies het Woord" (de altijd-open instapmodus) met
  * correcte antwoorden, zodat er genoeg sterren worden verdiend om Zeg & Zet en
  * Zeg & Vlieg te ontgrendelen (T-31). De correcte optie is die waarvan het
