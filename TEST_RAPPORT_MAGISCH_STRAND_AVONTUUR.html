@@ -2034,7 +2034,7 @@
                       24
                     </span>
                     <h3 class="text-base font-black text-white">
-                      Direct Afronden ('Klaar' Knop)
+                      Automatisch Afronden (geen 'Klaar'-knop)
                     </h3>
                   </div>
                   <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
@@ -2053,7 +2053,7 @@
                         🎯 Wat we testen
                       </span>
                       <p class="text-slate-200 leading-relaxed font-semibold">
-                        De handmatige afrondknop in de SpeechWaveAnimation balk.
+                        De opname wordt automatisch afgerond zodra het kind klaar is met spreken.
                       </p>
                     </div>
 
@@ -2062,7 +2062,7 @@
                         💡 Waarom we dit testen
                       </span>
                       <p class="text-slate-300 leading-relaxed">
-                        Kinderen die klaar zijn hoeven niet te wachten tot de stiltetimer afloopt; directe controle.
+                        Kinderen hoeven geen knop te zoeken; de flow blijft ononderbroken (T-35).
                       </p>
                     </div>
 
@@ -2071,7 +2071,7 @@
                         ⚙️ Hoe de functionaliteit werkt
                       </span>
                       <p class="text-slate-300 leading-relaxed">
-                        Rondt de geaccumuleerde woorden direct af en stuurt het resultaat naar de scene placement handler.
+                        De stiltetimer en de definitieve herkenning sturen het resultaat automatisch naar de scene placement handler.
                       </p>
                     </div>
 
@@ -2080,7 +2080,7 @@
                         👉 Concrete Actiestap
                       </span>
                       <p class="text-emerald-100 font-bold leading-relaxed">
-                        Klik op de groene 'Klaar' knop in de SpeechWaveAnimation balk.
+                        Spreek de zin uit; na een korte stilte gaat het spel vanzelf verder.
                       </p>
                     </div>
 
@@ -2090,8 +2090,8 @@
                   <div class="space-y-2">
                     <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
                       <img 
-                        src="test-rapport-assets/stap-24-klaar-knop.png" 
-                        alt="Direct Afronden ('Klaar' Knop)" 
+                        src="test-rapport-assets/stap-24-automatisch-afronden.png" 
+                        alt="Automatisch Afronden (geen 'Klaar'-knop)" 
                         loading="lazy"
                         class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
                       />
@@ -2100,7 +2100,7 @@
                       </div>
                     </div>
                     <p class="text-center text-[11px] text-slate-400 font-medium">
-                      Screenshot: <code>stap-24-klaar-knop.png</code>
+                      Screenshot: <code>stap-24-automatisch-afronden.png</code>
                     </p>
                   </div>
 
@@ -2310,7 +2310,7 @@
                       27
                     </span>
                     <h3 class="text-base font-black text-white">
-                      Antwoord Controleren
+                      Automatische Controle
                     </h3>
                   </div>
                   <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-extrabold">
@@ -2329,7 +2329,7 @@
                         🎯 Wat we testen
                       </span>
                       <p class="text-slate-200 leading-relaxed font-semibold">
-                        Het valideren van de plaatsing tegen de regels van de huidige opdracht.
+                        De plaatsing wordt direct geëvalueerd tegen de regels van de opdracht, zonder aparte bevestigknop.
                       </p>
                     </div>
 
@@ -2338,7 +2338,7 @@
                         💡 Waarom we dit testen
                       </span>
                       <p class="text-slate-300 leading-relaxed">
-                        Het kind leert door feedback of het begrip (bijv. 'op', 'onder', 'naast') klopt.
+                        Minder handelingen voor het kind; de feedback volgt meteen op de actie.
                       </p>
                     </div>
 
@@ -2347,7 +2347,7 @@
                         ⚙️ Hoe de functionaliteit werkt
                       </span>
                       <p class="text-slate-300 leading-relaxed">
-                        De placement evaluator controleert de overlap met de semantische target zone.
+                        De placement evaluator controleert de overlap met de semantische target zone zodra het object is geplaatst.
                       </p>
                     </div>
 
@@ -2356,7 +2356,7 @@
                         👉 Concrete Actiestap
                       </span>
                       <p class="text-emerald-100 font-bold leading-relaxed">
-                        Klik rechtsboven op de groene 'Klaar' knop.
+                        Geen knop nodig — de plaatsing wordt automatisch gecontroleerd.
                       </p>
                     </div>
 
@@ -2366,8 +2366,8 @@
                   <div class="space-y-2">
                     <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
                       <img 
-                        src="test-rapport-assets/stap-27-fout-bevestigen.png" 
-                        alt="Antwoord Controleren" 
+                        src="test-rapport-assets/stap-27-automatische-controle.png" 
+                        alt="Automatische Controle" 
                         loading="lazy"
                         class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
                       />
@@ -2376,7 +2376,7 @@
                       </div>
                     </div>
                     <p class="text-center text-[11px] text-slate-400 font-medium">
-                      Screenshot: <code>stap-27-fout-bevestigen.png</code>
+                      Screenshot: <code>stap-27-automatische-controle.png</code>
                     </p>
                   </div>
 
@@ -2526,7 +2526,7 @@
                         ⚙️ Hoe de functionaliteit werkt
                       </span>
                       <p class="text-slate-300 leading-relaxed">
-                        De knop toont 'Volgende', de mascotte viert feest en er worden sterren toegekend.
+                        De plaatsing wordt automatisch bevestigd, de mascotte viert feest, er worden sterren toegekend en het spel gaat vanzelf door.
                       </p>
                     </div>
 
@@ -2535,7 +2535,7 @@
                         👉 Concrete Actiestap
                       </span>
                       <p class="text-emerald-100 font-bold leading-relaxed">
-                        Klik op 'Volgende' om direct door te gaan naar de volgende uitdaging.
+                        Geen knop nodig — bij een goed antwoord gaat het spel automatisch door.
                       </p>
                     </div>
 
@@ -2545,7 +2545,7 @@
                   <div class="space-y-2">
                     <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 bg-slate-950 screenshot-frame group">
                       <img 
-                        src="test-rapport-assets/stap-31-goed-antwoord-volgende.png" 
+                        src="test-rapport-assets/stap-31-goed-antwoord-auto.png" 
                         alt="Goed Antwoord & Positieve Bekrachtiging" 
                         loading="lazy"
                         class="w-full h-auto object-contain transition duration-200 group-hover:scale-[1.01]"
@@ -2555,7 +2555,7 @@
                       </div>
                     </div>
                     <p class="text-center text-[11px] text-slate-400 font-medium">
-                      Screenshot: <code>stap-31-goed-antwoord-volgende.png</code>
+                      Screenshot: <code>stap-31-goed-antwoord-auto.png</code>
                     </p>
                   </div>
 
