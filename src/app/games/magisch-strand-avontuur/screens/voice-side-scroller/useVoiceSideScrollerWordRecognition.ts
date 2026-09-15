@@ -30,6 +30,11 @@ interface UseVoiceSideScrollerWordRecognitionOptions {
   visibleTargets: VoiceSideScrollerTarget[];
 }
 
+interface HeardWordMemoryEntry {
+  atMs: number;
+  token: string;
+}
+
 const createIdleWordRecognitionState = (
   supportMessage = "Noem een plaatje wanneer het in beeld komt.",
 ): VoiceSideScrollerWordRecognitionState => ({
@@ -71,6 +76,11 @@ const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
 
 const VOICE_SCROLLER_RELISTEN_DELAY_MS = 90;
 const VOICE_SCROLLER_FEEDBACK_VISIBLE_MS = 360;
+// Hoe lang een gehoord woord "onthouden" wordt. Zo hoeft het kind het plaatje
+// niet exact op het juiste moment te benoemen: als het woord kort daarvoor is
+// gezegd en het plaatje scrolt daarna het venster in, wordt het alsnog opgepakt
+// (vergevingsgezind, past bij de logopedische doelen — T-32).
+const VOICE_SCROLLER_HEARD_MEMORY_MS = 1800;
 
 export const useVoiceSideScrollerWordRecognition = ({
   isRunning,
@@ -98,12 +108,20 @@ export const useVoiceSideScrollerWordRecognition = ({
     restartOnEnd: true,
   });
   const visibleTargetsRef = useRef<VoiceSideScrollerTarget[]>(visibleTargets);
+  const confidenceRef = useRef<number | undefined>(confidence);
   const lastProcessedResultIdRef = useRef(0);
   const isRelisteningRef = useRef(false);
   const relistenTimerRef = useRef<number>();
+  // Kort geheugen van recent gehoorde woorden, zodat een plaatje dat net het
+  // herkenningsvenster in scrolt alsnog gepakt wordt als het kind het woord
+  // kort daarvoor zei (kernfix van de "terugkerend plaatje wordt niet meer
+  // opgepakt"-bug — T-32).
+  const recentHeardRef = useRef<HeardWordMemoryEntry[]>([]);
   const [wordRecognition, setWordRecognition] = useState<VoiceSideScrollerWordRecognitionState>(
     () => createIdleWordRecognitionState(),
   );
+
+  confidenceRef.current = confidence;
 
   const clearRelistenTimer = useCallback(() => {
     if (relistenTimerRef.current !== undefined) {
@@ -121,6 +139,7 @@ export const useVoiceSideScrollerWordRecognition = ({
   const stopWordRecognition = useCallback(() => {
     clearRelistenTimer();
     stopListening();
+    recentHeardRef.current = [];
     setWordRecognition(createIdleWordRecognitionState(supportMessage));
   }, [clearRelistenTimer, stopListening, supportMessage]);
 
@@ -128,6 +147,7 @@ export const useVoiceSideScrollerWordRecognition = ({
     clearRelistenTimer();
     resetTranscript();
     lastProcessedResultIdRef.current = 0;
+    recentHeardRef.current = [];
 
     setWordRecognition({
       feedbackText: getListeningFeedbackText(),
@@ -165,6 +185,75 @@ export const useVoiceSideScrollerWordRecognition = ({
     }, VOICE_SCROLLER_RELISTEN_DELAY_MS);
   }, [clearRelistenTimer, isRunning, resetTranscript, startListening, stopListening]);
 
+  const rememberHeardWords = useCallback((candidates: string[]) => {
+    const now = Date.now();
+    const stillFresh = recentHeardRef.current.filter(
+      (entry) => now - entry.atMs <= VOICE_SCROLLER_HEARD_MEMORY_MS,
+    );
+
+    for (const candidate of candidates) {
+      stillFresh.push({ atMs: now, token: candidate });
+    }
+
+    recentHeardRef.current = stillFresh;
+  }, []);
+
+  // Probeer een zichtbaar, nog niet gepakt plaatje te matchen met een recent
+  // gehoord woord. Dit draait zowel bij een nieuw spraakresultaat als wanneer er
+  // een nieuw plaatje in beeld scrolt, zodat "goed gezegd" altijd oppakt.
+  const tryCollectRememberedWord = useCallback(() => {
+    if (!isRunning || isRelisteningRef.current) {
+      return false;
+    }
+
+    const now = Date.now();
+    const freshHeard = recentHeardRef.current.filter(
+      (entry) => now - entry.atMs <= VOICE_SCROLLER_HEARD_MEMORY_MS,
+    );
+    recentHeardRef.current = freshHeard;
+
+    if (freshHeard.length === 0) {
+      return false;
+    }
+
+    for (const target of visibleTargetsRef.current) {
+      const heardMatch = freshHeard.find(
+        (entry) =>
+          matchVoiceSideScrollerWord({ targetWord: target.word, transcript: entry.token }).isMatch,
+      );
+
+      if (!heardMatch) {
+        continue;
+      }
+
+      const matchResult = matchVoiceSideScrollerWord({
+        targetWord: target.word,
+        transcript: heardMatch.token,
+      });
+
+      setWordRecognition({
+        confidence: confidenceRef.current,
+        feedbackText: `Goed gehoord: ${target.word}. +1 Tempo!`,
+        isListening: true,
+        lastHeard: heardMatch.token,
+        matchedAlias: matchResult.matchedAlias,
+        status: "matched",
+        supportMessage,
+        targetWord: target.word,
+      });
+      // Verbruik het gebruikte woord zodat hetzelfde "bal" niet per ongeluk twee
+      // plaatjes tegelijk pakt.
+      recentHeardRef.current = recentHeardRef.current.filter(
+        (entry) => entry !== heardMatch,
+      );
+      onWordMatched(target, heardMatch.token);
+      restartWordPromptAfterMatch();
+      return true;
+    }
+
+    return false;
+  }, [isRunning, onWordMatched, restartWordPromptAfterMatch, supportMessage]);
+
   useEffect(() => {
     if (!isRunning) {
       stopWordRecognition();
@@ -174,12 +263,14 @@ export const useVoiceSideScrollerWordRecognition = ({
     startWordPrompt();
   }, [isRunning, startWordPrompt, stopWordRecognition]);
 
+  // Verwerk een nieuw spraakresultaat: onthoud de gehoorde woorden, probeer een
+  // zichtbaar plaatje te pakken en tel anders (bij een afgeronde zin) een zachte
+  // "nog oefenen"-poging.
   useEffect(() => {
     if (!isRunning || resultId === 0 || isRelisteningRef.current) {
       return;
     }
 
-    const visibleTargetsSnapshot = visibleTargetsRef.current;
     const transcriptCandidates = getTranscriptCandidates(transcript, alternatives);
 
     if (transcriptCandidates.length === 0 || lastProcessedResultIdRef.current === resultId) {
@@ -187,33 +278,9 @@ export const useVoiceSideScrollerWordRecognition = ({
     }
 
     lastProcessedResultIdRef.current = resultId;
+    rememberHeardWords(transcriptCandidates);
 
-    const matchedItem = visibleTargetsSnapshot
-      .flatMap((target) =>
-        transcriptCandidates.map((candidate) => ({
-          matchResult: matchVoiceSideScrollerWord({
-            targetWord: target.word,
-            transcript: candidate,
-          }),
-          target,
-          transcript: candidate,
-        })),
-      )
-      .find((item) => item.matchResult.isMatch);
-
-    if (matchedItem) {
-      setWordRecognition({
-        confidence,
-        feedbackText: `Goed gehoord: ${matchedItem.target.word}. +1 Tempo!`,
-        isListening: true,
-        lastHeard: matchedItem.transcript,
-        matchedAlias: matchedItem.matchResult.matchedAlias,
-        status: "matched",
-        supportMessage,
-        targetWord: matchedItem.target.word,
-      });
-      onWordMatched(matchedItem.target, matchedItem.transcript);
-      restartWordPromptAfterMatch();
+    if (tryCollectRememberedWord()) {
       return;
     }
 
@@ -221,7 +288,7 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
-    const practiceTarget = visibleTargetsSnapshot[0];
+    const practiceTarget = visibleTargetsRef.current[0];
     const heardText = transcriptCandidates[0];
 
     setWordRecognition({
@@ -239,13 +306,26 @@ export const useVoiceSideScrollerWordRecognition = ({
     confidence,
     isFinal,
     isRunning,
-    onWordMatched,
     onWordMissed,
-    restartWordPromptAfterMatch,
+    rememberHeardWords,
     resultId,
     supportMessage,
     transcript,
+    tryCollectRememberedWord,
   ]);
+
+  // Wanneer de zichtbare plaatjes veranderen (een nieuw of teruggekeerd plaatje
+  // scrolt in beeld) checken we het geheugen opnieuw. Zo pakt een net verschenen
+  // plaatje alsnog het kort daarvoor gezegde woord op — de kern van de fix.
+  const visibleTargetSignature = visibleTargets.map((target) => target.id).join("|");
+
+  useEffect(() => {
+    if (!isRunning) {
+      return;
+    }
+
+    tryCollectRememberedWord();
+  }, [isRunning, tryCollectRememberedWord, visibleTargetSignature]);
 
   useEffect(() => {
     if (
