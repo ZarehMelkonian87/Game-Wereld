@@ -79,16 +79,6 @@ export const useBezemEscapeGameController = () => {
     setScreenPreview("mode-select");
   };
 
-  const openSelectedWorld = () => {
-    if (selectedWorld.status !== "open") {
-      return;
-    }
-
-    const storedWorldId = saveSelectedWorldId(profileId, selectedWorld.id, storage);
-    setSelectedWorldId(storedWorldId);
-    setScreenPreview("mode-select");
-  };
-
   const selectWorld = (worldId: string) => {
     const world = getWorldDefinition(worldId);
 
@@ -130,7 +120,6 @@ export const useBezemEscapeGameController = () => {
       backFromSettings,
       exitGame,
       openModeSelect,
-      openSelectedWorld,
       resetRound,
       selectWorld,
       setScreen,

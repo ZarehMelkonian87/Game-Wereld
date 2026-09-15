@@ -43,7 +43,6 @@ const MagischStrandAvontuurExperience = () => {
     screenPreview !== "reward" &&
     screenPreview !== "settings" &&
     screenPreview !== "start" &&
-    screenPreview !== "world-select" &&
     screenPreview !== "mode-select" &&
     screenPreview !== "voice-side-scroller" &&
     screenPreview !== "word-choice";
@@ -64,7 +63,7 @@ const MagischStrandAvontuurExperience = () => {
         <>
           {screenPreview === "reward" ? (
             <RewardScreen
-              onChooseWorld={() => actions.setScreen("world-select")}
+              onChooseWorld={() => actions.setScreen("mode-select")}
               showPlayAgain={false}
             />
           ) : screenPreview === "settings" ? (
@@ -73,10 +72,10 @@ const MagischStrandAvontuurExperience = () => {
             <StartScreen
               onExit={actions.exitGame}
               onOpenSettings={() => actions.setScreen("settings")}
-              onPlay={() => actions.setScreen("world-select")}
+              onPlay={() => actions.setScreen("mode-select")}
               starCount={starCount}
             />
-          ) : screenPreview === "world-select" || screenPreview === "mode-select" ? (
+          ) : screenPreview === "mode-select" ? (
             <AdventureSelectScreen
               onBackToStart={() => actions.setScreen("start")}
               onOpenRewards={() => actions.setScreen("reward")}
