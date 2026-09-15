@@ -12,6 +12,7 @@ import {
   StartScreen,
   VoiceSideScrollerScreen,
   WordChoiceScreen,
+  ZegBouwScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
 import { GameRuntimeProvider, useGameRuntime } from "./runtime/GameRuntimeContext";
@@ -88,6 +89,12 @@ const MagischStrandAvontuurExperience = () => {
             />
           ) : screenPreview === "voice-side-scroller" ? (
             <VoiceSideScrollerScreen onBackToMenu={actions.openModeSelect} />
+          ) : screenPreview === "zeg-en-bouw" ? (
+            <ZegBouwScreen
+              objects={beachWorld.objects}
+              onBackToMenu={actions.openModeSelect}
+              zones={beachWorld.zones}
+            />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen
               instructions={instructions.wordChoice}

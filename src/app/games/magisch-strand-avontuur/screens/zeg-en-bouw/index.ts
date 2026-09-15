@@ -1,0 +1,1 @@
+export { ZegBouwScreen } from "./ZegBouwScreen";

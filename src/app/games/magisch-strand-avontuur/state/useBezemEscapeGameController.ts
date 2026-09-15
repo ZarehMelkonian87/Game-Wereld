@@ -117,6 +117,11 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
+    if (modeId === "zeg-en-bouw") {
+      setScreenPreview("zeg-en-bouw");
+      return;
+    }
+
     setScreenPreview("scene-builder");
   };
 

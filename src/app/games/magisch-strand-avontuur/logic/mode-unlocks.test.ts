@@ -22,11 +22,14 @@ describe("mode-unlocks (T-31)", () => {
     expect(isModeUnlocked("zeg-en-vlieg", MODE_UNLOCK_WORD_STARS["zeg-en-vlieg"])).toBe(true);
   });
 
-  it("de drempels volgen de leerlijn (oplopend)", () => {
+  it("de drempels volgen de leerlijn Kies → Zet → Bouw → Vlieg (oplopend)", () => {
     expect(MODE_UNLOCK_WORD_STARS["choose-word"]).toBeLessThan(
       MODE_UNLOCK_WORD_STARS["listen-and-place"],
     );
     expect(MODE_UNLOCK_WORD_STARS["listen-and-place"]).toBeLessThan(
+      MODE_UNLOCK_WORD_STARS["zeg-en-bouw"],
+    );
+    expect(MODE_UNLOCK_WORD_STARS["zeg-en-bouw"]).toBeLessThan(
       MODE_UNLOCK_WORD_STARS["zeg-en-vlieg"],
     );
   });

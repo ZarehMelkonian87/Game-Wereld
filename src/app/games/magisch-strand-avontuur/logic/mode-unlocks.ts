@@ -16,17 +16,18 @@ import type { BezemEscapeMode } from "../types";
 export const MODE_UNLOCK_WORD_STARS: Record<BezemEscapeMode, number> = {
   "choose-word": 0,
   "listen-and-place": 3,
-  "zeg-en-vlieg": 6,
-  // Zeg & Bouw komt als laatste (nog niet gebouwd); alvast een drempel.
-  "zeg-en-bouw": 12,
+  // Leerlijn Kies → Zet → Bouw → Vlieg (concept-besluit 4): zelf zinnen bouwen
+  // vóór het onder tijdsdruk benoemen in Zeg & Vlieg.
+  "zeg-en-bouw": 8,
+  "zeg-en-vlieg": 14,
 };
 
 /** De aanbevolen weergavevolgorde in het moduskeuzescherm (leerlijn). */
 export const MODE_DISPLAY_ORDER: readonly BezemEscapeMode[] = [
   "choose-word",
   "listen-and-place",
-  "zeg-en-vlieg",
   "zeg-en-bouw",
+  "zeg-en-vlieg",
 ];
 
 export const isModeUnlocked = (mode: BezemEscapeMode, totalWordStars: number): boolean =>

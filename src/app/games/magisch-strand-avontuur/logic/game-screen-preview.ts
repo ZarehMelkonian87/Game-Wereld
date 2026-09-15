@@ -7,7 +7,8 @@ export type GameScreenPreview =
   | "start"
   | "voice-side-scroller"
   | "word-choice"
-  | "world-select";
+  | "world-select"
+  | "zeg-en-bouw";
 
 const getSearchParams = () => {
   if (typeof window === "undefined") {

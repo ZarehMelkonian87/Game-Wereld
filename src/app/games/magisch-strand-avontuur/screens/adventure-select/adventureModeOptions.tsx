@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, Mic2 } from "lucide-react";
+import { BookOpen, Blocks, MessageCircle, Mic2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { getStarsUntilModeUnlock, isModeUnlocked } from "../../logic/mode-unlocks";
 import type { BezemEscapeMode } from "../../types";
@@ -28,6 +28,13 @@ const baseAdventureModeOptions: AdventureModeOption[] = [
     id: "listen-and-place",
     title: "Zeg & Zet",
     tone: "emerald",
+  },
+  {
+    description: "Bouw zelf een strand: zeg meerdere dingen in één zin.",
+    icon: <Blocks className="h-6 w-6" strokeWidth={3} />,
+    id: "zeg-en-bouw",
+    title: "Zeg & Bouw",
+    tone: "sky",
   },
   {
     description: "Vlieg met je stem en zeg het strandwoord.",

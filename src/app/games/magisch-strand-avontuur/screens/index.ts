@@ -5,3 +5,4 @@ export { SceneBuilderScreen } from "./SceneBuilderScreen";
 export { StartScreen } from "./start";
 export { VoiceSideScrollerScreen } from "./voice-side-scroller";
 export { WordChoiceScreen } from "./WordChoiceScreen";
+export { ZegBouwScreen } from "./zeg-en-bouw";
