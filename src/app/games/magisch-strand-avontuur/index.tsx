@@ -101,6 +101,7 @@ const MagischStrandAvontuurExperience = () => {
               instructions={instructions.sceneBuilder}
               objects={beachWorld.objects}
               onBackToMenu={actions.openModeSelect}
+              onPlayAgain={() => actions.startSelectedMode("listen-and-place")}
               showTrayLabels={showTrayLabels}
               showZoneDevTools={showZoneDevTools}
               spokenCommandPreviewText={spokenCommandPreviewText}

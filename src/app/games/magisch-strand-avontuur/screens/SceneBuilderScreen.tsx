@@ -25,6 +25,7 @@ interface SceneBuilderScreenProps {
   instructions: readonly SceneBuilderInstruction[];
   objects: readonly SceneObject[];
   onBackToMenu: () => void;
+  onPlayAgain?: () => void;
   showTrayLabels?: boolean;
   showZoneDevTools?: boolean;
   spokenCommandPreviewText?: string | null;
@@ -46,6 +47,7 @@ export const SceneBuilderScreen = ({
   instructionText,
   objects,
   onBackToMenu,
+  onPlayAgain,
   showTrayLabels = false,
   showZoneDevTools = false,
   spokenCommandPreviewText,
@@ -358,7 +360,9 @@ export const SceneBuilderScreen = ({
           nextReward={roundSummaryReward.nextReward}
           objects={objects}
           onBackToMenu={onBackToMenu}
-          onRestart={resetSceneBuilderRound}
+          // Opnieuw start een nieuwe, opnieuw geschudde ronde (T-29). Zonder
+          // onPlayAgain valt het terug op een lokale herstart (zelfde volgorde).
+          onRestart={onPlayAgain ?? resetSceneBuilderRound}
           summary={sceneCompletionSummary}
           totalWordStars={roundSummaryReward.totalWordStars}
         />
