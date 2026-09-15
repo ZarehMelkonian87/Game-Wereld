@@ -1,10 +1,15 @@
+import { Trophy } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
 import { BtnActionWorld, BtnActionReplay, PanelCard } from "../../components/ui";
+import type { VoiceScrollerRoundRecordOutcome } from "./useVoiceSideScrollerController";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
+import type { VoiceScrollerRecord } from "./voiceSideScrollerRecord";
 
 interface VoiceSideScrollerRoundSummaryProps {
   onBackToMenu: () => void;
   onRestart: () => void;
+  record: VoiceScrollerRecord;
+  roundRecordOutcome?: VoiceScrollerRoundRecordOutcome;
   state: VoiceSideScrollerGameState;
 }
 
@@ -33,6 +38,8 @@ const getTotalAudioRepeats = (state: VoiceSideScrollerGameState) =>
 export const VoiceSideScrollerRoundSummary = ({
   onBackToMenu,
   onRestart,
+  record,
+  roundRecordOutcome,
   state,
 }: VoiceSideScrollerRoundSummaryProps) => {
   const collectedWords = getCollectedWords(state);
@@ -44,15 +51,17 @@ export const VoiceSideScrollerRoundSummary = ({
   const totalHints = state.obstacleHits + getTotalWordHints(state);
   const audioRepeats = getTotalAudioRepeats(state);
   const distanceMeters = Math.floor(state.distance);
+  const isNewDistanceRecord = roundRecordOutcome?.isNewDistanceRecord ?? false;
 
   return (
     <div
       className="absolute inset-0 z-50 grid place-items-center bg-sky-950/20 p-3 backdrop-blur-[2px]"
       data-component="VoiceSideScrollerRoundSummary"
+      data-new-record={isNewDistanceRecord ? "true" : "false"}
       data-testid="voice-side-scroller-round-summary"
     >
       <PanelCard
-        aria-label="Game over resultaat"
+        aria-label="Rondesamenvatting Zeg en Vlieg"
         className="grid w-full max-w-[22rem] gap-3 !rounded-[1.5rem] !p-4 text-center"
       >
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-3xl border-2 border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">
@@ -64,10 +73,24 @@ export const VoiceSideScrollerRoundSummary = ({
           />
         </div>
         <div>
-          <h2 className="text-2xl font-black leading-none text-slate-900">Game over</h2>
+          <h2 className="text-2xl font-black leading-none text-slate-900">Goed gevlogen!</h2>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-            Je raakte een obstakel. Je vloog {distanceMeters} meter.
+            Je vloog {distanceMeters} meter. Wil je je record verbeteren?
           </p>
+          {isNewDistanceRecord ? (
+            <p
+              className="mx-auto mt-2 inline-flex items-center gap-1.5 rounded-full border-2 border-amber-300 bg-amber-100 px-3 py-1 text-sm font-black text-amber-800"
+              data-testid="voice-side-scroller-new-record"
+            >
+              <Trophy className="h-4 w-4" fill="currentColor" strokeWidth={2} />
+              Nieuw record! {distanceMeters}m
+            </p>
+          ) : (
+            <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-black text-slate-600">
+              <Trophy className="h-4 w-4 text-amber-500" strokeWidth={2.5} />
+              Jouw record: {record.bestDistanceMeters}m
+            </p>
+          )}
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">Focus: {focusText}</p>
           <p className="mt-1 text-xs font-black leading-tight text-slate-700">
             Actief gezegd: {practicedText}

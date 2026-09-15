@@ -57,17 +57,21 @@ export interface VoiceSideScrollerGameplayFeedback {
 }
 
 export interface VoiceSideScrollerGameState {
+  bestCombo: number;
   collisionSlowdownMs: number;
+  combo: number;
   difficultyLevel: number;
   distance: number;
   education: VoiceSideScrollerRoundEducationState;
   elapsedMs: number;
   gameplayFeedback?: VoiceSideScrollerGameplayFeedback;
+  maxShields: number;
   obstacleHits: number;
   obstacles: VoiceSideScrollerObstacle[];
   playerY: number;
   scrollX: number;
   score: number;
+  shields: number;
   speed: number;
   stars: number;
   status: VoiceSideScrollerStatus;
@@ -77,6 +81,10 @@ export interface VoiceSideScrollerGameState {
 export const VOICE_SCROLLER_FOCUS_WORD_COUNT = 7;
 export const VOICE_SCROLLER_ITEM_SCORE = 50;
 export const VOICE_SCROLLER_LEVEL_DISTANCE = 100;
+/** Aantal schildjes per ronde: een botsing kost er één, geen harde game-over (T-30). */
+export const VOICE_SCROLLER_MAX_SHIELDS = 3;
+/** Elke zoveel goed-benoemde woorden op rij geeft een combo-viering + bonusster. */
+export const VOICE_SCROLLER_COMBO_BONUS_INTERVAL = 3;
 
 const TARGET_SPAWN_SPACING = 0.46;
 const TARGET_START_X = 1.18;
@@ -272,17 +280,21 @@ export const createInitialVoiceScrollerState = ({
   );
 
   return {
+    bestCombo: 0,
     collisionSlowdownMs: 0,
+    combo: 0,
     difficultyLevel: 1,
     distance: 0,
     education: createRoundEducationState(targets),
     elapsedMs: 0,
     gameplayFeedback: undefined,
+    maxShields: VOICE_SCROLLER_MAX_SHIELDS,
     obstacleHits: 0,
     obstacles: VOICE_SCROLLER_DEMO_OBSTACLES.map((obstacle) => ({ ...obstacle })),
     playerY: 0.48,
     scrollX: 0,
     score: 0,
+    shields: VOICE_SCROLLER_MAX_SHIELDS,
     speed: 1,
     stars: 0,
     status: "ready",

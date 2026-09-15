@@ -1,4 +1,6 @@
+import type { VoiceScrollerRoundRecordOutcome } from "./useVoiceSideScrollerController";
 import type { VoiceSideScrollerGameState } from "./voiceSideScrollerModel";
+import type { VoiceScrollerRecord } from "./voiceSideScrollerRecord";
 import { VoiceSideScrollerBackground } from "./VoiceSideScrollerBackground";
 import { VoiceSideScrollerObstacleLayer } from "./VoiceSideScrollerObstacleLayer";
 import { VoiceSideScrollerPlayer } from "./VoiceSideScrollerPlayer";
@@ -11,6 +13,8 @@ interface VoiceSideScrollerStageProps {
   onBackToMenu: () => void;
   onRestart: () => void;
   onStart: () => void;
+  record: VoiceScrollerRecord;
+  roundRecordOutcome?: VoiceScrollerRoundRecordOutcome;
   state: VoiceSideScrollerGameState;
 }
 
@@ -19,6 +23,8 @@ export const VoiceSideScrollerStage = ({
   onBackToMenu,
   onRestart,
   onStart,
+  record,
+  roundRecordOutcome,
   state,
 }: VoiceSideScrollerStageProps) => (
   <div
@@ -48,6 +54,8 @@ export const VoiceSideScrollerStage = ({
       <VoiceSideScrollerRoundSummary
         onBackToMenu={onBackToMenu}
         onRestart={onRestart}
+        record={record}
+        roundRecordOutcome={roundRecordOutcome}
         state={state}
       />
     ) : null}

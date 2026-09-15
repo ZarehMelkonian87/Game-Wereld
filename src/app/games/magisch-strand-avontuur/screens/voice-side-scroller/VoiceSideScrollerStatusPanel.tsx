@@ -19,7 +19,7 @@ const getStatusText = (status: VoiceSideScrollerStatus) => {
   }
 
   if (status === "game-over") {
-    return "Game over";
+    return "Goed gevlogen!";
   }
 
   return "Zeg & Vlieg";
@@ -69,7 +69,7 @@ const getSubText = (
   recognition: VoiceSideScrollerWordRecognitionState,
 ) => {
   if (status === "game-over") {
-    return gameplayFeedback?.message ?? "Raak geen obstakels. Probeer opnieuw.";
+    return gameplayFeedback?.message ?? "Leuk gevlogen! Probeer je record te verbeteren.";
   }
 
   if (status === "running" && gameplayFeedback) {

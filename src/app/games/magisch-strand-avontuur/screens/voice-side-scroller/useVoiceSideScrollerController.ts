@@ -27,12 +27,25 @@ import {
   type VoiceSideScrollerWordRecognitionState,
 } from "./useVoiceSideScrollerWordRecognition";
 import { getVisibleVoiceScrollerTargets } from "./voiceSideScrollerSelectors";
+import {
+  readVoiceScrollerRecord,
+  saveVoiceScrollerRecord,
+  updateVoiceScrollerRecord,
+  type VoiceScrollerRecord,
+} from "./voiceSideScrollerRecord";
 import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
+
+export interface VoiceScrollerRoundRecordOutcome {
+  isNewComboRecord: boolean;
+  isNewDistanceRecord: boolean;
+}
 
 export interface VoiceSideScrollerController {
   moveDown: () => void;
   moveNeutral: () => void;
   moveUp: () => void;
+  record: VoiceScrollerRecord;
+  roundRecordOutcome?: VoiceScrollerRoundRecordOutcome;
   setVerticalInput: (value: number) => void;
   startRound: () => void;
   state: VoiceSideScrollerGameState;
@@ -66,10 +79,41 @@ export const useVoiceSideScrollerController = ({
   const stateRef = useRef(state);
   const verticalInputRef = useRef(0);
   const visibleTargets = getVisibleVoiceScrollerTargets(state.targets);
+  const [record, setRecord] = useState<VoiceScrollerRecord>(() =>
+    readVoiceScrollerRecord(profileId, runtime.storage),
+  );
+  const [roundRecordOutcome, setRoundRecordOutcome] = useState<VoiceScrollerRoundRecordOutcome>();
 
   useEffect(() => {
     stateRef.current = state;
   }, [state]);
+
+  useEffect(() => {
+    setRecord(readVoiceScrollerRecord(profileId, runtime.storage));
+  }, [profileId, runtime.storage]);
+
+  // Werk het persoonlijke record bij zodra een ronde vriendelijk eindigt (T-30).
+  useEffect(() => {
+    if (state.status !== "game-over") {
+      setRoundRecordOutcome(undefined);
+      return;
+    }
+
+    const result = updateVoiceScrollerRecord(
+      readVoiceScrollerRecord(profileId, runtime.storage),
+      {
+        comboReached: stateRef.current.bestCombo,
+        distanceMeters: Math.floor(stateRef.current.distance),
+      },
+    );
+
+    saveVoiceScrollerRecord(profileId, result.record, runtime.storage);
+    setRecord(result.record);
+    setRoundRecordOutcome({
+      isNewComboRecord: result.isNewComboRecord,
+      isNewDistanceRecord: result.isNewDistanceRecord,
+    });
+  }, [profileId, runtime.storage, state.status]);
 
   useEffect(() => {
     if (stateRef.current.status === "ready") {
@@ -217,6 +261,8 @@ export const useVoiceSideScrollerController = ({
     moveDown,
     moveNeutral,
     moveUp,
+    record,
+    roundRecordOutcome,
     setVerticalInput,
     startRound,
     state,
