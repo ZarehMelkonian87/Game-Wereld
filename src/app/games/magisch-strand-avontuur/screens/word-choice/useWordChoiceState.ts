@@ -42,9 +42,6 @@ export const useWordChoiceState = ({
   const [unlockedRewardIds, setUnlockedRewardIds] = useState<string[]>(() =>
     readUnlockedRewardIds(rewardProfileId, runtime.storage),
   );
-  const [audioRepeatsByInstruction, setAudioRepeatsByInstruction] = useState<
-    Record<string, number>
-  >({});
   const [hintUsedByInstruction, setHintUsedByInstruction] = useState<Record<string, boolean>>({});
   const [recognizedWithoutHelp, setRecognizedWithoutHelp] = useState<string[]>([]);
   const [recognizedWithHint, setRecognizedWithHint] = useState<string[]>([]);
@@ -52,7 +49,6 @@ export const useWordChoiceState = ({
   const [isCompleted, setIsCompleted] = useState(false);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const targetObject = objects.find((object) => object.id === instruction.targetObjectIds[0]);
-  const activeAudioRepeats = audioRepeatsByInstruction[instruction.id] ?? 0;
   const usedHint = Boolean(hintUsedByInstruction[instruction.id]);
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
   useEffect(() => {
@@ -80,7 +76,6 @@ export const useWordChoiceState = ({
     setSpeedValue(0);
     setSpeedBoosting(false);
     setWordStarValue(0);
-    setAudioRepeatsByInstruction({});
     setHintUsedByInstruction({});
     setRecognizedWithoutHelp([]);
     setRecognizedWithHint([]);
@@ -117,26 +112,6 @@ export const useWordChoiceState = ({
         ),
     [instruction.answerOptions, objects],
   );
-  const playQuestionAudio = (text = instruction.audioText) => {
-    if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).audioEnabled) {
-      setFeedback({
-        kind: "almost",
-        text: "Audio staat uit bij instellingen. Lees de vraag samen hardop.",
-      });
-      return;
-    }
-    if (!runtime.speech.speak(text).ok) {
-      setFeedback({
-        kind: "almost",
-        text: "Audio is niet beschikbaar in deze browser. Lees de vraag samen hardop.",
-      });
-      return;
-    }
-    setAudioRepeatsByInstruction((currentRepeats) => ({
-      ...currentRepeats,
-      [instruction.id]: (currentRepeats[instruction.id] ?? 0) + 1,
-    }));
-  };
   const handleHint = () => {
     if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).hintsEnabled) {
       setFeedback({
@@ -191,7 +166,7 @@ export const useWordChoiceState = ({
       window.setTimeout(() => setSpeedBoosting(false), 450);
       void runtime.practice.append(
         createInstructionPracticeObservation({
-          instructionReplays: activeAudioRepeats,
+          instructionReplays: 0,
           languageDomains: instruction.languageDomains,
           spatialConcepts: instruction.spatialConcepts,
           spokenHelp: 0,
@@ -222,7 +197,7 @@ export const useWordChoiceState = ({
     );
     void runtime.practice.append(
       createInstructionPracticeObservation({
-        instructionReplays: activeAudioRepeats,
+        instructionReplays: 0,
         languageDomains: instruction.languageDomains,
         spatialConcepts: instruction.spatialConcepts,
         spokenHelp: 0,
@@ -257,7 +232,6 @@ export const useWordChoiceState = ({
     setSpeedValue(0);
     setSpeedBoosting(false);
     setWordStarValue(0);
-    setAudioRepeatsByInstruction({});
     setHintUsedByInstruction({});
     setRecognizedWithoutHelp([]);
     setRecognizedWithHint([]);
@@ -267,7 +241,6 @@ export const useWordChoiceState = ({
     instructionStartedAtRef.current = runtime.clock.now().getTime();
   };
   return {
-    activeAudioRepeats,
     activeInstructionIndex,
     advanceInstruction,
     answerOptions,
@@ -278,7 +251,6 @@ export const useWordChoiceState = ({
     handleHint,
     instruction,
     isCompleted,
-    playQuestionAudio,
     recognizedWithHint,
     recognizedWithoutHelp,
     restartRound,

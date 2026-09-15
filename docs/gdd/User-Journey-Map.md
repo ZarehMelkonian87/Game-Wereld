@@ -118,7 +118,7 @@
 **Zijpaden:**
 - **Fout antwoord:** rode ✗ + vriendelijke tip, geen straf, kind mag opnieuw (`FEAT_WORD_WRONG` 🟢).
 - **Hint:** hinttekst + de juiste kaart licht op (`FEAT_WORD_HINT` 🟢).
-- **Audio herhalen:** onbeperkt (`FEAT_WORD_AUDIO` ⚪, geluid niet hoorbaar getest).
+- **Video-opdracht:** de vraag wordt via de instructievideo aangeboden en kan herspeeld worden (de losse TTS-voorleesfunctie `FEAT_WORD_AUDIO` is verwijderd — `T-25`).
 
 **Bevindingen:** ronde = **12 vragen** (live: "Voortgang 1/12"), volgorde gerandomiseerd. Kaarten flitsen kort leeg bij doorschakelen (`T-23`).
 

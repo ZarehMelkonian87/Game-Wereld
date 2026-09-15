@@ -194,7 +194,7 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | :--- | :--- | :--- | :--- | :--: | :--- |
 | `FEAT_WORD_RENDER` | Scherm rendert | Vraagpaneel + keuze-area | `word-choice-screen` | 🟢 | |
 | `FEAT_WORD_QUESTION` | Vraagweergave | Toont vraag + doelkaart | `word-choice-question-panel`, `word-choice-target-card` | 🟢 | "Waar is de parasol?" |
-| `FEAT_WORD_AUDIO` | Vraag voorlezen | ~~Spreekt de vraag uit~~ | *(playQuestionAudio)* | ⚫ | **Te verwijderen** — video vervangt dit, `T-25` (na `T-19`) |
+| ~~`FEAT_WORD_AUDIO`~~ | ~~Vraag voorlezen~~ | — | — | ✅ verwijderd | **Verwijderd (`T-25`)** — TTS-voorleesfunctie + audioknoppen (HUD-audio + "Luister opnieuw") weg; de **video-opdracht** vervangt dit |
 | `FEAT_WORD_OPTIONS` | Keuzekaarten | 2–4 kaarten aanklikbaar | `word-choice-answer-area` | 🟢 | 2 en 3 kaarten gezien |
 | `FEAT_WORD_CORRECT` | Goed antwoord | Groene rand + succes + bonus zonder hint | *(feedback kind="correct")* | 🟢 | "+1 Tempo! Bonus zonder hint!" + nazegzin |
 | `FEAT_WORD_WRONG` | Fout antwoord | Vriendelijke tip, geen straf | *(feedback kind="almost")* | 🟢 | Rode ✗, "Bijna. Zoek nog eens…" |
