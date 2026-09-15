@@ -161,6 +161,7 @@ export const useSpokenCommandControlsState = ({
   };
 
   return {
+    errorMessage,
     handleAcceptPrivacy,
     handleStartListening,
     handleSubmitTypedCommand,

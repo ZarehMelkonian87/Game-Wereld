@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getBeachObjectStickerUrl } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
@@ -15,6 +15,7 @@ import { useSceneBuilderState } from "./scene-builder/hooks/useSceneBuilderState
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
+import { SpeechRetryPanel } from "./scene-builder/components/SpeechRetryPanel";
 import { SpeechWaveAnimation } from "./scene-builder/components/SpeechWaveAnimation";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 interface SceneBuilderScreenProps {
@@ -52,6 +53,10 @@ export const SceneBuilderScreen = ({
   const sceneAreaRef = useRef<HTMLElement>(null);
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
+  // T-34: vriendelijke feedback wanneer de spraakherkenning een fout geeft
+  // (onverstaanbaar, andere taal, geen match). We tonen dan een herkansings-
+  // paneel op de plek van de wave, zodat de mic-feedback nooit zomaar verdwijnt.
+  const [voiceRecognitionError, setVoiceRecognitionError] = useState<string>();
   const {
     advanceInstruction,
     activeAudioRepeats,
@@ -247,6 +252,7 @@ export const SceneBuilderScreen = ({
               }}
               exampleText={instruction.prompt}
               onTranscript={applySpokenCommandTranscript}
+              onVoiceErrorChange={setVoiceRecognitionError}
               onVoiceStatusChange={setVoiceRecognitionStatus}
               onVoiceTranscriptChange={setVoiceRecognitionTranscript}
               profileId={rewardProfileId}
@@ -318,6 +324,16 @@ export const SceneBuilderScreen = ({
         voiceRecognitionStatus === "processing" ||
         voiceRecognitionStatus === "heard") && (
         <SpeechWaveAnimation transcript={voiceRecognitionTranscript} />
+      )}
+
+      {voiceRecognitionStatus === "error" && (
+        <SpeechRetryPanel
+          message={voiceRecognitionError}
+          onRetry={() => {
+            setVoiceRecognitionError(undefined);
+            startVoiceRecognitionRef.current();
+          }}
+        />
       )}
 
       {dragState ? (
