@@ -1,12 +1,20 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import { beachBackgrounds, getBeachObjectStickerUrl } from "../../asset-urls";
 import { BeachBackground } from "../../components/layout/BeachBackground";
 import { BtnNavHome, ObjectStickerButton, PanelCard } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
+import { parseCompoundPlacements } from "../../logic/spoken-command-parser";
+import { containsUnwantedWord, UNWANTED_WORD_NUDGE } from "../../logic/word-safety";
 import type { SceneObject, SceneZone } from "../../types";
+import { SpeechWaveAnimation } from "../scene-builder/components/SpeechWaveAnimation";
 import { ObjectCarousel } from "../scene-builder/ObjectCarousel";
+import { SpokenCommandControls } from "../scene-builder/SpokenCommandControls";
 import { useZegBouwState } from "./useZegBouwState";
+
+// Zodra het doel gehaald is: eerst even het afgebouwde strand laten zien voordat
+// het "Strand af!"-menu verschijnt (feedback van tester: het menu kwam te snel).
+const COMPLETE_OVERLAY_DELAY_MS = 1900;
 
 interface ZegBouwScreenProps {
   objects: readonly SceneObject[];
@@ -31,14 +39,46 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
     card,
     feedback,
     isCardComplete,
+    placeCompound,
     placeSelectedAtPoint,
     placedObjects,
     progress,
+    rewardProfileId,
     selectObject,
     selectedObjectId,
+    showNudge,
     startNextCard,
     wordStarValue,
   } = useZegBouwState({ objects, zones });
+
+  const [voiceStatus, setVoiceStatus] = useState<string>("idle");
+  const [voiceTranscript, setVoiceTranscript] = useState<string>("");
+  const [showCompleteOverlay, setShowCompleteOverlay] = useState(false);
+
+  // Toon het ronde-eindmenu pas na een korte viering, zodat het kind zijn
+  // afgebouwde strand ziet (ook bij een compound-zin die het doel ineens haalt).
+  useEffect(() => {
+    if (!isCardComplete) {
+      setShowCompleteOverlay(false);
+      return undefined;
+    }
+    const timer = window.setTimeout(() => setShowCompleteOverlay(true), COMPLETE_OVERLAY_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [isCardComplete]);
+
+  const isListening =
+    voiceStatus === "listening" || voiceStatus === "processing" || voiceStatus === "heard";
+
+  const handleTranscript = (transcript: string) => {
+    // Vriendelijke bescherming (T-28): bij een ongewenst woord een zachte nudge.
+    if (containsUnwantedWord(transcript)) {
+      showNudge(UNWANTED_WORD_NUDGE);
+      return;
+    }
+
+    // Meerdere objecten uit één zin (T-04b) → in één keer plaatsen (T-04c C2b).
+    placeCompound(parseCompoundPlacements({ objects, transcript, zones }).placements);
+  };
 
   const handleSceneTap = (event: MouseEvent<HTMLButtonElement>) => {
     if (event.detail === 0) {
@@ -134,6 +174,16 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
           </div>
         </PanelCard>
 
+        <div className="pointer-events-auto flex items-center justify-center">
+          <SpokenCommandControls
+            exampleText="de bal en de zon op het strand"
+            onTranscript={handleTranscript}
+            onVoiceStatusChange={setVoiceStatus}
+            onVoiceTranscriptChange={setVoiceTranscript}
+            profileId={rewardProfileId}
+          />
+        </div>
+
         {feedback ? (
           <div
             className={classNames(
@@ -164,7 +214,9 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
         </ObjectCarousel>
       </div>
 
-      {isCardComplete ? (
+      {isListening ? <SpeechWaveAnimation transcript={voiceTranscript} /> : null}
+
+      {showCompleteOverlay ? (
         <div
           className="absolute inset-0 z-50 grid place-items-center bg-sky-950/25 p-3 backdrop-blur-[2px]"
           data-testid="zeg-bouw-complete"

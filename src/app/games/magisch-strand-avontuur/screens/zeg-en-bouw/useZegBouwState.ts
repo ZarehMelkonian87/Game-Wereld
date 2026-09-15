@@ -6,6 +6,7 @@ import {
   saveUnlockedRewardIds,
 } from "../../logic/rewards";
 import { findSmallestZoneAtPoint, getZoneCenter, type ScenePoint } from "../../logic/scene-zones";
+import type { CompoundPlacement } from "../../logic/spoken-command-parser";
 import {
   getBuildCardProgress,
   isObjectAllowedOnCard,
@@ -149,13 +150,109 @@ export const useZegBouwState = ({
     placeObject(selectedObjectId, point, zone.id);
   };
 
-  /** Plaatst een object in het midden van een genoemde zone (voor spraak, C2b). */
-  const placeObjectInZone = (objectId: string, zoneId: string) => {
-    const zone = zones.find((candidate) => candidate.id === zoneId);
-    if (!zone) {
-      return false;
+  const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+  const defaultZone =
+    zones.find((zone) => zone.id === "strand") ?? zones.find((zone) => zone.id === "zee") ?? zones[0];
+
+  const listLabels = (labels: string[]) =>
+    labels.length > 1
+      ? `${labels.slice(0, -1).join(", ")} en ${labels[labels.length - 1]}`
+      : (labels[0] ?? "");
+
+  /**
+   * Verwerkt een samengestelde zin in één keer (T-04c C2b): plaatst alle
+   * passende objecten (spreiding zodat ze niet stapelen), telt de sterren in één
+   * keer met een **compound-bonus** voor een zin met meerdere objecten, en toont
+   * een vriendelijke tip als niets paste.
+   */
+  const placeCompound = (placements: readonly CompoundPlacement[]) => {
+    const allowed = placements.filter((placement) =>
+      isObjectAllowedOnCard(card, placement.objectId),
+    );
+
+    if (allowed.length === 0) {
+      const firstObjectId = placements[0]?.objectId;
+      setFeedback(
+        firstObjectId
+          ? {
+              kind: "tip",
+              text: `Een ${getObjectLabel(objects, firstObjectId)} past niet zo goed op het ${card.theme}. Zeg iets dat er wél bij hoort!`,
+            }
+          : {
+              kind: "prompt",
+              text: "Ik verstond geen strandwoord. Zeg bijvoorbeeld: de bal en de zon.",
+            },
+      );
+      return;
     }
-    return placeObject(objectId, getZoneCenter(zone), zoneId);
+
+    // Dedupe op objectId (laatste vermelding wint) en bepaal per object een plek.
+    const resolved = new Map<string, { point: ScenePoint; zoneId: string }>();
+    allowed.forEach((placement, index) => {
+      const zone =
+        (placement.zoneId ? zones.find((candidate) => candidate.id === placement.zoneId) : undefined) ??
+        defaultZone;
+      if (!zone) {
+        return;
+      }
+      const center = getZoneCenter(zone);
+      const horizontalOffset = ((index % 3) - 1) * 9;
+      const verticalOffset = (Math.floor(index / 3) % 2 === 0 ? -1 : 1) * 6;
+      resolved.set(placement.objectId, {
+        point: {
+          x: clamp(center.x + horizontalOffset, 6, 94),
+          y: clamp(center.y + verticalOffset, 12, 88),
+        },
+        zoneId: zone.id,
+      });
+    });
+
+    if (resolved.size === 0) {
+      return;
+    }
+
+    const newlyPlacedIds = [...resolved.keys()].filter(
+      (objectId) => !placedObjects.some((placedObject) => placedObject.objectId === objectId),
+    );
+
+    setPlacedObjects((current) => {
+      const kept = current.filter((placedObject) => !resolved.has(placedObject.objectId));
+      const added = [...resolved.entries()].map(([objectId, { point, zoneId }]) => ({
+        key: `${objectId}-${Math.round(point.x)}-${Math.round(point.y)}`,
+        objectId,
+        x: point.x,
+        y: point.y,
+        zoneId,
+      }));
+      return [...kept, ...added];
+    });
+    setSelectedObjectId(null);
+
+    const compoundBonus = allowed.length >= 2 ? 1 : 0;
+    const earnedStars = newlyPlacedIds.length * 2 + compoundBonus;
+    if (earnedStars > 0) {
+      awardStars(earnedStars);
+    }
+
+    const nextIds = [
+      ...placedObjectIds.filter((id) => !resolved.has(id)),
+      ...resolved.keys(),
+    ];
+    const nextCount = getBuildCardProgress(card, nextIds).count;
+    const placedText = listLabels([...resolved.keys()].map((id) => getObjectLabel(objects, id)));
+
+    setFeedback(
+      nextCount >= card.goalCount
+        ? { kind: "good", text: `Knap gedaan! Je ${card.theme} is helemaal af! 🎉` }
+        : allowed.length >= 2
+          ? { kind: "good", text: `Goed gezegd! Je zette de ${placedText} neer.` }
+          : { kind: "good", text: `Mooi! De ${placedText} staat op zijn plek.` },
+    );
+  };
+
+  const showNudge = (text: string) => {
+    setFeedback({ kind: "tip", text });
   };
 
   const startNextCard = () => {
@@ -178,7 +275,7 @@ export const useZegBouwState = ({
     card,
     feedback,
     isCardComplete,
-    placeObjectInZone,
+    placeCompound,
     placeSelectedAtPoint,
     placedObjects,
     progress,
@@ -186,6 +283,7 @@ export const useZegBouwState = ({
     rewardProfileId,
     selectObject,
     selectedObjectId,
+    showNudge,
     startNextCard,
     unlockedRewardIds,
     wordStarValue,
