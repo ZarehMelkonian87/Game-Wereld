@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
+import {
+  filterUnwantedCandidates,
+  UNWANTED_WORD_NUDGE,
+} from "../../logic/word-safety";
 import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 import { matchVoiceSideScrollerWord } from "./voiceSideScrollerWords";
 
@@ -271,13 +275,18 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
-    const transcriptCandidates = getTranscriptCandidates(transcript, alternatives);
+    const rawCandidates = getTranscriptCandidates(transcript, alternatives);
 
-    if (transcriptCandidates.length === 0 || lastProcessedResultIdRef.current === resultId) {
+    if (rawCandidates.length === 0 || lastProcessedResultIdRef.current === resultId) {
       return;
     }
 
     lastProcessedResultIdRef.current = resultId;
+
+    // Vriendelijke bescherming: ongewenste woorden worden uit de kandidaten
+    // gefilterd (een gemengde uiting als "stomme bal" pakt "bal" dus tóch op),
+    // en als er alleen iets ongewensts klonk tonen we een zachte nudge (T-28).
+    const { clean: transcriptCandidates, hadUnwanted } = filterUnwantedCandidates(rawCandidates);
     rememberHeardWords(transcriptCandidates);
 
     if (tryCollectRememberedWord()) {
@@ -288,8 +297,22 @@ export const useVoiceSideScrollerWordRecognition = ({
       return;
     }
 
+    if (hadUnwanted) {
+      setWordRecognition({
+        feedbackText: UNWANTED_WORD_NUDGE,
+        isListening: true,
+        status: "missed",
+        supportMessage,
+      });
+      return;
+    }
+
     const practiceTarget = visibleTargetsRef.current[0];
     const heardText = transcriptCandidates[0];
+
+    if (!heardText) {
+      return;
+    }
 
     setWordRecognition({
       confidence,

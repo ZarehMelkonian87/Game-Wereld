@@ -3,6 +3,7 @@ import {
   executeSpokenSceneCommand,
   type SceneCommandChoice,
 } from "../../../logic/scene-command-executor";
+import { containsUnwantedWord, UNWANTED_WORD_NUDGE } from "../../../logic/word-safety";
 import type { SceneObject } from "../../../types";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
 
@@ -34,6 +35,21 @@ export const useSceneSpokenCommandHandlers = ({
 
   const applySpokenCommandTranscript = useCallback(
     (transcript: string) => {
+      // Vriendelijke bescherming: bij een ongewenst woord verwerken we het
+      // commando niet en tonen we een zachte nudge (geen straf). We blijven
+      // luisteren zodat het kind meteen het juiste woord kan zeggen (T-28).
+      if (containsUnwantedWord(transcript)) {
+        setSpokenCommandResult(null);
+        setPendingPlacement(null);
+        setFeedback({
+          kind: "almost",
+          mascot: "hint",
+          text: UNWANTED_WORD_NUDGE,
+        });
+        startVoiceRecognitionRef.current?.();
+        return undefined;
+      }
+
       const executionResult = executeSpokenSceneCommand({
         objects,
         placements: placedObjectPoints,
@@ -111,6 +127,7 @@ export const useSceneSpokenCommandHandlers = ({
       setSpokenCommandResult,
       setSpokenHelpByInstruction,
       setSpokenHintZoneId,
+      startVoiceRecognitionRef,
       stopVoiceRecognitionRef,
     ],
   );

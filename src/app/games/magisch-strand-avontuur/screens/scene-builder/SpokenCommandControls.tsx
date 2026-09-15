@@ -3,6 +3,7 @@ import { BtnTaskKeyboardToggle, VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
 import { voicePrivacyCopy } from "../../logic/voice-privacy";
+import { sanitizeSpokenText } from "../../logic/word-safety";
 import { useSpokenCommandControlsState } from "./hooks/useSpokenCommandControlsState";
 import { TypedCommandFallback } from "./TypedCommandFallback";
 import { VoicePrivacyNotice } from "./VoicePrivacyNotice";
@@ -61,7 +62,9 @@ export const SpokenCommandControls = ({
   }, [bindStartListening, handleStartListening]);
 
   useEffect(() => {
-    onVoiceTranscriptChange?.(transcript ?? "");
+    // Maskeer ongewenste woorden in de live-transcriptie zodat ze nooit op het
+    // scherm verschijnen (T-28).
+    onVoiceTranscriptChange?.(sanitizeSpokenText(transcript ?? ""));
   }, [onVoiceTranscriptChange, transcript]);
 
   useEffect(() => {
