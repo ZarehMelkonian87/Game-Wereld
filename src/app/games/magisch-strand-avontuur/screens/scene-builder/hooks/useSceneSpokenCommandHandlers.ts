@@ -28,6 +28,7 @@ export const useSceneSpokenCommandHandlers = ({
     setSpokenHelpByInstruction,
     setSpokenHintZoneId,
     spokenCommandResult,
+    startVoiceRecognitionRef,
     stopVoiceRecognitionRef,
   } = state;
 
@@ -174,8 +175,12 @@ export const useSceneSpokenCommandHandlers = ({
     setFeedback({
       kind: "ready",
       mascot: "hint",
-      text: "Zeg de zin nog een keer rustig.",
+      text: "Ik luister… zeg de zin nog een keer rustig.",
     });
+    // Herstart de microfoon meteen, zodat "Opnieuw zeggen" direct weer luistert
+    // (voorheen gebeurde er niets en moest het kind zelf de mic-knop opnieuw
+    // aantikken).
+    startVoiceRecognitionRef.current?.();
   };
 
   return {

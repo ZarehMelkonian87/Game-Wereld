@@ -53,6 +53,7 @@ export const SceneBuilderScreen = ({
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
   const {
+    advanceInstruction,
     activeAudioRepeats,
     activeHintsUsed,
     appliedSpokenCommandPreviewText,
@@ -81,6 +82,7 @@ export const SceneBuilderScreen = ({
     showTargetZoneHint,
     spokenCommandResult,
     spokenHintZoneId,
+    startVoiceRecognitionRef,
     stopVoiceRecognitionRef,
     targetZone,
     targetObject,
@@ -135,12 +137,38 @@ export const SceneBuilderScreen = ({
     setAppliedSpokenCommandPreviewText,
     spokenCommandPreviewText,
   ]);
-  const actionLabel =
-    sceneComplete && feedback?.kind === "correct"
-      ? "Opnieuw"
-      : feedback?.kind === "correct"
-        ? "Volgende"
-        : "Klaar";
+  // T-35: geen "Klaar"-knop meer tijdens het spelen — de plaatsing wordt
+  // automatisch bevestigd en bij een goed antwoord gaat het spel vanzelf door.
+  // Stabiele refs zodat de effecten niet bij elke render opnieuw draaien.
+  const handleConfirmRef = useRef(handleConfirm);
+  handleConfirmRef.current = handleConfirm;
+  const advanceInstructionRef = useRef(advanceInstruction);
+  advanceInstructionRef.current = advanceInstruction;
+
+  // Auto-bevestig: zodra er een plaatsing is gemaakt (tap/sleep/toetsenbord/
+  // spraak) evalueren we die meteen — geen Klaar-knop nodig.
+  useEffect(() => {
+    if (pendingPlacement && feedback?.kind === "ready") {
+      handleConfirmRef.current();
+    }
+  }, [pendingPlacement, feedback]);
+
+  // Auto-doorgaan: na een goed antwoord kort de viering tonen en dan vanzelf
+  // naar de volgende opdracht. Bij de laatste opdracht laat advanceInstruction
+  // de scène op "compleet" springen (dan verschijnt de afronding).
+  useEffect(() => {
+    if (feedback?.kind !== "correct" || sceneComplete) {
+      return undefined;
+    }
+    const timer = window.setTimeout(() => {
+      advanceInstructionRef.current();
+    }, 1600);
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [feedback, sceneComplete]);
+
+  const actionLabel = "Opnieuw";
   return (
     <div
       className="absolute inset-0 z-10 overflow-hidden"
@@ -204,12 +232,16 @@ export const SceneBuilderScreen = ({
           onBackToMenu={onBackToMenu}
           onHint={handleHint}
           onHintPointerDown={playPreparedHintVideo}
+          showAction={sceneComplete}
           starCount={wordStarValue}
         />
 
         <CompactInstructionCard
           actionControls={
             <SpokenCommandControls
+              bindStartListening={(startFn) => {
+                startVoiceRecognitionRef.current = startFn;
+              }}
               bindStopListening={(stopFn) => {
                 stopVoiceRecognitionRef.current = stopFn;
               }}
@@ -285,10 +317,7 @@ export const SceneBuilderScreen = ({
       {(voiceRecognitionStatus === "listening" ||
         voiceRecognitionStatus === "processing" ||
         voiceRecognitionStatus === "heard") && (
-        <SpeechWaveAnimation
-          onStop={stopVoiceRecognitionRef.current}
-          transcript={voiceRecognitionTranscript}
-        />
+        <SpeechWaveAnimation transcript={voiceRecognitionTranscript} />
       )}
 
       {dragState ? (

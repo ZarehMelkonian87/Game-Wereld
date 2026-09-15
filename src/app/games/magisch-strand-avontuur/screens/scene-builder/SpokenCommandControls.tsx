@@ -8,6 +8,7 @@ import { TypedCommandFallback } from "./TypedCommandFallback";
 import { VoicePrivacyNotice } from "./VoicePrivacyNotice";
 
 interface SpokenCommandControlsProps {
+  bindStartListening?: (startFn: () => void) => void;
   bindStopListening?: (stopFn: () => void) => void;
   className?: string;
   exampleText: string;
@@ -18,6 +19,7 @@ interface SpokenCommandControlsProps {
 }
 
 export const SpokenCommandControls = ({
+  bindStartListening,
   bindStopListening,
   className,
   exampleText,
@@ -50,6 +52,10 @@ export const SpokenCommandControls = ({
   useEffect(() => {
     bindStopListening?.(stopListening);
   }, [bindStopListening, stopListening]);
+
+  useEffect(() => {
+    bindStartListening?.(handleStartListening);
+  }, [bindStartListening, handleStartListening]);
 
   useEffect(() => {
     onVoiceTranscriptChange?.(transcript ?? "");

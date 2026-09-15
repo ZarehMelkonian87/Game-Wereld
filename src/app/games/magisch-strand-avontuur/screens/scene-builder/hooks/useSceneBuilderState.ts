@@ -54,6 +54,7 @@ export const useSceneBuilderState = ({
   const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
   const [voiceRecognitionTranscript, setVoiceRecognitionTranscript] = useState<string>("");
   const stopVoiceRecognitionRef = useRef<() => void>(() => undefined);
+  const startVoiceRecognitionRef = useRef<() => void>(() => undefined);
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
@@ -224,6 +225,7 @@ export const useSceneBuilderState = ({
     spokenCommandResult,
     spokenHelpByInstruction,
     spokenHintZoneId,
+    startVoiceRecognitionRef,
     stopVoiceRecognitionRef,
     suppressNextClickRef,
     targetObject,

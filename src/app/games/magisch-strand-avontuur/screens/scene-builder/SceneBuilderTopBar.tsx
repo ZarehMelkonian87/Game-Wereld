@@ -10,6 +10,8 @@ interface SceneBuilderTopBarProps {
   onBackToMenu?: () => void;
   onHint: () => void;
   onHintPointerDown: () => void;
+  /** Toont de actieknop alleen wanneer nodig (bv. bij een afgeronde scène). */
+  showAction?: boolean;
   starCount: number;
 }
 
@@ -20,6 +22,7 @@ export const SceneBuilderTopBar = ({
   onBackToMenu,
   onHint,
   onHintPointerDown,
+  showAction = false,
   starCount,
 }: SceneBuilderTopBarProps) => {
   const handleActionKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -52,14 +55,18 @@ export const SceneBuilderTopBar = ({
         onTouchStart={onHintPointerDown}
         showLabel={false}
       />
-      <BtnActionKlaar
-        aria-label={actionLabel}
-        className="min-h-12 rounded-2xl px-3 text-sm shadow-[0_3px_0_rgba(4,120,87,0.75)]"
-        data-testid="scene-builder-confirm-button"
-        label={actionLabel}
-        onClick={onAction}
-        onKeyDown={handleActionKeyDown}
-      />
+      {showAction ? (
+        <BtnActionKlaar
+          aria-label={actionLabel}
+          className="min-h-12 rounded-2xl px-3 text-sm shadow-[0_3px_0_rgba(4,120,87,0.75)]"
+          data-testid="scene-builder-confirm-button"
+          label={actionLabel}
+          onClick={onAction}
+          onKeyDown={handleActionKeyDown}
+        />
+      ) : (
+        <span aria-hidden="true" />
+      )}
     </header>
   );
 };
