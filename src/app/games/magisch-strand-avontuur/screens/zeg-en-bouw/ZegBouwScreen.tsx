@@ -39,6 +39,7 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
   const {
     card,
     feedback,
+    freeBuild,
     isCardComplete,
     placeCompound,
     placeSelectedAtPoint,
@@ -50,6 +51,7 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
     selectedObjectId,
     showNudge,
     startNextCard,
+    toggleFreeBuild,
     wordStarValue,
   } = useZegBouwState({ objects, zones });
 
@@ -157,22 +159,42 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
               {card.prompt}
             </p>
           </div>
-          <div
-            className="flex items-center gap-1"
-            aria-label={`${progress.count} van ${progress.goal} gebouwd`}
-            data-testid="zeg-bouw-progress"
-          >
-            {Array.from({ length: progress.goal }).map((_, index) => (
+          <div className="flex flex-col items-end gap-1">
+            {freeBuild ? (
               <span
-                key={`progress-${index}`}
-                className={classNames(
-                  "h-4 w-4 rounded-full border-2",
-                  index < progress.count
-                    ? "border-emerald-300 bg-emerald-400"
-                    : "border-white/80 bg-white/40",
-                )}
-              />
-            ))}
+                aria-label={`${placedObjects.length} gebouwd`}
+                className="rounded-full bg-sky-400/90 px-2 py-0.5 text-[0.62rem] font-black text-white shadow-sm"
+                data-testid="zeg-bouw-progress"
+              >
+                {placedObjects.length} gebouwd
+              </span>
+            ) : (
+              <div
+                className="flex items-center gap-1"
+                aria-label={`${progress.count} van ${progress.goal} gebouwd`}
+                data-testid="zeg-bouw-progress"
+              >
+                {Array.from({ length: progress.goal }).map((_, index) => (
+                  <span
+                    key={`progress-${index}`}
+                    className={classNames(
+                      "h-4 w-4 rounded-full border-2",
+                      index < progress.count
+                        ? "border-emerald-300 bg-emerald-400"
+                        : "border-white/80 bg-white/40",
+                    )}
+                  />
+                ))}
+              </div>
+            )}
+            <button
+              className="rounded-full border-2 border-white bg-white/85 px-2 py-0.5 text-[0.6rem] font-black text-sky-900 shadow-sm transition active:scale-95"
+              data-testid="zeg-bouw-mode-toggle"
+              onClick={toggleFreeBuild}
+              type="button"
+            >
+              {freeBuild ? "Bouwopdracht" : "Vrij bouwen"}
+            </button>
           </div>
         </PanelCard>
 

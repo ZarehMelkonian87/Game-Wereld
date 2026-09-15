@@ -36,6 +36,27 @@ export interface ZegBouwFeedback {
 const getObjectLabel = (objects: readonly SceneObject[], objectId: string) =>
   objects.find((object) => object.id === objectId)?.label ?? objectId;
 
+const getObjectLabelWithArticle = (objects: readonly SceneObject[], objectId: string) => {
+  const object = objects.find((candidate) => candidate.id === objectId);
+  if (!object) {
+    return objectId;
+  }
+  return `${object.article ?? "de"} ${object.label}`;
+};
+
+export type ZegBouwMode = "opdracht" | "vrij";
+
+// Vrije-bouw-"kaart" (variant B): geen doel, elk object mag (concept §3).
+const FREE_BUILD_CARD: ZegBouwCard = {
+  id: "build-vrij",
+  theme: "eigen strand",
+  title: "Vrij bouwen",
+  prompt: "Maak jouw eigen strand! Zet neer wat je zelf wilt.",
+  goalCount: Number.POSITIVE_INFINITY,
+  allowedObjectIds: [],
+  allowsAnyObject: true,
+};
+
 export const useZegBouwState = ({
   objects,
   zones,
@@ -49,7 +70,10 @@ export const useZegBouwState = ({
   const [roundSeed, setRoundSeed] = useState(() => createRoundSeed());
   const cards = useMemo(() => shuffleBuildCards(zegBouwCards, roundSeed), [roundSeed]);
   const [cardIndex, setCardIndex] = useState(0);
-  const card: ZegBouwCard = cards[cardIndex] ?? cards[0];
+  const [freeBuild, setFreeBuild] = useState(false);
+  // In vrij-bouwen (variant B) is er geen doel: elke plaatsing mag en telt niet
+  // af naar een doel; de mascotte benoemt mee wat er gebouwd is.
+  const card: ZegBouwCard = freeBuild ? FREE_BUILD_CARD : (cards[cardIndex] ?? cards[0]);
 
   const [placedObjects, setPlacedObjects] = useState<ZegBouwPlacedObject[]>([]);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
@@ -95,6 +119,13 @@ export const useZegBouwState = ({
     return newUnlocks;
   };
 
+  const narrateFreeBuild = (placedIds: readonly string[]): ZegBouwFeedback => {
+    const labels = [...new Set(placedIds)].map((id) => getObjectLabelWithArticle(objects, id));
+    return labels.length === 0
+      ? { kind: "prompt", text: FREE_BUILD_CARD.prompt }
+      : { kind: "good", text: `Wat mooi! Je hebt ${listLabels(labels)} gemaakt.` };
+  };
+
   const selectObject = (objectId: string) => {
     setSelectedObjectId(objectId);
     setFeedback({
@@ -127,15 +158,20 @@ export const useZegBouwState = ({
     ]);
     setSelectedObjectId(null);
 
+    const nextIds = [...placedObjectIds.filter((id) => id !== objectId), objectId];
+
+    if (freeBuild) {
+      // Vrij bouwen: geen sterren/doel, de mascotte benoemt mee (variant B).
+      setFeedback(narrateFreeBuild(nextIds));
+      return true;
+    }
+
     // Sterren alleen voor een nieuw, passend object (niet voor verplaatsen).
     if (!alreadyPlaced) {
       awardStars(2);
     }
 
-    const nextCount = getBuildCardProgress(card, [
-      ...placedObjectIds.filter((id) => id !== objectId),
-      objectId,
-    ]).count;
+    const nextCount = getBuildCardProgress(card, nextIds).count;
 
     setFeedback(
       nextCount >= card.goalCount
@@ -243,16 +279,19 @@ export const useZegBouwState = ({
     });
     setSelectedObjectId(null);
 
+    const nextIds = [...placedObjectIds.filter((id) => !resolved.has(id)), ...resolved.keys()];
+
+    if (freeBuild) {
+      setFeedback(narrateFreeBuild(nextIds));
+      return;
+    }
+
     const compoundBonus = allowed.length >= 2 ? 1 : 0;
     const earnedStars = newlyPlacedIds.length * 2 + compoundBonus;
     if (earnedStars > 0) {
       awardStars(earnedStars);
     }
 
-    const nextIds = [
-      ...placedObjectIds.filter((id) => !resolved.has(id)),
-      ...resolved.keys(),
-    ];
     const nextCount = getBuildCardProgress(card, nextIds).count;
     const placedText = listLabels([...resolved.keys()].map((id) => getObjectLabel(objects, id)));
 
@@ -267,6 +306,13 @@ export const useZegBouwState = ({
 
   const showNudge = (text: string) => {
     setFeedback({ kind: "tip", text });
+  };
+
+  const toggleFreeBuild = () => {
+    setFreeBuild((current) => !current);
+    setPlacedObjects([]);
+    setSelectedObjectId(null);
+    setFeedback(null);
   };
 
   const startNextCard = () => {
@@ -288,6 +334,7 @@ export const useZegBouwState = ({
   return {
     card,
     feedback,
+    freeBuild,
     isCardComplete,
     placeCompound,
     placeSelectedAtPoint,
@@ -300,6 +347,7 @@ export const useZegBouwState = ({
     selectedObjectId,
     showNudge,
     startNextCard,
+    toggleFreeBuild,
     unlockedRewardIds,
     wordStarValue,
   };

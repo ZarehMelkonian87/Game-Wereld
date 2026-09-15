@@ -81,4 +81,20 @@ test.describe("Zeg & Bouw (e2e)", () => {
 
     await expect(page.getByTestId("adventure-select-screen")).toBeVisible();
   });
+
+  test("Vrij bouwen: elk plaatje mag, zonder doel of eindscherm (variant B)", async ({ page }) => {
+    await openZegBouw(page);
+
+    await page.getByTestId("zeg-bouw-mode-toggle").click();
+    await expect(page.getByTestId("zeg-bouw-card")).toContainText("Vrij bouwen");
+
+    await page.locator('[data-component="ObjectCarousel"] button').first().click();
+    await page.getByTestId("zeg-bouw-tap-target").click({ position: { x: 200, y: 250 } });
+
+    // Mascotte benoemt mee; er is geen doel en dus geen ronde-eindscherm.
+    await expect(page.getByTestId("zeg-bouw-feedback")).toContainText(/Wat mooi/);
+    await expect(page.getByTestId("zeg-bouw-progress")).toContainText("gebouwd");
+    await expect(page.getByTestId("zeg-bouw-complete")).toHaveCount(0);
+    await expect(page.getByTestId("zeg-bouw-screen")).toHaveAttribute("data-build-complete", "false");
+  });
 });
