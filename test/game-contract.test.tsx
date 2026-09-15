@@ -34,7 +34,7 @@ describe("generiek gamecontract", () => {
   it("gebruikt world-beach alleen als kaartafbeelding van de strandgame", () => {
     const manifest = getGameRegistryEntry("magisch-strand-avontuur")?.manifest;
 
-    expect(manifest?.cardImageUrl).toContain("world-beach.png");
+    expect(manifest?.cardImageUrl).toContain("world-beach.webp");
     expect(manifest?.icon).toBe("🏖️");
   });
 
