@@ -10,6 +10,7 @@ import type { SceneObject, SceneZone } from "../../types";
 import { SpeechWaveAnimation } from "../scene-builder/components/SpeechWaveAnimation";
 import { ObjectCarousel } from "../scene-builder/ObjectCarousel";
 import { SpokenCommandControls } from "../scene-builder/SpokenCommandControls";
+import { ZegBouwRoundSummary } from "./components/ZegBouwRoundSummary";
 import { useZegBouwState } from "./useZegBouwState";
 
 // Zodra het doel gehaald is: eerst even het afgebouwde strand laten zien voordat
@@ -44,6 +45,7 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
     placedObjects,
     progress,
     rewardProfileId,
+    roundReward,
     selectObject,
     selectedObjectId,
     showNudge,
@@ -217,36 +219,16 @@ export const ZegBouwScreen = ({ objects, onBackToMenu, zones }: ZegBouwScreenPro
       {isListening ? <SpeechWaveAnimation transcript={voiceTranscript} /> : null}
 
       {showCompleteOverlay ? (
-        <div
-          className="absolute inset-0 z-50 grid place-items-center bg-sky-950/25 p-3 backdrop-blur-[2px]"
-          data-testid="zeg-bouw-complete"
-        >
-          <PanelCard className="grid w-full max-w-[20rem] gap-3 !rounded-[1.5rem] !p-4 text-center">
-            <h2 className="text-2xl font-black leading-none text-slate-900">Strand af!</h2>
-            <p className="text-sm font-black leading-tight text-sky-900">
-              Knap gedaan! Je {card.theme} is helemaal gebouwd.
-            </p>
-            <p className="text-xs font-black text-amber-900">Sterren deze ronde: {wordStarValue}</p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                className="rounded-2xl border-2 border-white bg-emerald-500 px-3 py-2.5 text-sm font-black text-white shadow-md transition active:scale-95"
-                data-testid="zeg-bouw-next-card-button"
-                onClick={startNextCard}
-                type="button"
-              >
-                Volgende strand
-              </button>
-              <button
-                className="rounded-2xl border-2 border-white bg-sky-500 px-3 py-2.5 text-sm font-black text-white shadow-md transition active:scale-95"
-                data-testid="zeg-bouw-menu-button"
-                onClick={onBackToMenu}
-                type="button"
-              >
-                Menu
-              </button>
-            </div>
-          </PanelCard>
-        </div>
+        <ZegBouwRoundSummary
+          builtObjectIds={[...new Set(placedObjects.map((placedObject) => placedObject.objectId))]}
+          nextReward={roundReward.nextReward}
+          objects={objects}
+          onBackToMenu={onBackToMenu}
+          onNext={startNextCard}
+          starsThisRound={wordStarValue}
+          theme={card.theme}
+          totalWordStars={roundReward.totalWordStars}
+        />
       ) : null}
     </section>
   );

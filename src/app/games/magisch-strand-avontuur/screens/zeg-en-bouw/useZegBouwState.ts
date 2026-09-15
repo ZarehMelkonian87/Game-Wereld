@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import {
   addProfileTotals,
+  getNextRewardGoal,
+  readProfileTotals,
   readUnlockedRewardIds,
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
@@ -60,6 +62,18 @@ export const useZegBouwState = ({
   const placedObjectIds = placedObjects.map((placedObject) => placedObject.objectId);
   const progress = getBuildCardProgress(card, placedObjectIds);
   const isCardComplete = progress.complete;
+
+  // Gegevens voor het ronde-eindscherm (T-04d): cumulatief totaal + volgende
+  // beloningsdoel, alleen berekend zodra de bouwkaart af is.
+  const roundReward = useMemo(() => {
+    if (!isCardComplete) {
+      return { nextReward: undefined, totalWordStars: 0 };
+    }
+    return {
+      nextReward: getNextRewardGoal(unlockedRewardIds),
+      totalWordStars: readProfileTotals(rewardProfileId, runtime.storage).wordStars,
+    };
+  }, [isCardComplete, rewardProfileId, runtime.storage, unlockedRewardIds]);
 
   const awardStars = (earnedWordStars: number) => {
     const totals = addProfileTotals(rewardProfileId, runtime.storage, {
@@ -281,6 +295,7 @@ export const useZegBouwState = ({
     progress,
     restartRound,
     rewardProfileId,
+    roundReward,
     selectObject,
     selectedObjectId,
     showNudge,
