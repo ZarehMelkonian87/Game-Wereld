@@ -1,4 +1,4 @@
-import { Check, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, Lock } from "lucide-react";
 import { classNames } from "../../components/ui/classNames";
 import type { BezemEscapeMode } from "../../types";
 import type { AdventureModeOption } from "./adventureModeOptions";
@@ -80,7 +80,9 @@ export const CompactGameModeCard: DevtoolsComponent<CompactGameModeCardProps> = 
         )}
         data-slot="selection"
       >
-        {selected ? (
+        {disabled ? (
+          <Lock className="h-4 w-4 shrink-0 text-slate-500" strokeWidth={3} />
+        ) : selected ? (
           <Check className="h-5 w-5 shrink-0 text-white" strokeWidth={3} />
         ) : (
           <ChevronRight className="h-5 w-5 shrink-0 text-slate-700" strokeWidth={3} />

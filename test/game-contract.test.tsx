@@ -79,10 +79,17 @@ describe("generiek gamecontract", () => {
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
     const module = await loadGameModule(entry);
     const runtime = createFakeGameRuntime();
+    // Ontgrendel Zeg & Zet vooraf (T-31): standaard staat de instapmodus Kies het
+    // Woord geselecteerd; deze test controleert juist de scene-builder-effecten.
+    runtime.storage.set(
+      `magisch-strand-avontuur:${runtime.identity.profileId}:totals`,
+      JSON.stringify({ speed: 0, wordStars: 10 }),
+    );
     const user = userEvent.setup();
     render(<module.Game runtime={runtime} />);
 
     await user.click(screen.getByRole("button", { name: "Spel starten" }));
+    await user.click(screen.getByTestId("compact-mode-card-listen-and-place"));
     await user.click(screen.getByRole("button", { name: "Start spel" }));
 
     expect(await screen.findByTestId("scene-builder-screen")).toBeVisible();

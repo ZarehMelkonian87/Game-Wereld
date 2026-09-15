@@ -1,6 +1,7 @@
 import { test, type Page, type Locator } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
+import { earnStarsToUnlockModes } from "./helpers";
 
 interface StepInfo {
   id: string;
@@ -417,6 +418,10 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
     const playBtn = page.getByTestId("start-play-button");
     await playBtn.click();
     await page.getByTestId("compact-mode-card-listen-and-place").waitFor({ state: "visible" });
+
+    // Zeg & Zet is vergrendeld tot er sterren zijn verdiend (T-31): speel eerst
+    // een ronde Kies het Woord zodat de kaart ontgrendeld in beeld komt.
+    await earnStarsToUnlockModes(page);
 
     // Stap 16: Zeg & Zet Kaart kiezen
     const zegZetCard = page.getByTestId("compact-mode-card-listen-and-place");
@@ -892,7 +897,7 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
           <div class="space-y-8">
             ${catSteps
               .map(
-                (step, stepIdx) => `
+                (step) => `
               <article class="bg-slate-800/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl hover:border-sky-500/40 transition duration-300">
                 
                 <!-- CARD HEADER -->

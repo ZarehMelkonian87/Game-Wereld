@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { earnStarsToUnlockModes } from "./helpers";
 
 const WCAG_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
@@ -28,6 +29,7 @@ const openSceneBuilder = async (page: Page) => {
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await page.getByTestId("start-play-button").click();
+  await earnStarsToUnlockModes(page);
   await page.getByTestId("compact-mode-card-listen-and-place").click();
   await page.getByTestId("adventure-start-game-button").click();
   await expect(page.getByTestId("scene-builder-screen")).toBeVisible();

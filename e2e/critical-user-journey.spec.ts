@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs";
+import { earnStarsToUnlockModes } from "./helpers";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -78,6 +79,9 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   await expect(page.getByTestId("start-screen")).toBeVisible();
 
   await page.getByTestId("start-play-button").click();
+  // Zeg & Zet is vergrendeld tot er sterren verdiend zijn (T-31): eerst een
+  // ronde Kies het Woord spelen om het te ontgrendelen.
+  await earnStarsToUnlockModes(page);
   await page.getByTestId("compact-mode-card-listen-and-place").click();
   await page.getByTestId("adventure-start-game-button").click();
   await expect(page.getByTestId("scene-builder-screen")).toBeVisible();

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { earnStarsToUnlockModes } from "./helpers";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -165,6 +166,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
 
@@ -182,6 +184,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
     await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
@@ -210,6 +213,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
     await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
@@ -246,6 +250,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
     await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
@@ -265,6 +270,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
     await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
@@ -292,6 +298,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await setupPlayerAndOpenStrandGame(page);
 
     await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
     await expect(page.getByTestId("scene-builder-screen")).toBeVisible();

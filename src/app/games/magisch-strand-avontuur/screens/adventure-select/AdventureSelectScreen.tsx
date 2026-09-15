@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { isModeUnlocked } from "../../logic/mode-unlocks";
 import type { BezemEscapeMode, WorldDefinition } from "../../types";
 import { WorldSelectBackground } from "./WorldSelectBackground";
 import { WorldSelectMessage } from "./WorldSelectMessage";
@@ -36,12 +37,16 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
   worlds,
 }: AdventureSelectScreenProps) => {
   const [message, setMessage] = useState<string | null>(null);
-  const [selectedModeId, setSelectedModeId] = useState<BezemEscapeMode>("listen-and-place");
+  // Start op de instapmodus Kies het Woord (altijd open, begin van de leerlijn — T-31).
+  const [selectedModeId, setSelectedModeId] = useState<BezemEscapeMode>("choose-word");
   const selectedWorld = useMemo(
     () => worlds.find((world) => world.id === selectedWorldId) ?? worlds[0],
     [selectedWorldId, worlds],
   );
-  const disableStart = !selectedWorld || selectedWorld.status !== "open";
+  const disableStart =
+    !selectedWorld ||
+    selectedWorld.status !== "open" ||
+    !isModeUnlocked(selectedModeId, starCount);
 
   const handleSelectWorld = (world: WorldDefinition) => {
     if (world.status !== "open") {
@@ -54,6 +59,11 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
   };
 
   const handleSelectMode = (modeId: BezemEscapeMode) => {
+    if (!isModeUnlocked(modeId, starCount)) {
+      setMessage("Verdien meer sterren om dit spel te openen!");
+      return;
+    }
+
     setMessage(null);
     setSelectedModeId(modeId);
   };
@@ -86,6 +96,7 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
         onSelectWorld={handleSelectWorld}
         selectedModeId={selectedModeId}
         selectedWorld={selectedWorld}
+        totalWordStars={starCount}
         worlds={worlds}
       />
       {message ? <WorldSelectMessage message={message} /> : null}
