@@ -31,7 +31,8 @@ describe("strandschat-beloningen", () => {
   });
 
   it("speelt geleidelijk meer vrij naarmate het totaal stijgt", () => {
-    const unlocks = resolveNewRewardUnlocks({ totalWordStars: 10, unlockedRewardIds: [] });
+    // 16 sterren dekt de eerste drie drempels (3, 8, 16).
+    const unlocks = resolveNewRewardUnlocks({ totalWordStars: 16, unlockedRewardIds: [] });
     expect(unlocks.map((reward) => reward.id)).toEqual([
       "sticker-schelp-starter",
       "broom-color-sea-blue",
@@ -41,7 +42,7 @@ describe("strandschat-beloningen", () => {
 
   it("geeft een reeds vrijgespeelde beloning niet nogmaals terug", () => {
     const unlocks = resolveNewRewardUnlocks({
-      totalWordStars: 10,
+      totalWordStars: 16,
       unlockedRewardIds: ["sticker-schelp-starter", "broom-color-sea-blue"],
     });
     expect(unlocks.map((reward) => reward.id)).toEqual(["sticker-dolfijn"]);

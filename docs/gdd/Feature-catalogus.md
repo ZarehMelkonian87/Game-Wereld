@@ -276,7 +276,7 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | `FEAT_X_SPEECH` | Spraakherkenning | Hook + parser + foutmeldingen, per scherm geconfigureerd | 🟡 | Parser 🟢 (typ); herkenning vereist mic |
 | `FEAT_X_TTS` | Spraaksynthese | Opdrachten/nazegzinnen voorlezen | ⚪ | Audio-output niet hoorbaar getest |
 | `FEAT_X_MUSIC` | Achtergrondmuziek | Speelt/pauzeert volgens `musicEnabled` | ⚪ | `GameBackgroundMusic` |
-| `FEAT_X_REWARDS` | Beloningssysteem | Één "Strandschat"-curve, cumulatief per profiel | 🟢 | `T-01` afgerond; drempels tunen = `T-02` |
+| `FEAT_X_REWARDS` | Beloningssysteem | Één "Strandschat"-curve, cumulatief per profiel | 🟢 | `T-01` & `T-02` afgerond (curve afgestemd) |
 | `FEAT_X_PROGRESS` | Observatie-registratie | Elke actie → `PracticeEvent` | ⚪ | `T-17` |
 | `FEAT_X_SETTINGS_RESPECT` | Instellingen-respect | `audio`/`hints`/`motion` beïnvloeden gedrag | ⚪ | |
 | `FEAT_X_A11Y` | Toegankelijkheid | 48×48, focus-visible, aria, tekst-altijd | ⚪ | `T-13`, `T-14` |

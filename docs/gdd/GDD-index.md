@@ -101,6 +101,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.14 | 2026-09-15 | Zareh Melkonian | `T-34` bevestigd werkend op apparaat en `T-36` afgerond: dode `localSpeechEngine` (+ test) verwijderd (nergens meer geïmporteerd sinds `T-26` de echte Web Speech API gebruikt). Meteen een stale test uit de WebP-migratie (`T-33a`) gecorrigeerd (`world-beach.png` → `.webp`). Volledige suite groen: 41 bestanden, 150 tests. |
 | 1.15 | 2026-09-15 | Zareh Melkonian | `T-32` grotendeels afgerond: onderzoek toont dat de Zeg & Vlieg-mic dezelfde `localSpeechEngine`-oorzaak had (altijd "bal"), al opgelost door `T-26`; de herkennings­bedrading is correct. **Audio-reactieve wave (`T-27`) toegevoegd** aan het Zeg & Vlieg-statuspaneel (`MicWaveBars`, sky-blauw), gemonteerd per ronde zodat de mic-stream niet steeds heropent. Scherm + wave in browser geverifieerd; mic-herkenning op echt apparaat te bevestigen. |
 | 1.16 | 2026-09-15 | Zareh Melkonian | `T-32` wave + herkenning op apparaat bevestigd. **Bug opgelost:** een teruggekeerd (gerecycled) plaatje werd na correct benoemen niet meer opgepakt. Herkenning nu vergevingsgezind gemaakt in `useVoiceSideScrollerWordRecognition`: kort geheugen (~1,8 s) van gehoorde woorden + hercheck zodra een plaatje in beeld scrolt, zodat matching niet meer afhangt van de exacte timing van het spraakresultaat. Ontwerpkeuze gebruiker: **zachte herkansing + spreiding** (geen straf bij niet-benoemen; plaatjes keren later terug). Tsc/eslint/150 tests groen; fresh-mount zonder crash geverifieerd (HMR-only hook-swap-melding tijdens dev genegeerd). |
+| 1.25 | 2026-09-15 | Zareh Melkonian | `T-02` afgerond: Strandschat-beloningscurve afgestemd op de gemeten opbrengst (~2 ⭐ per goed antwoord, ~24-32 ⭐/ronde). Keuze gebruiker "rustiger opbouwen": drempels **3, 8, 16, 28, 42, 60, 85** (was 3/6/10/15/22/30/45) — snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles binnen ~2 rondes. Reward-unittests aangepast; GDD §7 curve-tabel herzien. 172 tests groen. |
 | 1.24 | 2026-09-15 | Zareh Melkonian | `T-29` afgerond: randomisatie bevestigd/ingericht als norm in alle 3 modi. Kies het Woord + Zeg & Zet delen een geseede shuffle (re-seed bij modusstart en "Opnieuw"); Zeg & Vlieg schudt zijn doelen per ronde. Gat gedicht: Zeg & Zet-**replay** herschudt nu ook via `onPlayAgain` (`startSelectedMode` re-seedt) + een reset-op-`instructions`-effect in `useSceneBuilderState`. §6.6 gedocumenteerd; lost `T-16`/`GAP-13` mee op. In browser geverifieerd (twee rondes verschillende volgorde). |
 | 1.23 | 2026-09-15 | Zareh Melkonian | `T-25` afgerond: de losse audio-voorleesfunctie (`FEAT_WORD_AUDIO`) is uit Kies het Woord verwijderd — TTS `playQuestionAudio` en beide audioknoppen (HUD-"Audio" via nieuwe `showAudio`-prop op `GameTopHud`, en de "Luister opnieuw"-knop `BtnAudioReplayPrompt`) weg; de video-opdracht vervangt het. Feature-catalogus en User-Journey-Map opgeschoond. In browser geverifieerd (geen audioknoppen, video blijft, spel speelt door); 172 tests groen. |
 | 1.22 | 2026-09-15 | Zareh Melkonian | `T-37` afgerond: Playwright-e2e bijgewerkt na `T-35`/`T-03`. Tests die nog de verwijderde `scene-builder-confirm-button`/`speech-stop-button` gebruikten (3.3, 3.5, 3.6, a11y-kernopdracht, `generate-visual-report`) herschreven naar de auto-bevestigings-flow: correct → auto-doorgaan (instructie-id wijzigt), onduidelijk → herstelbare "almost"-feedback, wave rondt automatisch af. Geverifieerd op chromium-tablet én webkit-tablet — volledige e2e-suite groen. |
@@ -586,23 +587,23 @@ Per goede actie zonder hint verdient het kind ⭐×2; mét hint ⭐×1. De ⭐ w
 1. **Eén reward-tabel** `strandRewards`: een geordende lijst verzamelbare items met **oplopende** drempels. Types: `sticker`, `broom-color`, `broom-trail`, `broom-skin` (allemaal cosmetisch).
 2. **Cumulatieve per-profiel totalen** (`readProfileTotals` / `addProfileTotals`): elke verdiende ⭐ telt op bij het profieltotaal en wordt bewaard. "Voortgang resetten" wist dit totaal (`resetProfileTotals`).
 3. **Eén resolver** `resolveNewRewardUnlocks({ totalWordStars, unlockedRewardIds })`: speelt een beloning vrij zodra het **cumulatieve** ⭐-totaal de drempel haalt. Alle schermen (Zeg & Zet, Kies het Woord, beloningsscherm) gebruiken deze.
-4. **De curve** (voorlopige waarden, tunen = [T-02](#12-takenlijst)):
+4. **De curve** (afgestemd in [T-02](#12-takenlijst) — ~2 ⭐ per goed antwoord, ~24-32 ⭐/ronde; snelle eerste win, daarna rustig oplopend zodat de laatste beloning ~3-4 rondes duurt):
 
-   | # | Item | Type | Drempel ⭐ |
-   | :--: | :--- | :--- | :--: |
-   | 1 | Schelp Sticker | sticker | 3 |
-   | 2 | Zeeblauwe Bezemkleur | broom-color | 6 |
-   | 3 | Dolfijn Sticker | sticker | 10 |
-   | 4 | Strand Sprankel | broom-trail | 15 |
-   | 5 | Strandbezem | broom-skin | 22 |
-   | 6 | Ster Helper Sticker | sticker | 30 |
-   | 7 | Gouden Bezem | broom-skin | 45 |
+   | # | Item | Type | Drempel ⭐ | ≈ rondes |
+   | :--: | :--- | :--- | :--: | :--: |
+   | 1 | Schelp Sticker | sticker | 3 | direct |
+   | 2 | Zeeblauwe Bezemkleur | broom-color | 8 | ~⅓ |
+   | 3 | Dolfijn Sticker | sticker | 16 | ~⅔ |
+   | 4 | Strand Sprankel | broom-trail | 28 | ~1 |
+   | 5 | Strandbezem | broom-skin | 42 | ~1½ |
+   | 6 | Ster Helper Sticker | sticker | 60 | ~2 |
+   | 7 | Gouden Bezem | broom-skin | 85 | ~3-4 |
 
 5. **Uitbreidbaar:** meer items of werelden = regels toevoegen aan één tabel; resolver en UI blijven gelijk.
 
 **Effect:** beloningen worden **geleidelijk** vrijgespeeld (niet meer alles bij de eerste actie), en elke speler houdt zijn eigen cumulatieve score bij.
 
-> **Nog open binnen dit thema:** de exacte drempelgetallen tunen/testen (`T-02`) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente ⭐; oppakken met `T-30`/`T-32`).
+> **Nog open binnen dit thema:** de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente ⭐; oppakken met `T-30`/`T-32`).
 
 ### 7.3 Waar beloningen verschijnen
 
@@ -808,7 +809,7 @@ FEAT_SCENE_MIC_PLACE
 
 | ID | Prio | Gebied | Bevinding | Beslissing | Taak |
 | :--- | :--: | :--- | :--- | :--- | :--- |
-| `GAP-01` | **P1** | Beloningen | ✅ **Opgelost** — één systeem "Strandschat" met cumulatieve per-profiel totalen en oplopende curve | Eén systeem: "Strandschat" (7.2.b) | [T-01](#12-takenlijst) ✅, [T-02](#12-takenlijst) |
+| `GAP-01` | **P1** | Beloningen | ✅ **Opgelost** — één systeem "Strandschat" met cumulatieve per-profiel totalen en afgestemde oplopende curve | Eén systeem: "Strandschat" (7.2.b) | [T-01](#12-takenlijst) ✅, [T-02](#12-takenlijst) ✅ |
 | `GAP-02` | **P1** | Beloningen | ✅ **Opgelost** — `beachWorld.rewards` verwijderd | Verwijderen | [T-01](#12-takenlijst) ✅ |
 | `GAP-15` | **P1** | Modi | ✅ Opgelost via `T-03`: Zeg & Zet heeft nu een eigen in-game ronde-eindscherm (`SceneBuilderRoundSummary`) | Alle 3 (straks 4) modi krijgen een eigen ronde-einde | [T-03](#12-takenlijst) |
 | `GAP-04` | P2 | Modi | `zeg-en-bouw` bestaat als type, zonder eigen scherm | Eigen scherm + volwaardige modus | [T-04](#12-takenlijst) |
@@ -847,7 +848,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | Taak | Prio | Type | Omschrijving | Bron | Status |
 | :--- | :--: | :--: | :--- | :--- | :--: |
 | **T-01** | **P1** | 🔧 | **Eén beloningssysteem** ("Strandschat"): één `strandRewards`-tabel met oplopende drempels + cumulatieve per-profiel totalen + één resolver. Systeem B verwijderd, gameplay-hooks + beloningsscherm + sterrenteller aangesloten. Reset wist nu ook de totalen. Geverifieerd (7 unit-tests + browser) | GAP-01, GAP-02 | ✅ |
-| **T-02** | **P1** | 🎨 | Beloningscurve (drempels/items van "Strandschat") ontwerpen, tunen en testen met echte spelsessies | GAP-01 / 7.2.b | ⬜ |
+| **T-02** | **P1** | 🎨 | Beloningscurve "Strandschat" afgestemd op de gemeten opbrengst (~2 ⭐/goed antwoord, ~24-32 ⭐/ronde). Keuze gebruiker: **rustiger opbouwen** → drempels **3, 8, 16, 28, 42, 60, 85** (was 3/6/10/15/22/30/45): snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles binnen ~2 rondes. Reward-tests bijgewerkt; GDD §7 herzien | GAP-01 / 7.2.b | ✅ |
 | **T-03** | **P1** | 🔧 | **Zeg & Zet** eigen in-game ronde-eindscherm (`SceneBuilderRoundSummary`): viert de afgeronde plaat, toont geoefende woorden + begrippen, cumulatieve sterren en het eerstvolgende beloningsdoel ("Nog X sterren tot …"); knoppen Opnieuw (reset ronde) + Wereld. Leftover top-bar-"Opnieuw" (riep `handleConfirm`) verwijderd. 3 render-tests. In browser end-to-end geverifieerd (16 opdrachten via typed-fallback → samenvatting verschijnt, Opnieuw reset naar opdracht 1) | GAP-15 / 4.5 | ✅ |
 | **T-04** | P3 | 🎨🔧 | Modus **`zeg-en-bouw`** — concept **vastgesteld** → [Concept-Zeg-en-Bouw](Concept-Zeg-en-Bouw.md) (v1.0: varianten A+B, compound-zinnen, 5 thema's, soepele doelen). ⏳ **Bouw als laatste**, ná de 3 bestaande modi. Subtaken `T-04a`–`T-04e` in het concept §13 | GAP-04 / 4.6 | 🟦 |
 | **T-05** | P2 | 🔧 | `world-select` en `mode-select` samenvoegen tot **één** scherm `SCR_MSA_MODE_SELECT`; redundante staat/route opruimen (o.a. `StartScreen.onPlay`) | GAP-14 / 3.6 | ⬜ |
@@ -919,5 +920,6 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 - **T-37** ✅ (2026-09-15) — Playwright-e2e bijgewerkt naar de auto-bevestigings-flow (T-35/T-03): geen `scene-builder-confirm-button`/`speech-stop-button` meer; tests asserteren nu auto-doorgaan resp. herstelbare "almost"-feedback. Geverifieerd op chromium-tablet én webkit-tablet — volledige e2e-suite groen.
 - **T-25** ✅ (2026-09-15) — audio-voorleesfunctie (`FEAT_WORD_AUDIO`) uit Kies het Woord verwijderd: TTS + audioknoppen weg (`showAudio`-prop op `GameTopHud`, `BtnAudioReplayPrompt` verwijderd), video-opdracht vervangt het. Docs opgeschoond (Feature-catalogus, User-Journey-Map). In browser geverifieerd.
 - **T-29** ✅ (2026-09-15) — randomisatie de norm in alle 3 modi; Zeg & Zet-replay herschudt nu ook (re-seed via `onPlayAgain` + reset-op-`instructions`-effect). Gedocumenteerd in §6.6. Lost `T-16`/`GAP-13` mee op. In browser geverifieerd (verschillende volgorde per ronde).
+- **T-02** ✅ (2026-09-15) — Strandschat-drempels afgestemd op de gemeten opbrengst (~2 ⭐/goed antwoord): **3, 8, 16, 28, 42, 60, 85** (keuze: rustiger opbouwen). Snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles in ~2. Reward-tests + GDD §7 bijgewerkt.
 
-> Nog open bij het beloningssysteem: **`T-02`** (drempelcurve tunen/testen) en de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).
+> Nog open bij het beloningssysteem: de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).

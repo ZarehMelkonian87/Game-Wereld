@@ -16,29 +16,32 @@ export interface RewardUnlock {
  *
  * De drempels zijn voorlopige, te tunen waarden (taak T-02).
  */
+// Oplopende "Strandschat"-curve (T-02). ~2 sterren per goed antwoord, ~24-32
+// per ronde: een snelle eerste win (3), daarna rustig oplopend zodat de laatste
+// beloning ~3-4 rondes duurt en de motivatie langer vasthoudt.
 export const strandRewards: RewardUnlock[] = [
   { id: "sticker-schelp-starter", label: "Schelp Sticker", type: "sticker", unlockAfterWordStars: 3 },
   {
     id: "broom-color-sea-blue",
     label: "Zeeblauwe Bezemkleur",
     type: "broom-color",
-    unlockAfterWordStars: 6,
+    unlockAfterWordStars: 8,
   },
-  { id: "sticker-dolfijn", label: "Dolfijn Sticker", type: "sticker", unlockAfterWordStars: 10 },
+  { id: "sticker-dolfijn", label: "Dolfijn Sticker", type: "sticker", unlockAfterWordStars: 16 },
   {
     id: "broom-trail-strand",
     label: "Strand Sprankel",
     type: "broom-trail",
-    unlockAfterWordStars: 15,
+    unlockAfterWordStars: 28,
   },
-  { id: "broom-skin-strand", label: "Strandbezem", type: "broom-skin", unlockAfterWordStars: 22 },
+  { id: "broom-skin-strand", label: "Strandbezem", type: "broom-skin", unlockAfterWordStars: 42 },
   {
     id: "sticker-ster-helper",
     label: "Ster Helper Sticker",
     type: "sticker",
-    unlockAfterWordStars: 30,
+    unlockAfterWordStars: 60,
   },
-  { id: "broom-skin-goud", label: "Gouden Bezem", type: "broom-skin", unlockAfterWordStars: 45 },
+  { id: "broom-skin-goud", label: "Gouden Bezem", type: "broom-skin", unlockAfterWordStars: 85 },
 ];
 
 const rewardIdsSchema = z.array(z.string().min(1));
