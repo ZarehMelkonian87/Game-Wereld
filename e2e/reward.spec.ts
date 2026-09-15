@@ -29,4 +29,14 @@ test.describe("Beloningsscherm (e2e)", () => {
     await page.getByTestId("reward-world-button").click();
     await expect(page.getByTestId("adventure-select-screen")).toBeVisible();
   });
+
+  test("toont géén Opnieuw-knop in het menu-overzicht (geen sprong naar een modus)", async ({
+    page,
+  }) => {
+    await openRewards(page);
+
+    // Vanuit het menu geopend: alleen terug-naar-menu, geen replay die in Zeg & Zet springt.
+    await expect(page.getByTestId("reward-play-again-button")).toHaveCount(0);
+    await expect(page.getByTestId("reward-world-button")).toBeVisible();
+  });
 });

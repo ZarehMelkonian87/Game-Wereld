@@ -17,6 +17,8 @@ import { readStoredRewardResult } from "./rewardResultStorage";
 interface RewardScreenProps {
   onChooseWorld?: () => void;
   onPlayAgain?: () => void;
+  /** Toon de "Opnieuw"-knop (uit voor het menu-overzicht). */
+  showPlayAgain?: boolean;
 }
 
 /**
@@ -24,7 +26,11 @@ interface RewardScreenProps {
  * @screens SCR_REWARD_SUMMARY
  * @description Beloning & Resultaten Scherm (Scherm 4)
  */
-export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) => {
+export const RewardScreen = ({
+  onChooseWorld,
+  onPlayAgain,
+  showPlayAgain = true,
+}: RewardScreenProps) => {
   const runtime = useGameRuntime();
   const rewardProfileId = runtime.identity.profileId;
   const [rewardResult] = useState(() => readStoredRewardResult(runtime.storage));
@@ -98,7 +104,11 @@ export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) 
           rewardSectionText={rewardSectionText}
           rewardSectionTitle={rewardSectionTitle}
         />
-        <RewardActionsPanel onChooseWorld={onChooseWorld} onPlayAgain={onPlayAgain} />
+        <RewardActionsPanel
+          onChooseWorld={onChooseWorld}
+          onPlayAgain={onPlayAgain}
+          showPlayAgain={showPlayAgain}
+        />
       </div>
     </div>
   );
