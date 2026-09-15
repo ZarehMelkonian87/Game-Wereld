@@ -610,32 +610,24 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
       screenshotFile: s23,
     });
 
-    // Stap 24: Klaar-knop in SpeechWaveAnimation
-    const stopSpeechBtn = page.getByTestId("speech-stop-button");
-    if (!(await stopSpeechBtn.isVisible())) {
-      await micBtn.click();
-      await page.locator('[data-slot="speech-wave-animation"]').waitFor({ state: "visible", timeout: 3000 }).catch(() => {});
-    }
+    // Stap 24: De wave rondt automatisch af — geen "Klaar"-knop meer (T-35)
     const s24 = await markAndScreenshot(
       page,
-      stopSpeechBtn,
-      "stap-24-klaar-knop",
-      "Klik op 'Klaar' om het gesproken commando direct af te ronden.",
-      "KLAAR MET SPREKEN",
+      speechWave,
+      "stap-24-automatisch-afronden",
+      "Er is geen 'Klaar'-knop meer: na een korte stilte rondt de opname automatisch af en wordt de plaatsing bevestigd.",
+      "AUTOMATISCH AFRONDEN",
     );
     steps.push({
       id: "stap-24",
       category: "7. Spraakopname & SpeechWaveAnimation",
-      title: "Direct Afronden ('Klaar' Knop)",
-      what: "De handmatige afrondknop in de SpeechWaveAnimation balk.",
-      why: "Kinderen die klaar zijn hoeven niet te wachten tot de stiltetimer afloopt; directe controle.",
-      how: "Rondt de geaccumuleerde woorden direct af en stuurt het resultaat naar de scene placement handler.",
-      action: "Klik op de groene 'Klaar' knop in de SpeechWaveAnimation balk.",
+      title: "Automatisch Afronden (geen 'Klaar'-knop)",
+      what: "De opname wordt automatisch afgerond zodra het kind klaar is met spreken.",
+      why: "Kinderen hoeven geen knop te zoeken; de flow blijft ononderbroken (T-35).",
+      how: "De stiltetimer en de definitieve herkenning sturen het resultaat automatisch naar de scene placement handler.",
+      action: "Spreek de zin uit; na een korte stilte gaat het spel vanzelf verder.",
       screenshotFile: s24,
     });
-    if (await stopSpeechBtn.isVisible()) {
-      await stopSpeechBtn.click();
-    }
     await page.waitForTimeout(300);
 
     // ==========================================
@@ -686,26 +678,25 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
     // ==========================================
     // DEEL 9: FOUT ANTWOORD & VISUELE HINTING
     // ==========================================
-    // Stap 27: Foute / Niet-afgeronde plaatsing bevestigen
-    const confirmBtn = page.getByTestId("scene-builder-confirm-button");
+    // Stap 27: Automatische controle van de plaatsing (geen "Klaar"-knop meer, T-35)
+    await page.waitForTimeout(300);
     const s27 = await markAndScreenshot(
       page,
-      confirmBtn,
-      "stap-27-fout-bevestigen",
-      "Klik op 'Klaar' wanneer een object op de verkeerde plek staat om feedback te zien.",
-      "CONTROLEER ANTWOORD",
+      page.getByTestId("scene-builder-feedback"),
+      "stap-27-automatische-controle",
+      "De plaatsing wordt automatisch gecontroleerd; bij een verkeerde plek verschijnt meteen vriendelijke feedback.",
+      "AUTOMATISCHE CONTROLE",
     );
     steps.push({
       id: "stap-27",
       category: "9. Fout Antwoord & Hinting",
-      title: "Antwoord Controleren",
-      what: "Het valideren van de plaatsing tegen de regels van de huidige opdracht.",
-      why: "Het kind leert door feedback of het begrip (bijv. 'op', 'onder', 'naast') klopt.",
-      how: "De placement evaluator controleert de overlap met de semantische target zone.",
-      action: "Klik rechtsboven op de groene 'Klaar' knop.",
+      title: "Automatische Controle",
+      what: "De plaatsing wordt direct geëvalueerd tegen de regels van de opdracht, zonder aparte bevestigknop.",
+      why: "Minder handelingen voor het kind; de feedback volgt meteen op de actie.",
+      how: "De placement evaluator controleert de overlap met de semantische target zone zodra het object is geplaatst.",
+      action: "Geen knop nodig — de plaatsing wordt automatisch gecontroleerd.",
       screenshotFile: s27,
     });
-    await confirmBtn.click();
     await page.waitForTimeout(300);
 
     // Stap 28: Herstelbare feedback weergave
@@ -761,17 +752,14 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
     await page.getByTestId("typed-command-input").fill(currentInstr);
     await page.getByTestId("typed-command-submit-button").click();
 
-    // Stap 31: Succesbevestiging
-    const confirmNextBtn = page.getByTestId("scene-builder-confirm-button");
-    await confirmNextBtn.click();
+    // Stap 31: Succes — geen knop meer, auto-bevestiging + auto-doorgaan (T-35)
     await page.waitForTimeout(400);
-
     const s31 = await markAndScreenshot(
       page,
-      confirmNextBtn,
-      "stap-31-goed-antwoord-volgende",
-      "Bij een goed antwoord verandert de knop in 'Volgende' en toont de toast feestelijke confetti.",
-      "VOLGENDE OPDRACHT",
+      page.getByTestId("scene-builder-feedback"),
+      "stap-31-goed-antwoord-auto",
+      "Bij een goed antwoord viert de mascotte feest en gaat het spel automatisch door naar de volgende opdracht.",
+      "GOED! AUTOMATISCH DOOR",
     );
     steps.push({
       id: "stap-31",
@@ -779,11 +767,10 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
       title: "Goed Antwoord & Positieve Bekrachtiging",
       what: "De successtatus bij een correct geplaatst object volgens de opdracht.",
       why: "Belonen van correcte taalverwerking; activeert intrinsieke motivatie bij het kind.",
-      how: "De knop toont 'Volgende', de mascotte viert feest en er worden sterren toegekend.",
-      action: "Klik op 'Volgende' om direct door te gaan naar de volgende uitdaging.",
+      how: "De plaatsing wordt automatisch bevestigd, de mascotte viert feest, er worden sterren toegekend en het spel gaat vanzelf door.",
+      action: "Geen knop nodig — bij een goed antwoord gaat het spel automatisch door.",
       screenshotFile: s31,
     });
-    await confirmNextBtn.click();
 
     // ==========================================
     // HTML RAPPORT GENERATIE

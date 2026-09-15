@@ -203,7 +203,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     expectNoBrowserErrors();
   });
 
-  test("3.3: Microfoon & SpeechWaveAnimation (activatie, hoge positie & Klaar-knop)", async ({
+  test("3.3: Microfoon & SpeechWaveAnimation (activatie & hoge positie)", async ({
     page,
     context,
   }) => {
@@ -237,10 +237,8 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
       expect(boundingBox.y).toBeLessThan(350);
     }
 
-    const stopButton = page.getByTestId("speech-stop-button");
-    if (await stopButton.isVisible()) {
-      await stopButton.click();
-    }
+    // De wave heeft geen aparte "Klaar"-knop meer: hij rondt automatisch af na
+    // een korte stilte (T-35).
 
     expectNoBrowserErrors();
   });
@@ -265,33 +263,7 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     expectNoBrowserErrors();
   });
 
-  test("3.5: Fout antwoord / Geen plaatsing toont herstelbare feedback", async ({ page }) => {
-    const expectNoBrowserErrors = failOnBrowserErrors(page);
-    await setupPlayerAndOpenStrandGame(page);
-
-    await page.getByTestId("start-play-button").click();
-    await earnStarsToUnlockModes(page);
-    await page.getByTestId("compact-mode-card-listen-and-place").click();
-    await page.getByTestId("adventure-start-game-button").click();
-    await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
-
-    const confirmButton = page.getByTestId("scene-builder-confirm-button");
-    await expect(confirmButton).toBeVisible();
-
-    await confirmButton.click();
-    const feedbackToast = page.getByTestId("scene-builder-feedback");
-    await expect(feedbackToast).toBeVisible();
-    await expect(feedbackToast).toHaveAttribute("data-kind", "almost");
-
-    const hintButton = page.getByRole("button", { name: /Hulp/i });
-    if (await hintButton.isVisible()) {
-      await hintButton.click();
-    }
-
-    expectNoBrowserErrors();
-  });
-
-  test("3.6: Goed antwoord via typen/plaatsen activeert succesfeedback en Volgende-stap", async ({
+  test("3.5: Onduidelijk commando toont herstelbare feedback zonder door te gaan", async ({
     page,
   }) => {
     const expectNoBrowserErrors = failOnBrowserErrors(page);
@@ -301,20 +273,49 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await earnStarsToUnlockModes(page);
     await page.getByTestId("compact-mode-card-listen-and-place").click();
     await page.getByTestId("adventure-start-game-button").click();
-    await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
 
+    const sceneBuilder = page.getByTestId("scene-builder-screen");
+    await expect(sceneBuilder).toBeVisible();
+    const instructionBefore = await sceneBuilder.getAttribute("data-active-instruction-id");
+
+    // Een onduidelijk commando levert geen goede plaatsing op: de auto-bevestiging
+    // plaatst niets en toont vriendelijke "almost"-feedback (T-35). De opdracht
+    // gaat niet verder.
+    await page.getByTestId("typed-command-open-button").click();
+    await page.getByTestId("typed-command-input").fill("appelmoes");
+    await page.getByTestId("typed-command-submit-button").click();
+
+    await expect(sceneBuilder).toHaveAttribute("data-feedback-kind", "almost");
+    expect(await sceneBuilder.getAttribute("data-active-instruction-id")).toBe(instructionBefore);
+
+    expectNoBrowserErrors();
+  });
+
+  test("3.6: Goed getypt commando plaatst automatisch en gaat door naar de volgende opdracht", async ({
+    page,
+  }) => {
+    const expectNoBrowserErrors = failOnBrowserErrors(page);
+    await setupPlayerAndOpenStrandGame(page);
+
+    await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
+    await page.getByTestId("compact-mode-card-listen-and-place").click();
+    await page.getByTestId("adventure-start-game-button").click();
+
+    const sceneBuilder = page.getByTestId("scene-builder-screen");
+    await expect(sceneBuilder).toBeVisible();
+    const instructionBefore = await sceneBuilder.getAttribute("data-active-instruction-id");
     const instructionText = await page.getByTestId("scene-builder-instruction-text").innerText();
 
     await page.getByTestId("typed-command-open-button").click();
     await page.getByTestId("typed-command-input").fill(instructionText);
     await page.getByTestId("typed-command-submit-button").click();
 
-    const confirmButton = page.getByTestId("scene-builder-confirm-button");
-    await confirmButton.click();
-
-    await expect(confirmButton).toHaveText("Volgende");
-
-    await confirmButton.click();
+    // Geen "Klaar"-knop meer: de plaatsing wordt automatisch bevestigd en bij een
+    // goed antwoord gaat het spel vanzelf naar de volgende opdracht (T-35).
+    await expect
+      .poll(async () => sceneBuilder.getAttribute("data-active-instruction-id"), { timeout: 8000 })
+      .not.toBe(instructionBefore);
 
     expectNoBrowserErrors();
   });
