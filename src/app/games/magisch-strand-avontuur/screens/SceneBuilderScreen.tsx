@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getBeachObjectStickerUrl } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
+import { getNextRewardGoal, readProfileTotals } from "../logic/rewards";
 import { supportedSceneBuilderConcepts } from "../logic/scene-zones";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { useGameRuntime } from "../runtime/GameRuntimeContext";
@@ -15,6 +16,7 @@ import { useSceneBuilderState } from "./scene-builder/hooks/useSceneBuilderState
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
+import { SceneBuilderRoundSummary } from "./scene-builder/components/SceneBuilderRoundSummary";
 import { SpeechRetryPanel } from "./scene-builder/components/SpeechRetryPanel";
 import { SpeechWaveAnimation } from "./scene-builder/components/SpeechWaveAnimation";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
@@ -73,6 +75,7 @@ export const SceneBuilderScreen = ({
     isHintVideoPlaying,
     pendingPlacement,
     placedObjects,
+    resetSceneBuilderRound,
     rewardProfileId,
     sceneComplete,
     sceneCompletionSummary,
@@ -174,6 +177,20 @@ export const SceneBuilderScreen = ({
   }, [feedback, sceneComplete]);
 
   const actionLabel = "Opnieuw";
+
+  // T-03: gegevens voor het ronde-eindscherm — de cumulatieve sterren en het
+  // eerstvolgende beloningsdoel geven het kind een reden om door te spelen.
+  const roundSummaryReward = useMemo(() => {
+    if (!sceneComplete) {
+      return { nextReward: undefined, totalWordStars: 0 };
+    }
+
+    return {
+      nextReward: getNextRewardGoal(unlockedRewardIds),
+      totalWordStars: readProfileTotals(rewardProfileId, runtime.storage).wordStars,
+    };
+  }, [rewardProfileId, runtime.storage, sceneComplete, unlockedRewardIds]);
+
   return (
     <div
       className="absolute inset-0 z-10 overflow-hidden"
@@ -237,7 +254,7 @@ export const SceneBuilderScreen = ({
           onBackToMenu={onBackToMenu}
           onHint={handleHint}
           onHintPointerDown={playPreparedHintVideo}
-          showAction={sceneComplete}
+          showAction={false}
           starCount={wordStarValue}
         />
 
@@ -335,6 +352,17 @@ export const SceneBuilderScreen = ({
           }}
         />
       )}
+
+      {sceneComplete && sceneCompletionSummary ? (
+        <SceneBuilderRoundSummary
+          nextReward={roundSummaryReward.nextReward}
+          objects={objects}
+          onBackToMenu={onBackToMenu}
+          onRestart={resetSceneBuilderRound}
+          summary={sceneCompletionSummary}
+          totalWordStars={roundSummaryReward.totalWordStars}
+        />
+      ) : null}
 
       {dragState ? (
         <div
