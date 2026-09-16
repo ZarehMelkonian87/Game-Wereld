@@ -11,9 +11,9 @@
 | Veld | Waarde |
 | :--- | :--- |
 | **Documenttitel** | Feature-catalogus — Magisch Strand-Avontuur |
-| **Documentversie** | `0.2` (eerste verificatieronde in de browser uitgevoerd) |
-| **Laatst bijgewerkt** | 2026-09-11 |
-| **Status** | 🟡 In verificatie — kern-flows live getest op 2026-09-11 (zie 0.5) |
+| **Documentversie** | `0.3` (bijgewerkt na afronding `T-01` t/m `T-37`, incl. 4e modus Zeg & Bouw) |
+| **Laatst bijgewerkt** | 2026-09-16 |
+| **Status** | 🟢 Bijgewerkt — alle eerdere 🔴/🔵-punten opgelost; resterende ⚪ = mic-/apparaatverificatie (`T-18`) |
 | **Bron van waarheid** | De code onder `src/app/games/magisch-strand-avontuur/` + [GDD-index](GDD-index.md) |
 
 ### 0.2 Hoe lees je een regel
@@ -35,17 +35,17 @@
 
 ### 0.4 Statusoverzicht (rollup)
 
-*Bijgewerkt na de verificatieronde van 2026-09-11.*
+*De telling hieronder komt uit de verificatieronde van 2026-09-11. Sindsdien (2026-09-16) zijn alle 🔴- en 🔵-punten opgelost en is de 4e modus **Zeg & Bouw** toegevoegd (sectie 6b). De resterende ⚪-features zijn vrijwel allemaal **mic-/audio-afhankelijk** en vormen samen apparaattaak `T-18`.*
 
-| Status | Aantal |
-| :--- | :--: |
-| 🟢 Werkt (geverifieerd) | 46 |
-| 🟡 Deels | 5 |
-| 🔴 Kapot/ontbreekt | 2 |
-| ⚪ Niet getest / niet testbaar hier | 13 |
-| 🔵 Gepland | 2 |
-| ⚫ Dood | 2 |
-| **Totaal** | **70** |
+| Status | Aantal (peildatum 2026-09-11) | Wijziging sinds |
+| :--- | :--: | :--- |
+| 🟢 Werkt (geverifieerd) | 46 | + Zeg & Bouw-features, + `FEAT_PLAT_PROGRESS` (`T-17`), + voormalige 🔴/🔵 |
+| 🟡 Deels | 5 | grotendeels opgelost (`T-22` game-over-nuance, e.d.) |
+| 🔴 Kapot/ontbreekt | 2 | **→ 0** (`T-19` video, `T-20` dev-toggle opgelost) |
+| ⚪ Niet getest / niet testbaar hier | 13 | ~ongewijzigd — dit is de scope van `T-18` (echt apparaat + mic) |
+| 🔵 Gepland | 2 | **→ 0** (Zeg & Bouw gebouwd via `T-04`) |
+| ⚫ Dood | 2 | opgeruimd (`T-06`/`T-36`) |
+| **Totaal** | **70** | + Zeg & Bouw-sectie |
 
 ### 0.5 Verificatieronde 2026-09-11 (browser, dev-server poort 3100)
 
@@ -55,12 +55,12 @@ Ik heb de volledige onboarding + alle drie de speelmodi + beloning + instellinge
 
 **Nieuwe problemen gevonden (naast de bekende GAP's):**
 
-| # | Bevinding | Ernst | Taak |
-| :-- | :--- | :--- | :--- |
-| 1 | **Instructievideo speelt niet af** — bij elke Zeg & Zet-opdracht verschijnt "De video-opdracht kan niet worden afgespeeld". Ook in Kies het Woord aanwezig. | 🔴 | `T-19` |
-| 2 | **Dev-tool zichtbaar voor gebruikers** — de toggle "Zone Editor (DevTools)" staat gewoon in het instellingenscherm dat ouders/kinderen zien. | 🟡 | `T-20` |
-| 3 | **Sterren lijken niet per-profiel** — een net aangemaakt profiel "Test" toont meteen **120 ⭐** op start/menu. Mogelijk gedeelde of geseede teller. | 🟡 | `T-21` |
-| 4 | **Kaarten flitsen kort leeg** in Kies het Woord bij het doorschakelen naar de volgende vraag (afbeeldingen laden met vertraging). | ⚪ polish | `T-23` |
+| # | Bevinding | Ernst | Taak | Status |
+| :-- | :--- | :--- | :--- | :--- |
+| 1 | **Instructievideo speelt niet af** — bij elke Zeg & Zet-opdracht verschijnt "De video-opdracht kan niet worden afgespeeld". Ook in Kies het Woord aanwezig. | 🔴 | `T-19` | ✅ opgelost |
+| 2 | **Dev-tool zichtbaar voor gebruikers** — de toggle "Zone Editor (DevTools)" staat gewoon in het instellingenscherm dat ouders/kinderen zien. | 🟡 | `T-20` | ✅ opgelost |
+| 3 | **Sterren lijken niet per-profiel** — een net aangemaakt profiel "Test" toont meteen **120 ⭐** op start/menu. Mogelijk gedeelde of geseede teller. | 🟡 | `T-21` | ✅ opgelost |
+| 4 | **Kaarten flitsen kort leeg** in Kies het Woord bij het doorschakelen naar de volgende vraag (afbeeldingen laden met vertraging). | ⚪ polish | `T-23` | ✅ opgelost (sticker-preload + WebP) |
 
 **Bevestigd (live) van de bekende GAP's:**
 - `GAP-01` — bij de **allereerste** goede actie verschenen meteen **beide** unlocks ("Schelp Sticker, Zee Blauwe Bezemkleur"). Systeem is direct uitgeput. ✅ bevestigd.
@@ -89,7 +89,7 @@ De +1 Woordenschat-schil rondom de game. Features op hoofdlijn (testhaken nog to
 | `FEAT_PLAT_GAME_PICK` | Game kiezen | Game kiezen in gamelijst | *(n.t.b.)* | 🟢 | |
 | `FEAT_PLAT_GAME_HOST` | Game laden | `GamePlayScreen` host laadt Magisch Strand-Avontuur | *(n.t.b.)* | 🟢 | |
 | `FEAT_PLAT_SETTINGS` | Platform­instellingen | Instellingen van de **hele app-schil** (route `/settings`), los van de instellingen ín de game (`SCR_MSA_SETTINGS`). Bereikbaar via het tandwiel op het home-scherm; geldt voor álle games/profielen samen — bv. app-breed geluid, profielbeheer of app-info. Bevestigen wat er precies in staat. | *(n.t.b.)* | ⚪ | Verschilt van de game-eigen instellingen; niet apart geopend in de verificatie |
-| `FEAT_PLAT_PROGRESS` | Voortgangsoverzicht | Toont observatiemodel per profiel | *(n.t.b.)* | ⚪ | `T-17` verifiëren |
+| `FEAT_PLAT_PROGRESS` | Voortgangsoverzicht | Toont observatiemodel per profiel: aggregaten + **categorie-uitsplitsing** (taaldomeinen/ruimtebegrippen) + **tempo** | `ThemeCategoryBreakdown`, `ThemeTempoInsight` | 🟢 | `T-17` afgerond (in browser bevestigd) |
 
 ---
 
@@ -117,7 +117,7 @@ De +1 Woordenschat-schil rondom de game. Features op hoofdlijn (testhaken nog to
 | `FEAT_MODE_CARD_ZEGZET` | Kaart Zeg & Zet | Selecteert modus `listen-and-place` | *(CardGameZegZet)* | 🟢 | Vooraf geselecteerd ✓ |
 | `FEAT_MODE_CARD_KIESWOORD` | Kaart Kies het Woord | Selecteert modus `choose-word` | *(CardGameKiesWoord)* | 🟢 | |
 | `FEAT_MODE_CARD_ZEGVLIEG` | Kaart Zeg & Vlieg | Selecteert modus `zeg-en-vlieg` | *(CardGameZegVlieg)* | 🟢 | |
-| `FEAT_MODE_CARD_ZEGBOUW` | Kaart Zeg & Bouw | Selecteert modus `zeg-en-bouw` | *(n.t.b.)* | 🔵 | Gepland, `T-04` |
+| `FEAT_MODE_CARD_ZEGBOUW` | Kaart Zeg & Bouw | Selecteert modus `zeg-en-bouw` | *(CardGameZegBouw)* | 🟢 | Gebouwd via `T-04`; leerpad Kies→Zet→Bouw→Vlieg |
 | `FEAT_MODE_START` | Start-avontuur-knop | Start de geselecteerde modus | `adventure-start-game-button` | 🟢 | |
 | `FEAT_MODE_REWARDS` | Beloningen openen | Opent `SCR_MSA_REWARD` | `adventure-rewards-button` | 🟢 | Knop aanwezig |
 | `FEAT_MODE_SETTINGS` | Instellingen openen | Opent `SCR_MSA_SETTINGS` | `adventure-settings-button` | 🟢 | Knop aanwezig |
@@ -261,11 +261,21 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 
 ---
 
-## 9. Zeg & Bouw (`SCR_MSA_ZEG_BOUW`) — 🔵 gepland
+## 9. Zeg & Bouw (`SCR_MSA_ZEG_BOUW`) — 🟢 gebouwd (`T-04`)
+
+> 4e modus: het kind bouwt een strandscène met **samengestelde** gesproken/getypte opdrachten (één zin plaatst meerdere objecten). Componenten: `ZegBouwScreen`, `useZegBouwState`. E2e: `zeg-en-bouw.spec.ts`.
 
 | FEAT-ID | Feature | Verwacht gedrag | Testhaak | Status | Notitie |
 | :--- | :--- | :--- | :--- | :--: | :--- |
-| `FEAT_ZEGBOUW_MODE` | Modus + scherm | Nog te ontwerpen en te bouwen | — | 🔵 | `T-04`; mechanica t.b.d. |
+| `FEAT_BOUW_RENDER` | Bouwscherm rendert | Kaart, objectbalk en zones verschijnen | `zeg-bouw-screen` | 🟢 | `T-04c` |
+| `FEAT_BOUW_PARSE_COMPOUND` | Samengestelde parser | Eén zin → meerdere plaatsingen (`parseCompoundPlacements`) | *(unit)* | 🟢 | `compound-placement-parser.test.ts` |
+| `FEAT_BOUW_PLACE` | Batch-plaatsing | `placeCompound` plaatst objecten met spreiding | *(SpokenCommandControls)* | 🟢 | typ-route geverifieerd |
+| `FEAT_BOUW_BONUS` | Compound-bonus | +1 ⭐ bij een zin met ≥2 objecten | *(unit)* | 🟢 | `T-04c` C2b |
+| `FEAT_BOUW_WAVE` | Live wave + transcript | `SpeechWaveAnimation` toont woord-voor-woord | *(n.t.b.)* | 🟢 | `T-04c` C2b |
+| `FEAT_BOUW_OVERLAY` | "Strand af!"-overlay | Verschijnt met korte vertraging (~1,9 s) zodat het kind de scène ziet | *(n.t.b.)* | 🟢 | `COMPLETE_OVERLAY_DELAY_MS` |
+| `FEAT_BOUW_SUMMARY` | Ronde-eindscherm | `ZegBouwRoundSummary` met stats + Opnieuw/Menu | `zeg-bouw-round-summary` | 🟢 | `T-04d` |
+| `FEAT_BOUW_FREE` | Vrij Bouwen | Vrije-bouwmodus zonder vaste opdracht | *(freeBuild-toggle)* | 🟢 | `T-04e` |
+| `FEAT_BOUW_VOICE` | Echte spraak | Ingesproken samengestelde zin bouwt de scène | *(n.t.b.)* | ⚪ | Vereist mic (`T-18`) |
 
 ---
 
@@ -277,25 +287,25 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 | `FEAT_X_TTS` | Spraaksynthese | Opdrachten/nazegzinnen voorlezen | ⚪ | Audio-output niet hoorbaar getest |
 | `FEAT_X_MUSIC` | Achtergrondmuziek | Speelt/pauzeert volgens `musicEnabled` | ⚪ | `GameBackgroundMusic` |
 | `FEAT_X_REWARDS` | Beloningssysteem | Één "Strandschat"-curve, cumulatief per profiel | 🟢 | `T-01` & `T-02` afgerond (curve afgestemd) |
-| `FEAT_X_PROGRESS` | Observatie-registratie | Elke actie → `PracticeEvent` | ⚪ | `T-17` |
-| `FEAT_X_SETTINGS_RESPECT` | Instellingen-respect | `audio`/`hints`/`motion` beïnvloeden gedrag | ⚪ | |
-| `FEAT_X_A11Y` | Toegankelijkheid | 48×48, focus-visible, aria, tekst-altijd | ⚪ | `T-13`, `T-14` |
-| `FEAT_X_OFFLINE` | Offline/PWA | Speelbaar zonder netwerk | ⚪ | |
+| `FEAT_X_PROGRESS` | Observatie-registratie | Elke actie → `PracticeEvent`; getoond op `SCR_PLAT_PROGRESS` (categorie + tempo) | 🟢 | `T-17` afgerond |
+| `FEAT_X_SETTINGS_RESPECT` | Instellingen-respect | `audio`/`hints`/`motion` beïnvloeden gedrag | 🟢 | `audio`/`hints` gelezen in gameplay; `motion` via `T-14` |
+| `FEAT_X_A11Y` | Toegankelijkheid | 48×48, focus-visible, aria, tekst-altijd | 🟢 | `T-13` (focus-baseline + ≥48px), `T-14` (motion) |
+| `FEAT_X_OFFLINE` | Offline/PWA | Speelbaar zonder netwerk | 🟢 | `pwa-offline.spec.ts` groen |
 | `FEAT_X_DASHBOARD` | Dashboard-staat | — | ⚫ | Dood, `T-06` |
 | `FEAT_X_WORLD_SELECT` | Losse wereldkeuze-staat | — | ⚫ | Dubbel, samenvoegen `T-05` |
 
 ---
 
-## 11. Nieuwe taken uit deze catalogus
+## 11. Nieuwe taken uit deze catalogus — status
 
-De verificatieronde (0.5) leverde nieuwe taken op, toegevoegd aan GDD-index sectie 12:
+De verificatieronde (0.5) leverde nieuwe taken op. Stand 2026-09-16:
 
-- **`T-18` (P2, 🔍):** Alle resterende ⚪-features verifiëren (o.a. op een echt apparaat met microfoon).
-- **`T-19` (P1, 🔧):** Instructievideo speelt niet af ("De video-opdracht kan niet worden afgespeeld") — assets of afspeellogica repareren.
-- **`T-20` (P2, 🔧):** "Zone Editor (DevTools)"-toggle verbergen voor eindgebruikers in productie.
-- **`T-21` (P2, 🔍🔧):** Sterrenteller toont 120 bij nieuw profiel — onderzoeken of sterren per-profiel resetten (raakt `GAP-10`).
-- **`T-22` (P3, 📄):** GDD 4.4 nuanceren: obstakel-botsing in Zeg & Vlieg kan game-over veroorzaken.
-- **`T-23` (P3, 🔧):** Kies het Woord — kaarten flitsen kort leeg bij het doorschakelen (afbeeldingen preloaden).
+- **`T-18` (P2, 🔍):** ⏳ **Open (apparaattaak):** resterende ⚪-features verifiëren op een echt apparaat met microfoon.
+- **`T-19` (P1, 🔧):** ✅ Instructievideo opgelost.
+- **`T-20` (P2, 🔧):** ✅ Dev-toggle verborgen in productie.
+- **`T-21` (P2, 🔍🔧):** ✅ Sterren zijn per-profiel; nieuw profiel start op 0 ⭐.
+- **`T-22` (P3, 📄):** ✅ GDD 4.4 genuanceerd (vriendelijke botsing i.p.v. harde game-over).
+- **`T-23` (P3, 🔧):** ✅ Kaart-flits opgelost (sticker-preload + WebP `T-33a`).
 
 ---
 
