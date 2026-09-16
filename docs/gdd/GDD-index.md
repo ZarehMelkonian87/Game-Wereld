@@ -102,6 +102,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.15 | 2026-09-15 | Zareh Melkonian | `T-32` grotendeels afgerond: onderzoek toont dat de Zeg & Vlieg-mic dezelfde `localSpeechEngine`-oorzaak had (altijd "bal"), al opgelost door `T-26`; de herkennings­bedrading is correct. **Audio-reactieve wave (`T-27`) toegevoegd** aan het Zeg & Vlieg-statuspaneel (`MicWaveBars`, sky-blauw), gemonteerd per ronde zodat de mic-stream niet steeds heropent. Scherm + wave in browser geverifieerd; mic-herkenning op echt apparaat te bevestigen. |
 | 1.16 | 2026-09-15 | Zareh Melkonian | `T-32` wave + herkenning op apparaat bevestigd. **Bug opgelost:** een teruggekeerd (gerecycled) plaatje werd na correct benoemen niet meer opgepakt. Herkenning nu vergevingsgezind gemaakt in `useVoiceSideScrollerWordRecognition`: kort geheugen (~1,8 s) van gehoorde woorden + hercheck zodra een plaatje in beeld scrolt, zodat matching niet meer afhangt van de exacte timing van het spraakresultaat. Ontwerpkeuze gebruiker: **zachte herkansing + spreiding** (geen straf bij niet-benoemen; plaatjes keren later terug). Tsc/eslint/150 tests groen; fresh-mount zonder crash geverifieerd (HMR-only hook-swap-melding tijdens dev genegeerd). |
 | 1.29 | 2026-09-15 | Zareh Melkonian | `T-04c` C2b: **spraak/compound-invoer** in Zeg & Bouw. `SpokenCommandControls` (mic + typen + privacy + woordfilter) in het bouwscherm; één zin plaatst meerdere objecten via `parseCompoundPlacements` → nieuwe batch-`placeCompound` (spreiding, **compound-bonus +1 ⭐** voor een zin met ≥2 objecten, soepele tip bij niet-passend, nudge bij ongewenst woord). Typ-route end-to-end in browser geverifieerd. **Na testfeedback verfijnd:** live **SpeechWaveAnimation** (wave + woord-voor-woord transcript) toegevoegd zoals in Zeg & Zet, en de "Strand af!"-overlay verschijnt nu **met een korte vertraging (~1,9 s)** zodat het kind eerst zijn afgebouwde strand ziet (compound-zin haalde het doel te snel). Vertraging in browser geverifieerd; mic op apparaat bevestigd door tester. 186 tests groen. |
+| 1.40 | 2026-09-16 | Zareh Melkonian | **Nieuw initiatief: multiplatform-ondersteuning & download-gating** (§13). Taken `T-38` t/m `T-47` toegevoegd: platformdetectie (`T-38`), herontwerp van de download-flow naar een **blokkerende download-gate** op telefoon/tablet (Play pas na 100%; web behoudt streaming, `T-39`), gedeelde gate-UI (`T-46`), en per platform een **UX-design + wireframe → goedkeuring → implementatie**-spoor (Web `T-40`/`T-41`, Telefoon `T-42`/`T-43`, Tablet `T-44`/`T-45`) plus consistentieverificatie (`T-47`). Platforms in scope: Webbrowser (desktop), Mobiele telefoon, Tablet; download-doel = geïnstalleerde PWA. |
 | 1.39 | 2026-09-16 | Zareh Melkonian | **Dossier-reconciliatie + apparaattakenlijst.** De drie zusterdocumenten waren blijven staan op 2026-09-11: **Test-matrix** (→ v0.3), **Feature-catalogus** (→ v0.3) en **User Journey Map** (→ v0.3) bijgewerkt naar de huidige stand — alle eerdere 🔴/🔵-punten opgelost, 4e modus **Zeg & Bouw** overal toegevoegd (feature-sectie, journey `JRN_ZEGBOUW`, TC-sectie `TC_BOUW_*`), nieuwe TC's voor `T-15` (`TC_SCENE_11`) en `T-17` (`TC_PROG_01`), e2e-suites (`word-choice`/`voice-side-scroller`/`reward`/`zeg-en-bouw`) verwerkt. Test-matrix: 0 rood, 53 groen van 59 TC's. Nieuwe **§12.4 Apparaattakenlijst** (`DT-01`…`DT-10`) toegevoegd voor handmatige verificatie op een echt toestel (spraak, audio, `reducedMotion`, focus-ring, reset-record, voortgangsscherm). |
 | 1.38 | 2026-09-16 | Zareh Melkonian | **Verificatiebatch `T-10` t/m `T-18`.** `T-11` ✅ (`GAP-09`): reset wiste het Zeg & Vlieg-record niet → `resetVoiceScrollerRecord` toegevoegd (IndexedDB-wis via `practice.reset()` bevestigd). `T-12` ✅ (`GAP-10`): profielscheiding bevestigd (sleutels per-profiel, IndexedDB op `[profileId+gameId]`). `T-13` ✅ (`GAP-11`): gescopte `:focus-visible`-baseline in `theme.css` + sub-48px controls verhoogd (`BtnTrayNext`, `SpeechRetryPanel`, privacy-toggle, FloatingSuccessToast). `T-14` ✅ (`GAP-12`): in-app `reducedMotion`-toggle dempt nu ook gameplay-animaties (`useReducedMotionSetting` + `[data-app-reduced-motion]` + spiegel-CSS), in browser bevestigd. `T-15` ✅ (`GAP-08`): robuustheid dynamische zones geborgd met tests. `T-17` ✅ (`GAP-16`): categorie-uitsplitsing (taaldomeinen/ruimtebegrippen, woorden gegroepeerd) + tempo-inzicht toegevoegd aan `SCR_PLAT_PROGRESS`, in browser met echte data bevestigd. `T-10` (spraakwaarden ijken) en `T-18` (⚪-features) blijven apparaattaken (mic geblokkeerd in preview). Tsc/eslint/195 tests (49 bestanden) groen. |
 | 1.37 | 2026-09-16 | Zareh Melkonian | **Statuscorrectie `T-08` + `T-09`** (`GAP-05`/`GAP-06`): de woordenlijst is uitbreidbaar en telt nu 12 woorden (oude GDD zei "10"), en de spraakconfig-waarden (`interimResults`, `maxAlternatives`, timeouts) waren voorbeelden, geen vaste specificatie. Beide "fixes" zaten in de al verwijderde `docs/GDD.md` (changelog 1.8) en het GDD-dossier documenteert ze al correct — dus enkel op ✅ gezet. Het apparaat-ijken van de spraakwaarden blijft `T-10`. |
@@ -901,6 +902,16 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-35** | **P1** | 🎨🔧 | **"Klaar"-knop vervangen door automatische bevestiging** — plaatsing (tap/sleep/toetsenbord/spraak) wordt meteen geëvalueerd; correct → viering + auto-doorgaan; fout → vriendelijke tip + opnieuw. Top-bar-Klaar alleen nog bij afgeronde ronde; stop-knop uit de wave-balk; "Opnieuw zeggen" herstart de mic. Tap-flow geverifieerd; op apparaat bevestigd door tester | Testfeedback 2026-09-14 | ✅ |
 | **T-36** | P3 | 🔧 | Dode, niet-werkende `localSpeechEngine` (+ test) verwijderd uit de codebase — geen enkele verwijzing meer (sinds `T-26` de echte Web Speech API gebruikt). Tsc/eslint/150 tests groen | Testfeedback 2026-09-14 | ✅ |
 | **T-37** | P2 | 🔍 | **Playwright-e2e bijgewerkt voor `T-35`/`T-03`** — tests 3.3/3.5/3.6, de a11y-kernopdracht en `generate-visual-report` gebruikten nog de verwijderde `scene-builder-confirm-button`/`speech-stop-button`. Herschreven naar de auto-bevestigings-flow: correct → assert auto-doorgaan (`data-active-instruction-id` wijzigt), onduidelijk → assert `data-feedback-kind="almost"` zonder doorgaan; wave rondt automatisch af (geen Klaar-knop). Geverifieerd met Playwright op chromium-tablet én webkit-tablet (alle e2e groen) | Bij T-31 e2e-run | ✅ |
+| **T-38** | **P1** | 🔧 | **Platformdetectie-laag** (fundament, zie §13). Eén bron van waarheid die onderscheidt: **Webbrowser (desktop)**, **Mobiele telefoon** (geïnstalleerde PWA) en **Tablet** (geïnstalleerde PWA), o.b.v. `display-mode: standalone`, viewportbreedte en touch/UA. Levert `detectPlatform()`/`usePlatform()`. Basis voor `T-39` t/m `T-47` | §13 | ⬜ |
+| **T-39** | **P1** | 🎨🔧 | **Download-gating architectuur** (herontwerp). Op niet-webplatforms (telefoon/tablet) moet álle verplichte content (video's, afbeeldingen, bestanden) vóór spelen volledig gedownload zijn; **Play/Start pas beschikbaar na 100%**. Verwijder het "val terug op streaming"-gedrag ([GameHost.tsx:217](../../src/app/game-host/GameHost.tsx)) voor deze platforms; **web behoudt streaming**. Hergebruik `GameAssetSyncManager` + `offlinePackages`; beslis de gate-plek (gameslijst vs. game-host) | §13 | ⬜ |
+| **T-40** | **P1** | 🎨 | **UX-design + wireframe — Webbrowser (desktop).** Optimale layout/structuur; behoudt het huidige streaming-systeem (geen verplichte download). **Samen ontwerpen; goedkeuring vereist vóór implementatie** | §13 | ⬜ |
+| **T-41** | **P1** | 🔧 | **Implementatie — Webbrowser (desktop)-UX** (na goedkeuring `T-40`) | §13 | ⬜ |
+| **T-42** | **P1** | 🎨 | **UX-design + wireframe — Mobiele telefoon.** Incl. het verplichte **downloadscherm**: duidelijk downloadicoon, downloadstatus (fase + percentage), Play/Start geblokkeerd tot 100%, foutherstel. **Samen ontwerpen; goedkeuring vereist vóór implementatie** | §13 | ⬜ |
+| **T-43** | **P1** | 🔧 | **Implementatie — Mobiele telefoon-UX + download-gate** (na goedkeuring `T-42`; bouwt op `T-38`/`T-39`/`T-46`) | §13 | ⬜ |
+| **T-44** | **P1** | 🎨 | **UX-design + wireframe — Tablet.** Eigen layout (meer ruimte dan telefoon); zelfde verplichte download-gate. **Samen ontwerpen; goedkeuring vereist vóór implementatie** | §13 | ⬜ |
+| **T-45** | **P1** | 🔧 | **Implementatie — Tablet-UX + download-gate** (na goedkeuring `T-44`; bouwt op `T-38`/`T-39`/`T-46`) | §13 | ⬜ |
+| **T-46** | **P1** | 🔧 | **Gedeelde download-gate-UI-componenten.** Downloadicoon + statusindicator (fasen: grootte bepalen → downloaden % → controleren → klaar) + **geblokkeerde Play-knop tot 100%**, herbruikbaar over telefoon/tablet; a11y (≥48×48, focus-visible, `aria-live`), reduced-motion, nette foutstatus + "Opnieuw". Bouwt voort op `OfflinePackageCard`/`GameAssetSyncModal` | §13 | ⬜ |
+| **T-47** | P2 | 🔍 | **Consistentie- & regressieverificatie multiplatform.** E2e per viewport (mobile/tablet/desktop): (a) op mobiel/tablet verschijnt Play **pas na** volledige download, (b) op web blijft streaming, (c) gameplay/functionaliteit identiek over platforms | §13 | ⬜ |
 
 ### 12.2 Aanbevolen volgorde
 
@@ -955,3 +966,43 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 - **T-24** ✅ (2026-09-15) — nieuwe e2e-suites voor Kies het Woord, Zeg & Vlieg en het beloningsscherm (9 tests, gedeelde `createPlayerAndOpenStrandGame`-helper). Groen op chromium-tablet én webkit-tablet. Lost de dekkingsgaten uit de Test-matrix §9 op.
 
 > Nog open bij het beloningssysteem: de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).
+
+---
+
+## 13. Multiplatform-ondersteuning & download-gating (initiatief)
+
+> Nieuw initiatief (2026-09-16). Doel: **elk platform krijgt een eigen, optimale UX en structuur**, terwijl de functionaliteit en spelervaring van Magisch Strand-Avontuur op alle platforms **consistent** blijven. Taken: `T-38` t/m `T-47` (§12.1).
+
+### 13.1 Uitgangspunten
+
+- De game is een **PWA** (geen Capacitor/Electron). "Platform" = de manier waarop de game draait, niet een aparte build.
+- **Platforms in scope** (elk een eigen UX-track): **Webbrowser (desktop)**, **Mobiele telefoon**, **Tablet**.
+- **Download-doel:** de **geïnstalleerde PWA** (startscherm-app) — werkt met de huidige service-worker + offline-pakket-stack.
+- **Werkwijze per platform:** eerst **samen** een UX-design + wireframe → **goedkeuring** → pas dáárna implementeren. Geen implementatie vóór akkoord op het ontwerp.
+
+### 13.2 Download-gating (kernregel)
+
+| Platform | Downloadgedrag |
+| :--- | :--- |
+| **Webbrowser (desktop)** | **Ongewijzigd** — de game is direct speelbaar; content streamt/cachet zoals nu. |
+| **Mobiele telefoon** (geïnstalleerd) | Bij openen is de game **niet direct speelbaar**. Eerst wordt álle verplichte content (video's, afbeeldingen, bestanden) gedownload met een **duidelijk downloadicoon + downloadstatus**. **Play/Start pas na 100%.** Tijdens spelen hoeft geen essentiële content meer ongemerkt te laden. |
+| **Tablet** (geïnstalleerd) | Zelfde gate als telefoon, met een eigen (ruimere) layout. |
+
+**Wat verandert t.o.v. nu:** de huidige flow synct op de achtergrond en **valt bij netwerkproblemen terug op streaming** ([GameHost.tsx:217](../../src/app/game-host/GameHost.tsx)) zonder de speler te blokkeren. Voor telefoon/tablet wordt dit een **expliciete, blokkerende gate**; voor web blijft het huidige gedrag.
+
+### 13.3 Bestaande bouwstenen om op voort te bouwen
+
+- `src/app/pwa/GameAssetSyncManager.ts` — synct/controleert offline-pakketten (fasen, voortgang).
+- `src/app/pwa/offlinePackages.ts` + `assets/offline-package.source.json` per game — de manifesten.
+- `src/app/pwa/OfflinePackageCard.tsx` / `GameAssetSyncModal.tsx` — bestaande download-UI (statussen: bepalen → downloaden % → controleren → klaar/partial/failed) — basis voor de nieuwe gate-UI (`T-46`).
+- **Nog te bouwen:** platformdetectie (`T-38`) — die bestaat nog niet.
+
+### 13.4 Taakoverzicht
+
+| Fase | Taken |
+| :--- | :--- |
+| **Fundament** | `T-38` (platformdetectie), `T-39` (download-gating-architectuur), `T-46` (gedeelde gate-UI) |
+| **Per platform (ontwerp → akkoord → bouw)** | Web: `T-40`→`T-41` · Telefoon: `T-42`→`T-43` · Tablet: `T-44`→`T-45` |
+| **Borging** | `T-47` (consistentie- & regressieverificatie over alle viewports) |
+
+> **Volgende stap:** we beginnen met het **UX-design + wireframe per platform** (`T-40`/`T-42`/`T-44`). Zeg met welk platform je wilt starten, dan maken we samen het ontwerp voordat er iets wordt geïmplementeerd.
