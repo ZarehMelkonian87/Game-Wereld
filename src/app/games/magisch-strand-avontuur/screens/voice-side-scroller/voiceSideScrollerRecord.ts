@@ -55,6 +55,14 @@ export const saveVoiceScrollerRecord = (
 };
 
 /**
+ * Wist het Zeg & Vlieg-record van een profiel. Onderdeel van "Voortgang
+ * resetten" (T-11): het record is voortgangsdata en moet dus ook weg.
+ */
+export const resetVoiceScrollerRecord = (profileId: string, storage: RuntimeStorage): void => {
+  storage.remove(getRecordStorageKey(profileId));
+};
+
+/**
  * Werkt het record bij met de resultaten van een ronde. Geeft het nieuwe record
  * terug plus of er een nieuw afstands-/comborecord is gehaald (voor de viering).
  */

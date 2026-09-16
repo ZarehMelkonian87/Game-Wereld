@@ -407,6 +407,52 @@ a,
   }
 }
 
+/* In-app "Rustige animaties"-toggle (T-14): spiegelt de reduced-motion-reset
+ * hierboven, maar gestuurd door het `[data-app-reduced-motion]`-attribuut op de
+ * spel-shell i.p.v. de OS-instelling. Zo dempt de toggle dezelfde zware
+ * animaties (parallax, sparkles, vlieg-loop) ook wanneer het toestel zelf geen
+ * reduced-motion heeft ingesteld. */
+[data-app-reduced-motion="true"] *,
+[data-app-reduced-motion="true"] *::before,
+[data-app-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0ms !important;
+}
+
+[data-app-reduced-motion="true"] .bezem-feedback-toast,
+[data-app-reduced-motion="true"] .bezem-feedback-toast-after-ended,
+[data-app-reduced-motion="true"] .bezem-start-flyer,
+[data-app-reduced-motion="true"] .bezem-start-mascot,
+[data-app-reduced-motion="true"] .bezem-start-trail,
+[data-app-reduced-motion="true"] .bezem-start-sparkle,
+[data-app-reduced-motion="true"] .bezem-scroller-float,
+[data-app-reduced-motion="true"] .bezem-scroller-bump,
+[data-app-reduced-motion="true"] .bezem-choice-correct,
+[data-app-reduced-motion="true"] .bezem-choice-wrong,
+[data-app-reduced-motion="true"] .bezem-choice-sparkle {
+  animation: none;
+}
+
+/* Toetsenbord-focus-baseline voor Magisch Strand-Avontuur (T-13 / GAP-11):
+ * garandeert dat élk interactief element in álle modi een duidelijke
+ * focus-visible-ring krijgt, ook de gedeelde `Btn*`-bouwstenen die zelf geen
+ * focus-stijl meebrachten. De `outline` volgt automatisch de border-radius van
+ * het element en wint qua specificiteit van Tailwinds `outline-none`. Alleen
+ * bij toetsenbord-/hulptechnologie-focus (`:focus-visible`), niet bij muis. */
+[data-game-id="magisch-strand-avontuur"] a:focus-visible,
+[data-game-id="magisch-strand-avontuur"] button:focus-visible,
+[data-game-id="magisch-strand-avontuur"] select:focus-visible,
+[data-game-id="magisch-strand-avontuur"] input:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [role="button"]:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [role="switch"]:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [tabindex]:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

@@ -5,6 +5,7 @@ import {
   type ProgressProjection,
 } from "../../storage";
 import { getGameRegistryEntry } from "../../games";
+import { buildCategoryBreakdown } from "./skillCategories";
 import type { PeriodDefinition, ThemeProgress, TimePeriod } from "./progressTypes";
 
 export const periods: PeriodDefinition[] = [
@@ -55,7 +56,18 @@ const toThemeProgress = (projection: ProgressProjection, themeId: string): Theme
   if (strengths.length === 0) strengths.push("Er zijn oefenpogingen geregistreerd.");
   if (nextSteps.length === 0) nextSteps.push("Blijf gevarieerd oefenen.");
 
+  const tempo =
+    projection.measuredResponses > 0
+      ? {
+          averageSeconds:
+            Math.round((projection.totalResponseTimeMs / projection.measuredResponses / 1000) * 10) /
+            10,
+          measuredResponses: projection.measuredResponses,
+        }
+      : undefined;
+
   return {
+    categoryBreakdown: buildCategoryBreakdown(projection.skillSummaries),
     evidence: {
       eventCount: projection.sourceSelection.eventCount,
       projectorVersion: projection.projectorVersion,
@@ -78,6 +90,7 @@ const toThemeProgress = (projection: ProgressProjection, themeId: string): Theme
         ),
       },
     ],
+    tempo,
     themeId,
   };
 };

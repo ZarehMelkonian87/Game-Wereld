@@ -65,7 +65,7 @@ export const VoicePrivacySettingsCard = ({
             <button
               aria-controls={privacyDetailsId}
               aria-expanded={isPrivacyExpanded}
-              className="mt-2 inline-flex min-h-8 items-center gap-1.5 rounded-xl border-2 border-sky-200 bg-sky-50/85 px-2.5 text-[0.72rem] font-black leading-none text-sky-900 shadow-sm active:translate-y-0.5"
+              className="mt-2 inline-flex min-h-12 items-center gap-1.5 rounded-xl border-2 border-sky-200 bg-sky-50/85 px-2.5 text-[0.72rem] font-black leading-none text-sky-900 shadow-sm active:translate-y-0.5"
               data-testid="settings-voice-privacy-toggle"
               onClick={() => setIsPrivacyExpanded((current) => !current)}
               type="button"

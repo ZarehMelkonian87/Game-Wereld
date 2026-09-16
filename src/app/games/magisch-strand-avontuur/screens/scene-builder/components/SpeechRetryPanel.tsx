@@ -31,7 +31,7 @@ export const SpeechRetryPanel = ({ message, onRetry, onUseKeyboard }: SpeechRetr
       {onUseKeyboard ? (
         <button
           aria-label="Typ de zin"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-white/90 bg-white/20 text-white transition hover:scale-105 active:scale-95"
+          className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-white/90 bg-white/20 text-white transition hover:scale-105 active:scale-95"
           data-testid="speech-retry-keyboard-button"
           onClick={onUseKeyboard}
           type="button"
@@ -41,7 +41,7 @@ export const SpeechRetryPanel = ({ message, onRetry, onUseKeyboard }: SpeechRetr
       ) : null}
       <button
         aria-label="Opnieuw proberen"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-2xl border-2 border-white bg-emerald-500 px-3.5 py-2 text-xs font-black text-white shadow-md transition hover:scale-105 active:scale-95 active:bg-emerald-600"
+        className="inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-2xl border-2 border-white bg-emerald-500 px-3.5 py-2 text-xs font-black text-white shadow-md transition hover:scale-105 active:scale-95 active:bg-emerald-600"
         data-testid="speech-retry-button"
         onClick={onRetry}
         type="button"

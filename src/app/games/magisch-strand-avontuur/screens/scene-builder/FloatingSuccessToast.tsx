@@ -237,7 +237,7 @@ export const FloatingSuccessToast = ({
               {spokenCommandResult.status !== "ready"
                 ? spokenCommandResult.choices.slice(0, 4).map((choice) => (
                     <button
-                      className="min-h-8 rounded-xl border-2 border-sky-300 bg-sky-100 px-2 text-[0.65rem] font-black text-sky-950"
+                      className="min-h-12 rounded-xl border-2 border-sky-300 bg-sky-100 px-2 text-[0.65rem] font-black text-sky-950"
                       data-choice-id={choice.id}
                       data-choice-type={choice.type}
                       key={`${choice.type}-${choice.id}`}
@@ -249,7 +249,7 @@ export const FloatingSuccessToast = ({
                   ))
                 : null}
               <button
-                className="min-h-8 rounded-xl border-2 border-amber-300 bg-amber-100 px-2 text-[0.65rem] font-black text-amber-950"
+                className="min-h-12 rounded-xl border-2 border-amber-300 bg-amber-100 px-2 text-[0.65rem] font-black text-amber-950"
                 data-testid="repeat-spoken-command"
                 onClick={onRepeatSpokenCommand}
                 type="button"
