@@ -78,20 +78,15 @@ const getTranscriptCandidates = (
 const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
   Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));
 
-// Hersteltijd tussen twee luisterbeurten na een match. Op mobiel heeft de
-// spraak-API tijd nodig om de mic-sessie los te laten voordat een nieuwe start;
-// te kort (bv. 90 ms) geeft overlappende sessies → de herkenning breekt na een
-// paar keer (DT-02). ~350 ms is genoeg om de sessie schoon te herstarten.
-const VOICE_SCROLLER_RELISTEN_DELAY_MS = 350;
-// Debounce voor de herstel-watchdog: als de herkenning tijdens een lopende ronde
-// uit "luisteren" valt (einde/fout/stilte) armt hij na deze tijd opnieuw.
-const VOICE_SCROLLER_RECOVERY_DELAY_MS = 700;
 const VOICE_SCROLLER_FEEDBACK_VISIBLE_MS = 360;
 // Hoe lang een gehoord woord "onthouden" wordt. Zo hoeft het kind het plaatje
 // niet exact op het juiste moment te benoemen: als het woord kort daarvoor is
 // gezegd en het plaatje scrolt daarna het venster in, wordt het alsnog opgepakt
 // (vergevingsgezind, past bij de logopedische doelen — T-32).
 const VOICE_SCROLLER_HEARD_MEMORY_MS = 1800;
+// Debounce voor de herstel-watchdog: als de herkenning tijdens een lopende ronde
+// uit "luisteren" valt (einde/fout/stilte) armt hij na deze tijd opnieuw.
+const VOICE_SCROLLER_RECOVERY_DELAY_MS = 700;
 
 export const useVoiceSideScrollerWordRecognition = ({
   isRunning,
@@ -115,14 +110,17 @@ export const useVoiceSideScrollerWordRecognition = ({
     autoStopMs: 0,
     continuous: true,
     interimResults: true,
+    // Eén doorlopende sessie: we lezen alleen het laatst gewijzigde segment, zodat
+    // eerder benoemde woorden niet blijven opstapelen. Daardoor hoeft de mic NIET
+    // na elke match herstart te worden — die snelle herstart-cyclus liet de
+    // browser-spraakherkenning na een paar objecten vastlopen (DT-02 / T-48).
+    latestSegmentOnly: true,
     maxAlternatives: 8,
     restartOnEnd: true,
   });
   const visibleTargetsRef = useRef<VoiceSideScrollerTarget[]>(visibleTargets);
   const confidenceRef = useRef<number | undefined>(confidence);
   const lastProcessedResultIdRef = useRef(0);
-  const isRelisteningRef = useRef(false);
-  const relistenTimerRef = useRef<number>();
   // Kort geheugen van recent gehoorde woorden, zodat een plaatje dat net het
   // herkenningsvenster in scrolt alsnog gepakt wordt als het kind het woord
   // kort daarvoor zei (kernfix van de "terugkerend plaatje wordt niet meer
@@ -134,28 +132,17 @@ export const useVoiceSideScrollerWordRecognition = ({
 
   confidenceRef.current = confidence;
 
-  const clearRelistenTimer = useCallback(() => {
-    if (relistenTimerRef.current !== undefined) {
-      window.clearTimeout(relistenTimerRef.current);
-      relistenTimerRef.current = undefined;
-    }
-
-    isRelisteningRef.current = false;
-  }, []);
-
   useEffect(() => {
     visibleTargetsRef.current = visibleTargets;
   }, [visibleTargets]);
 
   const stopWordRecognition = useCallback(() => {
-    clearRelistenTimer();
     stopListening();
     recentHeardRef.current = [];
     setWordRecognition(createIdleWordRecognitionState(supportMessage));
-  }, [clearRelistenTimer, stopListening, supportMessage]);
+  }, [stopListening, supportMessage]);
 
   const startWordPrompt = useCallback(() => {
-    clearRelistenTimer();
     resetTranscript();
     lastProcessedResultIdRef.current = 0;
     recentHeardRef.current = [];
@@ -168,33 +155,7 @@ export const useVoiceSideScrollerWordRecognition = ({
     });
 
     return startListening();
-  }, [clearRelistenTimer, resetTranscript, startListening, supportMessage]);
-
-  const restartWordPromptAfterMatch = useCallback(() => {
-    clearRelistenTimer();
-    isRelisteningRef.current = true;
-    stopListening();
-    resetTranscript();
-    lastProcessedResultIdRef.current = 0;
-
-    relistenTimerRef.current = window.setTimeout(() => {
-      relistenTimerRef.current = undefined;
-
-      if (!isRunning) {
-        isRelisteningRef.current = false;
-        return;
-      }
-
-      setWordRecognition((currentState) => ({
-        ...currentState,
-        feedbackText: getListeningFeedbackText(),
-        isListening: true,
-        status: "listening",
-      }));
-      startListening();
-      isRelisteningRef.current = false;
-    }, VOICE_SCROLLER_RELISTEN_DELAY_MS);
-  }, [clearRelistenTimer, isRunning, resetTranscript, startListening, stopListening]);
+  }, [resetTranscript, startListening, supportMessage]);
 
   const rememberHeardWords = useCallback((candidates: string[]) => {
     const now = Date.now();
@@ -211,9 +172,10 @@ export const useVoiceSideScrollerWordRecognition = ({
 
   // Probeer een zichtbaar, nog niet gepakt plaatje te matchen met een recent
   // gehoord woord. Dit draait zowel bij een nieuw spraakresultaat als wanneer er
-  // een nieuw plaatje in beeld scrolt, zodat "goed gezegd" altijd oppakt.
+  // een nieuw plaatje in beeld scrolt, zodat "goed gezegd" altijd oppakt. De
+  // luister-sessie blijft daarbij gewoon doorlopen (geen herstart per match).
   const tryCollectRememberedWord = useCallback(() => {
-    if (!isRunning || isRelisteningRef.current) {
+    if (!isRunning) {
       return false;
     }
 
@@ -254,16 +216,13 @@ export const useVoiceSideScrollerWordRecognition = ({
       });
       // Verbruik het gebruikte woord zodat hetzelfde "bal" niet per ongeluk twee
       // plaatjes tegelijk pakt.
-      recentHeardRef.current = recentHeardRef.current.filter(
-        (entry) => entry !== heardMatch,
-      );
+      recentHeardRef.current = recentHeardRef.current.filter((entry) => entry !== heardMatch);
       onWordMatched(target, heardMatch.token);
-      restartWordPromptAfterMatch();
       return true;
     }
 
     return false;
-  }, [isRunning, onWordMatched, restartWordPromptAfterMatch, supportMessage]);
+  }, [isRunning, onWordMatched, supportMessage]);
 
   useEffect(() => {
     if (!isRunning) {
@@ -276,9 +235,10 @@ export const useVoiceSideScrollerWordRecognition = ({
 
   // Verwerk een nieuw spraakresultaat: onthoud de gehoorde woorden, probeer een
   // zichtbaar plaatje te pakken en tel anders (bij een afgeronde zin) een zachte
-  // "nog oefenen"-poging.
+  // "nog oefenen"-poging. Dankzij `latestSegmentOnly` bevat het resultaat alleen
+  // het net gezegde woord, dus eerdere woorden komen niet opnieuw voorbij.
   useEffect(() => {
-    if (!isRunning || resultId === 0 || isRelisteningRef.current) {
+    if (!isRunning || resultId === 0) {
       return;
     }
 
@@ -391,7 +351,7 @@ export const useVoiceSideScrollerWordRecognition = ({
   // error) — dan armen we na een korte debounce opnieuw. Dit voorkomt dat het
   // spel "dood" blijft nadat de speler al een paar objecten heeft benoemd.
   useEffect(() => {
-    if (!isRunning || isRelisteningRef.current) {
+    if (!isRunning) {
       return undefined;
     }
 
@@ -406,7 +366,7 @@ export const useVoiceSideScrollerWordRecognition = ({
 
     // status is hier idle/heard/error terwijl de ronde loopt → opnieuw luisteren.
     const recoverTimer = window.setTimeout(() => {
-      if (isRunning && !isRelisteningRef.current) {
+      if (isRunning) {
         startWordPrompt();
       }
     }, VOICE_SCROLLER_RECOVERY_DELAY_MS);
@@ -415,13 +375,6 @@ export const useVoiceSideScrollerWordRecognition = ({
       window.clearTimeout(recoverTimer);
     };
   }, [errorMessage, isRunning, startWordPrompt, status, wordRecognition.status]);
-
-  useEffect(
-    () => () => {
-      clearRelistenTimer();
-    },
-    [clearRelistenTimer],
-  );
 
   useEffect(() => {
     if (status === "unsupported") {
