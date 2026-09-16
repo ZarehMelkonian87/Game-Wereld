@@ -175,7 +175,7 @@ Een interactieve luister- en kiesquiz waarbij kinderen de gesproken vraag horen 
 | **CARD_CHOICE_DOLPHIN**     | Keuzekaart: Dolfijn     | Afbeelding van een dolfijn (foutief antwoord bij 'krab').                    | Witte kaart met grijze rand en illustratie | Option 1 Selection   |
 | **CARD_CHOICE_CRAB**        | Keuzekaart: Krab        | Afbeelding van een krab (correct antwoord op 'Waar is de krab?').            | Witte kaart met grijze rand en illustratie | Option 2 (Correct)   |
 | **CARD_CHOICE_SHELLS**      | Keuzekaart: Schelpen    | Afbeelding van schelpen en zeester (foutief antwoord).                       | Witte kaart met grijze rand en illustratie | Option 3 Selection   |
-| **FOOTER_QUIZ_PROGRESS**    | Onderste Voortgangsbalk | Voortgangsbalk voor 'Tempo' (`0/10`) en beloningsvoortgang (`0/30` sterren). | Gele afgeronde balk met groene progressbar | Quiz Progress Footer |
+| **FOOTER_QUIZ_PROGRESS**    | Onderste Voortgangsbalk | Voortgangsbalk voor 'Tempo' en beloningsvoortgang. **De rondelengte is data-gestuurd** (`instructions.length`, momenteel 12 vragen) — het ontwerp toonde `0/10` als voorbeeld, niet als vaste lengte (T-07). | Gele afgeronde balk met groene progressbar | Quiz Progress Footer |
 
 ---
 
