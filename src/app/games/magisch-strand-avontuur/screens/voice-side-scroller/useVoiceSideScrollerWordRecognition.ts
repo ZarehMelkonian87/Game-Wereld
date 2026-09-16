@@ -78,7 +78,14 @@ const getTranscriptCandidates = (
 const getHasBlockingSpeechError = (errorMessage: string | undefined) =>
   Boolean(errorMessage?.includes("microfoon") || errorMessage?.includes("toestemming"));
 
-const VOICE_SCROLLER_RELISTEN_DELAY_MS = 90;
+// Hersteltijd tussen twee luisterbeurten na een match. Op mobiel heeft de
+// spraak-API tijd nodig om de mic-sessie los te laten voordat een nieuwe start;
+// te kort (bv. 90 ms) geeft overlappende sessies → de herkenning breekt na een
+// paar keer (DT-02). ~350 ms is genoeg om de sessie schoon te herstarten.
+const VOICE_SCROLLER_RELISTEN_DELAY_MS = 350;
+// Debounce voor de herstel-watchdog: als de herkenning tijdens een lopende ronde
+// uit "luisteren" valt (einde/fout/stilte) armt hij na deze tijd opnieuw.
+const VOICE_SCROLLER_RECOVERY_DELAY_MS = 700;
 const VOICE_SCROLLER_FEEDBACK_VISIBLE_MS = 360;
 // Hoe lang een gehoord woord "onthouden" wordt. Zo hoeft het kind het plaatje
 // niet exact op het juiste moment te benoemen: als het woord kort daarvoor is
@@ -378,19 +385,36 @@ export const useVoiceSideScrollerWordRecognition = ({
     };
   }, [isRunning, wordRecognition.status]);
 
+  // Robuuste herstel-watchdog (DT-02). Zolang de ronde loopt hoort de mic altijd
+  // te luisteren. Valt de herkenning uit die staat — door een fout óf doordat de
+  // mobiele spraakservice de sessie stil afkapt (`onend` → idle/heard, geen
+  // error) — dan armen we na een korte debounce opnieuw. Dit voorkomt dat het
+  // spel "dood" blijft nadat de speler al een paar objecten heeft benoemd.
   useEffect(() => {
-    if (!isRunning || status !== "error" || getHasBlockingSpeechError(errorMessage)) {
+    if (!isRunning || isRelisteningRef.current) {
       return undefined;
     }
 
+    const isActivelyListening = status === "listening" || status === "processing";
+    const isShowingFeedback =
+      wordRecognition.status === "matched" || wordRecognition.status === "missed";
+    const isBlocked = status === "unsupported" || getHasBlockingSpeechError(errorMessage);
+
+    if (isActivelyListening || isShowingFeedback || isBlocked) {
+      return undefined;
+    }
+
+    // status is hier idle/heard/error terwijl de ronde loopt → opnieuw luisteren.
     const recoverTimer = window.setTimeout(() => {
-      startWordPrompt();
-    }, 900);
+      if (isRunning && !isRelisteningRef.current) {
+        startWordPrompt();
+      }
+    }, VOICE_SCROLLER_RECOVERY_DELAY_MS);
 
     return () => {
       window.clearTimeout(recoverTimer);
     };
-  }, [errorMessage, isRunning, startWordPrompt, status]);
+  }, [errorMessage, isRunning, startWordPrompt, status, wordRecognition.status]);
 
   useEffect(
     () => () => {
