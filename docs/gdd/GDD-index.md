@@ -929,7 +929,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 
 | ID | Taak | Stappen | Verwacht resultaat | Koppeling | Status |
 | :--- | :--- | :--- | :--- | :--- | :--: |
-| `DT-01` | **Spraak — Zeg & Zet** | Open Zeg & Zet, tik de mic, spreek een plaatsings­opdracht in (bv. "Zet de boot in de zee") | Object wordt correct geplaatst; wave reageert; foutmelding is kindvriendelijk bij niet-verstaan | `T-18` | ⬜ |
+| `DT-01` | **Spraak — Zeg & Zet** | Open Zeg & Zet, tik de mic, spreek een plaatsings­opdracht in (bv. "Zet de boot in de zee") | Object wordt correct geplaatst; wave reageert; foutmelding is kindvriendelijk bij niet-verstaan | `T-18` | ✅ Op apparaat bevestigd (2026-09-16) |
 | `DT-02` | **Spraak — Zeg & Vlieg** | Start Zeg & Vlieg, benoem hardop de objecten die voorbij vliegen | Object wordt verzameld bij correct benoemen; **blijft werken na meerdere objecten** (niet stoppen na 2-3). Let op: ontwijk obstakels met de duim-rail — 3 botsingen = ronde-einde | `T-18`, `T-48` | ✅ Op apparaat bevestigd (2026-09-16) |
 | `DT-03` | **Spraak — Zeg & Bouw** | Open Zeg & Bouw, spreek één samengestelde zin in (bv. "Leg de bal naast de parasol en zet de boot in de zee") | Meerdere objecten worden in één keer geplaatst; compound-bonus verschijnt | `T-18` | ⬜ |
 | `DT-04` | **Spraakparameters ijken** | Speel met een kind; let op stiltetijd/auto-stop: krijgt het kind genoeg tijd om rustig uit te spreken? | Bepaal de *juiste* waarden per scherm (stiltetijd, auto-stop, alternatieven) en noteer ze | `T-10` | ⬜ |
