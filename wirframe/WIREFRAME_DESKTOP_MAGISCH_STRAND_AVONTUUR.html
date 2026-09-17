@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full bg-slate-950 text-slate-100 selection:bg-amber-400 selection:text-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UX-Design & Wireframe: Magisch Strand-Avontuur (Webbrowser Desktop) [T-40]</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, kbd { font-family: 'JetBrains Mono', monospace; }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .game-canvas-shadow {
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+    }
+    .pulse-glow {
+      animation: pulse-glow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6)); }
+      50% { opacity: 0.85; transform: scale(1.02); filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.9)); }
+    }
+    @keyframes wave-bounce {
+      0%, 100% { height: 12px; }
+      50% { height: 48px; }
+    }
+    .wave-bar {
+      animation: wave-bounce 0.8s ease-in-out infinite;
+    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.5); }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-3.5 shadow-2xl">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 text-2xl font-black shadow-lg shadow-amber-500/20">
+          🏖️
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-lg font-black tracking-tight text-white">
+              Magisch Strand-Avontuur
+            </h1>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold font-mono">
+              T-40 • Webbrowser (Desktop)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Streaming Systeem Actief (Geen Verplichte Download)
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Interactief UX-Design & Widescreen Wireframe voor alle 7 modi • Samen ontwerpen vóór implementatie
+          </p>
+        </div>
+      </div>
+
+      <!-- VIEWPORT SELECTOR & STREAMING STATUS -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center bg-slate-900/90 border border-slate-700/70 rounded-xl p-1 text-xs font-semibold text-slate-300">
+          <span class="px-2 text-slate-400">Desktop Viewport:</span>
+          <button id="vp-fhd" onclick="setViewport('1920', this)" class="vp-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold transition">
+            1920×1080 (FHD)
+          </button>
+          <button id="vp-laptop" onclick="setViewport('1440', this)" class="vp-btn px-2.5 py-1 rounded-lg hover:text-white transition">
+            1440×900 (Laptop)
+          </button>
+          <button id="vp-standard" onclick="setViewport('1280', this)" class="vp-btn px-2.5 py-1 rounded-lg hover:text-white transition">
+            1280×720 (HD)
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 bg-emerald-950/50 border border-emerald-500/30 px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-300">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          <span>Direct Spelen • 0 MB Blokkerend</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- INTERACTIVE MODE SELECTOR BAR -->
+  <nav class="bg-slate-900/70 border-b border-slate-800 px-6 py-2.5 backdrop-blur-sm sticky top-[73px] z-40">
+    <div class="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar">
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-400 mr-2 shrink-0">
+        Kies Spelmodus:
+      </span>
+      
+      <button onclick="switchMode('start-select')" id="tab-start-select" class="mode-tab active flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap bg-amber-400 text-slate-950 shadow-md">
+        <span>🌟</span> 1. Start & Avonturenselectie
+      </button>
+
+      <button onclick="switchMode('kies-woord')" id="tab-kies-woord" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>🔤</span> 2. Kies het Woord (Quiz)
+      </button>
+
+      <button onclick="switchMode('zeg-en-zet')" id="tab-zeg-en-zet" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>🏖️</span> 3. Zeg & Zet (Plaatsen & Spraak)
+      </button>
+
+      <button onclick="switchMode('zeg-en-vlieg')" id="tab-zeg-en-vlieg" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>🕊️</span> 4. Zeg & Vlieg (Side-Scroller)
+      </button>
+
+      <button onclick="switchMode('zeg-en-bouw')" id="tab-zeg-en-bouw" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>🏰</span> 5. Zeg & Bouw (Vrij Strand)
+      </button>
+
+      <button onclick="switchMode('beloningen')" id="tab-beloningen" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>💎</span> 6. Beloningen & Voortgang
+      </button>
+
+      <button onclick="switchMode('instellingen')" id="tab-instellingen" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-800/80">
+        <span>⚙️</span> 7. Instellingen & Privacy
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN WRAPPER: WIREFRAME PREVIEW + DESIGN SPECIFICATIONS -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-8">
+
+    <!-- DESKTOP BROWSER FRAME -->
+    <div class="flex flex-col rounded-2xl border border-slate-700/80 bg-slate-900 shadow-2xl overflow-hidden game-canvas-shadow transition-all duration-300 mx-auto w-full" id="browser-window-frame" style="max-width: 100%;">
+      
+      <!-- OS CHROME WINDOW BAR -->
+      <div class="flex items-center justify-between px-4 py-2.5 bg-slate-800/90 border-b border-slate-700 text-xs text-slate-400 select-none">
+        <div class="flex items-center gap-2">
+          <div class="flex gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          </div>
+          <span class="ml-2 font-mono text-[11px] text-slate-400">Desktop Webbrowser • 16:9 Canvas</span>
+        </div>
+
+        <!-- URL BAR WITH STREAMING BADGE -->
+        <div class="flex items-center justify-center flex-1 max-w-xl mx-4">
+          <div class="w-full bg-slate-950/80 border border-slate-700/60 rounded-lg px-3 py-1 flex items-center justify-between text-slate-300 font-mono text-xs">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-emerald-400 text-xs">🔒</span>
+              <span class="text-slate-400">https://</span>
+              <span class="text-white font-semibold">gamewereld.nl</span>
+              <span class="text-amber-400">/games/magisch-strand-avontuur</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 shrink-0">
+              ⚡ Web Streaming (Geen Gate)
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 text-xs">
+          <span class="text-slate-400" id="current-viewport-label">1920 × 1080 (16:9)</span>
+          <button onclick="toggleFullscreenSimulator()" class="hover:text-white transition" title="Wissel Widescreen weergave">
+            ⛶
+          </button>
+        </div>
+      </div>
+
+      <!-- GAME SCREEN WIREFRAME STAGE (16:9 CONTAINER) -->
+      <div id="game-stage-container" class="relative w-full aspect-video bg-gradient-to-b from-sky-400 via-sky-200 to-amber-100 overflow-hidden select-none">
+        
+        <!-- ================================================================= -->
+        <!-- SCREEN 1: START & AVONTURENSELECTIE (MODUS 1) -->
+        <!-- ================================================================= -->
+        <div id="mode-start-select" class="mode-view absolute inset-0 flex flex-col justify-between p-6 sm:p-8 bg-cover bg-center" style="background-image: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.4), transparent 70%), linear-gradient(to bottom, #38bdf8 0%, #bae6fd 45%, #fde68a 85%, #f59e0b 100%);">
+          
+          <!-- DESKTOP TOP HUD -->
+          <div class="flex items-center justify-between z-20">
+            <!-- Profiel & Sterren Badge -->
+            <div class="flex items-center gap-3 glass-panel px-4 py-2 rounded-2xl shadow-lg border border-white/40">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-200 flex items-center justify-center text-xl shadow-md">
+                🐬
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-800">Speler: Robin</div>
+                <div class="flex items-center gap-1.5 text-amber-600 font-black text-sm">
+                  <span>⭐</span> <span id="mock-stars-count">12</span> <span class="text-[11px] text-slate-600 font-semibold">Strandsterren</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Streaming Status indicator (Desktop Special) -->
+            <div class="glass-panel px-3.5 py-1.5 rounded-xl border border-emerald-400/40 text-emerald-950 font-bold text-xs flex items-center gap-2 bg-emerald-100/80 shadow">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Webbrowser Modus: Direct spelen zonder wachttijd</span>
+            </div>
+
+            <!-- Snelle Knoppen -->
+            <div class="flex items-center gap-2.5">
+              <button onclick="switchMode('beloningen')" class="glass-panel hover:bg-white/90 p-2.5 rounded-xl border border-white/50 text-slate-800 font-bold text-xs flex items-center gap-1.5 shadow transition transform hover:-translate-y-0.5">
+                <span>🏆</span> Beloningen
+              </button>
+              <button onclick="switchMode('instellingen')" class="glass-panel hover:bg-white/90 p-2.5 rounded-xl border border-white/50 text-slate-800 font-bold text-xs flex items-center gap-1.5 shadow transition transform hover:-translate-y-0.5">
+                <span>⚙️</span> Instellingen
+              </button>
+            </div>
+          </div>
+
+          <!-- DESKTOP HERO & WERELDKAART -->
+          <div class="flex-1 flex flex-col items-center justify-center z-20 my-4">
+            <div class="text-center mb-6">
+              <span class="inline-block px-4 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-widest shadow-md mb-2">
+                Desktop Editie • 100% Lokaal & Privacyvriendelijk
+              </span>
+              <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight drop-shadow-sm">
+                Magisch Strand-Avontuur
+              </h2>
+              <p class="text-sm sm:text-base text-slate-700 font-semibold max-w-xl mx-auto mt-1">
+                Kies je favoriete spelmodus en begin direct met praten, bouwen en ontdekken!
+              </p>
+            </div>
+
+            <!-- MODUS KEUZEKAARTEN (DESKTOP 4-KOLOMS GRID MET HOVER STATES) -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl">
+              
+              <!-- Kaart 1: Kies het Woord -->
+              <div onclick="switchMode('kies-woord')" class="group cursor-pointer glass-panel bg-white/85 hover:bg-white p-4 rounded-2xl border-2 border-sky-300 hover:border-sky-500 shadow-xl transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-sky-100 flex items-center justify-center text-3xl group-hover:scale-110 transition shadow-inner">
+                  🔤
+                </div>
+                <h3 class="font-black text-slate-900 text-base mt-2">Kies het Woord</h3>
+                <p class="text-xs text-slate-600 mt-0.5 font-medium">Receptieve woordenschat met instructievideo's</p>
+                <div class="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">
+                  <span>🟢 Direct open</span> • Vanaf 0 ⭐
+                </div>
+              </div>
+
+              <!-- Kaart 2: Zeg & Zet -->
+              <div onclick="switchMode('zeg-en-zet')" class="group cursor-pointer glass-panel bg-white/85 hover:bg-white p-4 rounded-2xl border-2 border-amber-300 hover:border-amber-500 shadow-xl transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center text-3xl group-hover:scale-110 transition shadow-inner">
+                  🏖️
+                </div>
+                <h3 class="font-black text-slate-900 text-base mt-2">Zeg & Zet</h3>
+                <p class="text-xs text-slate-600 mt-0.5 font-medium">Plaats stickers met spraak of muis op het strand</p>
+                <div class="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                  <span>⭐ Vanaf 3 ⭐</span> • Speelbaar!
+                </div>
+              </div>
+
+              <!-- Kaart 3: Zeg & Vlieg -->
+              <div onclick="switchMode('zeg-en-vlieg')" class="group cursor-pointer glass-panel bg-white/85 hover:bg-white p-4 rounded-2xl border-2 border-emerald-300 hover:border-emerald-500 shadow-xl transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center text-3xl group-hover:scale-110 transition shadow-inner">
+                  🕊️
+                </div>
+                <h3 class="font-black text-slate-900 text-base mt-2">Zeg & Vlieg</h3>
+                <p class="text-xs text-slate-600 mt-0.5 font-medium">Stemgestuurde side-scroller met 3 schildjes</p>
+                <div class="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  <span>⭐ Vanaf 6 ⭐</span> • Speelbaar!
+                </div>
+              </div>
+
+              <!-- Kaart 4: Zeg & Bouw -->
+              <div onclick="switchMode('zeg-en-bouw')" class="group cursor-pointer glass-panel bg-white/85 hover:bg-white p-4 rounded-2xl border-2 border-purple-300 hover:border-purple-500 shadow-xl transition-all duration-200 transform hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center text-3xl group-hover:scale-110 transition shadow-inner">
+                  🏰
+                </div>
+                <h3 class="font-black text-slate-900 text-base mt-2">Zeg & Bouw</h3>
+                <p class="text-xs text-slate-600 mt-0.5 font-medium">Vrij strand bouwen met samengestelde zinnen</p>
+                <div class="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">
+                  <span>🎨 Creatief</span> • Vrij spel
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DESKTOP BOTTOM ACTION BAR -->
+          <div class="flex items-center justify-between z-20 pt-2 border-t border-slate-900/10 text-xs text-slate-700 font-semibold">
+            <div class="flex items-center gap-4">
+              <span>⌨️ Sneltoetsen: <kbd class="px-1.5 py-0.5 rounded bg-white shadow text-slate-900 border font-bold text-[10px]">1-4</kbd> Kies modus</span>
+              <span>•</span>
+              <span><kbd class="px-1.5 py-0.5 rounded bg-white shadow text-slate-900 border font-bold text-[10px]">Spatie</kbd> Direct starten</span>
+            </div>
+            <div class="text-slate-600 font-medium">
+              Geen installatie nodig • Direct in Google Chrome / Safari / Edge / Firefox
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 2: KIES HET WOORD (MODUS 2) -->
+        <!-- ================================================================= -->
+        <div id="mode-kies-woord" class="mode-view hidden absolute inset-0 flex flex-col p-6 bg-gradient-to-b from-sky-300 via-sky-100 to-amber-50">
+          
+          <!-- TOP HUD -->
+          <div class="flex items-center justify-between mb-4">
+            <button onclick="switchMode('start-select')" class="glass-panel bg-white/90 hover:bg-white px-3.5 py-2 rounded-xl text-xs font-black text-slate-800 border border-white shadow flex items-center gap-1.5 transition">
+              ← Menu
+            </button>
+
+            <!-- Ronde & Opdracht Titel -->
+            <div class="glass-panel bg-white/90 px-5 py-2 rounded-2xl border border-white shadow text-center">
+              <span class="text-[11px] font-black uppercase tracking-wider text-sky-700">Opdracht 2 van 6</span>
+              <h3 class="text-base font-black text-slate-900">"Waar is de boot?"</h3>
+            </div>
+
+            <!-- Sterren & Hint -->
+            <div class="flex items-center gap-2">
+              <button onclick="alert('Hint: De boot drijft op het blauwe water!')" class="glass-panel bg-amber-100/90 hover:bg-amber-200/90 px-3.5 py-2 rounded-xl text-xs font-bold text-amber-900 border border-amber-300 shadow flex items-center gap-1.5 transition">
+                <span>💡</span> Hint
+              </button>
+              <div class="glass-panel bg-white/90 px-3.5 py-2 rounded-xl text-xs font-black text-amber-600 border border-white shadow flex items-center gap-1">
+                <span>⭐</span> 14
+              </div>
+            </div>
+          </div>
+
+          <!-- DESKTOP WIDESCREEN 2-KOLOMS INDELING: LINKS VIDEO/INSTRUCTIE, RECHTS 4-KOLOMS ANTWOORDRASTER -->
+          <div class="flex-1 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 items-center">
+            
+            <!-- LINKER KOLOM: VIDEO INSTRUCTIEPANEEL -->
+            <div class="glass-panel bg-white/85 rounded-3xl p-5 border border-white shadow-xl flex flex-col items-center justify-between h-full max-h-[440px]">
+              <div class="w-full text-center">
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Video-opdracht</span>
+                <div class="mt-2 w-full aspect-video bg-slate-900 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shadow-inner border border-slate-700">
+                  <div class="text-4xl animate-bounce">⛵</div>
+                  <div class="absolute bottom-2 left-2 right-2 bg-slate-950/80 backdrop-blur rounded px-2 py-1 text-[11px] text-white flex items-center justify-between">
+                    <span>Instructieclip (480p)</span>
+                    <span class="text-emerald-400 font-mono">0:03</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full mt-4 space-y-2">
+                <button onclick="simulateAudioPlayback('Waar is de boot?')" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                  Herhaal Vraag (Spatiebalk)
+                </button>
+                <p class="text-[11px] text-slate-500 text-center font-medium">
+                  Gebruik de muis of druk op toets <kbd class="px-1 bg-slate-200 rounded font-bold">1</kbd>-<kbd class="px-1 bg-slate-200 rounded font-bold">4</kbd>
+                </p>
+              </div>
+            </div>
+
+            <!-- RECHTER KOLOM: 4 GROTE VISUELE ANTWOORDKAARTEN -->
+            <div class="grid grid-cols-2 gap-5 h-full max-h-[440px]">
+              
+              <!-- Optie 1: Krab -->
+              <div onclick="selectWordChoice(1, false, this)" class="choice-card group cursor-pointer glass-panel bg-white/90 hover:bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-sky-400 shadow-xl flex flex-col items-center justify-center relative transition-all duration-200 transform hover:-translate-y-1">
+                <span class="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 font-bold font-mono text-xs border">
+                  [1]
+                </span>
+                <div class="text-6xl group-hover:scale-110 transition">🦀</div>
+                <div class="text-lg font-black text-slate-800 mt-3">de krab</div>
+              </div>
+
+              <!-- Optie 2: Boot (Goed) -->
+              <div onclick="selectWordChoice(2, true, this)" class="choice-card group cursor-pointer glass-panel bg-white/90 hover:bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-emerald-400 shadow-xl flex flex-col items-center justify-center relative transition-all duration-200 transform hover:-translate-y-1">
+                <span class="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 font-bold font-mono text-xs border">
+                  [2]
+                </span>
+                <div class="text-6xl group-hover:scale-110 transition">⛵</div>
+                <div class="text-lg font-black text-slate-800 mt-3">de boot</div>
+              </div>
+
+              <!-- Optie 3: Zandkasteel -->
+              <div onclick="selectWordChoice(3, false, this)" class="choice-card group cursor-pointer glass-panel bg-white/90 hover:bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-sky-400 shadow-xl flex flex-col items-center justify-center relative transition-all duration-200 transform hover:-translate-y-1">
+                <span class="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 font-bold font-mono text-xs border">
+                  [3]
+                </span>
+                <div class="text-6xl group-hover:scale-110 transition">🏰</div>
+                <div class="text-lg font-black text-slate-800 mt-3">het zandkasteel</div>
+              </div>
+
+              <!-- Optie 4: Dolfijn -->
+              <div onclick="selectWordChoice(4, false, this)" class="choice-card group cursor-pointer glass-panel bg-white/90 hover:bg-white p-6 rounded-3xl border-2 border-slate-200 hover:border-sky-400 shadow-xl flex flex-col items-center justify-center relative transition-all duration-200 transform hover:-translate-y-1">
+                <span class="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 font-bold font-mono text-xs border">
+                  [4]
+                </span>
+                <div class="text-6xl group-hover:scale-110 transition">🐬</div>
+                <div class="text-lg font-black text-slate-800 mt-3">de dolfijn</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FEEDBACK POPUP -->
+          <div id="choice-feedback-toast" class="hidden absolute bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-2xl text-sm font-black shadow-2xl transition flex items-center gap-3"></div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 3: ZEG & ZET (MODUS 3) -->
+        <!-- ================================================================= -->
+        <div id="mode-zeg-en-zet" class="mode-view hidden absolute inset-0 flex flex-col justify-between p-4 sm:p-6 bg-cover bg-center" style="background-image: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.3), transparent 70%), linear-gradient(to bottom, #38bdf8 0%, #7dd3fc 35%, #fde68a 70%, #f59e0b 100%);">
+          
+          <!-- TOP HUD & INSTRUCTIEKAART -->
+          <div class="flex items-start justify-between z-30">
+            <button onclick="switchMode('start-select')" class="glass-panel bg-white/90 hover:bg-white px-3 py-1.5 rounded-xl text-xs font-black text-slate-800 border border-white shadow flex items-center gap-1.5 transition">
+              ← Menu
+            </button>
+
+            <!-- COMPACT INSTRUCTION CARD -->
+            <div class="glass-panel bg-white/95 rounded-2xl p-3 border border-white shadow-xl max-w-xl w-full flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-amber-400 flex items-center justify-center text-2xl shadow">
+                  🦜
+                </div>
+                <div>
+                  <div class="text-[10px] font-black uppercase text-amber-700 tracking-wider">Opdracht 1 van 5</div>
+                  <div class="text-sm font-black text-slate-900" id="current-zeg-zet-instruction">
+                    "Zet de boot in de zee"
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="simulateAudioPlayback('Zet de boot in de zee')" class="p-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold text-xs border border-sky-300 transition" title="Herhaal opdracht">
+                  🔊
+                </button>
+                <button onclick="toggleDesktopTypeInput()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-300 transition" title="Typ alternatief (T)">
+                  ⌨️
+                </button>
+              </div>
+            </div>
+
+            <!-- STERREN -->
+            <div class="glass-panel bg-white/90 px-3.5 py-2 rounded-xl text-xs font-black text-amber-600 border border-white shadow flex items-center gap-1.5">
+              <span>⭐</span> 12
+            </div>
+          </div>
+
+          <!-- SPEELVELD MET INTERACTIEVE ZONES OP HET STRAND -->
+          <div class="relative flex-1 my-2 z-10">
+            
+            <!-- ZONE 1: LUCHT -->
+            <div onclick="placeItemInZone('lucht')" class="zone-target group absolute top-[8%] left-[20%] right-[20%] h-[24%] border-2 border-dashed border-sky-400/60 hover:border-sky-500 rounded-2xl bg-sky-400/15 hover:bg-sky-400/30 flex items-center justify-center text-xs font-bold text-sky-900 transition cursor-pointer">
+              <span class="bg-white/80 px-3 py-1 rounded-full shadow-sm group-hover:scale-105 transition">
+                ☁️ Lucht (boven de zee)
+              </span>
+            </div>
+
+            <!-- ZONE 2: ZEE (TARGET ZONE) -->
+            <div onclick="placeItemInZone('zee')" id="target-zone-sea" class="zone-target group absolute top-[36%] left-[8%] w-[45%] h-[40%] border-2 border-dashed border-sky-500 hover:border-emerald-500 rounded-3xl bg-sky-500/20 hover:bg-emerald-500/25 flex flex-col items-center justify-center text-xs font-black text-sky-950 transition cursor-pointer pulse-glow">
+              <span class="bg-amber-300 text-slate-950 px-3 py-1 rounded-full shadow-md text-xs font-black mb-1">
+                👉 Doelzone: De Zee
+              </span>
+              <span class="text-[11px] text-sky-900 bg-white/70 px-2 py-0.5 rounded">Klik of sleep hier naartoe</span>
+              <div id="placed-sea-item" class="hidden text-5xl animate-bounce mt-1">⛵</div>
+            </div>
+
+            <!-- ZONE 3: STRAND -->
+            <div onclick="placeItemInZone('strand')" class="zone-target group absolute top-[48%] right-[8%] w-[42%] h-[42%] border-2 border-dashed border-amber-500/60 hover:border-amber-500 rounded-3xl bg-amber-400/20 hover:bg-amber-400/35 flex items-center justify-center text-xs font-bold text-amber-950 transition cursor-pointer">
+              <span class="bg-white/80 px-3 py-1 rounded-full shadow-sm group-hover:scale-105 transition">
+                🏖️ Strand (op het strand)
+              </span>
+            </div>
+
+            <!-- ZWEVENDE HOGE SPEECH WAVE ANIMATION (T-34/T-35) -->
+            <div id="speech-wave-overlay" class="hidden absolute top-[4%] left-1/2 -translate-x-1/2 z-50 glass-panel bg-slate-900/95 text-white px-6 py-3 rounded-2xl border border-sky-400 shadow-2xl flex items-center gap-4 animate-fade-in">
+              <div class="flex items-center gap-1.5 h-8">
+                <span class="wave-bar w-1.5 bg-amber-400 rounded-full" style="animation-delay: 0.1s"></span>
+                <span class="wave-bar w-1.5 bg-sky-400 rounded-full" style="animation-delay: 0.3s"></span>
+                <span class="wave-bar w-1.5 bg-emerald-400 rounded-full" style="animation-delay: 0.2s"></span>
+                <span class="wave-bar w-1.5 bg-amber-300 rounded-full" style="animation-delay: 0.4s"></span>
+                <span class="wave-bar w-1.5 bg-sky-300 rounded-full" style="animation-delay: 0.15s"></span>
+              </div>
+              <div>
+                <div class="text-xs font-black text-amber-300">Ik luister rustig naar je... (100% Lokaal)</div>
+                <div class="text-[11px] text-slate-300 font-mono" id="voice-transcript-mock">"Zet de boot in de zee..."</div>
+              </div>
+              <button onclick="completeSpeechPlacement()" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition">
+                Simuleer Herkenning
+              </button>
+            </div>
+
+            <!-- INLINE DESKTOP TYP-INVOERBALK -->
+            <div id="desktop-type-bar" class="hidden absolute top-[12%] left-1/2 -translate-x-1/2 z-40 glass-panel bg-white/95 text-slate-900 p-3 rounded-2xl border border-sky-300 shadow-2xl flex items-center gap-2 w-full max-w-md">
+              <input type="text" id="type-input-field" placeholder="Typ bijv. 'Zet de boot in de zee'..." class="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold outline-none focus:border-sky-500">
+              <button onclick="submitTypedCommand()" class="px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs">
+                Verzend
+              </button>
+            </div>
+          </div>
+
+          <!-- DESKTOP ONDERZIJDE: STICKER DOCK & MICROFOON -->
+          <div class="z-30 flex items-center justify-between gap-4">
+            
+            <button onclick="toggleDesktopMic()" id="desktop-mic-btn" class="glass-panel bg-amber-400 hover:bg-amber-300 text-slate-950 px-5 py-3 rounded-2xl font-black text-sm border-2 border-white shadow-xl flex items-center gap-2.5 transition transform hover:scale-105 shrink-0">
+              <span class="text-xl">🎙️</span>
+              <div class="text-left">
+                <div class="leading-none">Spreek In</div>
+                <span class="text-[10px] text-slate-800 font-bold font-mono">(Toets: M of Spatie)</span>
+              </div>
+            </button>
+
+            <!-- HORIZONTALE DOCK MET HOVER ZOOM -->
+            <div class="flex-1 glass-panel bg-white/90 rounded-2xl p-2.5 border border-white/60 shadow-xl flex items-center gap-3 overflow-x-auto max-w-3xl">
+              <span class="text-[10px] font-black uppercase text-slate-500 px-2 shrink-0">Stickers:</span>
+              
+              <button onclick="selectSticker('boot', this)" class="sticker-btn group p-2 rounded-xl bg-amber-100 border-2 border-amber-400 shadow flex flex-col items-center shrink-0 transition transform hover:scale-110">
+                <span class="text-3xl">⛵</span>
+                <span class="text-[10px] font-bold text-slate-800 mt-0.5">de boot</span>
+              </button>
+
+              <button onclick="selectSticker('bal', this)" class="sticker-btn group p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 shadow-sm flex flex-col items-center shrink-0 transition transform hover:scale-110">
+                <span class="text-3xl">⚽</span>
+                <span class="text-[10px] font-bold text-slate-800 mt-0.5">de bal</span>
+              </button>
+
+              <button onclick="selectSticker('dolfijn', this)" class="sticker-btn group p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 shadow-sm flex flex-col items-center shrink-0 transition transform hover:scale-110">
+                <span class="text-3xl">🐬</span>
+                <span class="text-[10px] font-bold text-slate-800 mt-0.5">de dolfijn</span>
+              </button>
+
+              <button onclick="selectSticker('parasol', this)" class="sticker-btn group p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 shadow-sm flex flex-col items-center shrink-0 transition transform hover:scale-110">
+                <span class="text-3xl">⛱️</span>
+                <span class="text-[10px] font-bold text-slate-800 mt-0.5">de parasol</span>
+              </button>
+
+              <button onclick="selectSticker('krab', this)" class="sticker-btn group p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 shadow-sm flex flex-col items-center shrink-0 transition transform hover:scale-110">
+                <span class="text-3xl">🦀</span>
+                <span class="text-[10px] font-bold text-slate-800 mt-0.5">de krab</span>
+              </button>
+            </div>
+
+            <button onclick="showZegZetHint()" class="glass-panel bg-white/80 hover:bg-white text-slate-800 px-4 py-3 rounded-2xl font-bold text-xs border border-white shadow-xl flex items-center gap-1.5 transition shrink-0">
+              <span>💡</span> Hint
+            </button>
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 4: ZEG & VLIEG (MODUS 4) -->
+        <!-- ================================================================= -->
+        <div id="mode-zeg-en-vlieg" class="mode-view hidden absolute inset-0 flex flex-col justify-between p-6 bg-cover bg-center overflow-hidden" style="background-image: linear-gradient(to right, #0284c7, #38bdf8, #7dd3fc, #bae6fd);">
+          
+          <div class="flex items-center justify-between z-30">
+            <button onclick="switchMode('start-select')" class="glass-panel bg-white/90 hover:bg-white px-3.5 py-1.5 rounded-xl text-xs font-black text-slate-800 border border-white shadow">
+              ← Menu
+            </button>
+
+            <!-- 3 SCHILDJES -->
+            <div class="glass-panel bg-white/95 px-4 py-2 rounded-2xl border border-white shadow flex items-center gap-2">
+              <span class="text-xs font-black text-slate-700 uppercase tracking-wider mr-1">Schildjes:</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xl text-emerald-500 drop-shadow">🛡️</span>
+                <span class="text-xl text-emerald-500 drop-shadow">🛡️</span>
+                <span class="text-xl text-slate-300 opacity-60">🛡️</span>
+              </div>
+              <span class="text-[11px] font-bold text-emerald-700 ml-1">(2/3 Over)</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="glass-panel bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-xl font-black text-xs shadow flex items-center gap-1">
+                <span>🔥</span> Combo 3x (+1 ⭐)
+              </div>
+              <div class="glass-panel bg-white/90 text-amber-600 px-3.5 py-1.5 rounded-xl font-black text-xs shadow border border-white flex items-center gap-1">
+                <span>⭐</span> 18
+              </div>
+            </div>
+          </div>
+
+          <!-- SIDE-SCROLLER SIMULATIE -->
+          <div class="relative flex-1 my-4 flex items-center justify-between">
+            <div class="absolute left-[12%] top-[40%] flex items-center gap-2 animate-pulse">
+              <div class="text-5xl filter drop-shadow-xl">🧙‍♂️</div>
+              <div class="px-2 py-0.5 rounded bg-sky-950/80 text-white font-mono text-[10px] border border-sky-400">
+                Speler (↑ / ↓)
+              </div>
+            </div>
+
+            <div class="absolute top-2 left-1/2 -translate-x-1/2 glass-panel bg-slate-900/90 border border-sky-400 px-4 py-1.5 rounded-full flex items-center gap-3 text-xs text-white">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>Spreek het object uit: <strong class="text-amber-300">"DOLFIJN!"</strong></span>
+              <div class="flex items-center gap-1">
+                <span class="h-3 w-1 bg-amber-400 rounded"></span>
+                <span class="h-5 w-1 bg-sky-400 rounded"></span>
+                <span class="h-4 w-1 bg-emerald-400 rounded"></span>
+              </div>
+            </div>
+
+            <div class="absolute right-[25%] top-[35%] flex flex-col items-center animate-bounce">
+              <div class="text-6xl filter drop-shadow-2xl">🐬</div>
+              <span class="mt-1 px-2.5 py-0.5 rounded-full bg-amber-300 text-slate-950 font-black text-xs shadow border border-white">
+                "Dolfijn"
+              </span>
+            </div>
+
+            <div class="absolute right-[10%] top-[70%] flex flex-col items-center opacity-90">
+              <div class="text-5xl filter drop-shadow-lg">🦅</div>
+              <span class="px-2 py-0.5 rounded bg-rose-500 text-white font-bold text-[10px]">
+                Ontwijk! (↑ omhoog)
+              </span>
+            </div>
+          </div>
+
+          <!-- BEDIENINGSHINT -->
+          <div class="flex items-center justify-between z-30 glass-panel bg-white/90 p-3 rounded-2xl border border-white shadow text-xs text-slate-800">
+            <div class="flex items-center gap-3">
+              <span class="font-black text-slate-900">Desktop Besturing:</span>
+              <span><kbd class="px-1.5 py-0.5 rounded bg-slate-200 font-bold">↑</kbd> of <kbd class="px-1.5 py-0.5 rounded bg-slate-200 font-bold">W</kbd> Vlieg Omhoog</span>
+              <span>•</span>
+              <span><kbd class="px-1.5 py-0.5 rounded bg-slate-200 font-bold">↓</kbd> of <kbd class="px-1.5 py-0.5 rounded bg-slate-200 font-bold">S</kbd> Vlieg Omlaag</span>
+              <span>•</span>
+              <span class="text-slate-600">Of beweeg de muiscursor verticaal</span>
+            </div>
+            <div class="text-emerald-700 font-bold">
+              🎙️ Microfoon luistert continu (één actieve sessie • T-48)
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 5: ZEG & BOUW (MODUS 5) -->
+        <!-- ================================================================= -->
+        <div id="mode-zeg-en-bouw" class="mode-view hidden absolute inset-0 flex flex-col justify-between p-6 bg-cover bg-center" style="background-image: linear-gradient(to bottom, #7dd3fc, #bae6fd, #fde68a, #f59e0b);">
+          
+          <div class="flex items-center justify-between z-20">
+            <button onclick="switchMode('start-select')" class="glass-panel bg-white/90 hover:bg-white px-3.5 py-1.5 rounded-xl text-xs font-black text-slate-800 border border-white shadow">
+              ← Menu
+            </button>
+            <div class="glass-panel bg-white/95 px-5 py-2 rounded-2xl border border-white shadow text-center">
+              <span class="text-[10px] font-black uppercase text-purple-700 tracking-wider">Vrij Creatief Strand</span>
+              <h3 class="text-sm font-black text-slate-900">Bouw je eigen strand • Spreek samengestelde zinnen in</h3>
+            </div>
+            <div class="glass-panel bg-white/90 text-purple-700 px-3.5 py-1.5 rounded-xl font-black text-xs shadow border border-white">
+              7 / 10 Objecten
+            </div>
+          </div>
+
+          <!-- SPEELVELD MET MEERDERE OBJECTEN -->
+          <div class="relative flex-1 my-2 flex items-center justify-center">
+            <div class="absolute bottom-8 left-16 text-5xl">🏰</div>
+            <div class="absolute bottom-12 left-32 text-4xl">🦀</div>
+            <div class="absolute top-10 right-28 text-5xl">🪁</div>
+            <div class="absolute bottom-6 right-20 text-5xl">⛱️</div>
+
+            <div class="glass-panel bg-slate-900/90 text-white p-4 rounded-3xl border border-purple-400 max-w-lg text-center shadow-2xl">
+              <div class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-1">Compound Spraakherkenning</div>
+              <p class="text-sm font-black text-amber-300">
+                "Leg de bal naast de parasol en zet de boot in de zee"
+              </p>
+              <div class="mt-2 flex items-center justify-center gap-2 text-[11px] text-slate-300">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                  ✨ 2 Objecten in 1 zin = Bonusster!
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="z-20 glass-panel bg-white/95 p-3 rounded-2xl border border-white shadow-xl flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+              <button class="px-3 py-1 rounded-xl bg-purple-600 text-white font-bold text-xs">Strandspullen</button>
+              <button class="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">Dieren</button>
+              <button class="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">Natuur</button>
+            </div>
+            <div class="text-xs text-slate-500 font-semibold">
+              Klik op een sticker of spreek een hele zin in met de microfoon
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 6: BELONINGEN & VOORTGANG (MODUS 6) -->
+        <!-- ================================================================= -->
+        <div id="mode-beloningen" class="mode-view hidden absolute inset-0 flex flex-col justify-between p-6 bg-gradient-to-br from-amber-500 via-amber-300 to-yellow-100">
+          
+          <div class="flex items-center justify-between z-20">
+            <button onclick="switchMode('start-select')" class="glass-panel bg-white/90 hover:bg-white px-3.5 py-1.5 rounded-xl text-xs font-black text-slate-800 border border-white shadow">
+              ← Menu
+            </button>
+            <h3 class="text-xl font-black text-slate-900">Strandschatten & Beloningen</h3>
+            <div class="glass-panel bg-white/90 text-amber-600 px-3.5 py-1.5 rounded-xl font-black text-xs shadow border border-white">
+              ⭐ 12 Totaal
+            </div>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center justify-center my-4">
+            <div class="glass-panel bg-white/90 p-6 rounded-3xl border-2 border-white shadow-2xl max-w-3xl w-full">
+              <div class="text-center mb-4">
+                <span class="text-xs font-black uppercase text-amber-700 tracking-wider">Volgende Beloning bij 16 ⭐ (nog 4 te gaan!)</span>
+                <div class="w-full bg-slate-200 h-3 rounded-full mt-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-amber-400 to-emerald-500 h-full w-[75%] rounded-full"></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-4 gap-4 text-center">
+                <div class="p-3 bg-amber-50 rounded-2xl border-2 border-amber-300">
+                  <div class="text-4xl">🐚</div>
+                  <div class="text-xs font-bold text-slate-800 mt-1">Gouden Schelp</div>
+                  <span class="text-[10px] text-emerald-600 font-bold">Ontgrendeld!</span>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-2xl border-2 border-amber-300">
+                  <div class="text-4xl">👑</div>
+                  <div class="text-xs font-bold text-slate-800 mt-1">Zandkroon</div>
+                  <span class="text-[10px] text-emerald-600 font-bold">Ontgrendeld!</span>
+                </div>
+                <div class="p-3 bg-slate-100 rounded-2xl border-2 border-dashed border-slate-300 opacity-60">
+                  <div class="text-4xl filter grayscale">🐬</div>
+                  <div class="text-xs font-bold text-slate-600 mt-1">Glimmende Dolfijn</div>
+                  <span class="text-[10px] text-slate-500 font-bold">Bij 16 ⭐</span>
+                </div>
+                <div class="p-3 bg-slate-100 rounded-2xl border-2 border-dashed border-slate-300 opacity-60">
+                  <div class="text-4xl filter grayscale">💎</div>
+                  <div class="text-xs font-bold text-slate-600 mt-1">Zeeparel</div>
+                  <span class="text-[10px] text-slate-500 font-bold">Bij 28 ⭐</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-700 font-semibold">
+            Beloningen blijven lokaal opgeslagen op deze computer (IndexedDB)
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SCREEN 7: INSTELLINGEN & PRIVACY (MODUS 7) -->
+        <!-- ================================================================= -->
+        <div id="mode-instellingen" class="mode-view hidden absolute inset-0 flex flex-col justify-between p-6 bg-slate-900 text-white">
+          
+          <div class="flex items-center justify-between z-20">
+            <button onclick="switchMode('start-select')" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-black text-white border border-slate-700 shadow">
+              ← Menu
+            </button>
+            <h3 class="text-lg font-black text-white">Instellingen & Desktop Opties</h3>
+            <span class="text-xs text-slate-400 font-mono">v1.4.0 • Web</span>
+          </div>
+
+          <div class="flex-1 flex items-center justify-center my-4">
+            <div class="bg-slate-800/90 p-6 rounded-3xl border border-slate-700 max-w-xl w-full space-y-4 shadow-2xl">
+              
+              <div class="flex items-center justify-between p-3 bg-slate-900/60 rounded-2xl border border-slate-700/60">
+                <div>
+                  <div class="font-bold text-sm text-white">Geluidseffecten & Stemmen</div>
+                  <div class="text-xs text-slate-400">Gesproken feedback en aanwijzingen</div>
+                </div>
+                <button class="w-12 h-6 rounded-full bg-emerald-500 p-1 flex justify-end">
+                  <span class="w-4 h-4 rounded-full bg-white block"></span>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between p-3 bg-slate-900/60 rounded-2xl border border-slate-700/60">
+                <div>
+                  <div class="font-bold text-sm text-white">Achtergrondmuziek</div>
+                  <div class="text-xs text-slate-400">Rustige strandmuziek tijdens het spelen</div>
+                </div>
+                <button class="w-12 h-6 rounded-full bg-emerald-500 p-1 flex justify-end">
+                  <span class="w-4 h-4 rounded-full bg-white block"></span>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between p-3 bg-slate-900/60 rounded-2xl border border-slate-700/60">
+                <div>
+                  <div class="font-bold text-sm text-white">Rustige Animaties</div>
+                  <div class="text-xs text-slate-400">Dempt zweef- en sparkle-effecten voor rustige focus</div>
+                </div>
+                <button class="w-12 h-6 rounded-full bg-slate-700 p-1 flex justify-start">
+                  <span class="w-4 h-4 rounded-full bg-white block"></span>
+                </button>
+              </div>
+
+              <div class="p-3 bg-emerald-950/50 border border-emerald-500/30 rounded-2xl text-xs text-emerald-200">
+                <div class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1">
+                  <span>🔒</span> 100% Lokale Privacy & Geen Cloud-Audio
+                </div>
+                Spraakherkenning draait uitsluitend in je lokale browser. Er worden nooit audio-opnames of persoonsgegevens naar externe servers gestuurd.
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-500">
+            Desktop Webbrowser behoudt streaming zonder vereiste download van offline pakketten.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- UX ARCHITECTUUR & SPECIFICATIE PANELEN PER MODUS -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <div class="glass-panel p-6 rounded-3xl border border-slate-800">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="p-2.5 rounded-xl bg-sky-500/20 text-sky-400 text-lg">🖥️</span>
+          <div>
+            <h3 class="font-black text-white text-base">Desktop Ergonomie</h3>
+            <span class="text-xs text-slate-400 font-medium">Muis, Toetsenbord & 16:9 Canvas</span>
+          </div>
+        </div>
+        <ul class="space-y-3 text-xs text-slate-300 leading-relaxed">
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Geen Vingerbedekking:</strong> In tegenstelling tot tablet en smartphone is het hele speelveld 100% zichtbaar. Geen duimen die over de stickers of zones heen vallen.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Cursor Hover-Affordance:</strong> Knoppen, stickers en doelzones lichten subtiel op bij hoveren, wat de interactie intuïtief maakt voor kinderen.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Toetsenbord-invoer:</strong> Directe sneltoetsen voor cijfers (<kbd class="px-1 bg-slate-800 rounded border">1</kbd>-<kbd class="px-1 bg-slate-800 rounded border">4</kbd>), microfoon (<kbd class="px-1 bg-slate-800 rounded border">M</kbd>), en pijltjestoetsen.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-6 rounded-3xl border border-slate-800">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 text-lg">⚡</span>
+          <div>
+            <h3 class="font-black text-white text-base">Streaming-Systeem</h3>
+            <span class="text-xs text-slate-400 font-medium">Direct Spelen • Geen Download-Gate</span>
+          </div>
+        </div>
+        <ul class="space-y-3 text-xs text-slate-300 leading-relaxed">
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Direct Speelbaar:</strong> Waar tablet/telefoon PWA een blokkerend 100% downloadscherm krijgen (T-39/T-46), start desktop direct zonder wachttijd.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Progressive Media Buffering:</strong> Video's en audio laden progressief in batches. Geen geheugenpieken of vastlopende tabbladen.</div>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <div><strong>Subtiele Status:</strong> Alleen een geruststellende streaming-indicator in de topbalk, geen storende modal.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-6 rounded-3xl border border-slate-800">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="p-2.5 rounded-xl bg-purple-500/20 text-purple-400 text-lg">📱/💻</span>
+          <div>
+            <h3 class="font-black text-white text-base">Desktop vs. Mobiel/Tablet</h3>
+            <span class="text-xs text-slate-400 font-medium">Verschillen in Scope (GDD §13)</span>
+          </div>
+        </div>
+        <div class="text-xs space-y-2">
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Download Gate:</span>
+            <span class="font-bold text-emerald-400">Nee (Streaming)</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Tablet / Mobiel Gate:</span>
+            <span class="font-bold text-amber-400">Ja (100% Verplicht)</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Primaire Besturing:</span>
+            <span class="font-bold text-sky-400">Muis + Toetsenbord</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Canvas Verhouding:</span>
+            <span class="font-bold text-white">16:9 Widescreen Fixed</span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span class="text-slate-400">SpeechWave Positie:</span>
+            <span class="font-bold text-emerald-400">Zwevend Hoog (z-50)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FEEDBACK & GOEDKEURINGSBLOK VOOR DE GEBRUIKER -->
+    <section class="bg-gradient-to-r from-sky-900/60 via-slate-850 to-indigo-900/60 border-2 border-sky-500/40 rounded-3xl p-6 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="text-lg font-black text-white flex items-center gap-2">
+          <span>🤝</span> Samen Ontwerpen: Review & Goedkeuring Vereist Vóór Implementatie
+        </h2>
+        <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+          Bekijk hierboven alle schermen en wissel tussen de modi. Ben je akkoord met deze widescreen 16:9 desktop layout,
+          de muis- en toetsenbordinteracties en het behoud van het streaming-systeem? Zodra je akkoord geeft, kunnen we starten met <strong>T-41</strong> (Implementatie Webbrowser desktop-UX).
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <button onclick="alert('Bedankt! Geef je akkoord of eventuele wensen door in de chat om de implementatie te starten.')" class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm shadow-xl transition transform hover:scale-105">
+          Akkoord & Doorgaan
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT VOOR INTERACTIVITEIT EN SIMULATIES -->
+  <script>
+    function switchMode(modeId) {
+      document.querySelectorAll('.mode-tab').forEach(tab => {
+        tab.classList.remove('active', 'bg-amber-400', 'text-slate-950', 'shadow-md');
+        tab.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800/80');
+      });
+      const activeTab = document.getElementById('tab-' + modeId);
+      if (activeTab) {
+        activeTab.classList.add('active', 'bg-amber-400', 'text-slate-950', 'shadow-md');
+        activeTab.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800/80');
+      }
+
+      document.querySelectorAll('.mode-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+      const targetView = document.getElementById('mode-' + modeId);
+      if (targetView) {
+        targetView.classList.remove('hidden');
+      }
+    }
+
+    function setViewport(width, btn) {
+      document.querySelectorAll('.vp-btn').forEach(b => {
+        b.classList.remove('bg-sky-600', 'text-white', 'font-bold');
+        b.classList.add('hover:text-white');
+      });
+      btn.classList.add('bg-sky-600', 'text-white', 'font-bold');
+      btn.classList.remove('hover:text-white');
+
+      const frame = document.getElementById('browser-window-frame');
+      const label = document.getElementById('current-viewport-label');
+      if (width === '1920') {
+        frame.style.maxWidth = '100%';
+        label.innerText = '1920 × 1080 (FHD 16:9)';
+      } else if (width === '1440') {
+        frame.style.maxWidth = '1240px';
+        label.innerText = '1440 × 900 (Laptop)';
+      } else if (width === '1280') {
+        frame.style.maxWidth = '1080px';
+        label.innerText = '1280 × 720 (HD)';
+      }
+    }
+
+    function selectWordChoice(num, isCorrect, cardEl) {
+      document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('border-emerald-500', 'bg-emerald-50', 'border-rose-500', 'bg-rose-50'));
+      const toast = document.getElementById('choice-feedback-toast');
+      toast.classList.remove('hidden', 'bg-emerald-500', 'bg-amber-500', 'text-white');
+      
+      if (isCorrect) {
+        cardEl.classList.add('border-emerald-500', 'bg-emerald-50');
+        toast.classList.add('bg-emerald-500', 'text-white');
+        toast.innerHTML = '<span>🎉</span> Goed zo! "De boot" is het juiste woord! (+2 ⭐)';
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2600);
+      } else {
+        cardEl.classList.add('border-rose-500', 'bg-rose-50');
+        toast.classList.add('bg-amber-500', 'text-white');
+        toast.innerHTML = '<span>💡</span> Bijna! Luister goed naar de video en probeer het nog eens.';
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2600);
+      }
+    }
+
+    function selectSticker(name, btn) {
+      document.querySelectorAll('.sticker-btn').forEach(b => {
+        b.classList.remove('bg-amber-100', 'border-amber-400', 'border-2');
+        b.classList.add('bg-slate-50', 'border', 'border-slate-200');
+      });
+      btn.classList.add('bg-amber-100', 'border-amber-400', 'border-2');
+      btn.classList.remove('bg-slate-50', 'border-slate-200');
+    }
+
+    function placeItemInZone(zone) {
+      if (zone === 'zee') {
+        const item = document.getElementById('placed-sea-item');
+        item.classList.remove('hidden');
+        alert('🎉 Goed geplaatst! De boot ligt nu in de zee.');
+      } else {
+        alert('💡 Tip: Luister goed naar de opdracht ("in de zee"). Je klikte op ' + zone);
+      }
+    }
+
+    function toggleDesktopMic() {
+      const wave = document.getElementById('speech-wave-overlay');
+      wave.classList.toggle('hidden');
+    }
+
+    function completeSpeechPlacement() {
+      document.getElementById('speech-wave-overlay').classList.add('hidden');
+      const item = document.getElementById('placed-sea-item');
+      item.classList.remove('hidden');
+      alert('✨ Spraakherkenning geslaagd: "Zet de boot in de zee" → Boot automatisch geplaatst!');
+    }
+
+    function toggleDesktopTypeInput() {
+      const bar = document.getElementById('desktop-type-bar');
+      bar.classList.toggle('hidden');
+      if (!bar.classList.contains('hidden')) {
+        document.getElementById('type-input-field').focus();
+      }
+    }
+
+    function submitTypedCommand() {
+      const val = document.getElementById('type-input-field').value;
+      if (val.toLowerCase().includes('boot') && val.toLowerCase().includes('zee')) {
+        document.getElementById('desktop-type-bar').classList.add('hidden');
+        document.getElementById('placed-sea-item').classList.remove('hidden');
+        alert('🎉 Commando verwerkt: Boot geplaatst in de zee!');
+      } else {
+        alert('Probeer: "zet de boot in de zee"');
+      }
+    }
+
+    function showZegZetHint() {
+      const target = document.getElementById('target-zone-sea');
+      target.classList.add('ring-4', 'ring-amber-400');
+      setTimeout(() => target.classList.remove('ring-4', 'ring-amber-400'), 2000);
+    }
+
+    function simulateAudioPlayback(text) {
+      alert('🔊 Spel spreekt uit: "' + text + '"');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const activeMode = document.querySelector('.mode-tab.active')?.id;
+      if (activeMode === 'tab-kies-woord') {
+        if (['1','2','3','4'].includes(e.key)) {
+          const cards = document.querySelectorAll('.choice-card');
+          const idx = parseInt(e.key) - 1;
+          if (cards[idx]) cards[idx].click();
+        }
+      }
+      if (e.key === 'm' || e.key === 'M') {
+        if (activeMode === 'tab-zeg-en-zet') {
+          toggleDesktopMic();
+        }
+      }
+      if (e.key === 't' || e.key === 'T') {
+        if (activeMode === 'tab-zeg-en-zet') {
+          toggleDesktopTypeInput();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
