@@ -382,14 +382,17 @@ a,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Bewust GEEN universele `transition-duration: 0.01ms` op `*`: in Zeg & Vlieg
+   * wijzigt elke frame de positie van speler/obstakels/plaatjes, en een mini-
+   * transitie op elk element geeft dan een `transitionend`-stortvloed die zwakke
+   * toestellen laat vastlopen (DT-06). We dempen alleen de decoratieve
+   * keyframe-animaties + `scroll-behavior`. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
   }
 
   .bezem-feedback-toast,
@@ -407,21 +410,12 @@ a,
   }
 }
 
-/* In-app "Rustige animaties"-toggle (T-14): spiegelt de reduced-motion-reset
- * hierboven, maar gestuurd door het `[data-app-reduced-motion]`-attribuut op de
- * spel-shell i.p.v. de OS-instelling. Zo dempt de toggle dezelfde zware
- * animaties (parallax, sparkles, vlieg-loop) ook wanneer het toestel zelf geen
- * reduced-motion heeft ingesteld. */
-[data-app-reduced-motion="true"] *,
-[data-app-reduced-motion="true"] *::before,
-[data-app-reduced-motion="true"] *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  scroll-behavior: auto !important;
-  transition-duration: 0.01ms !important;
-  transition-delay: 0ms !important;
-}
-
+/* In-app "Rustige animaties"-toggle (T-14): dempt de zware decoratieve
+ * animaties (parallax, sparkles, vlieg-loop) via het `[data-app-reduced-motion]`-
+ * attribuut op de spel-shell, ook zonder OS-reduced-motion. Bewust ALLEEN op de
+ * benoemde `.bezem-*`-klassen — géén universele `*`-regel, want die zou tijdens
+ * het spelen een dure stijl-hercalculatie + `transitionend`-stortvloed per frame
+ * veroorzaken en het spel traag maken (DT-06 / T-14-fix). */
 [data-app-reduced-motion="true"] .bezem-feedback-toast,
 [data-app-reduced-motion="true"] .bezem-feedback-toast-after-ended,
 [data-app-reduced-motion="true"] .bezem-start-flyer,
@@ -433,7 +427,7 @@ a,
 [data-app-reduced-motion="true"] .bezem-choice-correct,
 [data-app-reduced-motion="true"] .bezem-choice-wrong,
 [data-app-reduced-motion="true"] .bezem-choice-sparkle {
-  animation: none;
+  animation: none !important;
 }
 
 /* Toetsenbord-focus-baseline voor Magisch Strand-Avontuur (T-13 / GAP-11):
