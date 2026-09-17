@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Voorstel Claude — Mobiele Telefoon UX (T-42)</title>
+<style>
+  :root{
+    --bg:#0b1220; --panel:#131c2e; --panel2:#1a2540; --line:#25324d;
+    --ink:#e8eefc; --muted:#94a3c4; --accent:#38bdf8; --accent2:#fbbf24;
+    --ok:#34d399; --warn:#fbbf24; --bad:#fb7185; --lock:#64748b;
+    --sky1:#bae6fd; --sky2:#e0f2fe; --sand:#fde9c4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;
+    background:#1e293b;border:1px solid var(--line);color:var(--muted)}
+  .badge.hi{background:#0c4a6e;border-color:#0369a1;color:#bae6fd}
+  h1{font-size:18px;margin:0;font-weight:800;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .wrap{display:grid;grid-template-columns:minmax(360px,420px) 1fr;gap:26px;
+    padding:22px;align-items:start}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}}
+  .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    padding:7px 12px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .tab[aria-selected="true"]{background:#0c4a6e;border-color:#0369a1;color:#e0f2fe}
+  .stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .meta{font-size:11.5px;color:var(--muted);font-family:ui-monospace,monospace}
+
+  /* ---- telefoon ---- */
+  .phone{width:393px;height:760px;border-radius:44px;background:#000;
+    padding:11px;box-shadow:0 30px 70px rgba(0,0,0,.6);position:relative;flex:none}
+  .screen{width:100%;height:100%;border-radius:34px;overflow:hidden;position:relative;
+    background:linear-gradient(180deg,var(--sky2),var(--sky1) 55%,var(--sand));
+    display:flex;flex-direction:column;color:#0f172a}
+  .island{position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:108px;height:26px;background:#000;border-radius:999px;z-index:40}
+  .safetop{height:50px;flex:none}
+  .safebot{height:26px;flex:none}
+  .scr{display:none;flex:1;min-height:0;flex-direction:column}
+  .scr.on{display:flex}
+
+  /* ---- generieke UI ---- */
+  .topbar{display:flex;align-items:center;gap:8px;padding:6px 14px;flex:none}
+  .chip{background:#fff;border-radius:999px;padding:5px 11px;font-weight:800;font-size:12px;
+    box-shadow:0 2px 0 rgba(15,23,42,.12)}
+  .round{width:44px;height:44px;border-radius:999px;background:#fff;display:grid;
+    place-items:center;box-shadow:0 2px 0 rgba(15,23,42,.12);font-size:18px;flex:none}
+  .body{flex:1;min-height:0;overflow:hidden;padding:10px 14px;display:flex;
+    flex-direction:column;gap:10px}
+  .card{background:#fff;border-radius:18px;padding:12px;box-shadow:0 3px 0 rgba(15,23,42,.10)}
+  .h2{font-size:17px;font-weight:900;margin:0}
+  .p{font-size:12.5px;color:#475569;margin:3px 0 0}
+  .btn{border:0;border-radius:16px;padding:14px;font-weight:900;font-size:15px;width:100%;
+    display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px}
+  .btn.play{background:linear-gradient(180deg,#34d399,#10b981);color:#053527;
+    box-shadow:0 4px 0 #047857}
+  .btn.lock{background:#e2e8f0;color:#94a3b8;box-shadow:0 4px 0 #cbd5e1}
+  .btn.warn{background:linear-gradient(180deg,#fbbf24,#f59e0b);color:#3b2400;
+    box-shadow:0 4px 0 #b45309}
+  .btn.ghost{background:#fff;color:#0f172a;border:2px solid #cbd5e1;box-shadow:none}
+
+  /* ---- klaarmaken ---- */
+  .prep{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;
+    padding:4px 2px}
+  .hero{display:grid;place-items:center;gap:6px;text-align:center}
+  .orb{width:96px;height:96px;border-radius:28px;display:grid;place-items:center;font-size:44px;
+    background:linear-gradient(160deg,#fef3c7,#fcd34d);box-shadow:0 8px 0 rgba(180,83,9,.35)}
+  .steps{display:grid;gap:8px}
+  .step{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;
+    padding:10px 12px;box-shadow:0 2px 0 rgba(15,23,42,.08)}
+  .dot{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;
+    font-size:14px;font-weight:900;flex:none;color:#fff}
+  .dot.ok{background:var(--ok)} .dot.run{background:var(--accent)}
+  .dot.wait{background:#cbd5e1;color:#64748b} .dot.bad{background:var(--bad)}
+  .step b{font-size:13px;display:block}
+  .step span{font-size:11.5px;color:#64748b}
+  .bar{height:14px;border-radius:999px;background:#e2e8f0;overflow:hidden}
+  .bar>i{display:block;height:100%;border-radius:999px;
+    background:linear-gradient(90deg,#fbbf24,#34d399)}
+  .note{font-size:11px;color:#64748b;text-align:center;line-height:1.45}
+  .alert{border-radius:14px;padding:10px 12px;font-size:12px;font-weight:700;
+    display:flex;gap:8px;align-items:flex-start}
+  .alert.bad{background:#fee2e2;color:#7f1d1d;border:2px solid #fca5a5}
+  .alert.warn{background:#fef3c7;color:#713f12;border:2px solid #fcd34d}
+
+  /* ---- spellenlijst ---- */
+  .gcard{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;
+    background:#fff;border-radius:18px;padding:10px;box-shadow:0 3px 0 rgba(15,23,42,.10)}
+  .gicon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:32px;
+    background:linear-gradient(160deg,#bae6fd,#fef3c7)}
+  .gname{font-weight:900;font-size:13.5px}
+  .gsub{font-size:11px;color:#64748b}
+  .pill{font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:999px;background:#ecfdf5;
+    color:#047857;border:1px solid #a7f3d0}
+  .dl{min-width:56px;min-height:48px;border-radius:14px;display:grid;place-items:center;
+    font-size:11px;font-weight:900;gap:1px;padding:4px 8px}
+  .dl.todo{background:#e0f2fe;color:#075985;border:2px solid #7dd3fc}
+  .dl.busy{background:#fef3c7;color:#92400e;border:2px solid #fcd34d}
+  .dl.done{background:#ecfdf5;color:#047857;border:2px solid #6ee7b7}
+
+  /* ---- modus rooster ---- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mode{background:#fff;border-radius:18px;padding:12px 8px;text-align:center;
+    box-shadow:0 3px 0 rgba(15,23,42,.10);border:2px solid transparent}
+  .mode .e{font-size:30px}
+  .mode b{display:block;font-size:12.5px;margin-top:4px}
+  .mode span{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;
+    display:inline-block;margin-top:5px}
+  .mode.lockd{opacity:.55}
+  .u0{background:#e0f2fe;color:#075985} .u3{background:#fef3c7;color:#92400e}
+  .u8{background:#f3e8ff;color:#6b21a8} .u14{background:#dcfce7;color:#166534}
+
+  /* ---- speelvelden ---- */
+  .scene{flex:1;border-radius:18px;background:linear-gradient(180deg,#7dd3fc,#fde9c4);
+    position:relative;overflow:hidden;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+  .zone{position:absolute;border:2px dashed rgba(2,132,199,.75);border-radius:14px;
+    background:rgba(224,242,254,.5);font-size:10.5px;font-weight:900;color:#075985;
+    display:grid;place-items:center}
+  .tray{display:flex;gap:8px;overflow:hidden;padding:2px}
+  .sticker{width:56px;height:56px;border-radius:14px;background:#fff;display:grid;
+    place-items:center;font-size:26px;box-shadow:0 3px 0 rgba(15,23,42,.12);flex:none}
+  .mic{width:74px;height:74px;border-radius:999px;display:grid;place-items:center;font-size:30px;
+    background:linear-gradient(180deg,#38bdf8,#0284c7);color:#fff;box-shadow:0 5px 0 #075985;
+    margin:0 auto}
+  .wave{display:flex;gap:3px;align-items:flex-end;justify-content:center;height:22px}
+  .wave i{width:4px;background:#0284c7;border-radius:2px;display:block}
+
+  /* thumb zone overlay */
+  .thumb{position:absolute;inset:auto 0 0 0;height:38%;
+    background:linear-gradient(0deg,rgba(52,211,153,.30),rgba(52,211,153,0));
+    border-top:2px dashed rgba(5,150,105,.75);z-index:30;pointer-events:none;
+    display:flex;align-items:flex-start;justify-content:center}
+  .thumb b{font-size:10px;background:#065f46;color:#d1fae5;padding:2px 8px;
+    border-radius:999px;margin-top:6px}
+  .hide{display:none !important}
+
+  /* ---- annotaties ---- */
+  .notes{display:grid;gap:14px}
+  .n{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .n h3{margin:0 0 6px;font-size:14px;font-weight:800;display:flex;gap:8px;align-items:center}
+  .n p{margin:6px 0 0;color:#c6d2ea;font-size:13px}
+  .n ul{margin:8px 0 0;padding-left:18px;color:#c6d2ea;font-size:13px}
+  .n li{margin:5px 0}
+  .tagdiff{background:#4c1d95;border:1px solid #7c3aed;color:#ddd6fe;font-size:10.5px;
+    padding:3px 8px;border-radius:999px;font-weight:800}
+  .tagkey{background:#134e4a;border:1px solid #0d9488;color:#99f6e4;font-size:10.5px;
+    padding:3px 8px;border-radius:999px;font-weight:800}
+  .ctl{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+  .ctl button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+    font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:9px;cursor:pointer}
+  .ctl button.sel{background:#0c4a6e;border-color:#0369a1}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📱 Mobiele Telefoon — <span style="color:var(--accent)">voorstel van Claude</span></h1>
+    <div class="sub">Onafhankelijk ontworpen voor <b>T-42</b> · Magisch Strand-Avontuur · 393 × 852 pt</div>
+  </div>
+  <span class="badge hi">Kernidee: "Klaar om te spelen" = content + microfoon + geluid</span>
+  <span class="badge">Portret</span>
+</header>
+
+<div class="wrap">
+  <div>
+    <div class="tabs" id="tabs"></div>
+    <div class="stage">
+      <div class="meta" id="meta"></div>
+      <div class="phone">
+        <div class="island"></div>
+        <div class="screen">
+
+          <!-- 1. SPELLENLIJST -->
+          <section class="scr" data-scr="lijst">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div><div class="chip">🦊 Robin · ⭐ 14</div></div>
+            <div class="body">
+              <div><h2 class="h2">Kies je spel</h2><p class="p">Tik op een spel om het klaar te maken.</p></div>
+              <div class="gcard">
+                <div class="gicon">🏖️</div>
+                <div><div class="gname">Magisch Strand-Avontuur</div>
+                  <div class="gsub">Woorden zeggen, zetten en bouwen</div>
+                  <div style="margin-top:4px"><span class="pill">Klaar om te spelen</span></div></div>
+                <div class="dl done">✓<span>klaar</span></div>
+              </div>
+              <div class="gcard">
+                <div class="gicon" style="background:linear-gradient(160deg,#fecaca,#fde68a)">🎪</div>
+                <div><div class="gname">Groot Circus-Avontuur</div>
+                  <div class="gsub">Zelfde spel, nieuwe wereld</div>
+                  <div style="margin-top:4px"><span class="gsub">Nog klaarmaken · 42 MB</span></div></div>
+                <div class="dl todo">📥<span>42 MB</span></div>
+              </div>
+              <div class="gcard">
+                <div class="gicon" style="background:linear-gradient(160deg,#ddd6fe,#bfdbfe)">🧮</div>
+                <div><div class="gname">Rekenen &amp; Getallen</div>
+                  <div class="gsub">Tellen en optellen</div>
+                  <div style="margin-top:4px"><span class="gsub">Bezig · 38%</span></div></div>
+                <div class="dl busy">38%<span>bezig</span></div>
+              </div>
+              <div style="margin-top:auto" class="note">
+                De kaart toont alleen de <b>status</b>. Het klaarmaken zelf gebeurt op een
+                eigen, rustig scherm — niet in een popup over de lijst heen.
+              </div>
+            </div>
+            <div class="safebot"></div>
+          </section>
+
+          <!-- 2. KLAARMAKEN -->
+          <section class="scr" data-scr="klaar">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div><div class="chip">🏖️ Strand-Avontuur</div></div>
+            <div class="body">
+              <div class="prep">
+                <div class="hero">
+                  <div class="orb" id="prepOrb">📦</div>
+                  <h2 class="h2" id="prepTitle">Het strand klaarmaken…</h2>
+                  <p class="p" id="prepSub">Dit hoeft maar één keer.</p>
+                </div>
+
+                <div class="steps">
+                  <div class="step"><div class="dot ok" id="s1d">✓</div>
+                    <div><b id="s1t">Strandspullen opgehaald</b><span id="s1s">36 MB · klaar</span></div></div>
+                  <div class="step"><div class="dot run" id="s2d">2</div>
+                    <div><b id="s2t">Mag de microfoon aan?</b><span id="s2s">Nodig om woorden te zeggen</span></div></div>
+                  <div class="step"><div class="dot wait" id="s3d">3</div>
+                    <div><b id="s3t">Hoor je het strand?</b><span id="s3s">Geluidscheck</span></div></div>
+                </div>
+
+                <div id="prepBarWrap">
+                  <div class="bar"><i id="prepBar" style="width:62%"></i></div>
+                  <div class="note" style="margin-top:6px" id="prepMeta">62% · 2 van 3 stappen klaar</div>
+                </div>
+
+                <div id="prepAlert"></div>
+
+                <button class="btn lock" id="prepBtn">🔒 Speel (klaar bij 100%)</button>
+                <div class="note">Daarna speel je altijd zonder internet — tot er een update is.</div>
+              </div>
+            </div>
+            <div class="safebot"></div>
+          </section>
+
+          <!-- 3. MODUSKEUZE -->
+          <section class="scr" data-scr="modi">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div><div class="chip">🦊 Robin · ⭐ 14</div>
+              <div style="flex:1"></div><div class="round">⚙️</div></div>
+            <div class="body">
+              <div><h2 class="h2">Wat wil je doen?</h2><p class="p">Alles staat klaar op je telefoon.</p></div>
+              <div class="grid2">
+                <div class="mode"><div class="e">🔤</div><b>Kies het Woord</b><span class="u0">open</span></div>
+                <div class="mode"><div class="e">🏖️</div><b>Zeg &amp; Zet</b><span class="u3">vanaf 3 ⭐</span></div>
+                <div class="mode"><div class="e">🏰</div><b>Zeg &amp; Bouw</b><span class="u8">vanaf 8 ⭐</span></div>
+                <div class="mode"><div class="e">🕊️</div><b>Zeg &amp; Vlieg</b><span class="u14">vanaf 14 ⭐</span></div>
+              </div>
+              <div class="card" style="margin-top:auto">
+                <div style="display:flex;gap:10px;align-items:center">
+                  <div style="font-size:26px">🏆</div>
+                  <div><b style="font-size:12.5px">Nog 2 ⭐ tot je volgende strandschat</b>
+                    <div class="bar" style="height:10px;margin-top:6px"><i style="width:78%"></i></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="safebot"></div>
+          </section>
+
+          <!-- 4. ZEG & ZET -->
+          <section class="scr" data-scr="zet">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div>
+              <div class="chip" style="flex:1;text-align:center">"Zet de boot <b>in de zee</b>"</div>
+              <div class="round">🔁</div></div>
+            <div class="body">
+              <div class="scene">
+                <div class="zone" style="left:6%;top:12%;width:56%;height:34%">de zee</div>
+                <div style="position:absolute;left:66%;top:56%;font-size:30px">⛱️</div>
+                <div style="position:absolute;left:14%;top:62%;font-size:26px">🐚</div>
+              </div>
+              <div class="tray">
+                <div class="sticker" style="outline:3px solid #0284c7">⛵</div>
+                <div class="sticker">🏐</div><div class="sticker">🦀</div><div class="sticker">🌞</div>
+              </div>
+              <div class="wave"><i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:13px"></i><i style="height:7px"></i></div>
+              <div class="mic">🎤</div>
+              <div class="note">Tik het plaatje en tik de plek — of zeg het gewoon.</div>
+            </div>
+            <div class="safebot"></div>
+            <div class="thumb" id="thumbZet"><b>duimbereik — alles wat het kind doet</b></div>
+          </section>
+
+          <!-- 5. ZEG & VLIEG -->
+          <section class="scr" data-scr="vlieg">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div><div class="chip">🛡️🛡️🛡️ · 281 m</div>
+              <div style="flex:1"></div><div class="chip">🔥 3</div></div>
+            <div class="body">
+              <div class="scene" style="background:linear-gradient(180deg,#bae6fd,#7dd3fc 60%,#fde9c4)">
+                <div style="position:absolute;left:50%;top:14%;transform:translateX(-50%);font-size:34px">🦅</div>
+                <div style="position:absolute;left:20%;top:44%;font-size:28px">🏐</div>
+                <div style="position:absolute;left:68%;top:56%;font-size:28px">🐚</div>
+                <div style="position:absolute;left:38%;top:76%;font-size:28px">⛵</div>
+                <div style="position:absolute;right:8px;top:10px;font-size:10.5px;font-weight:900;
+                  background:rgba(255,255,255,.85);border-radius:8px;padding:3px 7px">▼ omlaag scrollend</div>
+              </div>
+              <div class="wave"><i style="height:10px"></i><i style="height:20px"></i><i style="height:14px"></i><i style="height:24px"></i><i style="height:9px"></i></div>
+              <div class="mic">🎤</div>
+              <div class="note">Noem het plaatje dat je ziet — één woord per keer.</div>
+            </div>
+            <div class="safebot"></div>
+          </section>
+
+          <!-- 6. KANTELEN -->
+          <section class="scr" data-scr="kantel">
+            <div class="safetop"></div>
+            <div class="body" style="justify-content:center;align-items:center;text-align:center;gap:16px">
+              <div style="font-size:64px">📱</div>
+              <div><h2 class="h2">Draai je telefoon rechtop</h2>
+                <p class="p" style="max-width:250px;margin-top:6px">
+                  Rechtop hoort de microfoon je het best — en kun je met je duimen spelen.</p></div>
+              <div class="card" style="width:100%"><div class="note" style="text-align:left">
+                <b>Waarom:</b> de microfoon zit onderaan de telefoon. Lig je 'm plat, dan wijst hij
+                van je mond af en versta het spel je slechter.</div></div>
+              <button class="btn play" style="width:auto;padding:14px 22px">Oké!</button>
+            </div>
+            <div class="safebot"></div>
+          </section>
+
+        </div>
+      </div>
+      <div class="ctl" id="ctl"></div>
+    </div>
+  </div>
+
+  <!-- ANNOTATIES -->
+  <div class="notes">
+    <div class="n">
+      <h3><span class="tagkey">KERNIDEE</span> Niet een download-gate, maar een "klaarmaken"-gate</h3>
+      <p>Magisch Strand-Avontuur is een <b>spraakspel</b>: 3 van de 4 modi hebben de microfoon nodig,
+      en het spel <i>spreekt</i> de opdrachten uit. Een kind met 100% gedownloade content maar zonder
+      mic-toestemming staat alsnog stil — en merkt dat pas midden in het spel.</p>
+      <ul>
+        <li><b>1. Strandspullen ophalen</b> — de content (download)</li>
+        <li><b>2. Mag de microfoon aan?</b> — toestemming vragen op een rustig moment</li>
+        <li><b>3. Hoor je het strand?</b> — korte geluidscheck</li>
+      </ul>
+      <p>Pas als alle drie ✓ zijn, ontgrendelt <b>Speel</b>. Dat is dezelfde belofte als jouw
+      download-gate, maar dan écht "klaar om te spelen".</p>
+    </div>
+
+    <div class="n">
+      <h3><span class="tagdiff">ANDERS</span> Eigen scherm i.p.v. popup over de lijst</h3>
+      <p>Ik geef het klaarmaken een <b>eigen, rustig scherm</b> met één ding tegelijk, in plaats van
+      een modal over de spellenlijst. Voor een kind van 4–8 is één focus per scherm makkelijker;
+      een popup bovenop een lijst met andere spellen leidt af.</p>
+      <p>De <b>kaart in de lijst</b> houdt wél een statusje (klaar / bezig&nbsp;38% / 📥&nbsp;42&nbsp;MB),
+      zodat een ouder in één oogopslag ziet wat er nog moet gebeuren.</p>
+    </div>
+
+    <div class="n">
+      <h3><span class="tagdiff">ANDERS</span> Duimzone als ontwerpregel</h3>
+      <p>Op een telefoon van 393 pt kan een kinderhand de bovenkant niet bereiken. Mijn regel:
+      <b>alles wat het kind doet, staat in de onderste 38%</b> — microfoon, stickerlade, hoofdknop.
+      Bovenin staat alleen wat je <i>leest</i>: de opdracht, sterren, terug.</p>
+      <p>Zie het groene vlak bij <b>Zeg &amp; Zet</b>.</p>
+    </div>
+
+    <div class="n">
+      <h3><span class="tagdiff">ANDERS</span> Zeg &amp; Vlieg: van zij- naar neerwaarts</h3>
+      <p>Zeg &amp; Vlieg is nu een <b>side-scroller</b>: horizontale aanloop is de kern. In portret is
+      er nauwelijks breedte, dus platweg draaien werkt niet — en liggend wijst de microfoon van de
+      mond af, juist in de modus waar het kind het meest praat.</p>
+      <p>Mijn voorstel: in portret laat je de wereld <b>naar beneden</b> scrollen. Je houdt precies
+      dezelfde spelregels (plaatjes benoemen, schildjes, combo, record), maar de lange as van het
+      scherm wordt de speelas. <b>Let op:</b> dit raakt de engine
+      (<code>scrollX</code>, obstakels, duim-rail) — een bewuste keuze, geen gratis aanpassing.</p>
+    </div>
+
+    <div class="n">
+      <h3><span class="tagkey">TAAL</span> Kindertaal, geen systeemtaal</h3>
+      <p>Een kind van 4 leest geen "Fase 2 van 3: 42 van 81 bestanden". Ik schrijf de gate in
+      kindertaal en zet techniek in de <b>kleine regel</b> voor de ouder:</p>
+      <ul>
+        <li>"Het strand klaarmaken…" i.p.v. "Strandbestanden opslaan"</li>
+        <li>"Mag de microfoon aan?" i.p.v. "Permissie aanvragen"</li>
+        <li>"Je bent offline. We gaan verder zodra er weer internet is." + <b>Opnieuw</b></li>
+      </ul>
+    </div>
+
+    <div class="n">
+      <h3><span class="tagkey">GELIJK</span> Waar ik het met je eens ben</h3>
+      <ul>
+        <li><b>Portret</b> als vaste stand — en om dezelfde reden: microfoon + duimgreep.</li>
+        <li><b>Play blijft vergrendeld</b> tot alles klaar is.</li>
+        <li><b>Knop verdwijnt</b> als het klaar is; komt terug bij een update.</li>
+        <li><b>Safe areas</b> respecteren (Dynamic Island / home-indicator).</li>
+        <li><b>Web blijft streamen</b>, geen gate.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SCREENS = [
+    {id:"lijst", label:"1. Spellenlijst", meta:"Status per spel · klaarmaken gebeurt elders"},
+    {id:"klaar", label:"2. Klaarmaken (gate)", meta:"3 checks: content · microfoon · geluid"},
+    {id:"modi",  label:"3. Wat wil je doen?", meta:"Leerlijn 0 / 3 / 8 / 14 ⭐"},
+    {id:"zet",   label:"4. Zeg & Zet", meta:"Duimzone-regel zichtbaar"},
+    {id:"vlieg", label:"5. Zeg & Vlieg", meta:"Portret: neerwaarts i.p.v. zijwaarts"},
+    {id:"kantel",label:"6. Kantelen", meta:"Uitleg mét reden"}
+  ];
+  const tabs = document.getElementById("tabs");
+  const meta = document.getElementById("meta");
+  const ctl  = document.getElementById("ctl");
+
+  function show(id){
+    document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("on", s.dataset.scr===id));
+    [...tabs.children].forEach(b=>b.setAttribute("aria-selected", String(b.dataset.id===id)));
+    meta.textContent = SCREENS.find(s=>s.id===id).meta;
+    ctl.innerHTML = "";
+    if(id==="klaar") buildPrepControls();
+  }
+  SCREENS.forEach(s=>{
+    const b=document.createElement("button");
+    b.className="tab"; b.textContent=s.label; b.dataset.id=s.id;
+    b.onclick=()=>show(s.id); tabs.appendChild(b);
+  });
+
+  /* --- klaarmaken-toestanden --- */
+  const S = {
+    downloaden:{orb:"📦",title:"Het strand klaarmaken…",sub:"Dit hoeft maar één keer.",
+      steps:[["run","1","Strandspullen ophalen","18 MB van 36 MB · wifi"],
+             ["wait","2","Mag de microfoon aan?","Straks"],
+             ["wait","3","Hoor je het strand?","Straks"]],
+      bar:52, metaTxt:"52% · stap 1 van 3", btn:["lock","🔒 Speel (klaar bij 100%)"], alert:""},
+    mic:{orb:"🎤",title:"Mag de microfoon aan?",sub:"Zo kun je woorden hardop zeggen.",
+      steps:[["ok","✓","Strandspullen opgehaald","36 MB · klaar"],
+             ["run","2","Mag de microfoon aan?","Tik op 'Ja, mag'"],
+             ["wait","3","Hoor je het strand?","Straks"]],
+      bar:66, metaTxt:"stap 2 van 3", btn:["lock","🔒 Speel (nog 2 stappen)"],
+      alert:`<button class="btn warn">Ja, microfoon mag 🎤</button>`},
+    data:{orb:"📶",title:"Je gebruikt mobiele data",sub:"Dit spel is ongeveer 36 MB.",
+      steps:[["bad","!","Strandspullen ophalen","Wacht op jouw keuze"],
+             ["wait","2","Mag de microfoon aan?","Straks"],
+             ["wait","3","Hoor je het strand?","Straks"]],
+      bar:0, metaTxt:"nog niet begonnen", btn:["lock","🔒 Speel (klaar bij 100%)"],
+      alert:`<div class="alert warn">⚠️<div>Downloaden kost ongeveer <b>36 MB</b> van je databundel.</div></div>
+             <div style="display:flex;gap:8px;margin-top:8px">
+               <button class="btn warn" style="flex:1">Toch doen</button>
+               <button class="btn ghost" style="flex:1">Wacht op wifi</button></div>`},
+    offline:{orb:"🌧️",title:"Even geen internet",sub:"We gaan verder zodra je weer verbinding hebt.",
+      steps:[["bad","!","Strandspullen ophalen","Gestopt op 52% — blijft bewaard"],
+             ["wait","2","Mag de microfoon aan?","Straks"],
+             ["wait","3","Hoor je het strand?","Straks"]],
+      bar:52, metaTxt:"gepauzeerd op 52%", btn:["lock","🔒 Speel (klaar bij 100%)"],
+      alert:`<div class="alert bad">📡<div>Je bent offline. Wat al binnen is, blijft bewaard.</div></div>
+             <button class="btn ghost" style="margin-top:8px">🔄 Opnieuw proberen</button>`},
+    ruimte:{orb:"🧳",title:"De telefoon is bijna vol",sub:"Er is nog een beetje ruimte nodig.",
+      steps:[["bad","!","Strandspullen ophalen","Nodig: 36 MB · vrij: 12 MB"],
+             ["wait","2","Mag de microfoon aan?","Straks"],
+             ["wait","3","Hoor je het strand?","Straks"]],
+      bar:0, metaTxt:"24 MB te weinig", btn:["lock","🔒 Speel (klaar bij 100%)"],
+      alert:`<div class="alert bad">🧳<div>Maak ongeveer <b>24 MB</b> vrij (bijv. een foto of filmpje) en probeer opnieuw.</div></div>
+             <button class="btn ghost" style="margin-top:8px">🔄 Opnieuw proberen</button>`},
+    klaar:{orb:"🎉",title:"Alles is klaar!",sub:"Je kunt nu spelen — ook zonder internet.",
+      steps:[["ok","✓","Strandspullen opgehaald","36 MB · klaar"],
+             ["ok","✓","Microfoon mag aan","Klaar"],
+             ["ok","✓","Geluid werkt","Klaar"]],
+      bar:100, metaTxt:"100% · 3 van 3 klaar", btn:["play","▶️ Start het avontuur"], alert:""}
+  };
+  const ORDER=[["downloaden","Downloaden"],["mic","Microfoon"],["data","Mobiele data"],
+               ["offline","Offline"],["ruimte","Te vol"],["klaar","Klaar ✓"]];
+
+  function applyPrep(key){
+    const s=S[key];
+    document.getElementById("prepOrb").textContent=s.orb;
+    document.getElementById("prepTitle").textContent=s.title;
+    document.getElementById("prepSub").textContent=s.sub;
+    s.steps.forEach((st,i)=>{
+      const d=document.getElementById("s"+(i+1)+"d");
+      d.className="dot "+st[0]; d.textContent=st[1];
+      document.getElementById("s"+(i+1)+"t").textContent=st[2];
+      document.getElementById("s"+(i+1)+"s").textContent=st[3];
+    });
+    document.getElementById("prepBar").style.width=s.bar+"%";
+    document.getElementById("prepMeta").textContent=s.metaTxt;
+    document.getElementById("prepAlert").innerHTML=s.alert;
+    const b=document.getElementById("prepBtn");
+    b.className="btn "+s.btn[0]; b.textContent=s.btn[1];
+    [...ctl.children].forEach(c=>c.classList.toggle("sel", c.dataset.k===key));
+  }
+  function buildPrepControls(){
+    ctl.innerHTML="";
+    ORDER.forEach(([k,label])=>{
+      const b=document.createElement("button");
+      b.textContent=label; b.dataset.k=k; b.onclick=()=>applyPrep(k); ctl.appendChild(b);
+    });
+    applyPrep("downloaden");
+  }
+
+  show("klaar");
+</script>
+</body>
+</html>
