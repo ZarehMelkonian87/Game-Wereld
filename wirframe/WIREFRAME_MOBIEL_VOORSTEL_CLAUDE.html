@@ -130,6 +130,46 @@
   .wave{display:flex;gap:3px;align-items:flex-end;justify-content:center;height:22px}
   .wave i{width:4px;background:#0284c7;border-radius:2px;display:block}
 
+  /* ---- COMPACTE MIC-BALK (wave zit ín de knop) ---- */
+  .micbar{height:60px;flex:none;border-radius:18px;display:flex;align-items:center;gap:10px;
+    padding:0 16px;background:linear-gradient(180deg,#38bdf8,#0284c7);color:#fff;
+    box-shadow:0 4px 0 #075985}
+  .micbar .ico{font-size:24px;flex:none}
+  .micbar .lbl{font-weight:900;font-size:15px;flex:none}
+  .micbar .wv{display:flex;gap:3px;align-items:center;height:26px;flex:1;justify-content:flex-end}
+  .micbar .wv i{width:4px;border-radius:2px;background:rgba(255,255,255,.9);display:block}
+
+  /* ---- INSTRUCTIEVIDEO ---- */
+  .videoBox{width:100%;aspect-ratio:16/9;border-radius:18px;flex:none;position:relative;
+    background:linear-gradient(160deg,#1e3a5f,#0f172a);display:grid;place-items:center;
+    overflow:hidden;box-shadow:0 3px 0 rgba(15,23,42,.25)}
+  .videoBox .scenery{position:absolute;inset:0;
+    background:linear-gradient(180deg,#7dd3fc,#fde9c4);opacity:.95}
+  .videoBox .figure{position:relative;font-size:52px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+  .videoBox .replay{position:absolute;right:8px;bottom:8px;background:rgba(255,255,255,.95);
+    border-radius:999px;min-height:40px;min-width:40px;display:grid;place-items:center;
+    font-size:18px;box-shadow:0 2px 0 rgba(15,23,42,.2)}
+  .videoBox .tag{position:absolute;left:8px;top:8px;background:rgba(15,23,42,.72);color:#fff;
+    font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px}
+
+  /* ---- LEESTYPOGRAFIE (beginnende lezers) ---- */
+  .instr{font-size:21px;line-height:1.35;font-weight:800;color:#0f172a;text-align:center;
+    background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 3px 0 rgba(15,23,42,.10);
+    max-width:32ch;margin:0 auto;flex:none}
+  .kw{color:#0369a1;background:#e0f2fe;border-radius:8px;padding:0 6px;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .kw.warm{color:#b45309;background:#fef3c7}
+  .bigword{font-size:30px;font-weight:900;letter-spacing:.3px}
+
+  /* ---- VIDEO-OVERLAY ---- */
+  .vov{position:absolute;inset:0;background:rgba(2,6,23,.82);z-index:50;display:none;
+    flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:18px;
+    border-radius:34px}
+  .vov.on{display:flex}
+  .vov .big{width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;position:relative;
+    background:linear-gradient(180deg,#7dd3fc,#fde9c4);display:grid;place-items:center}
+  .vov .big .figure{font-size:78px}
+
   /* thumb zone overlay */
   .thumb{position:absolute;inset:auto 0 0 0;height:38%;
     background:linear-gradient(0deg,rgba(52,211,153,.30),rgba(52,211,153,0));
@@ -164,6 +204,8 @@
     <div class="sub">Onafhankelijk ontworpen voor <b>T-42</b> · Magisch Strand-Avontuur · 393 × 852 pt</div>
   </div>
   <span class="badge hi">Kernidee: "Klaar om te spelen" = content + microfoon + geluid</span>
+  <span class="badge hi" style="background:#134e4a;border-color:#0d9488;color:#99f6e4">
+    v2 · grotere video · compacte mic · leestypografie</span>
   <span class="badge">Portret</span>
 </header>
 
@@ -270,28 +312,68 @@
             <div class="safebot"></div>
           </section>
 
+          <!-- 3b. KIES HET WOORD (video draagt de opdracht) -->
+          <section class="scr" data-scr="kies">
+            <div class="safetop"></div>
+            <div class="topbar"><div class="round">←</div>
+              <div class="chip">Vraag 4 van 12</div><div style="flex:1"></div><div class="chip">⭐ 14</div></div>
+            <div class="body">
+              <div class="videoBox">
+                <div class="scenery"></div>
+                <div class="figure">🦀</div>
+                <div class="tag">▶︎ opdracht</div>
+                <div class="replay">🔁</div>
+              </div>
+              <div class="instr">Welke is de <span class="bigword kw">krab</span>?</div>
+              <div class="grid2" style="flex:1">
+                <div class="card" style="display:grid;place-items:center;font-size:44px">🦀</div>
+                <div class="card" style="display:grid;place-items:center;font-size:44px">🐚</div>
+                <div class="card" style="display:grid;place-items:center;font-size:44px">⛵</div>
+                <div class="card" style="display:grid;place-items:center;font-size:44px">🌞</div>
+              </div>
+            </div>
+            <div class="safebot"></div>
+            <div class="thumb"><b>duimbereik — de keuzekaarten</b></div>
+          </section>
+
           <!-- 4. ZEG & ZET -->
           <section class="scr" data-scr="zet">
             <div class="safetop"></div>
             <div class="topbar"><div class="round">←</div>
-              <div class="chip" style="flex:1;text-align:center">"Zet de boot <b>in de zee</b>"</div>
-              <div class="round">🔁</div></div>
+              <div class="chip">⭐ 14</div><div style="flex:1"></div><div class="round">💡</div></div>
             <div class="body">
+              <div class="instr">Zet de <span class="kw">boot</span> in de <span class="kw warm">zee</span></div>
               <div class="scene">
-                <div class="zone" style="left:6%;top:12%;width:56%;height:34%">de zee</div>
-                <div style="position:absolute;left:66%;top:56%;font-size:30px">⛱️</div>
-                <div style="position:absolute;left:14%;top:62%;font-size:26px">🐚</div>
+                <div class="zone" style="left:6%;top:10%;width:58%;height:36%">de zee</div>
+                <div style="position:absolute;left:68%;top:54%;font-size:34px">⛱️</div>
+                <div style="position:absolute;left:14%;top:64%;font-size:30px">🐚</div>
+                <div style="position:absolute;right:8px;top:8px" class="videoBox" hidden></div>
+                <div style="position:absolute;right:8px;top:8px;background:rgba(255,255,255,.95);
+                  border-radius:999px;width:44px;height:44px;display:grid;place-items:center;
+                  font-size:20px;box-shadow:0 2px 0 rgba(15,23,42,.18)"
+                  onclick="toggleVideo(true)">🎬</div>
               </div>
               <div class="tray">
                 <div class="sticker" style="outline:3px solid #0284c7">⛵</div>
                 <div class="sticker">🏐</div><div class="sticker">🦀</div><div class="sticker">🌞</div>
               </div>
-              <div class="wave"><i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:13px"></i><i style="height:7px"></i></div>
-              <div class="mic">🎤</div>
-              <div class="note">Tik het plaatje en tik de plek — of zeg het gewoon.</div>
+              <div class="micbar">
+                <span class="ico">🎤</span><span class="lbl">Zeg het</span>
+                <span class="wv"><i style="height:8px"></i><i style="height:17px"></i>
+                  <i style="height:24px"></i><i style="height:14px"></i><i style="height:20px"></i>
+                  <i style="height:9px"></i><i style="height:15px"></i></span>
+              </div>
             </div>
             <div class="safebot"></div>
-            <div class="thumb" id="thumbZet"><b>duimbereik — alles wat het kind doet</b></div>
+            <div class="thumb" id="thumbZet"><b>duimbereik</b></div>
+
+            <!-- video op ware grootte -->
+            <div class="vov" id="vov">
+              <div class="big"><div class="figure">⛵</div>
+                <div class="tag" style="position:absolute;left:8px;top:8px">Opdracht opnieuw kijken</div></div>
+              <div class="instr" style="max-width:none">Zet de <span class="kw">boot</span> in de <span class="kw warm">zee</span></div>
+              <button class="btn play" style="width:auto;padding:14px 26px" onclick="toggleVideo(false)">Ik snap het!</button>
+            </div>
           </section>
 
           <!-- 5. ZEG & VLIEG -->
@@ -308,9 +390,12 @@
                 <div style="position:absolute;right:8px;top:10px;font-size:10.5px;font-weight:900;
                   background:rgba(255,255,255,.85);border-radius:8px;padding:3px 7px">▼ omlaag scrollend</div>
               </div>
-              <div class="wave"><i style="height:10px"></i><i style="height:20px"></i><i style="height:14px"></i><i style="height:24px"></i><i style="height:9px"></i></div>
-              <div class="mic">🎤</div>
-              <div class="note">Noem het plaatje dat je ziet — één woord per keer.</div>
+              <div class="micbar">
+                <span class="ico">🎤</span><span class="lbl">Noem wat je ziet</span>
+                <span class="wv"><i style="height:10px"></i><i style="height:20px"></i>
+                  <i style="height:14px"></i><i style="height:24px"></i><i style="height:11px"></i>
+                  <i style="height:18px"></i></span>
+              </div>
             </div>
             <div class="safebot"></div>
           </section>
@@ -362,6 +447,49 @@
       zodat een ouder in één oogopslag ziet wat er nog moet gebeuren.</p>
     </div>
 
+    <div class="n" style="border-color:#0d9488">
+      <h3><span class="tagkey">HERZIEN</span> Ruimte terug naar het spel — mic werd te groot</h3>
+      <p>Terechte kritiek: mijn eerste versie gaf de microfoon <b>~170 px</b> hoogte (ronde knop +
+      losse wave + hulpregel). Dat ging recht van het speelveld af. Herzien naar één
+      <b>compacte mic-balk van 60 px</b> waarin de wave zit — nog steeds ruim boven de
+      48 px-aanraaknorm en in de duimzone.</p>
+      <p><b>Ruimtebudget Zeg &amp; Zet</b> (393 × 852, na safe areas ≈ 776 px):</p>
+      <ul>
+        <li>Topbalk 44 · opdrachttekst 62 · <b>speelveld ≈ 330</b> · stickerlade 66 · mic-balk 60</li>
+        <li>Winst t.o.v. mijn eerste versie: <b>+110 px speelveld</b> (ruim een derde groter)</li>
+      </ul>
+    </div>
+
+    <div class="n" style="border-color:#0d9488">
+      <h3><span class="tagkey">HERZIEN</span> De instructievideo op ware grootte</h3>
+      <p>Jouw idee klopt en is belangrijker dan ik eerst inschatte: sinds <b>T-25</b> is de
+      voorleesfunctie eruit en <b>draagt de video de opdracht</b>. Dan mag hij geen bijrolletje zijn.</p>
+      <ul>
+        <li><b>Kies het Woord:</b> video staat vast bovenaan, <b>volle breedte 16:9</b> (≈ 365 × 205 px)
+        — groot genoeg om een gebaar of voorwerp echt te zien.</li>
+        <li><b>Zeg &amp; Zet / Bouw:</b> daar is het speelveld de hoofdrol, dus staat de video achter
+        een grote 🎬-knop (44 px) en opent hij <b>bijna schermvullend</b> — met de opdracht eronder
+        en een "Ik snap het!"-knop. Zo kost hij geen vaste ruimte, maar is hij wel op ware grootte.</li>
+      </ul>
+      <p class="note" style="text-align:left;color:#94a3c4">Probeer het: tab <b>Zeg &amp; Zet</b> → tik 🎬.</p>
+    </div>
+
+    <div class="n" style="border-color:#0d9488">
+      <h3><span class="tagkey">HERZIEN</span> Leesbaar voor beginnende lezers</h3>
+      <p>Kinderen van 4–8 <i>leren</i> lezen. De opdracht moet dus niet alleen passen, maar echt
+      te ontcijferen zijn. Concrete regels die ik in dit voorstel aanhoud:</p>
+      <ul>
+        <li><b>Opdrachttekst 21 px</b>, gewicht 800, regelhoogte 1,35 — op een <b>witte plaat</b>,
+        nooit los over een druk strandplaatje (contrast ≥ 7:1).</li>
+        <li><b>Max ± 32 tekens per regel</b> — korte regels zijn makkelijker voor wie nog spelt.</li>
+        <li><b>Kernwoorden uitgelicht</b>: "Zet de <u>boot</u> in de <u>zee</u>" — het woord dat het kind
+        moet lezen én zeggen krijgt kleur + een blokje. Dat leidt het oog én ondersteunt de logopedie.</li>
+        <li>Het te kiezen woord in Kies het Woord staat <b>30 px</b> — het is het onderwerp van de vraag.</li>
+        <li><b>Geen HOOFDLETTERWOORDEN</b> (lastiger voor beginnende lezers) en geen cursief.</li>
+        <li>Groeit de tekst door een grotere systeemletter? Dan krimpt het speelveld, niet de tekst.</li>
+      </ul>
+    </div>
+
     <div class="n">
       <h3><span class="tagdiff">ANDERS</span> Duimzone als ontwerpregel</h3>
       <p>Op een telefoon van 393 pt kan een kinderhand de bovenkant niet bereiken. Mijn regel:
@@ -410,10 +538,12 @@
     {id:"lijst", label:"1. Spellenlijst", meta:"Status per spel · klaarmaken gebeurt elders"},
     {id:"klaar", label:"2. Klaarmaken (gate)", meta:"3 checks: content · microfoon · geluid"},
     {id:"modi",  label:"3. Wat wil je doen?", meta:"Leerlijn 0 / 3 / 8 / 14 ⭐"},
-    {id:"zet",   label:"4. Zeg & Zet", meta:"Duimzone-regel zichtbaar"},
-    {id:"vlieg", label:"5. Zeg & Vlieg", meta:"Portret: neerwaarts i.p.v. zijwaarts"},
-    {id:"kantel",label:"6. Kantelen", meta:"Uitleg mét reden"}
+    {id:"kies",  label:"4. Kies het Woord", meta:"Video draagt de opdracht · 16:9 op ware grootte"},
+    {id:"zet",   label:"5. Zeg & Zet", meta:"Groot speelveld · compacte mic-balk · 🎬 opnieuw kijken"},
+    {id:"vlieg", label:"6. Zeg & Vlieg", meta:"Portret: neerwaarts i.p.v. zijwaarts"},
+    {id:"kantel",label:"7. Kantelen", meta:"Uitleg mét reden"}
   ];
+  function toggleVideo(on){ document.getElementById("vov").classList.toggle("on", on); }
   const tabs = document.getElementById("tabs");
   const meta = document.getElementById("meta");
   const ctl  = document.getElementById("ctl");
