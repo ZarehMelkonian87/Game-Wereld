@@ -19,7 +19,7 @@ export const CompactInstructionCard = ({
     data-component="CompactInstructionCard"
     data-testid="scene-builder-instruction-area"
   >
-    <div className="flex h-14 w-14 shrink-0 items-center justify-center" data-slot="mascot">
+    <div className="flex h-14 min-w-14 shrink-0 items-center justify-center" data-slot="mascot">
       {leadingControl ?? (
         <img
           alt=""

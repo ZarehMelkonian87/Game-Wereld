@@ -186,27 +186,35 @@ export const FloatingSuccessToast = ({
     >
       <div className="flex items-center gap-2">
         {hintVideoUrl ? (
-          <video
-            aria-label={videoLabel}
-            autoPlay={autoPlayFeedbackVideo}
-            className="h-10 w-10 shrink-0 rounded-full bg-transparent object-cover"
-            data-auto-play-feedback-video={autoPlayFeedbackVideo ? "true" : "false"}
-            data-component="HintFeedbackVideo"
-            draggable={false}
-            onClick={onHintVideoClick}
-            onEnded={handleVideoEnded}
-            onError={stopHintAudioSession}
-            onPause={stopHintAudioSession}
-            onPlay={startHintAudioSession}
-            playsInline
-            preload="metadata"
-            ref={videoRef}
-            src={resolvedHintVideoUrl ?? activeHintVideoUrl}
-            style={{
-              clipPath: "circle(50% at 50% 50%)",
-            }}
-            title={videoLabel}
-          />
+          <div className="relative h-12 aspect-video shrink-0 overflow-hidden rounded-xl border border-sky-200 bg-white shadow-sm">
+            <video
+              aria-label={videoLabel}
+              autoPlay={autoPlayFeedbackVideo}
+              className="h-full w-full cursor-pointer bg-white object-cover"
+              data-auto-play-feedback-video={autoPlayFeedbackVideo ? "true" : "false"}
+              data-component="HintFeedbackVideo"
+              draggable={false}
+              onClick={onHintVideoClick}
+              onEnded={handleVideoEnded}
+              onError={stopHintAudioSession}
+              onPause={stopHintAudioSession}
+              onPlay={startHintAudioSession}
+              playsInline
+              preload="metadata"
+              ref={videoRef}
+              src={resolvedHintVideoUrl ?? activeHintVideoUrl}
+              title={videoLabel}
+            />
+            {/* Witte afdeklagen aan de zijkanten om zwarte videoranden te verbergen */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[5px] bg-white"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[5px] bg-white"
+            />
+          </div>
         ) : feedback?.mascot ? (
           <img
             alt=""

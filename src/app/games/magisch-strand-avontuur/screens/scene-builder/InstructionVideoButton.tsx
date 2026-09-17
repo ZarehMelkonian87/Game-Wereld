@@ -56,8 +56,8 @@ export const InstructionVideoButton = ({
   suspendedRef.current = suspended;
   const buttonClassName =
     variant === "feedbackIcon"
-      ? "pointer-events-auto h-12 min-h-12 w-12 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0"
-      : "pointer-events-auto h-14 min-h-14 w-14 shrink-0 touch-manipulation overflow-hidden rounded-full bg-transparent p-0 transition duration-150 active:translate-y-0.5 active:scale-[0.98]";
+      ? "pointer-events-auto relative h-12 min-h-12 aspect-video shrink-0 touch-manipulation overflow-hidden rounded-xl border border-white/80 bg-white p-0 shadow-sm transition duration-150 active:scale-[0.98]"
+      : "pointer-events-auto relative h-14 min-h-14 aspect-video shrink-0 touch-manipulation overflow-hidden rounded-xl border-2 border-white/90 bg-white p-0 shadow-md transition duration-150 hover:brightness-105 active:translate-y-0.5 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400";
 
   const playVideo = useCallback(async (options?: { userInitiated?: boolean }) => {
     const video = videoRef.current;
@@ -164,7 +164,7 @@ export const InstructionVideoButton = ({
     >
       <video
         aria-hidden="true"
-        className="pointer-events-none h-full w-full rounded-full object-cover"
+        className="pointer-events-none h-full w-full object-cover bg-white"
         data-slot="video"
         autoPlay={autoPlayOnMount}
         controls={false}
@@ -176,9 +176,15 @@ export const InstructionVideoButton = ({
         preload="metadata"
         ref={videoRef}
         src={resolvedSrc}
-        style={{
-          clipPath: "circle(50% at 50% 50%)",
-        }}
+      />
+      {/* Witte afdeklagen aan de zijkanten om zwarte videoranden te verbergen */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[5px] bg-white"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[5px] bg-white"
       />
     </button>
   );
