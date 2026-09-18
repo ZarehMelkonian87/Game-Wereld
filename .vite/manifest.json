@@ -1,190 +1,180 @@
 {
   "../../../../../@vite-plugin-pwa/virtual:pwa-register": {
-    "file": "assets/virtual_pwa-register-7w4o7s8V.js",
+    "file": "assets/virtual_pwa-register-DR70A9wn.js",
     "name": "virtual_pwa-register",
     "src": "../../../../../@vite-plugin-pwa/virtual:pwa-register",
     "isDynamicEntry": true,
     "imports": [
       "index.html",
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ],
     "dynamicImports": [
       "node_modules/workbox-window/build/workbox-window.prod.es5.mjs"
     ]
   },
-  "_GradientTitle-CtR7nOJB.js": {
-    "file": "assets/GradientTitle-CtR7nOJB.js",
+  "_GradientTitle-YymRc5bl.js": {
+    "file": "assets/GradientTitle-YymRc5bl.js",
     "name": "GradientTitle",
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ]
   },
-  "_ScreenGuard-CF28mgRS.js": {
-    "file": "assets/ScreenGuard-CF28mgRS.js",
+  "_ScreenGuard-VlEzc09A.js": {
+    "file": "assets/ScreenGuard-VlEzc09A.js",
     "name": "ScreenGuard",
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ]
   },
-  "_game-magisch-strand-avontuur-DDLeRo-S.js": {
-    "file": "assets/game-magisch-strand-avontuur-DDLeRo-S.js",
+  "_game-magisch-strand-avontuur-B7IwmD9V.js": {
+    "file": "assets/game-magisch-strand-avontuur-B7IwmD9V.js",
     "name": "game-magisch-strand-avontuur",
     "isDynamicEntry": true,
     "assets": [
-      "assets/beach-board-portrait-aIe9tZGq.png",
       "assets/beach-board-portrait-_RTycSDx.webp",
-      "assets/beach-board-landscape-DRpTQ2VE.png",
       "assets/beach-board-landscape-C9w1MngR.webp",
-      "assets/beach-voice-side-scroller-C24OnRvo.png",
       "assets/beach-voice-side-scroller-BvyGGRFk.webp",
-      "assets/start-logo-beach-DJZIiUqo.png",
+      "assets/start-logo-beach-CHMmEAk3.webp",
       "assets/background-music-DdUSu1S4.mp3",
-      "assets/dolphin-sticker-DF188-EG.png",
-      "assets/sailboat-sticker-FaAxD-5d.png",
-      "assets/lighthouse-sticker-33h0eFJ6.png",
-      "assets/airplane-sticker-CESMEhtn.png",
-      "assets/kite-sticker-At3NHhQu.png",
-      "assets/beach-ball-sticker-CHXSXqdp.png",
-      "assets/beach-umbrella-sticker-CisO6HQX.png",
-      "assets/seashells-sticker-BQGBNdK8.png",
-      "assets/crab-sticker-BDJ5zZQk.png",
-      "assets/sandcastle-sticker-yYdaGhpj.png",
-      "assets/beach-towel-sticker-Bnjnq1--.png",
-      "assets/sun-sticker-CFFSGkMu.png",
-      "assets/cloud-obstacle-D_ui3i_d.png",
-      "assets/sea-lion-obstacle-BSVkYvSs.png",
-      "assets/seagull-obstacle-B0QqFadv.png",
-      "assets/shark-obstacle-BPrNP8-x.png",
-      "assets/zet-de-boot-in-de-zee-DqLORs_p.mp4",
-      "assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-D7usl_PW.mp4",
-      "assets/lp-003-opdracht-zet-de-bal-op-het-strand-Uwt0J0do.mp4",
-      "assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-xqrWYJo2.mp4",
-      "assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-Dh615lbg.mp4",
-      "assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C4sEszQK.mp4",
-      "assets/lp-007-opdracht-leg-de-schelp-op-het-strand-CJ7gY9V9.mp4",
-      "assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-CPOFOMn2.mp4",
-      "assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-FUxuOZ0M.mp4",
-      "assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-BCBrbfty.mp4",
-      "assets/lp-011-opdracht-zet-de-zon-boven-de-zee-DydBW9ux.mp4",
-      "assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-Dpa4U5RB.mp4",
-      "assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-B6e0tE-X.mp4",
-      "assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-TuvX86AZ.mp4",
-      "assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-BaFbb1d1.mp4",
-      "assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-C6swzU_n.mp4",
-      "assets/cw-001-opdracht-waar-is-de-dolfijn-DHGpTcy5.mp4",
-      "assets/cw-002-opdracht-waar-is-de-boot-CYbTgkv0.mp4",
-      "assets/cw-003-opdracht-waar-is-de-bal-CoPXWKd8.mp4",
-      "assets/cw-004-opdracht-waar-is-de-vuurtoren--pM-6l5T.mp4",
-      "assets/cw-005-opdracht-waar-is-de-parasol-YP-gR-ZD.mp4",
-      "assets/cw-006-opdracht-waar-is-de-vlieger-DtuL4qAy.mp4",
-      "assets/cw-007-opdracht-waar-is-de-krab-DInv2u-W.mp4",
-      "assets/cw-008-opdracht-waar-is-de-handdoek-B3osOq0J.mp4",
-      "assets/cw-009-opdracht-waar-is-de-schelp-DsRweie6.mp4",
-      "assets/cw-010-opdracht-waar-is-het-zandkasteel-Cb3PGROm.mp4",
-      "assets/cw-011-opdracht-waar-is-het-vliegtuig-Bx1ZjH_T.mp4",
-      "assets/cw-012-opdracht-waar-is-de-zon-j2_cQqfB.mp4",
-      "assets/zoek-de-boot-D4kGxvqG.mp4",
-      "assets/lp-002-hint-01-zoek-de-dolfijn-DNHxc-x9.mp4",
-      "assets/lp-003-hint-01-zoek-de-bal-9NDOU1ii.mp4",
-      "assets/lp-004-hint-01-zoek-de-vuurtoren-DvEw7JbK.mp4",
-      "assets/lp-005-hint-01-zoek-de-vlieger-B-kpQ4lu.mp4",
-      "assets/lp-006-hint-01-zoek-het-vliegtuig-CnFsMscf.mp4",
-      "assets/lp-007-hint-01-zoek-de-schelp-Sj8q5WYn.mp4",
-      "assets/lp-008-hint-01-zoek-de-krab-DsDNVs59.mp4",
-      "assets/lp-009-hint-01-zoek-het-zandkasteel-DC2ZL_Wi.mp4",
-      "assets/lp-010-hint-01-zoek-de-parasol-BHKD8Nyh.mp4",
-      "assets/lp-011-hint-01-zoek-de-zon-BVW5li3d.mp4",
-      "assets/lp-012-hint-01-zoek-de-handdoek-D7CSRqHT.mp4",
-      "assets/lp-013-hint-01-zoek-de-boot-BhCRMXFE.mp4",
-      "assets/kijk-naar-het-plaatje-dat-oplicht-boot-GYzT0SwL.mp4",
-      "assets/lp-002-hint-02-kijk-naar-dolfijn-N76SeC6w.mp4",
-      "assets/lp-003-hint-02-kijk-naar-bal-Cs9XeQ_H.mp4",
-      "assets/lp-004-hint-02-kijk-naar-vuurtoren-D621YoVS.mp4",
-      "assets/lp-005-hint-02-kijk-naar-vlieger-CAabEloH.mp4",
-      "assets/lp-006-hint-02-kijk-naar-vliegtuig-IFV-r1MQ.mp4",
-      "assets/lp-007-hint-02-kijk-naar-schelp-rgXXaZpX.mp4",
-      "assets/lp-008-hint-02-kijk-naar-krab-Br7lyRp9.mp4",
-      "assets/lp-009-hint-02-kijk-naar-zandkasteel-WRtFUs1u.mp4",
-      "assets/lp-010-hint-02-kijk-naar-parasol-T7R7xDYT.mp4",
-      "assets/lp-011-hint-02-kijk-naar-zon-C7X1wzOH.mp4",
-      "assets/lp-012-hint-02-kijk-naar-handdoek-D-BI8Ulx.mp4",
-      "assets/lp-013-hint-02-kijk-naar-boot-_4QI2dHp.mp4",
-      "assets/shared-hint-kijk-naar-de-plek-die-oplicht-DzFZoOxE.mp4",
-      "assets/concept-boven-CMWync38.mp4",
-      "assets/concept-dichtbij-DLVshDLc.mp4",
-      "assets/concept-in-DWgTlh5Q.mp4",
-      "assets/concept-links-D7QnQcnF.mp4",
-      "assets/concept-midden-CCxrEuL5.mp4",
-      "assets/concept-naast-D4EipvzU.mp4",
-      "assets/concept-onder-CQXEwW8e.mp4",
-      "assets/concept-op-rm2yQwHl.mp4",
-      "assets/concept-rechts-BrIyFD8W.mp4",
-      "assets/concept-tussen-BU3F_qxN.mp4",
-      "assets/concept-ver-weg-GyEQ5OiH.mp4",
-      "assets/lp-001-feedback-boot-vaart-in-de-zee-BRjlA3pc.mp4",
-      "assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-BsG0MsXX.mp4",
-      "assets/lp-003-feedback-bal-ligt-op-het-strand-DLbVwe1j.mp4",
-      "assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-pgKz8j19.mp4",
-      "assets/lp-005-feedback-vlieger-boven-het-strand-CPL7Gidm.mp4",
-      "assets/lp-006-feedback-vliegtuig-boven-de-zee-rIMNwWq5.mp4",
-      "assets/lp-007-feedback-schelp-ligt-op-het-strand-DG8ej1JF.mp4",
-      "assets/lp-008-feedback-krab-zit-op-de-handdoek-f3BhzWv7.mp4",
-      "assets/lp-009-feedback-zandkasteel-naast-schelp-C_WmjR8v.mp4",
-      "assets/lp-010-feedback-parasol-rechts-op-strand-D51vaEOH.mp4",
-      "assets/lp-011-feedback-zon-boven-de-zee-iB8D-p6S.mp4",
-      "assets/lp-012-feedback-handdoek-midden-op-strand-ocAlvzQY.mp4",
-      "assets/lp-013-feedback-boot-links-in-de-zee-CZjbhhF6.mp4",
-      "assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-omXV8zu3.mp4",
-      "assets/lp-015-feedback-bal-dichtbij-parasol-DNif_D7N.mp4",
-      "assets/avatar-01-CLY9aQx4.png",
-      "assets/broom-01-basic-DCl0hNIR.png",
-      "assets/broom-02-beach-Dm5SUzbY.png",
-      "assets/broom-06-speed-BYA4ve7K.png",
-      "assets/mascot-06-hint-D_DbfUeb.png",
-      "assets/mascot-05-celebration-PUcpWzM0.png",
-      "assets/mascot-01-neutral-C4m9lZWu.png"
+      "assets/dolphin-sticker-psHLZ_YF.webp",
+      "assets/sailboat-sticker-AuaeKGMh.webp",
+      "assets/lighthouse-sticker-CGxhguB3.webp",
+      "assets/airplane-sticker-BOlKV2E8.webp",
+      "assets/kite-sticker-9y1QNj1q.webp",
+      "assets/beach-ball-sticker-Dv-cjiLr.webp",
+      "assets/beach-umbrella-sticker-CL_SNZUk.webp",
+      "assets/seashells-sticker-C8KL99nA.webp",
+      "assets/crab-sticker-C68d2q4R.webp",
+      "assets/sandcastle-sticker-Da0mHsrO.webp",
+      "assets/beach-towel-sticker-D76ByBJ9.webp",
+      "assets/sun-sticker-CNXyirNc.webp",
+      "assets/cloud-obstacle-D3zGM3QO.webp",
+      "assets/sea-lion-obstacle-DIpGnDf-.webp",
+      "assets/seagull-obstacle-B8gvPgsM.webp",
+      "assets/shark-obstacle-CLdYq5RB.webp",
+      "assets/zet-de-boot-in-de-zee-Boexzq-Q.mp4",
+      "assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-Dmnbx9-0.mp4",
+      "assets/lp-003-opdracht-zet-de-bal-op-het-strand-BYI45Gfy.mp4",
+      "assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-BbJXD1UJ.mp4",
+      "assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-C6DHk8aB.mp4",
+      "assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C_52tkgh.mp4",
+      "assets/lp-007-opdracht-leg-de-schelp-op-het-strand-C13kQXwV.mp4",
+      "assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-DRPd5SH5.mp4",
+      "assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-Bf-E-DOU.mp4",
+      "assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-btXZlJKt.mp4",
+      "assets/lp-011-opdracht-zet-de-zon-boven-de-zee-BcixAhvt.mp4",
+      "assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-BibmXdCk.mp4",
+      "assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-DSFE1BrB.mp4",
+      "assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-DNBzXP-n.mp4",
+      "assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-PZAHk6X8.mp4",
+      "assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-tDHo-bIy.mp4",
+      "assets/cw-001-opdracht-waar-is-de-dolfijn-uzERdkoC.mp4",
+      "assets/cw-002-opdracht-waar-is-de-boot-CXE_QAGJ.mp4",
+      "assets/cw-003-opdracht-waar-is-de-bal-Ob2rcyJv.mp4",
+      "assets/cw-004-opdracht-waar-is-de-vuurtoren-BtBLRBpW.mp4",
+      "assets/cw-005-opdracht-waar-is-de-parasol-jD3SNyjw.mp4",
+      "assets/cw-006-opdracht-waar-is-de-vlieger-FVsRIDS-.mp4",
+      "assets/cw-007-opdracht-waar-is-de-krab-D3bgMDkG.mp4",
+      "assets/cw-008-opdracht-waar-is-de-handdoek-D8-zsMpX.mp4",
+      "assets/cw-009-opdracht-waar-is-de-schelp-KAi-L71G.mp4",
+      "assets/cw-010-opdracht-waar-is-het-zandkasteel-CscDf8bm.mp4",
+      "assets/cw-011-opdracht-waar-is-het-vliegtuig-08ciBTJ7.mp4",
+      "assets/cw-012-opdracht-waar-is-de-zon-bYexkzPP.mp4",
+      "assets/zoek-de-boot-BsErqaCP.mp4",
+      "assets/lp-002-hint-01-zoek-de-dolfijn-kdF16Evp.mp4",
+      "assets/lp-003-hint-01-zoek-de-bal-BIRj2Cms.mp4",
+      "assets/lp-004-hint-01-zoek-de-vuurtoren-DpULjZDw.mp4",
+      "assets/lp-005-hint-01-zoek-de-vlieger-DkvKfR1x.mp4",
+      "assets/lp-006-hint-01-zoek-het-vliegtuig-YK7B8tUe.mp4",
+      "assets/lp-007-hint-01-zoek-de-schelp-BsaCe1Vm.mp4",
+      "assets/lp-008-hint-01-zoek-de-krab-BdblUrR4.mp4",
+      "assets/lp-009-hint-01-zoek-het-zandkasteel-DZXWQgFs.mp4",
+      "assets/lp-010-hint-01-zoek-de-parasol-VSkYlnNH.mp4",
+      "assets/lp-011-hint-01-zoek-de-zon-DIhMBOu-.mp4",
+      "assets/lp-012-hint-01-zoek-de-handdoek-CMMKX8IY.mp4",
+      "assets/lp-013-hint-01-zoek-de-boot-0VB9VHVp.mp4",
+      "assets/kijk-naar-het-plaatje-dat-oplicht-boot-D-M70_tJ.mp4",
+      "assets/lp-002-hint-02-kijk-naar-dolfijn-DO00kob4.mp4",
+      "assets/lp-003-hint-02-kijk-naar-bal-C3IQ6Cp0.mp4",
+      "assets/lp-004-hint-02-kijk-naar-vuurtoren-CUGk7E_5.mp4",
+      "assets/lp-005-hint-02-kijk-naar-vlieger-Cyy_qw15.mp4",
+      "assets/lp-006-hint-02-kijk-naar-vliegtuig-ivJ6zW7v.mp4",
+      "assets/lp-007-hint-02-kijk-naar-schelp-DUDz0OHB.mp4",
+      "assets/lp-008-hint-02-kijk-naar-krab-Do7PE0zI.mp4",
+      "assets/lp-009-hint-02-kijk-naar-zandkasteel-CyN7MTzY.mp4",
+      "assets/lp-010-hint-02-kijk-naar-parasol-CMeGiDnE.mp4",
+      "assets/lp-011-hint-02-kijk-naar-zon-DBhuE1QQ.mp4",
+      "assets/lp-012-hint-02-kijk-naar-handdoek--F2wywZ3.mp4",
+      "assets/lp-013-hint-02-kijk-naar-boot-LrQXFfjy.mp4",
+      "assets/shared-hint-kijk-naar-de-plek-die-oplicht-IMKPtAfd.mp4",
+      "assets/concept-boven-Bc-sg03d.mp4",
+      "assets/concept-dichtbij-Bwc-8NBy.mp4",
+      "assets/concept-in-QbG8JNUF.mp4",
+      "assets/concept-links-BdPeMNtC.mp4",
+      "assets/concept-midden-Bzbbh34y.mp4",
+      "assets/concept-naast-Cuh1BrlL.mp4",
+      "assets/concept-onder-uzx_EdiD.mp4",
+      "assets/concept-op-DkPAnmAB.mp4",
+      "assets/concept-rechts-CODPOqVZ.mp4",
+      "assets/concept-tussen-Dt9Lv9ZY.mp4",
+      "assets/concept-ver-weg-BEvP-ye_.mp4",
+      "assets/lp-001-feedback-boot-vaart-in-de-zee-CejjY9zF.mp4",
+      "assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-sdU5FLvN.mp4",
+      "assets/lp-003-feedback-bal-ligt-op-het-strand-dmRvGDzj.mp4",
+      "assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-DGdv6wKX.mp4",
+      "assets/lp-005-feedback-vlieger-boven-het-strand-DFJ9PWfa.mp4",
+      "assets/lp-006-feedback-vliegtuig-boven-de-zee-Stri8jCc.mp4",
+      "assets/lp-007-feedback-schelp-ligt-op-het-strand-BL9oTh9O.mp4",
+      "assets/lp-008-feedback-krab-zit-op-de-handdoek-CyWFgzu8.mp4",
+      "assets/lp-009-feedback-zandkasteel-naast-schelp-BD62gyNG.mp4",
+      "assets/lp-010-feedback-parasol-rechts-op-strand-Dt9wxcTm.mp4",
+      "assets/lp-011-feedback-zon-boven-de-zee-eZdeNwFK.mp4",
+      "assets/lp-012-feedback-handdoek-midden-op-strand-CPibnxxf.mp4",
+      "assets/lp-013-feedback-boot-links-in-de-zee-DTQfDFC0.mp4",
+      "assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-CsP9i_q1.mp4",
+      "assets/lp-015-feedback-bal-dichtbij-parasol-NHvQbB97.mp4",
+      "assets/avatar-01-Bxg3Ceev.webp",
+      "assets/broom-01-basic-Dhnboxc7.webp",
+      "assets/broom-02-beach-C_HX8bX6.webp",
+      "assets/broom-06-speed-B3uwALjY.webp",
+      "assets/mascot-06-hint-DtOGNtQ9.webp",
+      "assets/mascot-05-celebration-BteuAr4q.webp",
+      "assets/mascot-01-neutral-DqZ2tPtS.webp"
     ]
   },
-  "_games-BhqNFMAN.js": {
-    "file": "assets/games-BhqNFMAN.js",
+  "_games-ChPq1cuO.js": {
+    "file": "assets/games-ChPq1cuO.js",
     "name": "games",
     "imports": [
       "index.html"
     ]
   },
-  "_offlinePackages-BwapGgel.js": {
-    "file": "assets/offlinePackages-BwapGgel.js",
-    "name": "offlinePackages",
-    "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
-    ]
-  },
-  "_proxy-CjcSbu2U.js": {
-    "file": "assets/proxy-CjcSbu2U.js",
+  "_proxy-Cpdbp-U5.js": {
+    "file": "assets/proxy-Cpdbp-U5.js",
     "name": "proxy",
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html"
     ]
   },
-  "_runtimeAdapters-d6cBDsaB.js": {
-    "file": "assets/runtimeAdapters-d6cBDsaB.js",
+  "_runtimeAdapters-D6yx8eEz.js": {
+    "file": "assets/runtimeAdapters-D6yx8eEz.js",
     "name": "runtimeAdapters",
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html"
     ]
   },
   "index.html": {
-    "file": "assets/index-Dx_8gJsO.js",
+    "file": "assets/index-fvWApNoV.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ],
     "dynamicImports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "src/app/games/groot-circus-avontuur/index.tsx",
       "src/app/games/rekenen-strand/index.tsx",
       "src/app/screens/welcome/index.ts",
@@ -198,10 +188,10 @@
       "../../../../../@vite-plugin-pwa/virtual:pwa-register"
     ],
     "css": [
-      "assets/index-BA8IjVw8.css"
+      "assets/index-C5KiYQli.css"
     ],
     "assets": [
-      "assets/world-beach-CQwbLi6A.png",
+      "assets/world-beach-DZiEd7p-.webp",
       "assets/world-circus-DhVa_7Ny.png"
     ]
   },
@@ -368,12 +358,12 @@
     "src": "src/app/games/groot-circus-avontuur/assets/objects/transparent/unicycle-sticker.png"
   },
   "src/app/games/groot-circus-avontuur/index.tsx": {
-    "file": "assets/index-Cu8tZ4Sl.js",
+    "file": "assets/index-CYjeNGe1.js",
     "name": "index",
     "src": "src/app/games/groot-circus-avontuur/index.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ],
     "assets": [
       "assets/circus-board-portrait-Czb-_bBB.png",
@@ -420,566 +410,552 @@
     "file": "assets/background-music-DdUSu1S4.mp3",
     "src": "src/app/games/groot-circus-avontuur/assets/audio/background-music.mp3"
   },
-  "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.png": {
-    "file": "assets/beach-board-landscape-DRpTQ2VE.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.png"
-  },
   "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.webp": {
     "file": "assets/beach-board-landscape-C9w1MngR.webp",
     "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.webp"
-  },
-  "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-portrait.png": {
-    "file": "assets/beach-board-portrait-aIe9tZGq.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-portrait.png"
   },
   "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-portrait.webp": {
     "file": "assets/beach-board-portrait-_RTycSDx.webp",
     "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-portrait.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-voice-side-scroller.png": {
-    "file": "assets/beach-voice-side-scroller-C24OnRvo.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-voice-side-scroller.png"
-  },
   "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-voice-side-scroller.webp": {
     "file": "assets/beach-voice-side-scroller-BvyGGRFk.webp",
     "src": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-voice-side-scroller.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/avatars/avatar-01.png": {
-    "file": "assets/avatar-01-CLY9aQx4.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/avatars/avatar-01.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/avatars/avatar-01.webp": {
+    "file": "assets/avatar-01-Bxg3Ceev.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/avatars/avatar-01.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.png": {
-    "file": "assets/broom-01-basic-DCl0hNIR.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-01-basic.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.webp": {
+    "file": "assets/broom-01-basic-Dhnboxc7.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.png": {
-    "file": "assets/broom-02-beach-Dm5SUzbY.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-02-beach.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.webp": {
+    "file": "assets/broom-02-beach-C_HX8bX6.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.png": {
-    "file": "assets/broom-06-speed-BYA4ve7K.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-06-speed.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.webp": {
+    "file": "assets/broom-06-speed-B3uwALjY.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.png": {
-    "file": "assets/mascot-01-neutral-C4m9lZWu.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-01-neutral.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.webp": {
+    "file": "assets/mascot-01-neutral-DqZ2tPtS.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.png": {
-    "file": "assets/mascot-05-celebration-PUcpWzM0.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-05-celebration.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.webp": {
+    "file": "assets/mascot-05-celebration-BteuAr4q.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.png": {
-    "file": "assets/mascot-06-hint-D_DbfUeb.png",
-    "src": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-06-hint.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.webp": {
+    "file": "assets/mascot-06-hint-DtOGNtQ9.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.png": {
-    "file": "assets/world-beach-CQwbLi6A.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.png"
+  "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.webp": {
+    "file": "assets/world-beach-DZiEd7p-.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.webp"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-boven.mp4": {
-    "file": "assets/concept-boven-CMWync38.mp4",
+    "file": "assets/concept-boven-Bc-sg03d.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-boven.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-dichtbij.mp4": {
-    "file": "assets/concept-dichtbij-DLVshDLc.mp4",
+    "file": "assets/concept-dichtbij-Bwc-8NBy.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-dichtbij.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-in.mp4": {
-    "file": "assets/concept-in-DWgTlh5Q.mp4",
+    "file": "assets/concept-in-QbG8JNUF.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-in.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-links.mp4": {
-    "file": "assets/concept-links-D7QnQcnF.mp4",
+    "file": "assets/concept-links-BdPeMNtC.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-links.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-midden.mp4": {
-    "file": "assets/concept-midden-CCxrEuL5.mp4",
+    "file": "assets/concept-midden-Bzbbh34y.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-midden.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-naast.mp4": {
-    "file": "assets/concept-naast-D4EipvzU.mp4",
+    "file": "assets/concept-naast-Cuh1BrlL.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-naast.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-onder.mp4": {
-    "file": "assets/concept-onder-CQXEwW8e.mp4",
+    "file": "assets/concept-onder-uzx_EdiD.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-onder.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-op.mp4": {
-    "file": "assets/concept-op-rm2yQwHl.mp4",
+    "file": "assets/concept-op-DkPAnmAB.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-op.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-rechts.mp4": {
-    "file": "assets/concept-rechts-BrIyFD8W.mp4",
+    "file": "assets/concept-rechts-CODPOqVZ.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-rechts.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-tussen.mp4": {
-    "file": "assets/concept-tussen-BU3F_qxN.mp4",
+    "file": "assets/concept-tussen-Dt9Lv9ZY.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-tussen.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/concept-ver-weg.mp4": {
-    "file": "assets/concept-ver-weg-GyEQ5OiH.mp4",
+    "file": "assets/concept-ver-weg-BEvP-ye_.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-ver-weg.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4": {
-    "file": "assets/cw-001-opdracht-waar-is-de-dolfijn-DHGpTcy5.mp4",
+    "file": "assets/cw-001-opdracht-waar-is-de-dolfijn-uzERdkoC.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4": {
-    "file": "assets/cw-002-opdracht-waar-is-de-boot-CYbTgkv0.mp4",
+    "file": "assets/cw-002-opdracht-waar-is-de-boot-CXE_QAGJ.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4": {
-    "file": "assets/cw-003-opdracht-waar-is-de-bal-CoPXWKd8.mp4",
+    "file": "assets/cw-003-opdracht-waar-is-de-bal-Ob2rcyJv.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-004-opdracht-waar-is-de-vuurtoren.mp4": {
-    "file": "assets/cw-004-opdracht-waar-is-de-vuurtoren--pM-6l5T.mp4",
+    "file": "assets/cw-004-opdracht-waar-is-de-vuurtoren-BtBLRBpW.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-004-opdracht-waar-is-de-vuurtoren.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4": {
-    "file": "assets/cw-005-opdracht-waar-is-de-parasol-YP-gR-ZD.mp4",
+    "file": "assets/cw-005-opdracht-waar-is-de-parasol-jD3SNyjw.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4": {
-    "file": "assets/cw-006-opdracht-waar-is-de-vlieger-DtuL4qAy.mp4",
+    "file": "assets/cw-006-opdracht-waar-is-de-vlieger-FVsRIDS-.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4": {
-    "file": "assets/cw-007-opdracht-waar-is-de-krab-DInv2u-W.mp4",
+    "file": "assets/cw-007-opdracht-waar-is-de-krab-D3bgMDkG.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-008-opdracht-waar-is-de-handdoek.mp4": {
-    "file": "assets/cw-008-opdracht-waar-is-de-handdoek-B3osOq0J.mp4",
+    "file": "assets/cw-008-opdracht-waar-is-de-handdoek-D8-zsMpX.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-008-opdracht-waar-is-de-handdoek.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4": {
-    "file": "assets/cw-009-opdracht-waar-is-de-schelp-DsRweie6.mp4",
+    "file": "assets/cw-009-opdracht-waar-is-de-schelp-KAi-L71G.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-010-opdracht-waar-is-het-zandkasteel.mp4": {
-    "file": "assets/cw-010-opdracht-waar-is-het-zandkasteel-Cb3PGROm.mp4",
+    "file": "assets/cw-010-opdracht-waar-is-het-zandkasteel-CscDf8bm.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-010-opdracht-waar-is-het-zandkasteel.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-011-opdracht-waar-is-het-vliegtuig.mp4": {
-    "file": "assets/cw-011-opdracht-waar-is-het-vliegtuig-Bx1ZjH_T.mp4",
+    "file": "assets/cw-011-opdracht-waar-is-het-vliegtuig-08ciBTJ7.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-011-opdracht-waar-is-het-vliegtuig.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4": {
-    "file": "assets/cw-012-opdracht-waar-is-de-zon-j2_cQqfB.mp4",
+    "file": "assets/cw-012-opdracht-waar-is-de-zon-bYexkzPP.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4": {
-    "file": "assets/kijk-naar-het-plaatje-dat-oplicht-boot-GYzT0SwL.mp4",
+    "file": "assets/kijk-naar-het-plaatje-dat-oplicht-boot-D-M70_tJ.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4": {
-    "file": "assets/lp-001-feedback-boot-vaart-in-de-zee-BRjlA3pc.mp4",
+    "file": "assets/lp-001-feedback-boot-vaart-in-de-zee-CejjY9zF.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4": {
-    "file": "assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-BsG0MsXX.mp4",
+    "file": "assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-sdU5FLvN.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4": {
-    "file": "assets/lp-002-hint-01-zoek-de-dolfijn-DNHxc-x9.mp4",
+    "file": "assets/lp-002-hint-01-zoek-de-dolfijn-kdF16Evp.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4": {
-    "file": "assets/lp-002-hint-02-kijk-naar-dolfijn-N76SeC6w.mp4",
+    "file": "assets/lp-002-hint-02-kijk-naar-dolfijn-DO00kob4.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4": {
-    "file": "assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-D7usl_PW.mp4",
+    "file": "assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-Dmnbx9-0.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4": {
-    "file": "assets/lp-003-feedback-bal-ligt-op-het-strand-DLbVwe1j.mp4",
+    "file": "assets/lp-003-feedback-bal-ligt-op-het-strand-dmRvGDzj.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-01-zoek-de-bal.mp4": {
-    "file": "assets/lp-003-hint-01-zoek-de-bal-9NDOU1ii.mp4",
+    "file": "assets/lp-003-hint-01-zoek-de-bal-BIRj2Cms.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-01-zoek-de-bal.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4": {
-    "file": "assets/lp-003-hint-02-kijk-naar-bal-Cs9XeQ_H.mp4",
+    "file": "assets/lp-003-hint-02-kijk-naar-bal-C3IQ6Cp0.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4": {
-    "file": "assets/lp-003-opdracht-zet-de-bal-op-het-strand-Uwt0J0do.mp4",
+    "file": "assets/lp-003-opdracht-zet-de-bal-op-het-strand-BYI45Gfy.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4": {
-    "file": "assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-pgKz8j19.mp4",
+    "file": "assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-DGdv6wKX.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4": {
-    "file": "assets/lp-004-hint-01-zoek-de-vuurtoren-DvEw7JbK.mp4",
+    "file": "assets/lp-004-hint-01-zoek-de-vuurtoren-DpULjZDw.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4": {
-    "file": "assets/lp-004-hint-02-kijk-naar-vuurtoren-D621YoVS.mp4",
+    "file": "assets/lp-004-hint-02-kijk-naar-vuurtoren-CUGk7E_5.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4": {
-    "file": "assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-xqrWYJo2.mp4",
+    "file": "assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-BbJXD1UJ.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4": {
-    "file": "assets/lp-005-feedback-vlieger-boven-het-strand-CPL7Gidm.mp4",
+    "file": "assets/lp-005-feedback-vlieger-boven-het-strand-DFJ9PWfa.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4": {
-    "file": "assets/lp-005-hint-01-zoek-de-vlieger-B-kpQ4lu.mp4",
+    "file": "assets/lp-005-hint-01-zoek-de-vlieger-DkvKfR1x.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4": {
-    "file": "assets/lp-005-hint-02-kijk-naar-vlieger-CAabEloH.mp4",
+    "file": "assets/lp-005-hint-02-kijk-naar-vlieger-Cyy_qw15.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4": {
-    "file": "assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-Dh615lbg.mp4",
+    "file": "assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-C6DHk8aB.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4": {
-    "file": "assets/lp-006-feedback-vliegtuig-boven-de-zee-rIMNwWq5.mp4",
+    "file": "assets/lp-006-feedback-vliegtuig-boven-de-zee-Stri8jCc.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4": {
-    "file": "assets/lp-006-hint-01-zoek-het-vliegtuig-CnFsMscf.mp4",
+    "file": "assets/lp-006-hint-01-zoek-het-vliegtuig-YK7B8tUe.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4": {
-    "file": "assets/lp-006-hint-02-kijk-naar-vliegtuig-IFV-r1MQ.mp4",
+    "file": "assets/lp-006-hint-02-kijk-naar-vliegtuig-ivJ6zW7v.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4": {
-    "file": "assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C4sEszQK.mp4",
+    "file": "assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C_52tkgh.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4": {
-    "file": "assets/lp-007-feedback-schelp-ligt-op-het-strand-DG8ej1JF.mp4",
+    "file": "assets/lp-007-feedback-schelp-ligt-op-het-strand-BL9oTh9O.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4": {
-    "file": "assets/lp-007-hint-01-zoek-de-schelp-Sj8q5WYn.mp4",
+    "file": "assets/lp-007-hint-01-zoek-de-schelp-BsaCe1Vm.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4": {
-    "file": "assets/lp-007-hint-02-kijk-naar-schelp-rgXXaZpX.mp4",
+    "file": "assets/lp-007-hint-02-kijk-naar-schelp-DUDz0OHB.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4": {
-    "file": "assets/lp-007-opdracht-leg-de-schelp-op-het-strand-CJ7gY9V9.mp4",
+    "file": "assets/lp-007-opdracht-leg-de-schelp-op-het-strand-C13kQXwV.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4": {
-    "file": "assets/lp-008-feedback-krab-zit-op-de-handdoek-f3BhzWv7.mp4",
+    "file": "assets/lp-008-feedback-krab-zit-op-de-handdoek-CyWFgzu8.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-01-zoek-de-krab.mp4": {
-    "file": "assets/lp-008-hint-01-zoek-de-krab-DsDNVs59.mp4",
+    "file": "assets/lp-008-hint-01-zoek-de-krab-BdblUrR4.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-01-zoek-de-krab.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4": {
-    "file": "assets/lp-008-hint-02-kijk-naar-krab-Br7lyRp9.mp4",
+    "file": "assets/lp-008-hint-02-kijk-naar-krab-Do7PE0zI.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4": {
-    "file": "assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-CPOFOMn2.mp4",
+    "file": "assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-DRPd5SH5.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4": {
-    "file": "assets/lp-009-feedback-zandkasteel-naast-schelp-C_WmjR8v.mp4",
+    "file": "assets/lp-009-feedback-zandkasteel-naast-schelp-BD62gyNG.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4": {
-    "file": "assets/lp-009-hint-01-zoek-het-zandkasteel-DC2ZL_Wi.mp4",
+    "file": "assets/lp-009-hint-01-zoek-het-zandkasteel-DZXWQgFs.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4": {
-    "file": "assets/lp-009-hint-02-kijk-naar-zandkasteel-WRtFUs1u.mp4",
+    "file": "assets/lp-009-hint-02-kijk-naar-zandkasteel-CyN7MTzY.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4": {
-    "file": "assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-FUxuOZ0M.mp4",
+    "file": "assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-Bf-E-DOU.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4": {
-    "file": "assets/lp-010-feedback-parasol-rechts-op-strand-D51vaEOH.mp4",
+    "file": "assets/lp-010-feedback-parasol-rechts-op-strand-Dt9wxcTm.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4": {
-    "file": "assets/lp-010-hint-01-zoek-de-parasol-BHKD8Nyh.mp4",
+    "file": "assets/lp-010-hint-01-zoek-de-parasol-VSkYlnNH.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4": {
-    "file": "assets/lp-010-hint-02-kijk-naar-parasol-T7R7xDYT.mp4",
+    "file": "assets/lp-010-hint-02-kijk-naar-parasol-CMeGiDnE.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4": {
-    "file": "assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-BCBrbfty.mp4",
+    "file": "assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-btXZlJKt.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4": {
-    "file": "assets/lp-011-feedback-zon-boven-de-zee-iB8D-p6S.mp4",
+    "file": "assets/lp-011-feedback-zon-boven-de-zee-eZdeNwFK.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-01-zoek-de-zon.mp4": {
-    "file": "assets/lp-011-hint-01-zoek-de-zon-BVW5li3d.mp4",
+    "file": "assets/lp-011-hint-01-zoek-de-zon-DIhMBOu-.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-01-zoek-de-zon.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4": {
-    "file": "assets/lp-011-hint-02-kijk-naar-zon-C7X1wzOH.mp4",
+    "file": "assets/lp-011-hint-02-kijk-naar-zon-DBhuE1QQ.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4": {
-    "file": "assets/lp-011-opdracht-zet-de-zon-boven-de-zee-DydBW9ux.mp4",
+    "file": "assets/lp-011-opdracht-zet-de-zon-boven-de-zee-BcixAhvt.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4": {
-    "file": "assets/lp-012-feedback-handdoek-midden-op-strand-ocAlvzQY.mp4",
+    "file": "assets/lp-012-feedback-handdoek-midden-op-strand-CPibnxxf.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4": {
-    "file": "assets/lp-012-hint-01-zoek-de-handdoek-D7CSRqHT.mp4",
+    "file": "assets/lp-012-hint-01-zoek-de-handdoek-CMMKX8IY.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4": {
-    "file": "assets/lp-012-hint-02-kijk-naar-handdoek-D-BI8Ulx.mp4",
+    "file": "assets/lp-012-hint-02-kijk-naar-handdoek--F2wywZ3.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4": {
-    "file": "assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-Dpa4U5RB.mp4",
+    "file": "assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-BibmXdCk.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4": {
-    "file": "assets/lp-013-feedback-boot-links-in-de-zee-CZjbhhF6.mp4",
+    "file": "assets/lp-013-feedback-boot-links-in-de-zee-DTQfDFC0.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-01-zoek-de-boot.mp4": {
-    "file": "assets/lp-013-hint-01-zoek-de-boot-BhCRMXFE.mp4",
+    "file": "assets/lp-013-hint-01-zoek-de-boot-0VB9VHVp.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-01-zoek-de-boot.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4": {
-    "file": "assets/lp-013-hint-02-kijk-naar-boot-_4QI2dHp.mp4",
+    "file": "assets/lp-013-hint-02-kijk-naar-boot-LrQXFfjy.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4": {
-    "file": "assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-B6e0tE-X.mp4",
+    "file": "assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-DSFE1BrB.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4": {
-    "file": "assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-omXV8zu3.mp4",
+    "file": "assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-CsP9i_q1.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4": {
-    "file": "assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-TuvX86AZ.mp4",
+    "file": "assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-DNBzXP-n.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4": {
-    "file": "assets/lp-015-feedback-bal-dichtbij-parasol-DNif_D7N.mp4",
+    "file": "assets/lp-015-feedback-bal-dichtbij-parasol-NHvQbB97.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4": {
-    "file": "assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-BaFbb1d1.mp4",
+    "file": "assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-PZAHk6X8.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4": {
-    "file": "assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-C6swzU_n.mp4",
+    "file": "assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-tDHo-bIy.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4": {
-    "file": "assets/shared-hint-kijk-naar-de-plek-die-oplicht-DzFZoOxE.mp4",
+    "file": "assets/shared-hint-kijk-naar-de-plek-die-oplicht-IMKPtAfd.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/zet-de-boot-in-de-zee.mp4": {
-    "file": "assets/zet-de-boot-in-de-zee-DqLORs_p.mp4",
+    "file": "assets/zet-de-boot-in-de-zee-Boexzq-Q.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/zet-de-boot-in-de-zee.mp4"
   },
   "src/app/games/magisch-strand-avontuur/assets/instructions/zoek-de-boot.mp4": {
-    "file": "assets/zoek-de-boot-D4kGxvqG.mp4",
+    "file": "assets/zoek-de-boot-BsErqaCP.mp4",
     "src": "src/app/games/magisch-strand-avontuur/assets/instructions/zoek-de-boot.mp4"
   },
-  "src/app/games/magisch-strand-avontuur/assets/logos/start-logo-beach.png": {
-    "file": "assets/start-logo-beach-DJZIiUqo.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/logos/start-logo-beach.png"
+  "src/app/games/magisch-strand-avontuur/assets/logos/start-logo-beach.webp": {
+    "file": "assets/start-logo-beach-CHMmEAk3.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/logos/start-logo-beach.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/cloud-obstacle.png": {
-    "file": "assets/cloud-obstacle-D_ui3i_d.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/cloud-obstacle.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/cloud-obstacle.webp": {
+    "file": "assets/cloud-obstacle-D3zGM3QO.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/cloud-obstacle.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/sea-lion-obstacle.png": {
-    "file": "assets/sea-lion-obstacle-BSVkYvSs.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/sea-lion-obstacle.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/sea-lion-obstacle.webp": {
+    "file": "assets/sea-lion-obstacle-DIpGnDf-.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/sea-lion-obstacle.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/seagull-obstacle.png": {
-    "file": "assets/seagull-obstacle-B0QqFadv.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/seagull-obstacle.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/seagull-obstacle.webp": {
+    "file": "assets/seagull-obstacle-B8gvPgsM.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/seagull-obstacle.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/shark-obstacle.png": {
-    "file": "assets/shark-obstacle-BPrNP8-x.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/shark-obstacle.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/shark-obstacle.webp": {
+    "file": "assets/shark-obstacle-CLdYq5RB.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/shark-obstacle.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/airplane-sticker.png": {
-    "file": "assets/airplane-sticker-CESMEhtn.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/airplane-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/airplane-sticker.webp": {
+    "file": "assets/airplane-sticker-BOlKV2E8.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/airplane-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-ball-sticker.png": {
-    "file": "assets/beach-ball-sticker-CHXSXqdp.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-ball-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-ball-sticker.webp": {
+    "file": "assets/beach-ball-sticker-Dv-cjiLr.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-ball-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-towel-sticker.png": {
-    "file": "assets/beach-towel-sticker-Bnjnq1--.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-towel-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-towel-sticker.webp": {
+    "file": "assets/beach-towel-sticker-D76ByBJ9.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-towel-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-umbrella-sticker.png": {
-    "file": "assets/beach-umbrella-sticker-CisO6HQX.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-umbrella-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-umbrella-sticker.webp": {
+    "file": "assets/beach-umbrella-sticker-CL_SNZUk.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-umbrella-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/crab-sticker.png": {
-    "file": "assets/crab-sticker-BDJ5zZQk.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/crab-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/crab-sticker.webp": {
+    "file": "assets/crab-sticker-C68d2q4R.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/crab-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/dolphin-sticker.png": {
-    "file": "assets/dolphin-sticker-DF188-EG.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/dolphin-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/dolphin-sticker.webp": {
+    "file": "assets/dolphin-sticker-psHLZ_YF.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/dolphin-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/kite-sticker.png": {
-    "file": "assets/kite-sticker-At3NHhQu.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/kite-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/kite-sticker.webp": {
+    "file": "assets/kite-sticker-9y1QNj1q.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/kite-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/lighthouse-sticker.png": {
-    "file": "assets/lighthouse-sticker-33h0eFJ6.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/lighthouse-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/lighthouse-sticker.webp": {
+    "file": "assets/lighthouse-sticker-CGxhguB3.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/lighthouse-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sailboat-sticker.png": {
-    "file": "assets/sailboat-sticker-FaAxD-5d.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sailboat-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sailboat-sticker.webp": {
+    "file": "assets/sailboat-sticker-AuaeKGMh.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sailboat-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sandcastle-sticker.png": {
-    "file": "assets/sandcastle-sticker-yYdaGhpj.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sandcastle-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sandcastle-sticker.webp": {
+    "file": "assets/sandcastle-sticker-Da0mHsrO.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sandcastle-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/seashells-sticker.png": {
-    "file": "assets/seashells-sticker-BQGBNdK8.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/seashells-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/seashells-sticker.webp": {
+    "file": "assets/seashells-sticker-C8KL99nA.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/seashells-sticker.webp"
   },
-  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.png": {
-    "file": "assets/sun-sticker-CFFSGkMu.png",
-    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.png"
+  "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.webp": {
+    "file": "assets/sun-sticker-CNXyirNc.webp",
+    "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.webp"
   },
   "src/app/games/rekenen-strand/index.tsx": {
-    "file": "assets/game-rekenen-strand-ClX4eP9l.js",
+    "file": "assets/game-rekenen-strand-BooIOb2k.js",
     "name": "game-rekenen-strand",
     "src": "src/app/games/rekenen-strand/index.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js"
+      "_game-magisch-strand-avontuur-B7IwmD9V.js"
     ]
   },
   "src/app/screens/avatar-select/index.ts": {
-    "file": "assets/index-C6JXHYuM.js",
+    "file": "assets/index-DiE80t9c.js",
     "name": "index",
     "src": "src/app/screens/avatar-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_runtimeAdapters-d6cBDsaB.js",
-      "_GradientTitle-CtR7nOJB.js",
-      "_proxy-CjcSbu2U.js"
+      "_runtimeAdapters-D6yx8eEz.js",
+      "_GradientTitle-YymRc5bl.js",
+      "_proxy-Cpdbp-U5.js"
     ]
   },
   "src/app/screens/game-play/index.ts": {
-    "file": "assets/index-C1e7SJP3.js",
+    "file": "assets/index-DOBOSQxs.js",
     "name": "index",
     "src": "src/app/screens/game-play/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_runtimeAdapters-d6cBDsaB.js",
-      "_offlinePackages-BwapGgel.js",
-      "_proxy-CjcSbu2U.js"
+      "_runtimeAdapters-D6yx8eEz.js",
+      "_proxy-Cpdbp-U5.js"
     ]
   },
   "src/app/screens/games-list/index.ts": {
-    "file": "assets/index-CAMr3mRy.js",
+    "file": "assets/index-BDKCK_Mg.js",
     "name": "index",
     "src": "src/app/screens/games-list/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_games-BhqNFMAN.js",
-      "_offlinePackages-BwapGgel.js",
-      "_proxy-CjcSbu2U.js",
-      "_GradientTitle-CtR7nOJB.js"
+      "_games-ChPq1cuO.js",
+      "_proxy-Cpdbp-U5.js",
+      "_GradientTitle-YymRc5bl.js"
     ]
   },
   "src/app/screens/home/index.ts": {
-    "file": "assets/index-B3WnSQ-k.js",
+    "file": "assets/index-dggBlOsS.js",
     "name": "index",
     "src": "src/app/screens/home/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_GradientTitle-CtR7nOJB.js",
-      "_ScreenGuard-CF28mgRS.js",
-      "_proxy-CjcSbu2U.js",
-      "_games-BhqNFMAN.js"
+      "_GradientTitle-YymRc5bl.js",
+      "_ScreenGuard-VlEzc09A.js",
+      "_proxy-Cpdbp-U5.js",
+      "_games-ChPq1cuO.js"
     ]
   },
   "src/app/screens/profile-select/index.ts": {
-    "file": "assets/index-d-5mFbcm.js",
+    "file": "assets/index-Bm6pTrAs.js",
     "name": "index",
     "src": "src/app/screens/profile-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_proxy-CjcSbu2U.js",
-      "_GradientTitle-CtR7nOJB.js"
+      "_proxy-Cpdbp-U5.js",
+      "_GradientTitle-YymRc5bl.js"
     ]
   },
   "src/app/screens/progress/index.ts": {
-    "file": "assets/index-i0WDcr2Q.js",
+    "file": "assets/index-Bzx_3PKF.js",
     "name": "index",
     "src": "src/app/screens/progress/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_games-BhqNFMAN.js",
-      "_GradientTitle-CtR7nOJB.js",
-      "_ScreenGuard-CF28mgRS.js",
-      "_proxy-CjcSbu2U.js"
+      "_games-ChPq1cuO.js",
+      "_GradientTitle-YymRc5bl.js",
+      "_ScreenGuard-VlEzc09A.js",
+      "_proxy-Cpdbp-U5.js"
     ]
   },
   "src/app/screens/settings/index.ts": {
-    "file": "assets/index-T9crcnOQ.js",
+    "file": "assets/index-CYyrUWx0.js",
     "name": "index",
     "src": "src/app/screens/settings/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_runtimeAdapters-d6cBDsaB.js",
-      "_GradientTitle-CtR7nOJB.js",
-      "_ScreenGuard-CF28mgRS.js",
-      "_proxy-CjcSbu2U.js"
+      "_runtimeAdapters-D6yx8eEz.js",
+      "_GradientTitle-YymRc5bl.js",
+      "_ScreenGuard-VlEzc09A.js",
+      "_proxy-Cpdbp-U5.js"
     ]
   },
   "src/app/screens/welcome/index.ts": {
-    "file": "assets/index-HFX-DR88.js",
+    "file": "assets/index-3E6V7dhg.js",
     "name": "index",
     "src": "src/app/screens/welcome/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_game-magisch-strand-avontuur-DDLeRo-S.js",
+      "_game-magisch-strand-avontuur-B7IwmD9V.js",
       "index.html",
-      "_proxy-CjcSbu2U.js"
+      "_proxy-Cpdbp-U5.js"
     ]
   }
 }
