@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useGameRuntime } from "../../runtime/GameRuntimeContext";
 import {
-  firstRewardUnlocks,
+  readProfileTotals,
   readUnlockedRewardIds,
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
+  strandRewards,
   type RewardUnlock,
 } from "../../logic/rewards";
 import { TtlHeaderPill } from "../../components/ui";
@@ -16,6 +17,8 @@ import { readStoredRewardResult } from "./rewardResultStorage";
 interface RewardScreenProps {
   onChooseWorld?: () => void;
   onPlayAgain?: () => void;
+  /** Toon de "Opnieuw"-knop (uit voor het menu-overzicht). */
+  showPlayAgain?: boolean;
 }
 
 /**
@@ -23,7 +26,11 @@ interface RewardScreenProps {
  * @screens SCR_REWARD_SUMMARY
  * @description Beloning & Resultaten Scherm (Scherm 4)
  */
-export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) => {
+export const RewardScreen = ({
+  onChooseWorld,
+  onPlayAgain,
+  showPlayAgain = true,
+}: RewardScreenProps) => {
   const runtime = useGameRuntime();
   const rewardProfileId = runtime.identity.profileId;
   const [rewardResult] = useState(() => readStoredRewardResult(runtime.storage));
@@ -36,7 +43,7 @@ export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) 
     () => formatList(rewardResult.practicedConcepts, "nog geen plaatswoorden"),
     [rewardResult.practicedConcepts],
   );
-  const featuredReward = newRewards[0] ?? firstRewardUnlocks[0];
+  const featuredReward = newRewards[0] ?? strandRewards[0];
   const featuredRewardName = featuredReward?.label ?? "Woordster verzameld";
   const rewardSectionTitle = newRewards.length > 0 ? "Nieuwe beloning" : "Beloning";
   const rewardSectionText =
@@ -45,10 +52,13 @@ export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) 
       : featuredRewardName;
 
   useEffect(() => {
+    // Unlocks worden bepaald op het CUMULATIEVE per-profiel sterrentotaal,
+    // niet op de laatste ronde. Dit vangt ook eventueel nog niet toegekende
+    // beloningen op (idempotent) en houdt alles consistent met de gameplay.
     const unlockedRewardIds = readUnlockedRewardIds(rewardProfileId, runtime.storage);
+    const totals = readProfileTotals(rewardProfileId, runtime.storage);
     const nextRewards = resolveNewRewardUnlocks({
-      totalSpeed: rewardResult.speedEarned,
-      totalWordStars: rewardResult.starsEarned,
+      totalWordStars: totals.wordStars,
       unlockedRewardIds,
     });
 
@@ -63,7 +73,7 @@ export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) 
       [...unlockedRewardIds, ...nextRewards.map((reward) => reward.id)],
       runtime.storage,
     );
-  }, [rewardResult.speedEarned, rewardResult.starsEarned, rewardProfileId, runtime.storage]);
+  }, [rewardProfileId, runtime.storage]);
 
   return (
     <div
@@ -94,7 +104,11 @@ export const RewardScreen = ({ onChooseWorld, onPlayAgain }: RewardScreenProps) 
           rewardSectionText={rewardSectionText}
           rewardSectionTitle={rewardSectionTitle}
         />
-        <RewardActionsPanel onChooseWorld={onChooseWorld} onPlayAgain={onPlayAgain} />
+        <RewardActionsPanel
+          onChooseWorld={onChooseWorld}
+          onPlayAgain={onPlayAgain}
+          showPlayAgain={showPlayAgain}
+        />
       </div>
     </div>
   );

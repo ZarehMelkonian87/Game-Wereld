@@ -335,3 +335,145 @@ export const parseSpokenPlacementCommand = ({
     zoneMatches,
   };
 };
+
+/**
+ * Eén plaatsing uit een samengestelde ("compound") zin: welk object, en waar
+ * (relatie/zone als die genoemd zijn). Voor Zeg & Bouw (T-04b) mag één zin
+ * meerdere objecten bevatten, bv. "de boot in de zee en de vuurtoren op het
+ * eiland".
+ */
+export interface CompoundPlacement {
+  objectId: string;
+  objectLabel: string;
+  relation?: SpatialConcept;
+  zoneId?: string;
+}
+
+export interface CompoundPlacementParseResult {
+  normalizedTranscript: string;
+  placements: CompoundPlacement[];
+  transcript: string;
+}
+
+type CompoundTokenType = "object" | "concept" | "zone";
+
+interface CompoundToken extends SpokenCommandMatch {
+  type: CompoundTokenType;
+}
+
+/**
+ * Verzamelt alle object-, begrip- en zone-treffers in de zin en kiest een
+ * niet-overlappende reeks van links naar rechts (langste match wint bij
+ * overlap, bv. "strandbal" boven "bal"). Anders dan `parseSpokenPlacementCommand`
+ * dedupliceren we hier NIET op id: hetzelfde begrip/zone mag meerdere keren
+ * voorkomen ("... in de zee en ... in de zee").
+ */
+const buildCompoundTokens = (
+  normalizedTranscript: string,
+  objects: readonly SceneObject[],
+  zones: readonly SceneZone[],
+): CompoundToken[] => {
+  const rawTokens: CompoundToken[] = [
+    ...objects.flatMap((object) =>
+      findAliasMatches(
+        normalizedTranscript,
+        object.id,
+        object.label,
+        getObjectAliases(object),
+      ).map((match) => ({ ...match, type: "object" as const })),
+    ),
+    ...Object.entries(spatialConceptAliases).flatMap(([concept, aliases]) =>
+      findAliasMatches(normalizedTranscript, concept, concept, aliases).map((match) => ({
+        ...match,
+        id: concept,
+        type: "concept" as const,
+      })),
+    ),
+    ...zones.flatMap((zone) =>
+      findAliasMatches(normalizedTranscript, zone.id, zone.label, getZoneAliases(zone)).map(
+        (match) => ({ ...match, type: "zone" as const }),
+      ),
+    ),
+  ];
+
+  const ordered = [...rawTokens].sort((first, second) => {
+    if (first.index !== second.index) {
+      return first.index - second.index;
+    }
+    // Bij gelijke start: langste treffer eerst, zodat die de overlap wint.
+    return second.endIndex - second.index - (first.endIndex - first.index);
+  });
+
+  const selected: CompoundToken[] = [];
+  let lastEndIndex = -1;
+
+  ordered.forEach((token) => {
+    if (token.index >= lastEndIndex) {
+      selected.push(token);
+      lastEndIndex = token.endIndex;
+    }
+  });
+
+  return selected;
+};
+
+/**
+ * Haalt **meerdere** plaatsingen uit één zin (T-04b, Zeg & Bouw). Objecten
+ * stapelen op tot er een zone genoemd wordt; die zone (met de laatst genoemde
+ * relatie) wordt dan aan alle wachtende objecten toegekend. Objecten zonder
+ * genoemde zone komen als "losse" plaatsing terug (soepel doel: het kind noemde
+ * het object, het spel kiest een geldige plek).
+ */
+export const parseCompoundPlacements = ({
+  objects,
+  transcript,
+  zones,
+}: {
+  objects: readonly SceneObject[];
+  transcript: string;
+  zones: readonly SceneZone[];
+}): CompoundPlacementParseResult => {
+  const normalizedTranscript = normalizeSpokenCommand(transcript);
+  const tokens = buildCompoundTokens(normalizedTranscript, objects, zones);
+
+  const placements: CompoundPlacement[] = [];
+  const seenPlacementKeys = new Set<string>();
+  let pendingObjects: CompoundToken[] = [];
+  let currentRelation: SpatialConcept | undefined;
+
+  const emit = (
+    object: CompoundToken,
+    relation: SpatialConcept | undefined,
+    zoneId: string | undefined,
+  ) => {
+    const key = `${object.index}:${object.id}@${zoneId ?? ""}`;
+    if (seenPlacementKeys.has(key)) {
+      return;
+    }
+
+    seenPlacementKeys.add(key);
+    placements.push({ objectId: object.id, objectLabel: object.label, relation, zoneId });
+  };
+
+  tokens.forEach((token) => {
+    if (token.type === "object") {
+      pendingObjects.push(token);
+      return;
+    }
+
+    if (token.type === "concept") {
+      currentRelation = token.id as SpatialConcept;
+      return;
+    }
+
+    // zone: ken de lopende relatie + deze zone toe aan alle wachtende objecten.
+    pendingObjects.forEach((object) => emit(object, currentRelation, token.id));
+    pendingObjects = [];
+    currentRelation = undefined;
+  });
+
+  // Overgebleven objecten zonder genoemde zone → losse plaatsing (soepel doel).
+  pendingObjects.forEach((object) => emit(object, currentRelation, undefined));
+
+  return { normalizedTranscript, placements, transcript };
+};

@@ -40,10 +40,16 @@ export const VoiceSideScrollerScreen = ({ onBackToMenu }: VoiceSideScrollerScree
           onBackToMenu={onBackToMenu}
           onRestart={controller.startRound}
           onStart={controller.startRound}
+          record={controller.record}
+          roundRecordOutcome={controller.roundRecordOutcome}
           state={state}
         />
         <div className="absolute inset-x-0 top-0 z-20 px-3 pt-[calc(env(safe-area-inset-top)+0.6rem)]">
-          <VoiceSideScrollerHud onBackToMenu={onBackToMenu} state={state} />
+          <VoiceSideScrollerHud
+            onBackToMenu={onBackToMenu}
+            record={controller.record}
+            state={state}
+          />
         </div>
         <VoiceSideScrollerThumbRail
           disabled={controlsDisabled}

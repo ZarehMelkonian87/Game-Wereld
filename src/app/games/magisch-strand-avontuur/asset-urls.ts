@@ -1,31 +1,31 @@
 export const beachBackgrounds = {
-  portrait: new URL("./assets/backgrounds/beach-board-portrait.png", import.meta.url).href,
+  portrait: new URL("./assets/backgrounds/beach-board-portrait.webp", import.meta.url).href,
   portraitWebp: new URL("./assets/backgrounds/beach-board-portrait.webp", import.meta.url).href,
-  landscape: new URL("./assets/backgrounds/beach-board-landscape.png", import.meta.url).href,
+  landscape: new URL("./assets/backgrounds/beach-board-landscape.webp", import.meta.url).href,
   landscapeWebp: new URL("./assets/backgrounds/beach-board-landscape.webp", import.meta.url).href,
-  voiceSideScroller: new URL("./assets/backgrounds/beach-voice-side-scroller.png", import.meta.url)
+  voiceSideScroller: new URL("./assets/backgrounds/beach-voice-side-scroller.webp", import.meta.url)
     .href,
   voiceSideScrollerWebp: new URL(
     "./assets/backgrounds/beach-voice-side-scroller.webp",
     import.meta.url,
   ).href,
 };
-export const startLogoUrl = new URL("./assets/logos/start-logo-beach.png", import.meta.url).href;
+export const startLogoUrl = new URL("./assets/logos/start-logo-beach.webp", import.meta.url).href;
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
   .href;
 export const beachObjectStickerUrls = {
-  dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.png", import.meta.url).href,
-  boot: new URL("./assets/objects/transparent/sailboat-sticker.png", import.meta.url).href,
-  vuurtoren: new URL("./assets/objects/transparent/lighthouse-sticker.png", import.meta.url).href,
-  vliegtuig: new URL("./assets/objects/transparent/airplane-sticker.png", import.meta.url).href,
-  vlieger: new URL("./assets/objects/transparent/kite-sticker.png", import.meta.url).href,
-  bal: new URL("./assets/objects/transparent/beach-ball-sticker.png", import.meta.url).href,
-  parasol: new URL("./assets/objects/transparent/beach-umbrella-sticker.png", import.meta.url).href,
-  schelp: new URL("./assets/objects/transparent/seashells-sticker.png", import.meta.url).href,
-  krab: new URL("./assets/objects/transparent/crab-sticker.png", import.meta.url).href,
-  zandkasteel: new URL("./assets/objects/transparent/sandcastle-sticker.png", import.meta.url).href,
-  handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.png", import.meta.url).href,
-  zon: new URL("./assets/objects/transparent/sun-sticker.png", import.meta.url).href,
+  dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.webp", import.meta.url).href,
+  boot: new URL("./assets/objects/transparent/sailboat-sticker.webp", import.meta.url).href,
+  vuurtoren: new URL("./assets/objects/transparent/lighthouse-sticker.webp", import.meta.url).href,
+  vliegtuig: new URL("./assets/objects/transparent/airplane-sticker.webp", import.meta.url).href,
+  vlieger: new URL("./assets/objects/transparent/kite-sticker.webp", import.meta.url).href,
+  bal: new URL("./assets/objects/transparent/beach-ball-sticker.webp", import.meta.url).href,
+  parasol: new URL("./assets/objects/transparent/beach-umbrella-sticker.webp", import.meta.url).href,
+  schelp: new URL("./assets/objects/transparent/seashells-sticker.webp", import.meta.url).href,
+  krab: new URL("./assets/objects/transparent/crab-sticker.webp", import.meta.url).href,
+  zandkasteel: new URL("./assets/objects/transparent/sandcastle-sticker.webp", import.meta.url).href,
+  handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.webp", import.meta.url).href,
+  zon: new URL("./assets/objects/transparent/sun-sticker.webp", import.meta.url).href,
 };
 export const voiceSideScrollerObjectSpriteUrls = {
   bal: beachObjectStickerUrls.bal,
@@ -37,10 +37,10 @@ export const voiceSideScrollerObjectSpriteUrls = {
   zon: beachObjectStickerUrls.zon,
 };
 export const voiceSideScrollerObstacleSpriteUrls = {
-  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.png", import.meta.url).href,
-  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.png", import.meta.url).href,
-  seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.png", import.meta.url).href,
-  shark: new URL("./assets/objects/side-scroller/shark-obstacle.png", import.meta.url).href,
+  cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.webp", import.meta.url).href,
+  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.webp", import.meta.url).href,
+  seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.webp", import.meta.url).href,
+  shark: new URL("./assets/objects/side-scroller/shark-obstacle.webp", import.meta.url).href,
 };
 export const instructionVideoUrls = {
   "lp-001": new URL("./assets/instructions/zet-de-boot-in-de-zee.mp4", import.meta.url).href,
@@ -293,17 +293,17 @@ export const getBeachObjectStickerUrl = (assetId: string) => {
   return beachObjectStickerUrls[assetId as BeachObjectStickerId];
 };
 export const avatarIconUrls = {
-  avatar01: new URL("./assets/icons/avatars/avatar-01.png", import.meta.url).href,
+  avatar01: new URL("./assets/icons/avatars/avatar-01.webp", import.meta.url).href,
 };
 export const broomIconUrls = {
-  basic: new URL("./assets/icons/brooms/broom-01-basic.png", import.meta.url).href,
-  beach: new URL("./assets/icons/brooms/broom-02-beach.png", import.meta.url).href,
-  speed: new URL("./assets/icons/brooms/broom-06-speed.png", import.meta.url).href,
+  basic: new URL("./assets/icons/brooms/broom-01-basic.webp", import.meta.url).href,
+  beach: new URL("./assets/icons/brooms/broom-02-beach.webp", import.meta.url).href,
+  speed: new URL("./assets/icons/brooms/broom-06-speed.webp", import.meta.url).href,
 };
 export const mascotIconUrls = {
-  hint: new URL("./assets/icons/mascot/mascot-06-hint.png", import.meta.url).href,
-  celebration: new URL("./assets/icons/mascot/mascot-05-celebration.png", import.meta.url).href,
-  neutral: new URL("./assets/icons/mascot/mascot-01-neutral.png", import.meta.url).href,
+  hint: new URL("./assets/icons/mascot/mascot-06-hint.webp", import.meta.url).href,
+  celebration: new URL("./assets/icons/mascot/mascot-05-celebration.webp", import.meta.url).href,
+  neutral: new URL("./assets/icons/mascot/mascot-01-neutral.webp", import.meta.url).href,
 };
 export const voiceSideScrollerBroomStateUrls = {
   boosted: broomIconUrls.speed,

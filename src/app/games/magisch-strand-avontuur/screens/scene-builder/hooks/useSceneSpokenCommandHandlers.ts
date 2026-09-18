@@ -3,6 +3,7 @@ import {
   executeSpokenSceneCommand,
   type SceneCommandChoice,
 } from "../../../logic/scene-command-executor";
+import { containsUnwantedWord, UNWANTED_WORD_NUDGE } from "../../../logic/word-safety";
 import type { SceneObject } from "../../../types";
 import type { useSceneBuilderState } from "./useSceneBuilderState";
 
@@ -28,10 +29,27 @@ export const useSceneSpokenCommandHandlers = ({
     setSpokenHelpByInstruction,
     setSpokenHintZoneId,
     spokenCommandResult,
+    startVoiceRecognitionRef,
+    stopVoiceRecognitionRef,
   } = state;
 
   const applySpokenCommandTranscript = useCallback(
     (transcript: string) => {
+      // Vriendelijke bescherming: bij een ongewenst woord verwerken we het
+      // commando niet en tonen we een zachte nudge (geen straf). We blijven
+      // luisteren zodat het kind meteen het juiste woord kan zeggen (T-28).
+      if (containsUnwantedWord(transcript)) {
+        setSpokenCommandResult(null);
+        setPendingPlacement(null);
+        setFeedback({
+          kind: "almost",
+          mascot: "hint",
+          text: UNWANTED_WORD_NUDGE,
+        });
+        startVoiceRecognitionRef.current?.();
+        return undefined;
+      }
+
       const executionResult = executeSpokenSceneCommand({
         objects,
         placements: placedObjectPoints,
@@ -89,6 +107,10 @@ export const useSceneSpokenCommandHandlers = ({
         text: `${executionResult.message} Wil je dit zo plaatsen? Druk daarna op Klaar.`,
       });
 
+      // Plaatsing is duidelijk: stop het luisteren meteen, zodat het kind niet
+      // op de stiltetimer wacht en de transcript niet verder "opstapelt" (T-26).
+      stopVoiceRecognitionRef.current?.();
+
       return executionResult;
     },
     [
@@ -105,6 +127,8 @@ export const useSceneSpokenCommandHandlers = ({
       setSpokenCommandResult,
       setSpokenHelpByInstruction,
       setSpokenHintZoneId,
+      startVoiceRecognitionRef,
+      stopVoiceRecognitionRef,
     ],
   );
 
@@ -168,8 +192,12 @@ export const useSceneSpokenCommandHandlers = ({
     setFeedback({
       kind: "ready",
       mascot: "hint",
-      text: "Zeg de zin nog een keer rustig.",
+      text: "Ik luister… zeg de zin nog een keer rustig.",
     });
+    // Herstart de microfoon meteen, zodat "Opnieuw zeggen" direct weer luistert
+    // (voorheen gebeurde er niets en moest het kind zelf de mic-knop opnieuw
+    // aantikken).
+    startVoiceRecognitionRef.current?.();
   };
 
   return {

@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import type { GameRuntime } from "../../game-platform/contracts";
 import { beachBackgrounds } from "./asset-urls";
 import { BeachBackground, MagischStrandAvontuurShell, UiBuildingBlocksPreview } from "./components";
 import { beachWorld } from "./content";
+import { readProfileTotals } from "./logic/rewards";
 import {
   AdventureSelectScreen,
   GameSettingsScreen,
@@ -10,12 +12,14 @@ import {
   StartScreen,
   VoiceSideScrollerScreen,
   WordChoiceScreen,
+  ZegBouwScreen,
 } from "./screens";
 import { useBezemEscapeGameController } from "./state/useBezemEscapeGameController";
-import { GameRuntimeProvider } from "./runtime/GameRuntimeContext";
+import { GameRuntimeProvider, useGameRuntime } from "./runtime/GameRuntimeContext";
 
 const MagischStrandAvontuurExperience = () => {
   const { actions, viewModel } = useBezemEscapeGameController();
+  const runtime = useGameRuntime();
   const {
     instructionText,
     instructions,
@@ -28,11 +32,17 @@ const MagischStrandAvontuurExperience = () => {
     worldDefinitions,
   } = viewModel;
 
+  // Cumulatief sterrentotaal van het actieve profiel; ververst bij elke
+  // schermwissel zodat de teller na een ronde meteen klopt (T-01/T-21).
+  const [starCount, setStarCount] = useState(0);
+  useEffect(() => {
+    setStarCount(readProfileTotals(runtime.identity.profileId, runtime.storage).wordStars);
+  }, [screenPreview, runtime.identity.profileId, runtime.storage]);
+
   const isSceneBuilder =
     screenPreview !== "reward" &&
     screenPreview !== "settings" &&
     screenPreview !== "start" &&
-    screenPreview !== "world-select" &&
     screenPreview !== "mode-select" &&
     screenPreview !== "voice-side-scroller" &&
     screenPreview !== "word-choice";
@@ -53,18 +63,19 @@ const MagischStrandAvontuurExperience = () => {
         <>
           {screenPreview === "reward" ? (
             <RewardScreen
-              onChooseWorld={() => actions.setScreen("world-select")}
-              onPlayAgain={actions.resetRound}
+              onChooseWorld={() => actions.setScreen("mode-select")}
+              showPlayAgain={false}
             />
           ) : screenPreview === "settings" ? (
-            <GameSettingsScreen onBackToMenu={actions.openModeSelect} />
+            <GameSettingsScreen onBackToMenu={actions.backFromSettings} />
           ) : screenPreview === "start" ? (
             <StartScreen
               onExit={actions.exitGame}
               onOpenSettings={() => actions.setScreen("settings")}
-              onPlay={() => actions.setScreen("world-select")}
+              onPlay={() => actions.setScreen("mode-select")}
+              starCount={starCount}
             />
-          ) : screenPreview === "world-select" || screenPreview === "mode-select" ? (
+          ) : screenPreview === "mode-select" ? (
             <AdventureSelectScreen
               onBackToStart={() => actions.setScreen("start")}
               onOpenRewards={() => actions.setScreen("reward")}
@@ -72,10 +83,17 @@ const MagischStrandAvontuurExperience = () => {
               onSelectWorld={actions.selectWorld}
               onStartMode={actions.startSelectedMode}
               selectedWorldId={selectedWorld.id}
+              starCount={starCount}
               worlds={worldDefinitions}
             />
           ) : screenPreview === "voice-side-scroller" ? (
             <VoiceSideScrollerScreen onBackToMenu={actions.openModeSelect} />
+          ) : screenPreview === "zeg-en-bouw" ? (
+            <ZegBouwScreen
+              objects={beachWorld.objects}
+              onBackToMenu={actions.openModeSelect}
+              zones={beachWorld.zones}
+            />
           ) : screenPreview === "word-choice" ? (
             <WordChoiceScreen
               instructions={instructions.wordChoice}
@@ -89,6 +107,7 @@ const MagischStrandAvontuurExperience = () => {
               instructions={instructions.sceneBuilder}
               objects={beachWorld.objects}
               onBackToMenu={actions.openModeSelect}
+              onPlayAgain={() => actions.startSelectedMode("listen-and-place")}
               showTrayLabels={showTrayLabels}
               showZoneDevTools={showZoneDevTools}
               spokenCommandPreviewText={spokenCommandPreviewText}

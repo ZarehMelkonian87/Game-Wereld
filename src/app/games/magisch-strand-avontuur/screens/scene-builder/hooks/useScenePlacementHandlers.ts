@@ -3,7 +3,11 @@ import {
   evaluateDynamicRelationPlacement,
   usesDynamicRelationZone,
 } from "../../../logic/dynamic-scene-relations";
-import { resolveNewRewardUnlocks, saveUnlockedRewardIds } from "../../../logic/rewards";
+import {
+  addProfileTotals,
+  resolveNewRewardUnlocks,
+  saveUnlockedRewardIds,
+} from "../../../logic/rewards";
 import { createInstructionPracticeObservation } from "../../../logic/practice-observations";
 import { selectedZoneMatchesTarget, zoneSupportsConcept } from "../../../logic/scene-zones";
 import type { SceneBuilderInstruction, SceneObject, SpatialConcept } from "../../../types";
@@ -111,9 +115,14 @@ export const useScenePlacementHandlers = ({
       speakAndPlaceReward?.earnedWordStars ?? instruction.reward.wordStars + (bonusEarned ? 1 : 0);
     const nextSpeedValue = speedValue + earnedSpeed;
     const nextWordStarValue = wordStarValue + earnedWordStars;
+    // Tel de verdiende sterren/tempo op bij het CUMULATIEVE profieltotaal en
+    // bepaal daarop de unlocks (niet op de ronde-lokale teller).
+    const profileTotals = addProfileTotals(rewardProfileId, runtime.storage, {
+      speed: earnedSpeed,
+      wordStars: earnedWordStars,
+    });
     const newRewardUnlocks = resolveNewRewardUnlocks({
-      totalSpeed: nextSpeedValue,
-      totalWordStars: nextWordStarValue,
+      totalWordStars: profileTotals.wordStars,
       unlockedRewardIds,
     });
     const nextUnlockedRewardIds = [

@@ -6,29 +6,17 @@ Dit document specificeert het beloningsmechanisme, het voortgangs- en observatie
 
 ## 🏆 1. Beloningen- en Gamification-systeem
 
-Het spel motiveert kinderen via een gelaagd beloningsmodel dat zowel directe acties (_micro-rewards_) als langetermijndoelen (_macro-rewards_) beloont:
+> ℹ️ **Verplaatst.** Het beloningssysteem ("Strandschat") is samengevoegd tot
+> één bron van waarheid. De actuele specificatie staat in
+> **[GDD-index sectie 7](../../../../../docs/gdd/GDD-index.md)** en de
+> implementatie in [`logic/rewards.ts`](../logic/rewards.ts). De eerdere
+> bezemtabel met vaste drempels (0/10/25/50 sterren) was nooit geïmplementeerd
+> en is vervallen.
 
-### A. Directe Bekrachtiging (Micro-Rewards)
-
-- **Woordsterren (⭐)**:
-  - `+2` sterren bij een correcte plaatsing of juist gekozen woord.
-  - `+1` bonusster bij een zelfstandig antwoord zonder hints.
-- **Tempo / Snelheid (⚡)**:
-  - Geeft visuele energie en versnelt de bezemanimatie.
-  - Versterkt het gevoel van vlotheid en meesterschap.
-- **Visuele Effecten**:
-  - Sparkle-animaties ✨, pulserende randen en feestelijke mascotte-reacties bij elk succes.
-
-### B. Ontgrendelbare Bezemskins & Stickers (Macro-Rewards)
-
-Naarmate het kind meer woorden en rondes voltooit, ontgrendelt het nieuwe skins voor de magische vliegende bezem:
-
-| Beloning ID      | Naam                | Vereiste Sterren | Vereist Tempo | Visuele Stijl                                       |
-| :--------------- | :------------------ | :--------------- | :------------ | :-------------------------------------------------- |
-| `broom-01-basic` | **Basis Bezem**     | 0                | 0             | Klassieke houten bezem met vrolijke strik.          |
-| `broom-02-beach` | **Strand Bezem**    | 10               | 5             | Zonnige gele bezem met zeester-embleem.             |
-| `broom-06-speed` | **Snelheids Bezem** | 25               | 15            | Flitsende gestroomlijnde bezem met bliksemaccenten. |
-| `broom-07-gold`  | **Gouden Bezem**    | 50               | 30            | Schitterende gouden bezem met magische aura.        |
+**Kern (actueel):** ⭐ woordsterren (`+2` per goede actie, `+1` bonus zonder
+hint) worden **cumulatief per profiel** bijgehouden en spelen langs een
+oplopende curve verzamelbare beloningen vrij (stickers, bezemkleuren/-skins,
+trails). ⚡ Tempo is een in-ronde gevoel/boost en bepaalt géén unlocks.
 
 ---
 

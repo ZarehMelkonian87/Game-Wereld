@@ -111,23 +111,31 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
 
-  const offlineCard = page.locator('[data-component="OfflinePackageCard"]');
-  await offlineCard.getByRole("button", { name: "Grootte controleren" }).click();
-  await expect(offlineCard.getByText(/Downloadgrootte:/)).toBeVisible();
-  await offlineCard.getByRole("button", { name: "Downloaden" }).click();
-  await expect(offlineCard.getByText(/Offline beschikbaar/)).toBeVisible();
+  const downloadBtn = page.locator('[data-component="GameCardDownloadButton"]').first();
+  await downloadBtn.waitFor({ state: "visible", timeout: 5000 });
+  await downloadBtn.click();
+  const modal = page.locator('[data-component="DownloadGateModal"]');
+  await modal.getByRole("button", { name: /Start Download|Downloaden/ }).click();
+  await expect(modal.getByText(/Download Voltooid!/)).toBeVisible();
+  await modal.locator('[data-slot="close-button"]').click();
 
   await page.goto("/games/math");
-  const mathOfflineCard = page.locator('[data-component="OfflinePackageCard"]');
-  await mathOfflineCard.getByRole("button", { name: "Grootte controleren" }).click();
-  await mathOfflineCard.getByRole("button", { name: "Downloaden" }).click();
-  await expect(mathOfflineCard.getByText(/Offline beschikbaar/)).toBeVisible();
+  const mathDownloadBtn = page.locator('[data-component="GameCardDownloadButton"]').first();
+  await mathDownloadBtn.waitFor({ state: "visible", timeout: 5000 });
+  await mathDownloadBtn.click();
+  const mathModal = page.locator('[data-component="DownloadGateModal"]');
+  await mathModal.getByRole("button", { name: /Start Download|Downloaden/ }).click();
+  await expect(mathModal.getByText(/Download Voltooid!/)).toBeVisible();
+  await mathModal.locator('[data-slot="close-button"]').click();
   await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await page.getByRole("button", { name: "Start met tellen" }).click();
   await expect(page.getByRole("img", { name: "Er liggen 1 schelpen." })).toBeVisible();
 
   await page.goto("/games/vocabulary");
+  await page
+    .locator('[data-game-id="magisch-strand-avontuur"] [data-state="ready"]')
+    .waitFor({ state: "visible", timeout: 5000 });
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await page.evaluate(async () => {

@@ -57,7 +57,7 @@ const MagischStrandAvontuurExperience = () => {
               onPlayAgain={actions.resetRound}
             />
           ) : screenPreview === "settings" ? (
-            <GameSettingsScreen onBackToMenu={actions.openModeSelect} />
+            <GameSettingsScreen onBackToMenu={actions.backFromSettings} />
           ) : screenPreview === "start" ? (
             <StartScreen
               onExit={actions.exitGame}

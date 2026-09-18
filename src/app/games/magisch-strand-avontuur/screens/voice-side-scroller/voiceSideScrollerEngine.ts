@@ -2,6 +2,7 @@ import {
   createInitialVoiceScrollerState,
   type CreateInitialVoiceScrollerStateOptions,
   recycleVoiceScrollerTarget,
+  VOICE_SCROLLER_COMBO_BONUS_INTERVAL,
   VOICE_SCROLLER_ITEM_SCORE,
   VOICE_SCROLLER_LEVEL_DISTANCE,
   type VoiceSideScrollerGameState,
@@ -165,18 +166,36 @@ export const tickVoiceSideScrollerState = ({
   const collisionSlowdownMs = collidingObstacle
     ? COLLISION_SLOWDOWN_MS
     : Math.max(0, state.collisionSlowdownMs - tickDeltaMs);
+
+  // T-30: een botsing kost een schildje (geen harde game-over) en breekt de
+  // combo. Pas bij het laatste schildje eindigt de ronde vriendelijk.
+  const nextShields = collidingObstacle ? state.shields - 1 : state.shields;
+  const isGameOver = collidingObstacle && nextShields <= 0;
+  const nextCombo = collidingObstacle ? 0 : state.combo;
+  const distanceMeters = Math.floor(nextDistance);
   const gameplayFeedback = collidingObstacle
-    ? {
-        id: `feedback-${collidingObstacle.id}-${Math.round(nextElapsedMs)}`,
-        kind: "hint" as const,
-        message: `Game over. Je raakte de ${collidingObstacle.label}.`,
-        visibleUntilMs: nextElapsedMs + FEEDBACK_VISIBLE_MS,
-      }
+    ? isGameOver
+      ? {
+          id: `feedback-${collidingObstacle.id}-${Math.round(nextElapsedMs)}`,
+          kind: "hint" as const,
+          message: `Goed gevlogen! Je haalde ${distanceMeters} meter.`,
+          visibleUntilMs: nextElapsedMs + FEEDBACK_VISIBLE_MS,
+        }
+      : {
+          id: `feedback-${collidingObstacle.id}-${Math.round(nextElapsedMs)}`,
+          kind: "hint" as const,
+          message:
+            nextShields === 1
+              ? "Oeps, botsing! Nog 1 schildje. Let op de obstakels!"
+              : `Oeps, botsing! Nog ${nextShields} schildjes.`,
+          visibleUntilMs: nextElapsedMs + FEEDBACK_VISIBLE_MS,
+        }
     : getVisibleFeedback(state, nextElapsedMs);
 
   return {
     ...state,
     collisionSlowdownMs,
+    combo: nextCombo,
     difficultyLevel: nextDifficultyLevel,
     distance: nextDistance,
     elapsedMs: nextElapsedMs,
@@ -186,7 +205,8 @@ export const tickVoiceSideScrollerState = ({
     playerY: nextPlayerY,
     scrollX: state.scrollX + SCROLL_SPEED_PER_SECOND * speedMultiplier * deltaSeconds,
     score: getScore(nextDistance, state.stars),
-    status: collidingObstacle ? "game-over" : state.status,
+    shields: Math.max(0, nextShields),
+    status: isGameOver ? "game-over" : state.status,
     targets: state.targets.map((target) => getNextTarget(target, deltaSeconds, speedMultiplier)),
   };
 };
@@ -212,17 +232,29 @@ export const collectVoiceSideScrollerTarget = (
     candidate.id === targetId ? { ...candidate, collected: true } : candidate,
   );
 
+  // T-30: bouw de combo op. Elke `VOICE_SCROLLER_COMBO_BONUS_INTERVAL` goed op
+  // rij geeft een vrolijke combo-viering + een bonusster.
+  const nextCombo = state.combo + 1;
+  const nextBestCombo = Math.max(state.bestCombo, nextCombo);
+  const hitsComboMilestone = nextCombo % VOICE_SCROLLER_COMBO_BONUS_INTERVAL === 0;
+  const earnedStars = hitsComboMilestone ? 2 : 1;
+  const nextStars = state.stars + earnedStars;
+
   return {
     ...state,
+    bestCombo: nextBestCombo,
+    combo: nextCombo,
     gameplayFeedback: {
       id: `feedback-${target.id}-${Math.round(state.elapsedMs)}`,
       kind: "boost",
-      message: `Goed gevangen: ${target.collectibleLabel}. +1 Tempo!`,
+      message: hitsComboMilestone
+        ? `Combo x${nextCombo}! Goed gevangen: ${target.collectibleLabel}. +${earnedStars} sterren!`
+        : `Goed gevangen: ${target.collectibleLabel}. +1 Tempo!`,
       visibleUntilMs: state.elapsedMs + FEEDBACK_VISIBLE_MS,
     },
-    score: getScore(state.distance, state.stars + 1),
+    score: getScore(state.distance, nextStars),
     speed: state.speed + SPEED_BONUS_PER_WORD,
-    stars: state.stars + 1,
+    stars: nextStars,
     targets,
   };
 };

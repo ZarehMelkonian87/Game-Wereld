@@ -21,7 +21,7 @@ export const SpeechWaveAnimation = ({ onStop, transcript }: SpeechWaveAnimationP
         }
       `}</style>
       <div
-        className="pointer-events-auto absolute top-[calc(clamp(8rem,18dvh,10rem)+env(safe-area-inset-top,0px))] landscape:top-[calc(clamp(5.5rem,14dvh,6.75rem)+env(safe-area-inset-top,0px))] left-1/2 z-40 flex w-[92vw] max-w-md -translate-x-1/2 items-center gap-3 rounded-3xl border-2 border-white/80 bg-gradient-to-r from-sky-600/95 via-sky-500/95 to-indigo-600/95 px-4 py-3 shadow-2xl backdrop-blur-md transition-all duration-200"
+        className="pointer-events-auto fixed top-[calc(clamp(8.5rem,19dvh,10.5rem)+env(safe-area-inset-top,0px))] landscape:top-[calc(clamp(5.5rem,14dvh,6.75rem)+env(safe-area-inset-top,0px))] left-1/2 z-50 flex w-[92vw] max-w-md -translate-x-1/2 items-center gap-3 rounded-3xl border-2 border-white/80 bg-gradient-to-r from-sky-600/95 via-sky-500/95 to-indigo-600/95 px-4 py-3 shadow-2xl backdrop-blur-md transition-all duration-200"
         data-slot="speech-wave-animation"
       >
         <div className="flex shrink-0 items-center justify-center rounded-2xl bg-white/20 p-2 text-white shadow-inner">

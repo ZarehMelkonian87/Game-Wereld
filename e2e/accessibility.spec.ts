@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { earnStarsToUnlockModes } from "./helpers";
 
 const WCAG_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
@@ -28,6 +29,7 @@ const openSceneBuilder = async (page: Page) => {
   await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
   await page.getByTestId("start-play-button").click();
+  await earnStarsToUnlockModes(page);
   await page.getByTestId("compact-mode-card-listen-and-place").click();
   await page.getByTestId("adventure-start-game-button").click();
   await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
@@ -105,6 +107,13 @@ test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetse
   );
   await expect(page.getByTestId("typed-command-fallback")).toBeVisible();
 
+  const sceneBuilder = page.getByTestId("scene-builder-screen");
+  const targetZoneId = await sceneBuilder.getAttribute("data-target-zone-id");
+  const targetObjectId = await sceneBuilder.getAttribute("data-target-object-id");
+  expect(targetZoneId).toBeTruthy();
+  expect(targetObjectId).toBeTruthy();
+  const instructionBefore = await sceneBuilder.getAttribute("data-active-instruction-id");
+
   const commandInput = page.getByTestId("typed-command-input");
   const command = await commandInput.getAttribute("placeholder");
   expect(command).toBeTruthy();
@@ -112,24 +121,15 @@ test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetse
   await page.keyboard.type(command ?? "");
   await page.keyboard.press("Enter");
 
-  const pendingPlacement = page.locator('[data-testid^="pending-object-"]');
-  await expect(pendingPlacement).toBeVisible();
-  await expect(pendingPlacement).toHaveAttribute("data-placement-source", "spoken");
-  const sceneBuilder = page.getByTestId("scene-builder-screen");
-  const targetZoneId = await sceneBuilder.getAttribute("data-target-zone-id");
-  const targetObjectId = await sceneBuilder.getAttribute("data-target-object-id");
-  expect(targetZoneId).toBeTruthy();
-  expect(targetObjectId).toBeTruthy();
-  await expect(sceneBuilder).toHaveAttribute("data-selected-zone-id", targetZoneId ?? "");
-  await expect(sceneBuilder).toHaveAttribute("data-selected-object-id", targetObjectId ?? "");
-  const activeRelation = await sceneBuilder.getAttribute("data-active-relation");
-  const selectedZoneConcepts = await sceneBuilder.getAttribute("data-selected-zone-concepts");
-  expect(selectedZoneConcepts?.split(",")).toContain(activeRelation);
-  await page.getByTestId("scene-builder-confirm-button").click();
-  await expect(page.getByTestId("scene-builder-confirm-button")).toHaveAccessibleName(
-    /Volgende|Opnieuw/,
-  );
+  // Zonder microfoon voltooit het getypte commando de opdracht: de plaatsing
+  // wordt automatisch bevestigd en het spel gaat vanzelf door naar de volgende
+  // opdracht (geen "Klaar"-knop meer, T-35).
+  await expect
+    .poll(async () => sceneBuilder.getAttribute("data-active-instruction-id"), { timeout: 8000 })
+    .not.toBe(instructionBefore);
 
+  // Toetsenbordbediening blijft volledig werken: object kiezen, de cursor
+  // verplaatsen en plaatsen levert direct evaluatie-feedback op.
   const firstObject = page.getByTestId("scene-builder-tray-area").getByRole("button").first();
   await firstObject.focus();
   await page.keyboard.press("Enter");
@@ -138,5 +138,5 @@ test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetse
   await page.keyboard.press("ArrowDown");
   await expect(page.getByTestId("scene-keyboard-cursor")).toBeVisible();
   await page.keyboard.press("Enter");
-  await expect(page.locator('[data-testid^="pending-object-"]')).toBeVisible();
+  await expect(sceneBuilder).not.toHaveAttribute("data-feedback-kind", "none");
 });

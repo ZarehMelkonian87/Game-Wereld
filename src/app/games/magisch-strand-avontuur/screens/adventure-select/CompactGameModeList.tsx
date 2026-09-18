@@ -6,14 +6,16 @@ import type { DevtoolsComponent } from "./devtools";
 interface CompactGameModeListProps {
   onSelectMode: (modeId: BezemEscapeMode) => void;
   selectedModeId: BezemEscapeMode;
+  totalWordStars: number;
 }
 
 export const CompactGameModeList: DevtoolsComponent<CompactGameModeListProps> = ({
   onSelectMode,
   selectedModeId,
+  totalWordStars,
 }: CompactGameModeListProps) => (
   <div className="grid gap-2" data-component="CompactGameModeList">
-    {getAdventureModeOptions().map((mode) => (
+    {getAdventureModeOptions(totalWordStars).map((mode) => (
       <CompactGameModeCard
         key={mode.id}
         mode={mode}

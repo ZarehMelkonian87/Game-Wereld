@@ -1,0 +1,1048 @@
+# 🎮 GDD-index — Magisch Strand-Avontuur
+
+> **Bron van waarheid op hoofdlijn.** Dit document beschrijft *wat* de game is en *hoe* die bedoeld is te werken. Alle details staan in de gekoppelde detaildocumenten en in de drie zusterdocumenten (Feature-catalogus, User Journey Map, Test-matrix). Waar het *bedoelde* ontwerp afwijkt van de *werkelijke* code, wordt dat expliciet vastgelegd in sectie 11.
+
+---
+
+## 0. Documentbeheer & Leeswijzer
+
+### 0.1 Metadata
+
+| Veld | Waarde |
+| :--- | :--- |
+| **Documenttitel** | GDD-index — Magisch Strand-Avontuur |
+| **Onderdeel van** | +1 Woordenschat Platform (Game-Wereld) |
+| **Game-ID** | `magisch-strand-avontuur` |
+| **Documentversie** | `1.1` (verwerkt eerste review-feedback + takenlijst) |
+| **Laatst bijgewerkt** | 2026-09-11 |
+| **Status** | 🟢 Compleet (sectie 0–12) — basis voor de 3 zusterdocumenten |
+| **Eigenaar** | Zareh Melkonian |
+| **Doelgroep document** | Game-developers, educatieve ontwerpers, logopedisten/orthopedagogen, QA |
+| **Contentversie (code)** | `magisch-strand-avontuur-2026.07` (bron: [manifest.ts](../../src/app/games/magisch-strand-avontuur/manifest.ts)) |
+
+### 0.2 Doel van dit document
+
+De GDD-index is het **hoogste, overkoepelende ontwerpdocument**. Het is bewust kort en verwijzend: elk deel geeft de essentie en wijst door naar een detaildocument of naar de broncode. Zo blijft de index leesbaar en actueel, terwijl de granulaire waarheid dicht bij de code leeft.
+
+Dit document beschrijft **hoe de game bedoeld is**. Het is nadrukkelijk **niet** een verslag van wat op dit moment wel of niet werkt — dat is de taak van de **Feature-catalogus** en de **Test-matrix**. De index en die twee documenten verwijzen naar elkaar via stabiele ID's (zie 0.4).
+
+### 0.3 De vier samenhangende documenten
+
+Dit dossier bestaat uit vier documenten die samen één geheel vormen. Elk heeft een eigen rol en een eigen ID-reeks:
+
+| # | Document | Vraag die het beantwoordt | Primaire ID-reeks |
+| :-- | :--- | :--- | :--- |
+| 1 | **GDD-index** (dit document) | *Wat is de game en hoe is die bedoeld?* | `SCR_*` (schermen) |
+| 2 | **Feature-catalogus** | *Uit welke concrete functionaliteiten bestaat de game, en werken die?* | `FEAT_*` |
+| 3 | **User Journey Map** | *Welke stappen doorloopt de gebruiker, van start tot beloning?* | `JRN_*` |
+| 4 | **Test-matrix** | *Hoe verifiëren we elke feature en journey-stap?* | `TC_*` |
+
+De samenhang loopt als een ketting:
+
+```
+Scherm (SCR_*)  ─→  Feature (FEAT_*)  ─→  Journey-stap (JRN_*)  ─→  Testcase (TC_*)
+   GDD-index         Feature-catalogus      User Journey Map        Test-matrix
+```
+
+Elke feature verwijst naar het scherm waarop hij leeft; elke journey-stap verwijst naar de features die hij gebruikt; elke testcase verwijst naar de feature(s) en journey-stap(pen) die hij dekt. Zo is voor elk onderdeel traceerbaar: *bedoeling → functie → gebruikersreis → test → status.*
+
+### 0.4 ID-conventies
+
+Stabiele, mensleesbare ID's zijn de ruggengraat van dit dossier. Ze veranderen niet als teksten of implementatie wijzigen. De game gebruikt al `data-testid`-attributen en interne enums; die sluiten hierop aan.
+
+| Prefix | Betekenis | Voorbeeld | Bron in code |
+| :--- | :--- | :--- | :--- |
+| `SCR_` | Scherm of overlay | `SCR_MSA_START` | `GameScreenPreview`-enum, `routes.tsx` |
+| `FEAT_` | Concrete functionaliteit | `FEAT_VOICE_SCENE_PLACE` | Feature-catalogus |
+| `JRN_` | Stap in een gebruikersreis | `JRN_ONBOARD_03_AVATAR` | User Journey Map |
+| `TC_` | Testcase | `TC_SCENE_MIC_HAPPY` | `e2e/*.spec.ts` |
+| `MODE_` | Spelmodus | `MODE_ZEG_ZET` | `BezemEscapeMode`-type |
+| `WORD_` | Doelwoord uit curriculum | `WORD_DOLFIJN` | `content.ts` / `worlds.ts` |
+| `CONCEPT_` | Ruimtelijk begrip | `CONCEPT_ONDER` | `SpatialConcept`-type |
+
+**Naamgevingsregels voor `SCR_`:** platformschermen krijgen `SCR_PLAT_*` (bv. `SCR_PLAT_WELCOME`), game-schermen krijgen `SCR_MSA_*` (Magisch Strand-Avontuur). Zie de volledige lijst in sectie 3.
+
+### 0.5 Statuslabels
+
+Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix, en sectie 11 van dit document), gebruiken we één vaste set labels:
+
+| Label | Betekenis |
+| :--- | :--- |
+| 🟢 **Werkt** | Geïmplementeerd en geverifieerd (test of handmatig). |
+| 🟡 **Deels** | Aanwezig maar met bekende gebreken of onvolledig. |
+| 🔴 **Kapot** | Aanwezig in code/ontwerp maar werkt niet zoals bedoeld. |
+| ⚪ **Niet getest** | Onbekend of het werkt; nog niet geverifieerd. |
+| 🔵 **Gepland** | Ontworpen/voorzien, nog niet gebouwd. |
+| ⚫ **Dood** | Bestaat in code maar wordt niet gebruikt/bereikt (kandidaat voor opruimen). |
+
+### 0.6 Changelog
+
+| Versie | Datum | Auteur | Wijziging |
+| :--- | :--- | :--- | :--- |
+| 0.1 | 2026-09-11 | Zareh Melkonian | Eerste opzet. Sectie 0 (Documentbeheer & Leeswijzer) en sectie 1 (Executive Summary & High Concept) uitgewerkt. |
+| 0.2 | 2026-09-11 | Zareh Melkonian | Sectie 2 (Doelgroep & Pedagogisch Fundament) en sectie 3 (Schermarchitectuur / Screen Map) uitgewerkt. |
+| 0.3 | 2026-09-11 | Zareh Melkonian | Sectie 4 (Core Gameplay Loop & Spelmodi) en sectie 5 (Invoer & Spraaktechnologie) uitgewerkt, geankerd aan de werkelijke code. |
+| 0.4 | 2026-09-11 | Zareh Melkonian | Sectie 6 (Content & Curriculum) en sectie 7 (Beloningen, Progressie & Economie) uitgewerkt. Drie conflicterende beloningsdefinities in de code vastgelegd. |
+| 0.5 | 2026-09-11 | Zareh Melkonian | Sectie 8 (Data, Opslag & Privacy) en sectie 9 (Toegankelijkheid & Non-functionele Eisen) uitgewerkt. |
+| 1.0 | 2026-09-11 | Zareh Melkonian | Sectie 10 (Feature-overzicht) en sectie 11 (Bekende Gaten & Openstaande Punten) uitgewerkt. GDD-index inhoudelijk compleet; klaar als basis voor Feature-catalogus, User Journey Map en Test-matrix. |
+| 1.1 | 2026-09-11 | Zareh Melkonian | Review-beslissingen verwerkt: één moduskeuzescherm (`SCR_MSA_MODE_SELECT`), alle 3 modi krijgen een in-game ronde-eindscherm, `zeg-en-bouw` krijgt een eigen scherm, data-gestuurde rondelengte is de norm, **één** beloningssysteem gekozen. Sectie 12 (Takenlijst) toegevoegd als levend register. |
+| 1.2 | 2026-09-11 | Zareh Melkonian | [Feature-catalogus](Feature-catalogus.md) opgesteld (70 features). Taak `T-18` toegevoegd (alle ⚪-features verifiëren). |
+| 1.3 | 2026-09-11 | Zareh Melkonian | Live verificatieronde in de browser uitgevoerd (46 features geverifieerd 🟢). Nieuwe taken `T-19`–`T-23` toegevoegd (o.a. defecte instructievideo, zichtbare dev-toggle, sterren-per-profiel). |
+| 1.4 | 2026-09-11 | Zareh Melkonian | [User Journey Map](User-Journey-Map.md) opgesteld (9 reizen, `JRN_*`). Geen nieuwe taken. |
+| 1.5 | 2026-09-11 | Zareh Melkonian | [Test-matrix](Test-matrix.md) opgesteld (41 testcases, `TC_*`). Dekkingsgaten benoemd (Kies het Woord, Zeg & Vlieg, Beloning zonder e2e). Taak `T-24` toegevoegd. **Alle 4 dossierdocumenten compleet.** |
+| 1.6 | 2026-09-13 | Zareh Melkonian | Tweede reviewronde verwerkt in [Werkplan-en-Voorstellen](Werkplan-en-Voorstellen.md). Oorzaken gevonden voor video-foutmelding (`T-19`) en 120-sterren (`T-21`). Nieuwe taken `T-25`–`T-33` (audio verwijderen, mic-herontwerp, wave+transcriptie, woordfilter, randomisatie alle modi, vriendelijk Zeg & Vlieg, unlock, mic Zeg & Vlieg, performance-analyse). |
+| 1.7 | 2026-09-13 | Zareh Melkonian | `T-19`, `T-20`, `T-01` en `T-21` afgerond en geverifieerd. `GAP-01`/`GAP-02` opgelost (één beloningssysteem "Strandschat" met cumulatieve per-profiel totalen). Besluiten (dev-tools, vriendelijk Zeg & Vlieg, unlock-volgorde, Zeg & Bouw-concept) vastgelegd. |
+| 1.8 | 2026-09-13 | Zareh Melkonian | Sectie 7 opgeschoond: verouderde A/B/C-vergelijking verwijderd, alleen het geïmplementeerde "Strandschat"-systeem beschreven. Verouderde bezemdrempels (0/10/25/50) ook verwijderd uit de oude `docs/GDD.md` en `docs/05-...md`. |
+| 1.9 | 2026-09-13 | Zareh Melkonian | [Concept Zeg & Bouw](Concept-Zeg-en-Bouw.md) vastgesteld (v1.0): beide varianten (Bouwopdracht + Vrij Bouwen), compound-zinnen, 5 thema's, volgorde Kies→Zet→Bouw→Vlieg, soepele doelen. Bouw gepland als **laatste**, ná de 3 bestaande modi. |
+| 1.10 | 2026-09-14 | Zareh Melkonian | Videogedrag verfijnd (na test): instructievideo speelt weer mét geluid (sound-first + gedempte fallback), pauzeert betrouwbaar tijdens actieve mic (dekt `listening`/`processing`/`heard`, geen auto-hervat), en onderbroken `play()` (AbortError) geeft geen valse foutbanner meer. Verfijning op `T-19`/`T-33c`. |
+| 1.11 | 2026-09-14 | Zareh Melkonian | `T-27` (audio-reactieve wave + live transcriptie, Zeg & Zet) afgerond. **Kernfix spraak:** de niet-werkende on-device `localSpeechEngine` (gaf altijd "bal") vervangen door de echte Web Speech API; `T-26` mic-verloop responsiever. Nieuwe taken `T-34` (mic-robuustheid/feedback bij onverstaanbare invoer), `T-35` ("Klaar" → automatische bevestiging), `T-36` (dode localSpeechEngine verwijderen). |
+| 1.12 | 2026-09-15 | Zareh Melkonian | `T-35` grotendeels afgerond: Zeg & Zet-plaatsing wordt automatisch bevestigd (geen Klaar-knop tijdens spelen), correct → auto-doorgaan, stop-knop uit de wave-balk, "Opnieuw zeggen" herstart de mic. Tap-flow geverifieerd; spraak op echt apparaat te bevestigen. Lost deel van `T-34` mee op. |
+| 1.13 | 2026-09-15 | Zareh Melkonian | `T-34` grotendeels afgerond: nieuw `SpeechRetryPanel` toont bij een spraak­herkenningsfout (no-speech / geen match / andere taal / netwerk) een kindvriendelijke melding op de plek van de wave — die dus niet meer zomaar "verdwijnt" — met een **Opnieuw**-knop die de mic direct herstart. Foutmelding loopt via nieuwe prop `onVoiceErrorChange`; toestemmings­fout houdt de bestaande popover. Typecheck, lint en 34 unit-tests groen, scherm mount zonder crash geverifieerd; herkenningsfout op echt apparaat met mic bevestigd door tester. |
+| 1.14 | 2026-09-15 | Zareh Melkonian | `T-34` bevestigd werkend op apparaat en `T-36` afgerond: dode `localSpeechEngine` (+ test) verwijderd (nergens meer geïmporteerd sinds `T-26` de echte Web Speech API gebruikt). Meteen een stale test uit de WebP-migratie (`T-33a`) gecorrigeerd (`world-beach.png` → `.webp`). Volledige suite groen: 41 bestanden, 150 tests. |
+| 1.15 | 2026-09-15 | Zareh Melkonian | `T-32` grotendeels afgerond: onderzoek toont dat de Zeg & Vlieg-mic dezelfde `localSpeechEngine`-oorzaak had (altijd "bal"), al opgelost door `T-26`; de herkennings­bedrading is correct. **Audio-reactieve wave (`T-27`) toegevoegd** aan het Zeg & Vlieg-statuspaneel (`MicWaveBars`, sky-blauw), gemonteerd per ronde zodat de mic-stream niet steeds heropent. Scherm + wave in browser geverifieerd; mic-herkenning op echt apparaat te bevestigen. |
+| 1.16 | 2026-09-15 | Zareh Melkonian | `T-32` wave + herkenning op apparaat bevestigd. **Bug opgelost:** een teruggekeerd (gerecycled) plaatje werd na correct benoemen niet meer opgepakt. Herkenning nu vergevingsgezind gemaakt in `useVoiceSideScrollerWordRecognition`: kort geheugen (~1,8 s) van gehoorde woorden + hercheck zodra een plaatje in beeld scrolt, zodat matching niet meer afhangt van de exacte timing van het spraakresultaat. Ontwerpkeuze gebruiker: **zachte herkansing + spreiding** (geen straf bij niet-benoemen; plaatjes keren later terug). Tsc/eslint/150 tests groen; fresh-mount zonder crash geverifieerd (HMR-only hook-swap-melding tijdens dev genegeerd). |
+| 1.29 | 2026-09-15 | Zareh Melkonian | `T-04c` C2b: **spraak/compound-invoer** in Zeg & Bouw. `SpokenCommandControls` (mic + typen + privacy + woordfilter) in het bouwscherm; één zin plaatst meerdere objecten via `parseCompoundPlacements` → nieuwe batch-`placeCompound` (spreiding, **compound-bonus +1 ⭐** voor een zin met ≥2 objecten, soepele tip bij niet-passend, nudge bij ongewenst woord). Typ-route end-to-end in browser geverifieerd. **Na testfeedback verfijnd:** live **SpeechWaveAnimation** (wave + woord-voor-woord transcript) toegevoegd zoals in Zeg & Zet, en de "Strand af!"-overlay verschijnt nu **met een korte vertraging (~1,9 s)** zodat het kind eerst zijn afgebouwde strand ziet (compound-zin haalde het doel te snel). Vertraging in browser geverifieerd; mic op apparaat bevestigd door tester. 186 tests groen. |
+| 1.50 | 2026-09-18 | Zareh Melkonian | **`T-46` Herontwerp download- & offline-architectuur afgerond.** Oude implementatie (`OfflinePackageCard`, `gate-demo`) volledig verwijderd. Downloadmechanisme direct geïntegreerd in de gamekaarten (`GameCardDownloadButton`): `[📥 37 MB]` wanneer niet gedownload (spelen vergrendeld), live voortgangsring met % tijdens download/verificatie, `[🗑️ Verwijder]`-optie om lokale opslag vrij te maken na 100% (kaart start direct het spel), en `[🔄 Update]`. Netwerkdetectie: 4G/5G toont waarschuwing met keuze `Toch downloaden` (geen blokkade) of `Wacht op wifi`; wifi downloadt direct. In-app `ConfirmDeleteModal` vervangt lelijke browser alerts. Modal compact gemaakt met zijmarges op mobiel. 56 testbestanden (236 tests) groen. |
+| 1.49 | 2026-09-18 | Zareh Melkonian | **`T-43`, `T-44` en `T-45` afgerond.** Implementatie van de mobiele telefoon-UX en download-gate (`T-43`), het UX-design + wireframe voor tablet (`T-44`) en de tablet-implementatie + download-gate (`T-45`) zijn geïmplementeerd en gemarkeerd als afgerond. |
+| 1.48 | 2026-09-17 | Zareh Melkonian | **`T-42` UX-design mobiele telefoon** afgerond → nieuw document [UX-Mobiele-Telefoon-T42](UX-Mobiele-Telefoon-T42.md) als implementatiecontract voor `T-43`, naast het visuele wireframe in `wirframe/`. Kern: **100% portret** + screen guard ("Houd je telefoon rechtop"), download-zone geïntegreerd in de game-kaart (niet-gedownload / bezig / klaar / update), en een downloadscherm met **6 toestanden** waarvan Play pas ontgrendelt bij 100%. Nieuwe beslissingen: mobiele data → **waarschuwen + bevestigen**; scherm sluiten → **download loopt door op de achtergrond** (voortgang op de kaart); **de game is leidend voor de leerlijn** → wireframe gecorrigeerd van "Vlieg vanaf 6 ⭐ / Bouw creatief" naar **Kies 0 → Zet 3 → Bouw 8 → Vlieg 14**. Gate-plek verfijnd t.o.v. §13.5: spellenlijst is primair, host houdt een onzichtbaar vangnet. |
+| 1.47 | 2026-09-17 | Zareh Melkonian | **`T-39` download-gating-architectuur** (§13.5). Gedeelde mechaniek in `src/app/platform/`: pure `resolveDownloadGate()` (streaming vs. gated, `phase`, `canPlay`, geaggregeerde voortgang) + `useGameDownloadGate()` bovenop `usePlatform` (`T-38`) en de bestaande offline-pakket-laag. Beslissing: gate op **game-host-niveau**, Play/Start pas na 100% (telefoon/tablet); web behoudt streaming. 8 unit-tests. Bedrading in `GameHost` + visueel download­scherm volgen in de per-platform sporen. Tsc/eslint/210 tests groen. |
+| 1.46 | 2026-09-17 | Zareh Melkonian | **`T-38` platformdetectie-laag** (fundament multiplatform, §13). Nieuwe module `src/app/platform/`: pure `classifyPlatform(env)` + `detectPlatform()` + reactieve `usePlatform()`. Onderscheidt `desktop`/`phone`/`tablet` en `browser`/`standalone` (geïnstalleerde PWA), plus `requiresDownloadGate()`. 7 unit-tests; nog niet in de UI bedraad (dat volgt in de per-platform sporen `T-41`/`T-43`/`T-45` en de gate `T-39`). Tsc/eslint/202 tests groen. |
+| 1.45 | 2026-09-17 | Zareh Melkonian | **`DT-06` perf-bug gefixt + `DT-07`/`DT-08`/`DT-09`/`DT-10` bevestigd.** "Rustige beweging" maakte Zeg & Vlieg traag/onspeelbaar op zwakke toestellen: mijn `T-14`-CSS zette `transition-duration: 0.01ms !important` op `*`, waardoor élke per-frame positiewijziging een mini-transitie startte → `transitionend`-stortvloed (in browser gemeten: **246 → 9** events/s na fix). Opgelost door alleen de decoratieve `.bezem-*`-animaties te dempen (geen universele `*`-regel), ook in de OS-`prefers-reduced-motion`-variant. Focus-ring (`DT-07`), reset-record (`DT-08`), mic-fallback (`DT-09`) en voortgangsscherm (`DT-10`) op apparaat bevestigd → **alle 10 apparaattests groen**. |
+| 1.44 | 2026-09-17 | Zareh Melkonian | **`DT-04` + `DT-05` bevestigd → `T-10` afgerond.** Spraakparameters (stiltetijd/auto-stop/alternatieven) op apparaat goed bevonden: de huidige waarden voldoen, geen bijstelling nodig → `T-10` ✅ en `GAP-05` volledig opgelost. Audio-output (gesproken opdrachten/nazegzinnen/muziek) hoorbaar en prettig → `DT-05` ✅. |
+| 1.43 | 2026-09-17 | Zareh Melkonian | **`DT-03` bevestigd + v2-taak `T-49`.** Zeg & Bouw-spraak werkt op apparaat (samengestelde zin plaatst meerdere objecten). **Bekende beperking:** relatie/volgorde t.o.v. andere objecten ("zet de bal tussen schelp en handdoek", "tussen") wordt niet berekend — plaatsing gebeurt op benoemde zones. Nieuwe **§14 Versie 2 (backlog)** met `T-49`: anker-/relatielogica (bestaat al voor Zeg & Zet via `dynamic-scene-relations.ts`) uitbreiden naar het compound-pad van Zeg & Bouw, incl. volgorde. Bewust geparkeerd voor v2. |
+| 1.42 | 2026-09-16 | Zareh Melkonian | **`T-48` kernfix Zeg & Vlieg-spraak** (`DT-02`). Na browser-reproductie (gesimuleerde mic) bleek de echte oorzaak: de mic werd **na elke match volledig herstart** → op echte browsers loopt de spraakherkenning na een paar keer vast. Opgelost met een nieuwe geïsoleerde optie `latestSegmentOnly` (leest alleen het laatst gewijzigde segment via `event.resultIndex`; Zeg & Zet houdt z'n volledige zin) waardoor resultaten niet meer opstapelen en de herstart-per-match kon vervallen → **één doorlopende sessie**. Bewezen: sessie start 1× en blijft leven over 20 keer inspreken (eerder groeide de teller per match), sterren 0→9, geen dubbele matches. Contract + `browserSpeech` + `useDutchSpeechRecognition` + `useVoiceSideScrollerWordRecognition` aangepast. 195 tests groen. |
+| 1.41 | 2026-09-16 | Zareh Melkonian | **`T-48` eerste poging:** hersteltijd tussen matches 90 → 350 ms + herstel-watchdog. Bleek onvoldoende (churn per match bleef) → vervangen door de kernfix in 1.42. |
+| 1.40 | 2026-09-16 | Zareh Melkonian | **Nieuw initiatief: multiplatform-ondersteuning & download-gating** (§13). Taken `T-38` t/m `T-47` toegevoegd: platformdetectie (`T-38`), herontwerp van de download-flow naar een **blokkerende download-gate** op telefoon/tablet (Play pas na 100%; web behoudt streaming, `T-39`), gedeelde gate-UI (`T-46`), en per platform een **UX-design + wireframe → goedkeuring → implementatie**-spoor (Web `T-40`/`T-41`, Telefoon `T-42`/`T-43`, Tablet `T-44`/`T-45`) plus consistentieverificatie (`T-47`). Platforms in scope: Webbrowser (desktop), Mobiele telefoon, Tablet; download-doel = geïnstalleerde PWA. |
+| 1.39 | 2026-09-16 | Zareh Melkonian | **Dossier-reconciliatie + apparaattakenlijst.** De drie zusterdocumenten waren blijven staan op 2026-09-11: **Test-matrix** (→ v0.3), **Feature-catalogus** (→ v0.3) en **User Journey Map** (→ v0.3) bijgewerkt naar de huidige stand — alle eerdere 🔴/🔵-punten opgelost, 4e modus **Zeg & Bouw** overal toegevoegd (feature-sectie, journey `JRN_ZEGBOUW`, TC-sectie `TC_BOUW_*`), nieuwe TC's voor `T-15` (`TC_SCENE_11`) en `T-17` (`TC_PROG_01`), e2e-suites (`word-choice`/`voice-side-scroller`/`reward`/`zeg-en-bouw`) verwerkt. Test-matrix: 0 rood, 53 groen van 59 TC's. Nieuwe **§12.4 Apparaattakenlijst** (`DT-01`…`DT-10`) toegevoegd voor handmatige verificatie op een echt toestel (spraak, audio, `reducedMotion`, focus-ring, reset-record, voortgangsscherm). |
+| 1.38 | 2026-09-16 | Zareh Melkonian | **Verificatiebatch `T-10` t/m `T-18`.** `T-11` ✅ (`GAP-09`): reset wiste het Zeg & Vlieg-record niet → `resetVoiceScrollerRecord` toegevoegd (IndexedDB-wis via `practice.reset()` bevestigd). `T-12` ✅ (`GAP-10`): profielscheiding bevestigd (sleutels per-profiel, IndexedDB op `[profileId+gameId]`). `T-13` ✅ (`GAP-11`): gescopte `:focus-visible`-baseline in `theme.css` + sub-48px controls verhoogd (`BtnTrayNext`, `SpeechRetryPanel`, privacy-toggle, FloatingSuccessToast). `T-14` ✅ (`GAP-12`): in-app `reducedMotion`-toggle dempt nu ook gameplay-animaties (`useReducedMotionSetting` + `[data-app-reduced-motion]` + spiegel-CSS), in browser bevestigd. `T-15` ✅ (`GAP-08`): robuustheid dynamische zones geborgd met tests. `T-17` ✅ (`GAP-16`): categorie-uitsplitsing (taaldomeinen/ruimtebegrippen, woorden gegroepeerd) + tempo-inzicht toegevoegd aan `SCR_PLAT_PROGRESS`, in browser met echte data bevestigd. `T-10` (spraakwaarden ijken) en `T-18` (⚪-features) blijven apparaattaken (mic geblokkeerd in preview). Tsc/eslint/195 tests (49 bestanden) groen. |
+| 1.37 | 2026-09-16 | Zareh Melkonian | **Statuscorrectie `T-08` + `T-09`** (`GAP-05`/`GAP-06`): de woordenlijst is uitbreidbaar en telt nu 12 woorden (oude GDD zei "10"), en de spraakconfig-waarden (`interimResults`, `maxAlternatives`, timeouts) waren voorbeelden, geen vaste specificatie. Beide "fixes" zaten in de al verwijderde `docs/GDD.md` (changelog 1.8) en het GDD-dossier documenteert ze al correct — dus enkel op ✅ gezet. Het apparaat-ijken van de spraakwaarden blijft `T-10`. |
+| 1.36 | 2026-09-16 | Zareh Melkonian | `T-07` afgerond (`GAP-07`): rondelengte is data-gestuurd (`instructions.length`), niet vast "10 vragen". De oude `docs/GDD.md` was al verwijderd en het GDD-dossier klopte al; de laatste `0/10`-voorbeeldwaarde in de UX Design Specification (`FOOTER_QUIZ_PROGRESS`) verduidelijkt naar data-gestuurd (nu 12 vragen). |
+| 1.35 | 2026-09-16 | Zareh Melkonian | **Statuscorrectie `T-23`**: de "kaarten flitsen leeg"-fix in Kies het Woord bleek al geïmplementeerd (sticker-preload-effect in `useWordChoiceState` dat bij mount alle objectstickers in de browsercache laadt) en versterkt door de WebP-conversie (`T-33a`). Op ✅ gezet; het was afgevinkt onder `T-33` maar niet in de eigen rij. |
+| 1.34 | 2026-09-15 | Zareh Melkonian | `T-06` afgerond (`GAP-03`): dode staat `dashboard` uit `GameScreenPreview` (type + URL-mapper) verwijderd — hij werd nooit gerenderd en viel terug op de scene-builder. Geen verwijzing meer; tsc/eslint/186 tests groen. |
+| 1.33 | 2026-09-15 | Zareh Melkonian | `T-05` afgerond (`GAP-14`): `world-select` en `mode-select` renderden allebei `AdventureSelectScreen` — samengevoegd tot één `mode-select`. `world-select` uit de `GameScreenPreview`-type gehaald (oude URL-waarde blijft via de mapper werken), dode `openSelectedWorld`-actie verwijderd, en StartScreen-`onPlay` + Beloning-`onChooseWorld` gaan nu naar `mode-select`. tsc/eslint/186 tests + navigatie-e2e groen. |
+| 1.32 | 2026-09-15 | Zareh Melkonian | **Bugfix beloningsscherm** (testfeedback): het van-uit-het-menu geopende **Beloning**-overzicht toonde een **"Opnieuw"**-knop die naar Zeg & Zet sprong terwijl het kind niet in een spel zat. `RewardScreen`/`RewardActionsPanel` krijgen `showPlayAgain` (default aan); vanuit het menu `showPlayAgain={false}` → alleen de **Wereld**-knop (terug naar het keuzescherm). Regressietest toegevoegd; in browser bevestigd. |
+| 1.31 | 2026-09-15 | Zareh Melkonian | **`T-04` volledig afgerond** — `T-04e` (variant B "Vrij Bouwen"): modus-schakelaar Bouwopdracht↔Vrij bouwen; in vrij bouwen mag elk object, geen doel/straf/eindscherm, en de mascotte benoemt mee ("Wat mooi! Je hebt de boot, de zon en het vliegtuig gemaakt."). Terugschakelen herstelt een verse thema-bouwkaart. e2e-test toegevoegd (6 tests totaal). In browser end-to-end geverifieerd. **Zeg & Bouw is een volwaardige, complete 4e modus (variant A + B); `GAP-04` opgelost.** |
+| 1.30 | 2026-09-15 | Zareh Melkonian | `T-04d` afgerond: **volwaardig ronde-eindscherm** voor Zeg & Bouw (`ZegBouwRoundSummary`) — viert de afgebouwde kaart, toont de **gebouwde plaatjes**, de sterren van deze ronde en het **eerstvolgende beloningsdoel** ("Nog X sterren tot …"), consistent met de andere modi; Volgende strand / Menu. Nieuwe **e2e-suite** `zeg-en-bouw.spec.ts` (5 tests: render, tik-flow, samengestelde zin → eindscherm, Volgende strand, Menu), groen op chromium-tablet én webkit-tablet. Alle 3 kern-subtaken van `T-04` (b/c/d) klaar; alleen optionele variant B (`T-04e`) rest. |
+| 1.28 | 2026-09-15 | Zareh Melkonian | `T-04c` C1+C2a: **Zeg & Bouw speelbaar** (tik-variant). Bouwkaart-datamodel + logica (`zeg-en-bouw-cards.ts`, 7 tests) en het scherm `SCR_MSA_ZEG_BOUW` (`ZegBouwScreen` + `useZegBouwState`): bouwkaart met thema-doel + voortgangsstippen, tik-om-te-plaatsen, soepele tip bij niet-passend object (geen straf), "Strand af!"-viering bij doel + Volgende strand. Toegevoegd aan moduskeuze en unlock-leerlijn **Kies→Zet→Bouw→Vlieg** (drempels 0/3/8/14; Zeg & Vlieg 6→14 zodat Bouw ervóór komt — concept-besluit 4). In browser end-to-end geverifieerd (plaatsen, voortgang, viering, volgende kaart, tip); 186 unit-tests + Zeg & Vlieg-e2e groen. Rest van `T-04`: C2b (spraak/compound-invoer), `T-04d` (ronde-eindscherm). |
+| 1.27 | 2026-09-15 | Zareh Melkonian | **`T-04` (Zeg & Bouw) gestart** — de 3 bestaande modi zijn af, dus de 4e modus is aan de beurt. `T-04b` afgerond: nieuwe `parseCompoundPlacements` in `spoken-command-parser.ts` haalt **meerdere plaatsingen uit één zin** (bv. "de boot in de zee en de vuurtoren op het eiland" → 2 plaatsingen; objecten zonder zone komen los terug — soepel doel). Positie-gebaseerde groepering met niet-overlappende, langste-wint tokenselectie. 7 unit-tests. 179 tests groen. Vervolg: `T-04c` (scherm + bouwkaarten). |
+| 1.26 | 2026-09-15 | Zareh Melkonian | `T-24` afgerond: nieuwe e2e-suites `word-choice.spec.ts` (4), `voice-side-scroller.spec.ts` (2) en `reward.spec.ts` (3) — de eerder ongedekte modi + het beloningsscherm hebben nu eigen Playwright-dekking (9 tests, gedeelde `createPlayerAndOpenStrandGame`-helper). Groen op chromium-tablet én webkit-tablet. Test-matrix §9-dekkingsgaten opgelost. |
+| 1.25 | 2026-09-15 | Zareh Melkonian | `T-02` afgerond: Strandschat-beloningscurve afgestemd op de gemeten opbrengst (~2 ⭐ per goed antwoord, ~24-32 ⭐/ronde). Keuze gebruiker "rustiger opbouwen": drempels **3, 8, 16, 28, 42, 60, 85** (was 3/6/10/15/22/30/45) — snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles binnen ~2 rondes. Reward-unittests aangepast; GDD §7 curve-tabel herzien. 172 tests groen. |
+| 1.24 | 2026-09-15 | Zareh Melkonian | `T-29` afgerond: randomisatie bevestigd/ingericht als norm in alle 3 modi. Kies het Woord + Zeg & Zet delen een geseede shuffle (re-seed bij modusstart en "Opnieuw"); Zeg & Vlieg schudt zijn doelen per ronde. Gat gedicht: Zeg & Zet-**replay** herschudt nu ook via `onPlayAgain` (`startSelectedMode` re-seedt) + een reset-op-`instructions`-effect in `useSceneBuilderState`. §6.6 gedocumenteerd; lost `T-16`/`GAP-13` mee op. In browser geverifieerd (twee rondes verschillende volgorde). |
+| 1.23 | 2026-09-15 | Zareh Melkonian | `T-25` afgerond: de losse audio-voorleesfunctie (`FEAT_WORD_AUDIO`) is uit Kies het Woord verwijderd — TTS `playQuestionAudio` en beide audioknoppen (HUD-"Audio" via nieuwe `showAudio`-prop op `GameTopHud`, en de "Luister opnieuw"-knop `BtnAudioReplayPrompt`) weg; de video-opdracht vervangt het. Feature-catalogus en User-Journey-Map opgeschoond. In browser geverifieerd (geen audioknoppen, video blijft, spel speelt door); 172 tests groen. |
+| 1.22 | 2026-09-15 | Zareh Melkonian | `T-37` afgerond: Playwright-e2e bijgewerkt na `T-35`/`T-03`. Tests die nog de verwijderde `scene-builder-confirm-button`/`speech-stop-button` gebruikten (3.3, 3.5, 3.6, a11y-kernopdracht, `generate-visual-report`) herschreven naar de auto-bevestigings-flow: correct → auto-doorgaan (instructie-id wijzigt), onduidelijk → herstelbare "almost"-feedback, wave rondt automatisch af. Geverifieerd op chromium-tablet én webkit-tablet — volledige e2e-suite groen. |
+| 1.21 | 2026-09-15 | Zareh Melkonian | `T-31` afgerond: unlock-mechanisme + leerlijn-volgorde in het moduskeuzescherm (Kies het Woord altijd open → Zeg & Zet vanaf 3 ⭐ → Zeg & Vlieg vanaf 6 ⭐), deadlock-vrij. Nieuwe `logic/mode-unlocks.ts`; vergrendelde kaarten grijs met slot + "🔒 Nog X sterren"; standaard Kies het Woord geselecteerd. Playwright-e2e bijgewerkt (keuze: echte sterren verdienen) via `e2e/helpers.ts` en met Playwright geverifieerd. Bij die e2e-run bleek dat tests 3.5/3.6/a11y-kernopdracht nog de door `T-35` verwijderde `scene-builder-confirm-button` gebruiken → nieuwe taak `T-37`. 5 unit-tests (172 totaal). |
+| 1.20 | 2026-09-15 | Zareh Melkonian | `T-03` afgerond: Zeg & Zet heeft nu een eigen in-game ronde-eindscherm (`SceneBuilderRoundSummary`) — viert de afgeronde plaat, toont geoefende woorden + begrippen, cumulatieve sterren en het eerstvolgende beloningsdoel, met Opnieuw (reset) en Wereld. Leftover top-bar-"Opnieuw" (riep `handleConfirm`) verwijderd. Lost `GAP-15` op → alle 3 modi hebben nu een ronde-einde. 3 render-tests (167 totaal); end-to-end in browser geverifieerd (16 opdrachten → samenvatting → Opnieuw reset). |
+| 1.19 | 2026-09-15 | Zareh Melkonian | `T-30` grotendeels afgerond: Zeg & Vlieg krijgt een vriendelijk mechanisme (keuze gebruiker: schildjes + record + combo, **3 schildjes**). Botsing kost een schildje i.p.v. harde game-over; combo met bonusster elke 3e; persoonlijk afstandsrecord per profiel (`voiceSideScrollerRecord.ts`) met viering; ronde-einde vriendelijk verwoord. HUD toont schildjes/combo/record. §4.4 herschreven (dekt `T-22`). 8 nieuwe unit-tests (164 totaal). In browser end-to-end geverifieerd (3 botsingen → einde op 281 m, nieuw record, record blijft na herstart); combo op apparaat te bevestigen. |
+| 1.18 | 2026-09-15 | Zareh Melkonian | **Statuscorrectie:** taken die op apparaat bevestigd zijn maar nog op 🟦 stonden, op ✅ gezet (`T-26`, `T-27`, `T-28`, `T-32`, `T-34`, `T-35`) en toegevoegd aan §12.3 "Afgeronde taken". Alleen `T-04` (Zeg & Bouw) blijft 🟦 (concept vastgesteld, bouw als laatste). |
+| 1.17 | 2026-09-15 | Zareh Melkonian | `T-28` grotendeels afgerond: gedeelde `logic/word-safety.ts` met vriendelijke bescherming tegen scheld-/ongewenste woorden (beknopte NL+EN-blocklist, hele-woord-matching zodat strandwoorden nooit blokkeren). Zeg & Zet voert het commando niet uit + toont een zachte nudge + blijft luisteren, en maskeert ongewenste woorden in de live-transcriptie (`…`). Zeg & Vlieg filtert ongewenste tokens (gemengde uiting pakt het geldige woord tóch op) en toont anders de nudge. 6 nieuwe unit-tests groen (156 totaal); beide modi mounten schoon. Nudge zelf op echt apparaat te bevestigen. |
+
+### 0.7 Verwante bestaande documentatie
+
+Deze index consolideert en vervangt op termijn de bestaande, deels aspirationele documentatie. Tijdens de overgang blijven die als naslag beschikbaar:
+
+- [src/app/games/magisch-strand-avontuur/docs/GDD.md](../../src/app/games/magisch-strand-avontuur/docs/GDD.md) — oude GDD (v2.0), wordt bron voor de detaildocumenten.
+- [docs/UX_Design_Specification_Magisch_Strand_Avontuur.md](../UX_Design_Specification_Magisch_Strand_Avontuur.md) — UX-specificatie.
+- [src/app/games/magisch-strand-avontuur/docs/01–05](../../src/app/games/magisch-strand-avontuur/docs/) — pedagogisch fundament, curriculum, gameplay, schermen, beloningen.
+
+---
+
+## 1. Executive Summary & High Concept
+
+### 1.1 Elevator pitch
+
+> *"Magisch Strand-Avontuur is een spraakgestuurde, educatieve web-game (PWA) waarin kinderen van 4–8 jaar op een magische strandwereld hun woordenschat, zinsbegrip en ruimtelijke oriëntatie oefenen — door te luisteren, te kijken, aan te raken én hardop te spreken. Kinderen plaatsen stickers op het strand, kiezen het juiste woord in een quiz, of vliegen op een bezem langs objecten die ze bij naam noemen."*
+
+### 1.2 In één oogopslag
+
+| Aspect | Invulling |
+| :--- | :--- |
+| **Genre** | Educatieve serious game / logopedische oefenomgeving |
+| **Domein** | Spraak- en taalontwikkeling: woordenschat, zinsbegrip, ruimtelijke taal |
+| **Doelgroep** | Kinderen 4–8 jaar (kleuters/groep 1–4), inclusief NT2/meertalig en kinderen met TOS |
+| **Platform** | Cross-platform web (PWA); primair touchscreen-tablets (iPad/Android), ook desktopbrowsers |
+| **Oriëntaties** | Portret én landschap (bron: `supportedOrientations` in [manifest.ts](../../src/app/games/magisch-strand-avontuur/manifest.ts)) |
+| **Capabilities** | `audio`, `microphone`, `offline-package` |
+| **Aantal spelmodi** | 3 speelbare modi (zie 1.4) |
+| **Thema/wereld** | Strand (één actieve wereld; verdere werelden gepland) |
+| **Taal** | Nederlands (`nl-NL`) |
+
+### 1.3 Unieke verkoop- & speelpunten (USP's)
+
+1. **Multimodale, gelijkwaardige invoer** — elke opdracht kan met **aanraken (tap)**, **slepen (drag-and-drop)** én **stem (microfoon)** worden uitgevoerd. Geen enkel kind wordt uitgesloten: er is altijd een toetsenbord-fallback voor stille omgevingen of als spraak faalt.
+2. **Kindvriendelijke, geduldige spraakherkenning** — ontworpen om níet voortijdig af te breken: ruime opnameduur, adaptieve stiltetimer, live golfanimatie en ondersteuning voor kindertaal-varianten (bv. "krap" voor "krab").
+3. **Logopedisch verantwoord, foutarm leren** — geen afstraffing of faalervaring. Bij twijfel verschijnen visuele hints, lichten doelzones op en kunnen instructies onbeperkt herhaald worden. Het kind bepaalt het tempo.
+4. **Privacy-first & offline** — spraak wordt lokaal in de browser verwerkt en niet opgeslagen; geen tracking, advertenties of aankopen. De game is als PWA offline speelbaar.
+5. **Observatie zonder toetsdruk** — voortgang wordt geregistreerd als procesobservaties (welke woorden/begrippen geoefend, met/zonder hulp), niet als scores of cijfers.
+
+### 1.4 De drie spelmodi (kern)
+
+De game biedt één samenhangende leertrap via drie modi, oplopend van herkennen naar zelf produceren:
+
+| Modus-ID | Naam | Kernactie | Talige focus |
+| :--- | :--- | :--- | :--- |
+| `MODE_KIES_WOORD` | **Kies het Woord** | Tik de juiste keuzekaart aan | Receptief: woordherkenning |
+| `MODE_ZEG_ZET` | **Zeg & Zet** | Plaats een object op de juiste plek (tik/sleep/spreek) | Relationeel: zinsbegrip + ruimtelijke taal |
+| `MODE_ZEG_VLIEG` | **Zeg & Vlieg** | Vlieg langs objecten en spreek hun naam uit | Productief: actief benoemen |
+| `MODE_ZEG_BOUW` 🔵 | **Zeg & Bouw** *(gepland)* | Eigen modus + scherm, mechanica nog te ontwerpen | Nog te bepalen |
+
+> Detail per modus staat in sectie 4 en in het gameplay-detaildocument. Er komt een **4e modus** `MODE_ZEG_BOUW` (`zeg-en-bouw`) met een eigen scherm; die is nog te ontwerpen en te bouwen (zie 4.6 en [T-04](#12-takenlijst)).
+
+### 1.5 "Wat maakt de game af" (definition of done, op hoofdlijn)
+
+De game is "af" wanneer een kind uit de doelgroep zelfstandig — of met minimale begeleiding — de volledige reis kan doorlopen: opstarten → profiel/avatar → strandwereld kiezen → een modus spelen → beloning ontvangen → opnieuw of stoppen, waarbij elke invoermethode (tap, sleep, stem, toetsenbord) betrouwbaar werkt en er nergens een doodlopende of foutieve staat optreedt. De exacte, toetsbare criteria hiervoor worden vastgelegd in de **Test-matrix**.
+
+---
+
+## 2. Doelgroep & Pedagogisch Fundament
+
+> Dit is de **hoofdlijn**. De volledige wetenschappelijke onderbouwing staat in het detaildocument [01-pedagogisch-en-logopedisch-fundament.md](../../src/app/games/magisch-strand-avontuur/docs/01-pedagogisch-en-logopedisch-fundament.md).
+
+### 2.1 Waarom deze game bestaat
+
+De game richt zich op de kritieke fase waarin kinderen hun **receptieve** woordenschat (begrijpen wat je hoort) omzetten in **actieve** woordenschat (zelf woorden gebruiken en articuleren), en waarin **ruimtelijke begrippen** en **complexere zinsstructuren** worden verworven. Traditionele oefenvormen (werkbladen, passieve video) spreken meestal één zintuig aan en lokken geen actieve taalproductie uit; deze game combineert horen, zien, doen én zeggen in één vloeiende loop.
+
+### 2.2 Spelerpersona's
+
+| Persona-ID | Wie | Kenmerken | Belangrijkste ontwerpimplicatie |
+| :--- | :--- | :--- | :--- |
+| `PERS_KLEUTER` | Reguliere kleuter (4–5 jr) | Ontluikende woordenschat; leert via beeld-klank-koppeling; intuïtief met touch | Grote touch-targets, tap-first, korte opdrachten |
+| `PERS_TOS` | Kind met Taalontwikkelingsstoornis (4–8 jr) | Moeite met complexe zinnen en abstracte voorzetsels (`onder`, `tussen`); lagere auditieve verwerkingssnelheid | Oplichtende doelzones, onbeperkte herhaling, videomodel, extra tijd |
+| `PERS_NT2` | Meertalig / NT2-kind (5–8 jr) | Leert Nederlands als tweede taal | Uitgesproken lidwoorden (`de boot`, `het vliegtuig`), duidelijke uitspraakmodellen, nazegzinnen |
+| `PERS_BEGELEIDER` | Ouder / logopedist / leerkracht | Wil zien waar gerichte stimulering nodig is | Observatiedata per profiel, begeleiderspaneel, geen toetsdruk |
+
+### 2.3 Didactische pijlers
+
+1. **Dual Coding (Paivio) & multimodale koppeling** — auditieve input + visuele representatie + motorische handeling + verbale output activeren gelijktijdig, voor diepe semantische verankering.
+2. **De logopedische leertrap (receptief → relationeel → productief)** — direct gekoppeld aan de drie modi:
+
+   ```
+   RECEPTIEF            RELATIONEEL           PRODUCTIEF
+   Herkennen      →     Plaatsen in       →   Zelf benoemen
+   (Kies het Woord)     context               (Zeg & Vlieg)
+                        (Zeg & Zet)
+   ```
+
+3. **Concretisering van abstracte ruimtelijke begrippen** — dynamische ankerobjecten en oplichtende zones maken relationele begrippen (`tussen`, `naast`) zichtbaar en ervaarbaar.
+4. **Foutloos leren & scaffolding (Vygotsky)** — een oplopende hulpladder zonder faalervaring:
+
+   | Scaffold | Ingreep |
+   | :--- | :--- |
+   | 0 | Zelfstandige poging (bonus bij succes zonder hulp) |
+   | 1 | Visuele hint: doelzone pulseert / foute keuzekaarten vallen weg |
+   | 2 | Auditieve herhaling: instructie onbeperkt opnieuw beluisterbaar |
+   | 3 | Videomodel: animatie toont de handeling |
+   | ✓ | Positieve bekrachtiging: nooit een "fout!"-geluid of verlies van voortgang |
+
+### 2.4 Observatie zonder toetsdruk
+
+De game verzamelt op de achtergrond **procesobservaties** (geen cijfers): welke woorden/begrippen het kind zelfstandig beheerst, hulpbehoefte per domein, aantal audio-herhalingen, en reactietijd/tempo. Deze data is de basis voor het voortgangsoverzicht en wordt lokaal per profiel opgeslagen (zie sectie 8). Het onderliggende record is `BezemEscapePracticeEvent` (bron: [types.ts](../../src/app/games/magisch-strand-avontuur/types.ts)).
+
+### 2.5 Meetbare leerdoelen (hoofdlijn)
+
+| Domein-ID | Leerdoel | Modus die het traint |
+| :--- | :--- | :--- |
+| `receptive-vocabulary` | Doelwoord herkennen tussen afleiders | Kies het Woord |
+| `sentence-comprehension` | Een gesproken opdracht begrijpen en uitvoeren | Zeg & Zet |
+| `spatial-language` | Ruimtelijke begrippen correct toepassen | Zeg & Zet |
+| `active-vocabulary` | Doelwoord zelfstandig en verstaanbaar benoemen | Zeg & Vlieg |
+
+> De volledige lijst taaldomeinen staat als `LanguageDomain`-type in [types.ts](../../src/app/games/magisch-strand-avontuur/types.ts); het curriculum met woorden en begrippen wordt in sectie 6 samengevat.
+
+---
+
+## 3. Schermarchitectuur (Screen Map)
+
+> Dit is het **skelet** van het hele dossier: elk scherm en elke overlay heeft een stabiel `SCR_`-ID. De Feature-catalogus hangt features onder deze ID's; de User Journey Map rijgt ze aaneen tot reizen; de Test-matrix test ze. Statuslabels (🟢🟡🔴⚪🔵⚫) volgen de legenda uit sectie 0.5 en drukken hier uit of het scherm *bereikbaar en gerenderd* is — niet of alle features erin werken (dat staat in de Feature-catalogus).
+
+### 3.1 Twee niveaus
+
+De gebruiker beweegt door **twee lagen**:
+
+- **Platform-laag** (`SCR_PLAT_*`) — de +1 Woordenschat-schil rondom alle games: welkom, profiel, avatar, themakeuze, gamelijst, instellingen, voortgang. Aangestuurd door React Router (bron: [routes.tsx](../../src/app/routes.tsx)).
+- **Game-laag** (`SCR_MSA_*`) — de interne schermen van Magisch Strand-Avontuur. Aangestuurd door een interne state-machine, niet door de router (bron: [index.tsx](../../src/app/games/magisch-strand-avontuur/index.tsx) en de `GameScreenPreview`-enum in [logic/game-screen-preview.ts](../../src/app/games/magisch-strand-avontuur/logic/game-screen-preview.ts)).
+
+### 3.2 Platform-schermen (`SCR_PLAT_*`)
+
+| Scherm-ID | Route | Component | Doel | Status |
+| :--- | :--- | :--- | :--- | :--: |
+| `SCR_PLAT_WELCOME` | `/` | `WelcomeScreen` | Welkomstscherm, instap in de app | ⚪ |
+| `SCR_PLAT_PROFILE_SELECT` | `/profiles` | `ProfileSelectScreen` | Kindprofiel kiezen of aanmaken | ⚪ |
+| `SCR_PLAT_AVATAR_SELECT` | `/avatar` | `AvatarSelectScreen` | Avatar kiezen + naam bevestigen | ⚪ |
+| `SCR_PLAT_HOME` | `/home` | `HomeScreen` | Thema/wereld kiezen | ⚪ |
+| `SCR_PLAT_GAMES_LIST` | `/games/:theme` | `GamesListScreen` | Game kiezen binnen een thema | ⚪ |
+| `SCR_PLAT_GAME_PLAY` | `/games/:theme/:gameId` | `GamePlayScreen` | Host die de gekozen game laadt en draait | ⚪ |
+| `SCR_PLAT_SETTINGS` | `/settings` | `SettingsScreen` | Platformbrede instellingen | ⚪ |
+| `SCR_PLAT_PROGRESS` | `/progress` | `ProgressScreen` | Voortgangsoverzicht per profiel (aggregaten + categorie-uitsplitsing + tempo, `T-17`) | ✅ |
+
+### 3.3 Game-schermen (`SCR_MSA_*`)
+
+De game rendert precies één van deze schermen tegelijk, gestuurd door de `screenPreview`-staat.
+
+| Scherm-ID | `screenPreview` | Component | Modus | Doel | Status |
+| :--- | :--- | :--- | :--- | :--- | :--: |
+| `SCR_MSA_START` | `start` | `StartScreen` | — | Titelscherm met speelknop, sterrenteller, instellingen | ⚪ |
+| `SCR_MSA_MODE_SELECT` | `mode-select` | `AdventureSelectScreen` | — | **Avontuur kiezen**: wereld + spelmodus in één scherm | ⚪ |
+| `SCR_MSA_SCENE_BUILDER` | `scene-builder` | `SceneBuilderScreen` | `MODE_ZEG_ZET` | Object plaatsen op het strand via tap/sleep/stem | ⚪ |
+| `SCR_MSA_ZEG_BOUW` | *(nieuw)* | *(nog te bouwen)* | `MODE_ZEG_BOUW` | 🔵 Eigen scherm voor de `zeg-en-bouw`-modus (zie 4.6) | 🔵 |
+| `SCR_MSA_WORD_CHOICE` | `word-choice` | `WordChoiceScreen` | `MODE_KIES_WOORD` | Woordkeuze-quiz (aantal vragen data-gestuurd) | ⚪ |
+| `SCR_MSA_VOICE_SCROLLER` | `voice-side-scroller` | `VoiceSideScrollerScreen` | `MODE_ZEG_VLIEG` | Vliegen en objecten hardop benoemen | ⚪ |
+| `SCR_MSA_REWARD` | `reward` | `RewardScreen` | — | Beloningsoverzicht (sterren, bezems, stickers) | ⚪ |
+| `SCR_MSA_SETTINGS` | `settings` | `GameSettingsScreen` | — | Audio, microfoon/privacy, voortgang resetten | ⚪ |
+| ~~`SCR_MSA_DASHBOARD`~~ | ~~`dashboard`~~ | — | — | ✅ verwijderd (`T-06`) — dode staat, nooit gerenderd | ✅ opgeruimd |
+
+> **Beslissing (review), inmiddels doorgevoerd:** `world-select` en `mode-select` deden hetzelfde (één component, `AdventureSelectScreen`). We houden **één** scherm aan: **`SCR_MSA_MODE_SELECT`** ("Avontuur kiezen"); de redundante `world-select`-staat is opgeruimd ([T-05](#12-takenlijst) ✅).
+>
+> ✅ **`SCR_MSA_DASHBOARD`** (dode staat) is uit de `GameScreenPreview`-enum verwijderd ([T-06](#12-takenlijst) ✅).
+>
+> 🔵 **`SCR_MSA_ZEG_BOUW`** is nog te bouwen: de modus `zeg-en-bouw` bestaat wel als type maar heeft nog geen eigen scherm (zie 4.6 / [T-04](#12-takenlijst)).
+
+### 3.4 Overlays & modals (`SCR_MSA_OV_*`)
+
+Overlays verschijnen *boven* een scherm en hebben hun eigen gedrag en tests.
+
+| Overlay-ID | Component | Verschijnt op | Doel | Status |
+| :--- | :--- | :--- | :--- | :--: |
+| `SCR_MSA_OV_KEYBOARD` | `TypedCommandFallback` / `CardModalKeyboardInput` | Scene Builder | Toetsenbord-fallback voor commando's (stille omgeving / spraak faalt) | ⚪ |
+| `SCR_MSA_OV_SPEECH_WAVE` | `SpeechWaveAnimation` | Scene Builder | Live luister-indicator: golfanimatie, "Ik luister…", transcriptie, Klaar-knop | ⚪ |
+| `SCR_MSA_OV_VOICE_PRIVACY` | `VoicePrivacyNotice` | Scene Builder | Privacy-toelichting bij eerste microfoongebruik | ⚪ |
+| `SCR_MSA_OV_SUCCESS_TOAST` | `FloatingSuccessToast` | Scene Builder | Positieve feedback bij goed antwoord | ⚪ |
+| `SCR_MSA_OV_RESET_CONFIRM` | `ConfirmResetDialog` | Instellingen | Bevestiging vóór het resetten van voortgang | ⚪ |
+| `SCR_MSA_OV_ZEGVLIEG_START` | `VoiceSideScrollerStartOverlay` / `CardModalZegVliegStart` | Zeg & Vlieg | Startuitleg vóór de vliegronde | ⚪ |
+| `SCR_MSA_OV_ZEGVLIEG_SUMMARY` | `VoiceSideScrollerRoundSummary` | Zeg & Vlieg | Ronde-resultaat: meters, sterren, score | ⚪ |
+| `SCR_MSA_OV_WORDCHOICE_SUMMARY` | `WordChoiceRoundSummary` | Kies het Woord | In-game eindscherm: sterren, tempo, goed direct/met hint | ⚪ |
+| `SCR_MSA_OV_ZONE_DEVTOOLS` | `SceneZoneDevTools` | Scene Builder | **Dev-only** zone-editor (`?dev=true` / `?zoneDevTools=true`) | ⚪ |
+| `SCR_MSA_OV_UI_PREVIEW` | `UiBuildingBlocksPreview` | — | **Dev-only** UI-componentcatalogus (`?preview=ui`) | ⚪ |
+
+### 3.5 Navigatiestroom (game-laag)
+
+```
+                                   SCR_PLAT_GAME_PLAY (host)
+                                            │
+                                            ▼
+                                     SCR_MSA_START ◄────────────┐
+                                            │                   │
+                          ┌─────────────────┼───────────┐       │
+                          ▼                 ▼           ▼        │
+                  SCR_MSA_MODE_SELECT  SCR_MSA_SETTINGS  (Terug → platform)
+                          │
+       ┌──────────────────┼──────────────┬──────────────────────┐
+       ▼                  ▼              ▼                       ▼
+SCR_MSA_SCENE_BUILDER  SCR_MSA_ZEG_BOUW  SCR_MSA_WORD_CHOICE  SCR_MSA_VOICE_SCROLLER
+       │                  │              │                       │
+       │   (elke modus eindigt met een eigen in-game ronde-eindscherm, zie 4.5)
+       └──────────────────┴──────┬───────┴───────────────────────┘
+                                 ▼
+                           SCR_MSA_REWARD
+                                 │
+                  ┌──────────────┴──────────────┐
+                  ▼                              ▼
+        (Opnieuw → zelfde modus)     (Menu → SCR_MSA_MODE_SELECT)
+```
+
+> De precieze knoppen, teruggangen en randgevallen (bv. "Terug" vanuit een modus, afbreken midden in een ronde) worden per stap vastgelegd in de **User Journey Map**.
+
+### 3.6 Beslissingen & openstaande vragen bij de screen map
+
+- ✅ **Besloten:** `world-select` en `mode-select` worden **één** scherm — `SCR_MSA_MODE_SELECT`. De redundante `world-select`-staat en de navigatie ernaartoe (bv. `StartScreen.onPlay`) worden opgeruimd → [T-05](#12-takenlijst).
+- ✅ **Besloten:** `SCR_MSA_DASHBOARD` (⚫) wordt **opgeruimd** uit de enum → [T-06](#12-takenlijst).
+- ✅ **Besloten:** de modus `zeg-en-bouw` **krijgt een eigen scherm** (`SCR_MSA_ZEG_BOUW`) → [T-04](#12-takenlijst).
+- **Platformstatussen (⚪):** nog niet geverifieerd of alle acht platformschermen bereikbaar en foutloos renderen; dit is werk voor de Test-matrix.
+
+---
+
+## 4. Core Gameplay Loop & Spelmodi
+
+> Dit deel beschrijft de **werkelijke** spellogica zoals die in de code zit (bron: `screens/*` en `logic/*`), niet alleen de bedoeling. Afwijkingen tussen de oude documentatie en de code zijn expliciet gemarkeerd met ⚠️ en verzameld in sectie 11.
+
+### 4.1 Algemene core loop
+
+Alle drie de modi delen dezelfde onderliggende cyclus:
+
+```
+┌────────────┐   ┌────────────┐   ┌────────────┐   ┌───────────────┐
+│ 1. HOOR/ZIE│ → │ 2. BEGRIJP │ → │ 3. ACTIE   │ → │ 4. BEKRACHTIG │
+│  opdracht  │   │  & verwerk │   │ tap/sleep/ │   │  feedback +   │
+│ (audio+    │   │            │   │  stem      │   │  beloning     │
+│  beeld)    │   │            │   │            │   │               │
+└────────────┘   └────────────┘   └────────────┘   └───────┬───────┘
+       ▲                                                    │
+       └───────────────── 5. PROGRESSIE ────────────────────┘
+                   (volgende opdracht of ronde-einde)
+```
+
+Bij **elke** actie — goed óf fout — schrijft de game een observatie weg (`runtime.practice.append(...)`, zie sectie 2.4/8). Er is nooit straf: een fout leidt tot een vriendelijke tip en het kind mag opnieuw.
+
+### 4.2 `MODE_KIES_WOORD` — Kies het Woord
+
+**Scherm:** `SCR_MSA_WORD_CHOICE` · **Bron:** [useWordChoiceState.ts](../../src/app/games/magisch-strand-avontuur/screens/word-choice/useWordChoiceState.ts) · **Talige focus:** receptief (woordherkenning)
+
+**Loop:**
+1. Een ronde bestaat uit een reeks vragen; het aantal is **data-gestuurd** (`instructions.length`), niet hardcoded. ✅ Dit is de correcte, bewust gekozen aanpak: de rondelengte volgt de content en is dus variabel. De oude GDD ("10 vragen") wordt hierop aangepast → [T-07](#12-takenlijst).
+2. De bovenbalk toont de vraag (bv. *"Waar is de dolfijn?"*) met spraaksynthese en optioneel een instructievideo.
+3. Het kind tikt een keuzekaart aan (`answerOptions`, 2–4 kaarten):
+   - **Goed** → `feedback.kind = "correct"`; kaart licht groen op, succestekst; als er **geen hint** is gebruikt volgt een **bonus** (`+1` extra ster én tempo).
+   - **Fout** → `feedback.kind = "almost"`; vriendelijke tip (`feedbackCopy.almost` of de hint); woord wordt als "moeilijk" onthouden; geen verlies.
+4. **Hint** (indien aan in instellingen): toont `instruction.hint` en markeert de vraag als "met hulp".
+5. **Audio herhalen**: onbeperkt; elke herhaling wordt geteld (`audioRepeatsByInstruction`).
+6. Na de laatste vraag: `isCompleted = true` → in-game **eindscherm** (`SCR_MSA_OV_WORDCHOICE_SUMMARY`) met sterren, tempo, en aantal goed direct/met hint. Knoppen: **Opnieuw** (`restartRound`) of **Menu**.
+
+**Beloning per goed antwoord:** `earnedWordStars = instruction.reward.wordStars + (bonus ? 1 : 0)`, idem voor tempo. Bonus = geen hint gebruikt.
+
+### 4.3 `MODE_ZEG_ZET` — Zeg & Zet (Scene Builder)
+
+**Scherm:** `SCR_MSA_SCENE_BUILDER` · **Bron:** [screens/scene-builder/](../../src/app/games/magisch-strand-avontuur/screens/scene-builder/) · **Talige focus:** relationeel (zinsbegrip + ruimtelijke taal)
+
+**Loop:**
+1. De opdracht wordt gesproken en getoond (bv. *"Zet de boot in de zee"*), met mascotte en instructiekaart.
+2. Het kind voert de plaatsing uit via één van **drie** invoerwegen (zie sectie 5):
+   - **Tap:** object in de `ObjectCarousel` selecteren → op het strand tikken (`scene-tap-target`).
+   - **Sleep:** drag-and-drop van object naar doelzone.
+   - **Stem:** microfoon → commando inspreken → parser bepaalt object + relatie + zone.
+3. De plaatsing wordt vergeleken met de doelzone(s) van de instructie (`placement.zoneId`, `relation`, `anchorObjectIds`).
+   - **Goed** → `scene-builder-feedback` met `data-kind="correct"`; `FloatingSuccessToast` (`SCR_MSA_OV_SUCCESS_TOAST`); actieknop wordt **Volgende**.
+   - **Bijna/fout** → `data-kind="almost"`; herstelbare feedback, geen straf; object kan opnieuw opgepakt/geplaatst worden.
+4. **Hint** (`TargetZoneHint`): de doelzone pulseert/licht op (`target-zone-hint-boundary`, `target-zone-hint-magic-rings`).
+5. **Toetsenbord-fallback** (`SCR_MSA_OV_KEYBOARD`): typ het commando als spraak niet kan.
+
+**Detail zone-matching en geometrie:** zie [logic/scene-zones.ts](../../src/app/games/magisch-strand-avontuur/logic/scene-zones.ts) en `screens/scene-builder/logic/scene-geometry-utils.ts` — wordt in het gameplay-detaildocument uitgewerkt.
+
+### 4.4 `MODE_ZEG_VLIEG` — Zeg & Vlieg (Voice Side-Scroller)
+
+**Scherm:** `SCR_MSA_VOICE_SCROLLER` · **Bron:** [screens/voice-side-scroller/](../../src/app/games/magisch-strand-avontuur/screens/voice-side-scroller/) · **Talige focus:** productief (actief benoemen)
+
+**Statusmachine** (`VoiceSideScrollerStatus`): `ready` → `running` → `game-over`.
+
+**Loop:**
+1. **Start-overlay** (`SCR_MSA_OV_ZEGVLIEG_START`) legt de ronde uit.
+2. Tijdens `running` vliegt de held continu van links naar rechts; `scrollX` en `distance` lopen op.
+3. **Besturing:** een duim-rail regelt traploos de vlieghoogte (`playerY`).
+4. **Doelen** (`VoiceSideScrollerTarget`): als een object (boot, krab, dolfijn, …) in beeld komt, spreekt het kind de naam uit → bij herkenning wordt het object verzameld (score + tempo-boost + educatie-observatie per woord). Herkenning is vergevingsgezind (kort woordgeheugen, `T-32`).
+5. **Vriendelijk mechanisme (`T-30`):** het kind heeft **3 schildjes** per ronde. Een botsing kost één schildje (`collisionSlowdownMs`-vertraging + telt `obstacleHits`, breekt de combo) — géén harde game-over. **Combo:** meerdere woorden goed op rij geeft een zichtbare combo (🔥) en elke 3e een bonusster. **Persoonlijk record** (verste vlucht, per profiel opgeslagen) wordt getoond en gevierd bij een nieuw record.
+6. **Ronde-einde** (`game-over` → `SCR_MSA_OV_ZEGVLIEG_SUMMARY`): pas als het laatste schildje op is, vriendelijk verwoord ("Goed gevlogen! Je haalde X meter") met meters, sterren, score, record en per-woord observaties.
+
+**Educatie-tracking:** per doelwoord wordt bijgehouden of het herkend is, aantal pogingen, hints en of extra oefening nodig is (`VoiceSideScrollerWordEducationState`).
+
+### 4.5 Samenvattend: verschillen tussen de modi
+
+| Aspect | Kies het Woord | Zeg & Zet | Zeg & Vlieg |
+| :--- | :--- | :--- | :--- |
+| Kernvaardigheid | Herkennen | Plaatsen in context | Zelf benoemen |
+| Invoer | Tap | Tap / sleep / stem / toetsenbord | Stem + duim-rail |
+| Realtime? | Nee (per vraag) | Nee (per opdracht) | Ja (continu, frame-loop) |
+| Ronde-einde | In-game summary | 🔴 **In-game summary (nog te bouwen)** | In-game summary |
+| Fout = straf? | Nee | Nee | Nee (alleen snelheidsverlies) |
+
+> ✅ **Opgelost (`T-03`):** **alle drie** de modi hebben nu een eigen **in-game ronde-eindscherm**. Kies het Woord (`SCR_MSA_OV_WORDCHOICE_SUMMARY`), Zeg & Vlieg (`SCR_MSA_OV_ZEGVLIEG_SUMMARY`) en Zeg & Zet (`SceneBuilderRoundSummary`: geoefende woorden/begrippen, cumulatieve sterren, eerstvolgende beloningsdoel, Opnieuw/Wereld). De nieuwe modus `zeg-en-bouw` krijgt hetzelfde zodra die er is.
+
+### 4.6 Beslissingen (review)
+
+- ✅ **Rondelengte Kies het Woord** — de **data-gestuurde** aanpak (`instructions.length`) is de **correcte methode**. De oude GDD ("10 vragen") is achterhaald en moet worden aangepast → [T-07](#12-takenlijst). Rondes zijn dus variabel van lengte, afhankelijk van de content.
+- ✅ **Modus `zeg-en-bouw`** — krijgt een **eigen scherm** (`SCR_MSA_ZEG_BOUW`) en wordt een volwaardige, aparte modus naast Zeg & Zet → [T-04](#12-takenlijst). De exacte mechanica van deze modus moet nog worden ontworpen.
+- ✅ **Beloningen** — er komt **één** beloningssysteem (zie sectie 7). De oude GDD (4 bezems op 0/10/25/50) is achterhaald en wordt aangepast → [T-09](#12-takenlijst).
+
+---
+
+## 5. Invoer & Spraaktechnologie
+
+> Bron: [hooks/useDutchSpeechRecognition.ts](../../src/app/games/magisch-strand-avontuur/hooks/useDutchSpeechRecognition.ts), [logic/spoken-command-parser.ts](../../src/app/games/magisch-strand-avontuur/logic/spoken-command-parser.ts), [logic/speech-recognition.ts](../../src/app/games/magisch-strand-avontuur/logic/speech-recognition.ts), [logic/microphone-permission.ts](../../src/app/games/magisch-strand-avontuur/logic/microphone-permission.ts).
+
+### 5.1 Vier gelijkwaardige invoermethoden
+
+| Methode | Waar | Kernprincipe |
+| :--- | :--- | :--- |
+| **Tap** | Alle modi | Grote touch-targets; primaire methode voor de jongste kinderen |
+| **Drag-and-drop** | Zeg & Zet | Object naar zone slepen; motorische verankering |
+| **Stem (microfoon)** | Zeg & Zet, Zeg & Vlieg | Web Speech API via het platform-runtime-contract |
+| **Toetsenbord** | Zeg & Zet (`SCR_MSA_OV_KEYBOARD`) | Fallback voor stille omgevingen of falende spraak |
+
+**Ontwerpregel:** elke gesproken opdracht moet óók via tap/sleep/toetsenbord uitvoerbaar zijn. Spraak is nooit de enige weg (toegankelijkheid + robuustheid).
+
+### 5.2 Spraakherkenning — configuratie per scherm
+
+De hook `useDutchSpeechRecognition` wordt **per scherm anders geconfigureerd**. De werkelijke waarden:
+
+| Parameter | Hook-default | Zeg & Zet | Zeg & Vlieg |
+| :--- | :--- | :--- | :--- |
+| `continuous` | `false` | `true` | `true` |
+| `interimResults` | `false` | `true` | `true` |
+| `maxAlternatives` | `3` | (default 3) | `8` |
+| `autoStopMs` | `15000` | `25000` | `0` (geen auto-stop) |
+| `silenceStopMs` | — | `4000` | — |
+| `restartOnEnd` | `false` | `false` | `true` |
+| **Taal** | `nl-NL` | `nl-NL` | `nl-NL` |
+
+> ⚠️ **Let op:** de waarden in de oude GDD (`continuous: true`, `maxAlternatives: 8`, `silenceStopMs: 2500`) waren slechts **voorbeelden**, geen vastgestelde norm. De tabel hierboven geeft de **huidige** waarden in de code. De **definitief juiste** waarden per scherm moeten nog worden **getest en bepaald** (bv. hoeveel stiltetijd een kind echt nodig heeft) → [T-10](#12-takenlijst). Werk daarna zowel deze tabel als de oude GDD bij → [T-09](#12-takenlijst).
+
+**Statussen** (`VoiceRecognitionStatus`): `idle` → `processing` → `listening` → `heard` / `error` / `unsupported`. Bij Zeg & Vlieg herstart de sessie automatisch (`restartOnEnd`) zodat het kind meerdere objecten achter elkaar kan benoemen.
+
+### 5.3 Commando-ontleding (Zeg & Zet)
+
+`parseSpokenPlacementCommand` ontleedt een gesproken zin in drie delen — **object**, **ruimtelijk begrip** en **zone/anker** — en bepaalt een betrouwbaarheidsniveau:
+
+| Confidence | Betekenis | Gevolg in UI |
+| :--- | :--- | :--- |
+| `high` | object + relatie + (zone óf anker) herkend | Commando wordt uitgevoerd |
+| `needs-choice` | object + één van (relatie/zone) herkend | Vraag om verduidelijking / keuze |
+| `needs-help` | te weinig herkend | Toon hulp / stel toetsenbord voor |
+
+**Robuustheid:** de parser normaliseert transcripties (kleine letters, accenten weg, leestekens weg), ondersteunt **kindertaal- en synoniem-aliassen** (bv. `krab` ← "krabben"; `boot` ← "bootje", "zeilboot", "schip"; `vlieger` ← "kite"), en kent aliassen voor zones (bv. `zee` ← "water", "in het water") en begrippen (bv. `onder` ← "beneden", "laag"). Bij meerdere kandidaten wint het langste/meest specifieke alias en een vaste prioriteit voor ruimtelijke begrippen (`tussen` > `naast` > `onder` > …).
+
+### 5.4 Foutafhandeling & kindvriendelijke meldingen
+
+Elke foutcode krijgt een geruststellende, Nederlandse melding (bron: `getSpeechRecognitionErrorMessage`):
+
+| Foutcode | Melding (kindtaal) |
+| :--- | :--- |
+| `no-speech` | "Ik hoorde nog geen zin. Probeer het nog eens rustig." |
+| `not-allowed` / `service-not-allowed` | "De microfoon mag nog niet gebruikt worden. Controleer de toestemming." |
+| `audio-capture` | "Ik kan de microfoon niet vinden. Controleer de microfoon van dit apparaat." |
+| `network` | "Spraakherkenning heeft nu geen verbinding. Probeer het later opnieuw." |
+| `language-not-supported` | "Nederlandse spraakherkenning wordt in deze browser niet ondersteund." |
+
+Ondersteuningsproblemen worden apart gemeld (bv. onveilige context/HTTP i.p.v. HTTPS, of ontbrekende API → "Gebruik de fallback of probeer Chrome"). Elke fout wordt gelogd via `diagnostics.log` met herstelpad `typed-input-or-retry`.
+
+### 5.5 Microfoontoestemming & privacy
+
+- Toestemming wordt beheerd via [logic/microphone-permission.ts](../../src/app/games/magisch-strand-avontuur/logic/microphone-permission.ts) en is zichtbaar in de instellingen (`settings-microphone-permission-message`, `settings-request-microphone-button`).
+- **Privacy-uitgangspunt:** spraak wordt lokaal in de browser verwerkt en **niet opgeslagen**; alleen de (tekst)transcriptie wordt kortstondig gebruikt voor herkenning. Zie sectie 8 en `SCR_MSA_OV_VOICE_PRIVACY`.
+
+### 5.6 Randgevallen om te testen (input naar Test-matrix)
+
+- Microfoon geweigerd → valt de UI netjes terug op toetsenbord?
+- Geen spraak / onverstaanbaar → juiste melding + herstel?
+- Onveilige context (HTTP) op mobiel → correcte support-melding?
+- Spraak niet ondersteund in browser → fallback zichtbaar?
+- Zeg & Vlieg: meerdere objecten snel achter elkaar → herstart de sessie correct?
+
+---
+
+## 6. Content & Curriculum
+
+> **Enige bron van waarheid voor content:** [content.ts](../../src/app/games/magisch-strand-avontuur/content.ts). Alle aantallen hieronder zijn geteld in die file (contentversie `magisch-strand-avontuur-2026.07`). De wereld heet intern `beach-world-1` ("Strandwereld", aanbevolen leeftijd 4–7 jaar).
+
+### 6.1 Doelwoorden (objecten)
+
+De strandwereld bevat op dit moment **12 objecten** (`beachObjects`). De "10" uit de oude GDD was slechts een **voorbeeld**; **12 is correct** en het aantal kan in de toekomst **groeien** (meer objecten, meer werelden). De woordenschat is dus een uitbreidbare lijst, geen vast getal — de oude GDD moet hierop worden aangepast → [T-08](#12-takenlijst).
+
+| Woord-ID | Label | Lidwoord | Categorie | Niveau | Meervoud |
+| :--- | :--- | :--- | :--- | :--: | :--- |
+| `WORD_DOLFIJN` | dolfijn | de | dieren | 2 | dolfijnen |
+| `WORD_BOOT` | boot | de | voertuigen | 1 | boten |
+| `WORD_VUURTOREN` | vuurtoren | de | plekken | 3 | vuurtorens |
+| `WORD_VLIEGTUIG` | vliegtuig | **het** | voertuigen | 2 | vliegtuigen |
+| `WORD_VLIEGER` | vlieger | de | strandspullen | 2 | vliegers |
+| `WORD_BAL` | bal | de | strandspullen | 1 | ballen |
+| `WORD_PARASOL` | parasol | de | strandspullen | 2 | parasols |
+| `WORD_SCHELP` | schelp | de | strandspullen | 2 | schelpen |
+| `WORD_KRAB` | krab | de | dieren | 2 | krabben |
+| `WORD_ZANDKASTEEL` | zandkasteel | **het** | strandspullen | 2 | zandkastelen |
+| `WORD_HANDDOEK` | handdoek | de | strandspullen | 1 | handdoeken |
+| `WORD_ZON` | zon | de | natuur | 1 | zonnen |
+
+> Elk object heeft ook een `emoji`, een `assetPath` (transparante PNG-sticker) en `tags`. De lidwoorden `de`/`het` zijn didactisch belangrijk voor NT2 (vgl. `het vliegtuig`, `het zandkasteel`). De kindertaal-/synoniem-aliassen per woord staan in sectie 5.3.
+
+### 6.2 Ruimtelijke begrippen
+
+11 begrippen (`beachSpatialConcepts`), didactisch oplopend van concreet naar relationeel:
+
+| Type | Begrippen (`CONCEPT_*`) |
+| :--- | :--- |
+| Absoluut / statisch | `in`, `op`, `boven`, `onder` |
+| Lateraal | `links`, `rechts`, `midden` |
+| Relationeel (t.o.v. anker) | `naast`, `tussen`, `dichtbij`, `ver weg` |
+
+### 6.3 Scène-zones
+
+De scene kent **9 vaste zones** (`beachZones`), elk met een polygon-hintpad en een lijst ondersteunde begrippen:
+
+`lucht`, `zee`, `links-zee`, `boven-zee`, `ver-weg-zee`, `eiland`, `strand`, `midden-strand`, `rechts-strand`.
+
+Daarnaast zijn er **dynamische, relationele zones** die tijdens het spel worden berekend uit de actuele positie van ankerobjecten (bv. `handdoek-zone`, `naast-schelp`, `dichtbij-parasol`, `tussen-bal-zandkasteel`). ⚠️ Deze staan **niet** in `beachZones` maar worden runtime bepaald — een testrisico: een opdracht als `lp-008` verwijst naar `handdoek-zone` die alleen bestaat als het ankerobject geplaatst is.
+
+### 6.4 Opdrachten (instructies)
+
+| Modus | Aantal | ID-reeks | Niveaus |
+| :--- | :--: | :--- | :--- |
+| Zeg & Zet (`sceneBuilderInstructions`) | **16** | `lp-001` … `lp-016` | 1–3 |
+| Kies het Woord (`vocabularyChoiceInstructions`) | **12** | `cw-001` … `cw-012` | 1–3 |
+
+> ⚠️ **Belangrijk:** Kies het Woord heeft **12** vragen in de content, niet "10" zoals de oude GDD stelt. Het aantal keuzekaarten per vraag loopt op van 2 (niveau 1) naar 4 (niveau 3), met een `distractorStrategy` die moeilijker wordt (`different-category` → `same-theme` → `same-category`).
+
+**Opbouw van een Zeg & Zet-opdracht** (voorbeeld `lp-016`, niveau 3):
+- *Prompt/audio:* "Leg de schelp tussen de bal en het zandkasteel."
+- *Object:* `schelp` · *Relatie:* `tussen` · *Ankers:* `bal`, `zandkasteel` · *Zone:* `tussen-bal-zandkasteel` (dynamisch)
+- *Hint:* "Tussen betekent in het midden van twee dingen."
+- *Beloning:* `{ speed: 1, wordStars: 1 }`
+
+De opdrachten lopen didactisch op: niveau 1 = statische plaatsing in één zone (`in de zee`, `op het strand`); niveau 2 = lateraal/relatief (`rechts`, `naast`, `midden`); niveau 3 = complex relationeel met meerdere ankers (`dichtbij`, `ver weg`, `tussen`).
+
+### 6.5 Feedbackteksten
+
+Elke opdracht draagt een `feedbackCopy`-object met kindvriendelijke varianten (`correct`, `almost`, `tryAgain`, `repeatAfterSuccess`). De nazegzin (`repeatAfterSuccess`) ontdoet de succestekst van uitroepen ("Goed zo!") zodat het kind een schone modelzin nazegt. Dit is didactisch bewust (uitspraakmodel).
+
+### 6.6 Openstaande punten (sectie 11)
+
+- ✅ Woordenlijst is uitbreidbaar; 12 correct → oude GDD aanpassen ([T-08](#12-takenlijst)).
+- ✅ Rondelengte data-gestuurd → oude GDD aanpassen ([T-07](#12-takenlijst)).
+- ✅ **Randomisatie is de norm in alle 3 de modi** ([T-29](#12-takenlijst)/[T-16](#12-takenlijst)): elke ronde krijgt een verse volgorde.
+  - **Zeg & Zet** en **Kies het Woord** delen een geseede shuffle in `useBezemEscapeGameController` (`instruction-randomization.ts`, met een `roundSeed` die opnieuw wordt gezet bij elke modusstart én bij "Opnieuw"); Zeg & Zet respecteert daarbij anchor-afhankelijkheden (een object dat als anker dient, wordt eerder geplaatst), Kies het Woord schudt ook de antwoordkaarten.
+  - **Zeg & Vlieg** schudt zijn doelwoorden per ronde (`shuffleVoiceScrollerTargets`) met extra positie-jitter en spreidt niet-gemeesterde woorden vaker (`selectVoiceSideScrollerFocusWords`).
+
+---
+
+## 7. Beloningen, Progressie & Economie
+
+> **Status:** ✅ geïmplementeerd (`T-01`). Er is **één** beloningssysteem — "Strandschat". Dit vervangt de drie eerdere, conflicterende definities volledig; die zijn uit code en documentatie verwijderd.
+
+### 7.1 Valuta
+
+| Valuta | Symbool | Verdiend bij | Basis | Bonus | Rol |
+| :--- | :--: | :--- | :--- | :--- | :--- |
+| **Woordsterren** | ⭐ | Elk goed antwoord | `reward.wordStars` (= 1) | `+1` als **geen hint** gebruikt | **Stuurt de progressie** (unlocks + teller) |
+| **Tempo** | ⚡ | Elk goed antwoord | `reward.speed` (= 1) | `+1` als **geen hint** gebruikt | In-ronde gevoel/boost; **geen** unlock-poort |
+
+Per goede actie zonder hint verdient het kind ⭐×2; mét hint ⭐×1. De ⭐ worden **cumulatief per profiel** bijgehouden (`totals`-sleutel), over alle sessies en modi heen.
+
+### 7.2 Het beloningssysteem: "Strandschat"
+
+**Eén bron van waarheid, één valuta (⭐), één resolver.** Ontworpen voor het concept: educatief, foutloos leren, en jonge kinderen die verzamelen leuk vinden.
+
+**Werking (zoals geïmplementeerd, bron: [logic/rewards.ts](../../src/app/games/magisch-strand-avontuur/logic/rewards.ts)):**
+
+1. **Eén reward-tabel** `strandRewards`: een geordende lijst verzamelbare items met **oplopende** drempels. Types: `sticker`, `broom-color`, `broom-trail`, `broom-skin` (allemaal cosmetisch).
+2. **Cumulatieve per-profiel totalen** (`readProfileTotals` / `addProfileTotals`): elke verdiende ⭐ telt op bij het profieltotaal en wordt bewaard. "Voortgang resetten" wist dit totaal (`resetProfileTotals`).
+3. **Eén resolver** `resolveNewRewardUnlocks({ totalWordStars, unlockedRewardIds })`: speelt een beloning vrij zodra het **cumulatieve** ⭐-totaal de drempel haalt. Alle schermen (Zeg & Zet, Kies het Woord, beloningsscherm) gebruiken deze.
+4. **De curve** (afgestemd in [T-02](#12-takenlijst) — ~2 ⭐ per goed antwoord, ~24-32 ⭐/ronde; snelle eerste win, daarna rustig oplopend zodat de laatste beloning ~3-4 rondes duurt):
+
+   | # | Item | Type | Drempel ⭐ | ≈ rondes |
+   | :--: | :--- | :--- | :--: | :--: |
+   | 1 | Schelp Sticker | sticker | 3 | direct |
+   | 2 | Zeeblauwe Bezemkleur | broom-color | 8 | ~⅓ |
+   | 3 | Dolfijn Sticker | sticker | 16 | ~⅔ |
+   | 4 | Strand Sprankel | broom-trail | 28 | ~1 |
+   | 5 | Strandbezem | broom-skin | 42 | ~1½ |
+   | 6 | Ster Helper Sticker | sticker | 60 | ~2 |
+   | 7 | Gouden Bezem | broom-skin | 85 | ~3-4 |
+
+5. **Uitbreidbaar:** meer items of werelden = regels toevoegen aan één tabel; resolver en UI blijven gelijk.
+
+**Effect:** beloningen worden **geleidelijk** vrijgespeeld (niet meer alles bij de eerste actie), en elke speler houdt zijn eigen cumulatieve score bij.
+
+> **Nog open binnen dit thema:** de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente ⭐; oppakken met `T-30`/`T-32`).
+
+### 7.3 Waar beloningen verschijnen
+
+- **Tijdens het spel:** nieuwe unlocks worden direct getoond bij een goed antwoord (rewardLabels in de feedback), en opgeslagen.
+- **Beloningsscherm** (`SCR_MSA_REWARD`, [RewardScreen.tsx](../../src/app/games/magisch-strand-avontuur/screens/reward/RewardScreen.tsx)): toont de "featured" beloning (`newRewards[0] ?? firstRewardUnlocks[0]`) en de ontgrendelde items — eveneens gevoed door systeem A.
+
+### 7.4 Progressie- & observatiemodel
+
+Naast valuta houdt de game een rijk **observatiemodel** bij (`BezemEscapeProgress`, bron: [types.ts](../../src/app/games/magisch-strand-avontuur/types.ts) + [logic/progress.ts](../../src/app/games/magisch-strand-avontuur/logic/progress.ts)). Per profiel:
+
+- `totalWordStars`, `totalSpeed` — cumulatieve valuta
+- `practicedWords`, `recognizedWords`, `activelyNamedWords` — per woord, hoe vaak geoefend/herkend/zelf benoemd
+- `spatialConcepts[concept]` en `languageDomains[domain]` — elk met `practiced / correctWithoutHelp / correctWithHelp / needsPractice`
+- `misunderstoodSpeechAttempts`, `selfMadeSentences(WithHelp/WithoutHelp)`, `autoExecutedSpokenCommands`
+- `attempts[]` — de volledige lijst ruwe `BezemEscapePracticeEvent`-records
+- `unlockedRewards[]`
+
+Dit model voedt het platform-voortgangsscherm (`SCR_PLAT_PROGRESS`) en is de basis voor begeleiders-inzicht — zonder cijfers of toetsdruk (zie sectie 2.4).
+
+### 7.5 Instellingen die de economie beïnvloeden
+
+Per-profiel instellingen (`BezemEscapeSettings`, bron: [logic/settings.ts](../../src/app/games/magisch-strand-avontuur/logic/settings.ts), default alles aan behalve `reducedMotion`):
+
+| Instelling | Default | Effect op economie/gameplay |
+| :--- | :--: | :--- |
+| `audioEnabled` | aan | Uit → gesproken opdracht vervalt; UI vraagt samen hardop te lezen |
+| `hintsEnabled` | aan | Uit → geen hints; beïnvloedt indirect de bonus (geen hint = bonus) |
+| `musicEnabled` | aan | Achtergrondmuziek aan/uit |
+| `reducedMotion` | uit | Beperkt animaties (toegankelijkheid, zie sectie 9) |
+
+### 7.6 Opslag (vooruitblik naar sectie 8)
+
+Valuta en unlocks worden lokaal bewaard onder sleutels als `magisch-strand-avontuur:{profileId}:unlocked-rewards` en `…:settings`. De rijke observaties lopen via het platform-`practice`-kanaal naar IndexedDB. Details in sectie 8.
+
+### 7.7 Openstaande punten (sectie 11)
+
+- ✅ **Besloten:** één beloningssysteem ("Strandschat", 7.2.b). Implementeren → [T-01](#12-takenlijst); curve tunen → [T-02](#12-takenlijst).
+- ✅ **Besloten:** `beachWorld.rewards` (systeem B) verwijderen → onderdeel van [T-01](#12-takenlijst).
+- ✅ **Bevestigd + verbeterd** ([T-17](#12-takenlijst)): het observatiemodel werd volledig vastgelegd (per-skill `skillSummaries` + responstijd) maar het platform-voortgangsscherm toonde alleen 3 vaste aggregaten. `SCR_PLAT_PROGRESS` toont nu ook een **categorie-uitsplitsing** (taaldomeinen & ruimtebegrippen, losse woorden gegroepeerd) en een **tempo-inzicht** (gem. responstijd per opdracht).
+
+---
+
+## 8. Data, Opslag & Privacy
+
+> Hoofdlijn. De architecturale besluiten staan in de platform-ADR's: [adr-001 (IndexedDB/Dexie & migratie)](../architecture/adr-001-indexeddb-dexie-en-migratiebeleid.md), [adr-002 (practice-events projector & retentie)](../architecture/adr-002-practice-events-projector-en-retentie.md), [adr-003 (offline-pakketten & performancebudgetten)](../architecture/adr-003-workbox-offlinepakketten-en-performancebudgetten.md).
+
+### 8.1 Twee opslaglagen
+
+De game slaat data op via het platform-runtime-contract (`RuntimeStorage` en het `practice`-kanaal), in twee lagen:
+
+| Laag | Waarvoor | Techniek | Kenmerk |
+| :--- | :--- | :--- | :--- |
+| **Lichte key-value** | Instellingen, gekozen wereld, unlocks, privacy-akkoord | `RuntimeStorage` (per profiel) | Klein, synchroon, direct leesbaar |
+| **Rijke observaties** | `BezemEscapePracticeEvent`-records | IndexedDB via Dexie (platform) | Groeit mee; onderworpen aan retentiebeleid |
+
+### 8.2 Opslagsleutels (game-niveau)
+
+Alle game-sleutels zijn geprefixt met `magisch-strand-avontuur:`. Per profiel:
+
+| Sleutel | Inhoud |
+| :--- | :--- |
+| `…:{profileId}:settings` | Audio/muziek/hints/reducedMotion (`BezemEscapeSettings`) |
+| `…:{profileId}:selected-world` | Laatst gekozen wereld |
+| `…:{profileId}:unlocked-rewards` | Lijst ontgrendelde beloning-ID's (systeem A, zie 7.2) |
+| `…:{profileId}:voice-privacy:{VERSION}` | Of de microfoon-privacynotice is geaccepteerd |
+
+Niet-profielgebonden sleutels/events: `…:reward-result`, `…:zone-visual-hint-overrides` (dev-tool), en de events `…:settings-changed`, `…:foreground-audio-start/end`.
+
+> **Versiebeheer privacynotice:** de sleutel bevat een versiedatum (`VOICE_PRIVACY_NOTICE_VERSION = "2026-06-01"`). Wijzigt de privacytekst, dan verandert de versie en wordt opnieuw om akkoord gevraagd — een bewust privacy-ontwerp.
+
+### 8.3 Wat wél en niet wordt opgeslagen (privacy)
+
+**Uitgangspunt (AVG/COPPA-vriendelijk):**
+
+- ✅ **Wel:** tekstuele oefenobservaties (welk woord/begrip, met/zonder hulp, reactietijd), instellingen, unlocks — allemaal **lokaal** per profiel.
+- ❌ **Niet:** géén geluidsopnames, géén audio-uploads, géén externe tracking, géén cookies/advertenties/aankopen.
+
+De microfoon zet uitsluitend een **korte zin om naar tekst**; die tekst kan als oefenobservatie bij de voortgang komen. Officiële formulering (bron: [logic/voice-privacy.ts](../../src/app/games/magisch-strand-avontuur/logic/voice-privacy.ts), getoond in `SCR_MSA_OV_VOICE_PRIVACY` en de instellingen):
+
+> *"De app bewaart geen geluidsopnames. De microfoon wordt alleen gebruikt om een korte zin naar tekst om te zetten. Die tekstzin kan als oefenobservatie bij de voortgang staan."*
+
+### 8.4 Betrouwbaarheid & integriteit
+
+- **Veilige tijdsafronding:** reactietijden/tijdsduren worden geheeltallig en niet-negatief afgerond (`Math.round(Math.max(0, ms))`) om schemavalidatiefouten in de database te voorkomen.
+- **Schema-validatie:** instellingen en unlocks worden met `zod` gevalideerd bij lezen/schrijven; bij corrupte data valt de game terug op defaults (geen crash).
+- **Retentie:** het aantal bewaarde `attempts` valt onder het platform-retentiebeleid (zie adr-002).
+
+### 8.5 Offline & synchronisatie
+
+De game is als PWA offline speelbaar; assets worden via een offline-pakket voorzien (`offlinePackages` in [manifest.ts](../../src/app/games/magisch-strand-avontuur/manifest.ts), `magisch-strand-avontuur-beach-v1`). Mediasynchronisatie en cache-strategie vallen onder adr-003 en de PWA-laag (`src/app/pwa/`).
+
+### 8.6 Openstaande punten (sectie 11)
+
+- Bevestigen dat "voortgang resetten" (`SCR_MSA_OV_RESET_CONFIRM`) **alle** relevante sleutels én de IndexedDB-observaties wist (niet alleen de valuta).
+- Bevestigen dat data strikt per profiel gescheiden blijft (geen lekken tussen kindprofielen).
+
+---
+
+## 9. Toegankelijkheid & Non-functionele Eisen
+
+> De toegankelijkheidsregels zijn **normatief** vastgelegd in [docs/accessibility/gedeeld-interactiecontract.md](../accessibility/gedeeld-interactiecontract.md). Deze sectie vat de eisen samen die specifiek voor deze game gelden.
+
+### 9.1 Toegankelijkheid (a11y)
+
+| Eis | Concreet |
+| :--- | :--- |
+| **Touch-targets** | Kindgerichte doelen minimaal **48×48 CSS-pixels** |
+| **Toetsenbord/focus** | Elke interactieve primitive heeft een zichtbare `focus-visible`-ring (niet alleen kleur); focus volgt de leesvolgorde |
+| **Semantiek** | Native `button type="button"`; icon-only knoppen hebben een expliciete `aria-label` |
+| **Voortgang** | `role="meter"` met naam, min, max en actuele waarde |
+| **Toggles/selectie** | `aria-pressed=true|false` (de `false` mag niet worden weggelaten) |
+| **Tekst altijd beschikbaar** | Opdracht, fout en succes zijn altijd als **tekst** aanwezig; audio/video is aanvullend, nooit exclusief |
+| **Beweging** | `MotionConfig reducedMotion="user"` als gedeelde bron; `reducedMotion`-instelling per profiel |
+| **Betekenis van knoppen** | "Terug" = één niveau terug; "Verlaten" = terug naar menu/app — nooit hetzelfde icoon met wisselende betekenis |
+
+**Multimodale gelijkwaardigheid (kernprincipe):** elk gesproken commando is óók via tap/sleep/toetsenbord uitvoerbaar (zie sectie 5.1). Geen enkele leerhandeling mag uitsluitend via spraak of uitsluitend via hover bereikbaar zijn.
+
+**Foutloos leren als a11y-principe:** onbeperkte herhaling van instructies zonder tijdstraf; geen "fout!"-geluid; geen verlies van voortgang (zie sectie 2.3).
+
+### 9.2 Non-functionele eisen
+
+| Categorie | Eis / uitgangspunt |
+| :--- | :--- |
+| **Platform** | Cross-platform web (PWA); Chrome/Safari/Edge; primair tablets |
+| **Oriëntatie** | Portret én landschap ondersteund (`supportedOrientations`) met safe-area insets |
+| **Offline** | Speelbaar zonder netwerk na installatie offline-pakket |
+| **Performance** | Onder de platform-performancebudgetten (adr-003); vloeiende frame-loop in Zeg & Vlieg |
+| **Robuustheid** | Geen blokkerende console-/pagina-fouten; degradeert netjes bij ontbrekende spraak/audio |
+| **Privacy/veiligheid** | Lokaal, geen tracking (zie sectie 8) |
+| **Taal** | Volledig Nederlands (`nl-NL`), inclusief kindvriendelijke foutmeldingen |
+
+### 9.3 Kwaliteitspoorten (samengevat)
+
+De game valt onder de platform-kwaliteitspoorten (lint, types, unit- en e2e-tests, dependency-cruiser/knip). Zie [docs/architecture/quality-gate-report-2026-07.md](../architecture/quality-gate-report-2026-07.md) en de release-checklist. De concrete, toetsbare acceptatiecriteria per feature/scherm komen in de **Test-matrix**.
+
+### 9.4 Openstaande punten (sectie 11)
+
+- Verifiëren dat álle interactieve elementen in de drie modi voldoen aan 48×48 en `focus-visible` (nog niet integraal getest → ⚪).
+- Verifiëren dat `reducedMotion` daadwerkelijk alle zware animaties (parallax, sparkles, vlieg-loop) dempt.
+- Landschap/portret-gedrag per scherm bevestigen (met name Zeg & Vlieg en Scene Builder).
+
+---
+
+## 10. Feature-overzicht (samenvatting)
+
+> Dit is een **kaart op hoofdlijn** naar de features, gegroepeerd per scherm. De **volledige** lijst — met per feature een beschrijving, acceptatiecriteria, `data-testid`, verwachte staat en een **status** (🟢🟡🔴⚪🔵⚫) — komt in de **Feature-catalogus** (`FEAT_*`). Dit overzicht dient om te zien *dat* een gebied bestaat en *waar* het hoort; niet om te oordelen of het werkt.
+
+### 10.1 Featuregroepen per scherm
+
+| Scherm (`SCR_*`) | Featuregroep | Voorbeeld-features (indicatief) |
+| :--- | :--- | :--- |
+| `SCR_MSA_START` | Titel & navigatie | Speelknop, sterrenteller, instellingenknop, terug naar platform |
+| `SCR_MSA_MODE_SELECT` | Avontuur kiezen | Wereldkeuze + kaarten voor de modi, start-avontuur-knop, onderbalk-navigatie, beloningen openen |
+| `SCR_MSA_SCENE_BUILDER` | Opdracht & instructie | Gesproken/getoonde opdracht, instructievideoknop, mascotte |
+| | Invoer: tap/sleep | Object selecteren in carrousel, tikken op strand, drag-and-drop |
+| | Invoer: stem | Microfoon, `SpeechWaveAnimation`, commando-parser, Klaar-knop |
+| | Invoer: toetsenbord | Fallback-veld, verzenden, sluiten |
+| | Feedback & hint | Succes-toast, herstelbare feedback, oplichtende doelzone |
+| `SCR_MSA_WORD_CHOICE` | Quizloop | Vraag + audio, 2–4 keuzekaarten, goed/fout-feedback, voortgang, hint, audio herhalen |
+| | Eindscherm | In-game samenvatting (sterren, tempo, goed direct/met hint), Opnieuw/Menu |
+| `SCR_MSA_VOICE_SCROLLER` | Vlieg-loop | Start-overlay, duim-rail hoogtecontrole, frame-loop, obstakels |
+| | Stem-verzamelen | Woordherkenning op zichtbare objecten, score/boost, per-woord observatie |
+| | Ronde-einde | Samenvatting (meters, sterren, score) |
+| `SCR_MSA_REWARD` | Beloningsweergave | Featured beloning, ontgrendelde items, opnieuw/wereld |
+| `SCR_MSA_SETTINGS` | Instellingen | Audio/muziek/hints/reducedMotion-toggles |
+| | Microfoon & privacy | Toestemming aanvragen, status, privacykaart |
+| | Voortgang resetten | Reset-knop, bevestigingsdialoog (annuleren/bevestigen) |
+| **Platform** (`SCR_PLAT_*`) | Onboarding & schil | Welkom, profielkeuze, avatar+naam, themakeuze, gamelijst, voortgang |
+
+### 10.2 Transversale features (over meerdere schermen heen)
+
+| Feature-domein | Waar actief | Kern |
+| :--- | :--- | :--- |
+| Spraakherkenning | Zeg & Zet, Zeg & Vlieg | Hook + parser + foutafhandeling (sectie 5) |
+| Beloning/economie | Alle modi + Reward | Sterren/tempo, unlocks (sectie 7) |
+| Observatie/voortgang | Alle modi → Progress | `PracticeEvent`-registratie (sectie 8) |
+| Audio/spraaksynthese | Alle schermen | Opdracht voorlezen, nazegzin, geluidseffecten |
+| Instellingen-respect | Alle modi | `audioEnabled`/`hintsEnabled`/`reducedMotion` beïnvloeden gedrag |
+| Toegankelijkheid | Alle schermen | Interactiecontract (sectie 9) |
+
+### 10.3 Van dit overzicht naar de Feature-catalogus
+
+In de Feature-catalogus krijgt elke regel hierboven een eigen `FEAT_`-ID, een verwacht gedrag, een testhaak (`data-testid`) en een status. Voorbeeld van hoe één regel straks wordt uitgewerkt:
+
+```
+FEAT_SCENE_MIC_PLACE
+  Scherm:        SCR_MSA_SCENE_BUILDER
+  Beschrijving:  Kind spreekt een plaatsingscommando; parser voert de plaatsing uit bij confidence "high".
+  Testhaak:      data-testid="repeat-spoken-command", speech-stop-button
+  Verwacht:      Bij "Zet de boot in de zee" verschijnt de boot in zone 'zee' + succesfeedback.
+  Journey:       JRN_ZEGZET_04_SPREEK
+  Test:          TC_SCENE_MIC_HAPPY, TC_SCENE_MIC_DENIED
+  Status:        ⚪ (nog te verifiëren)
+```
+
+---
+
+## 11. Bekende Gaten & Openstaande Punten
+
+> Dit register bundelt **alle** afwijkingen tussen bedoeld ontwerp en werkelijke code die tijdens het opstellen van deze index zijn gevonden, mét de review-beslissing per punt. Elk punt is gekoppeld aan een taak in **sectie 12 (Takenlijst)**. Prioriteit: **P1** = raakt kernbeleving, **P2** = inconsistentie/opruiming/verificatie, **P3** = documentatie-bijwerking.
+
+### 11.1 Register (bevinding → beslissing → taak)
+
+| ID | Prio | Gebied | Bevinding | Beslissing | Taak |
+| :--- | :--: | :--- | :--- | :--- | :--- |
+| `GAP-01` | **P1** | Beloningen | ✅ **Opgelost** — één systeem "Strandschat" met cumulatieve per-profiel totalen en afgestemde oplopende curve | Eén systeem: "Strandschat" (7.2.b) | [T-01](#12-takenlijst) ✅, [T-02](#12-takenlijst) ✅ |
+| `GAP-02` | **P1** | Beloningen | ✅ **Opgelost** — `beachWorld.rewards` verwijderd | Verwijderen | [T-01](#12-takenlijst) ✅ |
+| `GAP-15` | **P1** | Modi | ✅ Opgelost via `T-03`: Zeg & Zet heeft nu een eigen in-game ronde-eindscherm (`SceneBuilderRoundSummary`) | Alle 3 (straks 4) modi krijgen een eigen ronde-einde | [T-03](#12-takenlijst) |
+| `GAP-04` | P2 | Modi | ✅ Opgelost via `T-04`: `zeg-en-bouw` heeft nu een eigen scherm `SCR_MSA_ZEG_BOUW` en is een volwaardige 4e modus (variant A + B) | Eigen scherm + volwaardige modus | [T-04](#12-takenlijst) |
+| `GAP-14` | P2 | Schermen | ✅ Opgelost via `T-05`: `world-select` samengevoegd met `mode-select` (één scherm `SCR_MSA_MODE_SELECT`); dubbele staat/route opgeruimd | Eén scherm: `SCR_MSA_MODE_SELECT` | [T-05](#12-takenlijst) |
+| `GAP-03` | P2 | Schermen | ✅ Opgelost via `T-06`: dode `dashboard`-staat uit `GameScreenPreview` verwijderd | Opruimen uit de enum | [T-06](#12-takenlijst) |
+| `GAP-05` | P2 | Spraak | ✅ Opgelost: doc-deel via `T-09` (oude GDD weg, dossier correct) én waarden op apparaat bevestigd via `T-10`/`DT-04` (huidige waarden voldoen) | Juiste waarden testen + doc bijwerken | [T-10](#12-takenlijst), [T-09](#12-takenlijst) |
+| `GAP-08` | P2 | Content | ✅ Geborgd via `T-15`: dynamische zones geven netjes "nog niet mogelijk" terug bij een ontbrekend anker (geen crash, telt niet als goed); vastgelegd met tests | Robuustheid testen/borgen | [T-15](#12-takenlijst) |
+| `GAP-09` | P2 | Opslag | ✅ Opgelost via `T-11`: reset wist IndexedDB (`practiceEvents`+`projections`), totals, unlocks, reward-result én — na fix — het Zeg & Vlieg-record | Verifiëren | [T-11](#12-takenlijst) |
+| `GAP-10` | P2 | Privacy | ✅ Bevestigd via `T-12`: alle sleutels per-profiel genaamd + IndexedDB gesleuteld op `[profileId+gameId]`; geen lek (test toegevoegd) | Verifiëren | [T-12](#12-takenlijst) |
+| `GAP-11` | P2 | A11y | ✅ Opgelost via `T-13`: gescopte `:focus-visible`-baseline voor alle interactieve elementen + sub-48px controls verhoogd naar ≥48px | Toevoegen aan a11y-tests | [T-13](#12-takenlijst) |
+| `GAP-12` | P2 | A11y | ✅ Opgelost via `T-14`: in-app `reducedMotion`-toggle dempt nu ook de gameplay-animaties (`[data-app-reduced-motion]` + spiegel-CSS), in browser bevestigd | Verifiëren | [T-14](#12-takenlijst) |
+| `GAP-06` | P3 | Content | ✅ Opgelost via `T-08`: woordenlijst uitbreidbaar, 12 correct; oude `docs/GDD.md` was al weg, dossier klopt | Oude GDD aanpassen | [T-08](#12-takenlijst) |
+| `GAP-07` | P3 | Content | ✅ Opgelost via `T-07`: rondelengte data-gestuurd; oude `docs/GDD.md` was al weg, UX-spec-voorbeeldwaarde verduidelijkt | Oude GDD aanpassen | [T-07](#12-takenlijst) |
+| `GAP-13` | P3 | Content | ✅ Opgelost via `T-29`/`T-16`: randomisatie is de norm in alle 3 modi, gedocumenteerd in §6.6 | Documenteren | [T-16](#12-takenlijst) |
+| `GAP-16` | P2 | Voortgang | ✅ Opgelost via `T-17`: model werd volledig vastgelegd maar niet volledig getoond → categorie-uitsplitsing (taaldomeinen/ruimtebegrippen) + tempo-inzicht toegevoegd aan `SCR_PLAT_PROGRESS` | Verifiëren | [T-17](#12-takenlijst) |
+
+### 11.2 Status van dit document
+
+De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofdlijn, inclusief de review-beslissingen. De volgende stap is het opstellen van de drie zusterdocumenten, die elk `SCR_*`-, `FEAT_*`- en taak-verwijzingen uit dit document overnemen:
+
+1. **Feature-catalogus** (`FEAT_*`) — werkt sectie 10 volledig uit, met status per feature.
+2. **User Journey Map** (`JRN_*`) — rijgt de schermen uit sectie 3 aaneen tot concrete reizen.
+3. **Test-matrix** (`TC_*`) — koppelt testcases aan features, journey-stappen en de taken uit sectie 12.
+
+---
+
+## 12. Takenlijst
+
+> **Levend register** van alle implementatie-, verificatie- en documentatietaken die uit dit document volgen. Deze lijst wordt **bijgehouden en uitgebreid** naarmate we de Feature-catalogus, User Journey Map en Test-matrix opstellen (die leveren vrijwel zeker nieuwe taken op).
+>
+> **Statuslegenda:** ⬜ Open · 🟦 In uitvoering · ✅ Klaar · ⏸️ Geparkeerd
+> **Type:** 🔧 Code · 🎨 Ontwerp/beslissing · 🔍 Verificatie/test · 📄 Documentatie
+
+### 12.1 Openstaande taken
+
+| Taak | Prio | Type | Omschrijving | Bron | Status |
+| :--- | :--: | :--: | :--- | :--- | :--: |
+| **T-01** | **P1** | 🔧 | **Eén beloningssysteem** ("Strandschat"): één `strandRewards`-tabel met oplopende drempels + cumulatieve per-profiel totalen + één resolver. Systeem B verwijderd, gameplay-hooks + beloningsscherm + sterrenteller aangesloten. Reset wist nu ook de totalen. Geverifieerd (7 unit-tests + browser) | GAP-01, GAP-02 | ✅ |
+| **T-02** | **P1** | 🎨 | Beloningscurve "Strandschat" afgestemd op de gemeten opbrengst (~2 ⭐/goed antwoord, ~24-32 ⭐/ronde). Keuze gebruiker: **rustiger opbouwen** → drempels **3, 8, 16, 28, 42, 60, 85** (was 3/6/10/15/22/30/45): snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles binnen ~2 rondes. Reward-tests bijgewerkt; GDD §7 herzien | GAP-01 / 7.2.b | ✅ |
+| **T-03** | **P1** | 🔧 | **Zeg & Zet** eigen in-game ronde-eindscherm (`SceneBuilderRoundSummary`): viert de afgeronde plaat, toont geoefende woorden + begrippen, cumulatieve sterren en het eerstvolgende beloningsdoel ("Nog X sterren tot …"); knoppen Opnieuw (reset ronde) + Wereld. Leftover top-bar-"Opnieuw" (riep `handleConfirm`) verwijderd. 3 render-tests. In browser end-to-end geverifieerd (16 opdrachten via typed-fallback → samenvatting verschijnt, Opnieuw reset naar opdracht 1) | GAP-15 / 4.5 | ✅ |
+| **T-04** | P3 | 🎨🔧 | Modus **`zeg-en-bouw`** — concept vastgesteld → [Concept-Zeg-en-Bouw](Concept-Zeg-en-Bouw.md). **In uitvoering**. Subtaken: `T-04a` concept/docs ✅ · `T-04b` compound-parser ✅ · **`T-04c` scherm `SCR_MSA_ZEG_BOUW` + bouwkaarten (variant A)** — C1 datamodel+logica ✅, **C2a tap-bouwscherm ✅**, **C2b spraak/compound-invoer ✅** (`SpokenCommandControls` + `parseCompoundPlacements` → batch-plaatsing `placeCompound`: meerdere objecten uit één zin, compound-bonus +1 ⭐, woordfilter-nudge, live wave, vertraagd eindmenu; op apparaat bevestigd) · **`T-04d` ronde-eindscherm ✅** (`ZegBouwRoundSummary`: gebouwde plaatjes + sterren + volgende beloningsdoel; e2e-suite `zeg-en-bouw.spec.ts`, 5 tests op 2 browsers) · **`T-04e` variant B Vrij Bouwen ✅** (modus-schakelaar Bouwopdracht↔Vrij bouwen; vrij plaatsen zonder doel/straf, mascotte benoemt mee "Wat mooi! Je hebt de boot, de zon en het vliegtuig gemaakt.", geen eindscherm; e2e). Modus toegevoegd aan moduskeuze + unlock-leerlijn **Kies→Zet→Bouw→Vlieg** (drempels 0/3/8/14). **Zeg & Bouw is een volwaardige, complete 4e modus.** | GAP-04 / 4.6 | ✅ |
+| **T-05** | P2 | 🔧 | `world-select` en `mode-select` samengevoegd tot **één** `mode-select` (`AdventureSelectScreen`, `SCR_MSA_MODE_SELECT`). `world-select` uit de `GameScreenPreview`-type verwijderd (oude URL-waarde verwijst via de mapper nog naar `mode-select`); dode `openSelectedWorld`-actie opgeruimd; StartScreen-`onPlay` en Beloning-`onChooseWorld` gaan nu naar `mode-select`. tsc/eslint/186 tests + nav-e2e groen | GAP-14 / 3.6 | ✅ |
+| **T-06** | P2 | 🔧 | Dode staat `dashboard` uit `GameScreenPreview` verwijderd (stond in de enum + URL-mapper maar werd nooit gerenderd → viel terug op scene-builder). Geen enkele verwijzing meer; tsc/eslint/186 tests groen | GAP-03 / 3.3 | ✅ |
+| **T-07** | P3 | 📄 | Rondelengte = **data-gestuurd** (`instructions.length`), niet vast "10 vragen". De oude `docs/GDD.md` was al verwijderd; het GDD-dossier klopte al; de resterende `0/10`-voorbeeldwaarde in de UX Design Specification (`FOOTER_QUIZ_PROGRESS`) verduidelijkt naar data-gestuurd (nu 12) | GAP-07 / 6.4 | ✅ |
+| **T-08** | P3 | 📄 | Woordenlijst = uitbreidbaar, nu **12** (niet vast 10). De oude `docs/GDD.md` was al verwijderd; geen foutieve "10 woorden"-claim meer in de Magisch Strand-docs; het GDD-dossier klopt al | GAP-06 / 6.1 | ✅ |
+| **T-09** | P3 | 📄 | Spraakconfig-waarden zijn **voorbeelden** (per scherm/modus verschillend, in code gezet). De oude `docs/GDD.md` was al verwijderd; geen vaste spraakconfig-getallen als "waarheid" meer in de docs; het GDD-dossier noteert dit al | GAP-05 / 5.2 | ✅ |
+| **T-10** | P2 | 🔍🎨 | Juiste spraakparameters per scherm bepalen en testen (stiltetijd, auto-stop, alternatieven). Code-kant klaar (waarden gecentraliseerd, gedocumenteerd via `T-09`). **Op apparaat bevestigd (`DT-04`, 2026-09-17): de huidige waarden voldoen** — kind krijgt genoeg tijd om rustig uit te spreken; geen bijstelling nodig | GAP-05 / 5.2 | ✅ |
+| **T-11** | P2 | 🔍🔧 | Verifiëren dat "voortgang resetten" **alle** sleutels én IndexedDB-observaties wist. `practice.reset()` wist correct de IndexedDB (`practiceEvents` + `progressProjections` per `[profileId+gameId]`), totals, unlocks en reward-result. **Bug gevonden + gefixt:** het Zeg & Vlieg-record (`:zeg-en-vlieg-record`) werd niet gewist → `resetVoiceScrollerRecord` toegevoegd + aangeroepen; unit-tests toegevoegd | GAP-09 / 8.6 | ✅ |
+| **T-12** | P2 | 🔍 | Verifiëren dat data strikt per kindprofiel gescheiden blijft (geen lek). Bevestigd: álle persistente sleutels zijn `…:{profileId}:…`-genaamd (totals, unlocks, settings, record, voice-privacy, selected-world) en IndexedDB is gesleuteld op `[profileId+gameId]`; profielreset laat andere profielen ongemoeid (unit-test toegevoegd) | GAP-10 / 8.6 | ✅ |
+| **T-13** | P2 | 🔍🔧 | Verifiëren dat alle interactieve elementen 48×48 + `focus-visible` halen in alle modi. **Gevonden + gefixt:** de gedeelde `Btn*`-bouwstenen misten een focusring → één gescopte `:focus-visible`-baseline (`[data-game-id]`, 3px outline) toegevoegd in `theme.css`, in browser bevestigd. Sub-48px controls verhoogd naar ≥48px (`BtnTrayNext`, `SpeechRetryPanel`, privacy-toggle, FloatingSuccessToast-keuzes). Dev-tools vallen buiten scope (niet kindgericht) | GAP-11 / 9.4 | ✅ |
+| **T-14** | P2 | 🔍🔧 | Verifiëren dat `reducedMotion` alle zware animaties dempt (parallax, sparkles, vlieg-loop). **Gevonden + gefixt:** de in-app toggle werd nergens in de gameplay gelezen (alleen OS-`prefers-reduced-motion`) → `useReducedMotionSetting` + `[data-app-reduced-motion]` op de shell + spiegel-CSS in `theme.css`. In browser bevestigd (`.bezem-start-flyer` → `animation: none` bij toggle aan). **Vervolgfix (`DT-06`, 2026-09-17):** de eerste versie zette `transition-duration: 0.01ms !important` op `*`, wat in Zeg & Vlieg een `transitionend`-stortvloed per frame gaf (246 events/s) en het spel traag maakte op zwakke toestellen. Nu alleen de `.bezem-*`-animaties gedempt (geen universele regel) → 9 events/s, animaties nog steeds uit | GAP-12 / 9.4 | ✅ |
+| **T-15** | P2 | 🔍🔧 | Robuustheid dynamische zones testen (opdracht met anker dat nog niet geplaatst is). Bevestigd robuust: `getSuggestedDynamicRelationPoint`/`getDynamicRelationHintZone` geven `undefined` en `evaluateDynamicRelationPlacement` geeft `matches:false` + `missingAnchorObjectIds` bij een ontbrekend anker (geen crash, telt niet als goed). Geborgd met een nieuwe testsuite | GAP-08 / 6.3 | ✅ |
+| **T-16** | P3 | 📄 | Effect van `instruction-randomization.ts` op volgorde/selectie gedocumenteerd in §6.6 (samen met `T-29`) | GAP-13 / 6.6 | ✅ |
+| **T-17** | P2 | 🔍🔧 | Verifiëren dat `SCR_PLAT_PROGRESS` het volledige observatiemodel correct toont. **Gevonden + verbeterd:** het model werd volledig vastgelegd (per-skill `skillSummaries` + responstijd) maar het scherm toonde alleen 3 vaste aggregaten. Toegevoegd: **categorie-uitsplitsing** (taaldomeinen & ruimtebegrippen met kindvriendelijke labels, losse woorden gegroepeerd) + **tempo-inzicht** (gem. responstijd). In browser bevestigd met echte data | GAP-16 / 7.7 | ✅ |
+| **T-18** | P2 | 🔍 | Resterende ⚪-features verifiëren (o.a. op een echt apparaat met microfoon voor spraak/audio). Blijft een apparaattaak: de mic-afhankelijke ⚪-features zijn niet in de browserpreview te bevestigen (mic geblokkeerd) → te testen op een echt toestel | Feature-catalogus §0.5 | ⬜ |
+| **T-19** | **P1** | 🔧 | **Video-foutmelding is vals** — autoplay-met-geluid wordt geblokkeerd → `NotAllowedError` → onterechte foutbanner. Fix: autoplay gedempt + beleidsfout niet als fout tonen | Werkplan WP-A1 | ✅ |
+| **T-20** | P2 | 🔧 | "Zone Editor (DevTools)"-toggle verbergen — nu gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie | Werkplan WP-B1 | ✅ |
+| **T-21** | P2 | 🔧 | Sterrenteller: placeholder `120` weg én gekoppeld aan het echte cumulatieve per-profiel totaal (via `T-01`). Startscherm toont nu de echte som. Geverifieerd in browser (0 → 2 na één goed antwoord) | Werkplan WP-A2/B2 | ✅ |
+| **T-22** | P3 | 📄 | GDD-index §4.4 herschreven naar het nieuwe vriendelijke Zeg & Vlieg-mechanisme (schildjes/combo/record) — samen met `T-30` | Werkplan WP-B3 | ✅ |
+| **T-23** | P3 | 🔧 | Kies het Woord: kaarten flitsten leeg bij doorschakelen — **opgelost** via sticker-preload in `useWordChoiceState` (laadt bij mount alle objectstickers in de browsercache) + WebP-conversie (`T-33a`, veel kleiner/sneller). Onderdeel van `T-33` | Werkplan WP-C7 | ✅ |
+| **T-24** | P2 | 🔍 | Nieuwe e2e-suites voor de eerder ongedekte modi: `word-choice.spec.ts` (4 tests: render, goed→Volgende, fout→feedback, volledige ronde→eindscherm), `voice-side-scroller.spec.ts` (2: render+3 schildjes+overlay, start→loop+afstand), `reward.spec.ts` (3: render, 0 ⭐ vers profiel, terug). Gedeelde `createPlayerAndOpenStrandGame` in `e2e/helpers.ts`. 9 tests, groen op chromium-tablet én webkit-tablet | [Test-matrix](Test-matrix.md) §9 | ✅ |
+| **T-25** | P2 | 🔧 | Kies het Woord: audio-voorleesfunctie (`FEAT_WORD_AUDIO`) + UI-knoppen **verwijderd** — TTS `playQuestionAudio` weg, HUD-"Audio"-knop verborgen (nieuwe `showAudio`-prop op `GameTopHud`, default aan), "Luister opnieuw"-knop (`BtnAudioReplayPrompt`) weg; de **video-opdracht** vervangt het. In browser geverifieerd (geen audioknoppen meer, video blijft, spel speelt door). 172 tests groen | Werkplan WP-C6 | ✅ |
+| **T-26** | **P1** | 🔧 | Mic-mechanisme Zeg & Zet: **echte browser-spraakherkenning** aangesloten (localSpeechEngine gaf altijd "bal") + verwerking op `isFinal` (sneller) + stop bij duidelijke plaatsing. Herkenning werkt nu echt (op apparaat bevestigd). Restpunten opgelost via `T-34`/`T-35` | Werkplan WP-C1 | ✅ |
+| **T-27** | **P1** | 🟦🔧 | Runtime **wave + live woord-voor-woord transcriptie**. **Zeg & Zet klaar** (audio-reactieve `MicWaveBars` via Web Audio + live transcript, geverifieerd). Zeg & Vlieg-wave toegevoegd via `T-32` (op apparaat bevestigd) | Werkplan WP-C2 | ✅ |
+| **T-28** | P2 | 🟦🔧 | Vriendelijke **bescherming tegen scheld-/ongewenste woorden** in de transcriptie — gedeelde `logic/word-safety.ts` (beknopte, ondubbelzinnige blocklist NL+EN; hele-woord-matching → geen Scunthorpe-valkuil, strandwoorden nooit geblokkeerd). Zeg & Zet: commando wordt niet uitgevoerd + zachte nudge + blijft luisteren; live-transcriptie wordt gemaskeerd (`…`). Zeg & Vlieg: ongewenste tokens gefilterd (gemengde uiting pakt geldig woord tóch op), anders nudge. 6 unit-tests groen; beide modi mounten schoon. Nudge op apparaat bevestigd | Werkplan WP-C3 | ✅ |
+| **T-29** | P2 | 🔧 | **Randomisatie in alle 3 modi.** Bleek al aanwezig voor Kies het Woord + Zeg & Zet (geseede shuffle in `useBezemEscapeGameController`) en Zeg & Vlieg (`shuffleVoiceScrollerTargets`). Gat gedicht: Zeg & Zet-**replay** ("Opnieuw" op het ronde-eindscherm) herschudt nu ook — `onPlayAgain` → `startSelectedMode("listen-and-place")` re-seedt, plus een reset-op-`instructions`-effect in `useSceneBuilderState`. Norm in GDD §6.6 gedocumenteerd (dekt `T-16`). In browser geverifieerd (twee rondes ≠ volgorde) | Werkplan WP-C5 | ✅ |
+| **T-30** | **P1** | 🟦🔧 | Zeg & Vlieg **vriendelijk mechanisme** — **3 schildjes** per ronde (botsing kost er één + vertraging, breekt combo; géén harde game-over), **combo** (🔥 + elke 3e een bonusster), **persoonlijk record** (verste vlucht per profiel, gevierd bij nieuw record), vriendelijke ronde-einde-tekst ("Goed gevlogen!"). Nieuwe `voiceSideScrollerRecord.ts` + 8 unit-tests. **Schildjes-UI verbeterd** (na feedback): duidelijke badges in een pill — actief = groen schild, verloren = goed zichtbaar rood/gebroken schild (`shield-x`), met schud- + pop-animatie op het moment van verliezen. In browser end-to-end geverifieerd: 3 botsingen opgevangen → einde pas bij 0 schildjes op 281 m, gemengde staat (2 groen + 1 rood) duidelijk zichtbaar, "Nieuw record! 281m", record blijft na herstart (→ dekt ook `T-22`). Op apparaat bevestigd door tester (incl. combo) | Werkplan WP-B3 | ✅ |
+| **T-31** | P2 | 🟦🔧 | **Unlock-mechanisme** + volgorde modi (receptief→relationeel→productief). Nieuwe `logic/mode-unlocks.ts` (drempels op cumulatief `wordStars`): Kies het Woord altijd open (instap), Zeg & Zet vanaf 3 ⭐ — deadlock-vrij (alleen Kies/Zet leveren sterren). *(Bij `T-04` verfijnd naar de volledige leerlijn Kies→Zet→Bouw→Vlieg met drempels 0/3/8/14.)* Moduskaarten in leerlijn-volgorde; vergrendelde kaarten grijs + slot + "🔒 Nog X sterren"; standaard geselecteerd = Kies het Woord; Start geblokkeerd voor vergrendelde modus. 5 unit-tests. End-to-end in browser geverifieerd (0 ⭐ → alleen Kies open; na 38 ⭐ via Kies → alles open). Playwright-e2e bijgewerkt: nieuwe `e2e/helpers.ts` `earnStarsToUnlockModes` speelt eerst een ronde Kies het Woord (keuze gebruiker: echte sterren verdienen) — geverifieerd met Playwright (Zeg & Zet-entry-tests + critical-user-journey groen) | Werkplan WP-B4 | ✅ |
+| **T-32** | **P1** | 🔬🔧 | Zeg & Vlieg **mic-commando's** — onderzocht: dezelfde `localSpeechEngine`-oorzaak als Zeg & Zet (gaf altijd "bal"), al opgelost door `T-26` (echte Web Speech API, gedeeld via `runtime.speech`). **Audio-reactieve wave (`T-27`) toegevoegd** aan het statuspaneel: `MicWaveBars` (sky-blauw) blijft de hele ronde gemonteerd (op game-status → geen mic-stream-churn). Op echt apparaat bevestigd werkend. **Bug (teruggekeerd plaatje wordt niet meer opgepakt) opgelost** via vergevingsgezinde matching: kort geheugen (~1,8 s) van gehoorde woorden + hercheck zodra een plaatje het herkenningsvenster in scrolt, zodat "goed gezegd" altijd oppakt (ontkoppelt zeggen van exacte timing — past bij logopedische doelen). Ontwerpkeuze door gebruiker: **zachte herkansing + spreiding** (geen straf/game-over bij niet-benoemen; plaatjes komen later opnieuw langs). Compile + geen-crash-mount geverifieerd; op apparaat bevestigd door tester | Werkplan WP-C4 | ✅ |
+| **T-33** | **P1** | 🔬 | **Performance/lag-analyse** afgerond → [Analyse-T33-Performance](Analyse-T33-Performance.md). Oorzaak: zware media (video's ~2,3 MB, PNG's 100–244 KB) + 4s-stiltetimer + interim re-renders. Kaart-flits: sticker-preload toegepast. Vervolgacties T-33a/b/c afgerond | Werkplan WP-C7 | ✅ |
+| **T-33a** | **P1** | 🔧 | **Alle afbeeldingen → WebP** (36 PNG's, ~11,8 MB → ~1,36 MB, 88% kleiner, geen resolutieverlies). Verhelpt kaart-flits + minder laaddruk in alle modi. Geverifieerd | Analyse §4.1 | ✅ |
+| **T-33b** | **P1** | 🔧 | **Instructievideo's gecomprimeerd** — 81 stuks naar 480p (H.264 CRF 28, mono-audio). **162 MB → 35 MB (78% kleiner)**. Geverifieerd (ffprobe + browser: readyState 4). Grootste winst tegen mic-lag | Analyse §4.1 | ✅ |
+| **T-33c** | P2 | 🔧 | Video **onderbroken tijdens actieve microfoon** — `InstructionVideoButton` krijgt `suspended`-prop: geen autoplay én pauzeert een spelende video zodra de mic luistert/verwerkt (voorkomt resource-strijd met spraak). Volledige mic-test op echt apparaat | Analyse §4.2 | ✅ |
+| **T-34** | **P1** | 🔧 | **Mic-robuustheid bij onverstaanbare/andere-taal invoer** — vriendelijke feedback + mic **altijd herstartbaar**. Nieuw `SpeechRetryPanel` toont bij een herkenningsfout (no-speech / geen match / andere taal / netwerk) een kindvriendelijke melding op de plek van de wave (verdwijnt dus niet meer) met een **Opnieuw**-knop die de mic direct herstart; foutmelding wordt via `onVoiceErrorChange` doorgegeven. Toestemmings­fout houdt de bestaande popover. Code + tap-flow geverifieerd; op apparaat bevestigd door tester | Testfeedback 2026-09-14 | ✅ |
+| **T-35** | **P1** | 🎨🔧 | **"Klaar"-knop vervangen door automatische bevestiging** — plaatsing (tap/sleep/toetsenbord/spraak) wordt meteen geëvalueerd; correct → viering + auto-doorgaan; fout → vriendelijke tip + opnieuw. Top-bar-Klaar alleen nog bij afgeronde ronde; stop-knop uit de wave-balk; "Opnieuw zeggen" herstart de mic. Tap-flow geverifieerd; op apparaat bevestigd door tester | Testfeedback 2026-09-14 | ✅ |
+| **T-36** | P3 | 🔧 | Dode, niet-werkende `localSpeechEngine` (+ test) verwijderd uit de codebase — geen enkele verwijzing meer (sinds `T-26` de echte Web Speech API gebruikt). Tsc/eslint/150 tests groen | Testfeedback 2026-09-14 | ✅ |
+| **T-37** | P2 | 🔍 | **Playwright-e2e bijgewerkt voor `T-35`/`T-03`** — tests 3.3/3.5/3.6, de a11y-kernopdracht en `generate-visual-report` gebruikten nog de verwijderde `scene-builder-confirm-button`/`speech-stop-button`. Herschreven naar de auto-bevestigings-flow: correct → assert auto-doorgaan (`data-active-instruction-id` wijzigt), onduidelijk → assert `data-feedback-kind="almost"` zonder doorgaan; wave rondt automatisch af (geen Klaar-knop). Geverifieerd met Playwright op chromium-tablet én webkit-tablet (alle e2e groen) | Bij T-31 e2e-run | ✅ |
+| **T-38** | **P1** | 🔧 | **Platformdetectie-laag** (fundament, zie §13). ✅ Nieuwe module `src/app/platform/`: pure `classifyPlatform(env)` (testbaar) + `detectPlatform()` + reactieve `usePlatform()`-hook. Onderscheidt `desktop`/`phone`/`tablet` (o.b.v. touch/`pointer: coarse`, UA-hints incl. iPadOS-als-Mac, en schermgrootte-fallback ~600px) én `displayMode` `browser`/`standalone` (geïnstalleerde PWA, incl. iOS `navigator.standalone`). Helper `requiresDownloadGate()` (waar → telefoon/tablet). 7 unit-tests groen. Basis voor `T-39` t/m `T-47` | §13 | ✅ |
+| **T-39** | **P1** | 🎨🔧 | **Download-gating architectuur** (herontwerp, zie §13.5). ✅ Gedeelde mechaniek gebouwd: pure `resolveDownloadGate({requiresGate, packageStates})` → één gate-status (`streaming` vs. `gated`, `phase`, `canPlay`, geaggregeerde voortgang, fout) + hook `useGameDownloadGate(offlinePackages)` die dit op de offline-pakketten van een game toepast (inspecteren → grootte → downloaden met voortgang → verifiëren). Web = `streaming` (`canPlay` altijd true); telefoon/tablet = `gated` (`canPlay` pas bij 100%). Bouwt voort op `usePlatform` (`T-38`) + `offlinePackages`/`GameAssetSyncManager`. **Beslissing gate-plek: op game-host-niveau** (Play/Start pas actief na 100%). 8 unit-tests. De *bedrading in `GameHost`* (streaming-fallback vervangen) + het **visuele download­scherm** volgen in de per-platform sporen `T-42`/`T-44` → `T-43`/`T-45` | §13 | ✅ |
+| **T-40** | **P1** | 🎨 | **UX-design + wireframe — Webbrowser (desktop).** Optimale layout/structuur; behoudt het huidige streaming-systeem (geen verplichte download). **Samen ontwerpen; goedkeuring vereist vóór implementatie** | §13 | ⬜ |
+| **T-41** | **P1** | 🔧 | **Implementatie — Webbrowser (desktop)-UX** (na goedkeuring `T-40`) | §13 | ⬜ |
+| **T-42** | **P1** | 🎨 | **UX-design + wireframe — Mobiele telefoon.** ✅ Ontworpen → [UX-Mobiele-Telefoon-T42](UX-Mobiele-Telefoon-T42.md) + visueel wireframe (`wirframe/WIREFRAME_MOBIEL_…html`). 100% portret met screen guard, download-zone geïntegreerd in de game-kaart (4 kaarttoestanden), downloadscherm met 6 toestanden (bezig/klaar/netwerkfout/opslagfout/mobiele data/groot pakket) en vergrendelde Play tot 100%. Besloten: **4G/5G = waarschuwen + bevestigen**, **sluiten = download loopt door op achtergrond**, **game leidend voor de leerlijn** (0/3/8/14 — wireframe gecorrigeerd). Gate-plek: spellenlijst + onzichtbaar vangnet in de host. **Goedgekeurd & geïmplementeerd via `T-43`** | §13 | ✅ |
+| **T-43** | **P1** | 🔧 | **Implementatie — Mobiele telefoon-UX + download-gate.** ✅ Geïmplementeerd en afgerond: 100% portret, screen guard, download-zone geïntegreerd in game-kaart, downloadscherm met 6 toestanden en Play-vergrendeling tot 100% (bouwt op `T-38`/`T-39`/`T-46`) | §13 | ✅ |
+| **T-44** | **P1** | 🎨 | **UX-design + wireframe — Tablet.** ✅ Ontworpen en afgerond: tablet-layout met geoptimaliseerde speelveldverhoudingen en verplichte download-gate | §13 | ✅ |
+| **T-45** | **P1** | 🔧 | **Implementatie — Tablet-UX + download-gate.** ✅ Geïmplementeerd en afgerond: tablet-ervaring met verplichte download-gate en Play-ontgrendeling na 100% (bouwt op `T-38`/`T-39`/`T-46`) | §13 | ✅ |
+| **T-46** | **P1** | 🎨🔧 | **Herontwerp download- & offline-architectuur per gamekaart.** ✅ Geïmplementeerd en afgerond: Oude offline-kaarten (`OfflinePackageCard`) en demo-routes volledig verwijderd. Downloadmechanisme direct geïntegreerd op elke gamekaart (`GameCardDownloadButton`): `[📥 37 MB]` wanneer niet geïnstalleerd (spelen vergrendeld tot 100%), geanimeerde voortgangsring met live percentage, `[🗑️ Verwijder]`-optie om opslag vrij te maken na voltooien (kaart start direct het spel), en `[🔄 Update]`. Netwerkdetectie toont bij mobiele data (4G/5G) een bevestigingsdialoog (`Toch downloaden` / `Wacht op wifi`, geen blokkade); op wifi start download direct. Gedeelde `DownloadGateModal` compact gemaakt met duidelijke zijmarges op mobiel; in-app `ConfirmDeleteModal` vervangt lelijke browser alerts. 56 testbestanden (236 tests, 100%) groen | §13 | ✅ |
+| **T-47** | P2 | 🔍 | **Consistentie- & regressieverificatie multiplatform.** E2e per viewport (mobile/tablet/desktop): (a) op mobiel/tablet verschijnt Play **pas na** volledige download, (b) op web blijft streaming, (c) gameplay/functionaliteit identiek over platforms | §13 | ⬜ |
+| **T-48** | **P1** | 🔧🔍 | **Zeg & Vlieg-spraak stopte na een paar objecten** (`DT-02`). **Kernoorzaak:** de mic werd **na elke match volledig herstart** (nodig omdat de continue herkenning álle resultaten opstapelde) → die snelle herstart-cyclus laat de browser-spraakherkenning vastlopen. **Fix:** nieuwe optie `latestSegmentOnly` (leest alleen het laatst gewijzigde segment via `event.resultIndex`, geïsoleerd zodat Zeg & Zet z'n volledige zin houdt) → geen opstapeling meer → **één doorlopende luister-sessie**, herstart-per-match verwijderd. Plus herstel-watchdog. In browser bewezen met een gesimuleerde mic: sessie start **1×** en blijft leven over 20 keer inspreken (eerder: teller groeide per match), sterren 0→9, geen dubbele matches. Tsc/eslint/195 tests groen; **op apparaat bevestigd door tester** (`DT-02`, 2026-09-16) | Testfeedback 2026-09-16 (`DT-02`) | ✅ |
+
+### 12.2 Aanbevolen volgorde
+
+1. **P1 eerst** — `T-01`, `T-02`, `T-03`: het beloningssysteem en de ontbrekende ronde-eindes zijn de meest voelbare "voelt niet af"-oorzaken.
+2. **Structuur opschonen** — `T-04`, `T-05`, `T-06`: dubbele/dode schermen en de nieuwe modus.
+3. **Verifiëren via de Test-matrix** — `T-10` t/m `T-17`: bepalen wat écht kapot is versus alleen ongetest.
+4. **Documentatie bijwerken** — `T-07`, `T-08`, `T-09`, `T-16`.
+
+### 12.4 Apparaattakenlijst — handmatig testen op een echt toestel
+
+> Deze checklist is bedoeld om op een **echte tablet/telefoon** (met microfoon en geluid) af te vinken. De code-kant van deze punten is klaar; alleen menselijke waarneming (hoorbaarheid, spraakverstaanbaarheid, gevoel) kan ze definitief bevestigen. Vink af of noteer een bevinding per rij.
+
+| ID | Taak | Stappen | Verwacht resultaat | Koppeling | Status |
+| :--- | :--- | :--- | :--- | :--- | :--: |
+| `DT-01` | **Spraak — Zeg & Zet** | Open Zeg & Zet, tik de mic, spreek een plaatsings­opdracht in (bv. "Zet de boot in de zee") | Object wordt correct geplaatst; wave reageert; foutmelding is kindvriendelijk bij niet-verstaan | `T-18` | ✅ Op apparaat bevestigd (2026-09-16) |
+| `DT-02` | **Spraak — Zeg & Vlieg** | Start Zeg & Vlieg, benoem hardop de objecten die voorbij vliegen | Object wordt verzameld bij correct benoemen; **blijft werken na meerdere objecten** (niet stoppen na 2-3). Let op: ontwijk obstakels met de duim-rail — 3 botsingen = ronde-einde | `T-18`, `T-48` | ✅ Op apparaat bevestigd (2026-09-16) |
+| `DT-03` | **Spraak — Zeg & Bouw** | Open Zeg & Bouw, spreek één samengestelde zin in (bv. "Leg de bal naast de parasol en zet de boot in de zee") | Meerdere objecten worden in één keer geplaatst; compound-bonus verschijnt | `T-18` | ✅ Op apparaat bevestigd (2026-09-16). **Bekende beperking → `T-49` (v2):** relatie/volgorde t.o.v. andere objecten (bv. "tussen schelp en handdoek") wordt nog niet berekend — plaatsing gebeurt nu op benoemde zones. |
+| `DT-04` | **Spraakparameters ijken** | Speel met een kind; let op stiltetijd/auto-stop: krijgt het kind genoeg tijd om rustig uit te spreken? | Bepaal de *juiste* waarden per scherm (stiltetijd, auto-stop, alternatieven) en noteer ze | `T-10` | ✅ Op apparaat bevestigd goed (2026-09-17) — huidige waarden voldoen |
+| `DT-05` | **Audio-output** | Zet geluid aan; luister naar gesproken opdrachten/nazegzinnen en achtergrondmuziek | Audio is hoorbaar, duidelijk en op prettig volume; muziek volgt de `musicEnabled`-toggle | `T-18` | ✅ Op apparaat bevestigd (2026-09-17) |
+| `DT-06` | **Rustige animaties (`T-14`)** | Instellingen → zet **"Rustige beweging"** aan; ga terug de modi in | De zweef-/sparkle-/parallax-animaties stoppen of zijn sterk gedempt | `T-14` | ✅ Bug gevonden + gefixt (2026-09-17): toggle maakte Zeg & Vlieg traag door een `transitionend`-stortvloed (universele `*`-regel). Nu alleen de `.bezem-*`-animaties gedempt → 246 → 9 transitie-events/s, animaties nog steeds uit. Op apparaat te herbevestigen |
+| `DT-07` | **Focus-ring (`T-13`)** | Sluit een toetsenbord aan (of gebruik tab-toets); tab door knoppen in elke modus | Elk interactief element toont een duidelijke blauwe focus-ring; alle knoppen zijn ≥ 48×48 | `T-13` | ✅ Op apparaat bevestigd (2026-09-17) |
+| `DT-08` | **Reset wist record (`T-11`)** | Haal een record in Zeg & Vlieg; ga naar Instellingen → **Reset voortgang** → bevestig; open Zeg & Vlieg opnieuw | Het persoonlijke record staat weer op 0 (record is echt gewist) | `T-11` | ✅ Op apparaat bevestigd (2026-09-17) |
+| `DT-09` | **Mic geweigerd → toetsenbord** | Weiger de mic-toestemming; probeer een opdracht | Vriendelijke melding + het typen-alternatief werkt; geen doodlopende staat | `T-18` | ✅ Op apparaat bevestigd (2026-09-17) |
+| `DT-10` | **Voortgangsscherm (`T-17`)** | Speel wat rondes; open het voortgangsscherm (`/progress`) | Categorie-uitsplitsing (taaldomeinen/ruimtebegrippen) + tempo-inzicht kloppen met wat je speelde | `T-17` | ✅ Op apparaat bevestigd (2026-09-17) |
+
+### 12.3 Afgeronde taken
+
+- **T-19** ✅ (2026-09-13) — valse videofoutmelding opgelost (autoplay gedempt; beleidsfout niet gemeld). Geverifieerd in de browser.
+- **T-20** ✅ (2026-09-13) — DevTools-toggle gated achter `import.meta.env.DEV` + `?dev=true`; verborgen in productie.
+- **T-01** ✅ (2026-09-13) — één beloningssysteem "Strandschat" (oplopende curve, cumulatieve per-profiel totalen, dode `beachRewards` verwijderd, reset wist totalen). 7 unit-tests + browserverificatie. Lost `GAP-01` en `GAP-02` op.
+- **T-21** ✅ (2026-09-13) — sterrenteller gekoppeld aan het echte cumulatieve per-profiel totaal (samen met `T-01`).
+- **T-33a** ✅ (2026-09-13) — alle afbeeldingen → WebP (36 PNG's, 11,8 MB → 1,36 MB, 88% kleiner). Verhelpt kaart-flits.
+- **T-33b** ✅ (2026-09-13) — 81 instructievideo's → 480p (162 MB → 35 MB, 78% kleiner). Verwachte grote winst tegen mic-lag.
+- **T-33** ✅ (2026-09-13) — performance/lag-analyse + alle vervolgacties (T-33a/b/c) afgerond. Media samen ~174 MB → ~36 MB.
+- **T-33c** ✅ (2026-09-13) — instructievideo pauzeert tijdens actieve microfoon (`suspended`-prop), voorkomt resource-strijd met spraak.
+- **T-27** ✅ (2026-09-13/14) — audio-reactieve mic-wave (`MicWaveBars`, Web Audio) + live woord-voor-woord transcriptie in Zeg & Zet. Zeg & Vlieg-wave volgt met `T-32`.
+- **Kernfix spraak** ✅ (2026-09-14) — echte browser-spraakherkenning i.p.v. de niet-werkende on-device engine die altijd "bal" teruggaf. Deel van `T-26`.
+- **T-26** ✅ (2026-09-14) — Zeg & Zet-mic op de echte Web Speech API, verwerking op `isFinal`, stop bij duidelijke plaatsing. Op apparaat bevestigd.
+- **T-35** ✅ (2026-09-15) — "Klaar"-knop weg; plaatsing wordt automatisch bevestigd, correct → auto-doorgaan, "Opnieuw zeggen" herstart de mic. Op apparaat bevestigd.
+- **T-34** ✅ (2026-09-15) — `SpeechRetryPanel`: vriendelijke feedback bij een herkenningsfout op de plek van de wave + **Opnieuw**-knop die de mic herstart; fout via `onVoiceErrorChange`. Op apparaat bevestigd.
+- **T-36** ✅ (2026-09-15) — dode `localSpeechEngine` (+ test) verwijderd; nergens meer geïmporteerd.
+- **T-32** ✅ (2026-09-15) — Zeg & Vlieg audio-reactieve wave + vergevingsgezinde herkenning (kort woordgeheugen + hercheck bij nieuw plaatje); bug "teruggekeerd plaatje wordt niet opgepakt" opgelost. Ontwerp: zachte herkansing + spreiding. Op apparaat bevestigd.
+- **T-28** ✅ (2026-09-15) — gedeelde `word-safety.ts`: vriendelijke bescherming tegen scheld-/ongewenste woorden in beide spraak-modi (nudge + maskering), hele-woord-matching. 6 unit-tests. Op apparaat bevestigd.
+- **T-30** ✅ (2026-09-15) — Zeg & Vlieg vriendelijk mechanisme: 3 schildjes (botsing kost er één i.p.v. game-over), combo met bonusster, persoonlijk record per profiel + viering, vriendelijk ronde-einde, verbeterde schildjes-UI (groen/rood + animatie). 8 unit-tests. Op apparaat bevestigd.
+- **T-22** ✅ (2026-09-15) — GDD §4.4 herschreven naar het schildjes/combo/record-mechanisme (samen met T-30).
+- **T-03** ✅ (2026-09-15) — Zeg & Zet eigen ronde-eindscherm (`SceneBuilderRoundSummary`): geoefende woorden/begrippen, cumulatieve sterren, eerstvolgende beloningsdoel, Opnieuw/Wereld. Lost `GAP-15` op; alle 3 modi hebben nu een ronde-einde. 3 render-tests + end-to-end in browser geverifieerd.
+- **T-31** ✅ (2026-09-15) — unlock-mechanisme + leerlijn-volgorde (Kies het Woord open → Zeg & Zet vanaf 3 ⭐ → Zeg & Vlieg vanaf 6 ⭐), `logic/mode-unlocks.ts`, vergrendelde kaarten met slot + sterrendrempel. 5 unit-tests; e2e-helper `earnStarsToUnlockModes` + Playwright-verificatie. Nieuwe taak `T-37` ontdekt (e2e-fallout van `T-35`/`T-03`).
+- **T-37** ✅ (2026-09-15) — Playwright-e2e bijgewerkt naar de auto-bevestigings-flow (T-35/T-03): geen `scene-builder-confirm-button`/`speech-stop-button` meer; tests asserteren nu auto-doorgaan resp. herstelbare "almost"-feedback. Geverifieerd op chromium-tablet én webkit-tablet — volledige e2e-suite groen.
+- **T-25** ✅ (2026-09-15) — audio-voorleesfunctie (`FEAT_WORD_AUDIO`) uit Kies het Woord verwijderd: TTS + audioknoppen weg (`showAudio`-prop op `GameTopHud`, `BtnAudioReplayPrompt` verwijderd), video-opdracht vervangt het. Docs opgeschoond (Feature-catalogus, User-Journey-Map). In browser geverifieerd.
+- **T-29** ✅ (2026-09-15) — randomisatie de norm in alle 3 modi; Zeg & Zet-replay herschudt nu ook (re-seed via `onPlayAgain` + reset-op-`instructions`-effect). Gedocumenteerd in §6.6. Lost `T-16`/`GAP-13` mee op. In browser geverifieerd (verschillende volgorde per ronde).
+- **T-02** ✅ (2026-09-15) — Strandschat-drempels afgestemd op de gemeten opbrengst (~2 ⭐/goed antwoord): **3, 8, 16, 28, 42, 60, 85** (keuze: rustiger opbouwen). Snelle eerste win, laatste beloning ~3-4 rondes i.p.v. alles in ~2. Reward-tests + GDD §7 bijgewerkt.
+- **T-24** ✅ (2026-09-15) — nieuwe e2e-suites voor Kies het Woord, Zeg & Vlieg en het beloningsscherm (9 tests, gedeelde `createPlayerAndOpenStrandGame`-helper). Groen op chromium-tablet én webkit-tablet. Lost de dekkingsgaten uit de Test-matrix §9 op.
+
+> Nog open bij het beloningssysteem: de sterrenbijdrage van **Zeg & Vlieg** (kent nog geen persistente sterren; oppakken met `T-30`/`T-32`).
+
+---
+
+## 13. Multiplatform-ondersteuning & download-gating (initiatief)
+
+> Nieuw initiatief (2026-09-16). Doel: **elk platform krijgt een eigen, optimale UX en structuur**, terwijl de functionaliteit en spelervaring van Magisch Strand-Avontuur op alle platforms **consistent** blijven. Taken: `T-38` t/m `T-47` (§12.1).
+
+### 13.1 Uitgangspunten
+
+- De game is een **PWA** (geen Capacitor/Electron). "Platform" = de manier waarop de game draait, niet een aparte build.
+- **Platforms in scope** (elk een eigen UX-track): **Webbrowser (desktop)**, **Mobiele telefoon**, **Tablet**.
+- **Download-doel:** de **geïnstalleerde PWA** (startscherm-app) — werkt met de huidige service-worker + offline-pakket-stack.
+- **Werkwijze per platform:** eerst **samen** een UX-design + wireframe → **goedkeuring** → pas dáárna implementeren. Geen implementatie vóór akkoord op het ontwerp.
+
+### 13.2 Download-gating (kernregel)
+
+| Platform | Downloadgedrag |
+| :--- | :--- |
+| **Webbrowser (desktop)** | **Ongewijzigd** — de game is direct speelbaar; content streamt/cachet zoals nu. |
+| **Mobiele telefoon** (geïnstalleerd) | Bij openen is de game **niet direct speelbaar**. Eerst wordt álle verplichte content (video's, afbeeldingen, bestanden) gedownload met een **duidelijk downloadicoon + downloadstatus**. **Play/Start pas na 100%.** Tijdens spelen hoeft geen essentiële content meer ongemerkt te laden. |
+| **Tablet** (geïnstalleerd) | Zelfde gate als telefoon, met een eigen (ruimere) layout. |
+
+**Wat verandert t.o.v. nu:** de huidige flow synct op de achtergrond en **valt bij netwerkproblemen terug op streaming** ([GameHost.tsx:217](../../src/app/game-host/GameHost.tsx)) zonder de speler te blokkeren. Voor telefoon/tablet wordt dit een **expliciete, blokkerende gate**; voor web blijft het huidige gedrag.
+
+### 13.3 Bouwstenen van de download- en offline-architectuur
+
+- `src/app/pwa/GameAssetSyncManager.ts` — synct/controleert offline-pakketten (fasen, netwerkdetectie, voortgang).
+- `src/app/pwa/offlinePackages.ts` + `assets/offline-package.source.json` per game — de assetmanifesten.
+- `src/app/platform/GameCardDownloadButton.tsx` — compacte download-indicator en actieknop direct geïntegreerd op elke gamekaart (`T-46`).
+- `src/app/platform/DownloadGateModal.tsx` — compacte, responsieve detail- en voortgangsmodal met zijmarges op mobiel.
+- `src/app/platform/ConfirmDeleteModal.tsx` — in-app bevestigingsdialoog voor het veilig verwijderen van lokale offline bestanden.
+- **Opgeruimd:** de oude losse kaart `src/app/pwa/OfflinePackageCard.tsx` en de testroute `gate-demo` zijn volledig verwijderd.
+
+### 13.4 Taakoverzicht
+
+| Fase | Taken |
+| :--- | :--- |
+| **Fundament & Gedeelde UI** | `T-38` (platformdetectie), `T-39` (download-gating-architectuur), `T-46` (herontwerp download per gamekaart) |
+| **Per platform (ontwerp → akkoord → bouw)** | Web: `T-40`→`T-41` · Telefoon: `T-42`→`T-43` · Tablet: `T-44`→`T-45` |
+| **Borging** | `T-47` (consistentie- & regressieverificatie over alle viewports) |
+
+### 13.5 Download-gating — architectuur (`T-39`, `T-46`)
+
+De gate-mechaniek staat in `src/app/platform/` en is direct geïntegreerd in de gamekaarten (`GameListCard`):
+
+- **`usePlatform()` / `detectPlatform()`** (`T-38`) — bepaalt `desktop` / `phone` / `tablet` + `browser` / `standalone`.
+- **`resolveDownloadGate({ requiresGate, packageStates })`** — pure policy die de status van de offline-pakketten van een game omzet in één **gate-status**:
+  - `mode`: `"streaming"` (web) of `"gated"` (telefoon/tablet).
+  - `phase`: `checking` → `needs-download` → `sizing` → `confirm` → `downloading` → `verifying` → `ready` (of `error`).
+  - `canPlay`: op web altijd `true`; op telefoon/tablet **pas `true` als álle verplichte content 100% gedownload is**.
+  - `isUpdateAvailable`: detecteert nieuwere servercontent (`outdated`).
+  - `progress`: geaggregeerd over alle pakketten (downloaded/total/%).
+- **`useGameDownloadGate(offlinePackages)`** — bedraadt de policy aan de offline-pakket-laag (`createOfflinePackageManager`): inspecteren, grootte bepalen, downloaden (met voortgang + annuleren), lokaal wissen (`remove`).
+- **Netwerkdetectie & mobiele data (4G/5G)**: detecteert actieve verbinding; op 4G/5G verschijnt een waarschuwingsdialoog met bewuste keuze (`Toch downloaden` vs. `Wacht op wifi`). Geen blokkade. Op wifi start de download direct.
+- **Kaartintegratie**: op de gamekaart verschijnt `[📥 37 MB]` wanneer niet geïnstalleerd; bij downloaden een draaiende voortgangsring met percentage; en na 100% verandert dit in `[🗑️ Verwijder]` om lokale opslag vrij te maken. De kaart start dan direct het spel.
+
+---
+
+> **Volgende stap:** we beginnen met het **UX-design + wireframe per platform** (`T-40`/`T-42`/`T-44`). Zeg met welk platform je wilt starten, dan maken we samen het ontwerp voordat er iets wordt geïmplementeerd.
+
+---
+
+## 14. Versie 2 — toekomstige verbeteringen (backlog)
+
+> Ideeën/verbeteringen die bewust naar een **volgende versie** zijn geparkeerd. Niet nodig om de huidige versie "af" te maken; wel waardevol voor de leerdoelen.
+
+| Taak | Prio | Type | Omschrijving | Herkomst | Status |
+| :--- | :--: | :--: | :--- | :--- | :--: |
+| **T-49** | v2 | 🎨🔧 | **Zeg & Bouw: relationele + geordende plaatsing t.o.v. andere objecten.** Nu plaatst de samengestelde parser (`parseCompoundPlacements`) objecten op **benoemde zones**; een relatie/volgorde t.o.v. andere **objecten** wordt nog niet berekend — bv. *"zet de bal **tussen** de schelp en de handdoek"* wordt niet correct/op volgorde uitgevoerd, en *"tussen"* wordt niet begrepen. De bouwsteen bestaat al voor Zeg & Zet (`parseSpokenPlacementCommand` met `anchorObjectIds` + `dynamic-scene-relations.ts`: echte `op`/`naast`/`tussen`/`dichtbij`-evaluatie tussen geplaatste ankers). **v2-werk:** die anker-/relatielogica uitbreiden naar het compound-pad + het Zeg & Bouw-plaatsingsmechanisme, inclusief volgorde ("A tussen B en C"). Eerst samen ontwerpen. | Testfeedback 2026-09-16 (`DT-03`) | ⏸️ Geparkeerd (v2) |

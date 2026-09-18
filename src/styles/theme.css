@@ -382,14 +382,17 @@ a,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Bewust GEEN universele `transition-duration: 0.01ms` op `*`: in Zeg & Vlieg
+   * wijzigt elke frame de positie van speler/obstakels/plaatjes, en een mini-
+   * transitie op elk element geeft dan een `transitionend`-stortvloed die zwakke
+   * toestellen laat vastlopen (DT-06). We dempen alleen de decoratieve
+   * keyframe-animaties + `scroll-behavior`. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
   }
 
   .bezem-feedback-toast,
@@ -405,6 +408,43 @@ a,
   .bezem-choice-sparkle {
     animation: none;
   }
+}
+
+/* In-app "Rustige animaties"-toggle (T-14): dempt de zware decoratieve
+ * animaties (parallax, sparkles, vlieg-loop) via het `[data-app-reduced-motion]`-
+ * attribuut op de spel-shell, ook zonder OS-reduced-motion. Bewust ALLEEN op de
+ * benoemde `.bezem-*`-klassen — géén universele `*`-regel, want die zou tijdens
+ * het spelen een dure stijl-hercalculatie + `transitionend`-stortvloed per frame
+ * veroorzaken en het spel traag maken (DT-06 / T-14-fix). */
+[data-app-reduced-motion="true"] .bezem-feedback-toast,
+[data-app-reduced-motion="true"] .bezem-feedback-toast-after-ended,
+[data-app-reduced-motion="true"] .bezem-start-flyer,
+[data-app-reduced-motion="true"] .bezem-start-mascot,
+[data-app-reduced-motion="true"] .bezem-start-trail,
+[data-app-reduced-motion="true"] .bezem-start-sparkle,
+[data-app-reduced-motion="true"] .bezem-scroller-float,
+[data-app-reduced-motion="true"] .bezem-scroller-bump,
+[data-app-reduced-motion="true"] .bezem-choice-correct,
+[data-app-reduced-motion="true"] .bezem-choice-wrong,
+[data-app-reduced-motion="true"] .bezem-choice-sparkle {
+  animation: none !important;
+}
+
+/* Toetsenbord-focus-baseline voor Magisch Strand-Avontuur (T-13 / GAP-11):
+ * garandeert dat élk interactief element in álle modi een duidelijke
+ * focus-visible-ring krijgt, ook de gedeelde `Btn*`-bouwstenen die zelf geen
+ * focus-stijl meebrachten. De `outline` volgt automatisch de border-radius van
+ * het element en wint qua specificiteit van Tailwinds `outline-none`. Alleen
+ * bij toetsenbord-/hulptechnologie-focus (`:focus-visible`), niet bij muis. */
+[data-game-id="magisch-strand-avontuur"] a:focus-visible,
+[data-game-id="magisch-strand-avontuur"] button:focus-visible,
+[data-game-id="magisch-strand-avontuur"] select:focus-visible,
+[data-game-id="magisch-strand-avontuur"] input:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [role="button"]:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [role="switch"]:focus-visible,
+[data-game-id="magisch-strand-avontuur"] [tabindex]:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
 }
 
 .dark {

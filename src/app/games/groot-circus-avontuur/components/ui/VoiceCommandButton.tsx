@@ -88,6 +88,7 @@ export const VoiceCommandButton = ({
       data-component="VoiceCommandButton"
       data-slot="voice-command-button"
       data-status={status}
+      data-testid="voice-command-button"
       disabled={isDisabled}
       onClick={handleClick}
       title={label}

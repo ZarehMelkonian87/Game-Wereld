@@ -15,6 +15,7 @@ interface UseDutchSpeechRecognitionOptions {
   autoStopMs?: number;
   continuous?: boolean;
   interimResults?: boolean;
+  latestSegmentOnly?: boolean;
   maxAlternatives?: number;
   restartOnEnd?: boolean;
   silenceStopMs?: number;
@@ -44,6 +45,7 @@ export const useDutchSpeechRecognition = ({
   autoStopMs = 15000,
   continuous = false,
   interimResults = false,
+  latestSegmentOnly = false,
   maxAlternatives = 3,
   restartOnEnd = false,
   silenceStopMs,
@@ -187,6 +189,7 @@ export const useDutchSpeechRecognition = ({
       autoStopMs,
       continuous,
       interimResults,
+      latestSegmentOnly,
       maxAlternatives,
       onEnd: () => {
         const shouldBlockRestart =
@@ -236,6 +239,7 @@ export const useDutchSpeechRecognition = ({
     handleNoMatch,
     handleResult,
     interimResults,
+    latestSegmentOnly,
     maxAlternatives,
     restartOnEnd,
     silenceStopMs,

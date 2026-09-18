@@ -29,6 +29,12 @@ export const getDeviceConnectionInfo = (): DeviceConnectionInfo => {
     return { isCellular: false, isSaveData: false };
   }
 
+  const searchParams =
+    typeof window !== "undefined" && window.location
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const forceCellular = searchParams?.get("network") === "cellular";
+
   const nav = navigator as Navigator & {
     connection?: {
       effectiveType?: string;
@@ -39,11 +45,11 @@ export const getDeviceConnectionInfo = (): DeviceConnectionInfo => {
 
   const conn = nav.connection;
   if (!conn) {
-    return { isCellular: false, isSaveData: false };
+    return { isCellular: forceCellular, isSaveData: false };
   }
 
   const isSaveData = Boolean(conn.saveData);
-  const isCellular = conn.type === "cellular" || isSaveData;
+  const isCellular = forceCellular || conn.type === "cellular" || isSaveData;
 
   return { isCellular, isSaveData };
 };

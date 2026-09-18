@@ -3,7 +3,6 @@ import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
 import {
   BtnActionKlaar,
-  BtnAudioReplayPrompt,
   GameplayStatusBar,
   ObjectStickerButton,
   PanelCard,
@@ -35,7 +34,6 @@ export const WordChoiceScreen = ({
 }: WordChoiceScreenProps) => {
   const runtime = useGameRuntime();
   const {
-    activeAudioRepeats,
     activeInstructionIndex,
     advanceInstruction,
     answerOptions,
@@ -46,7 +44,6 @@ export const WordChoiceScreen = ({
     handleHint,
     instruction,
     isCompleted,
-    playQuestionAudio,
     recognizedWithHint,
     recognizedWithoutHelp,
     restartRound,
@@ -67,7 +64,6 @@ export const WordChoiceScreen = ({
   return (
     <div
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
-      data-active-audio-repeats={activeAudioRepeats}
       data-active-instruction-id={instruction.id}
       data-choice-count={instruction.choiceCount}
       data-difficult-words={difficultWords.join(",")}
@@ -78,9 +74,9 @@ export const WordChoiceScreen = ({
       data-unlocked-rewards={unlockedRewardIds.join(",")}
     >
       <TopHud
-        onAudioClick={() => playQuestionAudio()}
         onBackToMenu={onBackToMenu}
         onHintClick={handleHint}
+        showAudio={false}
         showParentBack
         starCount={wordStarValue}
       />
@@ -107,7 +103,6 @@ export const WordChoiceScreen = ({
             <p className="min-w-0 flex-1 text-sm font-black leading-tight text-slate-900">
               {instruction.prompt}
             </p>
-            <BtnAudioReplayPrompt onClick={() => playQuestionAudio()} />
           </div>
           {feedback ? (
             <div

@@ -1,6 +1,6 @@
 import { CheckCircle2, Mic, Sparkles } from "lucide-react";
 import { voiceSideScrollerMascotStateUrls } from "../../asset-urls";
-import { PanelCard } from "../../components/ui";
+import { MicWaveBars, PanelCard } from "../../components/ui";
 import type { VoiceSideScrollerWordRecognitionState } from "./useVoiceSideScrollerWordRecognition";
 import type {
   VoiceSideScrollerGameplayFeedback,
@@ -19,7 +19,7 @@ const getStatusText = (status: VoiceSideScrollerStatus) => {
   }
 
   if (status === "game-over") {
-    return "Game over";
+    return "Goed gevlogen!";
   }
 
   return "Zeg & Vlieg";
@@ -69,7 +69,7 @@ const getSubText = (
   recognition: VoiceSideScrollerWordRecognitionState,
 ) => {
   if (status === "game-over") {
-    return gameplayFeedback?.message ?? "Raak geen obstakels. Probeer opnieuw.";
+    return gameplayFeedback?.message ?? "Leuk gevlogen! Probeer je record te verbeteren.";
   }
 
   if (status === "running" && gameplayFeedback) {
@@ -90,7 +90,7 @@ export const VoiceSideScrollerStatusPanel = ({
 }: VoiceSideScrollerStatusPanelProps) => (
   <PanelCard
     aria-label="Actieve opdracht"
-    className="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)] items-center gap-3 !rounded-[1.35rem] !p-3"
+    className="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 !rounded-[1.35rem] !p-3"
     data-component="VoiceSideScrollerStatusPanel"
     data-recognition-status={recognition.status}
     data-testid="voice-side-scroller-status-panel"
@@ -108,6 +108,19 @@ export const VoiceSideScrollerStatusPanel = ({
         {getSubText(gameplayFeedback, status, recognition)}
       </p>
     </div>
+    {/* Audio-reactieve wave (T-27/T-32): laat zien dat de microfoon écht
+        meeluistert. Blijft de hele ronde gemonteerd (afhankelijk van de
+        game-status, niet de snel wisselende herkenning-substatus), zodat de
+        mic-stream niet steeds opnieuw wordt geopend. */}
+    {status === "running" ? (
+      <div
+        className="grid h-12 place-items-center rounded-2xl border-2 border-sky-200 bg-sky-50/80 px-3"
+        data-slot="voice-side-scroller-wave"
+        data-testid="voice-side-scroller-wave"
+      >
+        <MicWaveBars barClassName="bg-sky-500" />
+      </div>
+    ) : null}
   </PanelCard>
 );
 

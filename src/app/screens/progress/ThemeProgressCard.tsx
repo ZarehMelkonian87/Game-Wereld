@@ -42,6 +42,35 @@ export const ThemeProgressCard = ({
         <SkillProgressRow animationDelay={index * 0.1} key={skill.name} skill={skill} />
       ))}
     </div>
+
+    {themeData.categoryBreakdown.length > 0 ? (
+      <div className="mb-5 sm:mb-6" data-component="ThemeCategoryBreakdown">
+        <h3 className="mb-3 text-sm font-black uppercase tracking-wide text-cyan-300">
+          Per categorie
+        </h3>
+        <div className="space-y-3 sm:space-y-4">
+          {themeData.categoryBreakdown.map((skill) => (
+            <SkillProgressRow animationDelay={index * 0.1} key={skill.name} skill={skill} />
+          ))}
+        </div>
+      </div>
+    ) : null}
+
+    {themeData.tempo ? (
+      <div
+        className="mb-4 flex items-center justify-between gap-3 rounded-xl border-2 border-slate-600 bg-slate-900/40 px-3 py-2"
+        data-component="ThemeTempoInsight"
+      >
+        <span className="text-sm font-bold text-white">Gemiddeld tempo per opdracht</span>
+        <span className="whitespace-nowrap text-sm font-black text-cyan-300">
+          {themeData.tempo.averageSeconds.toLocaleString("nl-NL")} s
+          <span className="ml-1 text-xs font-semibold text-slate-400">
+            ({themeData.tempo.measuredResponses} gemeten)
+          </span>
+        </span>
+      </div>
+    ) : null}
+
     <p className="mb-4 text-sm text-slate-300">
       Gebaseerd op {themeData.evidence.eventCount} oefenpogingen met rekenregel versie{" "}
       {themeData.evidence.projectorVersion}.

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getBeachObjectStickerUrl } from "../asset-urls";
 import { ObjectStickerButton } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
+import { getNextRewardGoal, readProfileTotals } from "../logic/rewards";
 import { supportedSceneBuilderConcepts } from "../logic/scene-zones";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { useGameRuntime } from "../runtime/GameRuntimeContext";
@@ -15,12 +16,16 @@ import { useSceneBuilderState } from "./scene-builder/hooks/useSceneBuilderState
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
+import { SceneBuilderRoundSummary } from "./scene-builder/components/SceneBuilderRoundSummary";
+import { SpeechRetryPanel } from "./scene-builder/components/SpeechRetryPanel";
+import { SpeechWaveAnimation } from "./scene-builder/components/SpeechWaveAnimation";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 interface SceneBuilderScreenProps {
   instructionText?: string;
   instructions: readonly SceneBuilderInstruction[];
   objects: readonly SceneObject[];
   onBackToMenu: () => void;
+  onPlayAgain?: () => void;
   showTrayLabels?: boolean;
   showZoneDevTools?: boolean;
   spokenCommandPreviewText?: string | null;
@@ -42,6 +47,7 @@ export const SceneBuilderScreen = ({
   instructionText,
   objects,
   onBackToMenu,
+  onPlayAgain,
   showTrayLabels = false,
   showZoneDevTools = false,
   spokenCommandPreviewText,
@@ -51,7 +57,12 @@ export const SceneBuilderScreen = ({
   const sceneAreaRef = useRef<HTMLElement>(null);
   const state = useSceneBuilderState({ instructions, instructionText, objects, zones });
   const trayObjects = useMemo(() => getTrayObjects(objects), [objects]);
+  // T-34: vriendelijke feedback wanneer de spraakherkenning een fout geeft
+  // (onverstaanbaar, andere taal, geen match). We tonen dan een herkansings-
+  // paneel op de plek van de wave, zodat de mic-feedback nooit zomaar verdwijnt.
+  const [voiceRecognitionError, setVoiceRecognitionError] = useState<string>();
   const {
+    advanceInstruction,
     activeAudioRepeats,
     activeHintsUsed,
     appliedSpokenCommandPreviewText,
@@ -66,6 +77,7 @@ export const SceneBuilderScreen = ({
     isHintVideoPlaying,
     pendingPlacement,
     placedObjects,
+    resetSceneBuilderRound,
     rewardProfileId,
     sceneComplete,
     sceneCompletionSummary,
@@ -80,6 +92,7 @@ export const SceneBuilderScreen = ({
     showTargetZoneHint,
     spokenCommandResult,
     spokenHintZoneId,
+    startVoiceRecognitionRef,
     stopVoiceRecognitionRef,
     targetZone,
     targetObject,
@@ -134,12 +147,52 @@ export const SceneBuilderScreen = ({
     setAppliedSpokenCommandPreviewText,
     spokenCommandPreviewText,
   ]);
-  const actionLabel =
-    sceneComplete && feedback?.kind === "correct"
-      ? "Opnieuw"
-      : feedback?.kind === "correct"
-        ? "Volgende"
-        : "Klaar";
+  // T-35: geen "Klaar"-knop meer tijdens het spelen — de plaatsing wordt
+  // automatisch bevestigd en bij een goed antwoord gaat het spel vanzelf door.
+  // Stabiele refs zodat de effecten niet bij elke render opnieuw draaien.
+  const handleConfirmRef = useRef(handleConfirm);
+  handleConfirmRef.current = handleConfirm;
+  const advanceInstructionRef = useRef(advanceInstruction);
+  advanceInstructionRef.current = advanceInstruction;
+
+  // Auto-bevestig: zodra er een plaatsing is gemaakt (tap/sleep/toetsenbord/
+  // spraak) evalueren we die meteen — geen Klaar-knop nodig.
+  useEffect(() => {
+    if (pendingPlacement && feedback?.kind === "ready") {
+      handleConfirmRef.current();
+    }
+  }, [pendingPlacement, feedback]);
+
+  // Auto-doorgaan: na een goed antwoord kort de viering tonen en dan vanzelf
+  // naar de volgende opdracht. Bij de laatste opdracht laat advanceInstruction
+  // de scène op "compleet" springen (dan verschijnt de afronding).
+  useEffect(() => {
+    if (feedback?.kind !== "correct" || sceneComplete) {
+      return undefined;
+    }
+    const timer = window.setTimeout(() => {
+      advanceInstructionRef.current();
+    }, 1600);
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [feedback, sceneComplete]);
+
+  const actionLabel = "Opnieuw";
+
+  // T-03: gegevens voor het ronde-eindscherm — de cumulatieve sterren en het
+  // eerstvolgende beloningsdoel geven het kind een reden om door te spelen.
+  const roundSummaryReward = useMemo(() => {
+    if (!sceneComplete) {
+      return { nextReward: undefined, totalWordStars: 0 };
+    }
+
+    return {
+      nextReward: getNextRewardGoal(unlockedRewardIds),
+      totalWordStars: readProfileTotals(rewardProfileId, runtime.storage).wordStars,
+    };
+  }, [rewardProfileId, runtime.storage, sceneComplete, unlockedRewardIds]);
+
   return (
     <div
       className="absolute inset-0 z-10 overflow-hidden"
@@ -203,17 +256,22 @@ export const SceneBuilderScreen = ({
           onBackToMenu={onBackToMenu}
           onHint={handleHint}
           onHintPointerDown={playPreparedHintVideo}
+          showAction={false}
           starCount={wordStarValue}
         />
 
         <CompactInstructionCard
           actionControls={
             <SpokenCommandControls
+              bindStartListening={(startFn) => {
+                startVoiceRecognitionRef.current = startFn;
+              }}
               bindStopListening={(stopFn) => {
                 stopVoiceRecognitionRef.current = stopFn;
               }}
               exampleText={instruction.prompt}
               onTranscript={applySpokenCommandTranscript}
+              onVoiceErrorChange={setVoiceRecognitionError}
               onVoiceStatusChange={setVoiceRecognitionStatus}
               onVoiceTranscriptChange={setVoiceRecognitionTranscript}
               profileId={rewardProfileId}
@@ -230,6 +288,11 @@ export const SceneBuilderScreen = ({
                 onPlaybackStart={handleInstructionVideoPlaybackStart}
                 onPlayRequest={handleInstructionVideoRequest}
                 src={currentInstructionVideoUrl}
+                suspended={
+                  voiceRecognitionStatus === "listening" ||
+                  voiceRecognitionStatus === "processing" ||
+                  voiceRecognitionStatus === "heard"
+                }
               />
             ) : undefined
           }
@@ -275,6 +338,35 @@ export const SceneBuilderScreen = ({
           spokenCommandResult={spokenCommandResult}
         />
       </div>
+
+      {(voiceRecognitionStatus === "listening" ||
+        voiceRecognitionStatus === "processing" ||
+        voiceRecognitionStatus === "heard") && (
+        <SpeechWaveAnimation transcript={voiceRecognitionTranscript} />
+      )}
+
+      {voiceRecognitionStatus === "error" && (
+        <SpeechRetryPanel
+          message={voiceRecognitionError}
+          onRetry={() => {
+            setVoiceRecognitionError(undefined);
+            startVoiceRecognitionRef.current();
+          }}
+        />
+      )}
+
+      {sceneComplete && sceneCompletionSummary ? (
+        <SceneBuilderRoundSummary
+          nextReward={roundSummaryReward.nextReward}
+          objects={objects}
+          onBackToMenu={onBackToMenu}
+          // Opnieuw start een nieuwe, opnieuw geschudde ronde (T-29). Zonder
+          // onPlayAgain valt het terug op een lokale herstart (zelfde volgorde).
+          onRestart={onPlayAgain ?? resetSceneBuilderRound}
+          summary={sceneCompletionSummary}
+          totalWordStars={roundSummaryReward.totalWordStars}
+        />
+      ) : null}
 
       {dragState ? (
         <div

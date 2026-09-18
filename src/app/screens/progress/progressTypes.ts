@@ -6,6 +6,7 @@ export interface SkillProgress {
 }
 
 export interface ThemeProgress {
+  categoryBreakdown: SkillProgress[];
   evidence: {
     eventCount: number;
     projectorVersion: number;
@@ -15,6 +16,10 @@ export interface ThemeProgress {
     strengths: string[];
   };
   skills: SkillProgress[];
+  tempo?: {
+    averageSeconds: number;
+    measuredResponses: number;
+  };
   themeId: string;
 }
 

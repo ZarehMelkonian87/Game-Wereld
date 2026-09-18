@@ -111,11 +111,14 @@ export const generateAssetManifest = ({
   });
   const outputDirectory = path.join(distDirectory, "offline");
   fs.mkdirSync(outputDirectory, { recursive: true });
-  const outputPath = path.join(
-    outputDirectory,
-    `${packageSource.id}-v${packageSource.version}.json`,
-  );
-  fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`);
+  const fileName = `${packageSource.id}-v${packageSource.version}.json`;
+  const outputPath = path.join(outputDirectory, fileName);
+  const manifestJson = `${JSON.stringify(manifest, null, 2)}\n`;
+  fs.writeFileSync(outputPath, manifestJson);
+
+  const publicDirectory = path.resolve("public/offline");
+  fs.mkdirSync(publicDirectory, { recursive: true });
+  fs.writeFileSync(path.join(publicDirectory, fileName), manifestJson);
 
   const distIndexHtml = path.join(distDirectory, "index.html");
   const dist404Html = path.join(distDirectory, "404.html");
@@ -155,6 +158,7 @@ export const generateAssetManifests = () => {
   const packageSourcePaths = [
     "src/app/games/magisch-strand-avontuur/assets/offline-package.source.json",
     "src/app/games/rekenen-strand/assets/offline-package.source.json",
+    "src/app/games/groot-circus-avontuur/assets/offline-package.source.json",
   ];
   const results = packageSourcePaths.map((packageSourcePath) =>
     generateAssetManifest({ packageSourcePath: path.resolve(packageSourcePath) }),

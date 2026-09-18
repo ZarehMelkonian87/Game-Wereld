@@ -1,5 +1,4 @@
 export type GameScreenPreview =
-  | "dashboard"
   | "mode-select"
   | "reward"
   | "scene-builder"
@@ -7,7 +6,7 @@ export type GameScreenPreview =
   | "start"
   | "voice-side-scroller"
   | "word-choice"
-  | "world-select";
+  | "zeg-en-bouw";
 
 const getSearchParams = () => {
   if (typeof window === "undefined") {
@@ -53,24 +52,18 @@ export const getScreenPreview = (): GameScreenPreview => {
     return "reward";
   }
 
-  if (screen === "dashboard") {
-    return "dashboard";
-  }
-
   if (screen === "settings") {
     return "settings";
   }
 
-  if (screen === "mode-select" || screen === "menu") {
+  // `world-select` is samengevoegd met `mode-select` (GAP-14); de oude
+  // URL-waarde blijft werken en verwijst nu naar het gecombineerde scherm.
+  if (screen === "mode-select" || screen === "menu" || screen === "world-select") {
     return "mode-select";
   }
 
   if (screen === "start") {
     return "start";
-  }
-
-  if (screen === "world-select") {
-    return "world-select";
   }
 
   if (screen === "scene-builder" || screen === "listen-and-place") {

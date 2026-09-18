@@ -3,30 +3,36 @@ import { BtnTaskKeyboardToggle, VoiceCommandButton } from "../../components/ui";
 import { classNames } from "../../components/ui/classNames";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
 import { voicePrivacyCopy } from "../../logic/voice-privacy";
+import { sanitizeSpokenText } from "../../logic/word-safety";
 import { useSpokenCommandControlsState } from "./hooks/useSpokenCommandControlsState";
 import { TypedCommandFallback } from "./TypedCommandFallback";
 import { VoicePrivacyNotice } from "./VoicePrivacyNotice";
 
 interface SpokenCommandControlsProps {
+  bindStartListening?: (startFn: () => void) => void;
   bindStopListening?: (stopFn: () => void) => void;
   className?: string;
   exampleText: string;
   onTranscript: (transcript: string) => void;
+  onVoiceErrorChange?: (errorMessage: string | undefined) => void;
   onVoiceStatusChange?: (status: VoiceRecognitionStatus) => void;
   onVoiceTranscriptChange?: (transcript: string) => void;
   profileId?: string;
 }
 
 export const SpokenCommandControls = ({
+  bindStartListening,
   bindStopListening,
   className,
   exampleText,
   onTranscript,
+  onVoiceErrorChange,
   onVoiceStatusChange,
   onVoiceTranscriptChange,
   profileId = "demo-profile",
 }: SpokenCommandControlsProps) => {
   const {
+    errorMessage,
     handleAcceptPrivacy,
     handleStartListening,
     handleSubmitTypedCommand,
@@ -52,8 +58,22 @@ export const SpokenCommandControls = ({
   }, [bindStopListening, stopListening]);
 
   useEffect(() => {
-    onVoiceTranscriptChange?.(transcript ?? "");
+    bindStartListening?.(handleStartListening);
+  }, [bindStartListening, handleStartListening]);
+
+  useEffect(() => {
+    // Maskeer ongewenste woorden in de live-transcriptie zodat ze nooit op het
+    // scherm verschijnen (T-28).
+    onVoiceTranscriptChange?.(sanitizeSpokenText(transcript ?? ""));
   }, [onVoiceTranscriptChange, transcript]);
+
+  useEffect(() => {
+    // Meld een echte herkenningsfout (onverstaanbaar, geen match, andere taal)
+    // omhoog, behalve de microfoon-toestemmingsmelding — die heeft z'n eigen UI.
+    onVoiceErrorChange?.(
+      status === "error" && !hasMicrophonePermissionMessage ? errorMessage : undefined,
+    );
+  }, [errorMessage, hasMicrophonePermissionMessage, onVoiceErrorChange, status]);
 
   return (
     <div

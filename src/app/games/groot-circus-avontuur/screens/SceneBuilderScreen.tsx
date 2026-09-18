@@ -15,6 +15,7 @@ import { useSceneBuilderState } from "./scene-builder/hooks/useSceneBuilderState
 import { InstructionVideoButton } from "./scene-builder/InstructionVideoButton";
 import { ObjectCarousel } from "./scene-builder/ObjectCarousel";
 import { SceneBuilderTopBar } from "./scene-builder/SceneBuilderTopBar";
+import { SpeechWaveAnimation } from "./scene-builder/components/SpeechWaveAnimation";
 import { SpokenCommandControls } from "./scene-builder/SpokenCommandControls";
 interface SceneBuilderScreenProps {
   instructionText?: string;
@@ -275,6 +276,15 @@ export const SceneBuilderScreen = ({
           spokenCommandResult={spokenCommandResult}
         />
       </div>
+
+      {(voiceRecognitionStatus === "listening" ||
+        voiceRecognitionStatus === "processing" ||
+        voiceRecognitionStatus === "heard") && (
+        <SpeechWaveAnimation
+          onStop={stopVoiceRecognitionRef.current}
+          transcript={voiceRecognitionTranscript}
+        />
+      )}
 
       {dragState ? (
         <div

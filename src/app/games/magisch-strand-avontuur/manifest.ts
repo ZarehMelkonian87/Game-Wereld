@@ -1,6 +1,6 @@
 import { defineGameManifest } from "../../game-platform/contracts";
 
-const strandGameCardImageUrl = new URL("./assets/icons/worlds/world-beach.png", import.meta.url)
+const strandGameCardImageUrl = new URL("./assets/icons/worlds/world-beach.webp", import.meta.url)
   .href;
 
 export const magischStrandAvontuurManifest = defineGameManifest({

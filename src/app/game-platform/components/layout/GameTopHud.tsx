@@ -11,6 +11,7 @@ export interface GameTopHudProps {
   onHintClick?: () => void;
   onHintPointerDown?: () => void;
   rightSlot?: ReactNode;
+  showAudio?: boolean;
   showHint?: boolean;
   showParentBack?: boolean;
   starCount: number;
@@ -24,6 +25,7 @@ export const GameTopHud = ({
   onHintClick,
   onHintPointerDown,
   rightSlot,
+  showAudio = true,
   showHint = true,
   showParentBack = false,
   starCount,
@@ -54,13 +56,15 @@ export const GameTopHud = ({
               tone="white"
             />
           ) : null}
-          <GameIconButton
-            className="pointer-events-auto"
-            icon={<Volume2 className="h-5 w-5" strokeWidth={3} />}
-            label="Audio"
-            onClick={onAudioClick}
-            tone="blue"
-          />
+          {showAudio ? (
+            <GameIconButton
+              className="pointer-events-auto"
+              icon={<Volume2 className="h-5 w-5" strokeWidth={3} />}
+              label="Audio"
+              onClick={onAudioClick}
+              tone="blue"
+            />
+          ) : null}
         </div>
 
         <div className="flex justify-center" data-slot="center">

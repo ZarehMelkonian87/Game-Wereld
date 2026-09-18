@@ -52,8 +52,17 @@ export const useBezemEscapeGameController = () => {
     setSelectedWorldId(readSelectedWorldId(profileId, storage));
   }, [profileId, storage]);
 
+  const [previousScreen, setPreviousScreen] = useState<GameScreenPreview>("start");
+
   const setScreen = (screen: GameScreenPreview) => {
+    if (screenPreview !== "settings") {
+      setPreviousScreen(screenPreview);
+    }
     setScreenPreview(screen);
+  };
+
+  const backFromSettings = () => {
+    setScreenPreview(previousScreen === "settings" ? "start" : previousScreen);
   };
 
   const exitGame = () => {
@@ -113,6 +122,7 @@ export const useBezemEscapeGameController = () => {
 
   return {
     actions: {
+      backFromSettings,
       exitGame,
       openModeSelect,
       openSelectedWorld,

@@ -185,11 +185,67 @@ const readBestRecognitionResult = (
   };
 };
 
+const readLatestSegmentResult = (
+  event: BrowserSpeechRecognitionEvent,
+): VoiceRecognitionResult | null => {
+  // Lees alleen de segmenten vanaf `resultIndex` (het laatst gewijzigde deel),
+  // zodat eerder herkende woorden niet blijven meekomen bij een doorlopende
+  // sessie. Voorkomt dat een woord telkens opnieuw "gehoord" wordt (Zeg & Vlieg).
+  const fromIndex = Math.max(0, event.resultIndex ?? 0);
+  const transcriptSegments: string[] = [];
+  const allAlternatives: VoiceRecognitionAlternative[] = [];
+  let isAllFinal = true;
+  let totalConfidence = 0;
+  let count = 0;
+
+  for (let i = fromIndex; i < event.results.length; i++) {
+    const resultItem = event.results[i];
+    if (!resultItem || resultItem.length === 0) continue;
+    const segmentAlternatives = readRecognitionAlternatives(resultItem);
+    if (segmentAlternatives.length > 0) {
+      allAlternatives.push(...segmentAlternatives);
+    }
+    const bestAlt = resultItem[0];
+    if (bestAlt && bestAlt.transcript.trim()) {
+      transcriptSegments.push(bestAlt.transcript.trim());
+      totalConfidence += bestAlt.confidence || 0.8;
+      count++;
+    }
+    if (!resultItem.isFinal) {
+      isAllFinal = false;
+    }
+  }
+
+  const combinedTranscript = transcriptSegments.join(" ").trim();
+  if (!combinedTranscript) return null;
+
+  const averageConfidence = count > 0 ? totalConfidence / count : 0.8;
+  const seenTranscripts = new Set<string>();
+  const dedupedAlternatives: VoiceRecognitionAlternative[] = [];
+  const addAlternative = (alt: VoiceRecognitionAlternative) => {
+    const normalized = alt.transcript.trim();
+    if (!normalized || seenTranscripts.has(normalized)) return;
+    seenTranscripts.add(normalized);
+    dedupedAlternatives.push({ confidence: alt.confidence, transcript: normalized });
+  };
+  addAlternative({ confidence: averageConfidence, transcript: combinedTranscript });
+  allAlternatives.forEach(addAlternative);
+
+  return {
+    alternatives: dedupedAlternatives,
+    confidence: averageConfidence,
+    confidenceLabel: getConfidenceLabel(averageConfidence),
+    isFinal: isAllFinal,
+    transcript: combinedTranscript,
+  };
+};
+
 export const createBrowserSpeechRecognition = ({
   autoStopMs = 15000,
   continuous = false,
   interimResults = false,
   language = "nl-NL",
+  latestSegmentOnly = false,
   maxAlternatives = 3,
   onEnd,
   onError,
@@ -271,7 +327,9 @@ export const createBrowserSpeechRecognition = ({
     safeStop();
   };
   recognition.onresult = (event) => {
-    const result = readBestRecognitionResult(event);
+    const result = latestSegmentOnly
+      ? readLatestSegmentResult(event)
+      : readBestRecognitionResult(event);
     if (!result) {
       onNoMatch?.();
       return;

@@ -8,12 +8,14 @@ interface AdventureSelectContentProps {
   onSelectWorld: (world: WorldDefinition) => void;
   selectedModeId: BezemEscapeMode;
   selectedWorld: WorldDefinition;
+  totalWordStars: number;
   worlds: readonly WorldDefinition[];
 }
 
 export const AdventureSelectContent: DevtoolsComponent<AdventureSelectContentProps> = ({
   onSelectMode,
   selectedModeId,
+  totalWordStars,
 }: AdventureSelectContentProps) => (
   <div
     className="absolute bottom-[calc(env(safe-area-inset-bottom)+9.5rem)] left-3 right-3 top-[5.1rem] z-10 overflow-y-auto overflow-x-hidden overscroll-contain pr-0.5"
@@ -21,7 +23,11 @@ export const AdventureSelectContent: DevtoolsComponent<AdventureSelectContentPro
   >
     <div className="grid gap-2.5 pb-2" data-slot="content-stack">
       <AdventureSectionTitle>Kies spel</AdventureSectionTitle>
-      <CompactGameModeList onSelectMode={onSelectMode} selectedModeId={selectedModeId} />
+      <CompactGameModeList
+        onSelectMode={onSelectMode}
+        selectedModeId={selectedModeId}
+        totalWordStars={totalWordStars}
+      />
     </div>
   </div>
 );

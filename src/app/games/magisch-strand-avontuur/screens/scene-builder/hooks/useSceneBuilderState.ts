@@ -54,6 +54,7 @@ export const useSceneBuilderState = ({
   const [voiceRecognitionStatus, setVoiceRecognitionStatus] = useState<string>("idle");
   const [voiceRecognitionTranscript, setVoiceRecognitionTranscript] = useState<string>("");
   const stopVoiceRecognitionRef = useRef<() => void>(() => undefined);
+  const startVoiceRecognitionRef = useRef<() => void>(() => undefined);
   const [zoneOverrideVersion, setZoneOverrideVersion] = useState(0);
   const [spokenHintZoneId, setSpokenHintZoneId] = useState<string | null>(null);
   const [highlightedObjectId, setHighlightedObjectId] = useState<string | null>(null);
@@ -97,6 +98,23 @@ export const useSceneBuilderState = ({
       }
     };
   }, []);
+  // Als de opdrachtenset wijzigt (nieuwe ronde-seed → nieuwe volgorde, T-29),
+  // begint de scène fris bij de eerste opdracht met een lege plaat.
+  useEffect(() => {
+    setActiveInstructionIndex(0);
+    setSelectedObjectId(null);
+    setSelectedZoneId(null);
+    setPendingPlacement(null);
+    setPlacedObjects([]);
+    setSceneComplete(false);
+    setSceneCompletionSummary(null);
+    setFeedback(null);
+    setShowTargetZoneHint(false);
+    setIsHintVideoPlaying(false);
+    setSpokenHintZoneId(null);
+    setHighlightedObjectId(null);
+    setSpokenCommandResult(null);
+  }, [instructions]);
   const instruction = instructions[activeInstructionIndex] ?? instructions[0];
   const currentInstructionText = instructionText ?? instruction.prompt;
   const currentInstructionVideoUrl = getInstructionVideoUrl(instruction.id);
@@ -224,6 +242,7 @@ export const useSceneBuilderState = ({
     spokenCommandResult,
     spokenHelpByInstruction,
     spokenHintZoneId,
+    startVoiceRecognitionRef,
     stopVoiceRecognitionRef,
     suppressNextClickRef,
     targetObject,

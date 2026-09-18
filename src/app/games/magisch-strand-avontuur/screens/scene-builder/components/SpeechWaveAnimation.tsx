@@ -1,4 +1,5 @@
 import { Check, Mic } from "lucide-react";
+import { MicWaveBars } from "../../../components/ui/MicWaveBars";
 
 interface SpeechWaveAnimationProps {
   onStop?: () => void;
@@ -10,18 +11,8 @@ export const SpeechWaveAnimation = ({ onStop, transcript }: SpeechWaveAnimationP
 
   return (
     <>
-      <style>{`
-        @keyframes speechWave {
-          0%, 100% { transform: scaleY(0.35); }
-          50% { transform: scaleY(1.3); }
-        }
-        .speech-bar {
-          animation: speechWave 0.75s infinite ease-in-out;
-          transform-origin: center;
-        }
-      `}</style>
       <div
-        className="pointer-events-auto absolute top-[calc(clamp(8rem,18dvh,10rem)+env(safe-area-inset-top,0px))] landscape:top-[calc(clamp(5.5rem,14dvh,6.75rem)+env(safe-area-inset-top,0px))] left-1/2 z-40 flex w-[92vw] max-w-md -translate-x-1/2 items-center gap-3 rounded-3xl border-2 border-white/80 bg-gradient-to-r from-sky-600/95 via-sky-500/95 to-indigo-600/95 px-4 py-3 shadow-2xl backdrop-blur-md transition-all duration-200"
+        className="pointer-events-auto fixed top-[calc(clamp(8.5rem,19dvh,10.5rem)+env(safe-area-inset-top,0px))] landscape:top-[calc(clamp(5.5rem,14dvh,6.75rem)+env(safe-area-inset-top,0px))] left-1/2 z-50 flex w-[92vw] max-w-md -translate-x-1/2 items-center gap-3 rounded-3xl border-2 border-white/80 bg-gradient-to-r from-sky-600/95 via-sky-500/95 to-indigo-600/95 px-4 py-3 shadow-2xl backdrop-blur-md transition-all duration-200"
         data-slot="speech-wave-animation"
       >
         <div className="flex shrink-0 items-center justify-center rounded-2xl bg-white/20 p-2 text-white shadow-inner">
@@ -33,31 +24,14 @@ export const SpeechWaveAnimation = ({ onStop, transcript }: SpeechWaveAnimationP
             <span className="truncate text-xs font-black tracking-wide text-white uppercase drop-shadow-sm">
               {hasSpokenWords ? "Ik hoor je:" : "Ik luister..."}
             </span>
-            <div className="flex h-5 w-10 items-center gap-0.5">
-              <div
-                className="speech-bar h-3.5 w-1 rounded-full bg-cyan-200"
-                style={{ animationDelay: "0.05s" }}
-              />
-              <div
-                className="speech-bar h-5 w-1 rounded-full bg-white"
-                style={{ animationDelay: "0.2s" }}
-              />
-              <div
-                className="speech-bar h-4 w-1 rounded-full bg-cyan-100"
-                style={{ animationDelay: "0.35s" }}
-              />
-              <div
-                className="speech-bar h-5 w-1 rounded-full bg-white"
-                style={{ animationDelay: "0.15s" }}
-              />
-              <div
-                className="speech-bar h-3 w-1 rounded-full bg-cyan-300"
-                style={{ animationDelay: "0.3s" }}
-              />
-            </div>
+            {/* Audio-reactieve wave: beweegt mee met de echte stem (T-27). */}
+            <MicWaveBars barClassName="bg-white" className="h-5" />
           </div>
 
-          <p className="line-clamp-2 text-sm font-black text-amber-200 drop-shadow-sm">
+          <p
+            className="line-clamp-2 text-sm font-black text-amber-200 drop-shadow-sm"
+            data-slot="speech-transcript"
+          >
             {hasSpokenWords ? `"${transcript}"` : "Neem rustig de tijd om je zin te zeggen."}
           </p>
         </div>

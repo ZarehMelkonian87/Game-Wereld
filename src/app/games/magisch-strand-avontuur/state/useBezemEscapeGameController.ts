@@ -52,8 +52,17 @@ export const useBezemEscapeGameController = () => {
     setSelectedWorldId(readSelectedWorldId(profileId, storage));
   }, [profileId, storage]);
 
+  const [previousScreen, setPreviousScreen] = useState<GameScreenPreview>("start");
+
   const setScreen = (screen: GameScreenPreview) => {
+    if (screenPreview !== "settings") {
+      setPreviousScreen(screenPreview);
+    }
     setScreenPreview(screen);
+  };
+
+  const backFromSettings = () => {
+    setScreenPreview(previousScreen === "settings" ? "start" : previousScreen);
   };
 
   const exitGame = () => {
@@ -67,16 +76,6 @@ export const useBezemEscapeGameController = () => {
 
   const openModeSelect = () => {
     saveSelectedWorldId(profileId, selectedWorld.id, storage);
-    setScreenPreview("mode-select");
-  };
-
-  const openSelectedWorld = () => {
-    if (selectedWorld.status !== "open") {
-      return;
-    }
-
-    const storedWorldId = saveSelectedWorldId(profileId, selectedWorld.id, storage);
-    setSelectedWorldId(storedWorldId);
     setScreenPreview("mode-select");
   };
 
@@ -108,14 +107,19 @@ export const useBezemEscapeGameController = () => {
       return;
     }
 
+    if (modeId === "zeg-en-bouw") {
+      setScreenPreview("zeg-en-bouw");
+      return;
+    }
+
     setScreenPreview("scene-builder");
   };
 
   return {
     actions: {
+      backFromSettings,
       exitGame,
       openModeSelect,
-      openSelectedWorld,
       resetRound,
       selectWorld,
       setScreen,

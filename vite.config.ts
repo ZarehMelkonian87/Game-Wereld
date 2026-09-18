@@ -1,11 +1,47 @@
-import { defineConfig } from "vite";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 import { VitePWA } from "vite-plugin-pwa";
 
-const figmaAssetResolver = () => {
+const devDistAssetsPlugin = (): Plugin => ({
+  name: "dev-dist-assets",
+  configureServer: (server) => {
+    server.middlewares.use((req, res, next) => {
+      const url = req.url ? req.url.split("?")[0] : "";
+      if (url.startsWith("/assets/")) {
+        const fileName = path.basename(url);
+        const filePath = path.resolve(__dirname, "dist/assets", fileName);
+        if (fs.existsSync(filePath)) {
+          const stat = fs.statSync(filePath);
+          const ext = path.extname(filePath).toLowerCase();
+          const mimeTypes: Record<string, string> = {
+            ".css": "text/css",
+            ".js": "text/javascript",
+            ".json": "application/json",
+            ".mp3": "audio/mpeg",
+            ".mp4": "video/mp4",
+            ".png": "image/png",
+            ".svg": "image/svg+xml",
+            ".webp": "image/webp",
+          };
+          res.writeHead(200, {
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "no-cache",
+            "Content-Length": stat.size,
+            "Content-Type": mimeTypes[ext] || "application/octet-stream",
+          });
+          return fs.createReadStream(filePath).pipe(res);
+        }
+      }
+      next();
+    });
+  },
+});
+
+const figmaAssetResolver = (): Plugin => {
   return {
     name: "figma-asset-resolver",
     resolveId: (id) => {
@@ -36,6 +72,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    devDistAssetsPlugin(),
     react(),
     figmaAssetResolver(),
     tailwindcss(),
