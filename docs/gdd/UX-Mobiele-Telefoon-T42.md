@@ -11,7 +11,7 @@
 | **Platform** | Mobiele telefoon (geïnstalleerde PWA én browser) |
 | **Documentversie** | `1.0` |
 | **Laatst bijgewerkt** | 2026-09-17 |
-| **Status** | 🟢 Ontworpen — ter goedkeuring vóór `T-43` |
+| **Status** | 🟢 Goedgekeurd & geïmplementeerd (`T-43` afgerond) |
 | **Bouwt op** | `T-38` (platformdetectie), `T-39` (gate-architectuur, §13.5) |
 
 ---
