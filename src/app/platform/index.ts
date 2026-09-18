@@ -21,3 +21,6 @@ export {
   useGameDownloadGate,
   type GameDownloadGateController,
 } from "./useGameDownloadGate";
+export { PortraitGuard } from "./PortraitGuard";
+export { shouldShowPortraitGuard, tryLockPortrait } from "./portraitGuardLogic";
+export { useIsLandscape } from "./useOrientation";

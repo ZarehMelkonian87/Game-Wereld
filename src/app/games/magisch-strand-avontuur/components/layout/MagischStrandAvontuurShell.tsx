@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { GameShell } from "../../../../game-platform";
+import { PortraitGuard } from "../../../../platform";
 import { useReducedMotionSetting } from "../../logic/useReducedMotionSetting";
 import type { GameWorld } from "../../types";
 import { GameBackgroundMusic } from "../audio/GameBackgroundMusic";
@@ -35,6 +36,8 @@ export const MagischStrandAvontuurShell = ({
       >
         <GameBackgroundMusic />
         {children}
+        {/* Nooit liggend op mobiel (T-42): overlay + best-effort orientatie-lock. */}
+        <PortraitGuard />
       </div>
     </GameShell>
   );
