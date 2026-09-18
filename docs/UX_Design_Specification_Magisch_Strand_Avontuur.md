@@ -13,7 +13,7 @@
 - **Auteur:** Senior Game UX/UI Designer & Technical Product Owner
 - **Aantal Schermen:** 9 Unieke Schermen & Modals (Menu's, Modals, Gameplay, Overlays)
 - **Doelgroep:** Game Developers, UI/UX Designers, Edu-Tech Content Creators, QA Testers
-- **Bestandsloctie (.docx):** [UX_Design_Specification_Magisch_Strand_Avontuur.docx](file:///Users/melkonian/git/Game-Wereld/docs/UX_Design_Specification_Magisch_Strand_Avontuur.docx)
+- **Bestandstype:** Markdown specificatie (versiebeheerd)
 
 ---
 

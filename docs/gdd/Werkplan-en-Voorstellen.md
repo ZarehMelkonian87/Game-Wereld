@@ -1,6 +1,7 @@
 # 🛠️ Werkplan & Voorstellen — Magisch Strand-Avontuur
 
-> Werkdocument dat **alle open punten** uit de review van 2026-09-13 verzamelt, met per punt: het probleem, mijn voorstel(len) + aanbeveling, **wat jij moet beslissen**, de afhankelijkheden en de gekoppelde taken. Dit is de plek waar we samen de ideeën uitwerken vóórdat we implementeren. Zodra een punt is besloten, verhuist het naar de takenlijst (GDD-index sectie 12) en werken we de GDD bij.
+> **STATUS: VOLTOOID & GEARCHIVEERD (2026-09-18)**  
+> Dit werkdocument verzamelde de open reviewpunten van 2026-09-13. **Alle daarin voorgestelde taken (`T-01`, `T-19` t/m `T-33`) zijn 100% geïmplementeerd, geverifieerd en opgenomen in de canonieke [GDD-index](GDD-index.md).** Dit document wordt bewaard als historisch besluitvormingsverslag.
 
 **Legenda werkwijze:** 🟩 klaar om te doen (oorzaak bekend) · 🟨 keuze nodig van jou · 🟦 samen ontwerpen · 🔬 eerst onderzoeken.
 

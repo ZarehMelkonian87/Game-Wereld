@@ -1,6 +1,6 @@
 # 📱 UX-Design — Mobiele Telefoon (`T-42`)
 
-> Onderdeel van het multiplatform-initiatief ([GDD-index §13](GDD-index.md#13-multiplatform-ondersteuning--download-gating-initiatief)). Dit document is het **implementatiecontract** voor `T-43` (bouw). Visueel wireframe: [`wirframe/WIREFRAME_MOBIEL_MAGISCH_STRAND_AVONTUUR.html`](../../wirframe/WIREFRAME_MOBIEL_MAGISCH_STRAND_AVONTUUR.html).
+> Onderdeel van het multiplatform-initiatief ([GDD-index §13](GDD-index.md#13-multiplatform-ondersteuning--download-gating-initiatief)). Dit document is het **implementatiecontract** voor `T-43` en `T-46`. De daarin gedefinieerde flows zijn geïmplementeerd in de productiecomponenten `GameCardDownloadButton`, `DownloadGateModal` en `ConfirmDeleteModal`.
 
 ---
 
