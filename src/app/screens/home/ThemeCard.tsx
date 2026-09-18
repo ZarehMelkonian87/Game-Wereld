@@ -23,6 +23,7 @@ export const ThemeCard = ({ index, onSelect, theme, profile }: ThemeCardProps) =
       animate={{ opacity: 1, y: 0 }}
       className={`game-card-3d bg-gradient-to-br ${theme.color} p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border-3 sm:border-4 border-white/20 min-h-[160px] sm:min-h-[180px] md:min-h-[200px] flex flex-col items-center justify-center text-white relative overflow-hidden`}
       data-component="ThemeCard"
+      data-theme-id={theme.id}
       initial={{ opacity: 0, y: 20 }}
       onClick={() => onSelect(theme.id)}
       transition={{ delay: index * 0.05 }}

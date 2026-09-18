@@ -53,35 +53,36 @@ De download wordt beheerd **in de spellenlijst**, geïntegreerd in de rechterzij
 
 | # | Toestand | Weergave op de kaart |
 | :-- | :--- | :--- |
-| 1 | **Niet gedownload** | Downloadknop met grootte: **📥 36 MB** |
-| 2 | **Bezig (achtergrond)** | Voortgangsring/percentage op de plek van de knop |
-| 3 | **Klaar** | **Knop verdwijnt volledig** → direct ▶️ Speel |
-| 4 | **Update beschikbaar** | Knop keert terug als **🔄 Update**-indicator |
+| 1 | **Niet gedownload** | Downloadknop met grootte: **📥 37 MB** (spelen niet mogelijk) |
+| 2 | **Bezig (achtergrond)** | Geanimeerde voortgangsring met percentage (`⏳ 42%`) |
+| 3 | **Gedownload & Speelbaar** | Downloadknop verandert in **🗑️ Verwijder**-optie; aantikken van de kaart start direct het spel |
+| 4 | **Update beschikbaar** | Knop toont **🔄 Update**-indicator om nieuwste servercontent op te halen |
 
 Verder: spelicoon vergroot naar **70×70 px** met badge; kaart compacter zodat er meer spellen zonder scrollen passen.
 
 ### 2.3 Downloadscherm — toestanden
 
-Alle toestanden tonen: titel, *"Eenmalige Offline Download"*, fase-aanduiding, voortgangsbalk met %, bestanden/MB, netwerk + snelheid, en onderaan de **Play-knop**.
+Alle toestanden tonen: titel, *"Eenmalige Offline Download"*, fase-aanduiding, compacte weergave met zijmarges op mobiel, en onderaan de actieknoppen.
 
-| Toestand | Inhoud | Play-knop |
+| Toestand | Inhoud | Acties |
 | :--- | :--- | :--: |
-| **Bezig** | "Strandbestanden Opslaan…" · *Fase 2 van 3: 42 van 81 bestanden (18 MB / 36 MB)* · 52% · WiFi • 4.2 MB/s | 🔒 **"Speel Nu (Pas na 100% download)"** — uitgeschakeld |
-| **Klaar** | "Download Voltooid!" · *100% Opgeslagen • Direct offline speelbaar* | ✅ **"Klaar! Start Avontuur"** — groen, actief |
-| **Fout (netwerk)** | "Download Gepauzeerd" · ⚠️ *Geen internetverbinding gevonden. Controleer verbinding.* · voortgang blijft behouden | 🔒 uitgeschakeld + **🔄 "Opnieuw Proberen"** |
-| **Fout (opslag)** 🆕 | ⚠️ *Er is te weinig ruimte op dit toestel. Maak ~X MB vrij en probeer opnieuw.* (toont benodigd vs. beschikbaar) | 🔒 uitgeschakeld + **🔄 "Opnieuw Proberen"** |
-| **Mobiele data** 🆕 | ⚠️ *Je gebruikt mobiele data. Deze download is ongeveer 36 MB.* | **"Toch downloaden"** + **"Wacht op wifi"** |
-| **Groot pakket** | Bewuste bevestiging boven **50 MB** (bestaande drempel) met grootte + vrije ruimte | **"Ja, downloaden"** |
+| **Bezig** | "Fase 2 van 3: Bestanden opslaan…" · voortgangsbalk met % · MB's · netwerk actief | 🔒 **"Speel Nu (Pas na 100% download)"** — uitgeschakeld |
+| **Klaar** | "Download Voltooid!" · *100% Opgeslagen • Direct offline speelbaar* | ✅ **"Klaar! Start Avontuur"** + link *Gamebestanden van apparaat verwijderen* |
+| **Fout** | "Download kon niet worden voltooid" · toelichting van de fout · herstelbaar | 🔄 **"Opnieuw Proberen"** |
+| **Fout (opslag)** | "Te weinig opslagruimte" · *Er is te weinig vrije opslag op dit toestel.* | 🔄 **"Opnieuw Proberen"** |
+| **Mobiele data (4G/5G)** | "Mobiele data (4G/5G)" · *Je gebruikt een mobiele dataverbinding. Download is ~X MB.* | **[⬇️ Toch downloaden]** (geen blokkade) + **[Wacht op wifi]** |
+| **Groot pakket** | Bewuste bevestiging boven **50 MB** met grootte + vrije ruimte | **"Start Download"** + **"Later"** |
 
-Vaste voetnoot bij elke toestand: *"Na deze download hoef je **nooit meer opnieuw** te downloaden, behalve bij een nieuwe app-update."*
+Vaste voetnoot bij downloaden: *"Na deze download hoef je **nooit meer opnieuw** te downloaden, behalve bij een nieuwe app-update."*
 
 ### 2.4 Besloten gedrag
 
 | Onderwerp | Keuze |
 | :--- | :--- |
-| **Mobiele data (4G/5G)** | **Waarschuwen + bevestigen** vóór de download. Op wifi start de download direct. |
+| **Mobiele data (4G/5G)** | **Waarschuwen + bevestigen** vóór de download (`Toch downloaden` vs. `Wacht op wifi`). Geen blokkade: de speler kan altijd bewust kiezen om via 4G/5G te downloaden. Op wifi start de download direct. |
+| **Verwijderen van gamebestanden** | Bij klikken op `[🗑️ Verwijder]` (op kaart of in modal) opent een gestijlde **in-app ConfirmDeleteModal** (*"Spel verwijderen? De bestanden (~37 MB) worden gewist"*). Bevestigen wist de cache en zet de kaart terug naar `[📥 37 MB]`. |
 | **Scherm sluiten (×) tijdens download** | **Download gaat door op de achtergrond**; de voortgang blijft zichtbaar op de game-kaart (ring/percentage). Het kind kan ondertussen rondkijken. |
-| **Spelen tijdens download** | Niet mogelijk voor deze game — Play blijft vergrendeld tot 100%. Andere (al gedownloade) games blijven speelbaar. |
+| **Spelen tijdens download** | Niet mogelijk voor deze game — kaart en Play blijven vergrendeld tot 100%. Andere (al gedownloade) games blijven speelbaar. |
 | **Web (desktop)** | Ongewijzigd: streaming, geen gate. |
 
 ### 2.5 Koppeling met de gate-architectuur (`T-39`)
@@ -121,14 +122,16 @@ De moduskaarten volgen de leerlijn uit de game (`T-04`/`T-31`) — **de game is 
 
 ---
 
-## 4. Acceptatiecriteria voor `T-43` (bouw)
+## 4. Acceptatiecriteria voor `T-43` & `T-46` (bouw)
 
-1. Op een telefoon is de game **niet speelbaar** vóór 100% download; de Play-knop is aantoonbaar vergrendeld.
-2. Na 100% verdwijnt de downloadknop en start het spel met één tik.
-3. Alle zes downloadscherm-toestanden (§2.3) zijn bereikbaar en kindvriendelijk geformuleerd.
-4. Sluiten tijdens downloaden laat de download doorlopen; de kaart toont de voortgang.
-5. Op 4G/5G verschijnt eerst de databevestiging; op wifi niet.
-6. Draaien naar liggend toont de screen guard; gameplay pauzeert.
-7. Safe areas gerespecteerd op iPhone én Samsung; alle knoppen ≥ 48×48.
-8. **Web (desktop) gedraagt zich ongewijzigd** (streaming, geen gate) — regressietest.
-9. Moduskaarten tonen de leerlijn 0/3/8/14 conform §3.1.
+1. Op een telefoon is de game **niet speelbaar** vóór 100% download; de Play-knop en kaartactie zijn vergrendeld tot alle content lokaal aanwezig is.
+2. Na 100% download verandert de knop op de kaart in een **[🗑️ Verwijder]**-optie en start het aantikken van de kaart direct het spel.
+3. Verwijderen toont een kindvriendelijke in-app modal (`ConfirmDeleteModal`) ter bevestiging vóór het wissen van de cache.
+4. Alle downloadscherm-toestanden (§2.3) zijn bereikbaar, compact en kindvriendelijk geformuleerd met voldoende zijmarges op mobiel.
+5. Sluiten tijdens downloaden laat de download doorlopen; de kaart toont de voortgang met een geanimeerde ring en percentage.
+6. Op 4G/5G verschijnt eerst de databevestiging met keuze `Toch downloaden` (geen blokkade) of `Wacht op wifi`; op wifi start de download direct.
+7. Draaien naar liggend toont de screen guard; gameplay pauzeert.
+8. Safe areas gerespecteerd op iPhone én Samsung; alle knoppen ≥ 48×48.
+9. **Web (desktop) gedraagt zich ongewijzigd** (streaming, geen gate) — regressietest.
+10. Moduskaarten tonen de leerlijn 0/3/8/14 conform §3.1.
+11. Oude implementatiecode (`OfflinePackageCard.tsx`, testroutes) is volledig opgeruimd.

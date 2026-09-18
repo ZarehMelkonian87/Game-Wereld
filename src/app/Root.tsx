@@ -3,6 +3,7 @@ import { ProfileProvider } from "./contexts/ProfileContext";
 import { DevelopmentDiagnostics } from "./diagnostics/DevelopmentDiagnostics";
 import { PwaUpdateBanner } from "./pwa/PwaUpdateBanner";
 import { StorageProvider } from "./storage";
+
 export const Root = () => {
   return (
     <StorageProvider>

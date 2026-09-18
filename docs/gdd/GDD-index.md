@@ -102,6 +102,7 @@ Waar dit dossier de *werkelijkheid* rapporteert (Feature-catalogus, Test-matrix,
 | 1.15 | 2026-09-15 | Zareh Melkonian | `T-32` grotendeels afgerond: onderzoek toont dat de Zeg & Vlieg-mic dezelfde `localSpeechEngine`-oorzaak had (altijd "bal"), al opgelost door `T-26`; de herkennings­bedrading is correct. **Audio-reactieve wave (`T-27`) toegevoegd** aan het Zeg & Vlieg-statuspaneel (`MicWaveBars`, sky-blauw), gemonteerd per ronde zodat de mic-stream niet steeds heropent. Scherm + wave in browser geverifieerd; mic-herkenning op echt apparaat te bevestigen. |
 | 1.16 | 2026-09-15 | Zareh Melkonian | `T-32` wave + herkenning op apparaat bevestigd. **Bug opgelost:** een teruggekeerd (gerecycled) plaatje werd na correct benoemen niet meer opgepakt. Herkenning nu vergevingsgezind gemaakt in `useVoiceSideScrollerWordRecognition`: kort geheugen (~1,8 s) van gehoorde woorden + hercheck zodra een plaatje in beeld scrolt, zodat matching niet meer afhangt van de exacte timing van het spraakresultaat. Ontwerpkeuze gebruiker: **zachte herkansing + spreiding** (geen straf bij niet-benoemen; plaatjes keren later terug). Tsc/eslint/150 tests groen; fresh-mount zonder crash geverifieerd (HMR-only hook-swap-melding tijdens dev genegeerd). |
 | 1.29 | 2026-09-15 | Zareh Melkonian | `T-04c` C2b: **spraak/compound-invoer** in Zeg & Bouw. `SpokenCommandControls` (mic + typen + privacy + woordfilter) in het bouwscherm; één zin plaatst meerdere objecten via `parseCompoundPlacements` → nieuwe batch-`placeCompound` (spreiding, **compound-bonus +1 ⭐** voor een zin met ≥2 objecten, soepele tip bij niet-passend, nudge bij ongewenst woord). Typ-route end-to-end in browser geverifieerd. **Na testfeedback verfijnd:** live **SpeechWaveAnimation** (wave + woord-voor-woord transcript) toegevoegd zoals in Zeg & Zet, en de "Strand af!"-overlay verschijnt nu **met een korte vertraging (~1,9 s)** zodat het kind eerst zijn afgebouwde strand ziet (compound-zin haalde het doel te snel). Vertraging in browser geverifieerd; mic op apparaat bevestigd door tester. 186 tests groen. |
+| 1.50 | 2026-09-18 | Zareh Melkonian | **`T-46` Herontwerp download- & offline-architectuur afgerond.** Oude implementatie (`OfflinePackageCard`, `gate-demo`) volledig verwijderd. Downloadmechanisme direct geïntegreerd in de gamekaarten (`GameCardDownloadButton`): `[📥 37 MB]` wanneer niet gedownload (spelen vergrendeld), live voortgangsring met % tijdens download/verificatie, `[🗑️ Verwijder]`-optie om lokale opslag vrij te maken na 100% (kaart start direct het spel), en `[🔄 Update]`. Netwerkdetectie: 4G/5G toont waarschuwing met keuze `Toch downloaden` (geen blokkade) of `Wacht op wifi`; wifi downloadt direct. In-app `ConfirmDeleteModal` vervangt lelijke browser alerts. Modal compact gemaakt met zijmarges op mobiel. 56 testbestanden (236 tests) groen. |
 | 1.49 | 2026-09-18 | Zareh Melkonian | **`T-43`, `T-44` en `T-45` afgerond.** Implementatie van de mobiele telefoon-UX en download-gate (`T-43`), het UX-design + wireframe voor tablet (`T-44`) en de tablet-implementatie + download-gate (`T-45`) zijn geïmplementeerd en gemarkeerd als afgerond. |
 | 1.48 | 2026-09-17 | Zareh Melkonian | **`T-42` UX-design mobiele telefoon** afgerond → nieuw document [UX-Mobiele-Telefoon-T42](UX-Mobiele-Telefoon-T42.md) als implementatiecontract voor `T-43`, naast het visuele wireframe in `wirframe/`. Kern: **100% portret** + screen guard ("Houd je telefoon rechtop"), download-zone geïntegreerd in de game-kaart (niet-gedownload / bezig / klaar / update), en een downloadscherm met **6 toestanden** waarvan Play pas ontgrendelt bij 100%. Nieuwe beslissingen: mobiele data → **waarschuwen + bevestigen**; scherm sluiten → **download loopt door op de achtergrond** (voortgang op de kaart); **de game is leidend voor de leerlijn** → wireframe gecorrigeerd van "Vlieg vanaf 6 ⭐ / Bouw creatief" naar **Kies 0 → Zet 3 → Bouw 8 → Vlieg 14**. Gate-plek verfijnd t.o.v. §13.5: spellenlijst is primair, host houdt een onzichtbaar vangnet. |
 | 1.47 | 2026-09-17 | Zareh Melkonian | **`T-39` download-gating-architectuur** (§13.5). Gedeelde mechaniek in `src/app/platform/`: pure `resolveDownloadGate()` (streaming vs. gated, `phase`, `canPlay`, geaggregeerde voortgang) + `useGameDownloadGate()` bovenop `usePlatform` (`T-38`) en de bestaande offline-pakket-laag. Beslissing: gate op **game-host-niveau**, Play/Start pas na 100% (telefoon/tablet); web behoudt streaming. 8 unit-tests. Bedrading in `GameHost` + visueel download­scherm volgen in de per-platform sporen. Tsc/eslint/210 tests groen. |
@@ -919,7 +920,7 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 | **T-43** | **P1** | 🔧 | **Implementatie — Mobiele telefoon-UX + download-gate.** ✅ Geïmplementeerd en afgerond: 100% portret, screen guard, download-zone geïntegreerd in game-kaart, downloadscherm met 6 toestanden en Play-vergrendeling tot 100% (bouwt op `T-38`/`T-39`/`T-46`) | §13 | ✅ |
 | **T-44** | **P1** | 🎨 | **UX-design + wireframe — Tablet.** ✅ Ontworpen en afgerond: tablet-layout met geoptimaliseerde speelveldverhoudingen en verplichte download-gate | §13 | ✅ |
 | **T-45** | **P1** | 🔧 | **Implementatie — Tablet-UX + download-gate.** ✅ Geïmplementeerd en afgerond: tablet-ervaring met verplichte download-gate en Play-ontgrendeling na 100% (bouwt op `T-38`/`T-39`/`T-46`) | §13 | ✅ |
-| **T-46** | **P1** | 🔧 | **Gedeelde download-gate-UI-componenten.** Downloadicoon + statusindicator (fasen: grootte bepalen → downloaden % → controleren → klaar) + **geblokkeerde Play-knop tot 100%**, herbruikbaar over telefoon/tablet; a11y (≥48×48, focus-visible, `aria-live`), reduced-motion, nette foutstatus + "Opnieuw". Bouwt voort op `OfflinePackageCard`/`GameAssetSyncModal` | §13 | ⬜ |
+| **T-46** | **P1** | 🎨🔧 | **Herontwerp download- & offline-architectuur per gamekaart.** ✅ Geïmplementeerd en afgerond: Oude offline-kaarten (`OfflinePackageCard`) en demo-routes volledig verwijderd. Downloadmechanisme direct geïntegreerd op elke gamekaart (`GameCardDownloadButton`): `[📥 37 MB]` wanneer niet geïnstalleerd (spelen vergrendeld tot 100%), geanimeerde voortgangsring met live percentage, `[🗑️ Verwijder]`-optie om opslag vrij te maken na voltooien (kaart start direct het spel), en `[🔄 Update]`. Netwerkdetectie toont bij mobiele data (4G/5G) een bevestigingsdialoog (`Toch downloaden` / `Wacht op wifi`, geen blokkade); op wifi start download direct. Gedeelde `DownloadGateModal` compact gemaakt met duidelijke zijmarges op mobiel; in-app `ConfirmDeleteModal` vervangt lelijke browser alerts. 56 testbestanden (236 tests, 100%) groen | §13 | ✅ |
 | **T-47** | P2 | 🔍 | **Consistentie- & regressieverificatie multiplatform.** E2e per viewport (mobile/tablet/desktop): (a) op mobiel/tablet verschijnt Play **pas na** volledige download, (b) op web blijft streaming, (c) gameplay/functionaliteit identiek over platforms | §13 | ⬜ |
 | **T-48** | **P1** | 🔧🔍 | **Zeg & Vlieg-spraak stopte na een paar objecten** (`DT-02`). **Kernoorzaak:** de mic werd **na elke match volledig herstart** (nodig omdat de continue herkenning álle resultaten opstapelde) → die snelle herstart-cyclus laat de browser-spraakherkenning vastlopen. **Fix:** nieuwe optie `latestSegmentOnly` (leest alleen het laatst gewijzigde segment via `event.resultIndex`, geïsoleerd zodat Zeg & Zet z'n volledige zin houdt) → geen opstapeling meer → **één doorlopende luister-sessie**, herstart-per-match verwijderd. Plus herstel-watchdog. In browser bewezen met een gesimuleerde mic: sessie start **1×** en blijft leven over 20 keer inspreken (eerder: teller groeide per match), sterren 0→9, geen dubbele matches. Tsc/eslint/195 tests groen; **op apparaat bevestigd door tester** (`DT-02`, 2026-09-16) | Testfeedback 2026-09-16 (`DT-02`) | ✅ |
 
@@ -1000,34 +1001,37 @@ De GDD-index is met v1.1 **inhoudelijk compleet** als bron van waarheid op hoofd
 
 **Wat verandert t.o.v. nu:** de huidige flow synct op de achtergrond en **valt bij netwerkproblemen terug op streaming** ([GameHost.tsx:217](../../src/app/game-host/GameHost.tsx)) zonder de speler te blokkeren. Voor telefoon/tablet wordt dit een **expliciete, blokkerende gate**; voor web blijft het huidige gedrag.
 
-### 13.3 Bestaande bouwstenen om op voort te bouwen
+### 13.3 Bouwstenen van de download- en offline-architectuur
 
-- `src/app/pwa/GameAssetSyncManager.ts` — synct/controleert offline-pakketten (fasen, voortgang).
-- `src/app/pwa/offlinePackages.ts` + `assets/offline-package.source.json` per game — de manifesten.
-- `src/app/pwa/OfflinePackageCard.tsx` / `GameAssetSyncModal.tsx` — bestaande download-UI (statussen: bepalen → downloaden % → controleren → klaar/partial/failed) — basis voor de nieuwe gate-UI (`T-46`).
-- **Nog te bouwen:** platformdetectie (`T-38`) — die bestaat nog niet.
+- `src/app/pwa/GameAssetSyncManager.ts` — synct/controleert offline-pakketten (fasen, netwerkdetectie, voortgang).
+- `src/app/pwa/offlinePackages.ts` + `assets/offline-package.source.json` per game — de assetmanifesten.
+- `src/app/platform/GameCardDownloadButton.tsx` — compacte download-indicator en actieknop direct geïntegreerd op elke gamekaart (`T-46`).
+- `src/app/platform/DownloadGateModal.tsx` — compacte, responsieve detail- en voortgangsmodal met zijmarges op mobiel.
+- `src/app/platform/ConfirmDeleteModal.tsx` — in-app bevestigingsdialoog voor het veilig verwijderen van lokale offline bestanden.
+- **Opgeruimd:** de oude losse kaart `src/app/pwa/OfflinePackageCard.tsx` en de testroute `gate-demo` zijn volledig verwijderd.
 
 ### 13.4 Taakoverzicht
 
 | Fase | Taken |
 | :--- | :--- |
-| **Fundament** | `T-38` (platformdetectie), `T-39` (download-gating-architectuur), `T-46` (gedeelde gate-UI) |
+| **Fundament & Gedeelde UI** | `T-38` (platformdetectie), `T-39` (download-gating-architectuur), `T-46` (herontwerp download per gamekaart) |
 | **Per platform (ontwerp → akkoord → bouw)** | Web: `T-40`→`T-41` · Telefoon: `T-42`→`T-43` · Tablet: `T-44`→`T-45` |
 | **Borging** | `T-47` (consistentie- & regressieverificatie over alle viewports) |
 
-### 13.5 Download-gating — architectuur (`T-39`)
+### 13.5 Download-gating — architectuur (`T-39`, `T-46`)
 
-De gate-mechaniek staat los van de per-platform vormgeving en is gebouwd in `src/app/platform/`:
+De gate-mechaniek staat in `src/app/platform/` en is direct geïntegreerd in de gamekaarten (`GameListCard`):
 
 - **`usePlatform()` / `detectPlatform()`** (`T-38`) — bepaalt `desktop` / `phone` / `tablet` + `browser` / `standalone`.
 - **`resolveDownloadGate({ requiresGate, packageStates })`** — pure policy die de status van de offline-pakketten van een game omzet in één **gate-status**:
   - `mode`: `"streaming"` (web) of `"gated"` (telefoon/tablet).
   - `phase`: `checking` → `needs-download` → `sizing` → `confirm` → `downloading` → `verifying` → `ready` (of `error`).
-  - `canPlay`: op web altijd `true`; op telefoon/tablet **pas `true` als álle pakketten `ready` zijn**.
+  - `canPlay`: op web altijd `true`; op telefoon/tablet **pas `true` als álle verplichte content 100% gedownload is**.
+  - `isUpdateAvailable`: detecteert nieuwere servercontent (`outdated`).
   - `progress`: geaggregeerd over alle pakketten (downloaded/total/%).
-- **`useGameDownloadGate(offlinePackages)`** — bedraadt de policy aan de echte offline-pakket-laag (`createOfflinePackageManager`): inspecteren, grootte bepalen, downloaden (met voortgang + annuleren), verifiëren.
-
-**Beslissing gate-plek:** de gate zit op **game-host-niveau** — op telefoon/tablet toont de host een download­scherm i.p.v. de game, en de **Play/Start-knop wordt pas actief na 100%**. Het huidige "val terug op streaming"-gedrag ([GameHost.tsx:217](../../src/app/game-host/GameHost.tsx)) wordt daar vervangen voor telefoon/tablet; **web behoudt streaming ongewijzigd**. De bedrading in `GameHost` én het visuele scherm horen bij de per-platform implementatie (`T-43`/`T-45`), ná het UX-ontwerp (`T-42`/`T-44`).
+- **`useGameDownloadGate(offlinePackages)`** — bedraadt de policy aan de offline-pakket-laag (`createOfflinePackageManager`): inspecteren, grootte bepalen, downloaden (met voortgang + annuleren), lokaal wissen (`remove`).
+- **Netwerkdetectie & mobiele data (4G/5G)**: detecteert actieve verbinding; op 4G/5G verschijnt een waarschuwingsdialoog met bewuste keuze (`Toch downloaden` vs. `Wacht op wifi`). Geen blokkade. Op wifi start de download direct.
+- **Kaartintegratie**: op de gamekaart verschijnt `[📥 37 MB]` wanneer niet geïnstalleerd; bij downloaden een draaiende voortgangsring met percentage; en na 100% verandert dit in `[🗑️ Verwijder]` om lokale opslag vrij te maken. De kaart start dan direct het spel.
 
 ---
 

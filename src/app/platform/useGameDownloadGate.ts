@@ -4,6 +4,7 @@ import {
   type OfflinePackageDescriptor,
   type OfflinePackageState,
 } from "../pwa/offlinePackages";
+import { getDeviceConnectionInfo } from "../pwa/GameAssetSyncManager";
 import {
   resolveDownloadGate,
   STREAMING_GATE,
@@ -14,6 +15,8 @@ import { requiresDownloadGate } from "./platformDetection";
 
 export interface GameDownloadGateController {
   gate: DownloadGateState;
+  /** Geeft aan of de gebruiker op mobiele data (4G/5G) zit. */
+  isCellular: boolean;
   /** Herbepaal de status van de pakketten (bv. na terugkeer online). */
   refresh: () => Promise<void>;
   /** Bepaal de downloadgrootte (zet pakketten naar "bevestigen"). */
@@ -22,6 +25,8 @@ export interface GameDownloadGateController {
   download: () => Promise<void>;
   /** Onderbreek een lopende download. */
   cancel: () => void;
+  /** Verwijder het offline-pakket (reset status naar niet gedownload). */
+  remove: () => Promise<void>;
 }
 
 const descriptorKey = (descriptor: OfflinePackageDescriptor, index: number): string =>
@@ -82,6 +87,7 @@ export const useGameDownloadGate = (
   const checkSize = useCallback(async () => {
     if (!gateRequired) return;
     await runPerPackage(async (descriptor, key) => {
+      if (packageStates[key]?.status === "ready") return;
       updateState(key, { status: "estimating" });
       try {
         updateState(key, await manager.estimate(descriptor));
@@ -92,7 +98,7 @@ export const useGameDownloadGate = (
         });
       }
     });
-  }, [gateRequired, manager, runPerPackage, updateState]);
+  }, [gateRequired, manager, packageStates, runPerPackage, updateState]);
 
   const download = useCallback(async () => {
     if (!gateRequired) return;
@@ -125,14 +131,24 @@ export const useGameDownloadGate = (
         status: "downloading",
         totalBytes: current.manifest.totalBytes,
       });
-      const finalState = await manager.download(descriptor, current.manifest, {
-        onState: (next) => {
-          if (activeRef.current) updateState(key, next);
-        },
-        signal: controller.signal,
-      });
-      if (activeRef.current) updateState(key, finalState);
-      if (finalState.status === "ready") await manager.cleanupOldPackages(undefined, 2);
+      try {
+        const finalState = await manager.download(descriptor, current.manifest, {
+          onState: (next) => {
+            if (activeRef.current) updateState(key, next);
+          },
+          signal: controller.signal,
+        });
+        if (activeRef.current) updateState(key, finalState);
+        if (finalState.status === "ready") await manager.cleanupOldPackages(undefined, 2);
+      } catch (error) {
+        if (activeRef.current) {
+          updateState(key, {
+            message:
+              error instanceof Error ? error.message : "Downloaden van gamebestanden is mislukt.",
+            status: "failed",
+          });
+        }
+      }
     });
 
     abortRef.current = undefined;
@@ -140,14 +156,47 @@ export const useGameDownloadGate = (
 
   const cancel = useCallback(() => abortRef.current?.abort(), []);
 
+  const remove = useCallback(async () => {
+    if (!gateRequired) return;
+    await runPerPackage(async (descriptor, key) => {
+      await manager.remove(descriptor);
+      if (activeRef.current) {
+        updateState(key, { status: "not-downloaded" });
+      }
+    });
+  }, [gateRequired, manager, runPerPackage, updateState]);
+
   useEffect(() => {
     activeRef.current = true;
-    void refresh();
+    const init = async () => {
+      if (!gateRequired || descriptors.length === 0) return;
+      await runPerPackage(async (descriptor, key) => {
+        try {
+          const inspected = await manager.inspect(descriptor);
+          if (!activeRef.current) return;
+          if (inspected.status === "ready") {
+            updateState(key, inspected);
+          } else {
+            const estimated = await manager.estimate(descriptor);
+            if (activeRef.current) updateState(key, estimated);
+          }
+        } catch (error) {
+          if (activeRef.current) {
+            updateState(key, {
+              message:
+                error instanceof Error ? error.message : "Offlinestatus controleren is mislukt.",
+              status: "failed",
+            });
+          }
+        }
+      });
+    };
+    void init();
     return () => {
       activeRef.current = false;
       abortRef.current?.abort();
     };
-  }, [refresh]);
+  }, [descriptors.length, gateRequired, manager, runPerPackage, updateState]);
 
   const gate = useMemo<DownloadGateState>(() => {
     if (!gateRequired || descriptors.length === 0) {
@@ -165,5 +214,7 @@ export const useGameDownloadGate = (
     return resolveDownloadGate({ packageStates: states, requiresGate: true });
   }, [descriptors, gateRequired, packageStates]);
 
-  return { cancel, checkSize, download, gate, refresh };
+  const isCellular = getDeviceConnectionInfo().isCellular;
+
+  return { cancel, checkSize, download, gate, isCellular, refresh, remove };
 };

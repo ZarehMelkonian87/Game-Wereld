@@ -44,6 +44,8 @@ export interface DownloadGateState {
   requiredBytes?: number;
   /** Vrije ruimte op het toestel, indien bekend (bij bevestigen). */
   availableBytes?: number;
+  /** Geeft aan of er een nieuwere versie beschikbaar is (outdated). */
+  isUpdateAvailable?: boolean;
   /** Foutmelding bij `phase: "error"`. */
   message?: string;
 }
@@ -135,6 +137,7 @@ export const resolveDownloadGate = ({
   return {
     availableBytes,
     canPlay: allReady,
+    isUpdateAvailable: hasStatus("outdated"),
     message: failed?.status === "failed" ? failed.message : undefined,
     mode: "gated",
     phase,

@@ -59,12 +59,12 @@ export const classifyPlatform = (env: PlatformEnv): PlatformInfo => {
     (IPAD_AS_MAC.test(env.userAgent) && env.maxTouchPoints > 1);
 
   let formFactor: PlatformFormFactor;
-  if (!isTouch) {
-    formFactor = "desktop";
-  } else if (isTabletUa) {
+  if (isTabletUa) {
     formFactor = "tablet";
   } else if (isPhoneUa) {
     formFactor = "phone";
+  } else if (!isTouch) {
+    formFactor = "desktop";
   } else {
     // Aanraaktoestel zonder duidelijke UA-hint → schat op schermgrootte.
     formFactor = env.minViewportSide < PHONE_TABLET_MIN_SIDE_BREAKPOINT ? "phone" : "tablet";
@@ -116,13 +116,24 @@ export const readPlatformEnv = (): PlatformEnv => {
     };
   }
 
+  const searchParams =
+    typeof window !== "undefined" && window.location
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const forceMobile = searchParams?.get("platform") === "mobile";
+  const forceDesktop = searchParams?.get("platform") === "desktop";
+
   return {
-    coarsePointer: matchesMedia("(pointer: coarse)"),
-    hasTouchStart: "ontouchstart" in window,
-    maxTouchPoints: navigator.maxTouchPoints ?? 0,
-    minViewportSide: Math.min(window.innerWidth, window.innerHeight),
+    coarsePointer: forceMobile || matchesMedia("(pointer: coarse)"),
+    hasTouchStart: forceMobile || "ontouchstart" in window,
+    maxTouchPoints: forceMobile ? 5 : forceDesktop ? 0 : (navigator.maxTouchPoints ?? 0),
+    minViewportSide: forceMobile ? 390 : Math.min(window.innerWidth, window.innerHeight),
     standalone: readStandalone(),
-    userAgent: navigator.userAgent ?? "",
+    userAgent: forceMobile
+      ? "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605 Mobile/15E148"
+      : forceDesktop
+        ? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        : (navigator.userAgent ?? ""),
   };
 };
 

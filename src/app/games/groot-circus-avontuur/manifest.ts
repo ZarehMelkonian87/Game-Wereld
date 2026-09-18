@@ -5,7 +5,7 @@ const circusGameCardImageUrl = new URL("./assets/icons/worlds/world-circus.png",
 
 export const grootCircusAvontuurManifest = defineGameManifest({
   ageRange: { max: 8, min: 4 },
-  capabilities: ["audio", "microphone"],
+  capabilities: ["audio", "microphone", "offline-package"],
   cardImageUrl: circusGameCardImageUrl,
   contentVersion: "groot-circus-avontuur-2026.08",
   contractVersion: 1,
@@ -13,7 +13,14 @@ export const grootCircusAvontuurManifest = defineGameManifest({
     "Zeg en zet stickers in de piste, speel het woordzoekerspel en vlieg door de circustent!",
   icon: "🎪",
   id: "groot-circus-avontuur",
-  offlinePackages: [],
+  offlinePackages: [
+    {
+      contentVersion: "groot-circus-avontuur-2026.08",
+      id: "groot-circus-avontuur-circus",
+      manifestUrl: "/offline/groot-circus-avontuur-circus-v1.json",
+      version: 1,
+    },
+  ],
   releaseStatus: "available",
   requiredCapabilities: [],
   supportedOrientations: ["portrait", "landscape"],
