@@ -9,7 +9,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/audio/background-music.mp3",
-      "url": "/assets/background-music-DdUSu1S4.mp3"
+      "url": "/Game-Wereld/assets/background-music-DdUSu1S4.mp3"
     },
     {
       "bytes": 20740,
@@ -20,7 +20,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.webp",
-      "url": "/assets/beach-board-landscape-C9w1MngR.webp"
+      "url": "/Game-Wereld/assets/beach-board-landscape-C9w1MngR.webp"
     },
     {
       "bytes": 15612,
@@ -31,7 +31,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-portrait.webp",
-      "url": "/assets/beach-board-portrait-_RTycSDx.webp"
+      "url": "/Game-Wereld/assets/beach-board-portrait-_RTycSDx.webp"
     },
     {
       "bytes": 52608,
@@ -42,7 +42,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-voice-side-scroller.webp",
-      "url": "/assets/beach-voice-side-scroller-BvyGGRFk.webp"
+      "url": "/Game-Wereld/assets/beach-voice-side-scroller-BvyGGRFk.webp"
     },
     {
       "bytes": 41642,
@@ -53,7 +53,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/avatars/avatar-01.webp",
-      "url": "/assets/avatar-01-Bxg3Ceev.webp"
+      "url": "/Game-Wereld/assets/avatar-01-Bxg3Ceev.webp"
     },
     {
       "bytes": 20934,
@@ -64,7 +64,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-01-basic.webp",
-      "url": "/assets/broom-01-basic-Dhnboxc7.webp"
+      "url": "/Game-Wereld/assets/broom-01-basic-Dhnboxc7.webp"
     },
     {
       "bytes": 29942,
@@ -75,7 +75,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-02-beach.webp",
-      "url": "/assets/broom-02-beach-C_HX8bX6.webp"
+      "url": "/Game-Wereld/assets/broom-02-beach-C_HX8bX6.webp"
     },
     {
       "bytes": 30844,
@@ -86,7 +86,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/brooms/broom-06-speed.webp",
-      "url": "/assets/broom-06-speed-B3uwALjY.webp"
+      "url": "/Game-Wereld/assets/broom-06-speed-B3uwALjY.webp"
     },
     {
       "bytes": 22394,
@@ -97,7 +97,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-01-neutral.webp",
-      "url": "/assets/mascot-01-neutral-DqZ2tPtS.webp"
+      "url": "/Game-Wereld/assets/mascot-01-neutral-DqZ2tPtS.webp"
     },
     {
       "bytes": 34162,
@@ -108,7 +108,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-05-celebration.webp",
-      "url": "/assets/mascot-05-celebration-BteuAr4q.webp"
+      "url": "/Game-Wereld/assets/mascot-05-celebration-BteuAr4q.webp"
     },
     {
       "bytes": 36688,
@@ -119,7 +119,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/mascot/mascot-06-hint.webp",
-      "url": "/assets/mascot-06-hint-DtOGNtQ9.webp"
+      "url": "/Game-Wereld/assets/mascot-06-hint-DtOGNtQ9.webp"
     },
     {
       "bytes": 48888,
@@ -130,7 +130,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/icons/worlds/world-beach.webp",
-      "url": "/assets/world-beach-DZiEd7p-.webp"
+      "url": "/Game-Wereld/assets/world-beach-DZiEd7p-.webp"
     },
     {
       "bytes": 410553,
@@ -141,7 +141,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-boven.mp4",
-      "url": "/assets/concept-boven-Bc-sg03d.mp4"
+      "url": "/Game-Wereld/assets/concept-boven-Bc-sg03d.mp4"
     },
     {
       "bytes": 482877,
@@ -152,7 +152,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-dichtbij.mp4",
-      "url": "/assets/concept-dichtbij-Bwc-8NBy.mp4"
+      "url": "/Game-Wereld/assets/concept-dichtbij-Bwc-8NBy.mp4"
     },
     {
       "bytes": 367142,
@@ -163,7 +163,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-in.mp4",
-      "url": "/assets/concept-in-QbG8JNUF.mp4"
+      "url": "/Game-Wereld/assets/concept-in-QbG8JNUF.mp4"
     },
     {
       "bytes": 414479,
@@ -174,7 +174,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-links.mp4",
-      "url": "/assets/concept-links-BdPeMNtC.mp4"
+      "url": "/Game-Wereld/assets/concept-links-BdPeMNtC.mp4"
     },
     {
       "bytes": 422917,
@@ -185,7 +185,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-midden.mp4",
-      "url": "/assets/concept-midden-Bzbbh34y.mp4"
+      "url": "/Game-Wereld/assets/concept-midden-Bzbbh34y.mp4"
     },
     {
       "bytes": 393767,
@@ -196,7 +196,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-naast.mp4",
-      "url": "/assets/concept-naast-Cuh1BrlL.mp4"
+      "url": "/Game-Wereld/assets/concept-naast-Cuh1BrlL.mp4"
     },
     {
       "bytes": 398860,
@@ -207,7 +207,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-onder.mp4",
-      "url": "/assets/concept-onder-uzx_EdiD.mp4"
+      "url": "/Game-Wereld/assets/concept-onder-uzx_EdiD.mp4"
     },
     {
       "bytes": 273982,
@@ -218,7 +218,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-op.mp4",
-      "url": "/assets/concept-op-DkPAnmAB.mp4"
+      "url": "/Game-Wereld/assets/concept-op-DkPAnmAB.mp4"
     },
     {
       "bytes": 376990,
@@ -229,7 +229,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-rechts.mp4",
-      "url": "/assets/concept-rechts-CODPOqVZ.mp4"
+      "url": "/Game-Wereld/assets/concept-rechts-CODPOqVZ.mp4"
     },
     {
       "bytes": 352394,
@@ -240,7 +240,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-tussen.mp4",
-      "url": "/assets/concept-tussen-Dt9Lv9ZY.mp4"
+      "url": "/Game-Wereld/assets/concept-tussen-Dt9Lv9ZY.mp4"
     },
     {
       "bytes": 342999,
@@ -251,7 +251,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/concept-ver-weg.mp4",
-      "url": "/assets/concept-ver-weg-BEvP-ye_.mp4"
+      "url": "/Game-Wereld/assets/concept-ver-weg-BEvP-ye_.mp4"
     },
     {
       "bytes": 578686,
@@ -262,7 +262,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-001-opdracht-waar-is-de-dolfijn.mp4",
-      "url": "/assets/cw-001-opdracht-waar-is-de-dolfijn-uzERdkoC.mp4"
+      "url": "/Game-Wereld/assets/cw-001-opdracht-waar-is-de-dolfijn-uzERdkoC.mp4"
     },
     {
       "bytes": 450413,
@@ -273,7 +273,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-002-opdracht-waar-is-de-boot.mp4",
-      "url": "/assets/cw-002-opdracht-waar-is-de-boot-CXE_QAGJ.mp4"
+      "url": "/Game-Wereld/assets/cw-002-opdracht-waar-is-de-boot-CXE_QAGJ.mp4"
     },
     {
       "bytes": 521810,
@@ -284,7 +284,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-003-opdracht-waar-is-de-bal.mp4",
-      "url": "/assets/cw-003-opdracht-waar-is-de-bal-Ob2rcyJv.mp4"
+      "url": "/Game-Wereld/assets/cw-003-opdracht-waar-is-de-bal-Ob2rcyJv.mp4"
     },
     {
       "bytes": 488866,
@@ -295,7 +295,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-004-opdracht-waar-is-de-vuurtoren.mp4",
-      "url": "/assets/cw-004-opdracht-waar-is-de-vuurtoren-BtBLRBpW.mp4"
+      "url": "/Game-Wereld/assets/cw-004-opdracht-waar-is-de-vuurtoren-BtBLRBpW.mp4"
     },
     {
       "bytes": 378700,
@@ -306,7 +306,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-005-opdracht-waar-is-de-parasol.mp4",
-      "url": "/assets/cw-005-opdracht-waar-is-de-parasol-jD3SNyjw.mp4"
+      "url": "/Game-Wereld/assets/cw-005-opdracht-waar-is-de-parasol-jD3SNyjw.mp4"
     },
     {
       "bytes": 455697,
@@ -317,7 +317,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-006-opdracht-waar-is-de-vlieger.mp4",
-      "url": "/assets/cw-006-opdracht-waar-is-de-vlieger-FVsRIDS-.mp4"
+      "url": "/Game-Wereld/assets/cw-006-opdracht-waar-is-de-vlieger-FVsRIDS-.mp4"
     },
     {
       "bytes": 476052,
@@ -328,7 +328,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-007-opdracht-waar-is-de-krab.mp4",
-      "url": "/assets/cw-007-opdracht-waar-is-de-krab-D3bgMDkG.mp4"
+      "url": "/Game-Wereld/assets/cw-007-opdracht-waar-is-de-krab-D3bgMDkG.mp4"
     },
     {
       "bytes": 499573,
@@ -339,7 +339,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-008-opdracht-waar-is-de-handdoek.mp4",
-      "url": "/assets/cw-008-opdracht-waar-is-de-handdoek-D8-zsMpX.mp4"
+      "url": "/Game-Wereld/assets/cw-008-opdracht-waar-is-de-handdoek-D8-zsMpX.mp4"
     },
     {
       "bytes": 383943,
@@ -350,7 +350,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-009-opdracht-waar-is-de-schelp.mp4",
-      "url": "/assets/cw-009-opdracht-waar-is-de-schelp-KAi-L71G.mp4"
+      "url": "/Game-Wereld/assets/cw-009-opdracht-waar-is-de-schelp-KAi-L71G.mp4"
     },
     {
       "bytes": 572518,
@@ -361,7 +361,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-010-opdracht-waar-is-het-zandkasteel.mp4",
-      "url": "/assets/cw-010-opdracht-waar-is-het-zandkasteel-CscDf8bm.mp4"
+      "url": "/Game-Wereld/assets/cw-010-opdracht-waar-is-het-zandkasteel-CscDf8bm.mp4"
     },
     {
       "bytes": 512405,
@@ -372,7 +372,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-011-opdracht-waar-is-het-vliegtuig.mp4",
-      "url": "/assets/cw-011-opdracht-waar-is-het-vliegtuig-08ciBTJ7.mp4"
+      "url": "/Game-Wereld/assets/cw-011-opdracht-waar-is-het-vliegtuig-08ciBTJ7.mp4"
     },
     {
       "bytes": 443930,
@@ -383,7 +383,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/cw-012-opdracht-waar-is-de-zon.mp4",
-      "url": "/assets/cw-012-opdracht-waar-is-de-zon-bYexkzPP.mp4"
+      "url": "/Game-Wereld/assets/cw-012-opdracht-waar-is-de-zon-bYexkzPP.mp4"
     },
     {
       "bytes": 394033,
@@ -394,7 +394,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/kijk-naar-het-plaatje-dat-oplicht-boot.mp4",
-      "url": "/assets/kijk-naar-het-plaatje-dat-oplicht-boot-D-M70_tJ.mp4"
+      "url": "/Game-Wereld/assets/kijk-naar-het-plaatje-dat-oplicht-boot-D-M70_tJ.mp4"
     },
     {
       "bytes": 613365,
@@ -405,7 +405,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-001-feedback-boot-vaart-in-de-zee.mp4",
-      "url": "/assets/lp-001-feedback-boot-vaart-in-de-zee-CejjY9zF.mp4"
+      "url": "/Game-Wereld/assets/lp-001-feedback-boot-vaart-in-de-zee-CejjY9zF.mp4"
     },
     {
       "bytes": 526479,
@@ -416,7 +416,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-feedback-dolfijn-zwemt-in-de-zee.mp4",
-      "url": "/assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-sdU5FLvN.mp4"
+      "url": "/Game-Wereld/assets/lp-002-feedback-dolfijn-zwemt-in-de-zee-sdU5FLvN.mp4"
     },
     {
       "bytes": 682957,
@@ -427,7 +427,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-01-zoek-de-dolfijn.mp4",
-      "url": "/assets/lp-002-hint-01-zoek-de-dolfijn-kdF16Evp.mp4"
+      "url": "/Game-Wereld/assets/lp-002-hint-01-zoek-de-dolfijn-kdF16Evp.mp4"
     },
     {
       "bytes": 601740,
@@ -438,7 +438,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-hint-02-kijk-naar-dolfijn.mp4",
-      "url": "/assets/lp-002-hint-02-kijk-naar-dolfijn-DO00kob4.mp4"
+      "url": "/Game-Wereld/assets/lp-002-hint-02-kijk-naar-dolfijn-DO00kob4.mp4"
     },
     {
       "bytes": 537476,
@@ -449,7 +449,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-002-opdracht-zet-de-dolfijn-in-de-zee.mp4",
-      "url": "/assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-Dmnbx9-0.mp4"
+      "url": "/Game-Wereld/assets/lp-002-opdracht-zet-de-dolfijn-in-de-zee-Dmnbx9-0.mp4"
     },
     {
       "bytes": 702807,
@@ -460,7 +460,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-feedback-bal-ligt-op-het-strand.mp4",
-      "url": "/assets/lp-003-feedback-bal-ligt-op-het-strand-dmRvGDzj.mp4"
+      "url": "/Game-Wereld/assets/lp-003-feedback-bal-ligt-op-het-strand-dmRvGDzj.mp4"
     },
     {
       "bytes": 387674,
@@ -471,7 +471,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-01-zoek-de-bal.mp4",
-      "url": "/assets/lp-003-hint-01-zoek-de-bal-BIRj2Cms.mp4"
+      "url": "/Game-Wereld/assets/lp-003-hint-01-zoek-de-bal-BIRj2Cms.mp4"
     },
     {
       "bytes": 480529,
@@ -482,7 +482,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-hint-02-kijk-naar-bal.mp4",
-      "url": "/assets/lp-003-hint-02-kijk-naar-bal-C3IQ6Cp0.mp4"
+      "url": "/Game-Wereld/assets/lp-003-hint-02-kijk-naar-bal-C3IQ6Cp0.mp4"
     },
     {
       "bytes": 491503,
@@ -493,7 +493,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-003-opdracht-zet-de-bal-op-het-strand.mp4",
-      "url": "/assets/lp-003-opdracht-zet-de-bal-op-het-strand-BYI45Gfy.mp4"
+      "url": "/Game-Wereld/assets/lp-003-opdracht-zet-de-bal-op-het-strand-BYI45Gfy.mp4"
     },
     {
       "bytes": 502343,
@@ -504,7 +504,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-feedback-vuurtoren-staat-op-het-eiland.mp4",
-      "url": "/assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-DGdv6wKX.mp4"
+      "url": "/Game-Wereld/assets/lp-004-feedback-vuurtoren-staat-op-het-eiland-DGdv6wKX.mp4"
     },
     {
       "bytes": 453187,
@@ -515,7 +515,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-01-zoek-de-vuurtoren.mp4",
-      "url": "/assets/lp-004-hint-01-zoek-de-vuurtoren-DpULjZDw.mp4"
+      "url": "/Game-Wereld/assets/lp-004-hint-01-zoek-de-vuurtoren-DpULjZDw.mp4"
     },
     {
       "bytes": 352420,
@@ -526,7 +526,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-hint-02-kijk-naar-vuurtoren.mp4",
-      "url": "/assets/lp-004-hint-02-kijk-naar-vuurtoren-CUGk7E_5.mp4"
+      "url": "/Game-Wereld/assets/lp-004-hint-02-kijk-naar-vuurtoren-CUGk7E_5.mp4"
     },
     {
       "bytes": 465206,
@@ -537,7 +537,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland.mp4",
-      "url": "/assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-BbJXD1UJ.mp4"
+      "url": "/Game-Wereld/assets/lp-004-opdracht-zet-de-vuurtoren-op-het-eiland-BbJXD1UJ.mp4"
     },
     {
       "bytes": 556006,
@@ -548,7 +548,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-feedback-vlieger-boven-het-strand.mp4",
-      "url": "/assets/lp-005-feedback-vlieger-boven-het-strand-DFJ9PWfa.mp4"
+      "url": "/Game-Wereld/assets/lp-005-feedback-vlieger-boven-het-strand-DFJ9PWfa.mp4"
     },
     {
       "bytes": 489506,
@@ -559,7 +559,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-01-zoek-de-vlieger.mp4",
-      "url": "/assets/lp-005-hint-01-zoek-de-vlieger-DkvKfR1x.mp4"
+      "url": "/Game-Wereld/assets/lp-005-hint-01-zoek-de-vlieger-DkvKfR1x.mp4"
     },
     {
       "bytes": 447695,
@@ -570,7 +570,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-hint-02-kijk-naar-vlieger.mp4",
-      "url": "/assets/lp-005-hint-02-kijk-naar-vlieger-Cyy_qw15.mp4"
+      "url": "/Game-Wereld/assets/lp-005-hint-02-kijk-naar-vlieger-Cyy_qw15.mp4"
     },
     {
       "bytes": 349017,
@@ -581,7 +581,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-005-opdracht-zet-de-vlieger-boven-het-strand.mp4",
-      "url": "/assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-C6DHk8aB.mp4"
+      "url": "/Game-Wereld/assets/lp-005-opdracht-zet-de-vlieger-boven-het-strand-C6DHk8aB.mp4"
     },
     {
       "bytes": 451564,
@@ -592,7 +592,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-feedback-vliegtuig-boven-de-zee.mp4",
-      "url": "/assets/lp-006-feedback-vliegtuig-boven-de-zee-Stri8jCc.mp4"
+      "url": "/Game-Wereld/assets/lp-006-feedback-vliegtuig-boven-de-zee-Stri8jCc.mp4"
     },
     {
       "bytes": 473080,
@@ -603,7 +603,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-01-zoek-het-vliegtuig.mp4",
-      "url": "/assets/lp-006-hint-01-zoek-het-vliegtuig-YK7B8tUe.mp4"
+      "url": "/Game-Wereld/assets/lp-006-hint-01-zoek-het-vliegtuig-YK7B8tUe.mp4"
     },
     {
       "bytes": 464295,
@@ -614,7 +614,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-hint-02-kijk-naar-vliegtuig.mp4",
-      "url": "/assets/lp-006-hint-02-kijk-naar-vliegtuig-ivJ6zW7v.mp4"
+      "url": "/Game-Wereld/assets/lp-006-hint-02-kijk-naar-vliegtuig-ivJ6zW7v.mp4"
     },
     {
       "bytes": 446092,
@@ -625,7 +625,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee.mp4",
-      "url": "/assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C_52tkgh.mp4"
+      "url": "/Game-Wereld/assets/lp-006-opdracht-zet-het-vliegtuig-boven-de-zee-C_52tkgh.mp4"
     },
     {
       "bytes": 442234,
@@ -636,7 +636,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-feedback-schelp-ligt-op-het-strand.mp4",
-      "url": "/assets/lp-007-feedback-schelp-ligt-op-het-strand-BL9oTh9O.mp4"
+      "url": "/Game-Wereld/assets/lp-007-feedback-schelp-ligt-op-het-strand-BL9oTh9O.mp4"
     },
     {
       "bytes": 404692,
@@ -647,7 +647,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-01-zoek-de-schelp.mp4",
-      "url": "/assets/lp-007-hint-01-zoek-de-schelp-BsaCe1Vm.mp4"
+      "url": "/Game-Wereld/assets/lp-007-hint-01-zoek-de-schelp-BsaCe1Vm.mp4"
     },
     {
       "bytes": 320891,
@@ -658,7 +658,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-hint-02-kijk-naar-schelp.mp4",
-      "url": "/assets/lp-007-hint-02-kijk-naar-schelp-DUDz0OHB.mp4"
+      "url": "/Game-Wereld/assets/lp-007-hint-02-kijk-naar-schelp-DUDz0OHB.mp4"
     },
     {
       "bytes": 400104,
@@ -669,7 +669,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-007-opdracht-leg-de-schelp-op-het-strand.mp4",
-      "url": "/assets/lp-007-opdracht-leg-de-schelp-op-het-strand-C13kQXwV.mp4"
+      "url": "/Game-Wereld/assets/lp-007-opdracht-leg-de-schelp-op-het-strand-C13kQXwV.mp4"
     },
     {
       "bytes": 502730,
@@ -680,7 +680,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-feedback-krab-zit-op-de-handdoek.mp4",
-      "url": "/assets/lp-008-feedback-krab-zit-op-de-handdoek-CyWFgzu8.mp4"
+      "url": "/Game-Wereld/assets/lp-008-feedback-krab-zit-op-de-handdoek-CyWFgzu8.mp4"
     },
     {
       "bytes": 372018,
@@ -691,7 +691,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-01-zoek-de-krab.mp4",
-      "url": "/assets/lp-008-hint-01-zoek-de-krab-BdblUrR4.mp4"
+      "url": "/Game-Wereld/assets/lp-008-hint-01-zoek-de-krab-BdblUrR4.mp4"
     },
     {
       "bytes": 469193,
@@ -702,7 +702,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-hint-02-kijk-naar-krab.mp4",
-      "url": "/assets/lp-008-hint-02-kijk-naar-krab-Do7PE0zI.mp4"
+      "url": "/Game-Wereld/assets/lp-008-hint-02-kijk-naar-krab-Do7PE0zI.mp4"
     },
     {
       "bytes": 379161,
@@ -713,7 +713,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-008-opdracht-zet-de-krab-op-de-handdoek.mp4",
-      "url": "/assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-DRPd5SH5.mp4"
+      "url": "/Game-Wereld/assets/lp-008-opdracht-zet-de-krab-op-de-handdoek-DRPd5SH5.mp4"
     },
     {
       "bytes": 385777,
@@ -724,7 +724,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-feedback-zandkasteel-naast-schelp.mp4",
-      "url": "/assets/lp-009-feedback-zandkasteel-naast-schelp-BD62gyNG.mp4"
+      "url": "/Game-Wereld/assets/lp-009-feedback-zandkasteel-naast-schelp-BD62gyNG.mp4"
     },
     {
       "bytes": 568616,
@@ -735,7 +735,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-01-zoek-het-zandkasteel.mp4",
-      "url": "/assets/lp-009-hint-01-zoek-het-zandkasteel-DZXWQgFs.mp4"
+      "url": "/Game-Wereld/assets/lp-009-hint-01-zoek-het-zandkasteel-DZXWQgFs.mp4"
     },
     {
       "bytes": 351835,
@@ -746,7 +746,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-hint-02-kijk-naar-zandkasteel.mp4",
-      "url": "/assets/lp-009-hint-02-kijk-naar-zandkasteel-CyN7MTzY.mp4"
+      "url": "/Game-Wereld/assets/lp-009-hint-02-kijk-naar-zandkasteel-CyN7MTzY.mp4"
     },
     {
       "bytes": 413557,
@@ -757,7 +757,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp.mp4",
-      "url": "/assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-Bf-E-DOU.mp4"
+      "url": "/Game-Wereld/assets/lp-009-opdracht-zet-het-zandkasteel-naast-de-schelp-Bf-E-DOU.mp4"
     },
     {
       "bytes": 591461,
@@ -768,7 +768,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-feedback-parasol-rechts-op-strand.mp4",
-      "url": "/assets/lp-010-feedback-parasol-rechts-op-strand-Dt9wxcTm.mp4"
+      "url": "/Game-Wereld/assets/lp-010-feedback-parasol-rechts-op-strand-Dt9wxcTm.mp4"
     },
     {
       "bytes": 496080,
@@ -779,7 +779,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-01-zoek-de-parasol.mp4",
-      "url": "/assets/lp-010-hint-01-zoek-de-parasol-VSkYlnNH.mp4"
+      "url": "/Game-Wereld/assets/lp-010-hint-01-zoek-de-parasol-VSkYlnNH.mp4"
     },
     {
       "bytes": 422153,
@@ -790,7 +790,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-hint-02-kijk-naar-parasol.mp4",
-      "url": "/assets/lp-010-hint-02-kijk-naar-parasol-CMeGiDnE.mp4"
+      "url": "/Game-Wereld/assets/lp-010-hint-02-kijk-naar-parasol-CMeGiDnE.mp4"
     },
     {
       "bytes": 368723,
@@ -801,7 +801,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand.mp4",
-      "url": "/assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-btXZlJKt.mp4"
+      "url": "/Game-Wereld/assets/lp-010-opdracht-zet-de-parasol-rechts-op-het-strand-btXZlJKt.mp4"
     },
     {
       "bytes": 434981,
@@ -812,7 +812,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-feedback-zon-boven-de-zee.mp4",
-      "url": "/assets/lp-011-feedback-zon-boven-de-zee-eZdeNwFK.mp4"
+      "url": "/Game-Wereld/assets/lp-011-feedback-zon-boven-de-zee-eZdeNwFK.mp4"
     },
     {
       "bytes": 553897,
@@ -823,7 +823,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-01-zoek-de-zon.mp4",
-      "url": "/assets/lp-011-hint-01-zoek-de-zon-DIhMBOu-.mp4"
+      "url": "/Game-Wereld/assets/lp-011-hint-01-zoek-de-zon-DIhMBOu-.mp4"
     },
     {
       "bytes": 402512,
@@ -834,7 +834,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-hint-02-kijk-naar-zon.mp4",
-      "url": "/assets/lp-011-hint-02-kijk-naar-zon-DBhuE1QQ.mp4"
+      "url": "/Game-Wereld/assets/lp-011-hint-02-kijk-naar-zon-DBhuE1QQ.mp4"
     },
     {
       "bytes": 366651,
@@ -845,7 +845,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-011-opdracht-zet-de-zon-boven-de-zee.mp4",
-      "url": "/assets/lp-011-opdracht-zet-de-zon-boven-de-zee-BcixAhvt.mp4"
+      "url": "/Game-Wereld/assets/lp-011-opdracht-zet-de-zon-boven-de-zee-BcixAhvt.mp4"
     },
     {
       "bytes": 445173,
@@ -856,7 +856,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-feedback-handdoek-midden-op-strand.mp4",
-      "url": "/assets/lp-012-feedback-handdoek-midden-op-strand-CPibnxxf.mp4"
+      "url": "/Game-Wereld/assets/lp-012-feedback-handdoek-midden-op-strand-CPibnxxf.mp4"
     },
     {
       "bytes": 447660,
@@ -867,7 +867,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-01-zoek-de-handdoek.mp4",
-      "url": "/assets/lp-012-hint-01-zoek-de-handdoek-CMMKX8IY.mp4"
+      "url": "/Game-Wereld/assets/lp-012-hint-01-zoek-de-handdoek-CMMKX8IY.mp4"
     },
     {
       "bytes": 456421,
@@ -878,7 +878,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-hint-02-kijk-naar-handdoek.mp4",
-      "url": "/assets/lp-012-hint-02-kijk-naar-handdoek--F2wywZ3.mp4"
+      "url": "/Game-Wereld/assets/lp-012-hint-02-kijk-naar-handdoek--F2wywZ3.mp4"
     },
     {
       "bytes": 379998,
@@ -889,7 +889,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand.mp4",
-      "url": "/assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-BibmXdCk.mp4"
+      "url": "/Game-Wereld/assets/lp-012-opdracht-leg-de-handdoek-midden-op-het-strand-BibmXdCk.mp4"
     },
     {
       "bytes": 377894,
@@ -900,7 +900,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-feedback-boot-links-in-de-zee.mp4",
-      "url": "/assets/lp-013-feedback-boot-links-in-de-zee-DTQfDFC0.mp4"
+      "url": "/Game-Wereld/assets/lp-013-feedback-boot-links-in-de-zee-DTQfDFC0.mp4"
     },
     {
       "bytes": 391305,
@@ -911,7 +911,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-01-zoek-de-boot.mp4",
-      "url": "/assets/lp-013-hint-01-zoek-de-boot-0VB9VHVp.mp4"
+      "url": "/Game-Wereld/assets/lp-013-hint-01-zoek-de-boot-0VB9VHVp.mp4"
     },
     {
       "bytes": 469737,
@@ -922,7 +922,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-hint-02-kijk-naar-boot.mp4",
-      "url": "/assets/lp-013-hint-02-kijk-naar-boot-LrQXFfjy.mp4"
+      "url": "/Game-Wereld/assets/lp-013-hint-02-kijk-naar-boot-LrQXFfjy.mp4"
     },
     {
       "bytes": 380457,
@@ -933,7 +933,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-013-opdracht-zet-de-boot-links-in-de-zee.mp4",
-      "url": "/assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-DSFE1BrB.mp4"
+      "url": "/Game-Wereld/assets/lp-013-opdracht-zet-de-boot-links-in-de-zee-DSFE1BrB.mp4"
     },
     {
       "bytes": 579802,
@@ -944,7 +944,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee.mp4",
-      "url": "/assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-CsP9i_q1.mp4"
+      "url": "/Game-Wereld/assets/lp-014-feedback-vliegtuig-ver-weg-boven-de-zee-CsP9i_q1.mp4"
     },
     {
       "bytes": 428636,
@@ -955,7 +955,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee.mp4",
-      "url": "/assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-DNBzXP-n.mp4"
+      "url": "/Game-Wereld/assets/lp-014-opdracht-zet-het-vliegtuig-ver-weg-boven-de-zee-DNBzXP-n.mp4"
     },
     {
       "bytes": 371053,
@@ -966,7 +966,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-feedback-bal-dichtbij-parasol.mp4",
-      "url": "/assets/lp-015-feedback-bal-dichtbij-parasol-NHvQbB97.mp4"
+      "url": "/Game-Wereld/assets/lp-015-feedback-bal-dichtbij-parasol-NHvQbB97.mp4"
     },
     {
       "bytes": 345055,
@@ -977,7 +977,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol.mp4",
-      "url": "/assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-PZAHk6X8.mp4"
+      "url": "/Game-Wereld/assets/lp-015-opdracht-leg-de-bal-dichtbij-de-parasol-PZAHk6X8.mp4"
     },
     {
       "bytes": 333408,
@@ -988,7 +988,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel.mp4",
-      "url": "/assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-tDHo-bIy.mp4"
+      "url": "/Game-Wereld/assets/lp-016-opdracht-leg-de-schelp-tussen-de-bal-en-het-zandkasteel-tDHo-bIy.mp4"
     },
     {
       "bytes": 498988,
@@ -999,7 +999,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/shared-hint-kijk-naar-de-plek-die-oplicht.mp4",
-      "url": "/assets/shared-hint-kijk-naar-de-plek-die-oplicht-IMKPtAfd.mp4"
+      "url": "/Game-Wereld/assets/shared-hint-kijk-naar-de-plek-die-oplicht-IMKPtAfd.mp4"
     },
     {
       "bytes": 511489,
@@ -1010,7 +1010,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/zet-de-boot-in-de-zee.mp4",
-      "url": "/assets/zet-de-boot-in-de-zee-Boexzq-Q.mp4"
+      "url": "/Game-Wereld/assets/zet-de-boot-in-de-zee-Boexzq-Q.mp4"
     },
     {
       "bytes": 375304,
@@ -1021,7 +1021,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/instructions/zoek-de-boot.mp4",
-      "url": "/assets/zoek-de-boot-BsErqaCP.mp4"
+      "url": "/Game-Wereld/assets/zoek-de-boot-BsErqaCP.mp4"
     },
     {
       "bytes": 98082,
@@ -1032,7 +1032,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/logos/start-logo-beach.webp",
-      "url": "/assets/start-logo-beach-CHMmEAk3.webp"
+      "url": "/Game-Wereld/assets/start-logo-beach-CHMmEAk3.webp"
     },
     {
       "bytes": 29174,
@@ -1043,7 +1043,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/cloud-obstacle.webp",
-      "url": "/assets/cloud-obstacle-D3zGM3QO.webp"
+      "url": "/Game-Wereld/assets/cloud-obstacle-D3zGM3QO.webp"
     },
     {
       "bytes": 56114,
@@ -1054,7 +1054,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/sea-lion-obstacle.webp",
-      "url": "/assets/sea-lion-obstacle-DIpGnDf-.webp"
+      "url": "/Game-Wereld/assets/sea-lion-obstacle-DIpGnDf-.webp"
     },
     {
       "bytes": 54670,
@@ -1065,7 +1065,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/seagull-obstacle.webp",
-      "url": "/assets/seagull-obstacle-B8gvPgsM.webp"
+      "url": "/Game-Wereld/assets/seagull-obstacle-B8gvPgsM.webp"
     },
     {
       "bytes": 41124,
@@ -1076,7 +1076,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/side-scroller/shark-obstacle.webp",
-      "url": "/assets/shark-obstacle-CLdYq5RB.webp"
+      "url": "/Game-Wereld/assets/shark-obstacle-CLdYq5RB.webp"
     },
     {
       "bytes": 24712,
@@ -1087,7 +1087,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/airplane-sticker.webp",
-      "url": "/assets/airplane-sticker-BOlKV2E8.webp"
+      "url": "/Game-Wereld/assets/airplane-sticker-BOlKV2E8.webp"
     },
     {
       "bytes": 19470,
@@ -1098,7 +1098,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-ball-sticker.webp",
-      "url": "/assets/beach-ball-sticker-Dv-cjiLr.webp"
+      "url": "/Game-Wereld/assets/beach-ball-sticker-Dv-cjiLr.webp"
     },
     {
       "bytes": 20512,
@@ -1109,7 +1109,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-towel-sticker.webp",
-      "url": "/assets/beach-towel-sticker-D76ByBJ9.webp"
+      "url": "/Game-Wereld/assets/beach-towel-sticker-D76ByBJ9.webp"
     },
     {
       "bytes": 22878,
@@ -1120,7 +1120,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/beach-umbrella-sticker.webp",
-      "url": "/assets/beach-umbrella-sticker-CL_SNZUk.webp"
+      "url": "/Game-Wereld/assets/beach-umbrella-sticker-CL_SNZUk.webp"
     },
     {
       "bytes": 32664,
@@ -1131,7 +1131,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/crab-sticker.webp",
-      "url": "/assets/crab-sticker-C68d2q4R.webp"
+      "url": "/Game-Wereld/assets/crab-sticker-C68d2q4R.webp"
     },
     {
       "bytes": 21626,
@@ -1142,7 +1142,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/dolphin-sticker.webp",
-      "url": "/assets/dolphin-sticker-psHLZ_YF.webp"
+      "url": "/Game-Wereld/assets/dolphin-sticker-psHLZ_YF.webp"
     },
     {
       "bytes": 21032,
@@ -1153,7 +1153,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/kite-sticker.webp",
-      "url": "/assets/kite-sticker-9y1QNj1q.webp"
+      "url": "/Game-Wereld/assets/kite-sticker-9y1QNj1q.webp"
     },
     {
       "bytes": 24616,
@@ -1164,7 +1164,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/lighthouse-sticker.webp",
-      "url": "/assets/lighthouse-sticker-CGxhguB3.webp"
+      "url": "/Game-Wereld/assets/lighthouse-sticker-CGxhguB3.webp"
     },
     {
       "bytes": 24952,
@@ -1175,7 +1175,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sailboat-sticker.webp",
-      "url": "/assets/sailboat-sticker-AuaeKGMh.webp"
+      "url": "/Game-Wereld/assets/sailboat-sticker-AuaeKGMh.webp"
     },
     {
       "bytes": 27882,
@@ -1186,7 +1186,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sandcastle-sticker.webp",
-      "url": "/assets/sandcastle-sticker-Da0mHsrO.webp"
+      "url": "/Game-Wereld/assets/sandcastle-sticker-Da0mHsrO.webp"
     },
     {
       "bytes": 28690,
@@ -1197,7 +1197,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/seashells-sticker.webp",
-      "url": "/assets/seashells-sticker-C8KL99nA.webp"
+      "url": "/Game-Wereld/assets/seashells-sticker-C8KL99nA.webp"
     },
     {
       "bytes": 25020,
@@ -1208,7 +1208,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.webp",
-      "url": "/assets/sun-sticker-CNXyirNc.webp"
+      "url": "/Game-Wereld/assets/sun-sticker-CNXyirNc.webp"
     },
     {
       "bytes": 405388,
@@ -1219,7 +1219,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/index.tsx",
-      "url": "/assets/game-magisch-strand-avontuur-B2RctG89.js"
+      "url": "/Game-Wereld/assets/game-magisch-strand-avontuur-B2RctG89.js"
     }
   ],
   "contentVersion": "magisch-strand-avontuur-2026.07",

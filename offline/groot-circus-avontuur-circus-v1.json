@@ -9,7 +9,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/audio/background-music.mp3",
-      "url": "/assets/background-music-DdUSu1S4.mp3"
+      "url": "/Game-Wereld/assets/background-music-DdUSu1S4.mp3"
     },
     {
       "bytes": 714934,
@@ -20,7 +20,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.png",
-      "url": "/assets/circus-board-landscape-DRrior6e.png"
+      "url": "/Game-Wereld/assets/circus-board-landscape-DRrior6e.png"
     },
     {
       "bytes": 61738,
@@ -31,7 +31,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-landscape.webp",
-      "url": "/assets/circus-board-landscape-ohh1WMvD.webp"
+      "url": "/Game-Wereld/assets/circus-board-landscape-ohh1WMvD.webp"
     },
     {
       "bytes": 524454,
@@ -42,7 +42,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.png",
-      "url": "/assets/circus-board-portrait-Czb-_bBB.png"
+      "url": "/Game-Wereld/assets/circus-board-portrait-Czb-_bBB.png"
     },
     {
       "bytes": 30932,
@@ -53,7 +53,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-board-portrait.webp",
-      "url": "/assets/circus-board-portrait-Wi34FuLt.webp"
+      "url": "/Game-Wereld/assets/circus-board-portrait-Wi34FuLt.webp"
     },
     {
       "bytes": 1575829,
@@ -64,7 +64,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.png",
-      "url": "/assets/circus-voice-side-scroller-POoSgyhh.png"
+      "url": "/Game-Wereld/assets/circus-voice-side-scroller-POoSgyhh.png"
     },
     {
       "bytes": 85118,
@@ -75,7 +75,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/backgrounds/circus-voice-side-scroller.webp",
-      "url": "/assets/circus-voice-side-scroller-xXUssN0i.webp"
+      "url": "/Game-Wereld/assets/circus-voice-side-scroller-xXUssN0i.webp"
     },
     {
       "bytes": 243278,
@@ -86,7 +86,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/avatars/avatar-05.png",
-      "url": "/assets/avatar-05-DxR6KWmC.png"
+      "url": "/Game-Wereld/assets/avatar-05-DxR6KWmC.png"
     },
     {
       "bytes": 119942,
@@ -97,7 +97,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-01-basic.png",
-      "url": "/assets/broom-01-basic-DCl0hNIR.png"
+      "url": "/Game-Wereld/assets/broom-01-basic-DCl0hNIR.png"
     },
     {
       "bytes": 163952,
@@ -108,7 +108,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-02-beach.png",
-      "url": "/assets/broom-02-beach-Dm5SUzbY.png"
+      "url": "/Game-Wereld/assets/broom-02-beach-Dm5SUzbY.png"
     },
     {
       "bytes": 149862,
@@ -119,7 +119,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/brooms/broom-06-speed.png",
-      "url": "/assets/broom-06-speed-BYA4ve7K.png"
+      "url": "/Game-Wereld/assets/broom-06-speed-BYA4ve7K.png"
     },
     {
       "bytes": 179830,
@@ -130,7 +130,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-01-neutral.png",
-      "url": "/assets/mascot-01-neutral-C4m9lZWu.png"
+      "url": "/Game-Wereld/assets/mascot-01-neutral-C4m9lZWu.png"
     },
     {
       "bytes": 225165,
@@ -141,7 +141,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-05-celebration.png",
-      "url": "/assets/mascot-05-celebration-PUcpWzM0.png"
+      "url": "/Game-Wereld/assets/mascot-05-celebration-PUcpWzM0.png"
     },
     {
       "bytes": 198909,
@@ -152,7 +152,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/mascot/mascot-06-hint.png",
-      "url": "/assets/mascot-06-hint-D_DbfUeb.png"
+      "url": "/Game-Wereld/assets/mascot-06-hint-D_DbfUeb.png"
     },
     {
       "bytes": 339913,
@@ -163,7 +163,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/icons/worlds/world-circus.png",
-      "url": "/assets/world-circus-DhVa_7Ny.png"
+      "url": "/Game-Wereld/assets/world-circus-DhVa_7Ny.png"
     },
     {
       "bytes": 1094515,
@@ -174,7 +174,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/logos/start-logo-circus.png",
-      "url": "/assets/start-logo-circus-dKCYkVbN.png"
+      "url": "/Game-Wereld/assets/start-logo-circus-dKCYkVbN.png"
     },
     {
       "bytes": 841155,
@@ -185,7 +185,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/cloud-obstacle.png",
-      "url": "/assets/cloud-obstacle-BRdkNmdW.png"
+      "url": "/Game-Wereld/assets/cloud-obstacle-BRdkNmdW.png"
     },
     {
       "bytes": 1051593,
@@ -196,7 +196,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/sea-lion-obstacle.png",
-      "url": "/assets/sea-lion-obstacle-DbWExnRR.png"
+      "url": "/Game-Wereld/assets/sea-lion-obstacle-DbWExnRR.png"
     },
     {
       "bytes": 815037,
@@ -207,7 +207,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/seagull-obstacle.png",
-      "url": "/assets/seagull-obstacle-CKLI00oQ.png"
+      "url": "/Game-Wereld/assets/seagull-obstacle-CKLI00oQ.png"
     },
     {
       "bytes": 1028918,
@@ -218,7 +218,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/side-scroller/shark-obstacle.png",
-      "url": "/assets/shark-obstacle-GaVHh8cO.png"
+      "url": "/Game-Wereld/assets/shark-obstacle-GaVHh8cO.png"
     },
     {
       "bytes": 270111,
@@ -229,7 +229,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/acrobat-sticker.png",
-      "url": "/assets/acrobat-sticker-MVGMN7_D.png"
+      "url": "/Game-Wereld/assets/acrobat-sticker-MVGMN7_D.png"
     },
     {
       "bytes": 241374,
@@ -240,7 +240,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/ball-sticker.png",
-      "url": "/assets/ball-sticker-CgZry1Ab.png"
+      "url": "/Game-Wereld/assets/ball-sticker-CgZry1Ab.png"
     },
     {
       "bytes": 165385,
@@ -251,7 +251,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/balloon-sticker.png",
-      "url": "/assets/balloon-sticker-C7QsIy9g.png"
+      "url": "/Game-Wereld/assets/balloon-sticker-C7QsIy9g.png"
     },
     {
       "bytes": 213605,
@@ -262,7 +262,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/bear-sticker.png",
-      "url": "/assets/bear-sticker-M9ocUWzY.png"
+      "url": "/Game-Wereld/assets/bear-sticker-M9ocUWzY.png"
     },
     {
       "bytes": 240880,
@@ -273,7 +273,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/cannon-sticker.png",
-      "url": "/assets/cannon-sticker-Bl1Wkim7.png"
+      "url": "/Game-Wereld/assets/cannon-sticker-Bl1Wkim7.png"
     },
     {
       "bytes": 241248,
@@ -284,7 +284,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/cat-sticker.png",
-      "url": "/assets/cat-sticker-WNuK8RQ0.png"
+      "url": "/Game-Wereld/assets/cat-sticker-WNuK8RQ0.png"
     },
     {
       "bytes": 189912,
@@ -295,7 +295,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/chicken-sticker.png",
-      "url": "/assets/chicken-sticker-DdC08v4G.png"
+      "url": "/Game-Wereld/assets/chicken-sticker-DdC08v4G.png"
     },
     {
       "bytes": 209251,
@@ -306,7 +306,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/clown-sticker.png",
-      "url": "/assets/clown-sticker-WRPjxApQ.png"
+      "url": "/Game-Wereld/assets/clown-sticker-WRPjxApQ.png"
     },
     {
       "bytes": 195325,
@@ -317,7 +317,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/dog-sticker.png",
-      "url": "/assets/dog-sticker-D6lnG1bF.png"
+      "url": "/Game-Wereld/assets/dog-sticker-D6lnG1bF.png"
     },
     {
       "bytes": 311500,
@@ -328,7 +328,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/drum-sticker.png",
-      "url": "/assets/drum-sticker-CaXhaqnA.png"
+      "url": "/Game-Wereld/assets/drum-sticker-CaXhaqnA.png"
     },
     {
       "bytes": 245120,
@@ -339,7 +339,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/elephant-sticker.png",
-      "url": "/assets/elephant-sticker-DommvBgD.png"
+      "url": "/Game-Wereld/assets/elephant-sticker-DommvBgD.png"
     },
     {
       "bytes": 121524,
@@ -350,7 +350,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/flag-sticker.png",
-      "url": "/assets/flag-sticker-rmF7Wu6p.png"
+      "url": "/Game-Wereld/assets/flag-sticker-rmF7Wu6p.png"
     },
     {
       "bytes": 248938,
@@ -361,7 +361,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/hoop-sticker.png",
-      "url": "/assets/hoop-sticker-C0EGp0S6.png"
+      "url": "/Game-Wereld/assets/hoop-sticker-C0EGp0S6.png"
     },
     {
       "bytes": 280448,
@@ -372,7 +372,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/lion-sticker.png",
-      "url": "/assets/lion-sticker-DObgYAcV.png"
+      "url": "/Game-Wereld/assets/lion-sticker-DObgYAcV.png"
     },
     {
       "bytes": 227276,
@@ -383,7 +383,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/monkey-sticker.png",
-      "url": "/assets/monkey-sticker-BgTZvrBr.png"
+      "url": "/Game-Wereld/assets/monkey-sticker-BgTZvrBr.png"
     },
     {
       "bytes": 229564,
@@ -394,7 +394,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/mouse-sticker.png",
-      "url": "/assets/mouse-sticker-BBIhiRkq.png"
+      "url": "/Game-Wereld/assets/mouse-sticker-BBIhiRkq.png"
     },
     {
       "bytes": 226470,
@@ -405,7 +405,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/piglet-sticker.png",
-      "url": "/assets/piglet-sticker-DEeGkx0h.png"
+      "url": "/Game-Wereld/assets/piglet-sticker-DEeGkx0h.png"
     },
     {
       "bytes": 199660,
@@ -416,7 +416,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/seal-sticker.png",
-      "url": "/assets/seal-sticker-DD9fRows.png"
+      "url": "/Game-Wereld/assets/seal-sticker-DD9fRows.png"
     },
     {
       "bytes": 277123,
@@ -427,7 +427,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/unicycle-sticker.png",
-      "url": "/assets/unicycle-sticker-3mNiPFPU.png"
+      "url": "/Game-Wereld/assets/unicycle-sticker-3mNiPFPU.png"
     },
     {
       "bytes": 209120,
@@ -438,7 +438,7 @@
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/index.tsx",
-      "url": "/assets/index-DrQm42-s.js"
+      "url": "/Game-Wereld/assets/index-DrQm42-s.js"
     }
   ],
   "contentVersion": "groot-circus-avontuur-2026.08",
