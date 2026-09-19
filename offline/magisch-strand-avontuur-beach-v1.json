@@ -1211,22 +1211,22 @@
       "url": "/assets/sun-sticker-CNXyirNc.webp"
     },
     {
-      "bytes": 405386,
-      "hash": "sha256-4323e9ee6f8949aaae9c6ff7c52e9a8020242a2f681cc22a3b2bf71739e52931",
+      "bytes": 405392,
+      "hash": "sha256-d95633b1c99e8945c432119f90fbb5b2d595c90242279744d34a4accfc456eda",
       "id": "src/app/games/magisch-strand-avontuur/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/index.tsx",
-      "url": "/assets/game-magisch-strand-avontuur-B7IwmD9V.js"
+      "url": "/assets/game-magisch-strand-avontuur-1QhXp0wH.js"
     }
   ],
   "contentVersion": "magisch-strand-avontuur-2026.07",
   "gameId": "magisch-strand-avontuur",
   "id": "magisch-strand-avontuur-beach",
   "schemaVersion": 1,
-  "totalBytes": 38842445,
+  "totalBytes": 38842451,
   "version": 1,
   "worldId": "beach"
 }
