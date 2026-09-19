@@ -1,15 +1,19 @@
 import type { PlatformInfo } from "./platformDetection";
 
 /**
- * Portret-only op mobiel (T-42, besluit 2026-09-18): de game ondersteunt op
- * geen enkel mobiel toestel de liggende stand. Omdat iOS de manifest-
- * `orientation` negeert en `screen.orientation.lock()` niet overal werkt, is
- * een in-app guard de enige laag die op élk toestel betrouwbaar is.
+ * Portret-only op de telefoon (T-42 §1.1): de telefoonversie ondersteunt de
+ * liggende stand niet. Omdat iOS de manifest-`orientation` negeert en
+ * `screen.orientation.lock()` niet overal werkt, is een in-app guard de enige
+ * laag die op élk toestel betrouwbaar is.
+ *
+ * Bewust ALLEEN `phone`: tablet bepaalt z'n eigen stand in `T-44` (de e2e
+ * draait bovendien als liggende touch-tablet, 1024×768) en desktop is nooit
+ * een aanraaktoestel in portret-zin.
  *
  * Pure beslisfunctie zodat hij zonder DOM te testen is.
  */
 export const shouldShowPortraitGuard = (platform: PlatformInfo, isLandscape: boolean): boolean =>
-  platform.formFactor !== "desktop" && isLandscape;
+  platform.formFactor === "phone" && isLandscape;
 
 /**
  * Best-effort vergrendeling op portret. Werkt op Android/Samsung in een

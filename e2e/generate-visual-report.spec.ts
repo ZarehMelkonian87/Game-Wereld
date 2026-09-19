@@ -1,7 +1,7 @@
 import { test, type Page, type Locator } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
-import { earnStarsToUnlockModes } from "./helpers";
+import { earnStarsToUnlockModes, openStrandGameFromList } from "./helpers";
 
 interface StepInfo {
   id: string;
@@ -236,8 +236,8 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
       action: "Klik op 'Magisch Strand-Avontuur' in de lijst met spellen.",
       screenshotFile: s6,
     });
-    await gameBtn.click();
-    await page.getByTestId("start-screen").waitFor({ state: "visible" });
+    // Klikt de kaart en handelt de download-gate af (T-43) tot het startscherm.
+    await openStrandGameFromList(page);
 
     // ==========================================
     // DEEL 2: HOOFDMENU & STARTSCHERM

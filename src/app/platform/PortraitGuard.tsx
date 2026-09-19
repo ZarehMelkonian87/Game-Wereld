@@ -4,9 +4,9 @@ import { usePlatform } from "./usePlatform";
 import { useIsLandscape } from "./useOrientation";
 
 /**
- * Portret-guard voor mobiel (T-42): zodra een telefoon of tablet liggend wordt
+ * Portret-guard voor de telefoon (T-42 §1.1): zodra een telefoon liggend wordt
  * gehouden, legt dit scherm zich over de game heen en blokkeert alle invoer,
- * tot het toestel weer rechtop staat. Op desktop doet hij niets.
+ * tot het toestel weer rechtop staat. Op tablet (T-44) en desktop doet hij niets.
  *
  * Probeert bij mount ook `screen.orientation.lock("portrait")` — op Android/
  * Samsung voorkomt dat het draaien helemaal; op iOS faalt dat stil en vangt de
@@ -15,12 +15,12 @@ import { useIsLandscape } from "./useOrientation";
 export const PortraitGuard = () => {
   const platform = usePlatform();
   const isLandscape = useIsLandscape();
-  const isMobile = platform.formFactor !== "desktop";
+  const isPhone = platform.formFactor === "phone";
 
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isPhone) return;
     void tryLockPortrait();
-  }, [isMobile]);
+  }, [isPhone]);
 
   if (!shouldShowPortraitGuard(platform, isLandscape)) {
     return null;

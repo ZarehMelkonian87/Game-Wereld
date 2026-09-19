@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { earnStarsToUnlockModes } from "./helpers";
+import { earnStarsToUnlockModes, openStrandGameFromList } from "./helpers";
 
 const WCAG_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
@@ -26,8 +26,7 @@ const createProfile = async (page: Page) => {
 
 const openSceneBuilder = async (page: Page) => {
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
   await page.getByTestId("start-play-button").click();
   await earnStarsToUnlockModes(page);
   await page.getByTestId("compact-mode-card-listen-and-place").click();
@@ -70,8 +69,7 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
 
   await page.goto("/home");
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
   await auditCurrentScreen(page, "GameHost");
 
   await page.goto("/games/math/rekenen-strand-avontuur");

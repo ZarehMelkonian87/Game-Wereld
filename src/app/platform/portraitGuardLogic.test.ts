@@ -14,8 +14,8 @@ describe("shouldShowPortraitGuard (T-42, nooit liggend op mobiel)", () => {
     expect(shouldShowPortraitGuard(info("phone"), true)).toBe(true);
   });
 
-  it("toont de guard ook op een tablet in liggende stand", () => {
-    expect(shouldShowPortraitGuard(info("tablet"), true)).toBe(true);
+  it("laat een tablet met rust — die bepaalt z'n eigen stand in T-44", () => {
+    expect(shouldShowPortraitGuard(info("tablet"), true)).toBe(false);
   });
 
   it("verbergt de guard zodra het toestel rechtop staat", () => {

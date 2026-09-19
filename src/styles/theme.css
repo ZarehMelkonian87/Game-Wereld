@@ -382,17 +382,25 @@ a,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Bewust GEEN universele `transition-duration: 0.01ms` op `*`: in Zeg & Vlieg
-   * wijzigt elke frame de positie van speler/obstakels/plaatjes, en een mini-
-   * transitie op elk element geeft dan een `transitionend`-stortvloed die zwakke
-   * toestellen laat vastlopen (DT-06). We dempen alleen de decoratieve
-   * keyframe-animaties + `scroll-behavior`. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Transities uit voor de app-schil (a11y-norm, bewaakt door de axe-e2e) — maar
+   * bewust NIET binnen de game-shell (`[data-game-id]`): daar wijzigt in Zeg &
+   * Vlieg elke frame de positie van speler/obstakels/plaatjes, en een mini-
+   * transitie op elk element geeft dan een `transitionend`-stortvloed die zwakke
+   * toestellen laat vastlopen (DT-06). In de game dempen we alleen de
+   * decoratieve `.bezem-*`-animaties hieronder. */
+  :not([data-game-id] *),
+  :not([data-game-id] *)::before,
+  :not([data-game-id] *)::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 
   .bezem-feedback-toast,

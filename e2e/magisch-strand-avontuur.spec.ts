@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { earnStarsToUnlockModes } from "./helpers";
+import { earnStarsToUnlockModes, openStrandGameFromList } from "./helpers";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -31,8 +31,7 @@ const setupPlayerAndOpenStrandGame = async (page: Page) => {
   await expect(page.getByText("Strand Tester", { exact: true })).toBeVisible();
 
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
 };
 
 test.describe("Magisch Strand-Avontuur: Fase 1 - Startscherm", () => {

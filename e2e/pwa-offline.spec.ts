@@ -1,5 +1,22 @@
 import { createHash } from "node:crypto";
-import { expect, test } from "@playwright/test";
+import { openStrandGameFromList } from "./helpers";
+import { expect, test, type Locator } from "@playwright/test";
+
+/**
+ * Op wifi start de download-gate de download direct (spec §2.4); alleen bij
+ * mobiele data of een groot pakket (>50 MB) vraagt de modal eerst om
+ * bevestiging. Klik die bevestiging als hij er is, anders gewoon doorgaan.
+ */
+const confirmGateDownloadIfAsked = async (modal: Locator): Promise<void> => {
+  const confirmButton = modal.getByRole("button", {
+    name: /Start Download|Toch downloaden|Downloaden/,
+  });
+  const completed = modal.getByText(/Download Voltooid!|Bestanden opslaan|Fase/);
+  await expect(confirmButton.or(completed)).toBeVisible({ timeout: 60_000 });
+  if (await confirmButton.isVisible()) {
+    await confirmButton.click();
+  }
+};
 
 const hash = (value: string) => `sha256-${createHash("sha256").update(value).digest("hex")}`;
 
@@ -115,8 +132,8 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await downloadBtn.waitFor({ state: "visible", timeout: 5000 });
   await downloadBtn.click();
   const modal = page.locator('[data-component="DownloadGateModal"]');
-  await modal.getByRole("button", { name: /Start Download|Downloaden/ }).click();
-  await expect(modal.getByText(/Download Voltooid!/)).toBeVisible();
+  await confirmGateDownloadIfAsked(modal);
+  await expect(modal.getByText(/Download Voltooid!/)).toBeVisible({ timeout: 60_000 });
   await modal.locator('[data-slot="close-button"]').click();
 
   await page.goto("/games/math");
@@ -124,8 +141,8 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await mathDownloadBtn.waitFor({ state: "visible", timeout: 5000 });
   await mathDownloadBtn.click();
   const mathModal = page.locator('[data-component="DownloadGateModal"]');
-  await mathModal.getByRole("button", { name: /Start Download|Downloaden/ }).click();
-  await expect(mathModal.getByText(/Download Voltooid!/)).toBeVisible();
+  await confirmGateDownloadIfAsked(mathModal);
+  await expect(mathModal.getByText(/Download Voltooid!/)).toBeVisible({ timeout: 60_000 });
   await mathModal.locator('[data-slot="close-button"]').click();
   await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
   await expect(page.getByTestId("start-screen")).toBeVisible();
@@ -136,8 +153,7 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await page
     .locator('[data-game-id="magisch-strand-avontuur"] [data-state="ready"]')
     .waitFor({ state: "visible", timeout: 5000 });
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
   await page.evaluate(async () => {
     const registration = await navigator.serviceWorker.register(`/sw.js?e2e-update=${Date.now()}`);
     const candidate = registration.installing ?? registration.waiting;
@@ -169,8 +185,7 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
       }
     })
     .toBe(1);
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
   await page.evaluate(() => {
     const durations: number[] = [];
     (

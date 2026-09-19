@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs";
-import { earnStarsToUnlockModes } from "./helpers";
+import { earnStarsToUnlockModes, openGameFromList, openStrandGameFromList } from "./helpers";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -75,8 +75,7 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   await page.getByRole("button", { name: "Terug" }).click();
 
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
-  await page.getByRole("button", { name: /Magisch Strand-Avontuur/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
+  await openStrandGameFromList(page);
 
   await page.getByTestId("start-play-button").click();
   // Zeg & Zet is vergrendeld tot er sterren verdiend zijn (T-31): eerst een
@@ -104,7 +103,12 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   await expect(page.getByText(/Geregistreerd:.*oefenpogingen/)).toBeVisible();
 
   await page.goto("/games/math");
-  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
+  // Ook Rekenen heeft een offline-pakket, dus dezelfde download-gate (T-43).
+  await openGameFromList(
+    page,
+    /Schelpen Tellen/,
+    page.getByRole("button", { name: "Start met tellen" }),
+  );
   await page.getByRole("button", { name: "Start met tellen" }).click();
   await page.getByRole("button", { name: "1 schelpen" }).click();
   await expect(page.getByText("Goed geteld!")).toBeVisible();
