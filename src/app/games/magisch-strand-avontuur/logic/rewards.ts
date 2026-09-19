@@ -20,7 +20,12 @@ export interface RewardUnlock {
 // per ronde: een snelle eerste win (3), daarna rustig oplopend zodat de laatste
 // beloning ~3-4 rondes duurt en de motivatie langer vasthoudt.
 export const strandRewards: RewardUnlock[] = [
-  { id: "sticker-schelp-starter", label: "Schelp Sticker", type: "sticker", unlockAfterWordStars: 3 },
+  {
+    id: "sticker-schelp-starter",
+    label: "Schelp Sticker",
+    type: "sticker",
+    unlockAfterWordStars: 3,
+  },
   {
     id: "broom-color-sea-blue",
     label: "Zeeblauwe Bezemkleur",

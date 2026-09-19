@@ -29,7 +29,10 @@ export const useReducedMotionSetting = (): boolean => {
     };
     window.addEventListener(MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT, updateFromSettings);
     return () =>
-      window.removeEventListener(MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT, updateFromSettings);
+      window.removeEventListener(
+        MAGISCH_STRAND_AVONTUUR_SETTINGS_CHANGED_EVENT,
+        updateFromSettings,
+      );
   }, [profileId, storage]);
 
   return reducedMotion;

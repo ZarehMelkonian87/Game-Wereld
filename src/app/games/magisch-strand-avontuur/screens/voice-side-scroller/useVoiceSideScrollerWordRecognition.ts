@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDutchSpeechRecognition } from "../../hooks/useDutchSpeechRecognition";
 import type { VoiceRecognitionStatus } from "../../logic/speech-recognition";
-import {
-  filterUnwantedCandidates,
-  UNWANTED_WORD_NUDGE,
-} from "../../logic/word-safety";
+import { filterUnwantedCandidates, UNWANTED_WORD_NUDGE } from "../../logic/word-safety";
 import type { VoiceSideScrollerTarget } from "./voiceSideScrollerModel";
 import { matchVoiceSideScrollerWord } from "./voiceSideScrollerWords";
 

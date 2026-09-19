@@ -60,8 +60,9 @@ const toThemeProgress = (projection: ProgressProjection, themeId: string): Theme
     projection.measuredResponses > 0
       ? {
           averageSeconds:
-            Math.round((projection.totalResponseTimeMs / projection.measuredResponses / 1000) * 10) /
-            10,
+            Math.round(
+              (projection.totalResponseTimeMs / projection.measuredResponses / 1000) * 10,
+            ) / 10,
           measuredResponses: projection.measuredResponses,
         }
       : undefined;

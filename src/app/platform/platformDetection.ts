@@ -55,8 +55,7 @@ export const classifyPlatform = (env: PlatformEnv): PlatformInfo => {
 
   const isPhoneUa = PHONE_UA.test(env.userAgent);
   const isTabletUa =
-    TABLET_UA.test(env.userAgent) ||
-    (IPAD_AS_MAC.test(env.userAgent) && env.maxTouchPoints > 1);
+    TABLET_UA.test(env.userAgent) || (IPAD_AS_MAC.test(env.userAgent) && env.maxTouchPoints > 1);
 
   let formFactor: PlatformFormFactor;
   if (isTabletUa) {

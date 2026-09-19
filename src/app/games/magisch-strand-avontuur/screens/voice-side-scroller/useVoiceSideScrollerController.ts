@@ -99,13 +99,10 @@ export const useVoiceSideScrollerController = ({
       return;
     }
 
-    const result = updateVoiceScrollerRecord(
-      readVoiceScrollerRecord(profileId, runtime.storage),
-      {
-        comboReached: stateRef.current.bestCombo,
-        distanceMeters: Math.floor(stateRef.current.distance),
-      },
-    );
+    const result = updateVoiceScrollerRecord(readVoiceScrollerRecord(profileId, runtime.storage), {
+      comboReached: stateRef.current.bestCombo,
+      distanceMeters: Math.floor(stateRef.current.distance),
+    });
 
     saveVoiceScrollerRecord(profileId, result.record, runtime.storage);
     setRecord(result.record);

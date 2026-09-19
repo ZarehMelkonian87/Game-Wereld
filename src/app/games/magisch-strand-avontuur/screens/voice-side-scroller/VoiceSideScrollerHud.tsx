@@ -89,7 +89,11 @@ const ShieldMeter = ({ maxShields, shields }: { maxShields: number; shields: num
   );
 };
 
-export const VoiceSideScrollerHud = ({ onBackToMenu, record, state }: VoiceSideScrollerHudProps) => {
+export const VoiceSideScrollerHud = ({
+  onBackToMenu,
+  record,
+  state,
+}: VoiceSideScrollerHudProps) => {
   const distanceMeters = getVoiceScrollerDistanceMeters(state);
   const difficultyProgress = getVoiceScrollerDifficultyProgress(state);
   const showCombo = state.combo >= 2;

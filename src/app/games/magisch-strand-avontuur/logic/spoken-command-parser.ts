@@ -375,12 +375,9 @@ const buildCompoundTokens = (
 ): CompoundToken[] => {
   const rawTokens: CompoundToken[] = [
     ...objects.flatMap((object) =>
-      findAliasMatches(
-        normalizedTranscript,
-        object.id,
-        object.label,
-        getObjectAliases(object),
-      ).map((match) => ({ ...match, type: "object" as const })),
+      findAliasMatches(normalizedTranscript, object.id, object.label, getObjectAliases(object)).map(
+        (match) => ({ ...match, type: "object" as const }),
+      ),
     ),
     ...Object.entries(spatialConceptAliases).flatMap(([concept, aliases]) =>
       findAliasMatches(normalizedTranscript, concept, concept, aliases).map((match) => ({

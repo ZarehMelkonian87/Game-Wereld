@@ -64,15 +64,16 @@ export const ConfirmDeleteModal = ({
             <Trash2 aria-hidden="true" className="h-6 w-6" />
           </div>
 
-          <h2
-            className="mt-2 text-base sm:text-lg font-black text-white"
-            id="confirm-delete-title"
-          >
+          <h2 className="mt-2 text-base sm:text-lg font-black text-white" id="confirm-delete-title">
             Spel verwijderen?
           </h2>
 
           <p className="mt-1.5 max-w-xs text-xs font-semibold text-slate-200">
-            Weet je zeker dat je <strong className="text-white">"{gameTitle}"</strong> wilt verwijderen? {sizeText ? `De opgeslagen bestanden (${sizeText}) worden gewist.` : "De offline bestanden worden gewist."}
+            Weet je zeker dat je <strong className="text-white">"{gameTitle}"</strong> wilt
+            verwijderen?{" "}
+            {sizeText
+              ? `De opgeslagen bestanden (${sizeText}) worden gewist.`
+              : "De offline bestanden worden gewist."}
           </p>
 
           <p className="mt-1 text-[11px] text-slate-400">

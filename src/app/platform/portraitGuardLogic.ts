@@ -18,9 +18,11 @@ export const shouldShowPortraitGuard = (platform: PlatformInfo, isLandscape: boo
  */
 export const tryLockPortrait = async (): Promise<boolean> => {
   if (typeof screen === "undefined") return false;
-  const orientation = (screen as Screen & {
-    orientation?: { lock?: (mode: string) => Promise<void> };
-  }).orientation;
+  const orientation = (
+    screen as Screen & {
+      orientation?: { lock?: (mode: string) => Promise<void> };
+    }
+  ).orientation;
   if (!orientation?.lock) return false;
   try {
     await orientation.lock("portrait");

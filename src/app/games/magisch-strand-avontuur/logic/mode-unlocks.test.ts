@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  getStarsUntilModeUnlock,
-  isModeUnlocked,
-  MODE_UNLOCK_WORD_STARS,
-} from "./mode-unlocks";
+import { getStarsUntilModeUnlock, isModeUnlocked, MODE_UNLOCK_WORD_STARS } from "./mode-unlocks";
 
 describe("mode-unlocks (T-31)", () => {
   it("Kies het Woord is altijd open (instapmodus)", () => {

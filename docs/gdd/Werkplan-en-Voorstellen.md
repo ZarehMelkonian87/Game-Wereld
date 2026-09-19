@@ -7,12 +7,12 @@
 
 ### ✅ Besluiten (2026-09-13)
 
-| Onderwerp | Besluit |
-| :--- | :--- |
-| **Dev-tools** (WP-B1) | Build-flag (`import.meta.env.DEV`) **+** `?dev=true`; toggle uit de zichtbare instellingen |
-| **Zeg & Vlieg** (WP-B3) | Vriendelijk: **schildjes + persoonlijk record + combo** (geen harde game-over) |
-| **Unlock/volgorde** (WP-B4) | **Ja** — unlock-mechanisme met leervolgorde **Kies het Woord → Zeg & Zet → Zeg & Vlieg** |
-| **Zeg & Bouw** (WP-C8) | Claude schrijft eerst een **concept-voorstel** als startpunt |
+| Onderwerp                   | Besluit                                                                                    |
+| :-------------------------- | :----------------------------------------------------------------------------------------- |
+| **Dev-tools** (WP-B1)       | Build-flag (`import.meta.env.DEV`) **+** `?dev=true`; toggle uit de zichtbare instellingen |
+| **Zeg & Vlieg** (WP-B3)     | Vriendelijk: **schildjes + persoonlijk record + combo** (geen harde game-over)             |
+| **Unlock/volgorde** (WP-B4) | **Ja** — unlock-mechanisme met leervolgorde **Kies het Woord → Zeg & Zet → Zeg & Vlieg**   |
+| **Zeg & Bouw** (WP-C8)      | Claude schrijft eerst een **concept-voorstel** als startpunt                               |
 
 ---
 
@@ -25,6 +25,7 @@
 **Oorzaak (gevonden):** in [InstructionVideoButton.tsx](../../src/app/games/magisch-strand-avontuur/screens/scene-builder/InstructionVideoButton.tsx) wordt bij autoplay `video.muted = false` gezet en dan `video.play()` aangeroepen. Browsers blokkeren autoplay-met-geluid zonder gebruikersgebaar → `play()` gooit een `NotAllowedError` → `onPlaybackError` → foutbanner. Bij een echte klik (gebruikersgebaar) mag het geluid wél en speelt het.
 
 **Voorstel:** onderscheid maken tussen "autoplay geblokkeerd door beleid" (géén echte fout) en een echte afspeelfout.
+
 - Autoplay op mount: start **gedempt** (`muted = true`) zodat het beeld alvast speelt, of sla autoplay-met-geluid over en wacht op de tik.
 - Toon de foutbanner **alleen** bij een echte fout ná een gebruikersgebaar (vang `NotAllowedError` apart af en negeer die stil).
 
@@ -39,6 +40,7 @@
 **Oorzaak (gevonden):** [StartScreen.tsx](../../src/app/games/magisch-strand-avontuur/screens/start/StartScreen.tsx) heeft `starCount = 120` als **hardgecodeerde default-prop**, en [index.tsx](../../src/app/games/magisch-strand-avontuur/index.tsx) geeft nooit een echte waarde mee. Het is een placeholder, niet gekoppeld aan de echte voortgang.
 
 **Voorstel (deel van de "scores per profiel"-oplossing, zie WP-B2):**
+
 - Verwijder de default `120`.
 - Geef de **echte per-profiel sterrentotaal** door (uit de voortgang/`totalWordStars` van het actieve profiel).
 - Doe dit consistent op álle plekken die sterren tonen (start, moduskeuze, beloning).
@@ -55,12 +57,12 @@
 
 **Opties (van meest naar minst aanbevolen voor ons project):**
 
-| # | Aanpak | Hoe | Voor / tegen |
-| :-- | :--- | :--- | :--- |
-| **1** ⭐ | **Build-flag** | Dev-tools alleen tonen als `import.meta.env.DEV` (dus nooit in de productie-build) | + Standaardpraktijk, 0 risico voor gebruikers. − Jij kunt ze in productie niet snel aanzetten |
-| **2** ⭐ | **URL-parameter** | Dev-tools alleen via `?dev=true` (bestaat al voor de zone-tool); toggle uit de UI halen | + Werkt ook in productie als jij de link kent. − "Geheim" maar niet echt beveiligd |
-| 3 | **Ouderpoort** | Verstop achter een kindslot (bv. "Hoeveel is 7 + 5?") | + Bekend patroon in kinder-apps. − Overkill voor alleen een dev-tool |
-| 4 | **Geheim gebaar** | Bv. 5× op het logo tikken onthult dev-opties | + Leuk, onzichtbaar. − Minder ontdekbaar voor jou |
+| #        | Aanpak            | Hoe                                                                                     | Voor / tegen                                                                                  |
+| :------- | :---------------- | :-------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **1** ⭐ | **Build-flag**    | Dev-tools alleen tonen als `import.meta.env.DEV` (dus nooit in de productie-build)      | + Standaardpraktijk, 0 risico voor gebruikers. − Jij kunt ze in productie niet snel aanzetten |
+| **2** ⭐ | **URL-parameter** | Dev-tools alleen via `?dev=true` (bestaat al voor de zone-tool); toggle uit de UI halen | + Werkt ook in productie als jij de link kent. − "Geheim" maar niet echt beveiligd            |
+| 3        | **Ouderpoort**    | Verstop achter een kindslot (bv. "Hoeveel is 7 + 5?")                                   | + Bekend patroon in kinder-apps. − Overkill voor alleen een dev-tool                          |
+| 4        | **Geheim gebaar** | Bv. 5× op het logo tikken onthult dev-opties                                            | + Leuk, onzichtbaar. − Minder ontdekbaar voor jou                                             |
 
 **Aanbeveling:** **combineer 1 + 2** — haal de toggle uit het zichtbare instellingenscherm; dev-tools verschijnen alleen in dev-modus (`import.meta.env.DEV`) óf via `?dev=true`. Standaard, veilig, en jij houdt toegang. Optie 3 (ouderpoort) bewaren we voor later echte oudersinstellingen.
 
@@ -75,6 +77,7 @@
 **Belangrijk:** we hébben al per-profiel opslag (sleutels als `magisch-strand-avontuur:{profileId}:...` en observaties in IndexedDB per profiel). Er zijn **geen accounts of database nodig** — de **profielen zíjn** het "account"-concept, lokaal opgeslagen op het apparaat. Het 120-probleem is puur de hardgecodeerde placeholder (WP-A2), niet een echt architectuurprobleem.
 
 **Voorstel:**
+
 1. **Eén bron van waarheid per profiel:** het sterrentotaal komt uit de voortgang van het actieve profiel (`totalWordStars`), overal consistent uitgelezen via de `profileId`.
 2. **Nieuw profiel = 0 ⭐**, en scores volgen strikt de `profileId`.
 3. **Verifiëren** dat schakelen tussen profielen de juiste scores toont en dat er geen lek is tussen profielen (`T-12`).
@@ -93,6 +96,7 @@
 Kern: **geen "Game over"-scherm**, wel een korte, vrolijke onderbreking en een directe herstart, met behoud van wat je verzamelde.
 
 Concrete mechaniek-opties (te combineren):
+
 - **Schildjes/hartjes (aanbevolen):** de speler heeft bv. 3 ✨-schildjes. Een botsing kost er één (kort schud-effect + vriendelijk geluid, geen scherm-onderbreking). Bij 0 schildjes: een vrolijk "Goed gevlogen! Je haalde X meter — probeer je record te verbeteren!" en meteen opnieuw. Zo is er spanning (schildjes raken op) zonder harde straf.
 - **Persoonlijk record:** toon "Verste vlucht: X m" en vier het als de speler het verbetert → "ik wil winnen"-gevoel.
 - **Combo/streak:** meerdere objecten snel achter elkaar goed benoemen geeft een zichtbare combo + bonus → beloont vaardigheid.
@@ -112,12 +116,12 @@ Concrete mechaniek-opties (te combineren):
 
 Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → productief**:
 
-| Volgorde | Modus | Vrijgespeeld door | Waarom |
-| :--: | :--- | :--- | :--- |
-| 1 | **Kies het Woord** (receptief) | Altijd open (instap) | Makkelijkste; herkennen |
-| 2 | **Zeg & Zet** (relationeel) | X ⭐ in Kies het Woord | Bouwt op herkenning |
-| 3 | **Zeg & Vlieg** (productief) | Y ⭐ in Zeg & Zet | Moeilijkst; zelf benoemen + tempo |
-| 4 | **Zeg & Bouw** (n.t.b.) | later | Zie WP-C8 |
+| Volgorde | Modus                          | Vrijgespeeld door      | Waarom                            |
+| :------: | :----------------------------- | :--------------------- | :-------------------------------- |
+|    1     | **Kies het Woord** (receptief) | Altijd open (instap)   | Makkelijkste; herkennen           |
+|    2     | **Zeg & Zet** (relationeel)    | X ⭐ in Kies het Woord | Bouwt op herkenning               |
+|    3     | **Zeg & Vlieg** (productief)   | Y ⭐ in Zeg & Zet      | Moeilijkst; zelf benoemen + tempo |
+|    4     | **Zeg & Bouw** (n.t.b.)        | later                  | Zie WP-C8                         |
 
 - Vergrendelde modi tonen een vriendelijk slotje + "Speel eerst [modus] om dit vrij te spelen!" (niet frustrerend, wel een doel).
 - Drempels (X, Y) klein houden en testen.
@@ -135,6 +139,7 @@ Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → product
 **Huidig (werkt niet goed), zoals waargenomen:** mic aan → balk "Ik luister je"; als je de juiste zin zegt gebeurt er niets; scherm wisselt naar "Ik hoor je" met daaronder "bal" of "bal bal"; hintbalk "Ik hoorde de bal. Waar moet de bal komen?"; optie "Bedoel je bal / opnieuw zeggen". Dit loopt niet lekker.
 
 **Voorstel — helder, voorspelbaar spraakverloop:**
+
 1. **Luisteren:** wave + "Ik luister…" + live transcriptie (zie WP-C2).
 2. **Herkennen:** zodra genoeg herkend is (object + plek), voer **direct** de plaatsing uit met bevestiging: "Ik zet de **boot** in de **zee** — klopt dat?" (zoals de typ-fallback nu al goed doet!).
 3. **Deels herkend (alleen object):** vriendelijke vervolgvraag "Ik hoorde **boot**. Waar moet de boot komen?" en luister door.
@@ -152,6 +157,7 @@ Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → product
 **Wens:** de speler moet zien dát en wát hij zegt.
 
 **Voorstel:**
+
 - **Wave beweegt** op basis van geluid: stil = vlakke lijn, praten = bewegende golf.
 - **Woord-voor-woord tekst** onder de wave, oplopend: "Zet" → "Zet de boot" → "Zet de boot links" → "Zet de boot links in de zee".
 - Werkt in **beide** mic-modi (Zeg & Zet en Zeg & Vlieg).
@@ -166,6 +172,7 @@ Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → product
 **Wens:** vriendelijk beschermen tegen scheldwoorden/ongewenste woorden in de live transcriptie (kinderen gaan los).
 
 **Voorstel:**
+
 - **Blocklist** (Nederlandse scheld-/ongewenste woorden) — herkende woorden die matchen worden **niet getoond** op het scherm.
 - Bij een treffer: geen straf, wel een vriendelijke nudge: "Laten we bij de strandwoorden blijven! 🏖️".
 - Omdat het spel toch alleen de **doelwoorden** nodig heeft, negeren we de rest sowieso voor de gameplay; het filter dekt vooral de **zichtbare transcriptie**.
@@ -190,6 +197,7 @@ Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → product
 **Wens (nieuw idee):** alle 3 de modi moeten objecten/opdrachten **willekeurig** aanbieden. Kies het Woord doet dit al; Zeg & Zet en Zeg & Vlieg moeten dit (ook) ondersteunen. Staat dit niet in de GDD, dan aanpassen.
 
 **Voorstel:**
+
 - Eén gedeelde, herbruikbare **shuffle-aanpak** voor opdracht-/objectvolgorde.
 - Per ronde eventueel een willekeurige **selectie** (subset) i.p.v. altijd de volledige lijst in vaste volgorde.
 - Vastleggen in GDD (sectie 4 + 6) dat randomisatie de norm is voor alle modi.
@@ -215,6 +223,7 @@ Volg de logopedische leertrap (GDD 2.3): **receptief → relationeel → product
 **Probleem (ernstig):** kaarten flitsen leeg bij doorschakelen (Kies het Woord), en — belangrijker — bij microfooncommando's is het soms zó traag dat de gameplay onmogelijk wordt (volgende commando lukt niet meer). Ook in andere games gezien.
 
 **Vermoedelijke oorzaken (te onderzoeken):**
+
 - **Afbeeldingen niet voorgeladen** → lege kaarten bij wissel (Kies het Woord). Fix: preload de volgende beelden.
 - **Te veel re-renders tijdens spraak:** `interimResults` triggert bij elk tussenresultaat een `setState` → herhaalde re-render van zware componenten → jank. Fix: throttlen/debouncen, en zware onderdelen memo-iseren.
 - **Herstart-churn:** `restartOnEnd`/sessie herstarten kan opstapelen. Onderzoeken.

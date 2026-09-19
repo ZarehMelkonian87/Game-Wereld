@@ -5,11 +5,7 @@ import {
   type OfflinePackageState,
 } from "../pwa/offlinePackages";
 import { getDeviceConnectionInfo } from "../pwa/GameAssetSyncManager";
-import {
-  resolveDownloadGate,
-  STREAMING_GATE,
-  type DownloadGateState,
-} from "./downloadGate";
+import { resolveDownloadGate, STREAMING_GATE, type DownloadGateState } from "./downloadGate";
 import { usePlatform } from "./usePlatform";
 import { requiresDownloadGate } from "./platformDetection";
 

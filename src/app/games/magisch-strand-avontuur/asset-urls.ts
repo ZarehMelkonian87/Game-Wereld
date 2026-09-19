@@ -20,10 +20,12 @@ export const beachObjectStickerUrls = {
   vliegtuig: new URL("./assets/objects/transparent/airplane-sticker.webp", import.meta.url).href,
   vlieger: new URL("./assets/objects/transparent/kite-sticker.webp", import.meta.url).href,
   bal: new URL("./assets/objects/transparent/beach-ball-sticker.webp", import.meta.url).href,
-  parasol: new URL("./assets/objects/transparent/beach-umbrella-sticker.webp", import.meta.url).href,
+  parasol: new URL("./assets/objects/transparent/beach-umbrella-sticker.webp", import.meta.url)
+    .href,
   schelp: new URL("./assets/objects/transparent/seashells-sticker.webp", import.meta.url).href,
   krab: new URL("./assets/objects/transparent/crab-sticker.webp", import.meta.url).href,
-  zandkasteel: new URL("./assets/objects/transparent/sandcastle-sticker.webp", import.meta.url).href,
+  zandkasteel: new URL("./assets/objects/transparent/sandcastle-sticker.webp", import.meta.url)
+    .href,
   handdoek: new URL("./assets/objects/transparent/beach-towel-sticker.webp", import.meta.url).href,
   zon: new URL("./assets/objects/transparent/sun-sticker.webp", import.meta.url).href,
 };
@@ -38,7 +40,8 @@ export const voiceSideScrollerObjectSpriteUrls = {
 };
 export const voiceSideScrollerObstacleSpriteUrls = {
   cloud: new URL("./assets/objects/side-scroller/cloud-obstacle.webp", import.meta.url).href,
-  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.webp", import.meta.url).href,
+  "sea-lion": new URL("./assets/objects/side-scroller/sea-lion-obstacle.webp", import.meta.url)
+    .href,
   seagull: new URL("./assets/objects/side-scroller/seagull-obstacle.webp", import.meta.url).href,
   shark: new URL("./assets/objects/side-scroller/shark-obstacle.webp", import.meta.url).href,
 };

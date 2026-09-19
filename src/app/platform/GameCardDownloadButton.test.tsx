@@ -12,9 +12,7 @@ describe("GameCardDownloadButton (T-46)", () => {
       phase: "ready",
     };
 
-    const { container } = render(
-      <GameCardDownloadButton gate={streamingGate} onClick={vi.fn()} />,
-    );
+    const { container } = render(<GameCardDownloadButton gate={streamingGate} onClick={vi.fn()} />);
 
     expect(container).toBeEmptyDOMElement();
   });
@@ -74,9 +72,7 @@ describe("GameCardDownloadButton (T-46)", () => {
       phase: "ready",
     };
 
-    const { container } = render(
-      <GameCardDownloadButton gate={gate} onClick={vi.fn()} />,
-    );
+    const { container } = render(<GameCardDownloadButton gate={gate} onClick={vi.fn()} />);
 
     expect(container).toBeEmptyDOMElement();
   });
@@ -117,13 +113,7 @@ describe("GameCardDownloadButton (T-46)", () => {
       requiredBytes: 12 * 1024 * 1024,
     };
 
-    render(
-      <GameCardDownloadButton
-        gate={gate}
-        isUpdateAvailable={true}
-        onClick={handleClick}
-      />,
-    );
+    render(<GameCardDownloadButton gate={gate} isUpdateAvailable={true} onClick={handleClick} />);
 
     const button = screen.getByRole("button", {
       name: /Update beschikbaar \(12 MB\)/i,

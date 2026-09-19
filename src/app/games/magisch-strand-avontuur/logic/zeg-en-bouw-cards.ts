@@ -130,10 +130,7 @@ const createSeededRandom = (seed: number) => {
 };
 
 /** Geeft de bouwkaarten in een per-ronde geschudde volgorde (T-29-norm). */
-export const shuffleBuildCards = (
-  cards: readonly ZegBouwCard[],
-  seed: number,
-): ZegBouwCard[] => {
+export const shuffleBuildCards = (cards: readonly ZegBouwCard[], seed: number): ZegBouwCard[] => {
   const random = createSeededRandom(seed);
   const shuffled = [...cards];
 

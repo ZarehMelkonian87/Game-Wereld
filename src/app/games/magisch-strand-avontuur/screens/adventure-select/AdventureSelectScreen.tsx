@@ -44,9 +44,7 @@ export const AdventureSelectScreen: DevtoolsComponent<AdventureSelectScreenProps
     [selectedWorldId, worlds],
   );
   const disableStart =
-    !selectedWorld ||
-    selectedWorld.status !== "open" ||
-    !isModeUnlocked(selectedModeId, starCount);
+    !selectedWorld || selectedWorld.status !== "open" || !isModeUnlocked(selectedModeId, starCount);
 
   const handleSelectWorld = (world: WorldDefinition) => {
     if (world.status !== "open") {

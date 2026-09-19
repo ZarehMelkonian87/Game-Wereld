@@ -138,7 +138,11 @@ export const MicWaveBars = ({
             barRefs.current[index] = element;
           }}
           className={`inline-block w-1 rounded-full ${barClassName}`}
-          style={{ height: "1.25rem", transform: `scaleY(${MIN_SCALE})`, transformOrigin: "center" }}
+          style={{
+            height: "1.25rem",
+            transform: `scaleY(${MIN_SCALE})`,
+            transformOrigin: "center",
+          }}
         />
       ))}
     </div>

@@ -36,7 +36,9 @@ export const PortraitGuard = () => {
       aria-modal="true"
       aria-labelledby="portrait-guard-title"
     >
-      <div aria-hidden="true" className="text-7xl bezem-start-mascot">📱</div>
+      <div aria-hidden="true" className="text-7xl bezem-start-mascot">
+        📱
+      </div>
       <h2 className="text-2xl font-black" id="portrait-guard-title">
         Draai je telefoon rechtop
       </h2>

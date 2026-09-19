@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  classifyPlatform,
-  requiresDownloadGate,
-  type PlatformEnv,
-} from "./platformDetection";
+import { classifyPlatform, requiresDownloadGate, type PlatformEnv } from "./platformDetection";
 
 const baseEnv: PlatformEnv = {
   coarsePointer: false,

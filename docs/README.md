@@ -9,7 +9,8 @@ Dit overzicht beschrijft de mappenstructuur, de rol van elk document en de statu
 ## 🧭 Mappenstructuur & Inhoud
 
 ### 1. Game Design & Specificaties (`docs/` en `docs/gdd/`)
-*De officiële, levende spelontwerpen en pedagogische fundamenten.*
+
+_De officiële, levende spelontwerpen en pedagogische fundamenten._
 
 - **[GDD-index — Magisch Strand-Avontuur](gdd/GDD-index.md):** De centrale bron van waarheid op hoofdlijn voor de eerste game (Magisch Strand-Avontuur). Bevat de screen map, pedagogiek, game loop, curriculum en de levende takenlijst (§12) tot en met versie 1.50.
 - **[Feature-catalogus](gdd/Feature-catalogus.md):** Granulaire inventarisatie van alle concrete features (`FEAT_*`) met acceptatiecriteria en verificatiestatus.
@@ -20,12 +21,13 @@ Dit overzicht beschrijft de mappenstructuur, de rol van elk document en de statu
 - **[Analyse-T33-Performance](gdd/Analyse-T33-Performance.md):** Onderzoek en benchmarks naar WebP/480p media-optimalisatie en spraakvertraging.
 - **[UX Design Specification Magisch Strand](UX_Design_Specification_Magisch_Strand_Avontuur.md):** Gedetailleerde UX/UI schermspecificatie (9 schermen).
 - **[GDD Groot Circus-Avontuur](GDD_Groot_Circus_Avontuur.md):** Game Design Document en implementatieplan voor de tweede educatieve game (circusthema).
-- **[Werkplan & Voorstellen](gdd/Werkplan-en-Voorstellen.md):** *[Gearchiveerd]* Oorspronkelijk besluitvormingsverslag van september 2026; alle taken (`T-19` t/m `T-33`) zijn afgerond en opgenomen in de GDD-index.
+- **[Werkplan & Voorstellen](gdd/Werkplan-en-Voorstellen.md):** _[Gearchiveerd]_ Oorspronkelijk besluitvormingsverslag van september 2026; alle taken (`T-19` t/m `T-33`) zijn afgerond en opgenomen in de GDD-index.
 
 ---
 
 ### 2. Architectuur & Besluiten (`docs/architecture/` en `docs/architecture-proposal/`)
-*De technische fundamenten, architectuurbesluiten en kwaliteitsstandaarden.*
+
+_De technische fundamenten, architectuurbesluiten en kwaliteitsstandaarden._
 
 - **[Code Quality & Architecture Requirements](code-quality-and-architecture.md):** De normatieve kwaliteitsstandaard voor de gehele repository (TypeScript, modulegrenzen, a11y, testvereisten).
 - **[Architecture Decision Records (ADR's)](architecture/README.md):**
@@ -40,7 +42,8 @@ Dit overzicht beschrijft de mappenstructuur, de rol van elk document en de statu
 ---
 
 ### 3. Toegankelijkheid (A11y) (`docs/accessibility/`)
-*Inclusiviteit en WCAG 2.2 standaarden.*
+
+_Inclusiviteit en WCAG 2.2 standaarden._
 
 - **[Gedeeld Interactiecontract](accessibility/gedeeld-interactiecontract.md):** Normatieve regels voor touch-targets (≥ 48×48 px), focus-ringen, kleurcontrast, `prefers-reduced-motion` en multimodale gelijkwaardigheid.
 - **[Release-checklist A11y](accessibility/release-checklist.md):** Controlelijst vóór productie-releases.
@@ -48,7 +51,8 @@ Dit overzicht beschrijft de mappenstructuur, de rol van elk document en de statu
 ---
 
 ### 4. Diagnostiek & Runbooks (`docs/diagnostics/` en `docs/runbooks/`)
-*Onderhoudbaarheid, debugging en beheer.*
+
+_Onderhoudbaarheid, debugging en beheer._
 
 - **[Diagnose & Foutscenario's](diagnostics/diagnose-export-en-failure-scenarios.md):** Handleiding voor export van IndexedDB, storage en audio/spraak-diagnostiek.
 - **[Incidents Runbook](runbooks/incidents.md):** Handelingsprotocol bij productie-incidenten.
@@ -57,4 +61,5 @@ Dit overzicht beschrijft de mappenstructuur, de rol van elk document en de statu
 ---
 
 ### 5. UX & Redesign (`docs/ux/`)
-- **[Interface Redesign Takenlijst](ux/interface-redesign-takenlijst.md):** *[Gearchiveerd / Voltooid]* Uitvoeringsverslag van het interface-herontwerp (UX-101 t/m UX-402) uit juli 2026.
+
+- **[Interface Redesign Takenlijst](ux/interface-redesign-takenlijst.md):** _[Gearchiveerd / Voltooid]_ Uitvoeringsverslag van het interface-herontwerp (UX-101 t/m UX-402) uit juli 2026.

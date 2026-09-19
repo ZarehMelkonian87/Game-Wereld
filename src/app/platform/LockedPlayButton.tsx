@@ -1,8 +1,10 @@
 import { type ButtonHTMLAttributes } from "react";
 import { Lock, Play, CheckCircle2 } from "lucide-react";
 
-export interface LockedPlayButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
+export interface LockedPlayButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "onClick"
+> {
   canPlay: boolean;
   lockedLabel?: string;
   onClick?: () => void;

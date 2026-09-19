@@ -89,10 +89,7 @@ describe("voiceSideScrollerEngine · combo (T-30)", () => {
     const base = startVoiceSideScrollerRound();
     const targetId = base.targets[0]?.id ?? "";
 
-    const withCombo = collectVoiceSideScrollerTarget(
-      { ...base, combo: 2, stars: 2 },
-      targetId,
-    );
+    const withCombo = collectVoiceSideScrollerTarget({ ...base, combo: 2, stars: 2 }, targetId);
 
     expect(withCombo.combo).toBe(3);
     expect(withCombo.stars).toBe(4); // +1 gewoon +1 bonus

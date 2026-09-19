@@ -53,7 +53,10 @@ test.describe("Zeg & Bouw (e2e)", () => {
     await buildFullCard(page);
 
     // Doel gehaald, maar het eindscherm verschijnt bewust met een korte vertraging.
-    await expect(page.getByTestId("zeg-bouw-screen")).toHaveAttribute("data-build-complete", "true");
+    await expect(page.getByTestId("zeg-bouw-screen")).toHaveAttribute(
+      "data-build-complete",
+      "true",
+    );
     const summary = page.getByTestId("zeg-bouw-complete");
     await expect(summary).toBeVisible({ timeout: 8000 });
     await expect(summary).toContainText("Strand af!");
@@ -95,6 +98,9 @@ test.describe("Zeg & Bouw (e2e)", () => {
     await expect(page.getByTestId("zeg-bouw-feedback")).toContainText(/Wat mooi/);
     await expect(page.getByTestId("zeg-bouw-progress")).toContainText("gebouwd");
     await expect(page.getByTestId("zeg-bouw-complete")).toHaveCount(0);
-    await expect(page.getByTestId("zeg-bouw-screen")).toHaveAttribute("data-build-complete", "false");
+    await expect(page.getByTestId("zeg-bouw-screen")).toHaveAttribute(
+      "data-build-complete",
+      "false",
+    );
   });
 });

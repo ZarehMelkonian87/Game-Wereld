@@ -154,7 +154,13 @@ export const useZegBouwState = ({
 
     setPlacedObjects((current) => [
       ...current.filter((placedObject) => placedObject.objectId !== objectId),
-      { key: `${objectId}-${Math.round(point.x)}-${Math.round(point.y)}`, objectId, x: point.x, y: point.y, zoneId },
+      {
+        key: `${objectId}-${Math.round(point.x)}-${Math.round(point.y)}`,
+        objectId,
+        x: point.x,
+        y: point.y,
+        zoneId,
+      },
     ]);
     setSelectedObjectId(null);
 
@@ -203,7 +209,9 @@ export const useZegBouwState = ({
   const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
   const defaultZone =
-    zones.find((zone) => zone.id === "strand") ?? zones.find((zone) => zone.id === "zee") ?? zones[0];
+    zones.find((zone) => zone.id === "strand") ??
+    zones.find((zone) => zone.id === "zee") ??
+    zones[0];
 
   const listLabels = (labels: string[]) =>
     labels.length > 1
@@ -241,8 +249,9 @@ export const useZegBouwState = ({
     const resolved = new Map<string, { point: ScenePoint; zoneId: string }>();
     allowed.forEach((placement, index) => {
       const zone =
-        (placement.zoneId ? zones.find((candidate) => candidate.id === placement.zoneId) : undefined) ??
-        defaultZone;
+        (placement.zoneId
+          ? zones.find((candidate) => candidate.id === placement.zoneId)
+          : undefined) ?? defaultZone;
       if (!zone) {
         return;
       }

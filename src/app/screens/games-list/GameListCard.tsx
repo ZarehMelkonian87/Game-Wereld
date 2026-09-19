@@ -32,7 +32,9 @@ export const GameListCard = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
   const entry = getGameRegistryEntry(game.id);
-  const { gate, isCellular, download, remove } = useGameDownloadGate(entry?.manifest.offlinePackages);
+  const { gate, isCellular, download, remove } = useGameDownloadGate(
+    entry?.manifest.offlinePackages,
+  );
 
   const cardVisual = game.cardImageUrl ?? game.icon;
   const hasImageIcon = /^(?:blob:|data:|https?:|\/)/.test(cardVisual);
@@ -157,10 +159,7 @@ export const GameListCard = ({
 
             {/* DOWNLOAD / VERWIJDER KNOP RECHTSONDER WAAR DE GROENE PLACEHOLDER STOND */}
             {gate.mode === "gated" && !isLocked ? (
-              <div
-                className="ml-auto shrink-0"
-                onClick={(event) => event.stopPropagation()}
-              >
+              <div className="ml-auto shrink-0" onClick={(event) => event.stopPropagation()}>
                 <GameCardDownloadButton
                   gate={gate}
                   hideWhenReady={false}

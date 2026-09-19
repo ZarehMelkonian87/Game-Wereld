@@ -17,26 +17,11 @@ export {
   type DownloadGateProgress,
   type DownloadGateState,
 } from "./downloadGate";
-export {
-  useGameDownloadGate,
-  type GameDownloadGateController,
-} from "./useGameDownloadGate";
+export { useGameDownloadGate, type GameDownloadGateController } from "./useGameDownloadGate";
 export { PortraitGuard } from "./PortraitGuard";
 export { shouldShowPortraitGuard, tryLockPortrait } from "./portraitGuardLogic";
 export { useIsLandscape } from "./useOrientation";
-export {
-  LockedPlayButton,
-  type LockedPlayButtonProps,
-} from "./LockedPlayButton";
-export {
-  GameCardDownloadButton,
-  type GameCardDownloadButtonProps,
-} from "./GameCardDownloadButton";
-export {
-  DownloadGateModal,
-  type DownloadGateModalProps,
-} from "./DownloadGateModal";
-export {
-  ConfirmDeleteModal,
-  type ConfirmDeleteModalProps,
-} from "./ConfirmDeleteModal";
+export { LockedPlayButton, type LockedPlayButtonProps } from "./LockedPlayButton";
+export { GameCardDownloadButton, type GameCardDownloadButtonProps } from "./GameCardDownloadButton";
+export { DownloadGateModal, type DownloadGateModalProps } from "./DownloadGateModal";
+export { ConfirmDeleteModal, type ConfirmDeleteModalProps } from "./ConfirmDeleteModal";

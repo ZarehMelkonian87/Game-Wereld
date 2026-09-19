@@ -134,7 +134,9 @@ describe("DownloadGateModal (T-46)", () => {
 
     expect(screen.getByText("Mobiele data (4G/5G)")).toBeInTheDocument();
     expect(
-      screen.getByText(/Je gebruikt een mobiele dataverbinding. Deze eenmalige download is ongeveer 36.0 MB/i),
+      screen.getByText(
+        /Je gebruikt een mobiele dataverbinding. Deze eenmalige download is ongeveer 36.0 MB/i,
+      ),
     ).toBeInTheDocument();
 
     const confirmBtn = screen.getByRole("button", { name: /Toch downloaden/i });

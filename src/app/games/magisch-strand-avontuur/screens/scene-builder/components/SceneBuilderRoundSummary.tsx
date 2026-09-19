@@ -54,8 +54,8 @@ export const SceneBuilderRoundSummary = ({
         <div>
           <h2 className="text-2xl font-black leading-none text-slate-900">Strandplaat af!</h2>
           <p className="mt-2 text-sm font-black leading-tight text-sky-900">
-            Knap gedaan! Je zette alle {placedCount}{" "}
-            {placedCount === 1 ? "plaatje" : "plaatjes"} op de goede plek.
+            Knap gedaan! Je zette alle {placedCount} {placedCount === 1 ? "plaatje" : "plaatjes"} op
+            de goede plek.
           </p>
         </div>
 
@@ -102,10 +102,7 @@ export const SceneBuilderRoundSummary = ({
 
         <div className="grid grid-cols-2 gap-2">
           <BtnActionReplay onClick={onRestart} />
-          <BtnActionWorld
-            data-testid="scene-builder-summary-world-button"
-            onClick={onBackToMenu}
-          />
+          <BtnActionWorld data-testid="scene-builder-summary-world-button" onClick={onBackToMenu} />
         </div>
       </PanelCard>
     </div>

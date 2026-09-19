@@ -11,3 +11,7 @@ package-lock.json
 *.mp3
 *.mp4
 *.webmanifest
+
+# Gegenereerd e2e-testrapport (generate-visual-report.spec.ts) — niet formatteren
+TEST_RAPPORT_MAGISCH_STRAND_AVONTUUR.html
+test-rapport-assets/

@@ -60,10 +60,7 @@ const UNWANTED_WORD_SET = new Set(UNWANTED_WORDS.map(normalizeSpokenCommand).fil
 /** Vriendelijke nudge die getoond wordt bij een ongewenst woord. */
 export const UNWANTED_WORD_NUDGE = "Oei, laten we mooie woorden gebruiken. Zeg maar wat je ziet.";
 
-const toWordTokens = (text: string) =>
-  normalizeSpokenCommand(text)
-    .split(" ")
-    .filter(Boolean);
+const toWordTokens = (text: string) => normalizeSpokenCommand(text).split(" ").filter(Boolean);
 
 /** Geeft het eerste ongewenste woord terug (genormaliseerd), of undefined. */
 export const findUnwantedWord = (text: string): string | undefined =>

@@ -95,6 +95,7 @@ Het budgetrapport toont absolute waarde en verschil tegenover de vastgelegde mai
 ## Addendum: Multiplatform Download-Gating & UI-Integratie (`T-39`, `T-46` — September 2026)
 
 In september 2026 is de offline-pakket-architectuur uitgebreid met selectieve download-gating per platform:
+
 1. **Platform-specifiek downloadbeleid:**
    - **Mobiele telefoon en tablet (PWA/browser):** Spelen is vergrendeld (`canPlay: false`) totdat 100% van de verplichte mediabestanden lokaal is gedownload en geverifieerd via Cache Storage.
    - **Webdesktop:** Behoudt het flexibele streamingmodel (direct speelbaar).
@@ -104,4 +105,3 @@ In september 2026 is de offline-pakket-architectuur uitgebreid met selectieve do
    - Op 4G/5G toont de downloadgate eerst een waarschuwing met keuze `Toch downloaden` (geen harde blokkade) of `Wacht op wifi`. Op wifi start de download direct.
 4. **Kindveilige lokale opslagverwijdering (`ConfirmDeleteModal`):**
    - Lokale gamepakketten kunnen via een expliciete in-app bevestigingsdialoog veilig worden gewist om opslagruimte vrij te maken.
-

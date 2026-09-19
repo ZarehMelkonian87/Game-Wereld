@@ -8,13 +8,13 @@ Deze map bevat de formele Architecture Decision Records (ADR's) van Game Wereld,
 
 De ADR's leggen getoetste, blijvende technische beslissingen vast:
 
-| ADR | Titel | Status | Datum |
-| :--- | :--- | :--: | :--- |
-| **[ADR-001](adr-001-indexeddb-dexie-en-migratiebeleid.md)** | IndexedDB, Dexie en migratiebeleid | Geaccepteerd | Juli 2026 |
-| **[ADR-002](adr-002-practice-events-projector-en-retentie.md)** | Practice-events projector en retentie | Geaccepteerd | Juli 2026 |
+| ADR                                                                        | Titel                                                             |                 Status                  | Datum                 |
+| :------------------------------------------------------------------------- | :---------------------------------------------------------------- | :-------------------------------------: | :-------------------- |
+| **[ADR-001](adr-001-indexeddb-dexie-en-migratiebeleid.md)**                | IndexedDB, Dexie en migratiebeleid                                |              Geaccepteerd               | Juli 2026             |
+| **[ADR-002](adr-002-practice-events-projector-en-retentie.md)**            | Practice-events projector en retentie                             |              Geaccepteerd               | Juli 2026             |
 | **[ADR-003](adr-003-workbox-offlinepakketten-en-performancebudgetten.md)** | Workbox, offlinepakketten, performancebudgetten & download-gating | Geaccepteerd (incl. addendum sept 2026) | Juli 2026 / Sept 2026 |
-| **[ADR-004](adr-004-externe-foutmonitoring-uitgesteld.md)** | Externe foutmonitoring (uitgesteld t.b.v. privacy/COPPA) | Geaccepteerd | Juli 2026 |
-| **[ADR-005](adr-005-tweede-game-contractevaluatie.md)** | Tweede game contractevaluatie (modulaire isolatie) | Geaccepteerd | Juli 2026 |
+| **[ADR-004](adr-004-externe-foutmonitoring-uitgesteld.md)**                | Externe foutmonitoring (uitgesteld t.b.v. privacy/COPPA)          |              Geaccepteerd               | Juli 2026             |
+| **[ADR-005](adr-005-tweede-game-contractevaluatie.md)**                    | Tweede game contractevaluatie (modulaire isolatie)                |              Geaccepteerd               | Juli 2026             |
 
 ---
 

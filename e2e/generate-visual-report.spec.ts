@@ -48,7 +48,8 @@ const markAndScreenshot = async (
         marker.style.height = `${rect.height + 8}px`;
         marker.style.border = "4px solid #ef4444";
         marker.style.borderRadius = "20px";
-        marker.style.boxShadow = "0 0 0 4px rgba(239, 68, 68, 0.4), 0 0 25px rgba(239, 68, 68, 0.8)";
+        marker.style.boxShadow =
+          "0 0 0 4px rgba(239, 68, 68, 0.4), 0 0 25px rgba(239, 68, 68, 0.8)";
         marker.style.pointerEvents = "none";
         marker.style.zIndex = "99999";
         marker.style.transition = "all 0.2s ease";

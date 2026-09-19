@@ -103,24 +103,23 @@ export const DownloadGateModal = ({
             <Download aria-hidden="true" className="h-3 w-3 text-sky-400" />
             Eenmalige Offline Download
           </span>
-          <h2
-            className="mt-1.5 text-lg sm:text-xl font-black text-white"
-            id="download-gate-title"
-          >
+          <h2 className="mt-1.5 text-lg sm:text-xl font-black text-white" id="download-gate-title">
             {gameTitle}
           </h2>
         </div>
 
         {isConfirmingDelete ? (
-          <div className="mt-3 flex flex-col items-center py-1 text-center" data-state-view="confirm-delete">
+          <div
+            className="mt-3 flex flex-col items-center py-1 text-center"
+            data-state-view="confirm-delete"
+          >
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-rose-500/20 text-rose-400">
               <Trash2 aria-hidden="true" className="h-6 w-6" />
             </div>
-            <h3 className="mt-2 text-base font-black text-white">
-              Spel verwijderen?
-            </h3>
+            <h3 className="mt-2 text-base font-black text-white">Spel verwijderen?</h3>
             <p className="mt-1.5 max-w-xs text-xs font-semibold text-slate-200">
-              Weet je zeker dat je <strong className="text-white">"{gameTitle}"</strong> wilt verwijderen? De offline bestanden ({totalMb}) worden van dit apparaat gewist.
+              Weet je zeker dat je <strong className="text-white">"{gameTitle}"</strong> wilt
+              verwijderen? De offline bestanden ({totalMb}) worden van dit apparaat gewist.
             </p>
             <p className="mt-1 text-[11px] text-slate-400">
               Je kunt het spel later altijd opnieuw downloaden om offline te spelen.
@@ -154,13 +153,8 @@ export const DownloadGateModal = ({
               {/* TOESTAND: SIZING / CHECKING */}
               {(gate.phase === "sizing" || gate.phase === "checking") && (
                 <div className="flex flex-col items-center py-3" data-state-view="sizing">
-                  <RefreshCw
-                    aria-hidden="true"
-                    className="h-8 w-8 animate-spin text-sky-400"
-                  />
-                  <p className="mt-2.5 text-sm font-black text-sky-100">
-                    Downloadgrootte bepalen…
-                  </p>
+                  <RefreshCw aria-hidden="true" className="h-8 w-8 animate-spin text-sky-400" />
+                  <p className="mt-2.5 text-sm font-black text-sky-100">Downloadgrootte bepalen…</p>
                   <p className="mt-0.5 text-[11px] text-sky-300">
                     Even geduld, we controleren de gamebestanden.
                   </p>
@@ -174,15 +168,15 @@ export const DownloadGateModal = ({
                     {isCellular
                       ? "Mobiele data (4G/5G)"
                       : (gate.requiredBytes ?? 0) > 50 * 1024 * 1024
-                      ? "Groot pakket downloaden"
-                      : "Offline download"}
+                        ? "Groot pakket downloaden"
+                        : "Offline download"}
                   </h3>
                   <p className="mt-1 max-w-xs text-xs font-semibold text-slate-200">
                     {isCellular
                       ? `Je gebruikt een mobiele dataverbinding. Deze eenmalige download is ongeveer ${totalMb}.`
                       : (gate.requiredBytes ?? 0) > 50 * 1024 * 1024
-                      ? `Dit pakket is groter dan 50 MB (${totalMb}). Wil je dit nu downloaden voor offline gebruik?`
-                      : `Download ${totalMb} aan audio en animaties om dit spel direct en vloeiend offline te kunnen spelen.`}
+                        ? `Dit pakket is groter dan 50 MB (${totalMb}). Wil je dit nu downloaden voor offline gebruik?`
+                        : `Download ${totalMb} aan audio en animaties om dit spel direct en vloeiend offline te kunnen spelen.`}
                   </p>
                   {gate.availableBytes !== undefined && (
                     <p className="mt-1 text-[11px] text-slate-400">
@@ -248,10 +242,7 @@ export const DownloadGateModal = ({
               {gate.phase === "verifying" && (
                 <div className="w-full py-2" data-state-view="verifying">
                   <div className="flex flex-col items-center">
-                    <RefreshCw
-                      aria-hidden="true"
-                      className="h-8 w-8 animate-spin text-cyan-400"
-                    />
+                    <RefreshCw aria-hidden="true" className="h-8 w-8 animate-spin text-cyan-400" />
                     <p className="mt-2 text-sm font-black text-cyan-100">
                       Fase 3 van 3: Bestanden controleren…
                     </p>
@@ -288,7 +279,9 @@ export const DownloadGateModal = ({
                     )}
                   </div>
                   <h3 className="mt-2 text-base font-black text-rose-300">
-                    {isStorageError ? "Te weinig opslagruimte" : "Download kon niet worden voltooid"}
+                    {isStorageError
+                      ? "Te weinig opslagruimte"
+                      : "Download kon niet worden voltooid"}
                   </h3>
                   <p className="mt-1 max-w-xs text-xs font-semibold text-slate-200">
                     {isStorageError
@@ -364,7 +357,9 @@ export const DownloadGateModal = ({
 
             {/* Vaste voetnoot (GDD §2.3) */}
             <p className="mt-2.5 text-center text-[10px] leading-tight font-medium text-slate-400">
-              Na deze download hoef je <strong className="text-slate-200">nooit meer opnieuw</strong> te downloaden, behalve bij een nieuwe app-update.
+              Na deze download hoef je{" "}
+              <strong className="text-slate-200">nooit meer opnieuw</strong> te downloaden, behalve
+              bij een nieuwe app-update.
             </p>
           </>
         )}

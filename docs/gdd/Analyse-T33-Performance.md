@@ -8,9 +8,9 @@
 
 ## 1. Samenvatting
 
-| Symptoom | Belangrijkste oorzaak | Impact |
-| :--- | :--- | :--- |
-| Kaarten flitsen leeg (Kies het Woord) | Objectstickers laden op-aanvraag; geen preload; zware PNG's | Kort lelijk, maar speelbaar |
+| Symptoom                                          | Belangrijkste oorzaak                                                                                                                                  | Impact                           |
+| :------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------- |
+| Kaarten flitsen leeg (Kies het Woord)             | Objectstickers laden op-aanvraag; geen preload; zware PNG's                                                                                            | Kort lelijk, maar speelbaar      |
 | **Mic voelt traag / volgende commando lukt niet** | **(a)** zware media (video's ~2,3 MB) laden/decoderen tijdens spraak + **(b)** 4s-stiltetimer vóór verwerking + **(c)** re-renders per tussenresultaat | **Ernstig** — blokkeert gameplay |
 
 **Kernconclusie:** de **mediazwaarte** is vrijwel zeker de grootste boosdoener. Elke opdracht laadt/decodeert een **~2,3 MB instructievideo** (autoplay), terwijl de microfoon actief is. Dat concurreert op de main-thread en het netwerk met de spraakherkenning → haperende, trage verwerking.
@@ -49,9 +49,9 @@ Ter vergelijking: een korte instructieclip hoort **< 300 KB** te zijn, een stick
 
 ### 4.1 🥇 Media optimaliseren — grootste winst (nieuw: `T-33a` / `T-33b`)
 
-| Sub | Wat | Verwacht effect |
-| :--- | :--- | :--- |
-| `T-33a` | **Stickers → WebP + resized** (bv. max 512px). 200 KB PNG → ~30–50 KB WebP | Kaart-flits weg; sneller decoden; minder geheugen |
+| Sub     | Wat                                                                                               | Verwacht effect                                                                |
+| :------ | :------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------- |
+| `T-33a` | **Stickers → WebP + resized** (bv. max 512px). 200 KB PNG → ~30–50 KB WebP                        | Kaart-flits weg; sneller decoden; minder geheugen                              |
 | `T-33b` | **Video's comprimeren** (H.264/VP9, lagere bitrate/resolutie, poster-frame). 2,3 MB → ~200–400 KB | Veel minder main-thread/netwerk-druk tijdens spraak → **mic-lag sterk omlaag** |
 
 > Dit raakt binaire assets en de visuele kwaliteit; daarom apart en met jouw review. Het project heeft al een `optimize:images`-script (sharp) als basis.

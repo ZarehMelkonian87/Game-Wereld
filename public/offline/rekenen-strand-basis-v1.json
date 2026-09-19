@@ -2,14 +2,14 @@
   "assets": [
     {
       "bytes": 4635,
-      "hash": "sha256-abc2f2cc2e7ecd4b6152983068b2f74fd87cdb0aa95dd3ab36f2cfd5268e4064",
+      "hash": "sha256-2f5dc505ea2c7b294a55fd13460e79eb2bb7270af582195db2c639c622120381",
       "id": "src/app/games/rekenen-strand/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld broncode",
       "sourcePath": "src/app/games/rekenen-strand/index.tsx",
-      "url": "/assets/game-rekenen-strand-C78jM92Q.js"
+      "url": "/assets/game-rekenen-strand-Bx79xjZn.js"
     }
   ],
   "contentVersion": "rekenen-strand-2026.07",

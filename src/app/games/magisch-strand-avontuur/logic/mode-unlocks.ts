@@ -33,7 +33,5 @@ export const MODE_DISPLAY_ORDER: readonly BezemEscapeMode[] = [
 export const isModeUnlocked = (mode: BezemEscapeMode, totalWordStars: number): boolean =>
   totalWordStars >= (MODE_UNLOCK_WORD_STARS[mode] ?? 0);
 
-export const getStarsUntilModeUnlock = (
-  mode: BezemEscapeMode,
-  totalWordStars: number,
-): number => Math.max(0, (MODE_UNLOCK_WORD_STARS[mode] ?? 0) - totalWordStars);
+export const getStarsUntilModeUnlock = (mode: BezemEscapeMode, totalWordStars: number): number =>
+  Math.max(0, (MODE_UNLOCK_WORD_STARS[mode] ?? 0) - totalWordStars);
