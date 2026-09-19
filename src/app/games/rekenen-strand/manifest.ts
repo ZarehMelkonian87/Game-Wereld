@@ -1,4 +1,5 @@
 import { defineGameManifest } from "../../game-platform/contracts";
+import { resolveOfflineManifestUrl } from "../../game-platform/offline-manifest-url";
 
 export const rekenenStrandManifest = defineGameManifest({
   ageRange: { max: 7, min: 4 },
@@ -12,7 +13,7 @@ export const rekenenStrandManifest = defineGameManifest({
     {
       contentVersion: "rekenen-strand-2026.07",
       id: "rekenen-strand-basis",
-      manifestUrl: "/offline/rekenen-strand-basis-v1.json",
+      manifestUrl: resolveOfflineManifestUrl("rekenen-strand-basis-v1.json"),
       version: 1,
     },
   ],

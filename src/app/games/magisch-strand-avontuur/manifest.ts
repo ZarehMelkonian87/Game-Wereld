@@ -1,4 +1,5 @@
 import { defineGameManifest } from "../../game-platform/contracts";
+import { resolveOfflineManifestUrl } from "../../game-platform/offline-manifest-url";
 
 const strandGameCardImageUrl = new URL("./assets/icons/worlds/world-beach.webp", import.meta.url)
   .href;
@@ -17,7 +18,7 @@ export const magischStrandAvontuurManifest = defineGameManifest({
     {
       contentVersion: "magisch-strand-avontuur-2026.07",
       id: "magisch-strand-avontuur-beach",
-      manifestUrl: "/offline/magisch-strand-avontuur-beach-v1.json",
+      manifestUrl: resolveOfflineManifestUrl("magisch-strand-avontuur-beach-v1.json"),
       version: 1,
     },
   ],

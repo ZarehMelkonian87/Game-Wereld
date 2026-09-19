@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 import { VitePWA } from "vite-plugin-pwa";
+import { resolveBasePath } from "./scripts/resolve-base-path.mjs";
 
 const devDistAssetsPlugin = (): Plugin => ({
   name: "dev-dist-assets",
@@ -53,11 +54,7 @@ const figmaAssetResolver = (): Plugin => {
   };
 };
 export default defineConfig({
-  base:
-    process.env.VITE_BASE_PATH ??
-    (process.env.GITHUB_PAGES === "true" || process.env.CI_PAGES === "true"
-      ? "/Game-Wereld/"
-      : "/"),
+  base: resolveBasePath(),
   build: {
     manifest: true,
     rollupOptions: {

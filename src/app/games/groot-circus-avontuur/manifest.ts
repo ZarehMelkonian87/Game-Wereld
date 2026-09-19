@@ -1,4 +1,5 @@
 import { defineGameManifest } from "../../game-platform/contracts";
+import { resolveOfflineManifestUrl } from "../../game-platform/offline-manifest-url";
 
 const circusGameCardImageUrl = new URL("./assets/icons/worlds/world-circus.png", import.meta.url)
   .href;
@@ -17,7 +18,7 @@ export const grootCircusAvontuurManifest = defineGameManifest({
     {
       contentVersion: "groot-circus-avontuur-2026.08",
       id: "groot-circus-avontuur-circus",
-      manifestUrl: "/offline/groot-circus-avontuur-circus-v1.json",
+      manifestUrl: resolveOfflineManifestUrl("groot-circus-avontuur-circus-v1.json"),
       version: 1,
     },
   ],

@@ -73,7 +73,8 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await auditCurrentScreen(page, "GameHost");
 
   await page.goto("/games/math/rekenen-strand-avontuur");
-  await expect(page.getByRole("heading", { name: "Schelpen Tellen" })).toBeVisible();
+  // `exact`: de sync-modal ("Schelpen Tellen klaarmaken!") matcht anders ook (strict mode).
+  await expect(page.getByRole("heading", { name: "Schelpen Tellen", exact: true })).toBeVisible();
   await auditCurrentScreen(page, "Schelpen Tellen start");
   await page.getByRole("button", { name: "Start met tellen" }).click();
   await auditCurrentScreen(page, "Schelpen Tellen opdracht");

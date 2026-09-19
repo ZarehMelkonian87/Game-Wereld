@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveBasePath } from "./resolve-base-path.mjs";
 
 const DEFAULT_ASSET_SOURCE_PREFIX = "src/app/games/magisch-strand-avontuur/assets/";
 const DEFAULT_GAME_ENTRY = "src/app/games/magisch-strand-avontuur/index.tsx";
@@ -59,7 +60,12 @@ const collectGameFiles = (viteManifest, packageSource) => {
   return [{ file: gameEntry.file, sourcePath: gameEntryPath }, ...sourceAssets];
 };
 
-export const createGeneratedAssetManifest = ({ distDirectory, packageSource, viteManifest }) => {
+export const createGeneratedAssetManifest = ({
+  basePath = "/",
+  distDirectory,
+  packageSource,
+  viteManifest,
+}) => {
   const assets = collectGameFiles(viteManifest, packageSource).map(({ file, sourcePath }) => {
     const outputPath = path.join(distDirectory, file);
     if (!fs.existsSync(outputPath)) {
@@ -75,7 +81,7 @@ export const createGeneratedAssetManifest = ({ distDirectory, packageSource, vit
       required: true,
       source: packageSource.source,
       sourcePath,
-      url: `/${file}`,
+      url: `${basePath}${file}`,
     };
   });
   validateGeneratedAssets(assets);
@@ -105,6 +111,8 @@ export const generateAssetManifest = ({
   const packageSource = readJson(packageSourcePath);
   const viteManifest = readJson(viteManifestPath);
   const manifest = createGeneratedAssetManifest({
+    // Zelfde basispad als Vite: op GitHub Pages `/Game-Wereld/`, lokaal `/`.
+    basePath: resolveBasePath(),
     distDirectory,
     packageSource,
     viteManifest,
