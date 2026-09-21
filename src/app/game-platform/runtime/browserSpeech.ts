@@ -98,6 +98,17 @@ export const getBrowserSpeechRecognitionSupport = (): SpeechRecognitionSupport =
   return { isSecureContext: true, isSupported: true, needsSecureContext: false };
 };
 
+/**
+ * Android Chrome (T-52, Galaxy A56) markeert in continue modus élk
+ * tussenresultaat als `isFinal=true`, maar met zekerheid 0; alleen het echte
+ * eindresultaat krijgt een zekerheid > 0. Een "definitief" segment zonder
+ * zekerheid behandelen we daarom als tussentijds, anders verwerkt het spel het
+ * eerste woord al als complete zin. Desktop-Chrome geeft eindresultaten altijd
+ * een zekerheid > 0, dus daar verandert er niets.
+ */
+const isTrustedFinalSegment = (segment: BrowserSpeechRecognitionResult): boolean =>
+  segment.isFinal && (segment[0]?.confidence ?? 0) > 0;
+
 const getConfidenceLabel = (confidence: number): VoiceRecognitionConfidence => {
   if (confidence >= 0.75) return "high";
   if (confidence >= 0.45) return "medium";
@@ -130,7 +141,7 @@ const readBestRecognitionResult = (
       alternatives,
       confidence: bestAlternative.confidence,
       confidenceLabel: getConfidenceLabel(bestAlternative.confidence),
-      isFinal: speechResult.isFinal,
+      isFinal: isTrustedFinalSegment(speechResult),
       transcript: bestAlternative.transcript,
     };
   }
@@ -154,7 +165,7 @@ const readBestRecognitionResult = (
       totalConfidence += bestAlt.confidence || 0.8;
       count++;
     }
-    if (!resultItem.isFinal) {
+    if (!isTrustedFinalSegment(resultItem)) {
       isAllFinal = false;
     }
   }
@@ -211,7 +222,7 @@ const readLatestSegmentResult = (
       totalConfidence += bestAlt.confidence || 0.8;
       count++;
     }
-    if (!resultItem.isFinal) {
+    if (!isTrustedFinalSegment(resultItem)) {
       isAllFinal = false;
     }
   }
@@ -331,7 +342,9 @@ export const createBrowserSpeechRecognition = ({
       ? readLatestSegmentResult(event)
       : readBestRecognitionResult(event);
     if (!result) {
-      onNoMatch?.();
+      // Leeg resultaat (Android stuurt er een reeks van zodra iemand begint te
+      // praten): geen "geen match" — dat zette de UI op error terwijl de sessie
+      // gewoon doorliep. Alleen het echte `nomatch`-event telt (T-52).
       return;
     }
     resetSilenceTimer();

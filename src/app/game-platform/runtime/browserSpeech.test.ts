@@ -39,7 +39,10 @@ class MockSpeechRecognition {
     this.onend?.();
   };
 
+  static latest: MockSpeechRecognition | null = null;
+
   start = () => {
+    MockSpeechRecognition.latest = this;
     emitResult = (event) => {
       this.onresult?.(event);
     };
@@ -121,6 +124,72 @@ describe("browserSpeech runtime", () => {
     expect(results).toHaveLength(2);
     expect(results[1].transcript).toBe("Zet de gele zeester onder de parasol");
     expect(results[1].isFinal).toBe(true);
+  });
+
+  it("negeert lege resultaat-events en meldt alleen een echt nomatch-event (T-52, Android)", () => {
+    const results: VoiceRecognitionResult[] = [];
+    let noMatchCount = 0;
+    const session = createBrowserSpeechRecognition({
+      continuous: true,
+      interimResults: true,
+      latestSegmentOnly: true,
+      onNoMatch: () => {
+        noMatchCount += 1;
+      },
+      onResult: (res) => results.push(res),
+    });
+    session?.start();
+
+    // Android stuurt bij het begin van spreken een reeks resultaten zonder tekst.
+    const emptySegment: MockSpeechResult = {
+      0: { confidence: 0, transcript: "" },
+      isFinal: false,
+      length: 1,
+    };
+    emitResult?.({ resultIndex: 0, results: [emptySegment] });
+    emitResult?.({ resultIndex: 0, results: [emptySegment] });
+    expect(results).toHaveLength(0);
+    expect(noMatchCount).toBe(0);
+
+    // Het echte nomatch-event telt wél.
+    const recognition = MockSpeechRecognition.latest;
+    recognition?.onnomatch?.();
+    expect(noMatchCount).toBe(1);
+  });
+
+  it("behandelt een 'definitief' segment zonder zekerheid als tussentijds (T-52, Android)", () => {
+    const results: VoiceRecognitionResult[] = [];
+    const session = createBrowserSpeechRecognition({
+      continuous: true,
+      interimResults: true,
+      latestSegmentOnly: true,
+      onResult: (res) => results.push(res),
+    });
+    session?.start();
+
+    // Android Chrome: groeiend tussenresultaat, isFinal=true maar confidence 0.
+    emitResult?.({
+      resultIndex: 0,
+      results: [{ 0: { confidence: 0, transcript: "zet de" }, isFinal: true, length: 1 }],
+    });
+    emitResult?.({
+      resultIndex: 0,
+      results: [{ 0: { confidence: 0, transcript: "zet de bal op" }, isFinal: true, length: 1 }],
+    });
+    // Het echte eindresultaat heeft een zekerheid > 0.
+    emitResult?.({
+      resultIndex: 0,
+      results: [
+        {
+          0: { confidence: 0.91, transcript: "zet de bal op het strand" },
+          isFinal: true,
+          length: 1,
+        },
+      ],
+    });
+
+    expect(results.map((res) => res.isFinal)).toEqual([false, false, true]);
+    expect(results[2].transcript).toBe("zet de bal op het strand");
   });
 
   it("reset en activeert de adaptieve stiltetimer na spraak", () => {
