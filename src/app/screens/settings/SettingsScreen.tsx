@@ -6,6 +6,7 @@ import { useRequireProfile } from "../shared";
 import { AudioSettingsCard } from "./AudioSettingsCard";
 import { DeleteProfileCard } from "./DeleteProfileCard";
 import { ProgressLinkCard } from "./ProgressLinkCard";
+import { MicrophoneDiagnosisLinkCard } from "./MicrophoneDiagnosisLinkCard";
 import { ProfileDataExportCard } from "./ProfileDataExportCard";
 import { SettingsHeader } from "./SettingsHeader";
 import { SettingsProfileCard } from "./SettingsProfileCard";
@@ -49,6 +50,7 @@ export const SettingsScreen = () => {
               onOpenProgress={() => navigate("/progress")}
             />
             <AudioSettingsCard profile={currentProfile} />
+            <MicrophoneDiagnosisLinkCard onOpenDiagnosis={() => navigate("/diagnose/microfoon")} />
             <ProfileDataExportCard profileId={currentProfile.id} />
             <DeleteProfileCard
               onCancel={() => setShowDeleteConfirm(false)}

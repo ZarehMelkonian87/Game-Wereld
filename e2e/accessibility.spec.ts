@@ -64,6 +64,14 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await page.goto("/settings");
   await auditCurrentScreen(page, "instellingen");
 
+  // Microfoon-diagnose (T-52) is via Instellingen bereikbaar, ook in een
+  // geïnstalleerde app zonder adresbalk.
+  await page.getByTestId("settings-open-microphone-diagnosis").click();
+  await expect(page.getByTestId("diagnose-microfoon-screen")).toBeVisible();
+  await expect(page.getByTestId("diagnose-environment-summary")).toContainText("browsertab");
+  await expect(page.getByTestId("diagnose-report")).toHaveValue(/Microfoon-diagnose Game Wereld/);
+  await auditCurrentScreen(page, "microfoon-diagnose");
+
   await page.goto("/progress");
   await auditCurrentScreen(page, "voortgang");
 

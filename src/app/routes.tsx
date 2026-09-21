@@ -64,6 +64,13 @@ export const router = createBrowserRouter(
               Component: ProgressScreen,
             })),
         },
+        {
+          path: "diagnose/microfoon",
+          lazy: () =>
+            import("./screens/diagnose-microfoon").then(({ DiagnoseMicrofoonScreen }) => ({
+              Component: DiagnoseMicrofoonScreen,
+            })),
+        },
       ],
       path: "/",
     },

@@ -55,6 +55,11 @@ const figmaAssetResolver = (): Plugin => {
 };
 export default defineConfig({
   base: resolveBasePath(),
+  define: {
+    // Bouwmoment, zichtbaar in de microfoon-diagnose (T-52) zodat je op een
+    // toestel kunt zien of de laatste release al geladen is.
+    __APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+  },
   build: {
     manifest: true,
     rollupOptions: {

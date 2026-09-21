@@ -1,0 +1,1 @@
+export { DiagnoseMicrofoonScreen } from "./DiagnoseMicrofoonScreen";
