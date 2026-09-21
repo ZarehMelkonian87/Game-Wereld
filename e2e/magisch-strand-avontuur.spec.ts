@@ -203,9 +203,14 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
   });
 
   test("3.3: Microfoon & SpeechWaveAnimation (activatie & hoge positie)", async ({
+    browserName,
     page,
     context,
   }) => {
+    test.skip(
+      browserName === "webkit",
+      "Playwright-WebKit kan geen microfoonpermissie toekennen (grantPermissions: Unknown permission).",
+    );
     const expectNoBrowserErrors = failOnBrowserErrors(page);
     await context.grantPermissions(["microphone"]);
 
@@ -238,6 +243,48 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
 
     // De wave heeft geen aparte "Klaar"-knop meer: hij rondt automatisch af na
     // een korte stilte (T-35).
+
+    expectNoBrowserErrors();
+  });
+
+  test("3.7: Typen openen zet de mic uit en andersom — nooit wave én typ-paneel tegelijk (T-50)", async ({
+    browserName,
+    page,
+    context,
+  }) => {
+    test.skip(
+      browserName === "webkit",
+      "Playwright-WebKit kan geen microfoonpermissie toekennen (grantPermissions: Unknown permission).",
+    );
+    const expectNoBrowserErrors = failOnBrowserErrors(page);
+    await context.grantPermissions(["microphone"]);
+
+    await setupPlayerAndOpenStrandGame(page);
+    await page.getByTestId("start-play-button").click();
+    await earnStarsToUnlockModes(page);
+    await page.getByTestId("compact-mode-card-listen-and-place").click();
+    await page.getByTestId("adventure-start-game-button").click();
+    await expect(page.getByTestId("scene-builder-screen")).toBeVisible();
+
+    // Mic aan → wave zichtbaar.
+    await page.getByTestId("voice-command-button").click();
+    const privacyDialogAccept = page.getByTestId("voice-privacy-accept-button");
+    if (await privacyDialogAccept.isVisible()) {
+      await privacyDialogAccept.click();
+    }
+    const speechWave = page.locator('[data-slot="speech-wave-animation"]');
+    await expect(speechWave).toBeVisible({ timeout: 5000 });
+
+    // Typen openen → wave weg, typ-paneel erbij (de overlap uit de release-test).
+    await page.getByTestId("typed-command-open-button").click();
+    const typedInput = page.getByTestId("typed-command-input");
+    await expect(typedInput).toBeVisible();
+    await expect(speechWave).toBeHidden();
+
+    // Mic weer aan → typ-paneel sluit, wave terug.
+    await page.getByTestId("voice-command-button").click();
+    await expect(speechWave).toBeVisible({ timeout: 5000 });
+    await expect(typedInput).toBeHidden();
 
     expectNoBrowserErrors();
   });

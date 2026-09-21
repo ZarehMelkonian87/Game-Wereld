@@ -40,6 +40,7 @@ export const SpokenCommandControls = ({
     hasMicrophonePermissionMessage,
     manualText,
     microphonePermission,
+    openManualFallback,
     setManualText,
     setShowManualFallback,
     setShowPrivacyNotice,
@@ -101,7 +102,7 @@ export const SpokenCommandControls = ({
       <div className="flex items-center gap-1" data-slot="voice-actions">
         <BtnTaskKeyboardToggle
           data-testid="typed-command-open-button"
-          onClick={() => setShowManualFallback(true)}
+          onClick={openManualFallback}
         />
       </div>
 

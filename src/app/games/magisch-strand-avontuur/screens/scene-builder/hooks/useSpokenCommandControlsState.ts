@@ -129,7 +129,26 @@ export const useSpokenCommandControlsState = ({
       return false;
     }
 
+    // Eén invoermodus tegelijk (T-50): de mic aanzetten sluit het typ-paneel.
+    setShowManualFallback(false);
     return startListening();
+  };
+
+  /**
+   * Typen openen zet de microfoon uit (T-50). Alleen `stopListening()` is niet
+   * genoeg: met een al gehoorde zin springt de status naar "heard" en blijft de
+   * wave in `SceneBuilderScreen` staan — over het typ-paneel heen. Daarom ook
+   * de transcript resetten (status → idle), ná het stoppen: zo vindt de late
+   * `onend` geen transcript meer en flipt hij niet terug naar "heard".
+   */
+  const openManualFallback = () => {
+    const isMicrophoneActive =
+      status === "listening" || status === "processing" || status === "heard";
+    if (isMicrophoneActive) {
+      stopListening();
+      resetTranscript();
+    }
+    setShowManualFallback(true);
   };
 
   const handleStartListening = () => {
@@ -169,6 +188,7 @@ export const useSpokenCommandControlsState = ({
     hasMicrophonePermissionMessage,
     manualText,
     microphonePermission,
+    openManualFallback,
     setManualText,
     setShowManualFallback,
     setShowPrivacyNotice,
