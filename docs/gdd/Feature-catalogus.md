@@ -162,13 +162,13 @@ De rijkste modus: opdracht + drie invoerwegen + feedback.
 
 ### 4.4 Invoer: toetsenbord (fallback)
 
-| FEAT-ID                | Feature             | Verwacht gedrag              | Testhaak                      | Status | Notitie                      |
-| :--------------------- | :------------------ | :--------------------------- | :---------------------------- | :----: | :--------------------------- |
-| `FEAT_SCENE_KB_OPEN`   | Toetsenbord openen  | Opent invoerveld             | `typed-command-open-button`   |   🟢   | "TYP DE ZIN" opent           |
-| `FEAT_SCENE_KB_INPUT`  | Commando typen      | Tekstinvoer van commando     | `typed-command-input`         |   🟢   | Veld accepteert invoer       |
-| `FEAT_SCENE_KB_SUBMIT` | Commando verzenden  | Voert getypt commando uit    | `typed-command-submit-button` |   🟢   | "Gebruik zin" plaatst object |
-| `FEAT_SCENE_KB_CLOSE`  | Toetsenbord sluiten | Sluit het veld               | `typed-command-close-button`  |   ⚪   | Knop aanwezig                |
-| `FEAT_SCENE_KB_CURSOR` | Toetsenbord-cursor  | Visuele cursor bij plaatsing | `scene-keyboard-cursor`       |   ⚪   |                              |
+| FEAT-ID                | Feature             | Verwacht gedrag                                                                                             | Testhaak                                                       | Status | Notitie                                            |
+| :--------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- | :----: | :------------------------------------------------- |
+| `FEAT_SCENE_KB_OPEN`   | Toetsenbord openen  | Opent invoerveld                                                                                            | `typed-command-open-button`                                    |   🟢   | "TYP DE ZIN" opent                                 |
+| `FEAT_SCENE_KB_INPUT`  | Commando overtypen  | Overtyp-veld (`T-54`): doelzin als spookletters, per letter groen/zacht rood, cursorblokje; Enter bevestigt | `typed-command-input`, `[data-component="InputSentenceField"]` |   🟢   | e2e 3.2: 3 goed, 1 fout, Backspace, hele zin groen |
+| `FEAT_SCENE_KB_SUBMIT` | Commando verzenden  | Voert getypt commando uit                                                                                   | `typed-command-submit-button`                                  |   🟢   | "Gebruik zin" plaatst object                       |
+| `FEAT_SCENE_KB_CLOSE`  | Toetsenbord sluiten | Sluit het veld                                                                                              | `typed-command-close-button`                                   |   ⚪   | Knop aanwezig                                      |
+| `FEAT_SCENE_KB_CURSOR` | Toetsenbord-cursor  | Visuele cursor bij plaatsing                                                                                | `scene-keyboard-cursor`                                        |   ⚪   |                                                    |
 
 ### 4.5 Feedback, hint & voortgang
 

@@ -205,15 +205,14 @@ In deze drag & drop minigame voert de speler ruimtelijke opdrachten uit (bijv. _
 
 Een toegankelijkheids- overlay modal waarin kinderen of begeleiders de opdrachtzin handmatig kunnen intypen als spraakherkenning niet beschikbaar of gewenst is.
 
-| Element Code Name             | Visuele Naam        | Functionaliteit & Omschrijving                                             | Visuele Stijl                                    | Doel / Actie      |
-| :---------------------------- | :------------------ | :------------------------------------------------------------------------- | :----------------------------------------------- | :---------------- |
-| **CARD_MODAL_KEYBOARD_INPUT** | Typ Modal Container | Pop-up venster dat opent wanneer op de toetsenbordknop wordt getikt.       | Witte afgeronde kaart met blauwe rand en schaduw | Modal Container   |
-| **BADGE_KEYBOARD_HEADER**     | Toetsenbord Badge   | Blauwe cirkel met toetsenbord-icoon bovenaan de modal.                     | Blauwe badge met toetsenbord-icoon               | Modal Header Icon |
-| **TTL_KEYBOARD_MODAL**        | Modal Titel         | Titel: _'TYP DE ZIN'_.                                                     | Donkerblauwe vetgedrukte titel                   | Modal Header Text |
-| **LBL_KEYBOARD_EXAMPLE**      | Voorbeeldtekst      | Instructie: _'Bijvoorbeeld: Zet de boot in de zee.'_                       | Grijze instructietekst                           | Input Guidance    |
-| **INPUT_SENTENCE_FIELD**      | Tekstinvoerveld     | Invoerveld waarin de speler de zin kan typen (_'Zet de boot in de zee.'_). | Witte afgeronde rechthoek met blauwe rand        | Text Input Field  |
-| **BTN_KEYBOARD_SUBMIT**       | Gebruik Zin Knop    | Bevestigt de getypte zin en verwerkt deze als antwoord.                    | Brede blauwe knop met witte tekst 'Gebruik zin'  | Submit Input      |
-| **BTN_KEYBOARD_CLOSE**        | Sluit Knop          | Sluit de typ-overlay zonder de voerwijziging op te slaan.                  | Witte afgeronde knop met tekst 'Sluit'           | Dismiss Modal     |
+| Element Code Name             | Visuele Naam        | Functionaliteit & Omschrijving                                                                                                                                                                                         | Visuele Stijl                                            | Doel / Actie      |
+| :---------------------------- | :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- | :---------------- |
+| **CARD_MODAL_KEYBOARD_INPUT** | Typ Modal Container | Pop-up venster dat opent wanneer op de toetsenbordknop wordt getikt.                                                                                                                                                   | Witte afgeronde kaart met blauwe rand en schaduw         | Modal Container   |
+| **BADGE_KEYBOARD_HEADER**     | Toetsenbord Badge   | Blauwe cirkel met toetsenbord-icoon bovenaan de modal.                                                                                                                                                                 | Blauwe badge met toetsenbord-icoon                       | Modal Header Icon |
+| **TTL_KEYBOARD_MODAL**        | Modal Titel         | Titel: _'TYP DE ZIN'_.                                                                                                                                                                                                 | Donkerblauwe vetgedrukte titel                           | Modal Header Text |
+| **INPUT_SENTENCE_FIELD**      | Overtyp-veld        | De doelzin staat als spookletters in het veld en wordt letter voor letter ingevuld: goed = groen, fout = zacht rood, volgende letter = cursorblokje (`T-54`; verving de aparte voorbeeldregel `LBL_KEYBOARD_EXAMPLE`). | Witte afgeronde rechthoek met blauwe rand, grote letters | Text Input Field  |
+| **BTN_KEYBOARD_SUBMIT**       | Gebruik Zin Knop    | Bevestigt de getypte zin en verwerkt deze als antwoord.                                                                                                                                                                | Brede blauwe knop met witte tekst 'Gebruik zin'          | Submit Input      |
+| **BTN_KEYBOARD_CLOSE**        | Sluit Knop          | Sluit de typ-overlay zonder de voerwijziging op te slaan.                                                                                                                                                              | Witte afgeronde knop met tekst 'Sluit'                   | Dismiss Modal     |
 
 ---
 
@@ -429,7 +428,6 @@ Onderstaande tabel toont de exacte koppeling tussen de **UX Code Name** en het *
 | **CARD_MODAL_KEYBOARD_INPUT**    | Scherm 8            | Feature Modal Card | `screens/scene-builder/components/ModalKeyboardInput.tsx`         | `CardModalKeyboardInput`       |
 | **BADGE_KEYBOARD_HEADER**        | Scherm 8            | Shared UI Badge    | `components/ui/titles-badges/BadgeModalHeader.tsx`                | `BadgeKeyboardHeader`          |
 | **TTL_KEYBOARD_MODAL**           | Scherm 8            | Shared UI Title    | `components/ui/titles-badges/TtlModalTitle.tsx`                   | `TtlModalTitle`                |
-| **LBL_KEYBOARD_EXAMPLE**         | Scherm 8            | Feature Text       | `screens/scene-builder/components/ModalKeyboardInput.tsx`         | `LblKeyboardExample`           |
 | **INPUT_SENTENCE_FIELD**         | Scherm 8            | Shared UI Input    | `components/ui/inputs-toggles/InputSentenceField.tsx`             | `InputSentenceField`           |
 | **BTN_KEYBOARD_SUBMIT**          | Scherm 8            | Shared UI Button   | `components/ui/buttons/BtnPrimaryPlay.tsx`                        | `BtnKeyboardSubmit`            |
 | **BTN_KEYBOARD_CLOSE**           | Scherm 8            | Shared UI Button   | `components/ui/buttons/BtnSecondary.tsx`                          | `BtnKeyboardClose`             |

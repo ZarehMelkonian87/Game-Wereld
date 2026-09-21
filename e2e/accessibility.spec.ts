@@ -113,11 +113,17 @@ test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetse
   expect(targetObjectId).toBeTruthy();
   const instructionBefore = await sceneBuilder.getAttribute("data-active-instruction-id");
 
-  const commandInput = page.getByTestId("typed-command-input");
-  const command = await commandInput.getAttribute("placeholder");
+  // T-54: geen placeholder meer; de opdrachtzin staat als spookletters in het
+  // overtyp-veld en wordt via het toetsenbord letter voor letter ingevuld.
+  const command = await page.getByTestId("scene-builder-instruction-text").innerText();
   expect(command).toBeTruthy();
+  await expect(page.locator('[data-component="InputSentenceField"]')).toHaveAttribute(
+    "data-target-length",
+    String(command.length),
+  );
+  const commandInput = page.getByTestId("typed-command-input");
   await commandInput.focus();
-  await page.keyboard.type(command ?? "");
+  await page.keyboard.type(command);
   await page.keyboard.press("Enter");
 
   // Zonder microfoon voltooit het getypte commando de opdracht: de plaatsing

@@ -194,7 +194,34 @@ test.describe("Magisch Strand-Avontuur: Fase 3 - Zeg & Zet (SceneBuilder)", () =
     await page.getByTestId("typed-command-open-button").click();
     await expect(page.getByTestId("typed-command-fallback")).toBeVisible();
 
-    await page.getByTestId("typed-command-input").fill(instructionText);
+    // T-54: geen "Bijvoorbeeld:"-regel meer; de zin staat als spookletters in
+    // het veld en wordt letter voor letter ingevuld.
+    await expect(page.getByTestId("typed-command-fallback")).not.toContainText("Bijvoorbeeld");
+    const sentenceField = page.locator('[data-component="InputSentenceField"]');
+    await expect(sentenceField).toHaveAttribute(
+      "data-target-length",
+      String(instructionText.length),
+    );
+    const letters = sentenceField.locator("[data-letter-state]");
+    await expect(letters.first()).toHaveAttribute("data-letter-state", "next");
+
+    const typedInput = page.getByTestId("typed-command-input");
+    await typedInput.click();
+    // Eerste drie letters goed, dan een fout, dan verbeteren met Backspace.
+    await typedInput.pressSequentially(instructionText.slice(0, 3));
+    await expect(sentenceField).toHaveAttribute("data-correct-count", "3");
+    await expect(letters.nth(3)).toHaveAttribute("data-letter-state", "next");
+    await typedInput.pressSequentially("§");
+    await expect(letters.nth(3)).toHaveAttribute("data-letter-state", "typed-wrong");
+    await typedInput.press("Backspace");
+    await expect(letters.nth(3)).toHaveAttribute("data-letter-state", "next");
+    await expect(sentenceField).toHaveAttribute("data-typed-count", "3");
+
+    await typedInput.fill(instructionText);
+    await expect(sentenceField).toHaveAttribute(
+      "data-correct-count",
+      String(instructionText.length),
+    );
     await page.getByTestId("typed-command-submit-button").click();
 
     await expect(page.getByTestId("typed-command-fallback")).not.toBeVisible();

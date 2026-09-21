@@ -11,12 +11,15 @@ import type { VocabularyChoiceInstruction } from "../../types";
 // Korte wachttijd zodat de tests niet 1,8 s per vraag hoeven te wachten.
 const TEST_AUTO_ADVANCE_MS = 30;
 
-const renderScreen = (runtime = createFakeGameRuntime()) => {
+const renderScreen = (
+  runtime = createFakeGameRuntime(),
+  autoAdvanceDelayMs = TEST_AUTO_ADVANCE_MS,
+) => {
   render(
     <GameRuntimeProvider runtime={runtime}>
       <WordChoiceScreen
-        autoAdvanceDelayMs={TEST_AUTO_ADVANCE_MS}
-        autoAdvanceWithRewardDelayMs={TEST_AUTO_ADVANCE_MS}
+        autoAdvanceDelayMs={autoAdvanceDelayMs}
+        autoAdvanceWithRewardDelayMs={autoAdvanceDelayMs}
         instructions={mockInstructions}
         objects={beachWorld.objects}
       />
@@ -142,7 +145,8 @@ describe("WordChoiceScreen afronding en resultaten", () => {
     const runtime = createFakeGameRuntime();
     const playAudio = vi.fn(async (_source: string) => success(undefined));
     runtime.media.playAudio = playAudio;
-    renderScreen(runtime);
+    // Ruimer venster zodat alle drie de tikken zeker vóór het doorschakelen vallen.
+    renderScreen(runtime, 500);
 
     const dolfijnButton = screen.getByRole("button", { name: /dolfijn/i });
     await user.click(dolfijnButton);

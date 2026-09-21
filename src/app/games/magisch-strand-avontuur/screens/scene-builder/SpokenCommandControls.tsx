@@ -108,7 +108,7 @@ export const SpokenCommandControls = ({
 
       {shouldShowPopover ? (
         <div
-          className="pointer-events-auto absolute right-0 top-[calc(100%+0.35rem)] z-[70] w-[min(17rem,calc(100vw-1.5rem))]"
+          className="pointer-events-auto absolute right-0 top-[calc(100%+0.35rem)] z-[70] w-[min(24rem,calc(100vw-1.5rem))]"
           data-slot="voice-status-popover"
           onClick={(event) => event.stopPropagation()}
           onPointerCancel={(event) => event.stopPropagation()}

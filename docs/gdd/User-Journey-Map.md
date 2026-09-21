@@ -80,18 +80,18 @@
 **Doel:** het kind voert luister-/plaatsingsopdrachten uit (zinsbegrip + ruimtelijke taal).
 **Kernpersona:** `PERS_TOS`, `PERS_NT2`.
 
-| Stap-ID          | Scherm                  | Actie                                         | Verwacht resultaat                                        | Features                                       |  Status  |
-| :--------------- | :---------------------- | :-------------------------------------------- | :-------------------------------------------------------- | :--------------------------------------------- | :------: |
-| `JRN_ZEGZET_01`  | `SCR_MSA_START`         | Tikt **Spelen**                               | Naar avontuur kiezen                                      | `FEAT_START_PLAY`                              |    🟢    |
-| `JRN_ZEGZET_02`  | `SCR_MSA_MODE_SELECT`   | Kiest **Zeg & Zet**, tikt **Start Spel**      | Scene Builder opent met opdracht                          | `FEAT_MODE_CARD_ZEGZET`, `FEAT_MODE_START`     |    🟢    |
-| `JRN_ZEGZET_03`  | `SCR_MSA_SCENE_BUILDER` | Hoort/leest de opdracht                       | Opdracht zichtbaar (bv. "Zet de vuurtoren op het eiland") | `FEAT_SCENE_INSTRUCTION`, `FEAT_SCENE_AUDIO`   | 🟢 / ⚪  |
-| `JRN_ZEGZET_04a` | idem                    | **Tap:** kiest object → tikt op de plek       | Object geplaatst in zone                                  | `FEAT_SCENE_CAROUSEL`, `FEAT_SCENE_TAP_PLACE`  |    🟢    |
-| `JRN_ZEGZET_04b` | idem                    | **Stem:** spreekt commando in                 | Object geplaatst via parser                               | `FEAT_SCENE_MIC`, `FEAT_SCENE_PARSE`           | ⚪ (mic) |
-| `JRN_ZEGZET_04c` | idem                    | **Toetsenbord:** typt de zin, **Gebruik zin** | Object geplaatst via parser                               | `FEAT_SCENE_KB_*`, `FEAT_SCENE_PARSE`          |    🟢    |
-| `JRN_ZEGZET_05`  | idem                    | Tikt **Klaar**                                | Succesfeedback + "+1 Tempo!" + sterren                    | `FEAT_SCENE_FEEDBACK_OK`, `FEAT_SCENE_CONFIRM` |    🟢    |
-| `JRN_ZEGZET_06`  | idem                    | Tikt **Volgende**                             | Volgende opdracht verschijnt                              | `FEAT_SCENE_CONFIRM`                           |    🟢    |
-| `JRN_ZEGZET_07`  | idem                    | Herhaalt tot ronde klaar                      | **Ronde-eindscherm** met samenvatting                     | `FEAT_SCENE_SUMMARY`                           |    🟢    |
-| `JRN_ZEGZET_08`  | `SCR_MSA_REWARD`        | Ziet beloning                                 | Beloningsoverzicht                                        | `FEAT_REWARD_*`                                |    🟢    |
+| Stap-ID          | Scherm                  | Actie                                                                                           | Verwacht resultaat                                        | Features                                       |  Status  |
+| :--------------- | :---------------------- | :---------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :--------------------------------------------- | :------: |
+| `JRN_ZEGZET_01`  | `SCR_MSA_START`         | Tikt **Spelen**                                                                                 | Naar avontuur kiezen                                      | `FEAT_START_PLAY`                              |    🟢    |
+| `JRN_ZEGZET_02`  | `SCR_MSA_MODE_SELECT`   | Kiest **Zeg & Zet**, tikt **Start Spel**                                                        | Scene Builder opent met opdracht                          | `FEAT_MODE_CARD_ZEGZET`, `FEAT_MODE_START`     |    🟢    |
+| `JRN_ZEGZET_03`  | `SCR_MSA_SCENE_BUILDER` | Hoort/leest de opdracht                                                                         | Opdracht zichtbaar (bv. "Zet de vuurtoren op het eiland") | `FEAT_SCENE_INSTRUCTION`, `FEAT_SCENE_AUDIO`   | 🟢 / ⚪  |
+| `JRN_ZEGZET_04a` | idem                    | **Tap:** kiest object → tikt op de plek                                                         | Object geplaatst in zone                                  | `FEAT_SCENE_CAROUSEL`, `FEAT_SCENE_TAP_PLACE`  |    🟢    |
+| `JRN_ZEGZET_04b` | idem                    | **Stem:** spreekt commando in                                                                   | Object geplaatst via parser                               | `FEAT_SCENE_MIC`, `FEAT_SCENE_PARSE`           | ⚪ (mic) |
+| `JRN_ZEGZET_04c` | idem                    | **Toetsenbord:** typt de spookletters over (groen per letter, `T-54`), **Gebruik zin** of Enter | Object geplaatst via parser                               | `FEAT_SCENE_KB_*`, `FEAT_SCENE_PARSE`          |    🟢    |
+| `JRN_ZEGZET_05`  | idem                    | Tikt **Klaar**                                                                                  | Succesfeedback + "+1 Tempo!" + sterren                    | `FEAT_SCENE_FEEDBACK_OK`, `FEAT_SCENE_CONFIRM` |    🟢    |
+| `JRN_ZEGZET_06`  | idem                    | Tikt **Volgende**                                                                               | Volgende opdracht verschijnt                              | `FEAT_SCENE_CONFIRM`                           |    🟢    |
+| `JRN_ZEGZET_07`  | idem                    | Herhaalt tot ronde klaar                                                                        | **Ronde-eindscherm** met samenvatting                     | `FEAT_SCENE_SUMMARY`                           |    🟢    |
+| `JRN_ZEGZET_08`  | `SCR_MSA_REWARD`        | Ziet beloning                                                                                   | Beloningsoverzicht                                        | `FEAT_REWARD_*`                                |    🟢    |
 
 **Zijpaden:**
 
