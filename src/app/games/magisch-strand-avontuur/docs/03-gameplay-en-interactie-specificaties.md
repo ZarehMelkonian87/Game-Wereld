@@ -69,7 +69,7 @@ Een gerichte quiz van **10 afwisselende vragen** om auditieve discriminatie en s
 3. **Selectie & Directe Feedback:**
    - **Goed antwoord:** De gekozen kaart krijgt een heldere groene rand (`#10b981`), een groen vinkje verschijnt en er dansen feestelijke sparkles ✨ en sterren ⭐ rondom de kaart.
    - **Nazegzin:** De feedbackbalk toont direct een declaratieve zin (_"Super! Zeg na: De dolfijn zwemt in de zee"_).
-   - **Volgende knop:** Er verschijnt een grote groene knop **"Volgende"** (`BtnActionKlaar`) om naar de volgende vraag te gaan.
+   - **Automatisch door (T-51):** er klinkt een kort goed-geluid en na ±1,8 s (±2,6 s als er een beloning vrijkomt) verschijnt de volgende vraag vanzelf — geen "Volgende"-knop meer. Bij een fout antwoord klinkt een zacht fout-geluid en blijft de vraag staan.
    - **Bijna / Fout antwoord:** De kaart krijgt een oranje rand (`#e8663d`) met een zacht rood kruisje en een geruststellende stem geeft een hint (_"Kijk goed naar het water"_). De foute kaart wordt gedeactiveerd zodat het kind direct opnieuw kan kiezen (_foutarm leren_).
 
 ### 3. Live Cyclusvoortgangsbalk (Onderaan)

@@ -107,14 +107,14 @@
 **Doel:** het kind herkent het juiste woord tussen afleiders (receptieve woordenschat).
 **Kernpersona:** `PERS_KLEUTER`, `PERS_NT2`.
 
-| Stap-ID            | Scherm                | Actie                                    | Verwacht resultaat                           | Features                                  | Status |
-| :----------------- | :-------------------- | :--------------------------------------- | :------------------------------------------- | :---------------------------------------- | :----: |
-| `JRN_KIESWOORD_01` | `SCR_MSA_MODE_SELECT` | Kiest **Kies het Woord**, **Start Spel** | Quiz opent (vraag 1/12)                      | `FEAT_MODE_CARD_KIESWOORD`                |   🟢   |
-| `JRN_KIESWOORD_02` | `SCR_MSA_WORD_CHOICE` | Hoort/leest de vraag                     | Vraag + 2–4 keuzekaarten                     | `FEAT_WORD_QUESTION`, `FEAT_WORD_OPTIONS` |   🟢   |
-| `JRN_KIESWOORD_03` | idem                  | Tikt de juiste kaart                     | Groene rand + "Bonus zonder hint" + nazegzin | `FEAT_WORD_CORRECT`                       |   🟢   |
-| `JRN_KIESWOORD_04` | idem                  | Tikt **Volgende**                        | Volgende vraag; voortgangsbalk +1            | `FEAT_WORD_NEXT`, `FEAT_WORD_PROGRESS`    |   🟢   |
-| `JRN_KIESWOORD_05` | idem                  | Herhaalt t/m vraag 12                    | **In-game eindscherm** (sterren/tempo/goed)  | `FEAT_WORD_SUMMARY`                       |   🟢   |
-| `JRN_KIESWOORD_06` | eindscherm            | Tikt **Opnieuw** of **Menu**             | Herstart óf terug naar moduskeuze            | `FEAT_WORD_SUMMARY_REPLAY/MENU`           |   🟢   |
+| Stap-ID            | Scherm                | Actie                                    | Verwacht resultaat                                                | Features                                                          | Status |
+| :----------------- | :-------------------- | :--------------------------------------- | :---------------------------------------------------------------- | :---------------------------------------------------------------- | :----: |
+| `JRN_KIESWOORD_01` | `SCR_MSA_MODE_SELECT` | Kiest **Kies het Woord**, **Start Spel** | Quiz opent (vraag 1/12)                                           | `FEAT_MODE_CARD_KIESWOORD`                                        |   🟢   |
+| `JRN_KIESWOORD_02` | `SCR_MSA_WORD_CHOICE` | Hoort/leest de vraag                     | Vraag + 2–4 keuzekaarten                                          | `FEAT_WORD_QUESTION`, `FEAT_WORD_OPTIONS`                         |   🟢   |
+| `JRN_KIESWOORD_03` | idem                  | Tikt de juiste kaart                     | Groene rand + "Bonus zonder hint" + nazegzin                      | `FEAT_WORD_CORRECT`                                               |   🟢   |
+| `JRN_KIESWOORD_04` | idem                  | Hoort het goed-geluid, wacht ±2 s        | Volgende vraag verschijnt **vanzelf**; voortgangsbalk +1 (`T-51`) | `FEAT_WORD_AUTO_ADVANCE`, `FEAT_WORD_SOUND`, `FEAT_WORD_PROGRESS` |   🟢   |
+| `JRN_KIESWOORD_05` | idem                  | Herhaalt t/m vraag 12                    | **In-game eindscherm** (sterren/tempo/goed)                       | `FEAT_WORD_SUMMARY`                                               |   🟢   |
+| `JRN_KIESWOORD_06` | eindscherm            | Tikt **Opnieuw** of **Menu**             | Herstart óf terug naar moduskeuze                                 | `FEAT_WORD_SUMMARY_REPLAY/MENU`                                   |   🟢   |
 
 **Zijpaden:**
 

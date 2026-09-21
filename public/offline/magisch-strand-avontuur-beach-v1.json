@@ -12,6 +12,28 @@
       "url": "/assets/background-music-DdUSu1S4.mp3"
     },
     {
+      "bytes": 22124,
+      "hash": "sha256-1d3fb560c04c39ece041360cfc197e315acec561260562443ee51631e2a2437f",
+      "id": "src/app/games/magisch-strand-avontuur/assets/audio/feedback-correct.wav",
+      "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
+      "mimeType": "application/octet-stream",
+      "required": true,
+      "source": "Game Wereld projectassetset",
+      "sourcePath": "src/app/games/magisch-strand-avontuur/assets/audio/feedback-correct.wav",
+      "url": "/assets/feedback-correct-CLJUdHW8.wav"
+    },
+    {
+      "bytes": 6188,
+      "hash": "sha256-df19bb53d7ca118bd49bbd784e0fbe8f5c2177f16c91043f32cbf2d119b8206c",
+      "id": "src/app/games/magisch-strand-avontuur/assets/audio/feedback-wrong.wav",
+      "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
+      "mimeType": "application/octet-stream",
+      "required": true,
+      "source": "Game Wereld projectassetset",
+      "sourcePath": "src/app/games/magisch-strand-avontuur/assets/audio/feedback-wrong.wav",
+      "url": "/assets/feedback-wrong-BcS7TeN7.wav"
+    },
+    {
       "bytes": 20740,
       "hash": "sha256-e22d41a15d2051dcc14c0b091d550eac4d2e70f3a946777e6b9323739557ebd6",
       "id": "src/app/games/magisch-strand-avontuur/assets/backgrounds/beach-board-landscape.webp",
@@ -1211,22 +1233,22 @@
       "url": "/assets/sun-sticker-CNXyirNc.webp"
     },
     {
-      "bytes": 404147,
-      "hash": "sha256-06e76295bf134625a282ba7c916fdc88fab29c8dac28b2745b6dd5b10c96ca48",
+      "bytes": 404825,
+      "hash": "sha256-156b84901fbe7a95a33130d8b51ff70eac5c35ab7e288e94e63b1e700f5cf298",
       "id": "src/app/games/magisch-strand-avontuur/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/magisch-strand-avontuur/index.tsx",
-      "url": "/assets/game-magisch-strand-avontuur-DOIX6U8a.js"
+      "url": "/assets/game-magisch-strand-avontuur-DLCgL2b5.js"
     }
   ],
   "contentVersion": "magisch-strand-avontuur-2026.07",
   "gameId": "magisch-strand-avontuur",
   "id": "magisch-strand-avontuur-beach",
   "schemaVersion": 1,
-  "totalBytes": 38841206,
+  "totalBytes": 38870196,
   "version": 1,
   "worldId": "beach"
 }

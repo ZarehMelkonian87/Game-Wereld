@@ -112,16 +112,18 @@ Conform GDD-index sectie 9: **geautomatiseerde tests gaten elke build**, **handm
 
 ## 5. Kies het Woord (`SCR_MSA_WORD_CHOICE`, `JRN_KIESWOORD`) — ✅ eigen suite (`word-choice.spec.ts`, `T-24`)
 
-| TC-ID        | Dekt                                | Verwacht resultaat                                                       | Type | Bestaande test          | Status |
-| :----------- | :---------------------------------- | :----------------------------------------------------------------------- | :--- | :---------------------- | :----: |
-| `TC_WORD_01` | `FEAT_WORD_RENDER/QUESTION/OPTIONS` | Quiz opent met vraag + 2–4 keuzekaarten                                  | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_02` | `FEAT_WORD_CORRECT`                 | Goed antwoord → groene rand, bonus zonder hint, nazegzin                 | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_03` | `FEAT_WORD_WRONG`                   | Fout antwoord → tip, geen straf, opnieuw mogelijk                        | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_04` | `FEAT_WORD_HINT`                    | Hint toont tekst + laat juiste kaart oplichten                           | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_05` | `FEAT_WORD_PROGRESS`                | Voortgang loopt 1/12 → 12/12                                             | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_06` | `FEAT_WORD_SUMMARY`                 | Na 12 vragen: in-game eindscherm met stats                               | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_07` | `FEAT_WORD_SUMMARY_REPLAY/MENU`     | Opnieuw/Menu werken                                                      | 🤖   | `word-choice.spec.ts`   |   ✅   |
-| `TC_WORD_08` | `T-23`                              | Kaarten flitsen **niet** leeg bij doorschakelen (sticker-preload + WebP) | 🤖   | `T-23`/`T-33a` afgerond |   ✅   |
+| TC-ID        | Dekt                                | Verwacht resultaat                                                                          | Type | Bestaande test                       | Status |
+| :----------- | :---------------------------------- | :------------------------------------------------------------------------------------------ | :--- | :----------------------------------- | :----: |
+| `TC_WORD_01` | `FEAT_WORD_RENDER/QUESTION/OPTIONS` | Quiz opent met vraag + 2–4 keuzekaarten                                                     | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_02` | `FEAT_WORD_CORRECT`                 | Goed antwoord → groene rand, bonus zonder hint, nazegzin                                    | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_03` | `FEAT_WORD_WRONG`                   | Fout antwoord → tip, geen straf, opnieuw mogelijk                                           | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_04` | `FEAT_WORD_HINT`                    | Hint toont tekst + laat juiste kaart oplichten                                              | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_05` | `FEAT_WORD_PROGRESS`                | Voortgang loopt 1/12 → 12/12                                                                | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_06` | `FEAT_WORD_SUMMARY`                 | Na 12 vragen: in-game eindscherm met stats                                                  | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_07` | `FEAT_WORD_SUMMARY_REPLAY/MENU`     | Opnieuw/Menu werken                                                                         | 🤖   | `word-choice.spec.ts`                |   ✅   |
+| `TC_WORD_08` | `T-23`                              | Kaarten flitsen **niet** leeg bij doorschakelen (sticker-preload + WebP)                    | 🤖   | `T-23`/`T-33a` afgerond              |   ✅   |
+| `TC_WORD_09` | `FEAT_WORD_AUTO_ADVANCE`            | Goed antwoord → geen Volgende-knop, vraag schakelt vanzelf door; fout antwoord blijft staan | 🤖   | `word-choice.spec.ts` (`T-51`)       |   ✅   |
+| `TC_WORD_10` | `FEAT_WORD_SOUND`                   | Goed-/fout-geluid speelt, niet als audio uitstaat; dubbele tik telt niet dubbel             | 🤖   | `WordChoiceScreen.test.tsx` (`T-51`) |   ✅   |
 
 ---
 
@@ -189,7 +191,7 @@ Conform GDD-index sectie 9: **geautomatiseerde tests gaten elke build**, **handm
    - `TC_SCENE_07` bij `T-19` (instructievideo).
    - `TC_ONB_03` bij `T-21` (0 sterren bij nieuw profiel).
 2. ✅ **Nieuwe modul-suites** (via `T-24` + `T-04d`):
-   - `e2e/word-choice.spec.ts` (`TC_WORD_01..07`).
+   - `e2e/word-choice.spec.ts` (`TC_WORD_01..07`, `TC_WORD_09`).
    - `e2e/voice-side-scroller.spec.ts` (`TC_FLY_01..05`).
    - `e2e/reward.spec.ts` (`TC_REWARD_01..02`).
    - `e2e/zeg-en-bouw.spec.ts` (`TC_BOUW_01..06`).

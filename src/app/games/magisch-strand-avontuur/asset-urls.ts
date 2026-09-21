@@ -13,6 +13,15 @@ export const beachBackgrounds = {
 export const startLogoUrl = new URL("./assets/logos/start-logo-beach.webp", import.meta.url).href;
 export const backgroundMusicUrl = new URL("./assets/audio/background-music.mp3", import.meta.url)
   .href;
+// Korte feedbackgeluiden bij goed/fout (T-51). Bron: Kenney "Interface Sounds"
+// (CC0 1.0, https://kenney.nl/assets/interface-sounds) — confirmation_004 en
+// error_008, omgezet naar mono 22,05 kHz WAV zodat ze ook op iOS afspelen.
+export const feedbackCorrectSoundUrl = new URL(
+  "./assets/audio/feedback-correct.wav",
+  import.meta.url,
+).href;
+export const feedbackWrongSoundUrl = new URL("./assets/audio/feedback-wrong.wav", import.meta.url)
+  .href;
 export const beachObjectStickerUrls = {
   dolfijn: new URL("./assets/objects/transparent/dolphin-sticker.webp", import.meta.url).href,
   boot: new URL("./assets/objects/transparent/sailboat-sticker.webp", import.meta.url).href,

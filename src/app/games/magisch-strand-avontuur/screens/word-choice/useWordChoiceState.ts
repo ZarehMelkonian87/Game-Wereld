@@ -6,6 +6,7 @@ import {
   resolveNewRewardUnlocks,
   saveUnlockedRewardIds,
 } from "../../logic/rewards";
+import { playFeedbackSound } from "../../logic/feedback-sounds";
 import { readBezemEscapeSettings } from "../../logic/settings";
 import { createInstructionPracticeObservation } from "../../logic/practice-observations";
 import type { SceneObject, VocabularyChoiceInstruction } from "../../types";
@@ -22,15 +23,27 @@ const toDisplayLabel = (label: string) => {
 const uniquePush = (values: string[], value: string) => {
   return values.includes(value) ? values : [...values, value];
 };
+/**
+ * Na een goed antwoord gaat de quiz vanzelf door (T-51): kort genoeg om het
+ * tempo erin te houden, lang genoeg om het geluid en "Zeg na: ..." mee te
+ * krijgen. Bij een nieuwe beloning krijgt het kind wat extra tijd om die te zien.
+ */
+export const WORD_CHOICE_AUTO_ADVANCE_MS = 1800;
+export const WORD_CHOICE_AUTO_ADVANCE_WITH_REWARD_MS = 2600;
 export const useWordChoiceState = ({
+  autoAdvanceDelayMs = WORD_CHOICE_AUTO_ADVANCE_MS,
+  autoAdvanceWithRewardDelayMs = WORD_CHOICE_AUTO_ADVANCE_WITH_REWARD_MS,
   instructions,
   objects,
 }: {
+  autoAdvanceDelayMs?: number;
+  autoAdvanceWithRewardDelayMs?: number;
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
 }) => {
   const runtime = useGameRuntime();
   const attemptNumbersRef = useRef<Record<string, number>>({});
+  const autoAdvanceTimerRef = useRef<number | null>(null);
   const instructionStartedAtRef = useRef(runtime.clock.now().getTime());
   const rewardProfileId = runtime.identity.profileId;
   const [activeInstructionIndex, setActiveInstructionIndex] = useState(0);
@@ -69,7 +82,17 @@ export const useWordChoiceState = ({
       }
     });
   }, [objects]);
+  // Zolang de timer loopt is de vraag "afgerond": tikken op kaarten of de hint
+  // doen dan niets meer (geen dubbele sterren of observaties).
+  const isAutoAdvancing = () => autoAdvanceTimerRef.current !== null;
+  const clearAutoAdvanceTimer = () => {
+    if (autoAdvanceTimerRef.current !== null) {
+      window.clearTimeout(autoAdvanceTimerRef.current);
+      autoAdvanceTimerRef.current = null;
+    }
+  };
   useEffect(() => {
+    clearAutoAdvanceTimer();
     setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
     setFeedback(null);
@@ -83,6 +106,7 @@ export const useWordChoiceState = ({
     setIsCompleted(false);
     attemptNumbersRef.current = {};
   }, [instructions]);
+  useEffect(() => clearAutoAdvanceTimer, []);
   useEffect(() => {
     instructionStartedAtRef.current = runtime.clock.now().getTime();
   }, [instruction.id, runtime.clock]);
@@ -113,6 +137,9 @@ export const useWordChoiceState = ({
     [instruction.answerOptions, objects],
   );
   const handleHint = () => {
+    if (isAutoAdvancing()) {
+      return;
+    }
     if (!readBezemEscapeSettings(rewardProfileId, runtime.storage).hintsEnabled) {
       setFeedback({
         kind: "ready",
@@ -130,6 +157,9 @@ export const useWordChoiceState = ({
     });
   };
   const handleAnswerSelect = (answerId: string) => {
+    if (isAutoAdvancing()) {
+      return;
+    }
     const attemptNumber = (attemptNumbersRef.current[instruction.id] ?? 0) + 1;
     attemptNumbersRef.current[instruction.id] = attemptNumber;
     const responseTimeMs = Math.max(
@@ -190,6 +220,16 @@ export const useWordChoiceState = ({
           ? `${instruction.feedbackCopy.correct} Bonus zonder hint!`
           : instruction.feedbackCopy.correct,
       });
+      playFeedbackSound(runtime, rewardProfileId, "correct");
+      // Geen "Volgende"-knop meer: de quiz gaat vanzelf door (T-51).
+      clearAutoAdvanceTimer();
+      autoAdvanceTimerRef.current = window.setTimeout(
+        () => {
+          autoAdvanceTimerRef.current = null;
+          advanceInstruction();
+        },
+        newRewardUnlocks.length > 0 ? autoAdvanceWithRewardDelayMs : autoAdvanceDelayMs,
+      );
       return;
     }
     setDifficultWords((currentWords) =>
@@ -213,8 +253,10 @@ export const useWordChoiceState = ({
       kind: "almost",
       text: instruction.feedbackCopy.almost ?? instruction.hint,
     });
+    playFeedbackSound(runtime, rewardProfileId, "wrong");
   };
   const advanceInstruction = () => {
+    clearAutoAdvanceTimer();
     if (activeInstructionIndex < instructions.length - 1) {
       setActiveInstructionIndex((currentIndex) => currentIndex + 1);
       setSelectedAnswerId(null);
@@ -226,6 +268,7 @@ export const useWordChoiceState = ({
     }
   };
   const restartRound = () => {
+    clearAutoAdvanceTimer();
     setActiveInstructionIndex(0);
     setSelectedAnswerId(null);
     setFeedback(null);

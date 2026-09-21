@@ -92,7 +92,13 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   const answerCount = await answers.count();
   for (let index = 0; index < answerCount; index += 1) {
     await answers.nth(index).click();
-    if (await page.getByTestId("word-choice-next-button").isVisible()) break;
+    // Na een goed antwoord schakelt de quiz zelf door (T-51); één antwoord
+    // (goed of fout) is genoeg voor een oefenobservatie.
+    if (
+      (await page.getByTestId("word-choice-screen").getAttribute("data-auto-advancing")) === "true"
+    ) {
+      break;
+    }
   }
   await expect.poll(() => countDatabaseStore(page, "practiceEvents")).toBeGreaterThan(0);
 

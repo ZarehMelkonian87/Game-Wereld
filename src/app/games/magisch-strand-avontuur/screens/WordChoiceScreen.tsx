@@ -1,12 +1,7 @@
 import { Check, X } from "lucide-react";
 import { broomIconUrls } from "../asset-urls";
 import { TopHud } from "../components";
-import {
-  BtnActionKlaar,
-  GameplayStatusBar,
-  ObjectStickerButton,
-  PanelCard,
-} from "../components/ui";
+import { GameplayStatusBar, ObjectStickerButton, PanelCard } from "../components/ui";
 import { classNames } from "../components/ui/classNames";
 import { readBezemEscapeSettings } from "../logic/settings";
 import { useGameRuntime } from "../runtime/GameRuntimeContext";
@@ -16,6 +11,10 @@ import { useWordChoiceState } from "./word-choice/useWordChoiceState";
 import { WordChoiceRoundSummary } from "./word-choice/components/WordChoiceRoundSummary";
 
 interface WordChoiceScreenProps {
+  /** Alleen voor tests: wachttijd voordat een goed antwoord doorschakelt (T-51). */
+  autoAdvanceDelayMs?: number;
+  /** Alleen voor tests: wachttijd als het goede antwoord ook een beloning ontgrendelt. */
+  autoAdvanceWithRewardDelayMs?: number;
   instructions: VocabularyChoiceInstruction[];
   objects: SceneObject[];
   onBackToMenu?: () => void;
@@ -27,6 +26,8 @@ interface WordChoiceScreenProps {
  * @description Kies het Woord Quiz Gameplay (Scherm 6)
  */
 export const WordChoiceScreen = ({
+  autoAdvanceDelayMs,
+  autoAdvanceWithRewardDelayMs,
   instructions,
   objects,
   onBackToMenu,
@@ -35,7 +36,6 @@ export const WordChoiceScreen = ({
   const runtime = useGameRuntime();
   const {
     activeInstructionIndex,
-    advanceInstruction,
     answerOptions,
     currentInstructionVideoUrl,
     difficultWords,
@@ -54,7 +54,12 @@ export const WordChoiceScreen = ({
     unlockedRewardIds,
     usedHint,
     wordStarValue,
-  } = useWordChoiceState({ instructions, objects });
+  } = useWordChoiceState({
+    autoAdvanceDelayMs,
+    autoAdvanceWithRewardDelayMs,
+    instructions,
+    objects,
+  });
 
   const handleRestart = () => {
     restartRound();
@@ -65,6 +70,7 @@ export const WordChoiceScreen = ({
     <div
       className="pointer-events-none absolute inset-0 z-10 px-3 pb-3 pt-[4.75rem] landscape:px-3 landscape:pb-3 landscape:pt-[4.25rem]"
       data-active-instruction-id={instruction.id}
+      data-auto-advancing={feedback?.kind === "correct" ? "true" : "false"}
       data-choice-count={instruction.choiceCount}
       data-difficult-words={difficultWords.join(",")}
       data-is-completed={isCompleted ? "true" : "false"}
@@ -72,6 +78,7 @@ export const WordChoiceScreen = ({
       data-recognized-without-help={recognizedWithoutHelp.join(",")}
       data-testid="word-choice-screen"
       data-unlocked-rewards={unlockedRewardIds.join(",")}
+      data-word-star-value={wordStarValue}
     >
       <TopHud
         onBackToMenu={onBackToMenu}
@@ -125,14 +132,6 @@ export const WordChoiceScreen = ({
                   </p>
                 ) : null}
               </div>
-              {feedback.kind === "correct" ? (
-                <BtnActionKlaar
-                  className="pointer-events-auto shrink-0"
-                  data-testid="word-choice-next-button"
-                  label="Volgende"
-                  onClick={advanceInstruction}
-                />
-              ) : null}
             </div>
           ) : null}
         </PanelCard>

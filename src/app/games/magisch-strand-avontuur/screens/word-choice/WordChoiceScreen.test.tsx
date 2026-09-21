@@ -1,11 +1,29 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
-import { createFakeGameRuntime } from "../../../../game-platform";
+import { describe, expect, it, vi } from "vitest";
+import { createFakeGameRuntime, success } from "../../../../game-platform";
 import { GameRuntimeProvider } from "../../runtime/GameRuntimeContext";
 import { beachWorld } from "../../content";
+import { defaultBezemEscapeSettings, saveBezemEscapeSettings } from "../../logic/settings";
 import { WordChoiceScreen } from "../WordChoiceScreen";
 import type { VocabularyChoiceInstruction } from "../../types";
+
+// Korte wachttijd zodat de tests niet 1,8 s per vraag hoeven te wachten.
+const TEST_AUTO_ADVANCE_MS = 30;
+
+const renderScreen = (runtime = createFakeGameRuntime()) => {
+  render(
+    <GameRuntimeProvider runtime={runtime}>
+      <WordChoiceScreen
+        autoAdvanceDelayMs={TEST_AUTO_ADVANCE_MS}
+        autoAdvanceWithRewardDelayMs={TEST_AUTO_ADVANCE_MS}
+        instructions={mockInstructions}
+        objects={beachWorld.objects}
+      />
+    </GameRuntimeProvider>,
+  );
+  return runtime;
+};
 
 const mockInstructions: VocabularyChoiceInstruction[] = [
   {
@@ -59,62 +77,97 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
 ];
 
 describe("WordChoiceScreen afronding en resultaten", () => {
-  it("toont het resultatenoverzicht zodra alle opdrachten zijn voltooid en blijft in de game", async () => {
+  it("gaat na een goed antwoord vanzelf door en toont daarna het resultatenoverzicht (T-51)", async () => {
     const user = userEvent.setup();
-    const runtime = createFakeGameRuntime();
-
-    render(
-      <GameRuntimeProvider runtime={runtime}>
-        <WordChoiceScreen instructions={mockInstructions} objects={beachWorld.objects} />
-      </GameRuntimeProvider>,
-    );
+    renderScreen();
 
     // Vraag 1 voortgang
     expect(screen.getByText("1/2")).toBeInTheDocument();
 
     // Opdracht 1: Kies het juiste antwoord (dolfijn)
-    const dolfijnButton = screen.getByRole("button", { name: /dolfijn/i });
-    await user.click(dolfijnButton);
+    await user.click(screen.getByRole("button", { name: /dolfijn/i }));
+    expect(screen.getByText("Super! Dat is de dolfijn. Bonus zonder hint!")).toBeInTheDocument();
+    // Geen "Volgende"-knop meer: de quiz schakelt zelf door.
+    expect(screen.queryByTestId("word-choice-next-button")).not.toBeInTheDocument();
 
-    // Klik volgende
-    const nextButton1 = screen.getByTestId("word-choice-next-button");
-    await user.click(nextButton1);
-
-    // Vraag 2 voortgang
-    expect(screen.getByText("2/2")).toBeInTheDocument();
+    // Vraag 2 verschijnt vanzelf
+    await screen.findByText("2/2");
 
     // Opdracht 2: Kies het juiste antwoord (boot)
-    const bootButton = screen.getByRole("button", { name: /boot/i });
-    await user.click(bootButton);
+    await user.click(screen.getByRole("button", { name: /boot/i }));
 
-    // Klik volgende / afronden
-    const nextButton2 = screen.getByTestId("word-choice-next-button");
-    await user.click(nextButton2);
-
-    // Resultatenoverzicht moet nu in beeld staan
-    expect(screen.getByTestId("word-choice-round-summary")).toBeInTheDocument();
+    // Resultatenoverzicht verschijnt vanzelf
+    expect(await screen.findByTestId("word-choice-round-summary")).toBeInTheDocument();
     expect(screen.getByText(/Goed gedaan!/i)).toBeInTheDocument();
     expect(screen.getByText(/Je hebt alle opdrachten voltooid!/i)).toBeInTheDocument();
   });
 
-  it("herstart de ronde bij klikken op 'Opnieuw'", async () => {
+  it("speelt een goed-geluid bij een goed antwoord en een fout-geluid bij een fout antwoord (T-51)", async () => {
     const user = userEvent.setup();
     const runtime = createFakeGameRuntime();
-
-    render(
-      <GameRuntimeProvider runtime={runtime}>
-        <WordChoiceScreen instructions={mockInstructions} objects={beachWorld.objects} />
-      </GameRuntimeProvider>,
-    );
-
-    // Voltooi beide opdrachten
-    await user.click(screen.getByRole("button", { name: /dolfijn/i }));
-    await user.click(screen.getByTestId("word-choice-next-button"));
+    const playAudio = vi.fn(async (_source: string) => success(undefined));
+    runtime.media.playAudio = playAudio;
+    renderScreen(runtime);
 
     await user.click(screen.getByRole("button", { name: /boot/i }));
-    await user.click(screen.getByTestId("word-choice-next-button"));
+    expect(playAudio).toHaveBeenCalledTimes(1);
+    expect(playAudio.mock.calls[0]?.[0]).toMatch(/feedback-wrong\.wav$/);
 
-    expect(screen.getByTestId("word-choice-round-summary")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /dolfijn/i }));
+    expect(playAudio).toHaveBeenCalledTimes(2);
+    expect(playAudio.mock.calls[1]?.[0]).toMatch(/feedback-correct\.wav$/);
+  });
+
+  it("speelt geen feedbackgeluid als audio uitstaat bij instellingen (T-51)", async () => {
+    const user = userEvent.setup();
+    const runtime = createFakeGameRuntime();
+    const playAudio = vi.fn(async (_source: string) => success(undefined));
+    runtime.media.playAudio = playAudio;
+    saveBezemEscapeSettings(
+      runtime.identity.profileId,
+      { ...defaultBezemEscapeSettings, audioEnabled: false },
+      runtime.storage,
+    );
+    renderScreen(runtime);
+
+    await user.click(screen.getByRole("button", { name: /boot/i }));
+    await user.click(screen.getByRole("button", { name: /dolfijn/i }));
+    expect(playAudio).not.toHaveBeenCalled();
+    // Doorschakelen werkt ook zonder geluid
+    await screen.findByText("2/2");
+  });
+
+  it("negeert extra tikken terwijl de quiz doorschakelt, zodat sterren niet dubbel tellen (T-51)", async () => {
+    const user = userEvent.setup();
+    const runtime = createFakeGameRuntime();
+    const playAudio = vi.fn(async (_source: string) => success(undefined));
+    runtime.media.playAudio = playAudio;
+    renderScreen(runtime);
+
+    const dolfijnButton = screen.getByRole("button", { name: /dolfijn/i });
+    await user.click(dolfijnButton);
+    await user.click(dolfijnButton);
+    await user.click(screen.getByRole("button", { name: /boot/i }));
+
+    expect(playAudio).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText("Kijk goed naar het water.")).not.toBeInTheDocument();
+    await screen.findByText("2/2");
+    // Alleen de sterren van vraag 1 (2 + 1 bonus) staan op de teller.
+    expect(screen.getByTestId("word-choice-screen").dataset.wordStarValue).toBe("3");
+  });
+
+  it("herstart de ronde bij klikken op 'Opnieuw'", async () => {
+    const user = userEvent.setup();
+    renderScreen();
+
+    // Voltooi beide opdrachten (de quiz schakelt zelf door)
+    await user.click(screen.getByRole("button", { name: /dolfijn/i }));
+    await screen.findByText("2/2");
+    await user.click(screen.getByRole("button", { name: /boot/i }));
+
+    await waitFor(() =>
+      expect(screen.getByTestId("word-choice-round-summary")).toBeInTheDocument(),
+    );
 
     // Klik opnieuw
     await user.click(screen.getByTestId("word-choice-summary-replay-button"));

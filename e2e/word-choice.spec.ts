@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { createPlayerAndOpenStrandGame } from "./helpers";
+import { createPlayerAndOpenStrandGame, waitForWordChoiceAutoAdvance } from "./helpers";
 
 const openWordChoice = async (page: Page) => {
   await createPlayerAndOpenStrandGame(page);
@@ -38,22 +38,43 @@ test.describe("Kies het Woord (e2e)", () => {
     await expect(page.getByTestId("word-choice-status-area")).toBeVisible();
   });
 
-  test("goed antwoord geeft succesfeedback en een Volgende-knop", async ({ page }) => {
+  test("goed antwoord geeft succesfeedback en gaat vanzelf door zonder Volgende-knop (T-51)", async ({
+    page,
+  }) => {
     await openWordChoice(page);
+    const screen = page.getByTestId("word-choice-screen");
+    const firstInstructionId = await screen.getAttribute("data-active-instruction-id");
 
     expect(await clickAnswerMatching(page, true)).toBe(true);
-    await expect(page.getByTestId("word-choice-next-button")).toBeVisible();
+    await expect(page.getByTestId("word-choice-target-card")).toBeVisible();
+    await expect(screen).toHaveAttribute("data-auto-advancing", "true");
+    await expect(page.getByTestId("word-choice-next-button")).toHaveCount(0);
+
+    // Zonder klik verschijnt de volgende vraag vanzelf.
+    await waitForWordChoiceAutoAdvance(page);
+    await expect(screen).not.toHaveAttribute(
+      "data-active-instruction-id",
+      firstInstructionId ?? "",
+    );
   });
 
-  test("fout antwoord geeft vriendelijke feedback zonder Volgende", async ({ page }) => {
+  test("fout antwoord geeft vriendelijke feedback en blijft bij dezelfde vraag", async ({
+    page,
+  }) => {
     await openWordChoice(page);
+    const screen = page.getByTestId("word-choice-screen");
+    const firstInstructionId = await screen.getAttribute("data-active-instruction-id");
 
     expect(await clickAnswerMatching(page, false)).toBe(true);
     await expect(page.getByTestId("word-choice-target-card")).toBeVisible();
-    await expect(page.getByTestId("word-choice-next-button")).toHaveCount(0);
+    await expect(screen).toHaveAttribute("data-auto-advancing", "false");
+    // Ruim langer dan de doorschakeltijd wachten: de vraag blijft staan.
+    await page.waitForTimeout(2_200);
+    await expect(screen).toHaveAttribute("data-active-instruction-id", firstInstructionId ?? "");
   });
 
   test("een volledige ronde eindigt met het ronde-eindscherm", async ({ page }) => {
+    test.slow();
     await openWordChoice(page);
 
     const summary = page.getByTestId("word-choice-round-summary");
@@ -63,17 +84,13 @@ test.describe("Kies het Woord (e2e)", () => {
         break;
       }
 
-      // Eerst goed antwoorden, dan pas doorschakelen: zo klikken we nooit een
-      // antwoordkaart aan die achter het ronde-eindscherm ligt.
+      // Goed antwoorden en wachten tot de quiz zelf doorschakelt (T-51): zo
+      // klikken we nooit een antwoordkaart aan die achter het ronde-eindscherm ligt.
       const answered = await clickAnswerMatching(page, true);
       if (!answered) {
         await page.getByTestId("word-choice-answer-area").getByRole("button").first().click();
       }
-
-      const next = page.getByTestId("word-choice-next-button");
-      if (await next.isVisible().catch(() => false)) {
-        await next.click();
-      }
+      await waitForWordChoiceAutoAdvance(page);
     }
 
     await expect(summary).toBeVisible();

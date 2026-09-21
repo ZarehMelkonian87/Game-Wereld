@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 /**
  * Maakt een vers profiel aan en opent Magisch Strand-Avontuur tot het
@@ -58,6 +58,20 @@ export const openStrandGameFromList = (page: Page): Promise<void> =>
   openGameFromList(page, /Magisch Strand-Avontuur/, page.getByTestId("start-screen"));
 
 /**
+ * Wacht tot Kies het Woord na een goed antwoord vanzelf is doorgeschakeld
+ * (T-51: geen "Volgende"-knop meer; ±1,8 s, ±2,6 s bij een nieuwe beloning).
+ * Na een fout antwoord staat het attribuut meteen op "false" en keert dit
+ * direct terug.
+ */
+export const waitForWordChoiceAutoAdvance = async (page: Page): Promise<void> => {
+  await expect(page.getByTestId("word-choice-screen")).toHaveAttribute(
+    "data-auto-advancing",
+    "false",
+    { timeout: 8_000 },
+  );
+};
+
+/**
  * Speelt één volledige ronde "Kies het Woord" (de altijd-open instapmodus) met
  * correcte antwoorden, zodat er genoeg sterren worden verdiend om Zeg & Zet en
  * Zeg & Vlieg te ontgrendelen (T-31). De correcte optie is die waarvan het
@@ -67,6 +81,9 @@ export const openStrandGameFromList = (page: Page): Promise<void> =>
  * zichtbaar) en eindigt daar ook weer, met alle modi ontgrendeld.
  */
 export const earnStarsToUnlockModes = async (page: Page): Promise<void> => {
+  // Een volledige ronde duurt door het automatische doorschakelen (T-51)
+  // zo'n 25-30 s: geef de test drie keer de standaardtijd.
+  test.slow();
   await page.getByTestId("compact-mode-card-choose-word").click();
   await page.getByTestId("adventure-start-game-button").click();
   await expect(page.getByTestId("word-choice-screen")).toBeVisible();
@@ -98,10 +115,7 @@ export const earnStarsToUnlockModes = async (page: Page): Promise<void> => {
       await answers.first().click();
     }
 
-    const nextButton = page.getByTestId("word-choice-next-button");
-    if (await nextButton.isVisible().catch(() => false)) {
-      await nextButton.click();
-    }
+    await waitForWordChoiceAutoAdvance(page);
   }
 
   await summaryBack.click();
