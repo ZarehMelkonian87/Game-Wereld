@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { usePlatform } from "../../../../platform";
 
 interface MicWaveBarsProps {
   /** Aantal balkjes in de wave. */
@@ -21,6 +22,13 @@ const MAX_SCALE = 1.35;
  *
  * Valt netjes terug op een rustige idle-animatie als de microfoon niet
  * beschikbaar is (bv. geen toestemming of niet ondersteund).
+ *
+ * **Alleen op desktop audio-reactief (T-52/T-53).** Op telefoon en tablet
+ * opent deze component géén eigen `getUserMedia`-stream: Android (Chrome,
+ * Samsung Internet) en iOS geven de microfoon niet tegelijk aan een
+ * WebRTC-opname én aan de spraakherkenner. Gevolg op de Galaxy A56: de wave
+ * bewoog wél (onze stream had de mic), maar de herkenning kreeg stilte en gaf
+ * nooit een resultaat. Daar tonen we een levendige "luister"-animatie.
  */
 export const MicWaveBars = ({
   barCount = 7,
@@ -28,6 +36,8 @@ export const MicWaveBars = ({
   barClassName = "bg-white",
 }: MicWaveBarsProps) => {
   const barRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const platform = usePlatform();
+  const isAudioReactive = platform.formFactor === "desktop";
 
   useEffect(() => {
     let cancelled = false;
@@ -44,7 +54,20 @@ export const MicWaveBars = ({
       });
     };
 
+    const applyListeningFallback = () => {
+      barRefs.current.forEach((bar, index) => {
+        if (bar) {
+          bar.style.animation = `micWaveListening 0.7s ${index * 0.07}s infinite ease-in-out`;
+        }
+      });
+    };
+
     const start = async () => {
+      if (!isAudioReactive) {
+        // Mobiel/tablet: de mic is van de spraakherkenner, niet van ons.
+        applyListeningFallback();
+        return;
+      }
       if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
         applyIdleFallback();
         return;
@@ -121,14 +144,23 @@ export const MicWaveBars = ({
       stream?.getTracks().forEach((track) => track.stop());
       void audioContext?.close();
     };
-  }, []);
+  }, [isAudioReactive]);
 
   return (
-    <div className={`flex items-center gap-0.5 ${className}`} data-slot="mic-wave-bars">
+    <div
+      className={`flex items-center gap-0.5 ${className}`}
+      data-audio-reactive={isAudioReactive ? "true" : "false"}
+      data-slot="mic-wave-bars"
+    >
       <style>{`
         @keyframes micWaveIdle {
           0%, 100% { transform: scaleY(0.35); }
           50% { transform: scaleY(1.1); }
+        }
+        @keyframes micWaveListening {
+          0%, 100% { transform: scaleY(0.4); }
+          35% { transform: scaleY(1.3); }
+          70% { transform: scaleY(0.7); }
         }
       `}</style>
       {Array.from({ length: barCount }).map((_, index) => (
