@@ -36,7 +36,7 @@ export const WordChoiceRoundSummary = ({
       data-testid="word-choice-round-summary"
     >
       <PanelCard
-        aria-label="Kies het Woord Resultaten"
+        aria-label="Resultaten van Kies het Woord"
         className="grid w-full max-w-[24rem] gap-3 !rounded-[1.75rem] !p-4 text-center shadow-2xl"
       >
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-3xl border-2 border-amber-300 bg-amber-100 text-amber-700 shadow-[0_4px_0_rgba(180,83,9,0.2)]">

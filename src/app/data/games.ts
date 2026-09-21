@@ -1,4 +1,5 @@
-import { gameRegistry } from "../games";
+import { isLoadableGameEntry } from "../game-platform/contracts";
+import { gameRegistry, getGameRegistryEntry } from "../games";
 
 export interface GameTheme {
   color: string;
@@ -49,6 +50,19 @@ export const gameThemes: GameTheme[] = [
     name: "Wereldoriëntatie",
   },
 ];
+
+/**
+ * Een game is speelbaar als er code voor geladen kan worden én hij niet als
+ * "binnenkort" is gemarkeerd. Alles wat niet speelbaar is, toont in de app een
+ * vergrendelde kaart met "Binnenkort beschikbaar" — ook een game die wel in de
+ * registry staat maar nog niet klaar is (zoals Groot Circus-Avontuur).
+ */
+export const isPlayableGame = (game: Pick<MiniGame, "id" | "releaseStatus">): boolean => {
+  const entry = getGameRegistryEntry(game.id);
+  return Boolean(entry && isLoadableGameEntry(entry)) && game.releaseStatus !== "coming-soon";
+};
+
+export const COMING_SOON_LABEL = "Binnenkort beschikbaar";
 
 export const miniGames: MiniGame[] = Object.values(gameRegistry).map(({ manifest }) => ({
   cardImageUrl: manifest.cardImageUrl,

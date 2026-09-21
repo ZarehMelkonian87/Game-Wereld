@@ -6,6 +6,7 @@
  */
 
 import { motion } from "motion/react";
+import { formatCount } from "../game-platform/text";
 import type { SyncProgress } from "./GameAssetSyncManager";
 
 interface GameAssetSyncModalProps {
@@ -57,7 +58,8 @@ export const GameAssetSyncModal = ({
             </h2>
 
             <p className="mt-2 text-sm font-bold text-cyan-100">
-              We willen {missingFiles > 0 ? `${missingFiles} bestanden` : "de game"} (
+              We willen{" "}
+              {missingFiles > 0 ? formatCount(missingFiles, "bestand", "bestanden") : "de game"} (
               {formatMb(missingBytes)} MB) downloaden zodat alles supersnel en offline speelt.
             </p>
 

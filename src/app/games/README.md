@@ -3,7 +3,8 @@
 Actuele gamemodules:
 
 - `magisch-strand-avontuur`: uitgebreide woordenschatgame;
-- `rekenen-strand`: compacte hoeveelhedengame “Schelpen Tellen”.
+- `groot-circus-avontuur`: in aanbouw, in de catalogus als "Binnenkort beschikbaar";
+- `catalog-manifests.ts`: placeholders (rekenen, taal, wereld) die alleen een vergrendelde kaart tonen.
 
 Catalogusmetadata komt uit schema-gevalideerde manifests. De app-shell kent alleen de registry in `registry.ts`; implementaties worden dynamisch geladen.
 

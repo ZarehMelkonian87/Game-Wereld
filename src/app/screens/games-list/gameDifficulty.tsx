@@ -19,11 +19,11 @@ export const getDifficultyColor = (difficulty: Difficulty) => {
 export const getDifficultyText = (difficulty: Difficulty) => {
   switch (difficulty) {
     case "easy":
-      return "EASY";
+      return "MAKKELIJK";
     case "medium":
-      return "MEDIUM";
+      return "GEMIDDELD";
     case "hard":
-      return "HARD";
+      return "MOEILIJK";
     default:
       return difficulty;
   }

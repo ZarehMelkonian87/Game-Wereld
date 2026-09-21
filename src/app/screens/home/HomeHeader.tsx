@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { formatCount } from "../../game-platform";
 import { BarChart3, LogOut, Settings, Trophy } from "lucide-react";
 import type { Profile } from "../../game-platform";
 
@@ -33,7 +34,7 @@ export const HomeHeader = ({
           <div className="flex items-center gap-1 sm:gap-2 text-cyan-300">
             <Trophy className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
             <span className="text-xs sm:text-sm font-semibold truncate">
-              {currentProfile.progress.length} Games
+              {formatCount(currentProfile.progress.length, "game", "games")}
             </span>
           </div>
         </div>
@@ -54,7 +55,7 @@ export const HomeHeader = ({
           aria-label="Profielinstellingen"
           className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg border-2 border-slate-600 bg-slate-700 p-2 outline-none transition-all duration-300 active:bg-slate-600 focus-visible:ring-4 focus-visible:ring-cyan-200 motion-reduce:transform-none motion-reduce:transition-none sm:rounded-xl sm:p-2.5 md:p-3"
           onClick={onOpenSettings}
-          title="Profiel Instellingen"
+          title="Profielinstellingen"
           type="button"
           whileTap={{ scale: 0.9 }}
         >

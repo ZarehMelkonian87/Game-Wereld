@@ -9,7 +9,7 @@ describe("LockedPlayButton (T-46)", () => {
     render(<LockedPlayButton canPlay={false} onClick={handleClick} />);
 
     const button = screen.getByRole("button", {
-      name: "Speel Nu (Pas na 100% download)",
+      name: "Speel nu (pas na 100% download)",
     });
 
     expect(button).toBeDisabled();
@@ -25,7 +25,7 @@ describe("LockedPlayButton (T-46)", () => {
     render(<LockedPlayButton canPlay={true} onClick={handleClick} />);
 
     const button = screen.getByRole("button", {
-      name: "Klaar! Start Avontuur",
+      name: "Klaar! Start avontuur",
     });
 
     expect(button).not.toBeDisabled();

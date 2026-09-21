@@ -2,7 +2,7 @@ import { useState, type KeyboardEvent, type MouseEvent } from "react";
 import { motion } from "motion/react";
 import { Lock, Star } from "lucide-react";
 import type { GameProgress } from "../../game-platform";
-import type { GameTheme, MiniGame } from "../../data/games";
+import { COMING_SOON_LABEL, type GameTheme, type MiniGame } from "../../data/games";
 import { getGameRegistryEntry } from "../../games";
 import {
   ConfirmDeleteModal,
@@ -53,7 +53,11 @@ export const GameListCard = ({
   };
 
   const handleCardClick = () => {
-    if (isLocked) return;
+    if (isLocked) {
+      // Vergrendeld = binnenkort beschikbaar: laat de lijst het uitlegvenster tonen.
+      onSelect(game);
+      return;
+    }
 
     if (gate.canPlay) {
       onSelect(game);
@@ -86,10 +90,11 @@ export const GameListCard = ({
     <>
       <motion.div
         animate={{ opacity: 1, x: 0 }}
-        aria-label={`${game.name} - ${gate.canPlay ? "Spelen" : "Downloaden"}`}
+        aria-label={`${game.name} - ${isLocked ? COMING_SOON_LABEL : gate.canPlay ? "Spelen" : "Downloaden"}`}
         className={`game-card-3d bg-gradient-to-br from-slate-700 to-slate-800 border-3 sm:border-4 border-slate-600 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl min-h-[140px] sm:min-h-[150px] flex items-center gap-3 sm:gap-4 relative overflow-hidden transition-all duration-300 cursor-pointer select-none ${
           isLocked ? "opacity-60 grayscale border-slate-700/50" : ""
         }`}
+        data-coming-soon={isLocked ? "true" : "false"}
         data-component="GameListCard"
         data-game-id={game.id}
         initial={{ opacity: 0, x: -20 }}
@@ -132,14 +137,21 @@ export const GameListCard = ({
           {/* Onderste rij: badges links, download/verwijder knop rechts (waar groene placeholder stond) */}
           <div className="flex items-center justify-between gap-2 flex-wrap mt-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span
-                className={`bg-gradient-to-r ${getDifficultyColor(
-                  game.difficulty,
-                )} text-white text-xs px-2 sm:px-3 py-1 rounded-full font-black flex items-center gap-1`}
-              >
-                {getDifficultyIcon(game.difficulty)}
-                {getDifficultyText(game.difficulty)}
-              </span>
+              {isLocked ? (
+                <span className="bg-slate-900/70 text-amber-200 text-xs px-2 sm:px-3 py-1 rounded-full font-black flex items-center gap-1 border border-amber-300/40">
+                  <Lock aria-hidden="true" className="h-3.5 w-3.5" />
+                  {COMING_SOON_LABEL}
+                </span>
+              ) : (
+                <span
+                  className={`bg-gradient-to-r ${getDifficultyColor(
+                    game.difficulty,
+                  )} text-white text-xs px-2 sm:px-3 py-1 rounded-full font-black flex items-center gap-1`}
+                >
+                  {getDifficultyIcon(game.difficulty)}
+                  {getDifficultyText(game.difficulty)}
+                </span>
+              )}
 
               {progress && progress.stars > 0 ? (
                 <div className="flex items-center gap-1">

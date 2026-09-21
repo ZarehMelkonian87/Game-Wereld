@@ -5,4 +5,5 @@ export * from "./profile";
 export * from "./progress";
 export * from "./runtime";
 export * from "./speech";
+export * from "./text";
 export * from "./theme";

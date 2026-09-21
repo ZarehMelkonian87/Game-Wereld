@@ -132,13 +132,13 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
     await startBtn.click();
 
     // Stap 2: Nieuwe speler
-    const nieuwSpelerBtn = page.getByRole("button", { name: "NIEUW SPELER" });
+    const nieuwSpelerBtn = page.getByRole("button", { name: "NIEUWE SPELER" });
     const s2 = await markAndScreenshot(
       page,
       nieuwSpelerBtn,
       "stap-02-profiel-nieuw-speler",
-      "Kies 'NIEUW SPELER' om een profiel aan te maken.",
-      "KIES NIEUW SPELER",
+      "Kies 'NIEUWE SPELER' om een profiel aan te maken.",
+      "KIES NIEUWE SPELER",
     );
     steps.push({
       id: "stap-02",
@@ -147,7 +147,7 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
       what: "Controleren dat een nieuw spelersprofiel aangemaakt kan worden.",
       why: "Elk kind bewaart zijn eigen voortgang, verdiende sterren en privacy-instellingen lokaal op het apparaat.",
       how: "De profielmanager opent een wizard met kindvriendelijke avatars en naamselectie.",
-      action: "Klik op de knop 'NIEUW SPELER'.",
+      action: "Klik op de knop 'NIEUWE SPELER'.",
       screenshotFile: s2,
     });
     await nieuwSpelerBtn.click();
@@ -174,7 +174,7 @@ test.describe.serial("Genereer Testrapport met Gemarkeerde Screenshots", () => {
     await avatarCard.click();
 
     // Stap 4: Naam invoeren en bevestigen
-    const nameInput = page.getByPlaceholder("Type je gamer naam...");
+    const nameInput = page.getByPlaceholder("Typ je gamernaam...");
     await nameInput.fill("Strand Tester");
     const letsGoBtn = page.getByRole("button", { name: "LET'S GO!" });
     const s4 = await markAndScreenshot(

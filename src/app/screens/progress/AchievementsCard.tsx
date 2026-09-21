@@ -18,14 +18,14 @@ export const AchievementsCard = ({ delay, events }: AchievementsCardProps) => {
       description: "De eerste oefenpoging is opgeslagen",
       icon: "🚀",
       id: "first_steps",
-      name: "Eerste Stappen",
+      name: "Eerste stappen",
       unlocked: events.length > 0,
     },
     {
       description: "Vijf pogingen lukten zonder geregistreerde hulp",
       icon: "⭐",
       id: "independent_five",
-      name: "Zelf Oefenen",
+      name: "Zelf oefenen",
       unlocked: independentCorrect >= 5,
     },
     {

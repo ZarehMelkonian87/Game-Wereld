@@ -5,9 +5,9 @@ Game Wereld is een offline-first React/Vite-PWA met lokale kinderprofielen en ze
 ## Beschikbare games
 
 - **Magisch Strand-Avontuur** — woordenschat, ruimtelijke relaties en meerdere spelmodi.
-- **Schelpen Tellen** — hoeveelheden 1–5 koppelen aan cijfers.
+- **Groot Circus-Avontuur**, **Rekenen**, **Taal & Lezen** en **Wereldoriëntatie** staan in de catalogus als "Binnenkort beschikbaar".
 
-Beide games registreren privacyveilige `PracticeEventV1`-observaties. Voortgang wordt centraal en herbouwbaar geprojecteerd; een game slaat geen kindnaam, transcript of pedagogisch eindlabel op.
+Games registreren privacyveilige `PracticeEventV1`-observaties. Voortgang wordt centraal en herbouwbaar geprojecteerd; een game slaat geen kindnaam, transcript of pedagogisch eindlabel op.
 
 ## Ontwikkelen
 

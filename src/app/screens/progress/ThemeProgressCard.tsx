@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { GameTheme } from "../../data/games";
+import { formatCount } from "../../game-platform";
 import { PeriodInsightPanel } from "./PeriodInsightPanel";
 import { periods } from "./progressData";
 import { SkillProgressRow } from "./SkillProgressRow";
@@ -72,8 +73,8 @@ export const ThemeProgressCard = ({
     ) : null}
 
     <p className="mb-4 text-sm text-slate-300">
-      Gebaseerd op {themeData.evidence.eventCount} oefenpogingen met rekenregel versie{" "}
-      {themeData.evidence.projectorVersion}.
+      Gebaseerd op {formatCount(themeData.evidence.eventCount, "oefenpoging", "oefenpogingen")} met
+      rekenregel versie {themeData.evidence.projectorVersion}.
     </p>
 
     <PeriodInsightPanel periods={periods} selectedPeriod={selectedPeriod} themeData={themeData} />

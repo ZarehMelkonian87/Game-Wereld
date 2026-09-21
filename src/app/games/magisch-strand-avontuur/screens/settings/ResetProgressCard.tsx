@@ -10,7 +10,7 @@ export const ResetProgressCard = ({ onOpenResetDialog, resetMessage }: ResetProg
   <div className="contents" data-component="ResetProgressCard">
     <PanelCard className="grid gap-2 !rounded-2xl !p-3">
       <p className="text-xs font-black leading-tight text-slate-800">
-        Data in deze game is oefenobservatie. Het is geen diagnose, geen officiele testscore en geen
+        Data in deze game is oefenobservatie. Het is geen diagnose, geen officiële testscore en geen
         vergelijking met normgroepen.
       </p>
       {resetMessage ? (

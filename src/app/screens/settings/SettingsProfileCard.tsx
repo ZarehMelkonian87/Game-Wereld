@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Target, Trophy } from "lucide-react";
-import type { Profile } from "../../game-platform";
+import { formatCount, type Profile } from "../../game-platform";
 
 interface SettingsProfileCardProps {
   completedGames: number;
@@ -37,7 +37,7 @@ export const SettingsProfileCard = ({
           <div className="flex items-center gap-1 sm:gap-1.5 bg-yellow-500/20 px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full">
             <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-yellow-400 flex-shrink-0" />
             <span className="text-xs sm:text-sm md:text-base text-yellow-300 font-bold whitespace-nowrap">
-              {totalStars} sterren
+              {formatCount(totalStars, "ster", "sterren")}
             </span>
           </div>
           <div className="flex items-center gap-1 sm:gap-1.5 bg-green-500/20 px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full">

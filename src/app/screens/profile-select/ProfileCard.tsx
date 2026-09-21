@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Crown, Settings } from "lucide-react";
-import type { Profile } from "../../game-platform";
+import { formatCount, type Profile } from "../../game-platform";
 
 interface ProfileCardProps {
   index: number;
@@ -47,7 +47,7 @@ export const ProfileCard = ({ index, onSelect, onEdit, profile }: ProfileCardPro
       {profile.name}
     </div>
     <div className="text-xs sm:text-sm text-cyan-200 font-semibold drop-shadow-sm">
-      {profile.progress.length} games
+      {formatCount(profile.progress.length, "game", "games")}
     </div>
   </motion.button>
 );

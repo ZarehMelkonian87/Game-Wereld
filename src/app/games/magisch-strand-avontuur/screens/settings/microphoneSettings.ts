@@ -51,7 +51,7 @@ export const getMicrophonePermissionAttemptMessage = ({
   }
 
   if (state === "denied") {
-    return "De browser heeft microfoon geblokkeerd. Zet microfoon aan in de browserinstellingen en probeer opnieuw.";
+    return "De browser heeft de microfoon geblokkeerd. Zet de microfoon aan in de browserinstellingen en probeer opnieuw.";
   }
 
   return message;

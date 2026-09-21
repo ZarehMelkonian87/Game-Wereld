@@ -323,7 +323,10 @@ export const GameHost = () => {
     );
   }
 
-  if (!isLoadableGameEntry(registryEntry)) {
+  if (
+    !isLoadableGameEntry(registryEntry) ||
+    registryEntry.manifest.releaseStatus === "coming-soon"
+  ) {
     return (
       <ComingSoonGameScreen
         game={{

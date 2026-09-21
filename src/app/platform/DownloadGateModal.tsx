@@ -101,7 +101,7 @@ export const DownloadGateModal = ({
         <div className="text-center px-6">
           <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/40 bg-sky-950/80 px-2.5 py-0.5 text-[11px] font-black tracking-wide text-sky-200">
             <Download aria-hidden="true" className="h-3 w-3 text-sky-400" />
-            Eenmalige Offline Download
+            Eenmalige offline download
           </span>
           <h2 className="mt-1.5 text-lg sm:text-xl font-black text-white" id="download-gate-title">
             {gameTitle}
@@ -260,7 +260,7 @@ export const DownloadGateModal = ({
                     <CheckCircle2 aria-hidden="true" className="h-6 w-6" />
                   </div>
                   <h3 className="mt-2 text-base sm:text-lg font-black text-emerald-300">
-                    Download Voltooid!
+                    Download voltooid!
                   </h3>
                   <p className="mt-0.5 text-xs font-semibold text-slate-200">
                     100% Opgeslagen • Direct offline speelbaar
@@ -296,7 +296,7 @@ export const DownloadGateModal = ({
                       type="button"
                     >
                       <RefreshCw aria-hidden="true" className="h-3.5 w-3.5" />
-                      Opnieuw Proberen
+                      Opnieuw proberen
                     </button>
                   )}
                 </div>
@@ -333,9 +333,9 @@ export const DownloadGateModal = ({
               <div className="mt-3.5 border-t border-slate-800/80 pt-3">
                 <LockedPlayButton
                   canPlay={gate.canPlay || gate.phase === "ready"}
-                  lockedLabel="Speel Nu (Pas na 100% download)"
+                  lockedLabel="Speel nu (pas na 100% download)"
                   onClick={onPlay}
-                  readyLabel="Klaar! Start Avontuur"
+                  readyLabel="Klaar! Start avontuur"
                 />
 
                 {(gate.canPlay || gate.phase === "ready") && onRemove && (

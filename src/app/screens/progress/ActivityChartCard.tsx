@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { formatCount } from "../../game-platform";
 import type { PracticeEventEnvelope } from "../../storage";
 import { filterEventsForPeriod } from "./progressData";
 import type { TimePeriod } from "./progressTypes";
@@ -37,7 +38,9 @@ export const ActivityChartCard = ({ delay, events, selectedPeriod }: ActivityCha
       <h3 className="mb-1 text-xl font-black sm:text-2xl">⚡ OEFENACTIVITEIT</h3>
       <p className="mb-4 text-sm font-semibold text-cyan-300">
         Geregistreerd:{" "}
-        <span className="font-black text-white">{selectedEvents.length} oefenpogingen</span>
+        <span className="font-black text-white">
+          {formatCount(selectedEvents.length, "oefenpoging", "oefenpogingen")}
+        </span>
       </p>
 
       {data.length === 0 ? (

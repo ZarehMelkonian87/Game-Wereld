@@ -17,11 +17,11 @@ export const createPlayerAndOpenStrandGame = async (
   await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
   await page.getByRole("button", { name: "START" }).click();
 
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await expect(page.getByRole("heading", { name: "KIES JE AVATAR" })).toBeVisible();
   await page.locator('[data-component="AvatarCard"]').first().click();
 
-  await page.getByPlaceholder("Type je gamer naam...").fill(name);
+  await page.getByPlaceholder("Typ je gamernaam...").fill(name);
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await expect(page.getByText(name, { exact: true })).toBeVisible();
 
@@ -33,7 +33,7 @@ export const createPlayerAndOpenStrandGame = async (
  * Opent een game vanuit de spellenlijst en handelt de download-gate af (T-43).
  * De e2e draait als touch-tablet, dus de gate is actief voor elke game met een
  * offline-pakket: bij de eerste tik start de download en opent de gate-modal;
- * zodra de content 100% lokaal staat verschijnt "Klaar! Start Avontuur". Op een
+ * zodra de content 100% lokaal staat verschijnt "Klaar! Start avontuur". Op een
  * al gedownload pakket (of op web/streaming) opent de game direct — beide paden
  * eindigen op `readyLocator`, het eerste element dat bewijst dat de game staat.
  */
@@ -44,7 +44,7 @@ export const openGameFromList = async (
 ): Promise<void> => {
   await page.getByRole("button", { name: gameName }).click();
 
-  const gateStartButton = page.getByRole("button", { name: /Klaar! Start Avontuur/ });
+  const gateStartButton = page.getByRole("button", { name: /Klaar! Start avontuur/ });
   // Het lokale pakket komt van de dev-server; ruim de tijd geven.
   await expect(gateStartButton.or(readyLocator)).toBeVisible({ timeout: 60_000 });
   if (await gateStartButton.isVisible()) {

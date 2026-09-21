@@ -75,15 +75,15 @@ test("weigert ontbrekende verplichte output en duplicate ids", () => {
 
 test("genereert ook een code-only pakket voor een tweede game-entry", () => {
   const distDirectory = createFixture();
-  const secondEntry = "src/app/games/rekenen-strand/index.tsx";
+  const secondEntry = "src/app/games/groot-circus-avontuur/index.tsx";
   const manifest = createGeneratedAssetManifest({
     distDirectory,
     packageSource: {
       ...packageSource,
-      assetSourcePrefix: "src/app/games/rekenen-strand/assets/",
+      assetSourcePrefix: "src/app/games/groot-circus-avontuur/assets/",
       entry: secondEntry,
-      gameId: "rekenen-strand-avontuur",
-      id: "rekenen-strand-basis",
+      gameId: "groot-circus-avontuur",
+      id: "groot-circus-avontuur-circus",
     },
     viteManifest: {
       [secondEntry]: { file: "assets/game.js" },

@@ -74,7 +74,7 @@ export const AvatarNameStep = ({
               className="text-xl sm:text-2xl md:text-3xl text-center p-4 sm:p-5 pr-14 rounded-2xl border-3 sm:border-4 border-cyan-500 bg-slate-800 text-white placeholder-slate-400 w-full focus:border-purple-500 focus:ring-4 focus:ring-purple-500/20 outline-none font-bold shadow-xl transition-all"
               maxLength={15}
               onChange={(event) => onNameChange(event.target.value)}
-              placeholder="Type je gamer naam..."
+              placeholder="Typ je gamernaam..."
               type="text"
               value={name}
             />

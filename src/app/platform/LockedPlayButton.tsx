@@ -20,9 +20,9 @@ export const LockedPlayButton = ({
   canPlay,
   className = "",
   disabled = false,
-  lockedLabel = "Speel Nu (Pas na 100% download)",
+  lockedLabel = "Speel nu (pas na 100% download)",
   onClick,
-  readyLabel = "Klaar! Start Avontuur",
+  readyLabel = "Klaar! Start avontuur",
   showCheckIcon = true,
   ...buttonProps
 }: LockedPlayButtonProps) => {

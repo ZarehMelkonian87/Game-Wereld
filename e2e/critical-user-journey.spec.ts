@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs";
-import { earnStarsToUnlockModes, openGameFromList, openStrandGameFromList } from "./helpers";
+import { earnStarsToUnlockModes, openStrandGameFromList } from "./helpers";
 
 const failOnBrowserErrors = (page: Page) => {
   const browserErrors: string[] = [];
@@ -51,18 +51,18 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   expect(accessibility.violations, "WCAG 2.2 AA-overtredingen").toEqual([]);
   await page.getByRole("button", { name: "START" }).click();
 
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await expect(page.getByRole("heading", { name: "KIES JE AVATAR" })).toBeVisible();
   await page.locator('[data-component="AvatarCard"]').first().click();
 
-  await page.getByPlaceholder("Type je gamer naam...").fill("Codex Tester");
+  await page.getByPlaceholder("Typ je gamernaam...").fill("Codex Tester");
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await expect(page.getByText("Codex Tester", { exact: true })).toBeVisible();
 
   await page.reload();
   await expect(page.getByText("Codex Tester", { exact: true })).toBeVisible();
 
-  await page.getByTitle("Profiel Instellingen").click();
+  await page.getByTitle("Profielinstellingen").click();
   const soundSetting = page.getByRole("button", { name: /Sound FX/ });
   await expect(soundSetting).toHaveAttribute("aria-pressed", "true");
   await soundSetting.click();
@@ -108,19 +108,15 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   ).toBeVisible();
   await expect(page.getByText(/Geregistreerd:.*oefenpogingen/)).toBeVisible();
 
-  await page.goto("/games/math");
-  // Ook Rekenen heeft een offline-pakket, dus dezelfde download-gate (T-43).
-  await openGameFromList(
-    page,
-    /Schelpen Tellen/,
-    page.getByRole("button", { name: "Start met tellen" }),
-  );
-  await page.getByRole("button", { name: "Start met tellen" }).click();
-  await page.getByRole("button", { name: "1 schelpen" }).click();
-  await expect(page.getByText("Goed geteld!")).toBeVisible();
-  await expect.poll(() => countDatabaseStore(page, "practiceEvents")).toBeGreaterThan(1);
-  await page.goto("/progress");
-  await expect(page.getByText("Rekenen & Getallen")).toBeVisible();
+  // Rekenen is nog niet beschikbaar: de zone is vergrendeld en niet te openen.
+  await page.goto("/home");
+  const mathZone = page.locator('[data-theme-id="math"]');
+  await expect(mathZone).toHaveAttribute("data-coming-soon", "true");
+  await expect(mathZone).toContainText("Binnenkort beschikbaar");
+  // Playwright klikt geen aria-disabled knop; force bewijst dat een tik niets doet.
+  await mathZone.click({ force: true });
+  await page.waitForTimeout(500);
+  await expect(page).toHaveURL(/\/home$/);
 
   await page.goto("/settings");
   const downloadPromise = page.waitForEvent("download");
@@ -134,17 +130,17 @@ test("maakt een profiel, herstelt het en opent de hoofdgame veilig", async ({ pa
   };
   expect(exportedProgress.profileAlias).toBe("local-profile");
   expect(exportedProgress.practiceEvents.map((event) => event.gameId)).toEqual(
-    expect.arrayContaining(["magisch-strand-avontuur", "rekenen-strand-avontuur"]),
+    expect.arrayContaining(["magisch-strand-avontuur"]),
   );
   expect(JSON.stringify(exportedProgress)).not.toContain("Codex Tester");
 
   await page.evaluate(() => {
     Math.random = () => 0;
   });
-  await page.getByRole("button", { name: "Delete Speler" }).click();
+  await page.getByRole("button", { name: "Speler verwijderen" }).click();
   await expect(page.getByText("Wat is 5 + 5?")).toBeVisible();
   await page.getByPlaceholder("?").fill("10");
-  const confirmDelete = page.getByRole("button", { name: "Ja, Delete" });
+  const confirmDelete = page.getByRole("button", { name: "Ja, verwijderen" });
   await expect(confirmDelete).toBeEnabled();
   await confirmDelete.click();
   await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();

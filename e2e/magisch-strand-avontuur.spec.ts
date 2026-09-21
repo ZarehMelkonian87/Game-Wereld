@@ -22,11 +22,11 @@ const setupPlayerAndOpenStrandGame = async (page: Page) => {
   await expect(page.getByRole("heading", { name: "GAME WERELD" })).toBeVisible();
   await page.getByRole("button", { name: "START" }).click();
 
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await expect(page.getByRole("heading", { name: "KIES JE AVATAR" })).toBeVisible();
   await page.locator('[data-component="AvatarCard"]').first().click();
 
-  await page.getByPlaceholder("Type je gamer naam...").fill("Strand Tester");
+  await page.getByPlaceholder("Typ je gamernaam...").fill("Strand Tester");
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await expect(page.getByText("Strand Tester", { exact: true })).toBeVisible();
 

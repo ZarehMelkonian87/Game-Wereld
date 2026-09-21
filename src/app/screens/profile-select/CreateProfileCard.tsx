@@ -19,7 +19,7 @@ export const CreateProfileCard = ({ delay, onCreate }: CreateProfileCardProps) =
     whileTap={{ scale: 0.97 }}
   >
     <Plus className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-white mb-2" strokeWidth={3} />
-    <div className="text-base sm:text-lg md:text-xl text-white font-bold">NIEUW SPELER</div>
+    <div className="text-base sm:text-lg md:text-xl text-white font-bold">NIEUWE SPELER</div>
   </motion.button>
 );
 

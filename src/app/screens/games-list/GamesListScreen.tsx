@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import { useProfile } from "../../contexts/ProfileContext";
-import { gameThemes, miniGames, type MiniGame } from "../../data/games";
-import { getGameRegistryEntry } from "../../games";
+import { gameThemes, isPlayableGame, miniGames, type MiniGame } from "../../data/games";
 import { EmptyGamesMessage } from "./EmptyGamesMessage";
 import { GamesGrid } from "./GamesGrid";
 import { GamesListHeader } from "./GamesListHeader";
@@ -38,7 +37,7 @@ export const GamesListScreen = () => {
     currentProfile?.progress.find((progress) => progress.gameId === gameId);
 
   const handleSelectGame = (game: MiniGame) => {
-    if (getGameRegistryEntry(game.id)) {
+    if (isPlayableGame(game)) {
       navigate(`/games/${theme.id}/${game.id}`);
       return;
     }
@@ -74,7 +73,8 @@ export const GamesListScreen = () => {
               {comingSoonGame.name}
             </h3>
             <p className="text-cyan-300 font-bold text-sm sm:text-base mb-6 leading-relaxed">
-              Deze game is momenteel nog in aanbouw. Kom snel terug om dit avontuur te spelen! 🛠️🎮
+              Binnenkort beschikbaar! Aan deze game wordt nog gewerkt. Kom snel terug om dit
+              avontuur te spelen! 🛠️🎮
             </p>
             <motion.button
               className="game-button bg-gradient-to-br from-cyan-500 to-blue-600 text-white px-8 py-3.5 rounded-xl text-lg font-black border-3 border-cyan-300/50 w-full cursor-pointer"

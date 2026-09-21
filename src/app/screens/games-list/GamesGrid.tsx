@@ -1,6 +1,5 @@
 import type { GameProgress } from "../../game-platform";
-import type { GameTheme, MiniGame } from "../../data/games";
-import { getGameRegistryEntry } from "../../games";
+import { isPlayableGame, type GameTheme, type MiniGame } from "../../data/games";
 import { GameListCard } from "./GameListCard";
 
 interface GamesGridProps {
@@ -16,7 +15,7 @@ export const GamesGrid = ({ games, getGameProgress, onSelectGame, theme }: Games
       <GameListCard
         game={game}
         index={index}
-        isLocked={!getGameRegistryEntry(game.id)}
+        isLocked={!isPlayableGame(game)}
         key={game.id}
         onSelect={onSelectGame}
         progress={getGameProgress(game.id)}

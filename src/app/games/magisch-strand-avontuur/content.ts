@@ -324,11 +324,12 @@ const placementFeedback = (sentence: string, concept: SpatialConcept) => ({
   tryAgain: "Goed geprobeerd. Kijk rustig naar de plek die oplicht.",
   repeatAfterSuccess: getPracticeSentence(sentence),
 });
-const choiceFeedback = (word: string) => ({
-  correct: `Ja, dat is de ${word}. +1 Tempo!`,
+// Lidwoord uit het object zelf ("het zandkasteel", niet "de zandkasteel").
+const choiceFeedback = (word: string, article: "de" | "het") => ({
+  correct: `Ja, dat is ${article} ${word}. +1 Tempo!`,
   almost: `Bijna. Zoek nog eens naar: ${word}.`,
   tryAgain: "Goed geprobeerd. Luister nog een keer en kies opnieuw.",
-  repeatAfterSuccess: `Dit is de ${word}.`,
+  repeatAfterSuccess: `Dit is ${article} ${word}.`,
 });
 const sceneTask = (params: {
   id: string;
@@ -376,6 +377,7 @@ const choiceTask = (params: {
 }): VocabularyChoiceInstruction => {
   const target = beachObjects.find((object) => object.id === params.objectId);
   const targetWord = target?.label ?? params.objectId;
+  const article = target?.article ?? "de";
   return {
     id: params.id,
     mode: "choose-word",
@@ -388,8 +390,8 @@ const choiceTask = (params: {
     languageDomains: ["receptive-vocabulary"],
     tags: ["mvp", "choose-word", "receptive-vocabulary", params.objectId],
     hint: params.hint,
-    feedback: `Ja, dat is de ${targetWord}. +1 Tempo!`,
-    feedbackCopy: choiceFeedback(targetWord),
+    feedback: `Ja, dat is ${article} ${targetWord}. +1 Tempo!`,
+    feedbackCopy: choiceFeedback(targetWord, article),
     targetWord,
     answerOptions: params.options,
     choiceCount: params.options.length as 2 | 3 | 4,

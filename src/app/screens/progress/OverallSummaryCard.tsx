@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Award } from "lucide-react";
+import { formatCount } from "../../game-platform";
 
 interface OverallSummaryCardProps {
   childName: string;
@@ -21,7 +22,7 @@ export const OverallSummaryCard = ({ childName, delay, eventCount }: OverallSumm
     </h2>
     <p className="text-base sm:text-lg text-white/90 font-semibold">
       {eventCount > 0
-        ? `${childName} heeft ${eventCount} oefenpogingen in het overzicht.`
+        ? `${childName} heeft ${formatCount(eventCount, "oefenpoging", "oefenpogingen")} in het overzicht.`
         : `Voor ${childName} zijn nog geen oefenpogingen geregistreerd in deze periode.`}
     </p>
   </motion.div>

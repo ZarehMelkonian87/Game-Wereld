@@ -22,7 +22,8 @@ export const grootCircusAvontuurManifest = defineGameManifest({
       version: 1,
     },
   ],
-  releaseStatus: "available",
+  // Nog niet klaar voor kinderen: toont "Binnenkort beschikbaar" (vergrendeld).
+  releaseStatus: "coming-soon",
   requiredCapabilities: [],
   supportedOrientations: ["portrait", "landscape"],
   themeId: "vocabulary",

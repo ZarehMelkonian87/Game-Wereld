@@ -248,7 +248,7 @@ export const collectVoiceSideScrollerTarget = (
       id: `feedback-${target.id}-${Math.round(state.elapsedMs)}`,
       kind: "boost",
       message: hitsComboMilestone
-        ? `Combo x${nextCombo}! Goed gevangen: ${target.collectibleLabel}. +${earnedStars} sterren!`
+        ? `Combo x${nextCombo}! Goed gevangen: ${target.collectibleLabel}. +${earnedStars} ${earnedStars === 1 ? "ster" : "sterren"}!`
         : `Goed gevangen: ${target.collectibleLabel}. +1 Tempo!`,
       visibleUntilMs: state.elapsedMs + FEEDBACK_VISIBLE_MS,
     },

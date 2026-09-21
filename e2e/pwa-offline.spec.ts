@@ -11,7 +11,7 @@ const confirmGateDownloadIfAsked = async (modal: Locator): Promise<void> => {
   const confirmButton = modal.getByRole("button", {
     name: /Start Download|Toch downloaden|Downloaden/,
   });
-  const completed = modal.getByText(/Download Voltooid!|Bestanden opslaan|Fase/);
+  const completed = modal.getByText(/Download voltooid!|Bestanden opslaan|Fase/);
   await expect(confirmButton.or(completed)).toBeVisible({ timeout: 60_000 });
   if (await confirmButton.isVisible()) {
     await confirmButton.click();
@@ -36,13 +36,6 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
       mimeType: "text/plain",
       packageId: "magisch-strand-avontuur-beach",
       url: "/fixture/media.txt",
-    },
-    {
-      body: "math-game",
-      id: "fixture-math-game",
-      mimeType: "text/javascript",
-      packageId: "rekenen-strand-basis",
-      url: "/fixture/math-game.js",
     },
   ];
   const createManifest = ({
@@ -85,12 +78,6 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
       id: "magisch-strand-avontuur-beach",
       worldId: "beach",
     }),
-    createManifest({
-      contentVersion: "rekenen-strand-2026.07",
-      gameId: "rekenen-strand-avontuur",
-      id: "rekenen-strand-basis",
-      worldId: "counting",
-    }),
   ];
 
   await page.addInitScript(
@@ -122,9 +109,9 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   });
   await page.reload();
   await page.getByRole("button", { name: "START" }).click();
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await page.locator('[data-component="AvatarCard"]').first().click();
-  await page.getByPlaceholder("Type je gamer naam...").fill("Offline Tester");
+  await page.getByPlaceholder("Typ je gamernaam...").fill("Offline Tester");
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await page.getByRole("button", { name: /Speciale Woordenschat/ }).click();
 
@@ -133,21 +120,8 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await downloadBtn.click();
   const modal = page.locator('[data-component="DownloadGateModal"]');
   await confirmGateDownloadIfAsked(modal);
-  await expect(modal.getByText(/Download Voltooid!/)).toBeVisible({ timeout: 60_000 });
+  await expect(modal.getByText(/Download voltooid!/)).toBeVisible({ timeout: 60_000 });
   await modal.locator('[data-slot="close-button"]').click();
-
-  await page.goto("/games/math");
-  const mathDownloadBtn = page.locator('[data-component="GameCardDownloadButton"]').first();
-  await mathDownloadBtn.waitFor({ state: "visible", timeout: 5000 });
-  await mathDownloadBtn.click();
-  const mathModal = page.locator('[data-component="DownloadGateModal"]');
-  await confirmGateDownloadIfAsked(mathModal);
-  await expect(mathModal.getByText(/Download Voltooid!/)).toBeVisible({ timeout: 60_000 });
-  await mathModal.locator('[data-slot="close-button"]').click();
-  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
-  await page.getByRole("button", { name: "Start met tellen" }).click();
-  await expect(page.getByRole("img", { name: "Er liggen 1 schelpen." })).toBeVisible();
 
   await page.goto("/games/vocabulary");
   await page
@@ -225,9 +199,9 @@ test("downloadt, verifieert en opent de wereld daarna offline", async ({ browser
   await page.route("**/*", (route) => route.abort("internetdisconnected"));
   await page.reload().catch(() => undefined);
   await expect(page.getByTestId("start-screen")).toBeVisible();
-  await page.goto("/games/math");
-  await page.getByRole("button", { name: /Schelpen Tellen/ }).click();
-  await expect(page.getByTestId("start-screen")).toBeVisible();
-  await page.getByRole("button", { name: "Start met tellen" }).click();
-  await expect(page.getByRole("img", { name: "Er liggen 1 schelpen." })).toBeVisible();
+  // Offline opnieuw via de spellenlijst: het gedownloade pakket opent zonder netwerk.
+  await page.goto("/games/vocabulary");
+  await openStrandGameFromList(page);
+  await page.getByTestId("start-play-button").click();
+  await expect(page.getByTestId("compact-mode-card-listen-and-place")).toBeVisible();
 });

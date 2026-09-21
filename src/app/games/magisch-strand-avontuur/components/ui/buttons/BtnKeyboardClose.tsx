@@ -21,7 +21,7 @@ export const BtnKeyboardClose: React.FC<BtnKeyboardCloseProps> = ({
       type="button"
       onClick={onClick}
       data-testid={testId}
-      aria-label="Sluit typ venster"
+      aria-label="Sluit typvenster"
       className={`px-6 py-3 bg-white text-slate-700 font-bold rounded-2xl shadow border-2 border-slate-200 hover:bg-slate-50 active:scale-95 transition-all ${className}`}
     >
       Sluit

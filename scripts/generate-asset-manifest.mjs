@@ -165,7 +165,6 @@ export const generateAssetManifest = ({
 export const generateAssetManifests = () => {
   const packageSourcePaths = [
     "src/app/games/magisch-strand-avontuur/assets/offline-package.source.json",
-    "src/app/games/rekenen-strand/assets/offline-package.source.json",
     "src/app/games/groot-circus-avontuur/assets/offline-package.source.json",
   ];
   const results = packageSourcePaths.map((packageSourcePath) =>

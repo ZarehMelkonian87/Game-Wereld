@@ -12,14 +12,14 @@ const auditCurrentScreen = async (page: Page, screenName: string) => {
 const openProfileSelection = async (page: Page) => {
   await page.goto("/");
   await page.getByRole("button", { name: "START" }).click();
-  await expect(page.getByRole("button", { name: "NIEUW SPELER" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "NIEUWE SPELER" })).toBeVisible();
 };
 
 const createProfile = async (page: Page) => {
   await openProfileSelection(page);
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await page.locator('[data-component="AvatarCard"]').first().click();
-  await page.getByPlaceholder("Type je gamer naam...").fill("A11y Tester");
+  await page.getByPlaceholder("Typ je gamernaam...").fill("A11y Tester");
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await expect(page.getByText("A11y Tester", { exact: true })).toBeVisible();
 };
@@ -55,9 +55,9 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await page.getByRole("button", { name: "START" }).click();
   await auditCurrentScreen(page, "profielselectie");
 
-  await page.getByRole("button", { name: "NIEUW SPELER" }).click();
+  await page.getByRole("button", { name: "NIEUWE SPELER" }).click();
   await page.locator('[data-component="AvatarCard"]').first().click();
-  await page.getByPlaceholder("Type je gamer naam...").fill("Axe Tester");
+  await page.getByPlaceholder("Typ je gamernaam...").fill("Axe Tester");
   await page.getByRole("button", { name: "LET'S GO!" }).click();
   await auditCurrentScreen(page, "catalogus");
 
@@ -80,12 +80,13 @@ test("@accessibility auditeert alle release-kernschermen met axe", async ({ page
   await openStrandGameFromList(page);
   await auditCurrentScreen(page, "GameHost");
 
+  // Zones zonder speelbare game zijn vergrendeld ("Binnenkort beschikbaar");
+  // een deep link naar zo'n game toont het binnenkort-scherm.
+  await page.goto("/home");
+  await expect(page.locator('[data-theme-id="math"]')).toHaveAttribute("data-coming-soon", "true");
   await page.goto("/games/math/rekenen-strand-avontuur");
-  // `exact`: de sync-modal ("Schelpen Tellen klaarmaken!") matcht anders ook (strict mode).
-  await expect(page.getByRole("heading", { name: "Schelpen Tellen", exact: true })).toBeVisible();
-  await auditCurrentScreen(page, "Schelpen Tellen start");
-  await page.getByRole("button", { name: "Start met tellen" }).click();
-  await auditCurrentScreen(page, "Schelpen Tellen opdracht");
+  await expect(page.locator('[data-component="ComingSoonGameScreen"]')).toBeVisible();
+  await auditCurrentScreen(page, "binnenkort beschikbaar");
 });
 
 test("@accessibility voltooit de kernopdracht met geweigerde microfoon en toetsenbord", async ({

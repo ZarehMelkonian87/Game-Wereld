@@ -49,7 +49,7 @@ export const DeleteProfileCard = ({
       transition={{ delay: 0.3 }}
     >
       <h3 className="text-xl sm:text-2xl md:text-3xl text-white font-black mb-4 sm:mb-5 md:mb-6">
-        DANGER ZONE
+        GEVARENZONE
       </h3>
 
       {!showConfirm ? (
@@ -59,12 +59,12 @@ export const DeleteProfileCard = ({
           type="button"
         >
           <Trash2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0" />
-          <span className="text-lg sm:text-xl md:text-2xl font-black">Delete Speler</span>
+          <span className="text-lg sm:text-xl md:text-2xl font-black">Speler verwijderen</span>
         </button>
       ) : (
         <div className="space-y-4 flex flex-col items-center">
           <p className="text-base sm:text-lg md:text-xl text-yellow-400 text-center font-bold">
-            🔒 Ouderlijk Toezicht: Los de som op om door te gaan.
+            🔒 Ouderlijk toezicht: los de som op om door te gaan.
           </p>
           <p className="text-lg sm:text-xl md:text-2xl text-white text-center font-black">
             Wat is {numA} + {numB}?
@@ -78,7 +78,7 @@ export const DeleteProfileCard = ({
             value={answerInput}
           />
           <p className="text-xs sm:text-sm text-red-300 text-center font-semibold max-w-xs">
-            Let op: Alle sterren en voortgang van deze speler worden definitief gewist!
+            Let op: alle sterren en voortgang van deze speler worden definitief gewist!
           </p>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full mt-2">
@@ -99,7 +99,7 @@ export const DeleteProfileCard = ({
               onClick={onConfirmDelete}
               type="button"
             >
-              Ja, Delete
+              Ja, verwijderen
             </button>
           </div>
         </div>

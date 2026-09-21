@@ -1,4 +1,4 @@
-import { createGameId, createProfileId } from "../../game-platform";
+import { createGameId, createProfileId, formatCount } from "../../game-platform";
 import {
   projectPracticeEvents,
   type PracticeEventEnvelope,
@@ -40,17 +40,17 @@ const toThemeProgress = (projection: ProgressProjection, themeId: string): Theme
 
   if (projection.independentCorrect > 0) {
     strengths.push(
-      `${projection.independentCorrect} van ${projection.attempts} pogingen lukten zonder geregistreerde hulp.`,
+      `${projection.independentCorrect} van ${formatCount(projection.attempts, "poging", "pogingen")} ${projection.independentCorrect === 1 ? "lukte" : "lukten"} zonder geregistreerde hulp.`,
     );
   }
   if (projection.supportedCorrect > 0) {
     strengths.push(
-      `${projection.supportedCorrect} pogingen lukten met een herhaling, visuele hint of gesproken hulp.`,
+      `${formatCount(projection.supportedCorrect, "poging", "pogingen")} ${projection.supportedCorrect === 1 ? "lukte" : "lukten"} met een herhaling, visuele hint of gesproken hulp.`,
     );
   }
   if (projection.incorrect > 0 || projection.skipped > 0) {
     nextSteps.push(
-      `${projection.incorrect + projection.skipped} pogingen kunnen opnieuw worden geoefend.`,
+      `${formatCount(projection.incorrect + projection.skipped, "poging", "pogingen")} ${projection.incorrect + projection.skipped === 1 ? "kan" : "kunnen"} opnieuw worden geoefend.`,
     );
   }
   if (strengths.length === 0) strengths.push("Er zijn oefenpogingen geregistreerd.");

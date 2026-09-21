@@ -34,7 +34,7 @@ describe("DownloadGateModal (T-46)", () => {
 
     // Play-knop moet vergrendeld zijn tot 100%
     const playButton = screen.getByRole("button", {
-      name: "Speel Nu (Pas na 100% download)",
+      name: "Speel nu (pas na 100% download)",
     });
     expect(playButton).toBeDisabled();
     expect(playButton).toHaveAttribute("data-state", "locked");
@@ -43,7 +43,7 @@ describe("DownloadGateModal (T-46)", () => {
     expect(screen.getByText(/nooit meer opnieuw/i)).toBeInTheDocument();
   });
 
-  it("toont de toestand 'Download Voltooid' met ontgrendelde actieve Play-knop", async () => {
+  it("toont de toestand 'Download voltooid' met ontgrendelde actieve Play-knop", async () => {
     const handlePlay = vi.fn();
     const readyGate: DownloadGateState = {
       canPlay: true,
@@ -60,11 +60,11 @@ describe("DownloadGateModal (T-46)", () => {
       />,
     );
 
-    expect(screen.getByText("Download Voltooid!")).toBeInTheDocument();
+    expect(screen.getByText("Download voltooid!")).toBeInTheDocument();
     expect(screen.getByText(/100% Opgeslagen • Direct offline speelbaar/i)).toBeInTheDocument();
 
     const playButton = screen.getByRole("button", {
-      name: "Klaar! Start Avontuur",
+      name: "Klaar! Start avontuur",
     });
     expect(playButton).not.toBeDisabled();
     expect(playButton).toHaveAttribute("data-state", "ready");
@@ -149,7 +149,7 @@ describe("DownloadGateModal (T-46)", () => {
     expect(handleDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it("toont foutstatus en staat herpoging via 'Opnieuw Proberen' toe", async () => {
+  it("toont foutstatus en staat herpoging via 'Opnieuw proberen' toe", async () => {
     const handleRetry = vi.fn();
     const errorGate: DownloadGateState = {
       canPlay: false,
@@ -171,7 +171,7 @@ describe("DownloadGateModal (T-46)", () => {
     expect(screen.getByText("Download kon niet worden voltooid")).toBeInTheDocument();
     expect(screen.getByText("Netwerkverbinding verbroken")).toBeInTheDocument();
 
-    const retryButton = screen.getByRole("button", { name: /Opnieuw Proberen/i });
+    const retryButton = screen.getByRole("button", { name: /Opnieuw proberen/i });
     await userEvent.click(retryButton);
     expect(handleRetry).toHaveBeenCalledTimes(1);
   });

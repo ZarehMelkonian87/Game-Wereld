@@ -54,7 +54,7 @@ export const useZoneDevToolsState = ({
       await navigator.clipboard.writeText(`visualHintPath: "${generatedPath}",`);
       setCopyStatus("Path gekopieerd.");
     } catch {
-      setCopyStatus("Kopieren lukt niet.");
+      setCopyStatus("Kopiëren lukt niet.");
     }
   };
 
