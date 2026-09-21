@@ -431,14 +431,14 @@
     },
     {
       "bytes": 209120,
-      "hash": "sha256-f0a26532b58d99909d8aac26795388a475672bedf4802c17eaa0ad50c0e9e7cc",
+      "hash": "sha256-b678b72b0c9f0328d9ad666dae7bdba0a94591ea1edbc713e4cf525bda94beb5",
       "id": "src/app/games/groot-circus-avontuur/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/index.tsx",
-      "url": "/Game-Wereld/assets/index-D6mmeMIk.js"
+      "url": "/Game-Wereld/assets/index-BUnMRuT4.js"
     }
   ],
   "contentVersion": "groot-circus-avontuur-2026.08",
