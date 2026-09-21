@@ -57,7 +57,8 @@ export const MicWaveBars = ({
     const applyListeningFallback = () => {
       barRefs.current.forEach((bar, index) => {
         if (bar) {
-          bar.style.animation = `micWaveListening 0.7s ${index * 0.07}s infinite ease-in-out`;
+          // Rustig tempo: een snelle golf oogde als "praten op hoge toon" (A56-test).
+          bar.style.animation = `micWaveListening 1.6s ${index * 0.16}s infinite ease-in-out`;
         }
       });
     };
@@ -158,9 +159,8 @@ export const MicWaveBars = ({
           50% { transform: scaleY(1.1); }
         }
         @keyframes micWaveListening {
-          0%, 100% { transform: scaleY(0.4); }
-          35% { transform: scaleY(1.3); }
-          70% { transform: scaleY(0.7); }
+          0%, 100% { transform: scaleY(0.45); }
+          50% { transform: scaleY(1.15); }
         }
       `}</style>
       {Array.from({ length: barCount }).map((_, index) => (

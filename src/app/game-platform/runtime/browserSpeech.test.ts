@@ -192,6 +192,47 @@ describe("browserSpeech runtime", () => {
     expect(results[2].transcript).toBe("zet de bal op het strand");
   });
 
+  it("slaat verouderde tussenstanden over die Android als extra segmenten toevoegt (T-52)", () => {
+    const results: VoiceRecognitionResult[] = [];
+    const session = createBrowserSpeechRecognition({
+      continuous: true,
+      interimResults: true,
+      onResult: (res) => results.push(res),
+    });
+    session?.start();
+
+    // Android: elk tussenresultaat komt als nieuw "definitief" segment (zekerheid 0)
+    // erbij; het echte eindresultaat (zekerheid > 0) volgt als laatste.
+    const stale = (transcript: string): MockSpeechResult => ({
+      0: { confidence: 0, transcript },
+      isFinal: true,
+      length: 1,
+    });
+    emitResult?.({ resultIndex: 0, results: [stale("zet")] });
+    emitResult?.({ resultIndex: 1, results: [stale("zet"), stale("zet de")] });
+    emitResult?.({
+      resultIndex: 2,
+      results: [stale("zet"), stale("zet de"), stale("zet de zon boven")],
+    });
+    emitResult?.({
+      resultIndex: 3,
+      results: [
+        stale("zet"),
+        stale("zet de"),
+        stale("zet de zon boven"),
+        { 0: { confidence: 0.9, transcript: "zet de zon boven de zee" }, isFinal: true, length: 1 },
+      ],
+    });
+
+    expect(results.map((res) => res.transcript)).toEqual([
+      "zet",
+      "zet de",
+      "zet de zon boven",
+      "zet de zon boven de zee",
+    ]);
+    expect(results.map((res) => res.isFinal)).toEqual([false, false, false, true]);
+  });
+
   it("reset en activeert de adaptieve stiltetimer na spraak", () => {
     const statusChanges: string[] = [];
     const session = createBrowserSpeechRecognition({

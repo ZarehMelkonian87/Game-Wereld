@@ -109,6 +109,20 @@ export const getBrowserSpeechRecognitionSupport = (): SpeechRecognitionSupport =
 const isTrustedFinalSegment = (segment: BrowserSpeechRecognitionResult): boolean =>
   segment.isFinal && (segment[0]?.confidence ?? 0) > 0;
 
+/**
+ * Android voegt in continue modus élk tussenresultaat als nieuw segment toe
+ * ("zet", "zet", "zet de", "zet de zon", …) in plaats van het laatste segment
+ * bij te werken. Alle segmenten aan elkaar plakken gaf "zet zet zet de zet de
+ * zon …" (T-52, Galaxy A56). Een onbetrouwbaar-definitief segment dat niet het
+ * laatste is, is dus een verouderde tussenstand en wordt overgeslagen. Op
+ * desktop-Chrome is er hooguit één tussenresultaat en dat is altijd het laatste.
+ */
+const isStaleInterimSegment = (
+  segment: BrowserSpeechRecognitionResult,
+  index: number,
+  lastIndex: number,
+): boolean => index < lastIndex && !isTrustedFinalSegment(segment);
+
 const getConfidenceLabel = (confidence: number): VoiceRecognitionConfidence => {
   if (confidence >= 0.75) return "high";
   if (confidence >= 0.45) return "medium";
@@ -152,9 +166,11 @@ const readBestRecognitionResult = (
   let count = 0;
   const allAlternatives: VoiceRecognitionAlternative[] = [];
 
+  const lastIndex = event.results.length - 1;
   for (let i = 0; i < event.results.length; i++) {
     const resultItem = event.results[i];
     if (!resultItem || resultItem.length === 0) continue;
+    if (isStaleInterimSegment(resultItem, i, lastIndex)) continue;
     const segmentAlternatives = readRecognitionAlternatives(resultItem);
     if (segmentAlternatives.length > 0) {
       allAlternatives.push(...segmentAlternatives);
@@ -209,9 +225,11 @@ const readLatestSegmentResult = (
   let totalConfidence = 0;
   let count = 0;
 
+  const lastIndex = event.results.length - 1;
   for (let i = fromIndex; i < event.results.length; i++) {
     const resultItem = event.results[i];
     if (!resultItem || resultItem.length === 0) continue;
+    if (isStaleInterimSegment(resultItem, i, lastIndex)) continue;
     const segmentAlternatives = readRecognitionAlternatives(resultItem);
     if (segmentAlternatives.length > 0) {
       allAlternatives.push(...segmentAlternatives);

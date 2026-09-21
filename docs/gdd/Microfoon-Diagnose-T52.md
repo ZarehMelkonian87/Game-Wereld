@@ -82,6 +82,12 @@ Over de telefoontaal (Engels): Chrome geeft onze `lang=nl-NL` door aan Google's 
 
 **Nog open uit dit rapport:** stap 2 (eerste korte herkenning) gaf 6 s lang niets en toen `onend` — mogelijk nog niet gesproken; bij de tweede korte poging (stap 4) werkte het. Na de deploy van 1.56/1.57 opnieuw `DT-01` op de A56 doen.
 
+### 4c. Speeltest Galaxy A56 na 1.56/1.57 (2026-09-21): "bijna goed"
+
+**Waarneming:** Zeg & Zet werkt nu met spraak. Nog drie punten: (1) na het spreken wacht het spel even; (2) elk woord verschijnt meerdere keren — _"zet zet zet zet de zet de … zet de zoon boven de zee"_ — waardoor het spel om verduidelijking vroeg; (3) de wave beweegt heel snel "alsof we op een hoge toon praten".
+
+**Analyse:** (2) is dezelfde Android-eigenaardigheid als H8: in continue modus komt élke tussenstand als **nieuw segment** in `results` te staan (`"zet"`, `"zet"`, `"zet de"`, …) in plaats van dat het laatste segment wordt bijgewerkt; `readBestRecognitionResult` plakte alle segmenten aan elkaar. **Fix (1.58):** een onbetrouwbaar-definitief segment dat niet het laatste is, is een verouderde tussenstand en wordt overgeslagen (`isStaleInterimSegment`); alleen echte eindsegmenten + de laatste tussenstand tellen. (3) was de nieuwe luister-animatie van 1.56 (0,7 s-cyclus) → nu 1,6 s en zachter. (1) is Android's eigen eindpuntdetectie: het echte eindresultaat komt pas ±1–2 s na de laatste lettergreep, vlak vóór `onend`; daar kunnen we weinig aan doen zonder de herkenning te breken — accepteren, tenzij het bij kinderen stoort (dan `DT-04`-ijking).
+
 ## 5. Beslistabel → keuze voor `T-53`
 
 | Uitkomst van de meting                                                             | Betekenis                                                    | Oplossingsrichting `T-53`                                                                                                                                                                                                                                                                                                                                                 |
