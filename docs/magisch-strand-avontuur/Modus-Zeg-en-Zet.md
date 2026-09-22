@@ -18,6 +18,8 @@
 
 Het kind hoort een hele zin ("Zet de boot in de zee") en moet die begrijpen én uitvoeren. Daarmee traint de modus zinsbegrip en abstracte ruimtelijke begrippen, die met oplichtende zones concreet worden gemaakt.
 
+> De zestien opdrachten staan letterlijk in de [woordenlijst](Woordenlijst.md).
+
 ## 2. De ronde
 
 Een ronde bestaat uit **16 opdrachten** (`lp-001` … `lp-016`) in geschudde volgorde, waarbij objecten die later als anker dienen eerder worden geplaatst. De niveaus lopen op:

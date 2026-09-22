@@ -6,6 +6,8 @@ Spraakgestuurde, educatieve game voor kinderen van 4–8 jaar: woordenschat, zin
 
 | Document                                                                           | Inhoud                                          |
 | :--------------------------------------------------------------------------------- | :---------------------------------------------- |
+| [Voor begeleiders](../../../../docs/magisch-strand-avontuur/Voor-begeleiders.md)   | Niet-technische introductie voor begeleiders    |
+| [Woordenlijst](../../../../docs/magisch-strand-avontuur/Woordenlijst.md)           | Elk woord, plaatsbegrip en opdracht in de game  |
 | [GDD](../../../../docs/magisch-strand-avontuur/GDD-index.md)                       | Concept, doelgroep, schermen, gedeelde systemen |
 | [Kies het Woord](../../../../docs/magisch-strand-avontuur/Modus-Kies-het-Woord.md) | Mechanica per modus                             |
 | [Zeg & Zet](../../../../docs/magisch-strand-avontuur/Modus-Zeg-en-Zet.md)          | Mechanica per modus                             |

@@ -18,6 +18,8 @@
 
 Het kind koppelt een gehoord/gelezen woord aan het juiste beeld. Dit is de laagste trede van de leertrap: herkennen gaat vooraf aan plaatsen en zelf benoemen. De modus levert sterren op waarmee de volgende modi opengaan.
 
+> De twaalf vragen staan letterlijk in de [woordenlijst](Woordenlijst.md).
+
 ## 2. De ronde
 
 1. Een ronde bestaat uit **12 vragen** (`cw-001` … `cw-012`), in geschudde volgorde. De lengte volgt de content, niet een vast getal.

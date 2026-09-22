@@ -13,6 +13,8 @@
 
 | Document                                  | Wat je er vindt                                                            |
 | :---------------------------------------- | :------------------------------------------------------------------------- |
+| [Voor begeleiders](Voor-begeleiders.md)   | Niet-technische introductie voor logopedisten, ouders en leerkrachten      |
+| [Woordenlijst](Woordenlijst.md)           | Exact elk woord, plaatsbegrip en opdracht in de game                       |
 | **GDD (dit document)**                    | Concept, doelgroep, schermen, gedeelde systemen (spraak, beloningen, data) |
 | [Kies het Woord](Modus-Kies-het-Woord.md) | Volledige mechanica van de quiz-modus                                      |
 | [Zeg & Zet](Modus-Zeg-en-Zet.md)          | Volledige mechanica van de plaatsingsmodus                                 |
