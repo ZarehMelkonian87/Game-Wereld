@@ -1,6 +1,6 @@
 {
   "../../../../../@vite-plugin-pwa/virtual:pwa-register": {
-    "file": "assets/virtual_pwa-register-vtGih3eg.js",
+    "file": "assets/virtual_pwa-register-B5ti5_eT.js",
     "name": "virtual_pwa-register",
     "src": "../../../../../@vite-plugin-pwa/virtual:pwa-register",
     "isDynamicEntry": true,
@@ -144,24 +144,24 @@
       "assets/mascot-01-neutral-DqZ2tPtS.webp"
     ]
   },
-  "_games-3TntT2oh.js": {
-    "file": "assets/games-3TntT2oh.js",
+  "_games-ee4G3ChW.js": {
+    "file": "assets/games-ee4G3ChW.js",
     "name": "games",
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html"
     ]
   },
-  "_proxy-CJUZ7ruv.js": {
-    "file": "assets/proxy-CJUZ7ruv.js",
+  "_proxy-B4zRiZMa.js": {
+    "file": "assets/proxy-B4zRiZMa.js",
     "name": "proxy",
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html"
     ]
   },
-  "_runtimeAdapters-B587bIes.js": {
-    "file": "assets/runtimeAdapters-B587bIes.js",
+  "_runtimeAdapters-B1iwmWrD.js": {
+    "file": "assets/runtimeAdapters-B1iwmWrD.js",
     "name": "runtimeAdapters",
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
@@ -169,7 +169,7 @@
     ]
   },
   "index.html": {
-    "file": "assets/index-B0e36Q0i.js",
+    "file": "assets/index-B-7n3fd_.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -858,20 +858,20 @@
     "src": "src/app/games/magisch-strand-avontuur/assets/objects/transparent/sun-sticker.webp"
   },
   "src/app/screens/avatar-select/index.ts": {
-    "file": "assets/index-DtKF7k3o.js",
+    "file": "assets/index-0lj_yN3H.js",
     "name": "index",
     "src": "src/app/screens/avatar-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_runtimeAdapters-B587bIes.js",
+      "_runtimeAdapters-B1iwmWrD.js",
       "_GradientTitle-Cp4QZYuL.js",
-      "_proxy-CJUZ7ruv.js"
+      "_proxy-B4zRiZMa.js"
     ]
   },
   "src/app/screens/diagnose-microfoon/index.ts": {
-    "file": "assets/index-CTXiyooo.js",
+    "file": "assets/index-DT8DjzvA.js",
     "name": "index",
     "src": "src/app/screens/diagnose-microfoon/index.ts",
     "isDynamicEntry": true,
@@ -882,32 +882,32 @@
     ]
   },
   "src/app/screens/game-play/index.ts": {
-    "file": "assets/index-B3uni1Fn.js",
+    "file": "assets/index-DKaPy_H7.js",
     "name": "index",
     "src": "src/app/screens/game-play/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_runtimeAdapters-B587bIes.js",
-      "_proxy-CJUZ7ruv.js"
+      "_runtimeAdapters-B1iwmWrD.js",
+      "_proxy-B4zRiZMa.js"
     ]
   },
   "src/app/screens/games-list/index.ts": {
-    "file": "assets/index-CPTXrYbr.js",
+    "file": "assets/index-DpR2Vq1B.js",
     "name": "index",
     "src": "src/app/screens/games-list/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_games-3TntT2oh.js",
-      "_proxy-CJUZ7ruv.js",
+      "_games-ee4G3ChW.js",
+      "_proxy-B4zRiZMa.js",
       "_GradientTitle-Cp4QZYuL.js"
     ]
   },
   "src/app/screens/home/index.ts": {
-    "file": "assets/index-CcP7kwoY.js",
+    "file": "assets/index-DWvHiRSv.js",
     "name": "index",
     "src": "src/app/screens/home/index.ts",
     "isDynamicEntry": true,
@@ -916,59 +916,59 @@
       "index.html",
       "_GradientTitle-Cp4QZYuL.js",
       "_ScreenGuard-Bk-G9wf8.js",
-      "_proxy-CJUZ7ruv.js",
-      "_games-3TntT2oh.js"
+      "_proxy-B4zRiZMa.js",
+      "_games-ee4G3ChW.js"
     ]
   },
   "src/app/screens/profile-select/index.ts": {
-    "file": "assets/index-VVvHHr9f.js",
+    "file": "assets/index-BHxEM1Wm.js",
     "name": "index",
     "src": "src/app/screens/profile-select/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_proxy-CJUZ7ruv.js",
+      "_proxy-B4zRiZMa.js",
       "_GradientTitle-Cp4QZYuL.js"
     ]
   },
   "src/app/screens/progress/index.ts": {
-    "file": "assets/index-CKF8X_3J.js",
+    "file": "assets/index-BPvirr2X.js",
     "name": "index",
     "src": "src/app/screens/progress/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_games-3TntT2oh.js",
+      "_games-ee4G3ChW.js",
       "_GradientTitle-Cp4QZYuL.js",
       "_ScreenGuard-Bk-G9wf8.js",
-      "_proxy-CJUZ7ruv.js"
+      "_proxy-B4zRiZMa.js"
     ]
   },
   "src/app/screens/settings/index.ts": {
-    "file": "assets/index-DrOeI_gf.js",
+    "file": "assets/index-B5xdWMsy.js",
     "name": "index",
     "src": "src/app/screens/settings/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_runtimeAdapters-B587bIes.js",
+      "_runtimeAdapters-B1iwmWrD.js",
       "_GradientTitle-Cp4QZYuL.js",
       "_ScreenGuard-Bk-G9wf8.js",
-      "_proxy-CJUZ7ruv.js"
+      "_proxy-B4zRiZMa.js"
     ]
   },
   "src/app/screens/welcome/index.ts": {
-    "file": "assets/index-D_B1Dn06.js",
+    "file": "assets/index-B839Etia.js",
     "name": "index",
     "src": "src/app/screens/welcome/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "_game-magisch-strand-avontuur-Bo4Ll3QZ.js",
       "index.html",
-      "_proxy-CJUZ7ruv.js"
+      "_proxy-B4zRiZMa.js"
     ]
   }
 }
