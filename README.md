@@ -66,3 +66,4 @@ Een nieuwe game levert `manifest.ts`, `index.tsx`, pure domeinregels, tests en e
 - [Gamecontract en toevoegproces](src/app/games/ARCHITECTURE.md)
 - [Gamedossier Magisch Strand-Avontuur](docs/magisch-strand-avontuur/GDD-index.md)
 - [Introductie voor logopedisten, ouders en leerkrachten](docs/magisch-strand-avontuur/Voor-begeleiders.md)
+- [Gamedossier Groot Circus-Avontuur (in aanbouw)](docs/groot-circus-avontuur/GDD-index.md)
