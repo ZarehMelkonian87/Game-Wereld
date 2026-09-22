@@ -2,7 +2,7 @@
 
 Status: geïmplementeerd op 23 juli 2026.
 
-De normatieve regels staan in [`docs/code-quality-and-architecture.md`](../../docs/code-quality-and-architecture.md). Dit document beschrijft uitsluitend de actuele hoofdstructuur.
+Dit document beschrijft de actuele hoofdstructuur van de app.
 
 ## Model
 

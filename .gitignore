@@ -14,3 +14,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 test-screenshot-*.png
+
+# Gegenereerd visueel testrapport (e2e/generate-visual-report.spec.ts)
+TEST_RAPPORT_MAGISCH_STRAND_AVONTUUR.html
+test-rapport-assets/

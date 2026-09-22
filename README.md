@@ -33,7 +33,7 @@ npm run check:dead-code
 npm run test:e2e -- --workers=1
 ```
 
-`npm run check` omvat formatting, lint, TypeScript, unit-/componenttests, asset-/securitytests en Dependency Cruiser. De normatieve standaard staat in [Code Quality & Architecture Requirements](docs/code-quality-and-architecture.md).
+`npm run check` omvat formatting, lint, TypeScript, unit-/componenttests, asset-/securitytests en Dependency Cruiser.
 
 ## Hoofdstructuur
 
@@ -64,5 +64,4 @@ Een nieuwe game levert `manifest.ts`, `index.tsx`, pure domeinregels, tests en e
 
 - [Actuele apparchitectuur](src/app/ARCHITECTURE.md)
 - [Gamecontract en toevoegproces](src/app/games/ARCHITECTURE.md)
-- [Architectuurvoorstel en implementatiestatus](docs/architecture-proposal/README.md)
-- [Release- en incidentrunbooks](docs/runbooks/release.md)
+- [Gamedossier Magisch Strand-Avontuur](docs/magisch-strand-avontuur/GDD-index.md)
