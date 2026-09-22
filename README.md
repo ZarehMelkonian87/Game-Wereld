@@ -5,7 +5,7 @@ Game Wereld is een offline-first React/Vite-PWA met lokale kinderprofielen en ze
 ## Beschikbare games
 
 - **Magisch Strand-Avontuur** — woordenschat, ruimtelijke relaties en meerdere spelmodi.
-- **Groot Circus-Avontuur**, **Rekenen**, **Taal & Lezen** en **Wereldoriëntatie** staan in de catalogus als "Binnenkort beschikbaar".
+- **Groot Circus-Avontuur** en vijf geplande werelden (Boerderij, Speeltuin, School, Ruimte, Dierentuin) staan in de catalogus als "Binnenkort beschikbaar", net als de zones Rekenen, Taal & Lezen en Wereldoriëntatie.
 
 Games registreren privacyveilige `PracticeEventV1`-observaties. Voortgang wordt centraal en herbouwbaar geprojecteerd; een game slaat geen kindnaam, transcript of pedagogisch eindlabel op.
 
@@ -67,3 +67,4 @@ Een nieuwe game levert `manifest.ts`, `index.tsx`, pure domeinregels, tests en e
 - [Gamedossier Magisch Strand-Avontuur](docs/magisch-strand-avontuur/GDD-index.md)
 - [Introductie voor logopedisten, ouders en leerkrachten](docs/magisch-strand-avontuur/Voor-begeleiders.md)
 - [Gamedossier Groot Circus-Avontuur (in aanbouw)](docs/groot-circus-avontuur/GDD-index.md)
+- Dossiers van de geplande werelden: [Boerderij](docs/vrolijke-boerderij-avontuur/GDD-index.md) · [Speeltuin](docs/zonnige-speeltuin-avontuur/GDD-index.md) · [School](docs/slimme-school-avontuur/GDD-index.md) · [Ruimte](docs/stoere-ruimte-avontuur/GDD-index.md) · [Dierentuin](docs/wilde-dierentuin-avontuur/GDD-index.md)
