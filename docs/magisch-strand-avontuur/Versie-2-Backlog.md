@@ -7,6 +7,20 @@
 | **Laatst bijgewerkt** | 2026-09-22               |
 | **Status**            | Backlog — nog te plannen |
 
+## Overzicht
+
+| Taak                                                                                                      | Prioriteit | Omvang                     |
+| :-------------------------------------------------------------------------------------------------------- | :--------- | :------------------------- |
+| [V2-01 Zeg & Bouw: plaatsen t.o.v. objecten](#v2-01--zeg--bouw-plaatsen-ten-opzichte-van-andere-objecten) | hoog       | middel                     |
+| [V2-06 iOS als geïnstalleerde app](#v2-06--ios-als-geïnstalleerde-app--spraak-meten-en-zo-nodig-oplossen) | hoog       | meten → klein/middel/groot |
+| [V2-02 Sterren uit Zeg & Vlieg](#v2-02--zeg--vlieg-draagt-sterren-bij-aan-het-profieltotaal)              | midden     | klein                      |
+| [V2-04 Eigen UX voor desktop](#v2-04--eigen-ux-voor-de-desktopbrowser)                                    | midden     | middel                     |
+| [V2-05 Regressie over alle viewports](#v2-05--regressieverificatie-over-alle-viewports)                   | midden     | middel                     |
+| [V2-03 Meer content en werelden](#v2-03--meer-content-woorden-werelden-en-opdrachten)                     | laag       | groot                      |
+| [V2-07 Wachttijd na spreken op Android](#v2-07--wachttijd-na-het-spreken-op-android)                      | laag       | onderzoek                  |
+| [V2-08 Audio-reactieve wave op mobiel](#v2-08--audio-reactieve-wave-op-mobiel)                            | laag       | onderzoek                  |
+| [V2-09 Twee kleine testgaten](#v2-09--twee-kleine-testgaten)                                              | laag       | klein                      |
+
 ---
 
 ## 1. Gameplay
@@ -45,11 +59,25 @@
 
 **Wat ontbreekt:** een automatische verificatie die per viewport (telefoon, tablet, desktop) bewijst dat de gate, de portret-guard en de gameplay zich gedragen zoals bedoeld. Nu draait de e2e-suite op één tabletviewport; desktopgedrag wordt handmatig gecontroleerd.
 
-### V2-06 · iOS als geïnstalleerde app
+### V2-06 · iOS als geïnstalleerde app — spraak meten en zo nodig oplossen
 
-**Wat ontbreekt:** bevestiging dat de spraakherkenning werkt in een iOS-app die vanaf het beginscherm is gestart. Op de iPhone is spraak in Safari bevestigd; Apple heeft de spraak-API in beginscherm-apps lange tijd niet beschikbaar gesteld.
+**Taak.** Vaststellen of de spraakherkenning werkt wanneer de game op een iPhone of iPad **vanaf het beginscherm** is gestart (geïnstalleerde PWA), en op basis daarvan de oplossing kiezen en bouwen.
 
-**Als het niet blijkt te werken, zijn de opties:** de spraakmodi op iOS in Safari laten draaien (met een "open in Safari"-knop), of eigen spraakherkenning in de browser via WebAssembly (bv. een Nederlands model van ±40 MB, offline, past in de download-gate). Cloud-spraakherkenning valt af: dat botst met de belofte dat er geen opnames de deur uitgaan.
+**Waarom:** op de iPhone is spraak bevestigd **in Safari**. De geïnstalleerde variant is niet apart gemeten, en Apple heeft de spraak-API in beginscherm-apps lange tijd niet aangeboden (WebKit-bug 225298, jarenlang zonder fix). Zolang dat onbekend is, weten we niet of een kind dat de app op het beginscherm zet ineens zonder spraak zit.
+
+**Stap 1 — meten (klein).** Op iPhone én iPad: app op het beginscherm zetten, openen, _Instellingen → Microfoon-diagnose_ doorlopen (vier stappen) en het rapport bewaren. Noteer de iOS-versie en of Dicteren aanstaat.
+
+**Stap 2 — oplossing kiezen, afhankelijk van de uitkomst:**
+
+| Uitkomst                                    | Oplossing                                                                                                                                               | Omvang |
+| :------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------ | :----- |
+| Werkt gewoon                                | Niets bouwen; het rapport in de Test-matrix vastleggen                                                                                                  | klein  |
+| API ontbreekt of de sessie blijft hangen    | **A.** Spraakmodi op iOS in Safari laten draaien: een duidelijke "Open in Safari"-knop bij de microfoon, of de app op iOS niet als standalone aanbieden | middel |
+| Idem, en het beginscherm-icoon moet blijven | **B.** Eigen spraakherkenning in de browser via WebAssembly (Nederlands model ±40 MB, offline, past binnen de download-gate)                            | groot  |
+
+Cloud-spraakherkenning valt in beide gevallen af: die botst met de belofte dat er geen opnames het apparaat verlaten, en met offline spelen.
+
+**Klaar wanneer:** er per iOS-variant een diagnoserapport is, de keuze is vastgelegd in [ADR-006](../architectuur/adr-006-spraakherkenning.md), en een kind op iOS elke spraakmodus kan spelen — of een begrijpelijke uitleg krijgt hoe dat wél kan.
 
 ---
 
