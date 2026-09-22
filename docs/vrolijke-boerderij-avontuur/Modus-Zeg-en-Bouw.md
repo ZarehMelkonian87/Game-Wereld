@@ -14,7 +14,7 @@
 | Kaart                  | Opdracht                                         | Doel | Passende objecten          |
 | :--------------------- | :----------------------------------------------- | :--: | :------------------------- |
 | `build-weidedieren`    | Maak een wei vol dieren! Zet 3 dieren in de wei. |  3   | koe, paard, schaap, varken |
-| `build-erfdieren`      | Zet 2 dieren op het erf.                         |  2   | kip, hond, kat, eend       |
+| `build-erfdieren`      | Zet 2 dieren op het erf.                         |  2   | geit, ezel, konijn, eend   |
 | `build-werkspullen`    | Zet 2 dingen neer waarmee de boer werkt.         |  2   | tractor, kruiwagen, emmer  |
 | `build-etenstijd`      | Zet 2 dingen neer die met eten te maken hebben.  |  2   | appel, emmer, hooibaal     |
 | `build-jouw-boerderij` | Maak jouw mooiste boerderij! Kies zelf 3 dingen. |  3   | alles mag                  |

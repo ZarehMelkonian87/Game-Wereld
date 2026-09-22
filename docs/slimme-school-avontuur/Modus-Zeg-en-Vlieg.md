@@ -11,7 +11,7 @@
 
 ## School-eigen
 
-**8 woorden om te benoemen:** boek · pen · bal · jas · klok · stoel · tafel · schaar
+**8 woorden om te benoemen:** boek · pen · gum · jas · klok · stoel · tafel · schaar
 
 **Vier obstakels om te tekenen** (taak A-02):
 

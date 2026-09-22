@@ -2,7 +2,7 @@ import { normalizeSpokenCommand } from "../../logic/spoken-command-parser";
 
 export const VOICE_SIDE_SCROLLER_WORD_ALIASES = {
   aap: ["aap", "apen", "aapje", "aapjes", "chimpansee"],
-  bal: ["bal", "ballen", "balletje", "balletjes", "jongleerbal"],
+  kegel: ["kegel", "kegels", "kegeltje", "kegeltjes", "jongleerkegel"],
   ballon: ["ballon", "ballonnen", "ballonnetje", "luchtballon"],
   beer: ["beer", "beren", "beertje", "teddybeer"],
   big: ["big", "biggen", "biggetje", "varken", "varkens"],

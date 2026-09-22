@@ -11,16 +11,16 @@
 
 ## Speeltuin-eigen
 
-**8 woorden om te benoemen:** bal · boom · fiets · step · vogel · vlinder · emmer · schep
+**8 woorden om te benoemen:** bloem · boom · fiets · step · vogel · vlinder · schep · bank
 
 **Vier obstakels om te tekenen** (taak A-02):
 
-| Bestandsnaam           | Wat je ziet             |
-| :--------------------- | :---------------------- |
-| `vlieger-obstacle.png` | een losgeraakte vlieger |
-| `boomtak-obstacle.png` | een dikke boomtak       |
-| `ballon-obstacle.png`  | een wegzwevende ballon  |
-| `wolk-obstacle.png`    | een dikke witte wolk    |
+| Bestandsnaam            | Wat je ziet                   |
+| :---------------------- | :---------------------------- |
+| `vlieger-obstacle.png`  | een losgeraakte vlieger       |
+| `boomtak-obstacle.png`  | een dikke boomtak             |
+| `bladeren-obstacle.png` | een wolk dwarrelende bladeren |
+| `wolk-obstacle.png`     | een dikke witte wolk          |
 
 De vlucht speelt zich af in deze wereld; daarvoor is één brede achtergrond nodig (taak A-05).
 

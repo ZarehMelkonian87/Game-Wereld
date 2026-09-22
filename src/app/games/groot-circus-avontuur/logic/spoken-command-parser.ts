@@ -29,7 +29,7 @@ export interface SpokenCommandParseResult {
 const customObjectAliases: Record<string, readonly string[]> = {
   aap: ["apen", "aapje", "chimpansee"],
   acrobaat: ["acrobaten", "acrobatje", "turner", "koorddanser"],
-  bal: ["ballen", "balletje", "jongleerbal"],
+  kegel: ["jongleerkegel", "kegeltje"],
   ballon: ["ballonnen", "ballonnetje", "luchtballon"],
   beer: ["beren", "beertje", "teddybeer", "bruine beer"],
   big: ["biggen", "biggetje", "varken", "varkens"],

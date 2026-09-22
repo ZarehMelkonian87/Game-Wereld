@@ -28,7 +28,7 @@ Daarbij kiest elke wereld een eigen **woordveld**, zodat een kind niet steeds de
 
 ## Wat deze wereld aanbiedt
 
-**14 woorden**, verdeeld over: **dieren**: giraf, olifant, leeuw, aap, zebra, pinguïn, slang, beer, krokodil, papegaai, nijlpaard · **natuur**: boom · **decor**: hek · **spullen**: emmer.
+**14 woorden**, verdeeld over: **dieren**: giraf, neushoorn, tijger, flamingo, zebra, pinguïn, slang, schildpad, krokodil, papegaai, nijlpaard · **natuur**: palm · **decor**: hek · **spullen**: voerbak.
 
 **14 quizvragen** om te herkennen, **16 opdrachten** om uit te voeren, **5 bouwkaarten** om zelf iets te maken, en **8 woorden** om hardop te benoemen tijdens het vliegen.
 

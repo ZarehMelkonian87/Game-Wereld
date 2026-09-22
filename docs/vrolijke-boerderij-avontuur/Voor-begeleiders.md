@@ -28,7 +28,7 @@ Daarbij kiest elke wereld een eigen **woordveld**, zodat een kind niet steeds de
 
 ## Wat deze wereld aanbiedt
 
-**14 woorden**, verdeeld over: **dieren**: koe, kip, paard, varken, schaap, eend, hond, kat · **voertuigen**: tractor, kruiwagen · **boerderijspullen**: emmer, hooibaal · **eten**: appel · **plekken**: schuur.
+**14 woorden**, verdeeld over: **dieren**: koe, geit, paard, varken, schaap, eend, ezel, konijn · **voertuigen**: tractor, kruiwagen · **boerderijspullen**: emmer, hooibaal · **eten**: appel · **plekken**: schuur.
 
 **14 quizvragen** om te herkennen, **16 opdrachten** om uit te voeren, **5 bouwkaarten** om zelf iets te maken, en **8 woorden** om hardop te benoemen tijdens het vliegen.
 

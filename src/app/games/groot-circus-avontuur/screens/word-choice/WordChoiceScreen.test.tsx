@@ -33,7 +33,7 @@ const mockInstructions: VocabularyChoiceInstruction[] = [
     targetZoneIds: [],
   },
   {
-    answerOptions: ["eenwieler", "bal"],
+    answerOptions: ["eenwieler", "kegel"],
     audioText: "Waar is de eenwieler?",
     choiceCount: 2,
     distractorStrategy: "same-theme",

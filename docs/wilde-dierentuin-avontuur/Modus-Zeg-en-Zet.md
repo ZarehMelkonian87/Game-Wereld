@@ -13,7 +13,7 @@
 
 - **16 opdrachten** (`lp-001` … `lp-016`), oplopend: niveau 1 statisch in één zone, niveau 2 lateraal, niveau 3 relationeel met ankerobjecten.
 - Voorbeeld niveau 1: _"Zet de krokodil in de vijver."_ → nazegzin _"De krokodil ligt in de vijver."_.
-- Voorbeeld niveau 3: _"Zet de aap tussen de boom en het hek."_.
+- Voorbeeld niveau 3: _"Zet de schildpad tussen de palm en het hek."_.
 - De plekken zijn dierentuin-eigen; zie de [woordenlijst](Woordenlijst.md) voor de volledige lijst.
 
 ## Wat er moet gebeuren

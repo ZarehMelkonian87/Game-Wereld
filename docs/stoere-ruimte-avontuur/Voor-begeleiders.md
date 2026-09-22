@@ -28,7 +28,7 @@ Daarbij kiest elke wereld een eigen **woordveld**, zodat een kind niet steeds de
 
 ## Wat deze wereld aanbiedt
 
-**14 woorden**, verdeeld over: **voertuigen**: raket, satelliet · **hemellichamen**: maan, ster, zon, planeet, aarde, komeet · **personen**: astronaut, robot · **ruimtespullen**: helm, vlag, steen, bal.
+**14 woorden**, verdeeld over: **voertuigen**: raket, satelliet · **hemellichamen**: maan, ster, planeet, aarde, komeet · **ruimtespullen**: telescoop, helm, ruimtepak, steen · **personen**: astronaut, robot, marsmannetje.
 
 **14 quizvragen** om te herkennen, **16 opdrachten** om uit te voeren, **5 bouwkaarten** om zelf iets te maken, en **8 woorden** om hardop te benoemen tijdens het vliegen.
 

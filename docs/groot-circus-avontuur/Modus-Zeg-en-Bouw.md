@@ -15,7 +15,7 @@
 | Kaart                 | Opdracht                                                   | Doel | Passende objecten                        |
 | :-------------------- | :--------------------------------------------------------- | :--: | :--------------------------------------- |
 | `build-dierenshow`    | Maak een dierenshow! Zet 3 dieren in de piste.             |  3   | leeuw, olifant, aap, beer, zeehond, hond |
-| `build-clownsshow`    | Maak een clownsshow! Zet 2 dingen van de clown neer.       |  2   | clown, bal, hoepel                       |
+| `build-clownsshow`    | Maak een clownsshow! Zet 2 dingen van de clown neer.       |  2   | clown, kegel, hoepel                     |
 | `build-kleine-dieren` | Zet 3 kleine dieren op de vloer.                           |  3   | muis, poes, kip, big, hond               |
 | `build-hoog-in-tent`  | Wat hangt er hoog in de tent? Zet 2 dingen boven de piste. |  2   | ballon, acrobaat, vlag                   |
 | `build-jouw-circus`   | Maak jouw mooiste circus! Kies zelf 3 dingen.              |  3   | alles mag                                |

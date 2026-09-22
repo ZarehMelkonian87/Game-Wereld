@@ -53,7 +53,7 @@ Het ontwerp staat al in de [woordenlijst](Woordenlijst.md); deze fase is het inv
 | Kaart                  | Opdracht                                         | Doel | Passende objecten          |
 | :--------------------- | :----------------------------------------------- | :--: | :------------------------- |
 | `build-weidedieren`    | Maak een wei vol dieren! Zet 3 dieren in de wei. |  3   | koe, paard, schaap, varken |
-| `build-erfdieren`      | Zet 2 dieren op het erf.                         |  2   | kip, hond, kat, eend       |
+| `build-erfdieren`      | Zet 2 dieren op het erf.                         |  2   | geit, ezel, konijn, eend   |
 | `build-werkspullen`    | Zet 2 dingen neer waarmee de boer werkt.         |  2   | tractor, kruiwagen, emmer  |
 | `build-etenstijd`      | Zet 2 dingen neer die met eten te maken hebben.  |  2   | appel, emmer, hooibaal     |
 | `build-jouw-boerderij` | Maak jouw mooiste boerderij! Kies zelf 3 dingen. |  3   | alles mag                  |
@@ -86,10 +86,10 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | lp-004 | `lp-004-hint-01-zoek-de-schuur.mp4`                                | Zoek de schuur.                               | De objectbalk onderin; de schuur licht op en wipt even.                                      |
 | lp-004 | `lp-004-hint-02-kijk-naar-schuur.mp4`                              | Kijk naar het plaatje dat oplicht: schuur.    | Alleen de schuur blijft helder, de rest vervaagt.                                            |
 | lp-004 | `lp-004-feedback-de-schuur-staat-op-het-erf.mp4`                   | De schuur staat op het erf.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-005 | `lp-005-opdracht-zet-de-kip-op-het-erf.mp4`                        | Zet de kip op het erf.                        | De wereld met de kip in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-005 | `lp-005-hint-01-zoek-de-kip.mp4`                                   | Zoek de kip.                                  | De objectbalk onderin; de kip licht op en wipt even.                                         |
-| lp-005 | `lp-005-hint-02-kijk-naar-kip.mp4`                                 | Kijk naar het plaatje dat oplicht: kip.       | Alleen de kip blijft helder, de rest vervaagt.                                               |
-| lp-005 | `lp-005-feedback-de-kip-scharrelt-op-het-erf.mp4`                  | De kip scharrelt op het erf.                  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
+| lp-005 | `lp-005-opdracht-zet-de-geit-op-het-erf.mp4`                       | Zet de geit op het erf.                       | De wereld met de geit in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
+| lp-005 | `lp-005-hint-01-zoek-de-geit.mp4`                                  | Zoek de geit.                                 | De objectbalk onderin; de geit licht op en wipt even.                                        |
+| lp-005 | `lp-005-hint-02-kijk-naar-geit.mp4`                                | Kijk naar het plaatje dat oplicht: geit.      | Alleen de geit blijft helder, de rest vervaagt.                                              |
+| lp-005 | `lp-005-feedback-de-geit-staat-op-het-erf.mp4`                     | De geit staat op het erf.                     | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
 | lp-006 | `lp-006-opdracht-zet-het-paard-in-de-wei.mp4`                      | Zet het paard in de wei.                      | De wereld met het paard in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
 | lp-006 | `lp-006-hint-01-zoek-het-paard.mp4`                                | Zoek het paard.                               | De objectbalk onderin; het paard licht op en wipt even.                                      |
 | lp-006 | `lp-006-hint-02-kijk-naar-paard.mp4`                               | Kijk naar het plaatje dat oplicht: paard.     | Alleen het paard blijft helder, de rest vervaagt.                                            |
@@ -98,14 +98,14 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | lp-007 | `lp-007-hint-01-zoek-de-emmer.mp4`                                 | Zoek de emmer.                                | De objectbalk onderin; de emmer licht op en wipt even.                                       |
 | lp-007 | `lp-007-hint-02-kijk-naar-emmer.mp4`                               | Kijk naar het plaatje dat oplicht: emmer.     | Alleen de emmer blijft helder, de rest vervaagt.                                             |
 | lp-007 | `lp-007-feedback-de-emmer-staat-op-het-erf.mp4`                    | De emmer staat op het erf.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-008 | `lp-008-opdracht-zet-de-kat-op-de-hooibaal.mp4`                    | Zet de kat op de hooibaal.                    | De wereld met de kat in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-008 | `lp-008-hint-01-zoek-de-kat.mp4`                                   | Zoek de kat.                                  | De objectbalk onderin; de kat licht op en wipt even.                                         |
-| lp-008 | `lp-008-hint-02-kijk-naar-kat.mp4`                                 | Kijk naar het plaatje dat oplicht: kat.       | Alleen de kat blijft helder, de rest vervaagt.                                               |
-| lp-008 | `lp-008-feedback-de-kat-zit-op-de-hooibaal.mp4`                    | De kat zit op de hooibaal.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-009 | `lp-009-opdracht-zet-de-hond-naast-de-kruiwagen.mp4`               | Zet de hond naast de kruiwagen.               | De wereld met de hond in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-009 | `lp-009-hint-01-zoek-de-hond.mp4`                                  | Zoek de hond.                                 | De objectbalk onderin; de hond licht op en wipt even.                                        |
-| lp-009 | `lp-009-hint-02-kijk-naar-hond.mp4`                                | Kijk naar het plaatje dat oplicht: hond.      | Alleen de hond blijft helder, de rest vervaagt.                                              |
-| lp-009 | `lp-009-feedback-de-hond-zit-naast-de-kruiwagen.mp4`               | De hond zit naast de kruiwagen.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
+| lp-008 | `lp-008-opdracht-zet-het-konijn-op-de-hooibaal.mp4`                | Zet het konijn op de hooibaal.                | De wereld met het konijn in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-008 | `lp-008-hint-01-zoek-het-konijn.mp4`                               | Zoek het konijn.                              | De objectbalk onderin; het konijn licht op en wipt even.                                     |
+| lp-008 | `lp-008-hint-02-kijk-naar-konijn.mp4`                              | Kijk naar het plaatje dat oplicht: konijn.    | Alleen het konijn blijft helder, de rest vervaagt.                                           |
+| lp-008 | `lp-008-feedback-het-konijn-zit-op-de-hooibaal.mp4`                | Het konijn zit op de hooibaal.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
+| lp-009 | `lp-009-opdracht-zet-de-ezel-naast-de-kruiwagen.mp4`               | Zet de ezel naast de kruiwagen.               | De wereld met de ezel in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
+| lp-009 | `lp-009-hint-01-zoek-de-ezel.mp4`                                  | Zoek de ezel.                                 | De objectbalk onderin; de ezel licht op en wipt even.                                        |
+| lp-009 | `lp-009-hint-02-kijk-naar-ezel.mp4`                                | Kijk naar het plaatje dat oplicht: ezel.      | Alleen de ezel blijft helder, de rest vervaagt.                                              |
+| lp-009 | `lp-009-feedback-de-ezel-staat-naast-de-kruiwagen.mp4`             | De ezel staat naast de kruiwagen.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
 | lp-010 | `lp-010-opdracht-zet-het-schaap-rechts-op-het-erf.mp4`             | Zet het schaap rechts op het erf.             | De wereld met het schaap in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
 | lp-010 | `lp-010-hint-01-zoek-het-schaap.mp4`                               | Zoek het schaap.                              | De objectbalk onderin; het schaap licht op en wipt even.                                     |
 | lp-010 | `lp-010-hint-02-kijk-naar-schaap.mp4`                              | Kijk naar het plaatje dat oplicht: schaap.    | Alleen het schaap blijft helder, de rest vervaagt.                                           |
@@ -140,12 +140,12 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | ID     | Bestandsnaam                               | Gesproken tekst       | Wat je in beeld ziet                                                      |
 | :----- | :----------------------------------------- | :-------------------- | :------------------------------------------------------------------------ |
 | cw-001 | `cw-001-opdracht-waar-is-de-koe.mp4`       | Waar is de koe?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-002 | `cw-002-opdracht-waar-is-de-kip.mp4`       | Waar is de kip?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-002 | `cw-002-opdracht-waar-is-de-geit.mp4`      | Waar is de geit?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-003 | `cw-003-opdracht-waar-is-de-tractor.mp4`   | Waar is de tractor?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-004 | `cw-004-opdracht-waar-is-het-paard.mp4`    | Waar is het paard?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-005 | `cw-005-opdracht-waar-is-de-eend.mp4`      | Waar is de eend?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-006 | `cw-006-opdracht-waar-is-de-hond.mp4`      | Waar is de hond?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-007 | `cw-007-opdracht-waar-is-de-kat.mp4`       | Waar is de kat?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-006 | `cw-006-opdracht-waar-is-de-ezel.mp4`      | Waar is de ezel?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-007 | `cw-007-opdracht-waar-is-het-konijn.mp4`   | Waar is het konijn?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-008 | `cw-008-opdracht-waar-is-de-schuur.mp4`    | Waar is de schuur?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-009 | `cw-009-opdracht-waar-is-het-varken.mp4`   | Waar is het varken?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-010 | `cw-010-opdracht-waar-is-het-schaap.mp4`   | Waar is het schaap?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
@@ -173,29 +173,29 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.4 Afbeeldingen en geluid
 
-| Taak     | Type | Wat                                                                                                                            | Status |
-| :------- | :--: | :----------------------------------------------------------------------------------------------------------------------------- | :----: |
-| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                                          |   ⬜   |
-| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                                                    |   ⬜   |
-| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                                             |   ⬜   |
-| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond                                  |   ⬜   |
-| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`src/app/games/catalog-assets/worlds/world-farm.webp`); een startlogo moet nog |   ⬜   |
-| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0)                         |   ⬜   |
-| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                                            |   ⬜   |
-| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                                                  |   ⬜   |
+| Taak     | Type | Wat                                                                                                    | Status |
+| :------- | :--: | :----------------------------------------------------------------------------------------------------- | :----: |
+| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                  |   ⬜   |
+| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                            |   ⬜   |
+| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                     |   ⬜   |
+| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond          |   ⬜   |
+| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`world-boerderij.webp`); een startlogo moet nog        |   ⬜   |
+| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0) |   ⬜   |
+| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                    |   ⬜   |
+| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                          |   ⬜   |
 
 #### Stickers (A-01)
 
 | Bestandsnaam               | Woord     | Wat erop staat                      |
 | :------------------------- | :-------- | :---------------------------------- |
 | `cow-sticker.webp`         | koe       | Een koe die in de wei staat.        |
-| `chicken-sticker.webp`     | kip       | Een kip die op het erf scharrelt.   |
+| `goat-sticker.webp`        | geit      | Een geit die gras eet.              |
 | `horse-sticker.webp`       | paard     | Een paard dat door de wei draaft.   |
 | `pig-sticker.webp`         | varken    | Een roze varken bij de schuur.      |
 | `sheep-sticker.webp`       | schaap    | Een wollig schaap in de wei.        |
 | `duck-sticker.webp`        | eend      | Een eend die in de vijver zwemt.    |
-| `dog-sticker.webp`         | hond      | De waakhond van de boerderij.       |
-| `cat-sticker.webp`         | kat       | Een kat die op het hek zit.         |
+| `donkey-sticker.webp`      | ezel      | Een ezel met lange oren.            |
+| `rabbit-sticker.webp`      | konijn    | Een konijn dat huppelt.             |
 | `tractor-sticker.webp`     | tractor   | Een tractor die over het erf rijdt. |
 | `wheelbarrow-sticker.webp` | kruiwagen | Een kruiwagen vol hooi.             |
 | `bucket-sticker.webp`      | emmer     | Een emmer met melk.                 |

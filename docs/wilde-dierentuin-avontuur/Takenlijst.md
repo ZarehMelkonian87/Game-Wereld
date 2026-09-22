@@ -50,13 +50,13 @@ Het ontwerp staat al in de [woordenlijst](Woordenlijst.md); deze fase is het inv
 
 ### 2.1 De vijf bouwkaarten
 
-| Kaart                   | Opdracht                                          | Doel | Passende objecten                  |
-| :---------------------- | :------------------------------------------------ | :--: | :--------------------------------- |
-| `build-waterdieren`     | Zet 2 dieren in de vijver.                        |  2   | krokodil, nijlpaard, pinguin       |
-| `build-grotedieren`     | Zet 3 grote dieren op het gras.                   |  3   | giraf, olifant, leeuw, beer, zebra |
-| `build-klimmers`        | Zet 2 dieren neer die klimmen of vliegen.         |  2   | aap, papegaai, slang               |
-| `build-verblijf`        | Zet 2 dingen neer die bij het verblijf horen.     |  2   | hek, boom, emmer, rots             |
-| `build-jouw-dierentuin` | Maak jouw mooiste dierentuin! Kies zelf 3 dieren. |  3   | alles mag                          |
+| Kaart                   | Opdracht                                          | Doel | Passende objecten                      |
+| :---------------------- | :------------------------------------------------ | :--: | :------------------------------------- |
+| `build-waterdieren`     | Zet 2 dieren in de vijver.                        |  2   | krokodil, nijlpaard, pinguin, flamingo |
+| `build-grotedieren`     | Zet 3 grote dieren op het gras.                   |  3   | giraf, neushoorn, tijger, zebra        |
+| `build-klimmers`        | Zet 2 dieren neer die kruipen of vliegen.         |  2   | papegaai, slang, schildpad             |
+| `build-verblijf`        | Zet 2 dingen neer die bij het verblijf horen.     |  2   | hek, palm, voerbak                     |
+| `build-jouw-dierentuin` | Maak jouw mooiste dierentuin! Kies zelf 3 dieren. |  3   | alles mag                              |
 
 ---
 
@@ -74,34 +74,34 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | lp-001 | `lp-001-hint-01-zoek-de-krokodil.mp4`                            | Zoek de krokodil.                             | De objectbalk onderin; de krokodil licht op en wipt even.                                     |
 | lp-001 | `lp-001-hint-02-kijk-naar-krokodil.mp4`                          | Kijk naar het plaatje dat oplicht: krokodil.  | Alleen de krokodil blijft helder, de rest vervaagt.                                           |
 | lp-001 | `lp-001-feedback-de-krokodil-ligt-in-de-vijver.mp4`              | De krokodil ligt in de vijver.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-002 | `lp-002-opdracht-zet-de-leeuw-op-de-rots.mp4`                    | Zet de leeuw op de rots.                      | De wereld met de leeuw in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-002 | `lp-002-hint-01-zoek-de-leeuw.mp4`                               | Zoek de leeuw.                                | De objectbalk onderin; de leeuw licht op en wipt even.                                        |
-| lp-002 | `lp-002-hint-02-kijk-naar-leeuw.mp4`                             | Kijk naar het plaatje dat oplicht: leeuw.     | Alleen de leeuw blijft helder, de rest vervaagt.                                              |
-| lp-002 | `lp-002-feedback-de-leeuw-ligt-op-de-rots.mp4`                   | De leeuw ligt op de rots.                     | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-002 | `lp-002-opdracht-zet-de-tijger-op-de-rots.mp4`                   | Zet de tijger op de rots.                     | De wereld met de tijger in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-002 | `lp-002-hint-01-zoek-de-tijger.mp4`                              | Zoek de tijger.                               | De objectbalk onderin; de tijger licht op en wipt even.                                       |
+| lp-002 | `lp-002-hint-02-kijk-naar-tijger.mp4`                            | Kijk naar het plaatje dat oplicht: tijger.    | Alleen de tijger blijft helder, de rest vervaagt.                                             |
+| lp-002 | `lp-002-feedback-de-tijger-ligt-op-de-rots.mp4`                  | De tijger ligt op de rots.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
 | lp-003 | `lp-003-opdracht-zet-de-giraf-op-het-gras.mp4`                   | Zet de giraf op het gras.                     | De wereld met de giraf in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
 | lp-003 | `lp-003-hint-01-zoek-de-giraf.mp4`                               | Zoek de giraf.                                | De objectbalk onderin; de giraf licht op en wipt even.                                        |
 | lp-003 | `lp-003-hint-02-kijk-naar-giraf.mp4`                             | Kijk naar het plaatje dat oplicht: giraf.     | Alleen de giraf blijft helder, de rest vervaagt.                                              |
 | lp-003 | `lp-003-feedback-de-giraf-staat-op-het-gras.mp4`                 | De giraf staat op het gras.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-004 | `lp-004-opdracht-zet-de-olifant-op-het-gras.mp4`                 | Zet de olifant op het gras.                   | De wereld met de olifant in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-004 | `lp-004-hint-01-zoek-de-olifant.mp4`                             | Zoek de olifant.                              | De objectbalk onderin; de olifant licht op en wipt even.                                      |
-| lp-004 | `lp-004-hint-02-kijk-naar-olifant.mp4`                           | Kijk naar het plaatje dat oplicht: olifant.   | Alleen de olifant blijft helder, de rest vervaagt.                                            |
-| lp-004 | `lp-004-feedback-de-olifant-staat-op-het-gras.mp4`               | De olifant staat op het gras.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-005 | `lp-005-opdracht-zet-de-papegaai-boven-de-dierentuin.mp4`        | Zet de papegaai boven de dierentuin.          | De wereld met de papegaai in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-005 | `lp-005-hint-01-zoek-de-papegaai.mp4`                            | Zoek de papegaai.                             | De objectbalk onderin; de papegaai licht op en wipt even.                                     |
-| lp-005 | `lp-005-hint-02-kijk-naar-papegaai.mp4`                          | Kijk naar het plaatje dat oplicht: papegaai.  | Alleen de papegaai blijft helder, de rest vervaagt.                                           |
-| lp-005 | `lp-005-feedback-de-papegaai-vliegt-boven-de-dierentuin.mp4`     | De papegaai vliegt boven de dierentuin.       | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-004 | `lp-004-opdracht-zet-de-neushoorn-op-het-gras.mp4`               | Zet de neushoorn op het gras.                 | De wereld met de neushoorn in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
+| lp-004 | `lp-004-hint-01-zoek-de-neushoorn.mp4`                           | Zoek de neushoorn.                            | De objectbalk onderin; de neushoorn licht op en wipt even.                                    |
+| lp-004 | `lp-004-hint-02-kijk-naar-neushoorn.mp4`                         | Kijk naar het plaatje dat oplicht: neushoorn. | Alleen de neushoorn blijft helder, de rest vervaagt.                                          |
+| lp-004 | `lp-004-feedback-de-neushoorn-staat-op-het-gras.mp4`             | De neushoorn staat op het gras.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-005 | `lp-005-opdracht-zet-de-flamingo-boven-de-dierentuin.mp4`        | Zet de flamingo boven de dierentuin.          | De wereld met de flamingo in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-005 | `lp-005-hint-01-zoek-de-flamingo.mp4`                            | Zoek de flamingo.                             | De objectbalk onderin; de flamingo licht op en wipt even.                                     |
+| lp-005 | `lp-005-hint-02-kijk-naar-flamingo.mp4`                          | Kijk naar het plaatje dat oplicht: flamingo.  | Alleen de flamingo blijft helder, de rest vervaagt.                                           |
+| lp-005 | `lp-005-feedback-de-flamingo-vliegt-boven-de-dierentuin.mp4`     | De flamingo vliegt boven de dierentuin.       | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
 | lp-006 | `lp-006-opdracht-zet-het-nijlpaard-in-de-vijver.mp4`             | Zet het nijlpaard in de vijver.               | De wereld met het nijlpaard in de objectbalk; een hand pakt het en zet het op de juiste plek. |
 | lp-006 | `lp-006-hint-01-zoek-het-nijlpaard.mp4`                          | Zoek het nijlpaard.                           | De objectbalk onderin; het nijlpaard licht op en wipt even.                                   |
 | lp-006 | `lp-006-hint-02-kijk-naar-nijlpaard.mp4`                         | Kijk naar het plaatje dat oplicht: nijlpaard. | Alleen het nijlpaard blijft helder, de rest vervaagt.                                         |
 | lp-006 | `lp-006-feedback-het-nijlpaard-ligt-in-de-vijver.mp4`            | Het nijlpaard ligt in de vijver.              | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-007 | `lp-007-opdracht-zet-de-boom-op-het-gras.mp4`                    | Zet de boom op het gras.                      | De wereld met de boom in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-007 | `lp-007-hint-01-zoek-de-boom.mp4`                                | Zoek de boom.                                 | De objectbalk onderin; de boom licht op en wipt even.                                         |
-| lp-007 | `lp-007-hint-02-kijk-naar-boom.mp4`                              | Kijk naar het plaatje dat oplicht: boom.      | Alleen de boom blijft helder, de rest vervaagt.                                               |
-| lp-007 | `lp-007-feedback-de-boom-staat-op-het-gras.mp4`                  | De boom staat op het gras.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-008 | `lp-008-opdracht-zet-de-aap-op-de-boom.mp4`                      | Zet de aap op de boom.                        | De wereld met de aap in de objectbalk; een hand pakt het en zet het op de juiste plek.        |
-| lp-008 | `lp-008-hint-01-zoek-de-aap.mp4`                                 | Zoek de aap.                                  | De objectbalk onderin; de aap licht op en wipt even.                                          |
-| lp-008 | `lp-008-hint-02-kijk-naar-aap.mp4`                               | Kijk naar het plaatje dat oplicht: aap.       | Alleen de aap blijft helder, de rest vervaagt.                                                |
-| lp-008 | `lp-008-feedback-de-aap-zit-op-de-boom.mp4`                      | De aap zit op de boom.                        | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-007 | `lp-007-opdracht-zet-de-palm-op-het-gras.mp4`                    | Zet de palm op het gras.                      | De wereld met de palm in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
+| lp-007 | `lp-007-hint-01-zoek-de-palm.mp4`                                | Zoek de palm.                                 | De objectbalk onderin; de palm licht op en wipt even.                                         |
+| lp-007 | `lp-007-hint-02-kijk-naar-palm.mp4`                              | Kijk naar het plaatje dat oplicht: palm.      | Alleen de palm blijft helder, de rest vervaagt.                                               |
+| lp-007 | `lp-007-feedback-de-palm-staat-op-het-gras.mp4`                  | De palm staat op het gras.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-008 | `lp-008-opdracht-zet-de-papegaai-op-de-palm.mp4`                 | Zet de papegaai op de palm.                   | De wereld met de papegaai in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-008 | `lp-008-hint-01-zoek-de-papegaai.mp4`                            | Zoek de papegaai.                             | De objectbalk onderin; de papegaai licht op en wipt even.                                     |
+| lp-008 | `lp-008-hint-02-kijk-naar-papegaai.mp4`                          | Kijk naar het plaatje dat oplicht: papegaai.  | Alleen de papegaai blijft helder, de rest vervaagt.                                           |
+| lp-008 | `lp-008-feedback-de-papegaai-zit-op-de-palm.mp4`                 | De papegaai zit op de palm.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
 | lp-009 | `lp-009-opdracht-leg-de-slang-naast-de-rots.mp4`                 | Leg de slang naast de rots.                   | De wereld met de slang in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
 | lp-009 | `lp-009-hint-01-zoek-de-slang.mp4`                               | Zoek de slang.                                | De objectbalk onderin; de slang licht op en wipt even.                                        |
 | lp-009 | `lp-009-hint-02-kijk-naar-slang.mp4`                             | Kijk naar het plaatje dat oplicht: slang.     | Alleen de slang blijft helder, de rest vervaagt.                                              |
@@ -118,41 +118,41 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | lp-012 | `lp-012-hint-01-zoek-het-hek.mp4`                                | Zoek het hek.                                 | De objectbalk onderin; het hek licht op en wipt even.                                         |
 | lp-012 | `lp-012-hint-02-kijk-naar-hek.mp4`                               | Kijk naar het plaatje dat oplicht: hek.       | Alleen het hek blijft helder, de rest vervaagt.                                               |
 | lp-012 | `lp-012-feedback-het-hek-staat-midden-op-het-gras.mp4`           | Het hek staat midden op het gras.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-013 | `lp-013-opdracht-zet-de-beer-links-bij-de-vijver.mp4`            | Zet de beer links bij de vijver.              | De wereld met de beer in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-013 | `lp-013-hint-01-zoek-de-beer.mp4`                                | Zoek de beer.                                 | De objectbalk onderin; de beer licht op en wipt even.                                         |
-| lp-013 | `lp-013-hint-02-kijk-naar-beer.mp4`                              | Kijk naar het plaatje dat oplicht: beer.      | Alleen de beer blijft helder, de rest vervaagt.                                               |
-| lp-013 | `lp-013-feedback-de-beer-staat-links-bij-de-vijver.mp4`          | De beer staat links bij de vijver.            | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-013 | `lp-013-opdracht-zet-de-voerbak-links-bij-de-vijver.mp4`         | Zet de voerbak links bij de vijver.           | De wereld met de voerbak in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-013 | `lp-013-hint-01-zoek-de-voerbak.mp4`                             | Zoek de voerbak.                              | De objectbalk onderin; de voerbak licht op en wipt even.                                      |
+| lp-013 | `lp-013-hint-02-kijk-naar-voerbak.mp4`                           | Kijk naar het plaatje dat oplicht: voerbak.   | Alleen de voerbak blijft helder, de rest vervaagt.                                            |
+| lp-013 | `lp-013-feedback-de-voerbak-staat-links-bij-de-vijver.mp4`       | De voerbak staat links bij de vijver.         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
 | lp-014 | `lp-014-opdracht-zet-de-papegaai-ver-weg-boven-de-vijver.mp4`    | Zet de papegaai ver weg boven de vijver.      | De wereld met de papegaai in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
 | lp-014 | `lp-014-hint-01-zoek-de-papegaai.mp4`                            | Zoek de papegaai.                             | De objectbalk onderin; de papegaai licht op en wipt even.                                     |
 | lp-014 | `lp-014-hint-02-kijk-naar-papegaai.mp4`                          | Kijk naar het plaatje dat oplicht: papegaai.  | Alleen de papegaai blijft helder, de rest vervaagt.                                           |
 | lp-014 | `lp-014-feedback-de-papegaai-vliegt-ver-weg-boven-de-vijver.mp4` | De papegaai vliegt ver weg boven de vijver.   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-015 | `lp-015-opdracht-zet-de-emmer-dichtbij-de-olifant.mp4`           | Zet de emmer dichtbij de olifant.             | De wereld met de emmer in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-015 | `lp-015-hint-01-zoek-de-emmer.mp4`                               | Zoek de emmer.                                | De objectbalk onderin; de emmer licht op en wipt even.                                        |
-| lp-015 | `lp-015-hint-02-kijk-naar-emmer.mp4`                             | Kijk naar het plaatje dat oplicht: emmer.     | Alleen de emmer blijft helder, de rest vervaagt.                                              |
-| lp-015 | `lp-015-feedback-de-emmer-staat-dichtbij-de-olifant.mp4`         | De emmer staat dichtbij de olifant.           | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
-| lp-016 | `lp-016-opdracht-zet-de-aap-tussen-de-boom-en-het-hek.mp4`       | Zet de aap tussen de boom en het hek.         | De wereld met de aap in de objectbalk; een hand pakt het en zet het op de juiste plek.        |
-| lp-016 | `lp-016-hint-01-zoek-de-aap.mp4`                                 | Zoek de aap.                                  | De objectbalk onderin; de aap licht op en wipt even.                                          |
-| lp-016 | `lp-016-hint-02-kijk-naar-aap.mp4`                               | Kijk naar het plaatje dat oplicht: aap.       | Alleen de aap blijft helder, de rest vervaagt.                                                |
-| lp-016 | `lp-016-feedback-de-aap-zit-tussen-de-boom-en-het-hek.mp4`       | De aap zit tussen de boom en het hek.         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-015 | `lp-015-opdracht-zet-de-voerbak-dichtbij-de-neushoorn.mp4`       | Zet de voerbak dichtbij de neushoorn.         | De wereld met de voerbak in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-015 | `lp-015-hint-01-zoek-de-voerbak.mp4`                             | Zoek de voerbak.                              | De objectbalk onderin; de voerbak licht op en wipt even.                                      |
+| lp-015 | `lp-015-hint-02-kijk-naar-voerbak.mp4`                           | Kijk naar het plaatje dat oplicht: voerbak.   | Alleen de voerbak blijft helder, de rest vervaagt.                                            |
+| lp-015 | `lp-015-feedback-de-voerbak-staat-dichtbij-de-neushoorn.mp4`     | De voerbak staat dichtbij de neushoorn.       | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
+| lp-016 | `lp-016-opdracht-zet-de-schildpad-tussen-de-palm-en-het-hek.mp4` | Zet de schildpad tussen de palm en het hek.   | De wereld met de schildpad in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
+| lp-016 | `lp-016-hint-01-zoek-de-schildpad.mp4`                           | Zoek de schildpad.                            | De objectbalk onderin; de schildpad licht op en wipt even.                                    |
+| lp-016 | `lp-016-hint-02-kijk-naar-schildpad.mp4`                         | Kijk naar het plaatje dat oplicht: schildpad. | Alleen de schildpad blijft helder, de rest vervaagt.                                          |
+| lp-016 | `lp-016-feedback-de-schildpad-zit-tussen-de-palm-en-het-hek.mp4` | De schildpad zit tussen de palm en het hek.   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                      |
 
 ### 3.2 Video's bij de quizvragen — 14 clips
 
 | ID     | Bestandsnaam                                | Gesproken tekst        | Wat je in beeld ziet                                                      |
 | :----- | :------------------------------------------ | :--------------------- | :------------------------------------------------------------------------ |
-| cw-001 | `cw-001-opdracht-waar-is-de-leeuw.mp4`      | Waar is de leeuw?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-002 | `cw-002-opdracht-waar-is-de-aap.mp4`        | Waar is de aap?        | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-001 | `cw-001-opdracht-waar-is-de-tijger.mp4`     | Waar is de tijger?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-002 | `cw-002-opdracht-waar-is-het-hek.mp4`       | Waar is het hek?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-003 | `cw-003-opdracht-waar-is-de-giraf.mp4`      | Waar is de giraf?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-004 | `cw-004-opdracht-waar-is-de-zebra.mp4`      | Waar is de zebra?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-005 | `cw-005-opdracht-waar-is-de-slang.mp4`      | Waar is de slang?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-006 | `cw-006-opdracht-waar-is-de-beer.mp4`       | Waar is de beer?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-007 | `cw-007-opdracht-waar-is-de-olifant.mp4`    | Waar is de olifant?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-008 | `cw-008-opdracht-waar-is-de-boom.mp4`       | Waar is de boom?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-006 | `cw-006-opdracht-waar-is-de-schildpad.mp4`  | Waar is de schildpad?  | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-007 | `cw-007-opdracht-waar-is-de-neushoorn.mp4`  | Waar is de neushoorn?  | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-008 | `cw-008-opdracht-waar-is-de-palm.mp4`       | Waar is de palm?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-009 | `cw-009-opdracht-waar-is-de-pinguin.mp4`    | Waar is de pinguïn?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-010 | `cw-010-opdracht-waar-is-de-krokodil.mp4`   | Waar is de krokodil?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-011 | `cw-011-opdracht-waar-is-het-nijlpaard.mp4` | Waar is het nijlpaard? | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-012 | `cw-012-opdracht-waar-is-de-papegaai.mp4`   | Waar is de papegaai?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-013 | `cw-013-opdracht-waar-is-het-hek.mp4`       | Waar is het hek?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-014 | `cw-014-opdracht-waar-is-de-emmer.mp4`      | Waar is de emmer?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-013 | `cw-013-opdracht-waar-is-de-flamingo.mp4`   | Waar is de flamingo?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-014 | `cw-014-opdracht-waar-is-de-voerbak.mp4`    | Waar is de voerbak?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 
 ### 3.3 Gedeelde video's — 12 clips
 
@@ -173,35 +173,35 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.4 Afbeeldingen en geluid
 
-| Taak     | Type | Wat                                                                                                                           | Status |
-| :------- | :--: | :---------------------------------------------------------------------------------------------------------------------------- | :----: |
-| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                                         |   ⬜   |
-| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                                                   |   ⬜   |
-| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                                            |   ⬜   |
-| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond                                 |   ⬜   |
-| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`src/app/games/catalog-assets/worlds/world-zoo.webp`); een startlogo moet nog |   ⬜   |
-| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0)                        |   ⬜   |
-| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                                           |   ⬜   |
-| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                                                 |   ⬜   |
+| Taak     | Type | Wat                                                                                                    | Status |
+| :------- | :--: | :----------------------------------------------------------------------------------------------------- | :----: |
+| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                  |   ⬜   |
+| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                            |   ⬜   |
+| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                     |   ⬜   |
+| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond          |   ⬜   |
+| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`world-dierentuin.webp`); een startlogo moet nog       |   ⬜   |
+| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0) |   ⬜   |
+| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                    |   ⬜   |
+| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                          |   ⬜   |
 
 #### Stickers (A-01)
 
-| Bestandsnaam             | Woord     | Wat erop staat                |
-| :----------------------- | :-------- | :---------------------------- |
-| `giraffe-sticker.webp`   | giraf     | Een giraf met een lange nek.  |
-| `elephant-sticker.webp`  | olifant   | Een olifant met een slurf.    |
-| `lion-sticker.webp`      | leeuw     | Een leeuw met een manen.      |
-| `monkey-sticker.webp`    | aap       | Een aap die in de boom klimt. |
-| `zebra-sticker.webp`     | zebra     | Een zebra met strepen.        |
-| `penguin-sticker.webp`   | pinguïn   | Een pinguïn die waggelt.      |
-| `snake-sticker.webp`     | slang     | Een slang die kronkelt.       |
-| `bear-sticker.webp`      | beer      | Een grote bruine beer.        |
-| `crocodile-sticker.webp` | krokodil  | Een krokodil in het water.    |
-| `parrot-sticker.webp`    | papegaai  | Een kleurige papegaai.        |
-| `hippo-sticker.webp`     | nijlpaard | Een nijlpaard in de vijver.   |
-| `tree-sticker.webp`      | boom      | Een hoge boom met bladeren.   |
-| `fence-sticker.webp`     | hek       | Een hek om het verblijf.      |
-| `bucket-sticker.webp`    | emmer     | Een emmer met dierenvoer.     |
+| Bestandsnaam             | Woord     | Wat erop staat                    |
+| :----------------------- | :-------- | :-------------------------------- |
+| `giraffe-sticker.webp`   | giraf     | Een giraf met een lange nek.      |
+| `rhino-sticker.webp`     | neushoorn | Een neushoorn met een hoorn.      |
+| `tiger-sticker.webp`     | tijger    | Een tijger met strepen.           |
+| `flamingo-sticker.webp`  | flamingo  | Een roze flamingo op één poot.    |
+| `zebra-sticker.webp`     | zebra     | Een zebra met strepen.            |
+| `penguin-sticker.webp`   | pinguïn   | Een pinguïn die waggelt.          |
+| `snake-sticker.webp`     | slang     | Een slang die kronkelt.           |
+| `turtle-sticker.webp`    | schildpad | Een schildpad met een schild.     |
+| `crocodile-sticker.webp` | krokodil  | Een krokodil in het water.        |
+| `parrot-sticker.webp`    | papegaai  | Een kleurige papegaai.            |
+| `hippo-sticker.webp`     | nijlpaard | Een nijlpaard in de vijver.       |
+| `palm-sticker.webp`      | palm      | Een hoge palm met grote bladeren. |
+| `fence-sticker.webp`     | hek       | Een hek om het verblijf.          |
+| `feeder-sticker.webp`    | voerbak   | Een voerbak met dierenvoer.       |
 
 #### Obstakels (A-02)
 
@@ -216,13 +216,13 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 | Drempel | Bestandsnaam                 |
 | :------ | :--------------------------- |
-| 3 ⭐    | `reward-01-sticker-aap`      |
+| 3 ⭐    | `reward-01-sticker-giraf`    |
 | 8 ⭐    | `reward-02-hekkleur-groen`   |
-| 16 ⭐   | `reward-03-sticker-giraf`    |
+| 16 ⭐   | `reward-03-sticker-zebra`    |
 | 28 ⭐   | `reward-04-voetsporen-spoor` |
 | 42 ⭐   | `reward-05-dierentuinbezem`  |
-| 60 ⭐   | `reward-06-sticker-leeuw`    |
-| 85 ⭐   | `reward-07-gouden-leeuw`     |
+| 60 ⭐   | `reward-06-sticker-tijger`   |
+| 85 ⭐   | `reward-07-gouden-tijger`    |
 
 ### 3.5 Productievolgorde
 

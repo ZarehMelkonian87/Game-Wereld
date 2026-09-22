@@ -50,13 +50,13 @@ Het ontwerp staat al in de [woordenlijst](Woordenlijst.md); deze fase is het inv
 
 ### 2.1 De vijf bouwkaarten
 
-| Kaart               | Opdracht                                           | Doel | Passende objecten                |
-| :------------------ | :------------------------------------------------- | :--: | :------------------------------- |
-| `build-hemel`       | Zet 3 dingen aan de hemel.                         |  3   | ster, maan, zon, planeet, komeet |
-| `build-reizen`      | Zet 2 dingen neer waarmee je door de ruimte reist. |  2   | raket, satelliet                 |
-| `build-maanbezoek`  | Zet 2 dingen op de maan.                           |  2   | astronaut, vlag, robot, steen    |
-| `build-uitrusting`  | Zet 2 spullen van de astronaut neer.               |  2   | helm, vlag, bal, steen           |
-| `build-jouw-ruimte` | Maak jouw mooiste heelal! Kies zelf 3 dingen.      |  3   | alles mag                        |
+| Kaart               | Opdracht                                           | Doel | Passende objecten                     |
+| :------------------ | :------------------------------------------------- | :--: | :------------------------------------ |
+| `build-hemel`       | Zet 3 dingen aan de hemel.                         |  3   | ster, maan, planeet, komeet, aarde    |
+| `build-reizen`      | Zet 2 dingen neer waarmee je door de ruimte reist. |  2   | raket, satelliet                      |
+| `build-maanbezoek`  | Zet 2 dingen op de maan.                           |  2   | astronaut, marsmannetje, robot, steen |
+| `build-uitrusting`  | Zet 2 spullen van de astronaut neer.               |  2   | helm, ruimtepak, telescoop            |
+| `build-jouw-ruimte` | Maak jouw mooiste heelal! Kies zelf 3 dingen.      |  3   | alles mag                             |
 
 ---
 
@@ -68,91 +68,91 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.1 Video's bij de plaatsingsopdrachten — 16 × 4 = 64 clips
 
-| ID     | Bestandsnaam                                                  | Gesproken tekst                               | Wat je in beeld ziet                                                                         |
-| :----- | :------------------------------------------------------------ | :-------------------------------------------- | :------------------------------------------------------------------------------------------- |
-| lp-001 | `lp-001-opdracht-zet-de-raket-op-de-grond.mp4`                | Zet de raket op de grond.                     | De wereld met de raket in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
-| lp-001 | `lp-001-hint-01-zoek-de-raket.mp4`                            | Zoek de raket.                                | De objectbalk onderin; de raket licht op en wipt even.                                       |
-| lp-001 | `lp-001-hint-02-kijk-naar-raket.mp4`                          | Kijk naar het plaatje dat oplicht: raket.     | Alleen de raket blijft helder, de rest vervaagt.                                             |
-| lp-001 | `lp-001-feedback-de-raket-staat-op-de-grond.mp4`              | De raket staat op de grond.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-002 | `lp-002-opdracht-zet-de-ster-in-de-hemel.mp4`                 | Zet de ster in de hemel.                      | De wereld met de ster in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-002 | `lp-002-hint-01-zoek-de-ster.mp4`                             | Zoek de ster.                                 | De objectbalk onderin; de ster licht op en wipt even.                                        |
-| lp-002 | `lp-002-hint-02-kijk-naar-ster.mp4`                           | Kijk naar het plaatje dat oplicht: ster.      | Alleen de ster blijft helder, de rest vervaagt.                                              |
-| lp-002 | `lp-002-feedback-de-ster-staat-in-de-hemel.mp4`               | De ster staat in de hemel.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-003 | `lp-003-opdracht-zet-de-astronaut-op-de-maanvlakte.mp4`       | Zet de astronaut op de maanvlakte.            | De wereld met de astronaut in de objectbalk; een hand pakt het en zet het op de juiste plek. |
-| lp-003 | `lp-003-hint-01-zoek-de-astronaut.mp4`                        | Zoek de astronaut.                            | De objectbalk onderin; de astronaut licht op en wipt even.                                   |
-| lp-003 | `lp-003-hint-02-kijk-naar-astronaut.mp4`                      | Kijk naar het plaatje dat oplicht: astronaut. | Alleen de astronaut blijft helder, de rest vervaagt.                                         |
-| lp-003 | `lp-003-feedback-de-astronaut-loopt-op-de-maanvlakte.mp4`     | De astronaut loopt op de maanvlakte.          | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-004 | `lp-004-opdracht-zet-de-vlag-op-de-maanvlakte.mp4`            | Zet de vlag op de maanvlakte.                 | De wereld met de vlag in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-004 | `lp-004-hint-01-zoek-de-vlag.mp4`                             | Zoek de vlag.                                 | De objectbalk onderin; de vlag licht op en wipt even.                                        |
-| lp-004 | `lp-004-hint-02-kijk-naar-vlag.mp4`                           | Kijk naar het plaatje dat oplicht: vlag.      | Alleen de vlag blijft helder, de rest vervaagt.                                              |
-| lp-004 | `lp-004-feedback-de-vlag-staat-op-de-maanvlakte.mp4`          | De vlag staat op de maanvlakte.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-005 | `lp-005-opdracht-leg-de-steen-in-de-krater.mp4`               | Leg de steen in de krater.                    | De wereld met de steen in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
-| lp-005 | `lp-005-hint-01-zoek-de-steen.mp4`                            | Zoek de steen.                                | De objectbalk onderin; de steen licht op en wipt even.                                       |
-| lp-005 | `lp-005-hint-02-kijk-naar-steen.mp4`                          | Kijk naar het plaatje dat oplicht: steen.     | Alleen de steen blijft helder, de rest vervaagt.                                             |
-| lp-005 | `lp-005-feedback-de-steen-ligt-in-de-krater.mp4`              | De steen ligt in de krater.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-006 | `lp-006-opdracht-zet-de-robot-op-de-grond.mp4`                | Zet de robot op de grond.                     | De wereld met de robot in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
-| lp-006 | `lp-006-hint-01-zoek-de-robot.mp4`                            | Zoek de robot.                                | De objectbalk onderin; de robot licht op en wipt even.                                       |
-| lp-006 | `lp-006-hint-02-kijk-naar-robot.mp4`                          | Kijk naar het plaatje dat oplicht: robot.     | Alleen de robot blijft helder, de rest vervaagt.                                             |
-| lp-006 | `lp-006-feedback-de-robot-staat-op-de-grond.mp4`              | De robot staat op de grond.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-007 | `lp-007-opdracht-zet-de-maan-boven-de-maanvlakte.mp4`         | Zet de maan boven de maanvlakte.              | De wereld met de maan in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-007 | `lp-007-hint-01-zoek-de-maan.mp4`                             | Zoek de maan.                                 | De objectbalk onderin; de maan licht op en wipt even.                                        |
-| lp-007 | `lp-007-hint-02-kijk-naar-maan.mp4`                           | Kijk naar het plaatje dat oplicht: maan.      | Alleen de maan blijft helder, de rest vervaagt.                                              |
-| lp-007 | `lp-007-feedback-de-maan-staat-boven-de-maanvlakte.mp4`       | De maan staat boven de maanvlakte.            | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-008 | `lp-008-opdracht-zet-de-helm-op-de-steen.mp4`                 | Zet de helm op de steen.                      | De wereld met de helm in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-008 | `lp-008-hint-01-zoek-de-helm.mp4`                             | Zoek de helm.                                 | De objectbalk onderin; de helm licht op en wipt even.                                        |
-| lp-008 | `lp-008-hint-02-kijk-naar-helm.mp4`                           | Kijk naar het plaatje dat oplicht: helm.      | Alleen de helm blijft helder, de rest vervaagt.                                              |
-| lp-008 | `lp-008-feedback-de-helm-staat-op-de-steen.mp4`               | De helm staat op de steen.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-009 | `lp-009-opdracht-leg-de-bal-naast-de-robot.mp4`               | Leg de bal naast de robot.                    | De wereld met de bal in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-009 | `lp-009-hint-01-zoek-de-bal.mp4`                              | Zoek de bal.                                  | De objectbalk onderin; de bal licht op en wipt even.                                         |
-| lp-009 | `lp-009-hint-02-kijk-naar-bal.mp4`                            | Kijk naar het plaatje dat oplicht: bal.       | Alleen de bal blijft helder, de rest vervaagt.                                               |
-| lp-009 | `lp-009-feedback-de-bal-ligt-naast-de-robot.mp4`              | De bal ligt naast de robot.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-010 | `lp-010-opdracht-zet-de-aarde-rechts-in-beeld.mp4`            | Zet de aarde rechts in beeld.                 | De wereld met de aarde in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
-| lp-010 | `lp-010-hint-01-zoek-de-aarde.mp4`                            | Zoek de aarde.                                | De objectbalk onderin; de aarde licht op en wipt even.                                       |
-| lp-010 | `lp-010-hint-02-kijk-naar-aarde.mp4`                          | Kijk naar het plaatje dat oplicht: aarde.     | Alleen de aarde blijft helder, de rest vervaagt.                                             |
-| lp-010 | `lp-010-feedback-de-aarde-staat-rechts-in-beeld.mp4`          | De aarde staat rechts in beeld.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-011 | `lp-011-opdracht-zet-de-zon-boven-de-maanvlakte.mp4`          | Zet de zon boven de maanvlakte.               | De wereld met de zon in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
-| lp-011 | `lp-011-hint-01-zoek-de-zon.mp4`                              | Zoek de zon.                                  | De objectbalk onderin; de zon licht op en wipt even.                                         |
-| lp-011 | `lp-011-hint-02-kijk-naar-zon.mp4`                            | Kijk naar het plaatje dat oplicht: zon.       | Alleen de zon blijft helder, de rest vervaagt.                                               |
-| lp-011 | `lp-011-feedback-de-zon-staat-boven-de-maanvlakte.mp4`        | De zon staat boven de maanvlakte.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-012 | `lp-012-opdracht-zet-de-satelliet-midden-in-beeld.mp4`        | Zet de satelliet midden in beeld.             | De wereld met de satelliet in de objectbalk; een hand pakt het en zet het op de juiste plek. |
-| lp-012 | `lp-012-hint-01-zoek-de-satelliet.mp4`                        | Zoek de satelliet.                            | De objectbalk onderin; de satelliet licht op en wipt even.                                   |
-| lp-012 | `lp-012-hint-02-kijk-naar-satelliet.mp4`                      | Kijk naar het plaatje dat oplicht: satelliet. | Alleen de satelliet blijft helder, de rest vervaagt.                                         |
-| lp-012 | `lp-012-feedback-de-satelliet-zweeft-midden-in-beeld.mp4`     | De satelliet zweeft midden in beeld.          | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-013 | `lp-013-opdracht-zet-de-planeet-links-in-de-hemel.mp4`        | Zet de planeet links in de hemel.             | De wereld met de planeet in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-013 | `lp-013-hint-01-zoek-de-planeet.mp4`                          | Zoek de planeet.                              | De objectbalk onderin; de planeet licht op en wipt even.                                     |
-| lp-013 | `lp-013-hint-02-kijk-naar-planeet.mp4`                        | Kijk naar het plaatje dat oplicht: planeet.   | Alleen de planeet blijft helder, de rest vervaagt.                                           |
-| lp-013 | `lp-013-feedback-de-planeet-staat-links-in-de-hemel.mp4`      | De planeet staat links in de hemel.           | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-014 | `lp-014-opdracht-zet-de-komeet-ver-weg-in-de-hemel.mp4`       | Zet de komeet ver weg in de hemel.            | De wereld met de komeet in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-014 | `lp-014-hint-01-zoek-de-komeet.mp4`                           | Zoek de komeet.                               | De objectbalk onderin; de komeet licht op en wipt even.                                      |
-| lp-014 | `lp-014-hint-02-kijk-naar-komeet.mp4`                         | Kijk naar het plaatje dat oplicht: komeet.    | Alleen de komeet blijft helder, de rest vervaagt.                                            |
-| lp-014 | `lp-014-feedback-de-komeet-vliegt-ver-weg-in-de-hemel.mp4`    | De komeet vliegt ver weg in de hemel.         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-015 | `lp-015-opdracht-leg-de-steen-dichtbij-de-raket.mp4`          | Leg de steen dichtbij de raket.               | De wereld met de steen in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
-| lp-015 | `lp-015-hint-01-zoek-de-steen.mp4`                            | Zoek de steen.                                | De objectbalk onderin; de steen licht op en wipt even.                                       |
-| lp-015 | `lp-015-hint-02-kijk-naar-steen.mp4`                          | Kijk naar het plaatje dat oplicht: steen.     | Alleen de steen blijft helder, de rest vervaagt.                                             |
-| lp-015 | `lp-015-feedback-de-steen-ligt-dichtbij-de-raket.mp4`         | De steen ligt dichtbij de raket.              | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
-| lp-016 | `lp-016-opdracht-zet-de-helm-tussen-de-bal-en-de-steen.mp4`   | Zet de helm tussen de bal en de steen.        | De wereld met de helm in de objectbalk; een hand pakt het en zet het op de juiste plek.      |
-| lp-016 | `lp-016-hint-01-zoek-de-helm.mp4`                             | Zoek de helm.                                 | De objectbalk onderin; de helm licht op en wipt even.                                        |
-| lp-016 | `lp-016-hint-02-kijk-naar-helm.mp4`                           | Kijk naar het plaatje dat oplicht: helm.      | Alleen de helm blijft helder, de rest vervaagt.                                              |
-| lp-016 | `lp-016-feedback-de-helm-staat-tussen-de-bal-en-de-steen.mp4` | De helm staat tussen de bal en de steen.      | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                     |
+| ID     | Bestandsnaam                                                            | Gesproken tekst                                    | Wat je in beeld ziet                                                                             |
+| :----- | :---------------------------------------------------------------------- | :------------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| lp-001 | `lp-001-opdracht-zet-de-raket-op-de-grond.mp4`                          | Zet de raket op de grond.                          | De wereld met de raket in de objectbalk; een hand pakt het en zet het op de juiste plek.         |
+| lp-001 | `lp-001-hint-01-zoek-de-raket.mp4`                                      | Zoek de raket.                                     | De objectbalk onderin; de raket licht op en wipt even.                                           |
+| lp-001 | `lp-001-hint-02-kijk-naar-raket.mp4`                                    | Kijk naar het plaatje dat oplicht: raket.          | Alleen de raket blijft helder, de rest vervaagt.                                                 |
+| lp-001 | `lp-001-feedback-de-raket-staat-op-de-grond.mp4`                        | De raket staat op de grond.                        | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-002 | `lp-002-opdracht-zet-de-ster-in-de-hemel.mp4`                           | Zet de ster in de hemel.                           | De wereld met de ster in de objectbalk; een hand pakt het en zet het op de juiste plek.          |
+| lp-002 | `lp-002-hint-01-zoek-de-ster.mp4`                                       | Zoek de ster.                                      | De objectbalk onderin; de ster licht op en wipt even.                                            |
+| lp-002 | `lp-002-hint-02-kijk-naar-ster.mp4`                                     | Kijk naar het plaatje dat oplicht: ster.           | Alleen de ster blijft helder, de rest vervaagt.                                                  |
+| lp-002 | `lp-002-feedback-de-ster-staat-in-de-hemel.mp4`                         | De ster staat in de hemel.                         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-003 | `lp-003-opdracht-zet-de-astronaut-op-de-maanvlakte.mp4`                 | Zet de astronaut op de maanvlakte.                 | De wereld met de astronaut in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-003 | `lp-003-hint-01-zoek-de-astronaut.mp4`                                  | Zoek de astronaut.                                 | De objectbalk onderin; de astronaut licht op en wipt even.                                       |
+| lp-003 | `lp-003-hint-02-kijk-naar-astronaut.mp4`                                | Kijk naar het plaatje dat oplicht: astronaut.      | Alleen de astronaut blijft helder, de rest vervaagt.                                             |
+| lp-003 | `lp-003-feedback-de-astronaut-loopt-op-de-maanvlakte.mp4`               | De astronaut loopt op de maanvlakte.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-004 | `lp-004-opdracht-leg-het-ruimtepak-op-de-maanvlakte.mp4`                | Leg het ruimtepak op de maanvlakte.                | De wereld met het ruimtepak in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-004 | `lp-004-hint-01-zoek-het-ruimtepak.mp4`                                 | Zoek het ruimtepak.                                | De objectbalk onderin; het ruimtepak licht op en wipt even.                                      |
+| lp-004 | `lp-004-hint-02-kijk-naar-ruimtepak.mp4`                                | Kijk naar het plaatje dat oplicht: ruimtepak.      | Alleen het ruimtepak blijft helder, de rest vervaagt.                                            |
+| lp-004 | `lp-004-feedback-het-ruimtepak-ligt-op-de-maanvlakte.mp4`               | Het ruimtepak ligt op de maanvlakte.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-005 | `lp-005-opdracht-leg-de-steen-in-de-krater.mp4`                         | Leg de steen in de krater.                         | De wereld met de steen in de objectbalk; een hand pakt het en zet het op de juiste plek.         |
+| lp-005 | `lp-005-hint-01-zoek-de-steen.mp4`                                      | Zoek de steen.                                     | De objectbalk onderin; de steen licht op en wipt even.                                           |
+| lp-005 | `lp-005-hint-02-kijk-naar-steen.mp4`                                    | Kijk naar het plaatje dat oplicht: steen.          | Alleen de steen blijft helder, de rest vervaagt.                                                 |
+| lp-005 | `lp-005-feedback-de-steen-ligt-in-de-krater.mp4`                        | De steen ligt in de krater.                        | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-006 | `lp-006-opdracht-zet-de-robot-op-de-grond.mp4`                          | Zet de robot op de grond.                          | De wereld met de robot in de objectbalk; een hand pakt het en zet het op de juiste plek.         |
+| lp-006 | `lp-006-hint-01-zoek-de-robot.mp4`                                      | Zoek de robot.                                     | De objectbalk onderin; de robot licht op en wipt even.                                           |
+| lp-006 | `lp-006-hint-02-kijk-naar-robot.mp4`                                    | Kijk naar het plaatje dat oplicht: robot.          | Alleen de robot blijft helder, de rest vervaagt.                                                 |
+| lp-006 | `lp-006-feedback-de-robot-staat-op-de-grond.mp4`                        | De robot staat op de grond.                        | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-007 | `lp-007-opdracht-zet-de-maan-boven-de-maanvlakte.mp4`                   | Zet de maan boven de maanvlakte.                   | De wereld met de maan in de objectbalk; een hand pakt het en zet het op de juiste plek.          |
+| lp-007 | `lp-007-hint-01-zoek-de-maan.mp4`                                       | Zoek de maan.                                      | De objectbalk onderin; de maan licht op en wipt even.                                            |
+| lp-007 | `lp-007-hint-02-kijk-naar-maan.mp4`                                     | Kijk naar het plaatje dat oplicht: maan.           | Alleen de maan blijft helder, de rest vervaagt.                                                  |
+| lp-007 | `lp-007-feedback-de-maan-staat-boven-de-maanvlakte.mp4`                 | De maan staat boven de maanvlakte.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-008 | `lp-008-opdracht-zet-de-helm-op-de-steen.mp4`                           | Zet de helm op de steen.                           | De wereld met de helm in de objectbalk; een hand pakt het en zet het op de juiste plek.          |
+| lp-008 | `lp-008-hint-01-zoek-de-helm.mp4`                                       | Zoek de helm.                                      | De objectbalk onderin; de helm licht op en wipt even.                                            |
+| lp-008 | `lp-008-hint-02-kijk-naar-helm.mp4`                                     | Kijk naar het plaatje dat oplicht: helm.           | Alleen de helm blijft helder, de rest vervaagt.                                                  |
+| lp-008 | `lp-008-feedback-de-helm-staat-op-de-steen.mp4`                         | De helm staat op de steen.                         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-009 | `lp-009-opdracht-zet-het-marsmannetje-naast-de-robot.mp4`               | Zet het marsmannetje naast de robot.               | De wereld met het marsmannetje in de objectbalk; een hand pakt het en zet het op de juiste plek. |
+| lp-009 | `lp-009-hint-01-zoek-het-marsmannetje.mp4`                              | Zoek het marsmannetje.                             | De objectbalk onderin; het marsmannetje licht op en wipt even.                                   |
+| lp-009 | `lp-009-hint-02-kijk-naar-marsmannetje.mp4`                             | Kijk naar het plaatje dat oplicht: marsmannetje.   | Alleen het marsmannetje blijft helder, de rest vervaagt.                                         |
+| lp-009 | `lp-009-feedback-het-marsmannetje-staat-naast-de-robot.mp4`             | Het marsmannetje staat naast de robot.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-010 | `lp-010-opdracht-zet-de-aarde-rechts-in-beeld.mp4`                      | Zet de aarde rechts in beeld.                      | De wereld met de aarde in de objectbalk; een hand pakt het en zet het op de juiste plek.         |
+| lp-010 | `lp-010-hint-01-zoek-de-aarde.mp4`                                      | Zoek de aarde.                                     | De objectbalk onderin; de aarde licht op en wipt even.                                           |
+| lp-010 | `lp-010-hint-02-kijk-naar-aarde.mp4`                                    | Kijk naar het plaatje dat oplicht: aarde.          | Alleen de aarde blijft helder, de rest vervaagt.                                                 |
+| lp-010 | `lp-010-feedback-de-aarde-staat-rechts-in-beeld.mp4`                    | De aarde staat rechts in beeld.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-011 | `lp-011-opdracht-zet-de-telescoop-op-de-grond.mp4`                      | Zet de telescoop op de grond.                      | De wereld met de telescoop in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-011 | `lp-011-hint-01-zoek-de-telescoop.mp4`                                  | Zoek de telescoop.                                 | De objectbalk onderin; de telescoop licht op en wipt even.                                       |
+| lp-011 | `lp-011-hint-02-kijk-naar-telescoop.mp4`                                | Kijk naar het plaatje dat oplicht: telescoop.      | Alleen de telescoop blijft helder, de rest vervaagt.                                             |
+| lp-011 | `lp-011-feedback-de-telescoop-staat-op-de-grond.mp4`                    | De telescoop staat op de grond.                    | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-012 | `lp-012-opdracht-zet-de-satelliet-midden-in-beeld.mp4`                  | Zet de satelliet midden in beeld.                  | De wereld met de satelliet in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-012 | `lp-012-hint-01-zoek-de-satelliet.mp4`                                  | Zoek de satelliet.                                 | De objectbalk onderin; de satelliet licht op en wipt even.                                       |
+| lp-012 | `lp-012-hint-02-kijk-naar-satelliet.mp4`                                | Kijk naar het plaatje dat oplicht: satelliet.      | Alleen de satelliet blijft helder, de rest vervaagt.                                             |
+| lp-012 | `lp-012-feedback-de-satelliet-zweeft-midden-in-beeld.mp4`               | De satelliet zweeft midden in beeld.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-013 | `lp-013-opdracht-zet-de-planeet-links-in-de-hemel.mp4`                  | Zet de planeet links in de hemel.                  | De wereld met de planeet in de objectbalk; een hand pakt het en zet het op de juiste plek.       |
+| lp-013 | `lp-013-hint-01-zoek-de-planeet.mp4`                                    | Zoek de planeet.                                   | De objectbalk onderin; de planeet licht op en wipt even.                                         |
+| lp-013 | `lp-013-hint-02-kijk-naar-planeet.mp4`                                  | Kijk naar het plaatje dat oplicht: planeet.        | Alleen de planeet blijft helder, de rest vervaagt.                                               |
+| lp-013 | `lp-013-feedback-de-planeet-staat-links-in-de-hemel.mp4`                | De planeet staat links in de hemel.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-014 | `lp-014-opdracht-zet-de-komeet-ver-weg-in-de-hemel.mp4`                 | Zet de komeet ver weg in de hemel.                 | De wereld met de komeet in de objectbalk; een hand pakt het en zet het op de juiste plek.        |
+| lp-014 | `lp-014-hint-01-zoek-de-komeet.mp4`                                     | Zoek de komeet.                                    | De objectbalk onderin; de komeet licht op en wipt even.                                          |
+| lp-014 | `lp-014-hint-02-kijk-naar-komeet.mp4`                                   | Kijk naar het plaatje dat oplicht: komeet.         | Alleen de komeet blijft helder, de rest vervaagt.                                                |
+| lp-014 | `lp-014-feedback-de-komeet-vliegt-ver-weg-in-de-hemel.mp4`              | De komeet vliegt ver weg in de hemel.              | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-015 | `lp-015-opdracht-leg-de-steen-dichtbij-de-raket.mp4`                    | Leg de steen dichtbij de raket.                    | De wereld met de steen in de objectbalk; een hand pakt het en zet het op de juiste plek.         |
+| lp-015 | `lp-015-hint-01-zoek-de-steen.mp4`                                      | Zoek de steen.                                     | De objectbalk onderin; de steen licht op en wipt even.                                           |
+| lp-015 | `lp-015-hint-02-kijk-naar-steen.mp4`                                    | Kijk naar het plaatje dat oplicht: steen.          | Alleen de steen blijft helder, de rest vervaagt.                                                 |
+| lp-015 | `lp-015-feedback-de-steen-ligt-dichtbij-de-raket.mp4`                   | De steen ligt dichtbij de raket.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
+| lp-016 | `lp-016-opdracht-zet-de-helm-tussen-het-marsmannetje-en-de-steen.mp4`   | Zet de helm tussen het marsmannetje en de steen.   | De wereld met de helm in de objectbalk; een hand pakt het en zet het op de juiste plek.          |
+| lp-016 | `lp-016-hint-01-zoek-de-helm.mp4`                                       | Zoek de helm.                                      | De objectbalk onderin; de helm licht op en wipt even.                                            |
+| lp-016 | `lp-016-hint-02-kijk-naar-helm.mp4`                                     | Kijk naar het plaatje dat oplicht: helm.           | Alleen de helm blijft helder, de rest vervaagt.                                                  |
+| lp-016 | `lp-016-feedback-de-helm-staat-tussen-het-marsmannetje-en-de-steen.mp4` | De helm staat tussen het marsmannetje en de steen. | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                         |
 
 ### 3.2 Video's bij de quizvragen — 14 clips
 
-| ID     | Bestandsnaam                               | Gesproken tekst       | Wat je in beeld ziet                                                      |
-| :----- | :----------------------------------------- | :-------------------- | :------------------------------------------------------------------------ |
-| cw-001 | `cw-001-opdracht-waar-is-de-raket.mp4`     | Waar is de raket?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-002 | `cw-002-opdracht-waar-is-de-ster.mp4`      | Waar is de ster?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-003 | `cw-003-opdracht-waar-is-de-maan.mp4`      | Waar is de maan?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-004 | `cw-004-opdracht-waar-is-de-robot.mp4`     | Waar is de robot?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-005 | `cw-005-opdracht-waar-is-de-zon.mp4`       | Waar is de zon?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-006 | `cw-006-opdracht-waar-is-de-helm.mp4`      | Waar is de helm?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-007 | `cw-007-opdracht-waar-is-de-vlag.mp4`      | Waar is de vlag?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-008 | `cw-008-opdracht-waar-is-de-aarde.mp4`     | Waar is de aarde?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-009 | `cw-009-opdracht-waar-is-de-astronaut.mp4` | Waar is de astronaut? | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-010 | `cw-010-opdracht-waar-is-de-satelliet.mp4` | Waar is de satelliet? | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-011 | `cw-011-opdracht-waar-is-de-planeet.mp4`   | Waar is de planeet?   | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-012 | `cw-012-opdracht-waar-is-de-komeet.mp4`    | Waar is de komeet?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-013 | `cw-013-opdracht-waar-is-de-steen.mp4`     | Waar is de steen?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-014 | `cw-014-opdracht-waar-is-de-bal.mp4`       | Waar is de bal?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| ID     | Bestandsnaam                                   | Gesproken tekst           | Wat je in beeld ziet                                                      |
+| :----- | :--------------------------------------------- | :------------------------ | :------------------------------------------------------------------------ |
+| cw-001 | `cw-001-opdracht-waar-is-de-raket.mp4`         | Waar is de raket?         | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-002 | `cw-002-opdracht-waar-is-de-ster.mp4`          | Waar is de ster?          | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-003 | `cw-003-opdracht-waar-is-de-maan.mp4`          | Waar is de maan?          | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-004 | `cw-004-opdracht-waar-is-de-robot.mp4`         | Waar is de robot?         | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-005 | `cw-005-opdracht-waar-is-het-marsmannetje.mp4` | Waar is het marsmannetje? | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-006 | `cw-006-opdracht-waar-is-de-helm.mp4`          | Waar is de helm?          | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-007 | `cw-007-opdracht-waar-is-de-telescoop.mp4`     | Waar is de telescoop?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-008 | `cw-008-opdracht-waar-is-de-aarde.mp4`         | Waar is de aarde?         | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-009 | `cw-009-opdracht-waar-is-de-astronaut.mp4`     | Waar is de astronaut?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-010 | `cw-010-opdracht-waar-is-de-satelliet.mp4`     | Waar is de satelliet?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-011 | `cw-011-opdracht-waar-is-de-planeet.mp4`       | Waar is de planeet?       | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-012 | `cw-012-opdracht-waar-is-de-komeet.mp4`        | Waar is de komeet?        | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-013 | `cw-013-opdracht-waar-is-de-steen.mp4`         | Waar is de steen?         | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-014 | `cw-014-opdracht-waar-is-het-ruimtepak.mp4`    | Waar is het ruimtepak?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 
 ### 3.3 Gedeelde video's — 12 clips
 
@@ -173,35 +173,35 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.4 Afbeeldingen en geluid
 
-| Taak     | Type | Wat                                                                                                                             | Status |
-| :------- | :--: | :------------------------------------------------------------------------------------------------------------------------------ | :----: |
-| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                                           |   ⬜   |
-| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                                                     |   ⬜   |
-| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                                              |   ⬜   |
-| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond                                   |   ⬜   |
-| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`src/app/games/catalog-assets/worlds/world-space.webp`); een startlogo moet nog |   ⬜   |
-| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0)                          |   ⬜   |
-| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                                             |   ⬜   |
-| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                                                   |   ⬜   |
+| Taak     | Type | Wat                                                                                                    | Status |
+| :------- | :--: | :----------------------------------------------------------------------------------------------------- | :----: |
+| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                  |   ⬜   |
+| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                            |   ⬜   |
+| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                     |   ⬜   |
+| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond          |   ⬜   |
+| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`world-space.webp`); een startlogo moet nog            |   ⬜   |
+| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0) |   ⬜   |
+| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                    |   ⬜   |
+| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                          |   ⬜   |
 
 #### Stickers (A-01)
 
-| Bestandsnaam             | Woord     | Wat erop staat                    |
-| :----------------------- | :-------- | :-------------------------------- |
-| `rocket-sticker.webp`    | raket     | Een raket die de lucht in gaat.   |
-| `moon-sticker.webp`      | maan      | De maan met kraters.              |
-| `star-sticker.webp`      | ster      | Een fonkelende ster.              |
-| `sun-sticker.webp`       | zon       | De zon die licht geeft.           |
-| `planet-sticker.webp`    | planeet   | Een planeet met een ring.         |
-| `earth-sticker.webp`     | aarde     | De aarde met blauw water.         |
-| `astronaut-sticker.webp` | astronaut | Een astronaut in een pak.         |
-| `robot-sticker.webp`     | robot     | Een robot die rondrijdt.          |
-| `satellite-sticker.webp` | satelliet | Een satelliet die rondjes draait. |
-| `comet-sticker.webp`     | komeet    | Een komeet met een staart.        |
-| `helmet-sticker.webp`    | helm      | Een helm voor de astronaut.       |
-| `flag-sticker.webp`      | vlag      | Een vlag op de maan.              |
-| `rock-sticker.webp`      | steen     | Een maansteen.                    |
-| `ball-sticker.webp`      | bal       | Een bal die zweeft.               |
+| Bestandsnaam             | Woord        | Wat erop staat                        |
+| :----------------------- | :----------- | :------------------------------------ |
+| `rocket-sticker.webp`    | raket        | Een raket die de lucht in gaat.       |
+| `moon-sticker.webp`      | maan         | De maan met kraters.                  |
+| `star-sticker.webp`      | ster         | Een fonkelende ster.                  |
+| `telescope-sticker.webp` | telescoop    | Een telescoop om sterren te bekijken. |
+| `planet-sticker.webp`    | planeet      | Een planeet met een ring.             |
+| `earth-sticker.webp`     | aarde        | De aarde met blauw water.             |
+| `astronaut-sticker.webp` | astronaut    | Een astronaut in een pak.             |
+| `robot-sticker.webp`     | robot        | Een robot die rondrijdt.              |
+| `satellite-sticker.webp` | satelliet    | Een satelliet die rondjes draait.     |
+| `comet-sticker.webp`     | komeet       | Een komeet met een staart.            |
+| `helmet-sticker.webp`    | helm         | Een helm voor de astronaut.           |
+| `spacesuit-sticker.webp` | ruimtepak    | Het ruimtepak van de astronaut.       |
+| `rock-sticker.webp`      | steen        | Een maansteen.                        |
+| `alien-sticker.webp`     | marsmannetje | Een groen marsmannetje.               |
 
 #### Obstakels (A-02)
 
@@ -218,7 +218,7 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | :------ | :---------------------------- |
 | 3 ⭐    | `reward-01-sticker-ster`      |
 | 8 ⭐    | `reward-02-raketkleur-rood`   |
-| 16 ⭐   | `reward-03-sticker-raket`     |
+| 16 ⭐   | `reward-03-sticker-maan`      |
 | 28 ⭐   | `reward-04-sterrenstof-spoor` |
 | 42 ⭐   | `reward-05-ruimtebezem`       |
 | 60 ⭐   | `reward-06-sticker-astronaut` |

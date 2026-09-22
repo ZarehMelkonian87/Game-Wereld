@@ -20,7 +20,7 @@ const getSearchParams = () => {
 export const shouldShowUiPreview = () => getSearchParams()?.get("preview") === "ui";
 
 export const getInstructionPreviewText = () => {
-  const longInstruction = "Zet de leeuw in de piste en leg daarna de bal naast de hoepel.";
+  const longInstruction = "Zet de leeuw in de piste en leg daarna de kegel naast de hoepel.";
   const instructionPreview = getSearchParams()?.get("instructionPreview");
 
   if (instructionPreview === "long") {

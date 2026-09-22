@@ -28,7 +28,7 @@ Daarbij kiest elke wereld een eigen **woordveld**, zodat een kind niet steeds de
 
 ## Wat deze wereld aanbiedt
 
-**14 woorden**, verdeeld over: **speeltoestellen**: schommel, glijbaan, zandbak, wip, klimrek · **speelgoed**: bal, schep, emmer · **voertuigen**: step, fiets · **natuur**: boom · **decor**: bank · **dieren**: vlinder, vogel.
+**14 woorden**, verdeeld over: **speeltoestellen**: schommel, glijbaan, zandbak, wip, klimrek · **speelgoed**: springtouw, schep · **voertuigen**: step, fiets · **natuur**: bloem, boom · **decor**: bank · **dieren**: vlinder, vogel.
 
 **14 quizvragen** om te herkennen, **16 opdrachten** om uit te voeren, **5 bouwkaarten** om zelf iets te maken, en **8 woorden** om hardop te benoemen tijdens het vliegen.
 

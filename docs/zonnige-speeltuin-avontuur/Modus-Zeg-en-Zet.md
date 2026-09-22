@@ -13,7 +13,7 @@
 
 - **16 opdrachten** (`lp-001` … `lp-016`), oplopend: niveau 1 statisch in één zone, niveau 2 lateraal, niveau 3 relationeel met ankerobjecten.
 - Voorbeeld niveau 1: _"Zet de glijbaan op het grasveld."_ → nazegzin _"De glijbaan staat op het grasveld."_.
-- Voorbeeld niveau 3: _"Leg de bal tussen de emmer en de schep."_.
+- Voorbeeld niveau 3: _"Leg het springtouw tussen de bloem en de schep."_.
 - De plekken zijn speeltuin-eigen; zie de [woordenlijst](Woordenlijst.md) voor de volledige lijst.
 
 ## Wat er moet gebeuren

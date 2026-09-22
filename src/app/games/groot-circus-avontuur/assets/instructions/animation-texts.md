@@ -24,31 +24,31 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 
 ## Zeg & Zet — hoofdopdrachten
 
-| ID     | Tekst                                     | Bestandsnaam                                                   |
-| ------ | ----------------------------------------- | -------------------------------------------------------------- |
-| lp-001 | Zet de eenwieler in de piste.             | `lp-001-opdracht-zet-de-eenwieler-in-de-piste.mp4`             |
-| lp-002 | Zet de leeuw in de piste.                 | `lp-002-opdracht-zet-de-leeuw-in-de-piste.mp4`                 |
-| lp-003 | Leg de bal op de vloer.                   | `lp-003-opdracht-leg-de-bal-op-de-vloer.mp4`                   |
-| lp-004 | Zet de vlag op de tribune.                | `lp-004-opdracht-zet-de-vlag-op-de-tribune.mp4`                |
-| lp-005 | Zet de ballon boven in de nok.            | `lp-005-opdracht-zet-de-ballon-boven-in-de-nok.mp4`            |
-| lp-006 | Zet het kanon boven de piste.             | `lp-006-opdracht-zet-het-kanon-boven-de-piste.mp4`             |
-| lp-007 | Zet de hoepel op de vloer.                | `lp-007-opdracht-zet-de-hoepel-op-de-vloer.mp4`                |
-| lp-008 | Zet de aap op de trommel.                 | `lp-008-opdracht-zet-de-aap-op-de-trommel.mp4`                 |
-| lp-009 | Zet de clown naast de hoepel.             | `lp-009-opdracht-zet-de-clown-naast-de-hoepel.mp4`             |
-| lp-010 | Zet de olifant rechts op de vloer.        | `lp-010-opdracht-zet-de-olifant-rechts-op-de-vloer.mp4`        |
-| lp-011 | Zet de acrobaat boven de piste.           | `lp-011-opdracht-zet-de-acrobaat-boven-de-piste.mp4`           |
-| lp-012 | Leg de trommel midden op de vloer.        | `lp-012-opdracht-leg-de-trommel-midden-op-de-vloer.mp4`        |
-| lp-013 | Zet de eenwieler links in de piste.       | `lp-013-opdracht-zet-de-eenwieler-links-in-de-piste.mp4`       |
-| lp-014 | Zet het kanon ver weg boven de piste.     | `lp-014-opdracht-zet-het-kanon-ver-weg-boven-de-piste.mp4`     |
-| lp-015 | Leg de bal dichtbij de hoepel.            | `lp-015-opdracht-leg-de-bal-dichtbij-de-hoepel.mp4`            |
-| lp-016 | Leg de hoepel tussen de bal en de ballon. | `lp-016-opdracht-leg-de-hoepel-tussen-de-bal-en-de-ballon.mp4` |
-| lp-017 | Zet de hond op de vloer.                  | `lp-017-opdracht-zet-de-hond-op-de-vloer.mp4`                  |
-| lp-018 | Zet de zeehond in de piste.               | `lp-018-opdracht-zet-de-zeehond-in-de-piste.mp4`               |
-| lp-019 | Zet de poes op de trommel.                | `lp-019-opdracht-zet-de-poes-op-de-trommel.mp4`                |
-| lp-020 | Zet de muis naast de bal.                 | `lp-020-opdracht-zet-de-muis-naast-de-bal.mp4`                 |
-| lp-021 | Zet de big rechts op de vloer.            | `lp-021-opdracht-zet-de-big-rechts-op-de-vloer.mp4`            |
-| lp-022 | Zet de kip tussen de hoepel en de bal.    | `lp-022-opdracht-zet-de-kip-tussen-de-hoepel-en-de-bal.mp4`    |
-| lp-023 | Zet de beer dichtbij de trommel.          | `lp-023-opdracht-zet-de-beer-dichtbij-de-trommel.mp4`          |
+| ID     | Tekst                                       | Bestandsnaam                                                     |
+| ------ | ------------------------------------------- | ---------------------------------------------------------------- |
+| lp-001 | Zet de eenwieler in de piste.               | `lp-001-opdracht-zet-de-eenwieler-in-de-piste.mp4`               |
+| lp-002 | Zet de leeuw in de piste.                   | `lp-002-opdracht-zet-de-leeuw-in-de-piste.mp4`                   |
+| lp-003 | Leg de kegel op de vloer.                   | `lp-003-opdracht-leg-de-kegel-op-de-vloer.mp4`                   |
+| lp-004 | Zet de vlag op de tribune.                  | `lp-004-opdracht-zet-de-vlag-op-de-tribune.mp4`                  |
+| lp-005 | Zet de ballon boven in de nok.              | `lp-005-opdracht-zet-de-ballon-boven-in-de-nok.mp4`              |
+| lp-006 | Zet het kanon boven de piste.               | `lp-006-opdracht-zet-het-kanon-boven-de-piste.mp4`               |
+| lp-007 | Zet de hoepel op de vloer.                  | `lp-007-opdracht-zet-de-hoepel-op-de-vloer.mp4`                  |
+| lp-008 | Zet de aap op de trommel.                   | `lp-008-opdracht-zet-de-aap-op-de-trommel.mp4`                   |
+| lp-009 | Zet de clown naast de hoepel.               | `lp-009-opdracht-zet-de-clown-naast-de-hoepel.mp4`               |
+| lp-010 | Zet de olifant rechts op de vloer.          | `lp-010-opdracht-zet-de-olifant-rechts-op-de-vloer.mp4`          |
+| lp-011 | Zet de acrobaat boven de piste.             | `lp-011-opdracht-zet-de-acrobaat-boven-de-piste.mp4`             |
+| lp-012 | Leg de trommel midden op de vloer.          | `lp-012-opdracht-leg-de-trommel-midden-op-de-vloer.mp4`          |
+| lp-013 | Zet de eenwieler links in de piste.         | `lp-013-opdracht-zet-de-eenwieler-links-in-de-piste.mp4`         |
+| lp-014 | Zet het kanon ver weg boven de piste.       | `lp-014-opdracht-zet-het-kanon-ver-weg-boven-de-piste.mp4`       |
+| lp-015 | Leg de kegel dichtbij de hoepel.            | `lp-015-opdracht-leg-de-kegel-dichtbij-de-hoepel.mp4`            |
+| lp-016 | Leg de hoepel tussen de kegel en de ballon. | `lp-016-opdracht-leg-de-hoepel-tussen-de-kegel-en-de-ballon.mp4` |
+| lp-017 | Zet de hond op de vloer.                    | `lp-017-opdracht-zet-de-hond-op-de-vloer.mp4`                    |
+| lp-018 | Zet de zeehond in de piste.                 | `lp-018-opdracht-zet-de-zeehond-in-de-piste.mp4`                 |
+| lp-019 | Zet de poes op de trommel.                  | `lp-019-opdracht-zet-de-poes-op-de-trommel.mp4`                  |
+| lp-020 | Zet de muis naast de kegel.                 | `lp-020-opdracht-zet-de-muis-naast-de-kegel.mp4`                 |
+| lp-021 | Zet de big rechts op de vloer.              | `lp-021-opdracht-zet-de-big-rechts-op-de-vloer.mp4`              |
+| lp-022 | Zet de kip tussen de hoepel en de kegel.    | `lp-022-opdracht-zet-de-kip-tussen-de-hoepel-en-de-kegel.mp4`    |
+| lp-023 | Zet de beer dichtbij de trommel.            | `lp-023-opdracht-zet-de-beer-dichtbij-de-trommel.mp4`            |
 
 ## Zeg & Zet — hint 1: zoek het object
 
@@ -56,7 +56,7 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 | ------ | ------------------ | -------------------------------------- |
 | lp-001 | Zoek de eenwieler. | `lp-001-hint-01-zoek-de-eenwieler.mp4` |
 | lp-002 | Zoek de leeuw.     | `lp-002-hint-01-zoek-de-leeuw.mp4`     |
-| lp-003 | Zoek de bal.       | `lp-003-hint-01-zoek-de-bal.mp4`       |
+| lp-003 | Zoek de kegel.     | `lp-003-hint-01-zoek-de-kegel.mp4`     |
 | lp-004 | Zoek de vlag.      | `lp-004-hint-01-zoek-de-vlag.mp4`      |
 | lp-005 | Zoek de ballon.    | `lp-005-hint-01-zoek-de-ballon.mp4`    |
 | lp-006 | Zoek het kanon.    | `lp-006-hint-01-zoek-het-kanon.mp4`    |
@@ -81,7 +81,7 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 | ------ | --------------------------------------------- | ---------------------------------------- |
 | lp-001 | Kijk naar het plaatje dat oplicht: eenwieler. | `lp-001-hint-02-kijk-naar-eenwieler.mp4` |
 | lp-002 | Kijk naar het plaatje dat oplicht: leeuw.     | `lp-002-hint-02-kijk-naar-leeuw.mp4`     |
-| lp-003 | Kijk naar het plaatje dat oplicht: bal.       | `lp-003-hint-02-kijk-naar-bal.mp4`       |
+| lp-003 | Kijk naar het plaatje dat oplicht: kegel.     | `lp-003-hint-02-kijk-naar-kegel.mp4`     |
 | lp-004 | Kijk naar het plaatje dat oplicht: vlag.      | `lp-004-hint-02-kijk-naar-vlag.mp4`      |
 | lp-005 | Kijk naar het plaatje dat oplicht: ballon.    | `lp-005-hint-02-kijk-naar-ballon.mp4`    |
 | lp-006 | Kijk naar het plaatje dat oplicht: kanon.     | `lp-006-hint-02-kijk-naar-kanon.mp4`     |
@@ -119,31 +119,31 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 
 ## Zeg & Zet — positieve feedback (optioneel)
 
-| ID     | Tekst                                                      | Bestandsnaam                                       |
-| ------ | ---------------------------------------------------------- | -------------------------------------------------- |
-| lp-001 | Goed zo! De eenwieler staat in de piste. +1 Tempo!         | `lp-001-feedback-eenwieler-in-de-piste.mp4`        |
-| lp-002 | Mooi! De leeuw staat in de piste. +1 Tempo!                | `lp-002-feedback-leeuw-in-de-piste.mp4`            |
-| lp-003 | Ja! De bal ligt op de vloer. +1 Tempo!                     | `lp-003-feedback-bal-op-de-vloer.mp4`              |
-| lp-004 | Goed gedaan! De vlag staat op de tribune. +1 Tempo!        | `lp-004-feedback-vlag-op-de-tribune.mp4`           |
-| lp-005 | Goed zo! De ballon zweeft boven in de nok. +1 Tempo!       | `lp-005-feedback-ballon-in-de-nok.mp4`             |
-| lp-006 | Knap! Het kanon staat boven de piste. +1 Tempo!            | `lp-006-feedback-kanon-boven-de-piste.mp4`         |
-| lp-007 | Ja! De hoepel ligt op de vloer. +1 Tempo!                  | `lp-007-feedback-hoepel-op-de-vloer.mp4`           |
-| lp-008 | Goed! De aap zit op de trommel. +1 Tempo!                  | `lp-008-feedback-aap-op-de-trommel.mp4`            |
-| lp-009 | Mooi! De clown staat naast de hoepel. +1 Tempo!            | `lp-009-feedback-clown-naast-de-hoepel.mp4`        |
-| lp-010 | Ja! De olifant staat rechts op de vloer. +1 Tempo!         | `lp-010-feedback-olifant-rechts-op-de-vloer.mp4`   |
-| lp-011 | Knap! De acrobaat vliegt boven de piste. +1 Tempo!         | `lp-011-feedback-acrobaat-boven-de-piste.mp4`      |
-| lp-012 | Knap! De trommel staat midden op de vloer. +1 Tempo!       | `lp-012-feedback-trommel-midden-op-de-vloer.mp4`   |
-| lp-013 | Goed! De eenwieler rijdt links in de piste. +1 Tempo!      | `lp-013-feedback-eenwieler-links-in-de-piste.mp4`  |
-| lp-014 | Mooi! Het kanon staat ver weg boven de piste. +1 Tempo!    | `lp-014-feedback-kanon-ver-weg-boven-de-piste.mp4` |
-| lp-015 | Ja! De bal ligt dichtbij de hoepel. +1 Tempo!              | `lp-015-feedback-bal-dichtbij-de-hoepel.mp4`       |
-| lp-016 | Knap! De hoepel ligt tussen de bal en de ballon. +1 Tempo! | `lp-016-feedback-hoepel-tussen-bal-en-ballon.mp4`  |
-| lp-017 | Goed zo! De hond staat op de vloer. +1 Tempo!              | `lp-017-feedback-hond-op-de-vloer.mp4`             |
-| lp-018 | Mooi! De zeehond zit in de piste. +1 Tempo!                | `lp-018-feedback-zeehond-in-de-piste.mp4`          |
-| lp-019 | Goed! De poes zit op de trommel. +1 Tempo!                 | `lp-019-feedback-poes-op-de-trommel.mp4`           |
-| lp-020 | Mooi! De muis zit naast de bal. +1 Tempo!                  | `lp-020-feedback-muis-naast-de-bal.mp4`            |
-| lp-021 | Ja! De big staat rechts op de vloer. +1 Tempo!             | `lp-021-feedback-big-rechts-op-de-vloer.mp4`       |
-| lp-022 | Knap! De kip staat tussen de hoepel en de bal. +1 Tempo!   | `lp-022-feedback-kip-tussen-hoepel-en-bal.mp4`     |
-| lp-023 | Ja! De beer staat dichtbij de trommel. +1 Tempo!           | `lp-023-feedback-beer-dichtbij-de-trommel.mp4`     |
+| ID     | Tekst                                                        | Bestandsnaam                                        |
+| ------ | ------------------------------------------------------------ | --------------------------------------------------- |
+| lp-001 | Goed zo! De eenwieler staat in de piste. +1 Tempo!           | `lp-001-feedback-eenwieler-in-de-piste.mp4`         |
+| lp-002 | Mooi! De leeuw staat in de piste. +1 Tempo!                  | `lp-002-feedback-leeuw-in-de-piste.mp4`             |
+| lp-003 | Ja! De kegel ligt op de vloer. +1 Tempo!                     | `lp-003-feedback-kegel-op-de-vloer.mp4`             |
+| lp-004 | Goed gedaan! De vlag staat op de tribune. +1 Tempo!          | `lp-004-feedback-vlag-op-de-tribune.mp4`            |
+| lp-005 | Goed zo! De ballon zweeft boven in de nok. +1 Tempo!         | `lp-005-feedback-ballon-in-de-nok.mp4`              |
+| lp-006 | Knap! Het kanon staat boven de piste. +1 Tempo!              | `lp-006-feedback-kanon-boven-de-piste.mp4`          |
+| lp-007 | Ja! De hoepel ligt op de vloer. +1 Tempo!                    | `lp-007-feedback-hoepel-op-de-vloer.mp4`            |
+| lp-008 | Goed! De aap zit op de trommel. +1 Tempo!                    | `lp-008-feedback-aap-op-de-trommel.mp4`             |
+| lp-009 | Mooi! De clown staat naast de hoepel. +1 Tempo!              | `lp-009-feedback-clown-naast-de-hoepel.mp4`         |
+| lp-010 | Ja! De olifant staat rechts op de vloer. +1 Tempo!           | `lp-010-feedback-olifant-rechts-op-de-vloer.mp4`    |
+| lp-011 | Knap! De acrobaat vliegt boven de piste. +1 Tempo!           | `lp-011-feedback-acrobaat-boven-de-piste.mp4`       |
+| lp-012 | Knap! De trommel staat midden op de vloer. +1 Tempo!         | `lp-012-feedback-trommel-midden-op-de-vloer.mp4`    |
+| lp-013 | Goed! De eenwieler rijdt links in de piste. +1 Tempo!        | `lp-013-feedback-eenwieler-links-in-de-piste.mp4`   |
+| lp-014 | Mooi! Het kanon staat ver weg boven de piste. +1 Tempo!      | `lp-014-feedback-kanon-ver-weg-boven-de-piste.mp4`  |
+| lp-015 | Ja! De kegel ligt dichtbij de hoepel. +1 Tempo!              | `lp-015-feedback-kegel-dichtbij-de-hoepel.mp4`      |
+| lp-016 | Knap! De hoepel ligt tussen de kegel en de ballon. +1 Tempo! | `lp-016-feedback-hoepel-tussen-kegel-en-ballon.mp4` |
+| lp-017 | Goed zo! De hond staat op de vloer. +1 Tempo!                | `lp-017-feedback-hond-op-de-vloer.mp4`              |
+| lp-018 | Mooi! De zeehond zit in de piste. +1 Tempo!                  | `lp-018-feedback-zeehond-in-de-piste.mp4`           |
+| lp-019 | Goed! De poes zit op de trommel. +1 Tempo!                   | `lp-019-feedback-poes-op-de-trommel.mp4`            |
+| lp-020 | Mooi! De muis zit naast de kegel. +1 Tempo!                  | `lp-020-feedback-muis-naast-de-kegel.mp4`           |
+| lp-021 | Ja! De big staat rechts op de vloer. +1 Tempo!               | `lp-021-feedback-big-rechts-op-de-vloer.mp4`        |
+| lp-022 | Knap! De kip staat tussen de hoepel en de kegel. +1 Tempo!   | `lp-022-feedback-kip-tussen-hoepel-en-kegel.mp4`    |
+| lp-023 | Ja! De beer staat dichtbij de trommel. +1 Tempo!             | `lp-023-feedback-beer-dichtbij-de-trommel.mp4`      |
 
 ## Kies het Woord — opdrachtclips
 
@@ -151,7 +151,7 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 | ------ | ------ | --------------------- | ------------------------------------------ |
 | cw-001 | 1      | Waar is de leeuw?     | `cw-001-opdracht-waar-is-de-leeuw.mp4`     |
 | cw-002 | 1      | Waar is de eenwieler? | `cw-002-opdracht-waar-is-de-eenwieler.mp4` |
-| cw-003 | 1      | Waar is de bal?       | `cw-003-opdracht-waar-is-de-bal.mp4`       |
+| cw-003 | 1      | Waar is de kegel?     | `cw-003-opdracht-waar-is-de-kegel.mp4`     |
 | cw-004 | 2      | Waar is de olifant?   | `cw-004-opdracht-waar-is-de-olifant.mp4`   |
 | cw-005 | 2      | Waar is de ballon?    | `cw-005-opdracht-waar-is-de-ballon.mp4`    |
 | cw-006 | 2      | Waar is de clown?     | `cw-006-opdracht-waar-is-de-clown.mp4`     |
@@ -179,7 +179,7 @@ automatisch terug op de spraaksynthese-stem (TTS) — je kunt dus incrementeel t
 | zv-004 | opdracht  | Zeg: aap.                                  | `zv-004-opdracht-zeg-aap.mp4`                 |
 | zv-005 | opdracht  | Zeg: hond.                                 | `zv-005-opdracht-zeg-hond.mp4`                |
 | zv-006 | opdracht  | Zeg: poes.                                 | `zv-006-opdracht-zeg-poes.mp4`                |
-| zv-007 | opdracht  | Zeg: bal.                                  | `zv-007-opdracht-zeg-bal.mp4`                 |
+| zv-007 | opdracht  | Zeg: kegel.                                | `zv-007-opdracht-zeg-kegel.mp4`               |
 | zv-008 | opdracht  | Zeg: ballon.                               | `zv-008-opdracht-zeg-ballon.mp4`              |
 | zv-009 | hint      | Probeer het woord rustig nog een keer.     | `zv-009-hint-probeer-rustig-nog-een-keer.mp4` |
 | zv-010 | obstakel  | Vlieg om het obstakel heen.                | `zv-010-hint-vlieg-om-het-obstakel-heen.mp4`  |

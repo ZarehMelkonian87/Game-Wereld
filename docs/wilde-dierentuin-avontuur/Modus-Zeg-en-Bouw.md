@@ -11,13 +11,13 @@
 
 ## De vijf bouwkaarten
 
-| Kaart                   | Opdracht                                          | Doel | Passende objecten                  |
-| :---------------------- | :------------------------------------------------ | :--: | :--------------------------------- |
-| `build-waterdieren`     | Zet 2 dieren in de vijver.                        |  2   | krokodil, nijlpaard, pinguin       |
-| `build-grotedieren`     | Zet 3 grote dieren op het gras.                   |  3   | giraf, olifant, leeuw, beer, zebra |
-| `build-klimmers`        | Zet 2 dieren neer die klimmen of vliegen.         |  2   | aap, papegaai, slang               |
-| `build-verblijf`        | Zet 2 dingen neer die bij het verblijf horen.     |  2   | hek, boom, emmer, rots             |
-| `build-jouw-dierentuin` | Maak jouw mooiste dierentuin! Kies zelf 3 dieren. |  3   | alles mag                          |
+| Kaart                   | Opdracht                                          | Doel | Passende objecten                      |
+| :---------------------- | :------------------------------------------------ | :--: | :------------------------------------- |
+| `build-waterdieren`     | Zet 2 dieren in de vijver.                        |  2   | krokodil, nijlpaard, pinguin, flamingo |
+| `build-grotedieren`     | Zet 3 grote dieren op het gras.                   |  3   | giraf, neushoorn, tijger, zebra        |
+| `build-klimmers`        | Zet 2 dieren neer die kruipen of vliegen.         |  2   | papegaai, slang, schildpad             |
+| `build-verblijf`        | Zet 2 dingen neer die bij het verblijf horen.     |  2   | hek, palm, voerbak                     |
+| `build-jouw-dierentuin` | Maak jouw mooiste dierentuin! Kies zelf 3 dieren. |  3   | alles mag                              |
 
 **Beloning:** 2 ⭐ per nieuw passend object, +1 ⭐ wanneer één zin twee of meer objecten plaatst. In vrij bouwen geen sterren.
 

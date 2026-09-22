@@ -58,7 +58,7 @@ Een circustent van binnen: een ronde **piste** in het midden, de **nok** hoog on
 | `midden-vloer`  | midden op de vloer                 |
 | `rechts-vloer`  | rechterkant van de vloer           |
 
-Daarnaast ontstaan plekken **rondom voorwerpen** zodra die er staan: op de trommel, naast de hoepel, dichtbij de bal, tussen de bal en de ballon.
+Daarnaast ontstaan plekken **rondom voorwerpen** zodra die er staan: op de trommel, naast de hoepel, dichtbij de kegel, tussen de kegel en de ballon.
 
 ## 3. De inhoud in het kort
 

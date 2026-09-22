@@ -8,6 +8,8 @@
 | **Laatst bijgewerkt** | 2026-09-22                               |
 | **Bron**              | `content.ts` — één bestand, één waarheid |
 
+> **Woordregel:** elk woord hoort bij precies één game binnen de zone — zie [woordverdeling](../woordverdeling-woordenschat.md).
+
 ---
 
 ## 1. De twaalf doelwoorden

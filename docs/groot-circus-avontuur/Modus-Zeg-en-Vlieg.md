@@ -12,7 +12,7 @@
 
 ## Circus-eigen
 
-- **13 woorden om te benoemen**: aap, bal, ballon, beer, big, clown, hond, hoepel, kip, leeuw, muis, olifant, poes, zeehond — bijna twee keer zoveel als op het strand (7).
+- **13 woorden om te benoemen**: aap, kegel, ballon, beer, big, clown, hond, hoepel, kip, leeuw, muis, olifant, poes, zeehond — bijna twee keer zoveel als op het strand (7).
 - De vlucht gaat door de **circustent** in plaats van langs de kust (achtergrond staat er al).
 - **Obstakels moeten nog vervangen worden**: de huidige zijn strand-eigen (haai, zeeleeuw, meeuw, wolk). Voorstel: confetti-wolk, spotlicht, tros ballonnen, slinger vlaggetjes (taak A-02).
 

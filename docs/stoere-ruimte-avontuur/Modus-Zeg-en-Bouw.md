@@ -11,13 +11,13 @@
 
 ## De vijf bouwkaarten
 
-| Kaart               | Opdracht                                           | Doel | Passende objecten                |
-| :------------------ | :------------------------------------------------- | :--: | :------------------------------- |
-| `build-hemel`       | Zet 3 dingen aan de hemel.                         |  3   | ster, maan, zon, planeet, komeet |
-| `build-reizen`      | Zet 2 dingen neer waarmee je door de ruimte reist. |  2   | raket, satelliet                 |
-| `build-maanbezoek`  | Zet 2 dingen op de maan.                           |  2   | astronaut, vlag, robot, steen    |
-| `build-uitrusting`  | Zet 2 spullen van de astronaut neer.               |  2   | helm, vlag, bal, steen           |
-| `build-jouw-ruimte` | Maak jouw mooiste heelal! Kies zelf 3 dingen.      |  3   | alles mag                        |
+| Kaart               | Opdracht                                           | Doel | Passende objecten                     |
+| :------------------ | :------------------------------------------------- | :--: | :------------------------------------ |
+| `build-hemel`       | Zet 3 dingen aan de hemel.                         |  3   | ster, maan, planeet, komeet, aarde    |
+| `build-reizen`      | Zet 2 dingen neer waarmee je door de ruimte reist. |  2   | raket, satelliet                      |
+| `build-maanbezoek`  | Zet 2 dingen op de maan.                           |  2   | astronaut, marsmannetje, robot, steen |
+| `build-uitrusting`  | Zet 2 spullen van de astronaut neer.               |  2   | helm, ruimtepak, telescoop            |
+| `build-jouw-ruimte` | Maak jouw mooiste heelal! Kies zelf 3 dingen.      |  3   | alles mag                             |
 
 **Beloning:** 2 ⭐ per nieuw passend object, +1 ⭐ wanneer één zin twee of meer objecten plaatst. In vrij bouwen geen sterren.
 

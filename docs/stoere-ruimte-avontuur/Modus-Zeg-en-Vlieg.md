@@ -11,7 +11,7 @@
 
 ## Ruimte-eigen
 
-**8 woorden om te benoemen:** ster · maan · zon · raket · robot · helm · bal · steen
+**8 woorden om te benoemen:** ster · maan · aarde · raket · robot · helm · steen · planeet
 
 **Vier obstakels om te tekenen** (taak A-02):
 

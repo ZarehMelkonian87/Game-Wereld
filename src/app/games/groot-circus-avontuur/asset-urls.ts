@@ -29,7 +29,7 @@ export const beachObjectStickerUrls = {
   hond: new URL("./assets/objects/transparent/dog-sticker.png", import.meta.url).href,
   eenwieler: new URL("./assets/objects/transparent/unicycle-sticker.png", import.meta.url).href,
   kanon: new URL("./assets/objects/transparent/cannon-sticker.png", import.meta.url).href,
-  bal: new URL("./assets/objects/transparent/ball-sticker.png", import.meta.url).href,
+  kegel: new URL("./assets/objects/transparent/pin-sticker.png", import.meta.url).href,
   hoepel: new URL("./assets/objects/transparent/hoop-sticker.png", import.meta.url).href,
   ballon: new URL("./assets/objects/transparent/balloon-sticker.png", import.meta.url).href,
   trommel: new URL("./assets/objects/transparent/drum-sticker.png", import.meta.url).href,

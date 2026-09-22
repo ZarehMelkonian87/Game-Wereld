@@ -11,7 +11,7 @@
 
 ## Dierentuin-eigen
 
-**8 woorden om te benoemen:** aap · leeuw · giraf · olifant · zebra · beer · slang · boom
+**8 woorden om te benoemen:** tijger · giraf · zebra · slang · palm · flamingo · hek · voerbak
 
 **Vier obstakels om te tekenen** (taak A-02):
 

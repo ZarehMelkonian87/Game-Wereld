@@ -13,7 +13,7 @@
 
 - **16 opdrachten** (`lp-001` … `lp-016`), oplopend: niveau 1 statisch in één zone, niveau 2 lateraal, niveau 3 relationeel met ankerobjecten.
 - Voorbeeld niveau 1: _"Zet de raket op de grond."_ → nazegzin _"De raket staat op de grond."_.
-- Voorbeeld niveau 3: _"Zet de helm tussen de bal en de steen."_.
+- Voorbeeld niveau 3: _"Zet de helm tussen het marsmannetje en de steen."_.
 - De plekken zijn ruimte-eigen; zie de [woordenlijst](Woordenlijst.md) voor de volledige lijst.
 
 ## Wat er moet gebeuren

@@ -22,7 +22,7 @@ describe("matchVoiceSideScrollerWord", () => {
       matchVoiceSideScrollerWord({ targetWord: "hoepel", transcript: "hoepels" }).isMatch,
     ).toBe(true);
     expect(
-      matchVoiceSideScrollerWord({ targetWord: "bal", transcript: "jongleerbal" }).isMatch,
+      matchVoiceSideScrollerWord({ targetWord: "kegel", transcript: "jongleerkegel" }).isMatch,
     ).toBe(true);
   });
 

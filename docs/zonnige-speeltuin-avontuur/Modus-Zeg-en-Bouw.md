@@ -14,9 +14,9 @@
 | Kaart                  | Opdracht                                              | Doel | Passende objecten                |
 | :--------------------- | :---------------------------------------------------- | :--: | :------------------------------- |
 | `build-klimmen`        | Zet 2 dingen neer waar je op kunt klimmen of glijden. |  2   | glijbaan, klimrek, schommel, wip |
-| `build-zandbak`        | Zet 2 dingen neer waarmee je in het zand speelt.      |  2   | schep, emmer, zandbak            |
+| `build-zandbak`        | Zet 2 dingen neer waarmee je in het zand speelt.      |  2   | schep, zandbak, springtouw       |
 | `build-rijden`         | Zet 2 dingen neer waarop je kunt rijden.              |  2   | fiets, step                      |
-| `build-buiten`         | Zet 3 dingen neer die buiten horen.                   |  3   | boom, vogel, vlinder, bank       |
+| `build-buiten`         | Zet 3 dingen neer die buiten horen.                   |  3   | boom, bloem, vogel, vlinder      |
 | `build-jouw-speeltuin` | Maak jouw mooiste speeltuin! Kies zelf 3 dingen.      |  3   | alles mag                        |
 
 **Beloning:** 2 ⭐ per nieuw passend object, +1 ⭐ wanneer één zin twee of meer objecten plaatst. In vrij bouwen geen sterren.

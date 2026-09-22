@@ -20,13 +20,13 @@ Wat verandert, is de wereld — een circustent met een piste, een nok en een tri
 
 Een kind dat het strandspel uit heeft, kent twaalf woorden en elf plaatsbegrippen. Voor die woorden geldt dan: herkend, geplaatst en uitgesproken. Wat dan ontbreekt is **overdracht** — kan het kind diezelfde plaatsbegrippen ook toepassen op woorden die het nog niet kent, in een omgeving die het nog niet kent?
 
-Daar is het circus voor. De begrippen zijn identiek (_in_, _op_, _naast_, _tussen_, _dichtbij_, _ver weg_ …), de woorden zijn nieuw. Wie "leg de schelp tussen de bal en het zandkasteel" begreep, krijgt nu "leg de hoepel tussen de bal en de ballon". Dezelfde structuur, andere inhoud — precies de stap die laat zien of een begrip echt geland is.
+Daar is het circus voor. De begrippen zijn identiek (_in_, _op_, _naast_, _tussen_, _dichtbij_, _ver weg_ …), de woorden zijn nieuw. Wie "leg de schelp tussen de kegel en het zandkasteel" begreep, krijgt nu "leg de hoepel tussen de kegel en de ballon". Dezelfde structuur, andere inhoud — precies de stap die laat zien of een begrip echt geland is.
 
 ---
 
 ## Wat er anders is dan op het strand
 
-**Meer woorden: negentien in plaats van twaalf.** Het circus zit vol met wezens en spullen die een kind al half kent uit prentenboeken: clown, acrobaat, leeuw, olifant, aap, kip, poes, big, muis, beer, zeehond, hond, eenwieler, kanon, bal, hoepel, ballon, trommel, vlag.
+**Meer woorden: negentien in plaats van twaalf.** Het circus zit vol met wezens en spullen die een kind al half kent uit prentenboeken: clown, acrobaat, leeuw, olifant, aap, kip, poes, big, muis, beer, zeehond, hond, eenwieler, kanon, kegel, hoepel, ballon, trommel, vlag.
 
 **Veel meer dieren: tien van de negentien.** Dat is didactisch waardevol, want dieren leveren de mooiste verwarparen op: _poes_ tegenover _muis_, _beer_ tegenover _hond_, _big_ tegenover _kip_. Korte woorden die alleen in een klank verschillen — precies waar luisteren scherp moet zijn. In het strandspel waren er maar twee dieren.
 
@@ -64,7 +64,7 @@ De twee spellen zijn ontworpen om náást elkaar te bestaan, niet om elkaar te v
 
 De voortgang wordt per spel apart bijgehouden, dus een kind begint in het circus netjes opnieuw bij de instapmodus — zonder de al verdiende beloningen van het strand te verliezen.
 
-Samen leren de twee werelden **31 woorden** aan, met precies één woord overlap (_bal_), wat een aardige brug vormt: "kijk, de bal was er op het strand ook!"
+Samen leren de twee werelden **31 woorden** aan, met precies één woord overlap (_bal_), wat een aardige brug vormt: "kijk, de kegel was er op het strand ook!"
 
 ---
 

@@ -11,7 +11,7 @@
 
 ## Boerderij-eigen
 
-**8 woorden om te benoemen:** koe · kip · paard · hond · kat · eend · appel · emmer
+**8 woorden om te benoemen:** koe · geit · paard · ezel · konijn · eend · appel · emmer
 
 **Vier obstakels om te tekenen** (taak A-02):
 

@@ -9,6 +9,8 @@
 | **Status**            | 🔵 Ontwerp — wordt bij de bouw vastgelegd in `content.ts`                     |
 | **Zusterlijst**       | [Woordenlijst van het strandspel](../magisch-strand-avontuur/Woordenlijst.md) |
 
+> **Woordregel:** elk woord hoort bij precies één game binnen de zone — zie [woordverdeling](../woordverdeling-woordenschat.md).
+
 ---
 
 ## 1. De 14 doelwoorden
@@ -17,11 +19,11 @@
 | --- | :------------ | :------- | :--------- | :--------------- | :----: |
 | 1   | **appel**     | de       | appels     | eten             |   1    |
 | 2   | **emmer**     | de       | emmers     | boerderijspullen |   1    |
-| 3   | **hond**      | de       | honden     | dieren           |   1    |
-| 4   | **kat**       | de       | katten     | dieren           |   1    |
-| 5   | **kip**       | de       | kippen     | dieren           |   1    |
-| 6   | **koe**       | de       | koeien     | dieren           |   1    |
-| 7   | **eend**      | de       | eenden     | dieren           |   2    |
+| 3   | **geit**      | de       | geiten     | dieren           |   1    |
+| 4   | **koe**       | de       | koeien     | dieren           |   1    |
+| 5   | **konijn**    | **het**  | konijnen   | dieren           |   1    |
+| 6   | **eend**      | de       | eenden     | dieren           |   2    |
+| 7   | **ezel**      | de       | ezels      | dieren           |   2    |
 | 8   | **paard**     | **het**  | paarden    | dieren           |   2    |
 | 9   | **schaap**    | **het**  | schapen    | dieren           |   2    |
 | 10  | **schuur**    | de       | schuren    | plekken          |   2    |
@@ -32,7 +34,7 @@
 
 **Niveau 1** = korte, hoogfrequente woorden. **Niveau 2** = langere of samengestelde woorden. **Niveau 3** = de minst frequente woorden.
 
-De _het_-woorden zijn: **het paard**, **het varken**, **het schaap**. Het spel spreekt het lidwoord altijd mee uit, in de opdracht én in de feedback.
+De _het_-woorden zijn: **het paard**, **het varken**, **het schaap**, **het konijn**. Het spel spreekt het lidwoord altijd mee uit, in de opdracht én in de feedback.
 
 ---
 
@@ -67,15 +69,15 @@ Daarnaast ontstaan plekken rondom voorwerpen zodra die er staan (naast, tussen, 
 | #   | Vraag                 | Niveau | Keuze uit                         | Afleiders        |
 | :-- | :-------------------- | :----: | :-------------------------------- | :--------------- |
 | 1   | Waar is de koe?       |   1    | koe, tractor                      | andere categorie |
-| 2   | Waar is de kip?       |   1    | kip, appel                        | andere categorie |
+| 2   | Waar is de geit?      |   1    | geit, appel                       | andere categorie |
 | 3   | Waar is de tractor?   |   1    | tractor, emmer                    | zelfde thema     |
 | 4   | Waar is het paard?    |   2    | paard, koe, schuur                | zelfde thema     |
 | 5   | Waar is de eend?      |   2    | eend, kip, emmer                  | zelfde thema     |
-| 6   | Waar is de hond?      |   2    | hond, kat, appel                  | zelfde categorie |
-| 7   | Waar is de kat?       |   2    | kat, hond, kip                    | zelfde categorie |
+| 6   | Waar is de ezel?      |   2    | ezel, konijn, appel               | zelfde categorie |
+| 7   | Waar is het konijn?   |   2    | konijn, ezel, geit                | zelfde categorie |
 | 8   | Waar is de schuur?    |   2    | schuur, tractor, hooibaal         | zelfde thema     |
-| 9   | Waar is het varken?   |   3    | varken, schaap, koe, paard        | zelfde categorie |
-| 10  | Waar is het schaap?   |   3    | schaap, varken, hond, kat         | zelfde categorie |
+| 9   | Waar is het varken?   |   3    | varken, schaap, koe, geit         | zelfde categorie |
+| 10  | Waar is het schaap?   |   3    | schaap, varken, ezel, konijn      | zelfde categorie |
 | 11  | Waar is de hooibaal?  |   3    | hooibaal, kruiwagen, emmer, appel | zelfde thema     |
 | 12  | Waar is de kruiwagen? |   3    | kruiwagen, tractor, emmer, schuur | zelfde thema     |
 | 13  | Waar is de appel?     |   1    | appel, emmer                      | andere categorie |
@@ -89,11 +91,11 @@ Daarnaast ontstaan plekken rondom voorwerpen zodra die er staan (naast, tussen, 
 | 2   | Zet de eend in de vijver.                    |   1    | in       | De eend zwemt in de vijver.                   |
 | 3   | Zet de tractor op het erf.                   |   1    | op       | De tractor staat op het erf.                  |
 | 4   | Zet de schuur op het erf.                    |   1    | op       | De schuur staat op het erf.                   |
-| 5   | Zet de kip op het erf.                       |   1    | op       | De kip scharrelt op het erf.                  |
+| 5   | Zet de geit op het erf.                      |   1    | op       | De geit staat op het erf.                     |
 | 6   | Zet het paard in de wei.                     |   1    | in       | Het paard staat in de wei.                    |
 | 7   | Zet de emmer op het erf.                     |   1    | op       | De emmer staat op het erf.                    |
-| 8   | Zet de kat op de hooibaal.                   |   1    | op       | De kat zit op de hooibaal.                    |
-| 9   | Zet de hond naast de kruiwagen.              |   2    | naast    | De hond zit naast de kruiwagen.               |
+| 8   | Zet het konijn op de hooibaal.               |   1    | op       | Het konijn zit op de hooibaal.                |
+| 9   | Zet de ezel naast de kruiwagen.              |   2    | naast    | De ezel staat naast de kruiwagen.             |
 | 10  | Zet het schaap rechts op het erf.            |   2    | rechts   | Het schaap staat rechts op het erf.           |
 | 11  | Zet de appel boven de wei.                   |   2    | boven    | De appel zweeft boven de wei.                 |
 | 12  | Leg de hooibaal midden op het erf.           |   2    | midden   | De hooibaal ligt midden op het erf.           |
@@ -107,14 +109,14 @@ Daarnaast ontstaan plekken rondom voorwerpen zodra die er staan (naast, tussen, 
 | Bouwkaart          | Opdracht                                         | Doel | Passende voorwerpen        |
 | :----------------- | :----------------------------------------------- | :--: | :------------------------- |
 | **Weidedieren**    | Maak een wei vol dieren! Zet 3 dieren in de wei. |  3   | koe, paard, schaap, varken |
-| **Erfdieren**      | Zet 2 dieren op het erf.                         |  2   | kip, hond, kat, eend       |
+| **Erfdieren**      | Zet 2 dieren op het erf.                         |  2   | geit, ezel, konijn, eend   |
 | **Aan het werk**   | Zet 2 dingen neer waarmee de boer werkt.         |  2   | tractor, kruiwagen, emmer  |
 | **Etenstijd**      | Zet 2 dingen neer die met eten te maken hebben.  |  2   | appel, emmer, hooibaal     |
 | **Jouw boerderij** | Maak jouw mooiste boerderij! Kies zelf 3 dingen. |  3   | alles mag                  |
 
 ### 4.4 Zeg & Vlieg — 8 woorden om te benoemen
 
-**koe** · **kip** · **paard** · **hond** · **kat** · **eend** · **appel** · **emmer**
+**koe** · **geit** · **paard** · **ezel** · **konijn** · **eend** · **appel** · **emmer**
 
 Woorden die een kind nog niet lukken, komen in volgende rondes vaker voorbij.
 

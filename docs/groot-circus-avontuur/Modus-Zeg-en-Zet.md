@@ -13,8 +13,8 @@
 ## Circus-eigen
 
 - **23 opdrachten** in plaats van 16 (`lp-001` … `lp-023`), met dezelfde opbouw: niveau 1 statisch in één zone, niveau 2 lateraal, niveau 3 relationeel met ankers.
-- De plekken zijn circus-eigen: **piste, nok, tribune, vloer**, plus links/midden/rechts en de dynamische plekken rondom voorwerpen (op de trommel, naast de hoepel, dichtbij de bal, tussen de bal en de ballon).
-- Het werkwoord varieert mee: je **zet** een leeuw of een clown neer, je **legt** een bal, hoepel of trommel.
+- De plekken zijn circus-eigen: **piste, nok, tribune, vloer**, plus links/midden/rechts en de dynamische plekken rondom voorwerpen (op de trommel, naast de hoepel, dichtbij de kegel, tussen de kegel en de ballon).
+- Het werkwoord varieert mee: je **zet** een leeuw of een clown neer, je **legt** een kegel, hoepel of trommel.
 
 De volledige opdrachtenlijst staat in de [woordenlijst](Woordenlijst.md).
 

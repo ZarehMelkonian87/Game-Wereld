@@ -50,13 +50,13 @@ Het ontwerp staat al in de [woordenlijst](Woordenlijst.md); deze fase is het inv
 
 ### 2.1 De vijf bouwkaarten
 
-| Kaart             | Opdracht                                         | Doel | Passende objecten      |
-| :---------------- | :----------------------------------------------- | :--: | :--------------------- |
-| `build-schrijven` | Zet 2 dingen neer waarmee je schrijft of tekent. |  2   | pen, potlood, gum      |
-| `build-knutselen` | Zet 2 dingen neer waarmee je knutselt.           |  2   | schaar, lijm, potlood  |
-| `build-meubels`   | Zet 3 meubels in de klas.                        |  3   | tafel, stoel, kast     |
-| `build-meenemen`  | Zet 2 dingen neer die je meeneemt naar school.   |  2   | rugzak, jas, boek, bal |
-| `build-jouw-klas` | Maak jouw mooiste klas! Kies zelf 3 dingen.      |  3   | alles mag              |
+| Kaart             | Opdracht                                         | Doel | Passende objecten     |
+| :---------------- | :----------------------------------------------- | :--: | :-------------------- |
+| `build-schrijven` | Zet 2 dingen neer waarmee je schrijft of tekent. |  2   | pen, potlood, gum     |
+| `build-knutselen` | Zet 2 dingen neer waarmee je knutselt.           |  2   | schaar, lijm, potlood |
+| `build-meubels`   | Zet 3 meubels in de klas.                        |  3   | tafel, stoel, kast    |
+| `build-meenemen`  | Zet 2 dingen neer die je meeneemt naar school.   |  2   | rugzak, jas, boek     |
+| `build-jouw-klas` | Maak jouw mooiste klas! Kies zelf 3 dingen.      |  3   | alles mag             |
 
 ---
 
@@ -68,79 +68,79 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.1 Video's bij de plaatsingsopdrachten — 16 × 4 = 64 clips
 
-| ID     | Bestandsnaam                                                    | Gesproken tekst                            | Wat je in beeld ziet                                                                      |
-| :----- | :-------------------------------------------------------------- | :----------------------------------------- | :---------------------------------------------------------------------------------------- |
-| lp-001 | `lp-001-opdracht-zet-het-bord-op-de-muur.mp4`                   | Zet het bord op de muur.                   | De wereld met het bord in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
-| lp-001 | `lp-001-hint-01-zoek-het-bord.mp4`                              | Zoek het bord.                             | De objectbalk onderin; het bord licht op en wipt even.                                    |
-| lp-001 | `lp-001-hint-02-kijk-naar-bord.mp4`                             | Kijk naar het plaatje dat oplicht: bord.   | Alleen het bord blijft helder, de rest vervaagt.                                          |
-| lp-001 | `lp-001-feedback-het-bord-hangt-op-de-muur.mp4`                 | Het bord hangt op de muur.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-002 | `lp-002-opdracht-zet-de-tafel-op-de-vloer.mp4`                  | Zet de tafel op de vloer.                  | De wereld met de tafel in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
-| lp-002 | `lp-002-hint-01-zoek-de-tafel.mp4`                              | Zoek de tafel.                             | De objectbalk onderin; de tafel licht op en wipt even.                                    |
-| lp-002 | `lp-002-hint-02-kijk-naar-tafel.mp4`                            | Kijk naar het plaatje dat oplicht: tafel.  | Alleen de tafel blijft helder, de rest vervaagt.                                          |
-| lp-002 | `lp-002-feedback-de-tafel-staat-op-de-vloer.mp4`                | De tafel staat op de vloer.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-003 | `lp-003-opdracht-zet-de-stoel-op-de-vloer.mp4`                  | Zet de stoel op de vloer.                  | De wereld met de stoel in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
-| lp-003 | `lp-003-hint-01-zoek-de-stoel.mp4`                              | Zoek de stoel.                             | De objectbalk onderin; de stoel licht op en wipt even.                                    |
-| lp-003 | `lp-003-hint-02-kijk-naar-stoel.mp4`                            | Kijk naar het plaatje dat oplicht: stoel.  | Alleen de stoel blijft helder, de rest vervaagt.                                          |
-| lp-003 | `lp-003-feedback-de-stoel-staat-op-de-vloer.mp4`                | De stoel staat op de vloer.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-004 | `lp-004-opdracht-zet-de-klok-op-de-muur.mp4`                    | Zet de klok op de muur.                    | De wereld met de klok in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-004 | `lp-004-hint-01-zoek-de-klok.mp4`                               | Zoek de klok.                              | De objectbalk onderin; de klok licht op en wipt even.                                     |
-| lp-004 | `lp-004-hint-02-kijk-naar-klok.mp4`                             | Kijk naar het plaatje dat oplicht: klok.   | Alleen de klok blijft helder, de rest vervaagt.                                           |
-| lp-004 | `lp-004-feedback-de-klok-hangt-op-de-muur.mp4`                  | De klok hangt op de muur.                  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-005 | `lp-005-opdracht-zet-de-kast-bij-de-muur.mp4`                   | Zet de kast bij de muur.                   | De wereld met de kast in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-005 | `lp-005-hint-01-zoek-de-kast.mp4`                               | Zoek de kast.                              | De objectbalk onderin; de kast licht op en wipt even.                                     |
-| lp-005 | `lp-005-hint-02-kijk-naar-kast.mp4`                             | Kijk naar het plaatje dat oplicht: kast.   | Alleen de kast blijft helder, de rest vervaagt.                                           |
-| lp-005 | `lp-005-feedback-de-kast-staat-bij-de-muur.mp4`                 | De kast staat bij de muur.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-006 | `lp-006-opdracht-leg-het-boek-op-de-tafel.mp4`                  | Leg het boek op de tafel.                  | De wereld met het boek in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
-| lp-006 | `lp-006-hint-01-zoek-het-boek.mp4`                              | Zoek het boek.                             | De objectbalk onderin; het boek licht op en wipt even.                                    |
-| lp-006 | `lp-006-hint-02-kijk-naar-boek.mp4`                             | Kijk naar het plaatje dat oplicht: boek.   | Alleen het boek blijft helder, de rest vervaagt.                                          |
-| lp-006 | `lp-006-feedback-het-boek-ligt-op-de-tafel.mp4`                 | Het boek ligt op de tafel.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-007 | `lp-007-opdracht-zet-de-rugzak-op-de-vloer.mp4`                 | Zet de rugzak op de vloer.                 | De wereld met de rugzak in de objectbalk; een hand pakt het en zet het op de juiste plek. |
-| lp-007 | `lp-007-hint-01-zoek-de-rugzak.mp4`                             | Zoek de rugzak.                            | De objectbalk onderin; de rugzak licht op en wipt even.                                   |
-| lp-007 | `lp-007-hint-02-kijk-naar-rugzak.mp4`                           | Kijk naar het plaatje dat oplicht: rugzak. | Alleen de rugzak blijft helder, de rest vervaagt.                                         |
-| lp-007 | `lp-007-feedback-de-rugzak-staat-op-de-vloer.mp4`               | De rugzak staat op de vloer.               | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-008 | `lp-008-opdracht-leg-de-bal-op-de-vloer.mp4`                    | Leg de bal op de vloer.                    | De wereld met de bal in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-008 | `lp-008-hint-01-zoek-de-bal.mp4`                                | Zoek de bal.                               | De objectbalk onderin; de bal licht op en wipt even.                                      |
-| lp-008 | `lp-008-hint-02-kijk-naar-bal.mp4`                              | Kijk naar het plaatje dat oplicht: bal.    | Alleen de bal blijft helder, de rest vervaagt.                                            |
-| lp-008 | `lp-008-feedback-de-bal-ligt-op-de-vloer.mp4`                   | De bal ligt op de vloer.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-009 | `lp-009-opdracht-leg-de-pen-naast-het-boek.mp4`                 | Leg de pen naast het boek.                 | De wereld met de pen in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-009 | `lp-009-hint-01-zoek-de-pen.mp4`                                | Zoek de pen.                               | De objectbalk onderin; de pen licht op en wipt even.                                      |
-| lp-009 | `lp-009-hint-02-kijk-naar-pen.mp4`                              | Kijk naar het plaatje dat oplicht: pen.    | Alleen de pen blijft helder, de rest vervaagt.                                            |
-| lp-009 | `lp-009-feedback-de-pen-ligt-naast-het-boek.mp4`                | De pen ligt naast het boek.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-010 | `lp-010-opdracht-zet-de-jas-rechts-in-de-klas.mp4`              | Zet de jas rechts in de klas.              | De wereld met de jas in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-010 | `lp-010-hint-01-zoek-de-jas.mp4`                                | Zoek de jas.                               | De objectbalk onderin; de jas licht op en wipt even.                                      |
-| lp-010 | `lp-010-hint-02-kijk-naar-jas.mp4`                              | Kijk naar het plaatje dat oplicht: jas.    | Alleen de jas blijft helder, de rest vervaagt.                                            |
-| lp-010 | `lp-010-feedback-de-jas-hangt-rechts-in-de-klas.mp4`            | De jas hangt rechts in de klas.            | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-011 | `lp-011-opdracht-zet-de-klok-boven-de-tafels.mp4`               | Zet de klok boven de tafels.               | De wereld met de klok in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-011 | `lp-011-hint-01-zoek-de-klok.mp4`                               | Zoek de klok.                              | De objectbalk onderin; de klok licht op en wipt even.                                     |
-| lp-011 | `lp-011-hint-02-kijk-naar-klok.mp4`                             | Kijk naar het plaatje dat oplicht: klok.   | Alleen de klok blijft helder, de rest vervaagt.                                           |
-| lp-011 | `lp-011-feedback-de-klok-hangt-boven-de-tafels.mp4`             | De klok hangt boven de tafels.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-012 | `lp-012-opdracht-zet-de-stoel-midden-op-de-vloer.mp4`           | Zet de stoel midden op de vloer.           | De wereld met de stoel in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
-| lp-012 | `lp-012-hint-01-zoek-de-stoel.mp4`                              | Zoek de stoel.                             | De objectbalk onderin; de stoel licht op en wipt even.                                    |
-| lp-012 | `lp-012-hint-02-kijk-naar-stoel.mp4`                            | Kijk naar het plaatje dat oplicht: stoel.  | Alleen de stoel blijft helder, de rest vervaagt.                                          |
-| lp-012 | `lp-012-feedback-de-stoel-staat-midden-op-de-vloer.mp4`         | De stoel staat midden op de vloer.         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-013 | `lp-013-opdracht-leg-de-schaar-links-in-de-klas.mp4`            | Leg de schaar links in de klas.            | De wereld met de schaar in de objectbalk; een hand pakt het en zet het op de juiste plek. |
-| lp-013 | `lp-013-hint-01-zoek-de-schaar.mp4`                             | Zoek de schaar.                            | De objectbalk onderin; de schaar licht op en wipt even.                                   |
-| lp-013 | `lp-013-hint-02-kijk-naar-schaar.mp4`                           | Kijk naar het plaatje dat oplicht: schaar. | Alleen de schaar blijft helder, de rest vervaagt.                                         |
-| lp-013 | `lp-013-feedback-de-schaar-ligt-links-in-de-klas.mp4`           | De schaar ligt links in de klas.           | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-014 | `lp-014-opdracht-zet-de-rugzak-ver-weg-in-de-klas.mp4`          | Zet de rugzak ver weg in de klas.          | De wereld met de rugzak in de objectbalk; een hand pakt het en zet het op de juiste plek. |
-| lp-014 | `lp-014-hint-01-zoek-de-rugzak.mp4`                             | Zoek de rugzak.                            | De objectbalk onderin; de rugzak licht op en wipt even.                                   |
-| lp-014 | `lp-014-hint-02-kijk-naar-rugzak.mp4`                           | Kijk naar het plaatje dat oplicht: rugzak. | Alleen de rugzak blijft helder, de rest vervaagt.                                         |
-| lp-014 | `lp-014-feedback-de-rugzak-staat-ver-weg-in-de-klas.mp4`        | De rugzak staat ver weg in de klas.        | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-015 | `lp-015-opdracht-leg-de-gum-dichtbij-het-potlood.mp4`           | Leg de gum dichtbij het potlood.           | De wereld met de gum in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
-| lp-015 | `lp-015-hint-01-zoek-de-gum.mp4`                                | Zoek de gum.                               | De objectbalk onderin; de gum licht op en wipt even.                                      |
-| lp-015 | `lp-015-hint-02-kijk-naar-gum.mp4`                              | Kijk naar het plaatje dat oplicht: gum.    | Alleen de gum blijft helder, de rest vervaagt.                                            |
-| lp-015 | `lp-015-feedback-de-gum-ligt-dichtbij-het-potlood.mp4`          | De gum ligt dichtbij het potlood.          | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
-| lp-016 | `lp-016-opdracht-leg-de-lijm-tussen-de-schaar-en-het-boek.mp4`  | Leg de lijm tussen de schaar en het boek.  | De wereld met de lijm in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
-| lp-016 | `lp-016-hint-01-zoek-de-lijm.mp4`                               | Zoek de lijm.                              | De objectbalk onderin; de lijm licht op en wipt even.                                     |
-| lp-016 | `lp-016-hint-02-kijk-naar-lijm.mp4`                             | Kijk naar het plaatje dat oplicht: lijm.   | Alleen de lijm blijft helder, de rest vervaagt.                                           |
-| lp-016 | `lp-016-feedback-de-lijm-ligt-tussen-de-schaar-en-het-boek.mp4` | De lijm ligt tussen de schaar en het boek. | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                  |
+| ID     | Bestandsnaam                                                    | Gesproken tekst                             | Wat je in beeld ziet                                                                       |
+| :----- | :-------------------------------------------------------------- | :------------------------------------------ | :----------------------------------------------------------------------------------------- |
+| lp-001 | `lp-001-opdracht-zet-het-bord-op-de-muur.mp4`                   | Zet het bord op de muur.                    | De wereld met het bord in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-001 | `lp-001-hint-01-zoek-het-bord.mp4`                              | Zoek het bord.                              | De objectbalk onderin; het bord licht op en wipt even.                                     |
+| lp-001 | `lp-001-hint-02-kijk-naar-bord.mp4`                             | Kijk naar het plaatje dat oplicht: bord.    | Alleen het bord blijft helder, de rest vervaagt.                                           |
+| lp-001 | `lp-001-feedback-het-bord-hangt-op-de-muur.mp4`                 | Het bord hangt op de muur.                  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-002 | `lp-002-opdracht-zet-de-tafel-op-de-vloer.mp4`                  | Zet de tafel op de vloer.                   | De wereld met de tafel in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-002 | `lp-002-hint-01-zoek-de-tafel.mp4`                              | Zoek de tafel.                              | De objectbalk onderin; de tafel licht op en wipt even.                                     |
+| lp-002 | `lp-002-hint-02-kijk-naar-tafel.mp4`                            | Kijk naar het plaatje dat oplicht: tafel.   | Alleen de tafel blijft helder, de rest vervaagt.                                           |
+| lp-002 | `lp-002-feedback-de-tafel-staat-op-de-vloer.mp4`                | De tafel staat op de vloer.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-003 | `lp-003-opdracht-zet-de-stoel-op-de-vloer.mp4`                  | Zet de stoel op de vloer.                   | De wereld met de stoel in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-003 | `lp-003-hint-01-zoek-de-stoel.mp4`                              | Zoek de stoel.                              | De objectbalk onderin; de stoel licht op en wipt even.                                     |
+| lp-003 | `lp-003-hint-02-kijk-naar-stoel.mp4`                            | Kijk naar het plaatje dat oplicht: stoel.   | Alleen de stoel blijft helder, de rest vervaagt.                                           |
+| lp-003 | `lp-003-feedback-de-stoel-staat-op-de-vloer.mp4`                | De stoel staat op de vloer.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-004 | `lp-004-opdracht-zet-de-klok-op-de-muur.mp4`                    | Zet de klok op de muur.                     | De wereld met de klok in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-004 | `lp-004-hint-01-zoek-de-klok.mp4`                               | Zoek de klok.                               | De objectbalk onderin; de klok licht op en wipt even.                                      |
+| lp-004 | `lp-004-hint-02-kijk-naar-klok.mp4`                             | Kijk naar het plaatje dat oplicht: klok.    | Alleen de klok blijft helder, de rest vervaagt.                                            |
+| lp-004 | `lp-004-feedback-de-klok-hangt-op-de-muur.mp4`                  | De klok hangt op de muur.                   | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-005 | `lp-005-opdracht-zet-de-kast-bij-de-muur.mp4`                   | Zet de kast bij de muur.                    | De wereld met de kast in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-005 | `lp-005-hint-01-zoek-de-kast.mp4`                               | Zoek de kast.                               | De objectbalk onderin; de kast licht op en wipt even.                                      |
+| lp-005 | `lp-005-hint-02-kijk-naar-kast.mp4`                             | Kijk naar het plaatje dat oplicht: kast.    | Alleen de kast blijft helder, de rest vervaagt.                                            |
+| lp-005 | `lp-005-feedback-de-kast-staat-bij-de-muur.mp4`                 | De kast staat bij de muur.                  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-006 | `lp-006-opdracht-leg-het-boek-op-de-tafel.mp4`                  | Leg het boek op de tafel.                   | De wereld met het boek in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-006 | `lp-006-hint-01-zoek-het-boek.mp4`                              | Zoek het boek.                              | De objectbalk onderin; het boek licht op en wipt even.                                     |
+| lp-006 | `lp-006-hint-02-kijk-naar-boek.mp4`                             | Kijk naar het plaatje dat oplicht: boek.    | Alleen het boek blijft helder, de rest vervaagt.                                           |
+| lp-006 | `lp-006-feedback-het-boek-ligt-op-de-tafel.mp4`                 | Het boek ligt op de tafel.                  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-007 | `lp-007-opdracht-zet-de-rugzak-op-de-vloer.mp4`                 | Zet de rugzak op de vloer.                  | De wereld met de rugzak in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
+| lp-007 | `lp-007-hint-01-zoek-de-rugzak.mp4`                             | Zoek de rugzak.                             | De objectbalk onderin; de rugzak licht op en wipt even.                                    |
+| lp-007 | `lp-007-hint-02-kijk-naar-rugzak.mp4`                           | Kijk naar het plaatje dat oplicht: rugzak.  | Alleen de rugzak blijft helder, de rest vervaagt.                                          |
+| lp-007 | `lp-007-feedback-de-rugzak-staat-op-de-vloer.mp4`               | De rugzak staat op de vloer.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-008 | `lp-008-opdracht-leg-de-liniaal-op-de-tafel.mp4`                | Leg de liniaal op de tafel.                 | De wereld met de liniaal in de objectbalk; een hand pakt het en zet het op de juiste plek. |
+| lp-008 | `lp-008-hint-01-zoek-de-liniaal.mp4`                            | Zoek de liniaal.                            | De objectbalk onderin; de liniaal licht op en wipt even.                                   |
+| lp-008 | `lp-008-hint-02-kijk-naar-liniaal.mp4`                          | Kijk naar het plaatje dat oplicht: liniaal. | Alleen de liniaal blijft helder, de rest vervaagt.                                         |
+| lp-008 | `lp-008-feedback-de-liniaal-ligt-op-de-tafel.mp4`               | De liniaal ligt op de tafel.                | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-009 | `lp-009-opdracht-leg-de-pen-naast-het-boek.mp4`                 | Leg de pen naast het boek.                  | De wereld met de pen in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-009 | `lp-009-hint-01-zoek-de-pen.mp4`                                | Zoek de pen.                                | De objectbalk onderin; de pen licht op en wipt even.                                       |
+| lp-009 | `lp-009-hint-02-kijk-naar-pen.mp4`                              | Kijk naar het plaatje dat oplicht: pen.     | Alleen de pen blijft helder, de rest vervaagt.                                             |
+| lp-009 | `lp-009-feedback-de-pen-ligt-naast-het-boek.mp4`                | De pen ligt naast het boek.                 | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-010 | `lp-010-opdracht-zet-de-jas-rechts-in-de-klas.mp4`              | Zet de jas rechts in de klas.               | De wereld met de jas in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-010 | `lp-010-hint-01-zoek-de-jas.mp4`                                | Zoek de jas.                                | De objectbalk onderin; de jas licht op en wipt even.                                       |
+| lp-010 | `lp-010-hint-02-kijk-naar-jas.mp4`                              | Kijk naar het plaatje dat oplicht: jas.     | Alleen de jas blijft helder, de rest vervaagt.                                             |
+| lp-010 | `lp-010-feedback-de-jas-hangt-rechts-in-de-klas.mp4`            | De jas hangt rechts in de klas.             | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-011 | `lp-011-opdracht-zet-de-klok-boven-de-tafels.mp4`               | Zet de klok boven de tafels.                | De wereld met de klok in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-011 | `lp-011-hint-01-zoek-de-klok.mp4`                               | Zoek de klok.                               | De objectbalk onderin; de klok licht op en wipt even.                                      |
+| lp-011 | `lp-011-hint-02-kijk-naar-klok.mp4`                             | Kijk naar het plaatje dat oplicht: klok.    | Alleen de klok blijft helder, de rest vervaagt.                                            |
+| lp-011 | `lp-011-feedback-de-klok-hangt-boven-de-tafels.mp4`             | De klok hangt boven de tafels.              | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-012 | `lp-012-opdracht-zet-de-stoel-midden-op-de-vloer.mp4`           | Zet de stoel midden op de vloer.            | De wereld met de stoel in de objectbalk; een hand pakt het en zet het op de juiste plek.   |
+| lp-012 | `lp-012-hint-01-zoek-de-stoel.mp4`                              | Zoek de stoel.                              | De objectbalk onderin; de stoel licht op en wipt even.                                     |
+| lp-012 | `lp-012-hint-02-kijk-naar-stoel.mp4`                            | Kijk naar het plaatje dat oplicht: stoel.   | Alleen de stoel blijft helder, de rest vervaagt.                                           |
+| lp-012 | `lp-012-feedback-de-stoel-staat-midden-op-de-vloer.mp4`         | De stoel staat midden op de vloer.          | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-013 | `lp-013-opdracht-leg-de-schaar-links-in-de-klas.mp4`            | Leg de schaar links in de klas.             | De wereld met de schaar in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
+| lp-013 | `lp-013-hint-01-zoek-de-schaar.mp4`                             | Zoek de schaar.                             | De objectbalk onderin; de schaar licht op en wipt even.                                    |
+| lp-013 | `lp-013-hint-02-kijk-naar-schaar.mp4`                           | Kijk naar het plaatje dat oplicht: schaar.  | Alleen de schaar blijft helder, de rest vervaagt.                                          |
+| lp-013 | `lp-013-feedback-de-schaar-ligt-links-in-de-klas.mp4`           | De schaar ligt links in de klas.            | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-014 | `lp-014-opdracht-zet-de-rugzak-ver-weg-in-de-klas.mp4`          | Zet de rugzak ver weg in de klas.           | De wereld met de rugzak in de objectbalk; een hand pakt het en zet het op de juiste plek.  |
+| lp-014 | `lp-014-hint-01-zoek-de-rugzak.mp4`                             | Zoek de rugzak.                             | De objectbalk onderin; de rugzak licht op en wipt even.                                    |
+| lp-014 | `lp-014-hint-02-kijk-naar-rugzak.mp4`                           | Kijk naar het plaatje dat oplicht: rugzak.  | Alleen de rugzak blijft helder, de rest vervaagt.                                          |
+| lp-014 | `lp-014-feedback-de-rugzak-staat-ver-weg-in-de-klas.mp4`        | De rugzak staat ver weg in de klas.         | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-015 | `lp-015-opdracht-leg-de-gum-dichtbij-het-potlood.mp4`           | Leg de gum dichtbij het potlood.            | De wereld met de gum in de objectbalk; een hand pakt het en zet het op de juiste plek.     |
+| lp-015 | `lp-015-hint-01-zoek-de-gum.mp4`                                | Zoek de gum.                                | De objectbalk onderin; de gum licht op en wipt even.                                       |
+| lp-015 | `lp-015-hint-02-kijk-naar-gum.mp4`                              | Kijk naar het plaatje dat oplicht: gum.     | Alleen de gum blijft helder, de rest vervaagt.                                             |
+| lp-015 | `lp-015-feedback-de-gum-ligt-dichtbij-het-potlood.mp4`          | De gum ligt dichtbij het potlood.           | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
+| lp-016 | `lp-016-opdracht-leg-de-lijm-tussen-de-schaar-en-het-boek.mp4`  | Leg de lijm tussen de schaar en het boek.   | De wereld met de lijm in de objectbalk; een hand pakt het en zet het op de juiste plek.    |
+| lp-016 | `lp-016-hint-01-zoek-de-lijm.mp4`                               | Zoek de lijm.                               | De objectbalk onderin; de lijm licht op en wipt even.                                      |
+| lp-016 | `lp-016-hint-02-kijk-naar-lijm.mp4`                             | Kijk naar het plaatje dat oplicht: lijm.    | Alleen de lijm blijft helder, de rest vervaagt.                                            |
+| lp-016 | `lp-016-feedback-de-lijm-ligt-tussen-de-schaar-en-het-boek.mp4` | De lijm ligt tussen de schaar en het boek.  | Het voorwerp staat op zijn plek en beweegt kort vrolijk.                                   |
 
 ### 3.2 Video's bij de quizvragen — 14 clips
 
 | ID     | Bestandsnaam                              | Gesproken tekst      | Wat je in beeld ziet                                                      |
 | :----- | :---------------------------------------- | :------------------- | :------------------------------------------------------------------------ |
 | cw-001 | `cw-001-opdracht-waar-is-het-boek.mp4`    | Waar is het boek?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
-| cw-002 | `cw-002-opdracht-waar-is-de-bal.mp4`      | Waar is de bal?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
+| cw-002 | `cw-002-opdracht-waar-is-de-liniaal.mp4`  | Waar is de liniaal?  | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-003 | `cw-003-opdracht-waar-is-de-pen.mp4`      | Waar is de pen?      | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-004 | `cw-004-opdracht-waar-is-de-tafel.mp4`    | Waar is de tafel?    | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
 | cw-005 | `cw-005-opdracht-waar-is-de-klok.mp4`     | Waar is de klok?     | De keuzekaarten in beeld; de mascotte kijkt vragend, geen kaart licht op. |
@@ -173,16 +173,16 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 
 ### 3.4 Afbeeldingen en geluid
 
-| Taak     | Type | Wat                                                                                                                              | Status |
-| :------- | :--: | :------------------------------------------------------------------------------------------------------------------------------- | :----: |
-| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                                            |   ⬜   |
-| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                                                      |   ⬜   |
-| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                                               |   ⬜   |
-| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond                                    |   ⬜   |
-| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`src/app/games/catalog-assets/worlds/world-school.webp`); een startlogo moet nog |   ⬜   |
-| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0)                           |   ⬜   |
-| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                                              |   ⬜   |
-| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                                                    |   ⬜   |
+| Taak     | Type | Wat                                                                                                    | Status |
+| :------- | :--: | :----------------------------------------------------------------------------------------------------- | :----: |
+| **A-01** |  🎨  | **14 stickers** (WebP, max 512 px, 30–50 kB) — zie de tabel hieronder                                  |   ⬜   |
+| **A-02** |  🎨  | **Vier obstakels** voor Zeg & Vlieg (PNG met transparantie)                                            |   ⬜   |
+| **A-03** |  🎨  | **Zeven beloningsplaatjes** op de bekende drempels                                                     |   ⬜   |
+| **A-04** |  🎨  | **Achtergrond** van de wereld in portret én landschap (WebP), plus een brede vliegachtergrond          |   ⬜   |
+| **A-05** |  🎨  | **Logo en wereldicoon** — het icoon bestaat al (`world-school.webp`); een startlogo moet nog           |   ⬜   |
+| **A-06** |  🎨  | **Feedbackgeluiden**: `feedback-correct.wav` en `feedback-wrong.wav` uit het strandspel kopiëren (CC0) |   ⬜   |
+| **A-07** |  🎨  | **Achtergrondmuziek** kiezen of die van het strandspel hergebruiken                                    |   ⬜   |
+| **A-08** |  🎨  | **Mascotte** hergebruiken of een wereld-eigen variant tekenen                                          |   ⬜   |
 
 #### Stickers (A-01)
 
@@ -200,7 +200,7 @@ Zolang een video ontbreekt, leest de stem de opdracht voor — de game is dus sp
 | `cupboard-sticker.webp` | kast    | Een kast vol spullen.           |
 | `board-sticker.webp`    | bord    | Het schoolbord voor in de klas. |
 | `clock-sticker.webp`    | klok    | De klok aan de muur.            |
-| `ball-sticker.webp`     | bal     | Een bal voor buiten spelen.     |
+| `ruler-sticker.webp`    | liniaal | Een liniaal om mee te meten.    |
 | `coat-sticker.webp`     | jas     | Een jas aan de kapstok.         |
 
 #### Obstakels (A-02)
