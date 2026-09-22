@@ -232,17 +232,6 @@
       "url": "/Game-Wereld/assets/acrobat-sticker-MVGMN7_D.png"
     },
     {
-      "bytes": 241374,
-      "hash": "sha256-551bd20e4570562edceeeda642539bcf45b008c1b539d1b1617e7e6f1eb7e7a8",
-      "id": "src/app/games/groot-circus-avontuur/assets/objects/transparent/ball-sticker.png",
-      "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
-      "mimeType": "image/png",
-      "required": true,
-      "source": "Game Wereld projectassetset",
-      "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/ball-sticker.png",
-      "url": "/Game-Wereld/assets/ball-sticker-CgZry1Ab.png"
-    },
-    {
       "bytes": 165385,
       "hash": "sha256-a9e379778af36f4b7af62bcb78b19b585c7b23ae609f08e204192273c90b2344",
       "id": "src/app/games/groot-circus-avontuur/assets/objects/transparent/balloon-sticker.png",
@@ -408,6 +397,17 @@
       "url": "/Game-Wereld/assets/piglet-sticker-DEeGkx0h.png"
     },
     {
+      "bytes": 241374,
+      "hash": "sha256-551bd20e4570562edceeeda642539bcf45b008c1b539d1b1617e7e6f1eb7e7a8",
+      "id": "src/app/games/groot-circus-avontuur/assets/objects/transparent/pin-sticker.png",
+      "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
+      "mimeType": "image/png",
+      "required": true,
+      "source": "Game Wereld projectassetset",
+      "sourcePath": "src/app/games/groot-circus-avontuur/assets/objects/transparent/pin-sticker.png",
+      "url": "/Game-Wereld/assets/pin-sticker-CgZry1Ab.png"
+    },
+    {
       "bytes": 199660,
       "hash": "sha256-92137e214a69c8e0324d463e72281d5f73f6b5718b55a55ac6218984e7f6eedf",
       "id": "src/app/games/groot-circus-avontuur/assets/objects/transparent/seal-sticker.png",
@@ -430,22 +430,22 @@
       "url": "/Game-Wereld/assets/unicycle-sticker-3mNiPFPU.png"
     },
     {
-      "bytes": 209120,
-      "hash": "sha256-2b29ea703b0b690731c78c4a6ec52e5f0b1e29517b599cdfaffc3699274452f4",
+      "bytes": 209189,
+      "hash": "sha256-01ae9e91eef5a88b51ec542358f272367223862ba2d5ab164b9d3c13275e3a39",
       "id": "src/app/games/groot-circus-avontuur/index.tsx",
       "license": "Alleen gelicentieerd voor gebruik binnen Game Wereld",
       "mimeType": "text/javascript",
       "required": true,
       "source": "Game Wereld projectassetset",
       "sourcePath": "src/app/games/groot-circus-avontuur/index.tsx",
-      "url": "/Game-Wereld/assets/index-DHqhWqRg.js"
+      "url": "/Game-Wereld/assets/index-CCD8S7mO.js"
     }
   ],
   "contentVersion": "groot-circus-avontuur-2026.08",
   "gameId": "groot-circus-avontuur",
   "id": "groot-circus-avontuur-circus",
   "schemaVersion": 1,
-  "totalBytes": 15190122,
+  "totalBytes": 15190191,
   "version": 1,
   "worldId": "circus"
 }
